@@ -22,6 +22,30 @@
       "revId": "d929652c8846f6a9f76f36222d554ea06e104d4a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e742758_e903c605",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-06T20:45:13Z",
+      "side": 1,
+      "message": "I guess, I will look into this tomorrow and do it in a separated change if needed.",
+      "parentUuid": "a20dd08e_1aab3a4d",
+      "range": {
+        "startLine": 104,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 26
+      },
+      "revId": "d929652c8846f6a9f76f36222d554ea06e104d4a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
