@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2caf81b2_547ab5b3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheContants.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-03-06T20:32:04Z",
+      "side": 1,
+      "message": "Constants",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "a2b65caedb9fdcc46917bedcd1e092d90af59ce3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "292df817_fa0727fb",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-03-06T20:32:04Z",
+      "side": 1,
+      "message": "Not related to this change but nice to fix",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 3
+      },
+      "revId": "a2b65caedb9fdcc46917bedcd1e092d90af59ce3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
