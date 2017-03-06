@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a20dd08e_1aab3a4d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-03-06T20:43:00Z",
+      "side": 1,
+      "message": "Not related to this change, but should we log the error as done in the other two cases above?",
+      "range": {
+        "startLine": 104,
+        "startChar": 13,
+        "endLine": 107,
+        "endChar": 26
+      },
+      "revId": "d929652c8846f6a9f76f36222d554ea06e104d4a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
