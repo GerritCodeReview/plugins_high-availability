@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce8c7a51_2a5cb18f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/Contants.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-03-06T20:49:27Z",
+      "side": 1,
+      "message": "One more \u0027s\u0027 :)",
+      "range": {
+        "startLine": 17,
+        "startChar": 19,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "92c5ddbea47500401d2bfd39efad38a8fc0d5bad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
