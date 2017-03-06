@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d5e394c_0daa4c9e",
+        "filename": ".mailmap",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-03-06T20:37:57Z",
+      "side": 1,
+      "message": "Don\u0027t we need the two spells as in [1] ??\n\n[1] https://gerrit-review.googlesource.com/#/c/61324/4/.mailmap",
+      "revId": "b05e19b33e2e79f39bf4e2fcbb2ad31b1ee6c912",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
