@@ -16,6 +16,24 @@
       "revId": "b05e19b33e2e79f39bf4e2fcbb2ad31b1ee6c912",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e041e601_5dfe0d72",
+        "filename": ".mailmap",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-06T20:42:59Z",
+      "side": 1,
+      "message": "No, if email is the same, you just need:\n\nProper Name \u003ccommit@email.xx\u003e",
+      "parentUuid": "6d5e394c_0daa4c9e",
+      "revId": "b05e19b33e2e79f39bf4e2fcbb2ad31b1ee6c912",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
