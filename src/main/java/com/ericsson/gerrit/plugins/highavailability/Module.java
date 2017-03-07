@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerDiscovery;
 
 class Module extends LifecycleModule {
 
@@ -31,5 +32,6 @@ class Module extends LifecycleModule {
     install(new EventModule());
     install(new IndexModule());
     install(new CacheModule());
+    install(new PeerDiscovery.Module());
   }
 }
