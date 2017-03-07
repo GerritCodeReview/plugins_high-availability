@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "8dd5b50c_f5625a12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-07T22:20:32Z",
+      "side": 1,
+      "message": "I thought more about this and I like this idea of auto discovery using a shared folder. As mentioned above, my only concern is that I need this folder configurable so I can put it on an NFS volume.\n\nI did not merge the websession-flatfile yet but it does the same, share the websesssion using a shared folder. By default, the shared folder is inside the review_site but is configurable.",
+      "parentUuid": "3c7da681_0dd94135",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 45
+      },
+      "revId": "7dbda7fd47c5118125a7515cbf4f4304af6d8bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "956c0067_244d56f1",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerDiscovery.java",
         "patchSetId": 1
