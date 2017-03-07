@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "956c0067_244d56f1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerDiscovery.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-07T16:33:42Z",
+      "side": 1,
+      "message": "This and many other log.error calls have to be removed/changed. This was just a quick way for me to see what is going on during the development/testing.",
+      "revId": "7dbda7fd47c5118125a7515cbf4f4304af6d8bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
