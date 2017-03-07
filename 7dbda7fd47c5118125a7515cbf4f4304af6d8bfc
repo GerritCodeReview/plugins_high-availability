@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b14be81e_6701bb0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-07T22:56:33Z",
+      "side": 1,
+      "message": "\u003e When I added auto-discovery to my todo list, I had in mind to use some library(jgroups, akka, ...) to do broadcasting(could even be done java Broadcasting) and make the cluster members auto-discover themselves. I know would require way more work but we could also implement the forwarding of the indexing, cache-eviction and stream-events using the same library.\n\nIt definitely makes sense to looks at these libraries. I actually looked at the jgroups and it looked really promising.\nMy impression was that, if jgroups is used then it should also be used for indexing-forwarding, cache-eviction, etc...\nwhich would be a quite more intrusive change right now. However, long-term this seems like a better approach.\n\nI didn\u0027t know about the akka, thanks for pointing to it.\n\n\u003e \n\u003e Anyway, this is more the long term vision, it does not prevent us to implement a more simple approach in the meantime.\n\n+1\n\nIn the approach described in this change I am trying to make use of the fact that all nodes are accessing the same shared file\nsystem and are collocated in the same LAN.\n\nTo make it possible to experiment with other implementations I will define the PeerInfo as an interface and make\nProvider\u003cList\u003cPeerInfo\u003e\u003e injectable as the main abstraction. This way we could implement the provider in many\ndifferent ways. We may also try implementing it using jgroups.\nThis abstraction should work as long as we limit it to the automatic peer discovery only.\nWhat do you think?\n\nOnce we start thinking about re-implementing  the core functionality of this plugin using jgroup/akka/... this abstraction\nwill probably become obsolete.",
+      "parentUuid": "58b16423_f93b4a7d",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 49
+      },
+      "revId": "7dbda7fd47c5118125a7515cbf4f4304af6d8bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c7da681_0dd94135",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -82,6 +106,30 @@
       "writtenOn": "2017-03-07T22:20:32Z",
       "side": 1,
       "message": "I thought more about this and I like this idea of auto discovery using a shared folder. As mentioned above, my only concern is that I need this folder configurable so I can put it on an NFS volume.\n\nI did not merge the websession-flatfile yet but it does the same, share the websesssion using a shared folder. By default, the shared folder is inside the review_site but is configurable.",
+      "parentUuid": "3c7da681_0dd94135",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 45
+      },
+      "revId": "7dbda7fd47c5118125a7515cbf4f4304af6d8bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c6a297e_f86e5425",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-07T22:56:33Z",
+      "side": 1,
+      "message": "\u003e This would not work for my setup, each master is running of a different machine so they each have their @PluginData directory, or maybe I am missing something?\n\nYou are right, this is a mistake. I will make the folder configurable.\n\n\u003e \n\u003e We could make this directory configurable and configure both master to use a shared directory on NFS but I do not like the idea of adding another dependency on shared file system.\n\nAs said, I am actually trying to make use of the fact that there is a shared file system :-)\nAs long as websession-flatfile also relies on the shared file system I think that adding a few more files (one per node)\nwould be acceptable. At least as a short/mid term solution.",
       "parentUuid": "3c7da681_0dd94135",
       "range": {
         "startLine": 25,
