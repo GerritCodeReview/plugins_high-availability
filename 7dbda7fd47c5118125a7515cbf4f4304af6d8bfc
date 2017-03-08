@@ -143,6 +143,29 @@
     },
     {
       "key": {
+        "uuid": "b3041844_a833d38e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-03-08T05:33:56Z",
+      "side": 1,
+      "message": "\"the\"?",
+      "range": {
+        "startLine": 32,
+        "startChar": 58,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "7dbda7fd47c5118125a7515cbf4f4304af6d8bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "956c0067_244d56f1",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerDiscovery.java",
         "patchSetId": 1
