@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e40942e_c69dc5c2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-09T20:55:35Z",
+      "side": 1,
+      "message": "Cool. This will simplify support for N nodes dramatically.",
+      "revId": "66df6c1ff9ee1cec1d52c41141352a25f1ccead5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
