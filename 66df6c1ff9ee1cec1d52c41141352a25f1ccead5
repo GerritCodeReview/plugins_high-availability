@@ -16,6 +16,24 @@
       "revId": "66df6c1ff9ee1cec1d52c41141352a25f1ccead5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3713983_a1cfe8f8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-09T21:02:50Z",
+      "side": 1,
+      "message": "yep, that is one of the reason I did this change and the other one.",
+      "parentUuid": "5e40942e_c69dc5c2",
+      "revId": "66df6c1ff9ee1cec1d52c41141352a25f1ccead5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
