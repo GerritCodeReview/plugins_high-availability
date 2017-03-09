@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "747b472c_a945b989",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-09T19:57:56Z",
+      "side": 1,
+      "message": "if you rebase on top of https://gerrit-review.googlesource.com/#/c/99650/, this class no longer depends on the URL so no changes required.",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 57
+      },
+      "revId": "eb7ab1eb66a6ccc3cbba11c23b4579631fcaf7ca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44100263_dd876ac6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-09T19:57:56Z",
+      "side": 1,
+      "message": "Since the url is part of the PeerInfo, we should remove this and the @ForwardUrl annotation class. The class that needs the url can simply get the PeerInfo injected.",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 3
+      },
+      "revId": "eb7ab1eb66a6ccc3cbba11c23b4579631fcaf7ca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
