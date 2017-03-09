@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 
 import org.junit.Test;
 
@@ -26,10 +27,10 @@ public class RestForwarderModuleTest {
 
   @Test
   public void testForwardUrlProvider() {
-    Configuration configMock = mock(Configuration.class);
+    PeerInfo peerInfo = mock(PeerInfo.class);
     String expected = "someUrl";
-    when(configMock.getUrl()).thenReturn(expected);
+    when(peerInfo.getDirectUrl()).thenReturn(expected);
     RestForwarderModule module = new RestForwarderModule();
-    assertThat(module.forwardUrl(configMock)).isEqualTo(expected);
+    assertThat(module.forwardUrl(peerInfo)).isEqualTo(expected);
   }
 }

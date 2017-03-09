@@ -18,6 +18,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -65,11 +66,13 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
   private static final int MAX_CONNECTION_INACTIVITY = 10000;
 
   private final Configuration cfg;
+  private final PeerInfo peerInfo;
   private final SSLConnectionSocketFactory sslSocketFactory;
 
   @Inject
-  HttpClientProvider(Configuration cfg) {
+  HttpClientProvider(Configuration cfg, PeerInfo peerInfo) {
     this.cfg = cfg;
+    this.peerInfo = peerInfo;
     this.sslSocketFactory = buildSslSocketFactory();
   }
 
@@ -136,7 +139,8 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
   }
 
   private void logRetry(String cause) {
-    log.debug("Retrying request to '" + cfg.getUrl() + "' Cause: " + cause);
+    log.debug("Retrying request to '" + peerInfo.getDirectUrl()
+        + "' Cause: " + cause);
   }
 
   private HttpClientConnectionManager customConnectionManager() {
@@ -170,7 +174,7 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
   }
 
   private BasicCredentialsProvider buildCredentials() {
-    URI uri = URI.create(cfg.getUrl());
+    URI uri = URI.create(peerInfo.getDirectUrl());
     BasicCredentialsProvider creds = new BasicCredentialsProvider();
     creds.setCredentials(new AuthScope(uri.getHost(), uri.getPort()),
         new UsernamePasswordCredentials(cfg.getUser(), cfg.getPassword()));

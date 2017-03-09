@@ -18,8 +18,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -35,7 +35,7 @@ public class RestForwarderModule extends AbstractModule {
 
   @Provides
   @ForwardUrl
-  String forwardUrl(Configuration config) {
-    return config.getUrl();
+  String forwardUrl(PeerInfo peerInfo) {
+    return peerInfo.getDirectUrl();
   }
 }

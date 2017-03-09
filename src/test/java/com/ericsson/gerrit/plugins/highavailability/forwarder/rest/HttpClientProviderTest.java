@@ -24,6 +24,7 @@ import com.google.inject.Injector;
 import com.google.inject.Scopes;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.junit.Before;
@@ -40,13 +41,17 @@ public class HttpClientProviderTest {
   @Mock
   private Configuration config;
 
+  @Mock
+  private PeerInfo peerInfo;
+
   @Before
   public void setUp() throws Exception {
-    when(config.getUrl()).thenReturn(EMPTY);
     when(config.getUser()).thenReturn(EMPTY);
     when(config.getPassword()).thenReturn(EMPTY);
     when(config.getConnectionTimeout()).thenReturn(TIME_INTERVAL);
     when(config.getSocketTimeout()).thenReturn(TIME_INTERVAL);
+
+    when(peerInfo.getDirectUrl()).thenReturn(EMPTY);
   }
 
   @Test
@@ -68,6 +73,8 @@ public class HttpClientProviderTest {
       bind(Configuration.class).toInstance(config);
       bind(CloseableHttpClient.class).toProvider(HttpClientProvider.class)
           .in(Scopes.SINGLETON);
+      bind(PeerInfo.class).toInstance(peerInfo);
+
     }
   }
 }
