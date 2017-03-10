@@ -17,10 +17,12 @@ package com.ericsson.gerrit.plugins.highavailability;
 import com.google.gerrit.httpd.plugins.HttpPluginModule;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderServletModule;
+import com.ericsson.gerrit.plugins.highavailability.websession.file.FileBasedWebsessionModule;
 
 class HttpModule extends HttpPluginModule {
   @Override
   protected void configureServlets() {
     install(new RestForwarderServletModule());
+    install(new FileBasedWebsessionModule());
   }
 }
