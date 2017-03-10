@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "4e1297cd_cc4bbf2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-10T22:14:27Z",
+      "side": 1,
+      "message": "OK, good. I will anyway not be able to continue working on this change before tuesday.",
+      "parentUuid": "8cff6fd7_7842cdd5",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 45
+      },
+      "revId": "7dbda7fd47c5118125a7515cbf4f4304af6d8bfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3041844_a833d38e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
