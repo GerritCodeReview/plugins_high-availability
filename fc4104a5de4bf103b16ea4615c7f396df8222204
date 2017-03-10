@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f1271311_3e0e7d52",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-10T22:22:49Z",
+      "side": 1,
+      "message": "In a review comment [1] you wrote that the @PluginData directory cannot work as shared folder?\n\n[1] https://gerrit-review.googlesource.com/c/99451/1//COMMIT_MSG#25",
+      "revId": "fc4104a5de4bf103b16ea4615c7f396df8222204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cb3b6e8_b66382ad",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SharedDirectory.java",
         "patchSetId": 3
