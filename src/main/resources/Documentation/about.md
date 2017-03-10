@@ -3,9 +3,7 @@ and stream events between two Gerrit instances sharing the same git repositories
 and database. The plugin needs to be installed in both instances.
 
 Every time a cache eviction occurs in one of the instances, the other instance's
-cache is updated.
-
-This way, both caches are kept synchronized.
+cache is updated. This way, both caches are kept synchronized.
 
 Every time the secondary index is modified in one of the instances, i.e., a
 change is added, updated or removed from the index, the other instance index is
