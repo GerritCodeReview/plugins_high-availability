@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e3abd639_1e57a4ab",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-11T01:29:08Z",
+      "side": 1,
+      "message": "I said that using @PluginData only was not working when running Gerrit on 2 different machines but  I thought that it could work when running on the same one. My comment was that we need to make this configurable so it can be set to a shared folder for the case when running on different machines.\n\nBut now that I think more about this, even if your have 2 master on the same machine, they each need their own review_site...\n\nAny suggestion for default shared folder that could work when running 2 master on the same machine? Or we do not have any default and make this parameter mandatory.",
+      "parentUuid": "f1271311_3e0e7d52",
+      "revId": "fc4104a5de4bf103b16ea4615c7f396df8222204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cb3b6e8_b66382ad",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SharedDirectory.java",
         "patchSetId": 3
