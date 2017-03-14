@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "64ef04b6_16e4de13",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-14T13:53:14Z",
+      "side": 1,
+      "message": "\u003e I said that using @PluginData only was not working when running\n \u003e Gerrit on 2 different machines but  I thought that it could work\n \u003e when running on the same one. My comment was that we need to make\n \u003e this configurable so it can be set to a shared folder for the case\n \u003e when running on different machines.\n \u003e \n \u003e But now that I think more about this, even if your have 2 master on\n \u003e the same machine, they each need their own review_site...\n\nActually, this should be also a part of the documentation of this plugin.\nThe 2 (or more) peer nodes will definitely share the $GERRIT_SITE/git directory.\n\nFor the other directories under the $GERRIT_SITE this may\nor may not be possible.\n\nFor example the \"index\" folder cannot be shared for technical reasons,\nLucene will not allow two processes to open the same index for write.\n\nThe \"etc\" folder could but this is probably not a good idea\nif one wants to experiment with different configuration on the two\ndifferent instances.\n\nA \"data/@PluginDir\" could or could not be shared depending on\nthe concrete plugin and how it handles its @PluginDir.\n\netc...\n\n\n \u003e \n \u003e Any suggestion for default shared folder that could work when\n \u003e running 2 master on the same machine? Or we do not have any default\n \u003e and make this parameter mandatory.\n\nConsidering what I wrote above,  I would vote for making this parameter mandatory. Then it is at least clear that this folder and the \"git\" folder have to be shared.",
+      "parentUuid": "e3abd639_1e57a4ab",
+      "revId": "fc4104a5de4bf103b16ea4615c7f396df8222204",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cb3b6e8_b66382ad",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SharedDirectory.java",
         "patchSetId": 3
