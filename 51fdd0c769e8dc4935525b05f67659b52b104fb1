@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0445fc8e_ef9bca56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-15T17:47:00Z",
+      "side": 1,
+      "message": "As discussed, let\u0027s just try to support this use case for now. This can be done by injecting Provider\u003cPeerInfo\u003e in HttpSession instead of PeerInfo directly.\n\nWith the auto discovery, even when the peer is disconnected, provider of PeerInfo will keep returning the last know IP/hostname of the peer until the peer reconnect, with same IP/hostname or not.\n\nIn the case where the peer disconnect and reconnect with a different IP/hostname, forwarding will keep trying to the last known peer until PeerInfo provider returns the peer new IP/hostname.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "440efe56_e7f3a848",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
