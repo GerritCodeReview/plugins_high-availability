@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -21,9 +22,12 @@ import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.SupplierSerializer;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpSession;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,44 +38,58 @@ class RestForwarder implements Forwarder {
   private static final Logger log =
       LoggerFactory.getLogger(RestForwarder.class);
 
-  private final HttpSession httpSession;
+  private final HttpSession.Factory httpSessionFactory;
   private final String pluginRelativePath;
+  private final Provider<PeerInfo> peerInfo;
+
 
   @Inject
-  RestForwarder(HttpSession httpClient,
-      @PluginName String pluginName) {
-    this.httpSession = httpClient;
+  RestForwarder(HttpSession.Factory httpSessionFactory,
+      @PluginName String pluginName,
+      Provider<PeerInfo> peerInfo) {
+    this.httpSessionFactory = httpSessionFactory;
     this.pluginRelativePath = Joiner.on("/").join("/plugins", pluginName);
+    this.peerInfo = peerInfo;
   }
 
   @Override
-  public boolean indexChange(int changeId) {
-    try {
-      HttpResult result = httpSession.post(buildIndexEndpoint(changeId));
-      if (result.isSuccessful()) {
-        return true;
+  public boolean indexChange(final int changeId) {
+    return perform(new Function<HttpSession, Boolean>() {
+      @Override
+      public Boolean apply(HttpSession httpSession) {
+        try {
+          HttpResult result = httpSession.post(buildIndexEndpoint(changeId));
+          if (result.isSuccessful()) {
+            return true;
+          }
+          log.error("Unable to index change {}. Cause: {}", changeId,
+              result.getMessage());
+        } catch (IOException e) {
+          log.error("Error trying to index change " + changeId, e);
+        }
+        return false;
       }
-      log.error("Unable to index change {}. Cause: {}", changeId,
-          result.getMessage());
-    } catch (IOException e) {
-      log.error("Error trying to index change " + changeId, e);
-    }
-    return false;
+    });
   }
 
   @Override
-  public boolean deleteChangeFromIndex(int changeId) {
-    try {
-      HttpResult result = httpSession.delete(buildIndexEndpoint(changeId));
-      if (result.isSuccessful()) {
-        return true;
+  public boolean deleteChangeFromIndex(final int changeId) {
+    return perform(new Function<HttpSession, Boolean>() {
+      @Override
+      public Boolean apply(HttpSession httpSession) {
+        try {
+          HttpResult result = httpSession.delete(buildIndexEndpoint(changeId));
+          if (result.isSuccessful()) {
+            return true;
+          }
+          log.error("Unable to delete from index change {}. Cause: {}", changeId,
+              result.getMessage());
+        } catch (IOException e) {
+          log.error("Error trying to delete from index change " + changeId, e);
+        }
+        return false;
       }
-      log.error("Unable to delete from index change {}. Cause: {}", changeId,
-          result.getMessage());
-    } catch (IOException e) {
-      log.error("Error trying to delete from index change " + changeId, e);
-    }
-    return false;
+    });
   }
 
   private String buildIndexEndpoint(int changeId) {
@@ -79,35 +97,55 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean send(Event event) {
-    String serializedEvent = new GsonBuilder()
-        .registerTypeAdapter(Supplier.class, new SupplierSerializer()).create()
-        .toJson(event);
-    try {
-      HttpResult result = httpSession.post(
-          Joiner.on("/").join(pluginRelativePath, "event"), serializedEvent);
-      if (result.isSuccessful()) {
-        return true;
+  public boolean send(final Event event) {
+    return perform(new Function<HttpSession, Boolean>() {
+      @Override
+      public Boolean apply(HttpSession httpSession) {
+        String serializedEvent = new GsonBuilder()
+            .registerTypeAdapter(Supplier.class, new SupplierSerializer()).create()
+            .toJson(event);
+        try {
+          HttpResult result = httpSession.post(
+              Joiner.on("/").join(pluginRelativePath, "event"), serializedEvent);
+          if (result.isSuccessful()) {
+            return true;
+          }
+          log.error(
+              "Unable to send event '" + event.type + "' " + result.getMessage());
+        } catch (IOException e) {
+          log.error("Error trying to send event " + event.type, e);
+        }
+        return false;
       }
-      log.error(
-          "Unable to send event '" + event.type + "' " + result.getMessage());
-    } catch (IOException e) {
-      log.error("Error trying to send event " + event.type, e);
-    }
-    return false;
+    });
   }
 
   @Override
-  public boolean evict(String cacheName, Object key) {
-    try {
-      String json = GsonParser.toJson(cacheName, key);
-      return httpSession
-          .post(Joiner.on("/").join(pluginRelativePath, "cache", cacheName),
-              json)
-          .isSuccessful();
-    } catch (IOException e) {
-      log.error("Error trying to evict for cache " + cacheName, e);
+  public boolean evict(final String cacheName, final Object key) {
+    return perform(new Function<HttpSession, Boolean>() {
+      @Override
+      public Boolean apply(HttpSession httpSession) {
+        try {
+          String json = GsonParser.toJson(cacheName, key);
+          return httpSession
+              .post(Joiner.on("/").join(pluginRelativePath, "cache", cacheName),
+                  json)
+              .isSuccessful();
+        } catch (IOException e) {
+          log.error("Error trying to evict for cache " + cacheName, e);
+          return false;
+        }
+      }
+    });
+  }
+
+  private boolean perform(Function<HttpSession, Boolean> operation) {
+    PeerInfo info = peerInfo.get();
+    if (info == null) {
+      log.warn("The other peer node is currently not available");
       return false;
     }
+    HttpSession httpSession = httpSessionFactory.create(info);
+    return operation.apply(httpSession);
   }
 }
