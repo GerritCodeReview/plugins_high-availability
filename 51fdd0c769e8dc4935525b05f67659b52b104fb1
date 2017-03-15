@@ -22,6 +22,30 @@
       "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b735efc_55a94fce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-15T16:14:56Z",
+      "side": 1,
+      "message": "\u003e This is breaking the main use case of this plugin.\n\u003e \n\u003e Currently, we only support one other configured peer and if we expect it to be there and available. In case the peer goes offline for any reason, the RestForwarder retry forwarding events(the number of retries and delay between them is configurable).\n\nActually the retry logic is in the HttpClientProvider and CloseableHttpClient. Right?\nIIUC, the RestForwarder itself is unaware of any retry logic.\nHowever, if it doesn\u0027t try to forward an event the http client will not know about it\nand there will be no retry.\n\n\u003e If we want to proceed with your proposed change (stop forwarding when peer goes offline), we need a mechanism to resync a peer that went offline.\n\nEven more: the peer that went offline, may start on a different VM and the http client doesn\u0027t know that it has\nto retry for the new URL of the other peer.\nActually, this issue is just a special case of the setup with N \u003e\u003d0  peers with auto discovery, where both N\nand each peer URL can change at the runtime.\n\nIt looks to me that in such case, the retry logic at the http client level is not enough.\n\nResyncing a peer sounds like a good proposal. Just in that case, we would need to pile up last events for a configured\namount of time, even when forwarding to existing peers works. Then when a new peer joins the group, it receives\nall pilled up events. The assumption here is that the newly joined peer cannot be older than the oldest pilled up event.\n\nBtw, the functionality of resyncing a (new) peer is a precondition for adding a new peer to the existing group.\n\nIt seems like the functionality of resyncing a new peer would be a more intrusive change.\nI will think about it over night :-)\n\nAny further ideas/comments are welcome.",
+      "parentUuid": "440efe56_e7f3a848",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
