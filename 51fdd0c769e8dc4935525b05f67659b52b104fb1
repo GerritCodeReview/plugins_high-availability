@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "440efe56_e7f3a848",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-15T15:01:09Z",
+      "side": 1,
+      "message": "This is breaking the main use case of this plugin.\n\nCurrently, we only support one other configured peer and if we expect it to be there and available. In case the peer goes offline for any reason, the RestForwarder retry forwarding events(the number of retries and delay between them is configurable).\n\nOn our side, we configured both values so it will only stop retrying after the peer was offline for one hour. In case we have an issue with one of the masters, we can take it offline for up to one hour without having to do any kind of manual resync of the secondary indexes and flushing caches. The events forwarding will pile up of the active peer and when the  other peer is brought back online, all piled up events will be forwarded.\n\nIf we want to proceed with your proposed change (stop forwarding when peer goes offline), we need a mechanism to resync a peer that went offline.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
