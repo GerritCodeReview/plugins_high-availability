@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9970feba_ea2ac5ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-15T18:12:49Z",
+      "side": 1,
+      "message": "\u003e Does this help?\n \u003e When the PeerInfo provider return the new IP/hostname the missed\n \u003e events will not be forwarded.\n\nLet\u0027s say active is forwarding to passive which have ip 1.2.3.4.\n-At one point passive dies.\n-Events are still sent to 1.2.3.4 but the http calls will fails since 1.2.3.4 is not available.\n-Events are piling up.\nPassive reconnect with ip 5.6.7.8.\n-Pile up of events are forwarded to passive successfully",
+      "parentUuid": "b57d9d7b_15b1d0e6",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "440efe56_e7f3a848",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
