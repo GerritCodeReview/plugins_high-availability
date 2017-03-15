@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f186c18a_ea8ba5f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-15T18:20:12Z",
+      "side": 1,
+      "message": "\u003e \u003e Does this help?\n\u003e  \u003e When the PeerInfo provider return the new IP/hostname the missed\n\u003e  \u003e events will not be forwarded.\n\u003e \n\u003e Let\u0027s say active is forwarding to passive which have ip 1.2.3.4.\n\u003e -At one point passive dies.\n\u003e -Events are still sent to 1.2.3.4 but the http calls will fails since 1.2.3.4 is not available.\n\u003e -Events are piling up.\n\n\u003e Passive reconnect with ip 5.6.7.8.\n\u003e -Pile up of events are forwarded to passive successfully\n\nOh... nice if this will work! Is this a feature of the apache http client?\nWill this already work or do we need to do something?\n\nI always thought that the retry is based on the target URL/IP, but looks like I was wrong.",
+      "parentUuid": "9970feba_ea2ac5ff",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "440efe56_e7f3a848",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
