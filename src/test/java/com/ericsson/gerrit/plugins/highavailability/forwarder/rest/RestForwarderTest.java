@@ -24,14 +24,20 @@ import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.events.Event;
 import com.google.gson.GsonBuilder;
+import com.google.inject.Provider;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
+import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 
+@RunWith(MockitoJUnitRunner.class)
 public class RestForwarderTest {
   private static final String PLUGIN_NAME = "high-availability";
   private static final String EMPTY_MSG = "";
@@ -53,6 +59,9 @@ public class RestForwarderTest {
   private static final String ID_JSON = "{\"id\":0}";
 
   private RestForwarder restForwarder;
+
+  @Mock
+  private Provider<PeerInfo> infoProvider;
 
   @Test
   public void testIndexChangeOK() throws Exception {
@@ -111,7 +120,7 @@ public class RestForwarderTest {
         when(httpSession.delete(request)).thenReturn(result);
       }
     }
-    restForwarder = new RestForwarder(httpSession, PLUGIN_NAME);
+    setupRestForwarder(httpSession);
   }
 
   @Test
@@ -144,7 +153,7 @@ public class RestForwarderTest {
       HttpResult result = new HttpResult(isOperationSuccessful, msg);
       when(httpSession.post(request, content)).thenReturn(result);
     }
-    restForwarder = new RestForwarder(httpSession, PLUGIN_NAME);
+    setupRestForwarder(httpSession);
     return event;
   }
 
@@ -227,6 +236,14 @@ public class RestForwarderTest {
       HttpResult result = new HttpResult(isOperationSuccessful, "Error");
       when(httpSession.post(request, json)).thenReturn(result);
     }
-    restForwarder = new RestForwarder(httpSession, PLUGIN_NAME);
+    setupRestForwarder(httpSession);
+  }
+
+  private void setupRestForwarder(HttpSession httpSession) {
+    PeerInfo info = mock(PeerInfo.class);
+    HttpSession.Factory factory = mock(HttpSession.Factory.class);
+    when(factory.create(info)).thenReturn(httpSession);
+    when(infoProvider.get()).thenReturn(info);
+    restForwarder = new RestForwarder(factory, PLUGIN_NAME, infoProvider);
   }
 }
