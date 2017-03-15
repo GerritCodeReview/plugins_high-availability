@@ -70,6 +70,30 @@
       "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07efa5c6_282fc076",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-15T17:31:00Z",
+      "side": 1,
+      "message": "\u003e \u003eActually the retry logic is in the HttpClientProvider and CloseableHttpClient. Right?\n\u003e \n\u003e Yes I meant the forwarding using REST as a general concept, not the RestForwarder class itself. I should have been more clear.\n\u003e \n\u003e Currently, the plugin works only in failover mode with 2 peers. The assumption is before installing this plugin, both peers must have the same info, i.e, they share repositories, database, they each have a copy of the secondary index and the caches. Once this is true, then this plugin can be installed and both peer brought online and from this point on, the will be maintained synchronized (caches, indexes and stream events).\n\u003e \n\u003e Adding support for n peers is something but adding the support   to join a un-synchronized peer is a big challenge. Honestly, the biggest issue is secondary index, the caches problem could  be solved by simply flushing them on new new peer joining. I think that ElasticSearch support in Gerrit is mandatory before we consider support joining a new un-synchronized peer.\n\nHaving N peers is not my first priority. We can postpone this topic for some time.\nJust for the sake of discussion: Even without the elastic search we could create another peer by stopping\nan inactive instance, making a copy of it (including a copy of the lucene index), and then start both of them.\nIn principle both of them missed the same number of events. If we can resynx the inactive instance when\nit starts, then we could also resync the newly created instance by forwarding exactly the same set of\nevents.\nAs said, this is not really my priority right now.\n\n\u003e \n\u003e Let\u0027s go back to the immediate problem you need to solve. If I understand correctly, you will have 2 masters running on 2 different machine/VM but the problem is you do not know the IPs/hostnames in advance. After the initial discovery, it could be possible that one of the 2 peers rejoin  with a different IP/hostname. Is this your main/only problem so far?\n\nYes, exactly. This is the only real issue I have right now.",
+      "parentUuid": "7f2dbb33_753e459b",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
