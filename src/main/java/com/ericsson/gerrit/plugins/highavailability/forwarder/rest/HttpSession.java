@@ -16,7 +16,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.google.common.base.Strings;
 import com.google.common.net.MediaType;
-import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
@@ -30,12 +31,16 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 class HttpSession {
+  interface Factory {
+    HttpSession create(PeerInfo peerInfo);
+  }
+
   private final CloseableHttpClient httpClient;
   private PeerInfo peerInfo;
 
-  @Inject
+  @AssistedInject
   HttpSession(CloseableHttpClient httpClient,
-      PeerInfo peerInfo) {
+      @Assisted PeerInfo peerInfo) {
     this.httpClient = httpClient;
     this.peerInfo = peerInfo;
   }
