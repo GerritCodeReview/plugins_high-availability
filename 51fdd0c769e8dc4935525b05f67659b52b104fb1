@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "5cee6ec7_45f33c63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-15T18:42:09Z",
+      "side": 1,
+      "message": "You are right, retry will happen on the same url, I checked quickly and I did not find any way to change the url in a retry.\n\nI will think about how we can solve this one.\n\nA general question: How you guys are able to configure you reverse proxy if the machine hosting Gerrit keeps changing hostname?\n\nIs it not possible to request a fixed hostname?",
+      "parentUuid": "32a3ca9a_dfb18e53",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "440efe56_e7f3a848",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
