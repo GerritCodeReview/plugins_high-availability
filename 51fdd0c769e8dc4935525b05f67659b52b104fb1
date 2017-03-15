@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "32a3ca9a_dfb18e53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-15T18:25:10Z",
+      "side": 1,
+      "message": "Oh, I think you are right, let me check if my idea will work...\n\nWe implemented the retry using apache http client retry handler but I need to check if we need to modify them to consider the new IP",
+      "parentUuid": "f186c18a_ea8ba5f1",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "440efe56_e7f3a848",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
