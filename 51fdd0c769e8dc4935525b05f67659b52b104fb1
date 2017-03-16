@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "208603c2_92fd081a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-16T12:58:31Z",
+      "side": 1,
+      "message": "\u003e You are right, retry will happen on the same url, I checked quickly and I did not find any way to change the url in a retry.\n\n:-( \nI also googled a bit about how to do that in the apache http client but couldn\u0027t find anything quickly.\nThe next thing to do is to check the source code of the apache http client.\n\n\u003e \n\u003e I will think about how we can solve this one.\n\u003e \n\u003e A general question: How you guys are able to configure you reverse proxy if the machine hosting Gerrit keeps changing hostname?\n\nThe deployer service automatically configures the proxy with the URL of the VM it picked to deploy Gerrit to.\n\n\u003e \n\u003e Is it not possible to request a fixed hostname?\n\nI am discussing this right now. We may get a fixed hostname but then we have\nto handle most of the lifecycle (deployments/upgrades, etc..) on our own, instead\nof relying on the devops team to do that.\n\nBtw, we have this issue only in one cloud environment.\nFor our other Gerrit instances we have full control over everything.",
+      "parentUuid": "5cee6ec7_45f33c63",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "51fdd0c769e8dc4935525b05f67659b52b104fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "440efe56_e7f3a848",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
