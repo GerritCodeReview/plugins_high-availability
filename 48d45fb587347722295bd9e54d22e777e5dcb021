@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0729dfa_ea93385e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-17T08:19:31Z",
+      "side": 1,
+      "message": "This parameter is not used any more. Remove it.",
+      "revId": "48d45fb587347722295bd9e54d22e777e5dcb021",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
