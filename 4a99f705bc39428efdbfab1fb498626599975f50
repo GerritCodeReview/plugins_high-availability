@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caa0159c_5c78539d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SharedDirectory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-21T08:26:11Z",
+      "side": 1,
+      "message": "Checking many javadoc comments in Gerrit source code, it seems like only one \u003cp\u003e is used and it is used just like\nyou did in the line 26. Therefore these two lines should be:\n\n  *\n  * \u003cp\u003eExample of usage:",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "4a99f705bc39428efdbfab1fb498626599975f50",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f38912a9_11c9da41",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-21T08:26:11Z",
+      "side": 1,
+      "message": "empty line above?",
+      "revId": "4a99f705bc39428efdbfab1fb498626599975f50",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
