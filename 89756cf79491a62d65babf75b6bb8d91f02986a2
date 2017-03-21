@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c88e1581_133b1274",
+        "filename": "src/test/resources/aOFdpHriBM6dN055M13PjDdTZagl5r5aSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-21T08:28:24Z",
+      "side": 1,
+      "message": "Why do we need this (and the other) session file versioned?\nCan test(s) create session files as they need them?",
+      "revId": "89756cf79491a62d65babf75b6bb8d91f02986a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
