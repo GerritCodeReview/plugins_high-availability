@@ -16,6 +16,24 @@
       "revId": "89756cf79491a62d65babf75b6bb8d91f02986a2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff07d6d7_15c35e80",
+        "filename": "src/test/resources/aOFdpHriBM6dN055M13PjDdTZagl5r5aSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-21T11:07:01Z",
+      "side": 1,
+      "message": "The problem is that we cannot instantiate \"Val\" class which is the class serialized/deserialized on disk, the constructor is not public.\n\nOne of these file is a valid serialized websession that allow to do most of the FileBasedWebsessionCache unit tests. That one can be removed if we change make Val constructor public, which I will do on master.\n\nThe other one is serialized dummy class that I need to unit test ClassNotFoundException handling.\n\nThese 2 files are allowing us to have a unit test line/branch coverage close to 100%. I know they are binaries but they are small are not likely to change so they will not cause the git repository size to explode.",
+      "parentUuid": "c88e1581_133b1274",
+      "revId": "89756cf79491a62d65babf75b6bb8d91f02986a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
