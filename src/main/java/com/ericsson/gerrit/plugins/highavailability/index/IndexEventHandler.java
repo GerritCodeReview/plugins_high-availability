@@ -19,8 +19,11 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.inject.Inject;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderTask;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardingException;
 
 import java.util.Collections;
 import java.util.Set;
@@ -31,16 +34,19 @@ class IndexEventHandler implements ChangeIndexedListener {
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
+  private final Configuration cfg;
   private final Set<IndexTask> queuedTasks = Collections
       .newSetFromMap(new ConcurrentHashMap<IndexTask, Boolean>());
 
   @Inject
   IndexEventHandler(@IndexExecutor Executor executor,
       @PluginName String pluginName,
-      Forwarder forwarder) {
+      Forwarder forwarder,
+      Configuration cfg) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.cfg = cfg;
   }
 
   @Override
@@ -62,18 +68,23 @@ class IndexEventHandler implements ChangeIndexedListener {
     }
   }
 
-  class IndexTask implements Runnable {
+  class IndexTask extends ForwarderTask {
     private int changeId;
     private boolean deleted;
 
     IndexTask(int changeId, boolean deleted) {
+      super(cfg);
       this.changeId = changeId;
       this.deleted = deleted;
     }
 
     @Override
-    public void run() {
+    protected void beforeRun() {
       queuedTasks.remove(this);
+    }
+
+    @Override
+    protected void forward() throws ForwardingException {
       if (deleted) {
         forwarder.deleteChangeFromIndex(changeId);
       } else {
