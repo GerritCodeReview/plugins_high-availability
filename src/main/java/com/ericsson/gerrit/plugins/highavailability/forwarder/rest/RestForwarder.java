@@ -23,16 +23,14 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardingException;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import javax.net.ssl.SSLException;
+
 class RestForwarder implements Forwarder {
-  private static final Logger log =
-      LoggerFactory.getLogger(RestForwarder.class);
 
   private final HttpSession httpSession;
   private final String pluginRelativePath;
@@ -45,33 +43,31 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexChange(int changeId) {
+  public void indexChange(int changeId) throws ForwardingException {
     try {
       HttpResult result = httpSession.post(buildIndexEndpoint(changeId));
-      if (result.isSuccessful()) {
-        return true;
+      if (!result.isSuccessful()) {
+        throw new ForwardingException(true, "Unable to index change "
+            + changeId + ". Cause: " + result.getMessage());
       }
-      log.error("Unable to index change {}. Cause: {}", changeId,
-          result.getMessage());
     } catch (IOException e) {
-      log.error("Error trying to index change " + changeId, e);
+      throw new ForwardingException(!(e instanceof SSLException),
+          "Error trying to index change " + changeId, e);
     }
-    return false;
   }
 
   @Override
-  public boolean deleteChangeFromIndex(int changeId) {
+  public void deleteChangeFromIndex(int changeId) throws ForwardingException {
     try {
       HttpResult result = httpSession.delete(buildIndexEndpoint(changeId));
-      if (result.isSuccessful()) {
-        return true;
+      if (!result.isSuccessful()) {
+        throw new ForwardingException(true, "Unable to delete change from index"
+            + " change " + changeId + ". Cause: " + result.getMessage());
       }
-      log.error("Unable to delete from index change {}. Cause: {}", changeId,
-          result.getMessage());
     } catch (IOException e) {
-      log.error("Error trying to delete from index change " + changeId, e);
+      throw new ForwardingException(!(e instanceof SSLException),
+          "Error trying to delete change from index change" + changeId, e);
     }
-    return false;
   }
 
   private String buildIndexEndpoint(int changeId) {
@@ -79,35 +75,36 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean send(Event event) {
+  public void send(Event event) throws ForwardingException {
     String serializedEvent = new GsonBuilder()
         .registerTypeAdapter(Supplier.class, new SupplierSerializer()).create()
         .toJson(event);
     try {
       HttpResult result = httpSession.post(
           Joiner.on("/").join(pluginRelativePath, "event"), serializedEvent);
-      if (result.isSuccessful()) {
-        return true;
+      if (!result.isSuccessful()) {
+        throw new ForwardingException(true,
+            "Unable to send event '" + event.type + "' " + result.getMessage());
       }
-      log.error(
-          "Unable to send event '" + event.type + "' " + result.getMessage());
     } catch (IOException e) {
-      log.error("Error trying to send event " + event.type, e);
+      throw new ForwardingException(!(e instanceof SSLException),
+          "Error trying to send event " + event.type, e);
     }
-    return false;
   }
 
   @Override
-  public boolean evict(String cacheName, Object key) {
+  public void evict(String cacheName, Object key) throws ForwardingException {
     try {
       String json = GsonParser.toJson(cacheName, key);
-      return httpSession
-          .post(Joiner.on("/").join(pluginRelativePath, "cache", cacheName),
-              json)
-          .isSuccessful();
+      HttpResult result = httpSession.post(
+          Joiner.on("/").join(pluginRelativePath, "cache", cacheName), json);
+      if (!result.isSuccessful()) {
+        throw new ForwardingException(true, "Unable to evict from cache '"
+            + cacheName + "'. Cause: " + result.getMessage());
+      }
     } catch (IOException e) {
-      log.error("Error trying to evict for cache " + cacheName, e);
-      return false;
+      throw new ForwardingException(!(e instanceof SSLException),
+          "Error trying to evict from cache " + cacheName, e);
     }
   }
 }

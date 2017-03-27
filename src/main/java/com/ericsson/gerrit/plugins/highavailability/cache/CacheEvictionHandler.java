@@ -19,8 +19,11 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.cache.CacheRemovalListener;
 import com.google.inject.Inject;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderTask;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardingException;
 
 import java.util.concurrent.Executor;
 import java.util.regex.Pattern;
@@ -30,14 +33,17 @@ class CacheEvictionHandler<K, V> implements CacheRemovalListener<K, V> {
   private final Forwarder forwarder;
   private final String pluginName;
   private final Pattern pattern;
+  private final Configuration cfg;
 
   @Inject
   CacheEvictionHandler(Forwarder forwarder,
       @CacheExecutor Executor executor,
-      @PluginName String pluginName) {
+      @PluginName String pluginName,
+      Configuration cfg) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.cfg = cfg;
     pattern = Pattern.compile(
         "^accounts.*|^groups.*|ldap_groups|ldap_usernames|^project.*|sshkeys|web_sessions");
   }
@@ -55,17 +61,18 @@ class CacheEvictionHandler<K, V> implements CacheRemovalListener<K, V> {
     return pattern.matcher(cacheName).matches();
   }
 
-  class CacheEvictionTask implements Runnable {
+  class CacheEvictionTask extends ForwarderTask {
     private String cacheName;
     private Object key;
 
     CacheEvictionTask(String cacheName, Object key) {
+      super(cfg);
       this.cacheName = cacheName;
       this.key = key;
     }
 
     @Override
-    public void run() {
+    public void forward() throws ForwardingException {
       forwarder.evict(cacheName, key);
     }
 

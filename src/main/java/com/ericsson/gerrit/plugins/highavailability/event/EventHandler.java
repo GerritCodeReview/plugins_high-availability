@@ -20,8 +20,11 @@ import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.ProjectEvent;
 import com.google.inject.Inject;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderTask;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardingException;
 
 import java.util.concurrent.Executor;
 
@@ -29,14 +32,17 @@ class EventHandler implements EventListener {
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
+  private final Configuration cfg;
 
   @Inject
   EventHandler(Forwarder forwarder,
       @EventExecutor Executor executor,
-      @PluginName String pluginName) {
+      @PluginName String pluginName,
+      Configuration cfg) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.cfg = cfg;
   }
 
   @Override
@@ -46,15 +52,16 @@ class EventHandler implements EventListener {
     }
   }
 
-  class EventTask implements Runnable {
+  class EventTask extends ForwarderTask {
     private Event event;
 
     EventTask(Event event) {
+      super(cfg);
       this.event = event;
     }
 
     @Override
-    public void run() {
+    public void forward() throws ForwardingException {
       forwarder.send(event);
     }
 
