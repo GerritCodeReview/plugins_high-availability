@@ -25,32 +25,28 @@ public interface Forwarder {
    * Forward a change indexing event to the other master.
    *
    * @param changeId the change to index.
-   * @return true if successful, otherwise false.
    */
-  boolean indexChange(int changeId);
+  void indexChange(int changeId) throws ForwardingException;
 
   /**
    * Forward a delete change from index event to the other master.
    *
    * @param changeId the change to remove from the index.
-   * @return rue if successful, otherwise false.
    */
-  boolean deleteChangeFromIndex(int changeId);
+  void deleteChangeFromIndex(int changeId) throws ForwardingException;
 
   /**
    * Forward a stream event to the other master.
    *
    * @param event the event to forward.
-   * @return true if successful, otherwise false.
    */
-  boolean send(Event event);
+  void send(Event event) throws ForwardingException;
 
   /**
    * Forward a cache eviction event to the other master.
    *
    * @param cacheName the name of the cache to evict an entry from.
    * @param key the key identifying the entry to evict from the cache.
-   * @return true if successful, otherwise false.
    */
-  boolean evict(String cacheName, Object key);
+  void evict(String cacheName, Object key) throws ForwardingException;
 }
