@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43f24035_53057daa",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-30T09:21:19Z",
+      "side": 1,
+      "message": "Why not  assert equality of Path instances? Is there an issue with :\n\n  asssertThat(sharedDirectory).isEqualsTo(configuredDirectory);",
+      "range": {
+        "startLine": 74,
+        "startChar": 30,
+        "endLine": 74,
+        "endChar": 41
+      },
+      "revId": "b0131eba81cbc5c5edf876b87336f13929bb8fff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daee51be_c66d4281",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-03-30T09:21:19Z",
+      "side": 1,
+      "message": "This aspect is tested in the shouldReturnConfiguredSharedDirectory test, and shouldn\u0027t be repeated in every other test IMO.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "b0131eba81cbc5c5edf876b87336f13929bb8fff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
