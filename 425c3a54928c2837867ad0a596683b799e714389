@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59a6cc27_3f469a41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-03-31T12:17:43Z",
+      "side": 1,
+      "message": "Have you considered moving it out of the http layer but keep it inside the Rest implementation of the forwarder?\n\nI am asking because I am not sure we would implement our own retry mechanism for other possible forwarder implementations, e.g. message queue typically have built-in mechanism to make sure message is delivered.\n\nKeeping the retry within the rest implementation would probably make it easier to adapt the unit tests.",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 56
+      },
+      "revId": "425c3a54928c2837867ad0a596683b799e714389",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
