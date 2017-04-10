@@ -67,7 +67,7 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
               try {
                 checkPoint.await();
               } catch (InterruptedException | BrokenBarrierException e) {
-                Throwables.propagateIfPossible(e);
+                Throwables.throwIfUnchecked(e);
               }
             }
           }
