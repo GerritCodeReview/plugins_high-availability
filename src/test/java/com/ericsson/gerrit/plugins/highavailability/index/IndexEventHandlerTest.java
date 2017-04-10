@@ -104,8 +104,9 @@ public class IndexEventHandlerTest {
   public void testIndexTaskHashCodeAndEquals() {
     IndexTask task = indexEventHandler.new IndexTask(CHANGE_ID, false);
 
-    assertThat(task.equals(task)).isTrue();
-    assertThat(task.hashCode()).isEqualTo(task.hashCode());
+    IndexTask sameTask = task;
+    assertThat(task.equals(sameTask)).isTrue();
+    assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
 
     IndexTask identicalTask =
         indexEventHandler.new IndexTask(CHANGE_ID, false);
