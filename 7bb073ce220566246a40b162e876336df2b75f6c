@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78c94df1_e1be160b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-04-24T13:03:01Z",
+      "side": 1,
+      "message": "Use {} syntax?\n\n\"Unable to {}: {}\", name, result.getMessage()",
+      "range": {
+        "startLine": 111,
+        "startChar": 18,
+        "endLine": 111,
+        "endChar": 66
+      },
+      "revId": "7bb073ce220566246a40b162e876336df2b75f6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
