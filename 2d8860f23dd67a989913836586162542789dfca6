@@ -140,6 +140,30 @@
       "revId": "2d8860f23dd67a989913836586162542789dfca6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cab7a0af_89131f74",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-04-27T13:47:01Z",
+      "side": 1,
+      "message": "Understood. I think it is OK as it is now.",
+      "parentUuid": "a67368fd_8371a5da",
+      "range": {
+        "startLine": 292,
+        "startChar": 9,
+        "endLine": 292,
+        "endChar": 53
+      },
+      "revId": "2d8860f23dd67a989913836586162542789dfca6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
