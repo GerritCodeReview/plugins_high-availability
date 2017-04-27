@@ -14,22 +14,23 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
+import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 
-public class PluginConfigPeerInfoProvider implements Provider<PeerInfo> {
+public class PluginConfigPeerInfoProvider implements Provider<Optional<PeerInfo>> {
 
-  private final PeerInfo peerInfo;
+  private final Optional<PeerInfo> peerInfo;
 
   @Inject
   PluginConfigPeerInfoProvider(Configuration cfg) {
-    peerInfo = new PeerInfo(cfg.getUrl());
+    peerInfo = Optional.of(new PeerInfo(cfg.getUrl()));
   }
 
   @Override
-  public PeerInfo get() {
+  public Optional<PeerInfo> get() {
     return peerInfo;
   }
 }
