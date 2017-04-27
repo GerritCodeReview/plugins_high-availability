@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "561c72c5_b7042d17",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ForwardingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-04-27T10:21:30Z",
+      "side": 1,
+      "message": "make package private",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 6
+      },
+      "revId": "66c9e2141ccb7050f02d5a38ad07060c0fc44e4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b44eba66_c2f7ae46",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ForwardingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-04-27T10:21:30Z",
+      "side": 1,
+      "message": "make package private",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "66c9e2141ccb7050f02d5a38ad07060c0fc44e4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ec3f310_b16dc6d8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ForwardingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-04-27T10:21:30Z",
+      "side": 1,
+      "message": "not use, can be removed",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "66c9e2141ccb7050f02d5a38ad07060c0fc44e4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fbda12a_7c670246",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ForwardingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-04-27T10:21:30Z",
+      "side": 1,
+      "message": "make package private",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "66c9e2141ccb7050f02d5a38ad07060c0fc44e4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b36024df_f2a8b7c7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-04-27T10:21:30Z",
+      "side": 1,
+      "message": "we are missing a test case when the event is not recoverable, this if is not covered by the test.",
+      "range": {
+        "startLine": 119,
+        "startChar": 10,
+        "endLine": 122,
+        "endChar": 11
+      },
+      "revId": "66c9e2141ccb7050f02d5a38ad07060c0fc44e4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4916cc4c_a04642e7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-04-27T10:21:30Z",
+      "side": 1,
+      "message": "it is missing something after this log statement. The way it is now, it will keep retrying.\n\nadd this after:\nThread.currentThread().interrupt();\nreturn false;",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 64
+      },
+      "revId": "66c9e2141ccb7050f02d5a38ad07060c0fc44e4f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
