@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "051f50a5_df5f0dc9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-04-27T11:35:16Z",
+      "side": 1,
+      "message": "Optional: style nit - I\u0027d go for using {} syntax in log messages",
+      "range": {
+        "startLine": 120,
+        "startChar": 23,
+        "endLine": 120,
+        "endChar": 44
+      },
+      "revId": "2d8860f23dd67a989913836586162542789dfca6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5fa49c3_fed35224",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-04-27T11:35:16Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 161,
+        "startChar": 44,
+        "endLine": 161,
+        "endChar": 51
+      },
+      "revId": "2d8860f23dd67a989913836586162542789dfca6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd93d40f_9124dffc",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-04-27T11:35:16Z",
+      "side": 1,
+      "message": "Is this needed given we are only testing a non recoverable error and expect the operation to fail?",
+      "range": {
+        "startLine": 292,
+        "startChar": 9,
+        "endLine": 292,
+        "endChar": 53
+      },
+      "revId": "2d8860f23dd67a989913836586162542789dfca6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
