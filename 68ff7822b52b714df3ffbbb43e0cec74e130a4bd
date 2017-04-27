@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bcfd918a_7201e44f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ForwardingException.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-27T10:07:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d612830_f48748ea",
+      "revId": "68ff7822b52b714df3ffbbb43e0cec74e130a4bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "179352b0_bf28a7ad",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 1
