@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "91ead46b_e1ce806f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-28T09:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24e2cfa1_892419ac",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "ec9f7d936045cd49e3b37dfec1dc4328a486a7d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efad4e68_a794bbca",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-28T09:18:51Z",
       "side": 1,
       "message": "optional: keep this inline:\n\nnew HttpDelete(getPeerInfo().getDirectUrl() + endpoint),",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "ec9f7d936045cd49e3b37dfec1dc4328a486a7d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83ce9ee5_9e48670a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-28T09:48:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efad4e68_a794bbca",
       "range": {
         "startLine": 60,
         "startChar": 4,
