@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "64e7a49d_e36cb821",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-28T09:13:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc8916fa_e60479b6",
+      "range": {
+        "startLine": 10,
+        "startChar": 7,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "9f62a5f8537b170fbca15194cc8d8589601b0f06",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c07eb43_22bd6a25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-28T09:13:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bec48a6_53c28bf7",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "9f62a5f8537b170fbca15194cc8d8589601b0f06",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5568d49_a4fbb66b",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
         "patchSetId": 4
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "f140a8dc_c3c8e825",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-28T09:13:37Z",
+      "side": 1,
+      "message": "When the other peer is not available we have two options to communicate this back from the public post/delete methods back to the caller:\n* via a special HttpResult return value\n* via an exception\n\nI discussed these two possibilities with Hugo yesterday and we agreed that throwing an exception is more appropriate that returning a (special) HttpResult, because returning an HttpResult implies that there was a request/response round between this and the remote peer which is not the case.\n\nWe made PeerInfoNotAvilableException a subtype of the IOException which is already handled properly in the retry logic in the RestForwarder.",
+      "parentUuid": "f5568d49_a4fbb66b",
+      "revId": "9f62a5f8537b170fbca15194cc8d8589601b0f06",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b482559d_ef2d8468",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSessionTest.java",
         "patchSetId": 4
@@ -76,6 +142,30 @@
       "writtenOn": "2017-04-28T08:45:03Z",
       "side": 1,
       "message": "s/Uknown/Unknown/",
+      "range": {
+        "startLine": 172,
+        "startChar": 39,
+        "endLine": 172,
+        "endChar": 45
+      },
+      "revId": "9f62a5f8537b170fbca15194cc8d8589601b0f06",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12f97775_c384fde8",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSessionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-04-28T09:13:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b482559d_ef2d8468",
       "range": {
         "startLine": 172,
         "startChar": 39,
