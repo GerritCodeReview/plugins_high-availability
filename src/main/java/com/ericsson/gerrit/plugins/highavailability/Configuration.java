@@ -26,6 +26,8 @@ import org.slf4j.LoggerFactory;
 
 @Singleton
 public class Configuration {
+  private String skipInterfacePattern = null;
+
   private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 
   static final String SHARED_DIRECTORY = "sharedDirectory";
@@ -38,11 +40,19 @@ public class Configuration {
   static final String RETRY_INTERVAL_KEY = "retryInterval";
   static final String INDEX_THREAD_POOL_SIZE_KEY = "indexThreadPoolSize";
   static final String CACHE_THREAD_POOL_SIZE_KEY = "cacheThreadPoolSize";
+  static final String SKIP_INTERFACE_PATTERN = "skipInterfacePattern";
+  static final String PEER_INFO_STRATEGY = "peerInfoStrategy";
+  static final String CLUSTER_NAME = "clusterName";
+  static final String PREFER_IPV4 = "preferIPv4";
 
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 5;
   static final int DEFAULT_RETRY_INTERVAL = 1000;
   static final int DEFAULT_THREAD_POOL_SIZE = 1;
+  static final String DEFAULT_CLUSTER_NAME = "GerritPeerDiscovery";
+  static final boolean DEFAULT_PREFER_IPV4 = false;
+  static final String DEFAULT_SKIP_INTERFACE_PATTERN = "lo\\d|utun\\d|awdl\\d";
+  static final PeerInfoStrategy DEFAULT_PEER_INFO_STRATEGY = PeerInfoStrategy.CONFIG;
 
   private final String url;
   private final String user;
@@ -53,6 +63,11 @@ public class Configuration {
   private final int retryInterval;
   private final int indexThreadPoolSize;
   private final int cacheThreadPoolSize;
+  private boolean preferIPv4;
+  private String clusterName;
+
+  public enum PeerInfoStrategy { JGROUPS, CONFIG };
+  private PeerInfoStrategy strategy;
 
   @Inject
   Configuration(PluginConfigFactory config, @PluginName String pluginName) {
@@ -66,6 +81,10 @@ public class Configuration {
     retryInterval = getInt(cfg, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
     indexThreadPoolSize = getInt(cfg, INDEX_THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
     cacheThreadPoolSize = getInt(cfg, CACHE_THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+    preferIPv4 = cfg.getBoolean(PREFER_IPV4, DEFAULT_PREFER_IPV4);
+    clusterName = cfg.getString(CLUSTER_NAME, DEFAULT_CLUSTER_NAME);
+    strategy = cfg.getEnum(PEER_INFO_STRATEGY, DEFAULT_PEER_INFO_STRATEGY);
+    skipInterfacePattern = cfg.getString(SKIP_INTERFACE_PATTERN, DEFAULT_SKIP_INTERFACE_PATTERN);
   }
 
   private int getInt(PluginConfig cfg, String name, int defaultValue) {
@@ -76,6 +95,10 @@ public class Configuration {
       log.debug("Failed retrieve integer value: " + e.getMessage(), e);
       return defaultValue;
     }
+  }
+
+  public PeerInfoStrategy getPeerInfoStrategy() {
+    return strategy;
   }
 
   public int getConnectionTimeout() {
@@ -112,5 +135,17 @@ public class Configuration {
 
   public int getCacheThreadPoolSize() {
     return cacheThreadPoolSize;
+  }
+
+  public String getClusterName() {
+    return clusterName;
+  }
+
+  public boolean getPreferIPv4() {
+    return preferIPv4;
+  }
+
+  public String getSkipInterfacePattern() {
+    return skipInterfacePattern;
   }
 }
