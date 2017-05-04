@@ -43,6 +43,8 @@ public class Configuration {
   private final int retryInterval;
   private final int indexThreadPoolSize;
   private final int cacheThreadPoolSize;
+  private boolean preferIPv4;
+  private String jgroupsChannelName;
 
   @Inject
   Configuration(PluginConfigFactory config,
@@ -59,6 +61,8 @@ public class Configuration {
         getInt(cfg, "indexThreadPoolSize", DEFAULT_THREAD_POOL_SIZE);
     cacheThreadPoolSize =
         getInt(cfg, "cacheThreadPoolSize", DEFAULT_THREAD_POOL_SIZE);
+    preferIPv4 = cfg.getBoolean("preferIPv4", false);
+    jgroupsChannelName = cfg.getString("jgroupsChannelName", "GerritPeerDiscovery");
   }
 
   private int getInt(PluginConfig cfg, String name, int defaultValue) {
@@ -106,5 +110,13 @@ public class Configuration {
 
   public int getCacheThreadPoolSize() {
     return cacheThreadPoolSize;
+  }
+
+  public String getJGroupsChannelName() {
+    return jgroupsChannelName;
+  }
+
+  public boolean getPreferIPv4() {
+    return preferIPv4;
   }
 }
