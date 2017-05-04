@@ -90,3 +90,28 @@ websession.cleanupInterval
 * y, year, years (`1 year` is treated as `365 days`)
 If a time unit suffix is not specified, `hours` is assumed.
 Defaults to 24 hours.
+
+peerInfo.strategy
+:   Which strategy to use to find other peers. Currently only 'config' or 'jgroups'
+    is allowed.
+    Defaults to 'config'.
+
+jgroups.preferIPv4
+:   Whether the System property "java.net.preferIPv4Stack" should be set to true.
+    Only valid when peerInforStrategy is set to 'jgroups'. The library JGroups
+    needed for peer discovery needs this property to be set in certain environments.
+    Defaults to false.
+
+jgroups.clusterName
+:   The name of the high-availability cluster. When peer discovery is not done statically
+    (e.g. as with PluginConfigPeerInfoProvider) and peers find themself dynamically this
+    name is used to determine which instances should work together. Only those gerrit
+    instances will communicate with each other which are configured for the same clusterName.
+    Defaults to "GerritPeerDiscovery".
+
+jgroups.skipInterfacePattern
+:   A java regular expression which matches all network interfaces which should be skipped
+    for JGroups communication. When peer discovery fails it may be that the host has multiple
+    network interfaces and an inappropriate interface is choosen by JGroups.
+    Defaults to "lo\d|utun\d|awdl\d" which skips interfaces like 'lo0', 'utun0', 'awdl1'
+    which are known not to be appropriate for JGroups communication.
