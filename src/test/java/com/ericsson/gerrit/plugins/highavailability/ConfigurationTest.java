@@ -19,6 +19,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.CLEANUP
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.CONNECTION_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_CLEANUP_INTERVAL_MS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_MAX_TRIES;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_PEER_INFO_STRATEGY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_RETRY_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_SYNCHRONIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
@@ -33,6 +34,8 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.PEER_IN
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.RETRY_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.SHARED_DIRECTORY_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.SOCKET_TIMEOUT_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.STATIC_SUBSECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.STRATEGY_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.SYNCHRONIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.THREAD_POOL_SIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.URL_KEY;
@@ -83,6 +86,8 @@ public class ConfigurationTest {
     when(cfgFactoryMock.getGlobalPluginConfig(pluginName)).thenReturn(configMock);
     when(configMock.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY))
         .thenReturn(SHARED_DIRECTORY);
+    when(configMock.getEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, DEFAULT_PEER_INFO_STRATEGY))
+        .thenReturn(DEFAULT_PEER_INFO_STRATEGY);
     site = new SitePaths(SITE_PATH);
   }
 
@@ -93,19 +98,19 @@ public class ConfigurationTest {
   @Test
   public void testGetUrl() throws Exception {
     initializeConfiguration();
-    assertThat(configuration.peerInfo().url()).isEqualTo(EMPTY);
+    assertThat(configuration.peerInfoStatic().url()).isEqualTo(EMPTY);
 
-    when(configMock.getString(PEER_INFO_SECTION, null, URL_KEY)).thenReturn(URL);
+    when(configMock.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)).thenReturn(URL);
     initializeConfiguration();
-    assertThat(configuration.peerInfo().url()).isEqualTo(URL);
+    assertThat(configuration.peerInfoStatic().url()).isEqualTo(URL);
   }
 
   @Test
   public void testGetUrlIsDroppingTrailingSlash() throws Exception {
-    when(configMock.getString(PEER_INFO_SECTION, null, URL_KEY)).thenReturn(URL + "/");
+    when(configMock.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)).thenReturn(URL + "/");
     initializeConfiguration();
     assertThat(configuration).isNotNull();
-    assertThat(configuration.peerInfo().url()).isEqualTo(URL);
+    assertThat(configuration.peerInfoStatic().url()).isEqualTo(URL);
   }
 
   @Test
