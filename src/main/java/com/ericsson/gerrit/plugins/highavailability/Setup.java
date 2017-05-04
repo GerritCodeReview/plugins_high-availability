@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability;
 
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.*;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
 import com.google.common.base.Strings;
 import com.google.gerrit.common.FileUtil;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -74,7 +75,14 @@ public class Setup implements InitStep {
 
   private void configurePeerInfoSection() {
     ui.header("PeerInfo section");
-    promptAndSetString("Peer URL", PEER_INFO_SECTION, URL_KEY, null);
+    PeerInfoStrategy strategy = ui.readEnum(PeerInfoStrategy.JGROUPS, "Peer info strategy");
+    config.setEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, strategy);
+    if (strategy == PeerInfoStrategy.CONFIG) {
+      promptAndSetString("Peer URL", PEER_INFO_SECTION, URL_KEY, null);
+    } else {
+      promptAndSetString(
+          "JGroups cluster name", JGROUPS_SECTION, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
+    }
   }
 
   private void configureHttp() {

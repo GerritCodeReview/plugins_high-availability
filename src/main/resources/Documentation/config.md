@@ -90,3 +90,33 @@ websession.cleanupInterval
 * y, year, years (`1 year` is treated as `365 days`)
 If a time unit suffix is not specified, `hours` is assumed.
 Defaults to 24 hours.
+
+peerInfo.strategy
+:   Strategy to find other peers. Supported strategies are `config` or `jgroups`.
+    Defaults to `config`.
+* The `config` strategy allows to staticly configure the peer gerrit instance using
+the configuration parameter peerInfo.url.
+* The `jgroups` strategy allows that a gerrit instance discovers the peer
+instance by using JGroups to send multicast messages. In this case the
+configuration parameters `jgroups.*` are used to control the sending of the multicast
+messages. During startup each instance will advertise its address over a JGroups
+multicast cluster. JGroups takes care to inform each cluster when a member joins
+or leaves the cluster.
+
+jgroups.clusterName
+:   The name of the high-availability cluster. When peers discover themselves dynamically this
+    name is used to determine which instances should work together.  Only those Gerrit
+    interfaces which are configured for the same clusterName will communicate with each other.
+    Defaults to "GerritHA".
+
+jgroups.skipInterface
+:   A name or a wildcard of network interface(s) which should be skipped
+    for JGroups communication. Peer discovery may fail if the host has multiple
+    network interfaces and an inappropriate interface is chosen by JGroups.
+    This option can be repeated many times in the `jgroups` section.
+    Defaults to the list of: `lo*`, `utun*`, `awdl*` which are known to be
+    inappropriate for JGroups communication.
+
+NOTE: To work properly in certain environments, JGroups needs the System property
+`java.net.preferIPv4Stack` to be set to `true`.
+See (http://jgroups.org/tutorial/index.html#_trouble_shooting).
