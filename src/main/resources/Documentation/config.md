@@ -56,3 +56,21 @@ calls by specifying the following fields:
 @PLUGIN@.cacheThreadPoolSize
 :   Maximum number of threads used to send cache evictions to the target instance.
     Defaults to 1.
+
+@PLUGIN@.peerInfoStrategy
+:   Which strategy to use to find other peers. Currently only 'config' or 'jgroups'
+    is allowed.
+    Defaults to false.
+
+@PLUGIN@.preferIPv4
+:   Whether the System property "java.net.preferIPv4Stack" should be set to true.
+    Only valid when peerInforStrategy is set to 'jgroups'. The library JGroups
+    needed for peer discovery needs this property to be set in certain environments.
+    Defaults to false.
+
+@PLUGIN@clusterName
+:   The name of the high-availability cluster. When peer discovery is not done statically
+    (e.g. as with PluginConfigPeerInfoProvider) and peers find themself dynamically this
+    name is used to determine which instances should work together. Only those gerrit
+    instance will communicate with each other which are confiured for the same clusterName.
+    Defaults to GerritPeerDiscovery.
