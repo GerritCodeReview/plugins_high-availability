@@ -11,17 +11,30 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
 import com.google.common.base.Optional;
-import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.inject.TypeLiteral;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-public class PeerInfoModule extends LifecycleModule {
+public class PeerInfoProvider implements Provider<Optional<PeerInfo>> {
+
+  @Inject
+  Configuration pluginConfiguration;
+
+  @Inject
+  JGroupsPeerInfoProvider jgroupsPeerInfoProvider;
+
+  @Inject
+  PluginConfigPeerInfoProvider pluginConfigPeerInfoProvider;
+
   @Override
-  protected void configure() {
-    bind(new TypeLiteral<Optional<PeerInfo>>() {}).toProvider(PeerInfoProvider.class);
-    listener().to(JGroupsPeerInfoProvider.class);
+  public Optional<PeerInfo> get() {
+    if (pluginConfiguration.getPeerInfoStrategy().equals(PeerInfoStrategy.JGROUPS))
+      return jgroupsPeerInfoProvider.get();
+    else
+      return pluginConfigPeerInfoProvider.get();
   }
 }
