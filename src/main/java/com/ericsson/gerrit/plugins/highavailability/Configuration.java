@@ -43,6 +43,7 @@ public class Configuration {
   // peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
   static final String URL_KEY = "url";
+  static final String STRATEGY_KEY = "strategy";
 
   // http section
   static final String HTTP_SECTION = "http";
@@ -72,6 +73,12 @@ public class Configuration {
   static final String WEBSESSION_SECTION = "websession";
   static final String CLEANUP_INTERVAL_KEY = "cleanupInterval";
 
+  // jgroups section used if peerInfo.strategy == jgroups
+  static final String JGROUPS_SECTION = "jgroups";
+  static final String SKIP_INTERFACE_PATTERN_KEY = "skipInterfacePattern";
+  static final String CLUSTER_NAME_KEY = "clusterName";
+  static final String PREFER_IPV4_KEY = "preferIPv4";
+
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 5;
   static final int DEFAULT_RETRY_INTERVAL = 1000;
@@ -79,6 +86,10 @@ public class Configuration {
   static final String DEFAULT_CLEANUP_INTERVAL = "24 hours";
   static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
   static final boolean DEFAULT_SYNCHRONIZE = true;
+  static final PeerInfoStrategy DEFAULT_PEER_INFO_STRATEGY = PeerInfoStrategy.CONFIG;
+  static final String DEFAULT_SKIP_INTERFACE_PATTERN = "lo\\d|utun\\d|awdl\\d";
+  static final String DEFAULT_CLUSTER_NAME = "GerritPeerDiscovery";
+  static final boolean DEFAULT_PREFER_IPV4 = false;
 
   private final Main main;
   private final PeerInfo peerInfo;
@@ -87,6 +98,9 @@ public class Configuration {
   private final Event event;
   private final Index index;
   private final Websession websession;
+  private final JGroups jgroups;
+
+  public enum PeerInfoStrategy { JGROUPS, CONFIG };
 
   @Inject
   Configuration(
@@ -99,6 +113,7 @@ public class Configuration {
     event = new Event(cfg);
     index = new Index(cfg);
     websession = new Websession(cfg);
+    jgroups = new JGroups(cfg);
   }
 
   public Main main() {
@@ -129,6 +144,10 @@ public class Configuration {
     return websession;
   }
 
+  public JGroups jgroups() {
+    return jgroups;
+  }
+
   private static int getInt(Config cfg, String section, String name, int defaultValue) {
     try {
       return cfg.getInt(section, name, defaultValue);
@@ -145,6 +164,17 @@ public class Configuration {
     } catch (IllegalArgumentException e) {
       log.error(String.format("invalid value for %s; using default value %s", name, defaultValue));
       log.debug("Failed to retrieve boolean value: " + e.getMessage(), e);
+      return defaultValue;
+    }
+  }
+
+  private static String getString(Config cfg, String section, String subSectionName, String name, String defaultValue) {
+    try {
+      String ret=cfg.getString(section, subSectionName, name);
+      return (ret==null ? defaultValue : ret);
+    } catch (IllegalArgumentException e) {
+      log.error(String.format("invalid value for %s; using default value %s", name, defaultValue));
+      log.debug("Failed to retrieve String value: " + e.getMessage(), e);
       return defaultValue;
     }
   }
@@ -172,16 +202,27 @@ public class Configuration {
 
   public static class PeerInfo {
     private final String url;
+    private PeerInfoStrategy strategy = DEFAULT_PEER_INFO_STRATEGY;
 
     private PeerInfo(Config cfg) {
       url =
           CharMatcher.is('/')
               .trimTrailingFrom(
                   Strings.nullToEmpty(cfg.getString(PEER_INFO_SECTION, null, URL_KEY)));
+      String strategyName = getString(cfg, PEER_INFO_SECTION, null, STRATEGY_KEY, DEFAULT_PEER_INFO_STRATEGY.toString());
+      try {
+        strategy = PeerInfoStrategy.valueOf(PeerInfoStrategy.class, strategyName.toUpperCase());
+      } catch (IllegalArgumentException e) {
+        //
+      }
     }
 
     public String url() {
       return url;
+    }
+
+    public PeerInfoStrategy strategy() {
+      return strategy;
     }
   }
 
@@ -286,6 +327,31 @@ public class Configuration {
 
     public long cleanupInterval() {
       return cleanupInterval;
+    }
+  }
+
+  public static class JGroups extends Forwarding {
+    private String skipInterfacePattern = null;
+    private String clusterName = null;
+    private boolean preferIPv4 = false;
+
+    private JGroups(Config cfg) {
+      super(cfg, JGROUPS_SECTION);
+      this.skipInterfacePattern = Strings.nullToEmpty(getString(cfg, JGROUPS_SECTION, null, SKIP_INTERFACE_PATTERN_KEY, DEFAULT_SKIP_INTERFACE_PATTERN));
+      this.preferIPv4 = cfg.getBoolean(JGROUPS_SECTION, null, PREFER_IPV4_KEY, DEFAULT_PREFER_IPV4);
+      this.clusterName = Strings.nullToEmpty(getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME));
+    }
+
+    public String skipInterfacePattern() {
+      return this.skipInterfacePattern;
+    }
+
+    public String clusterName() {
+      return this.clusterName;
+    }
+
+    public boolean preferIPv4() {
+      return this.preferIPv4;
     }
   }
 }
