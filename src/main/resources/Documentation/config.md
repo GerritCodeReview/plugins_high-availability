@@ -90,3 +90,35 @@ websession.cleanupInterval
 * y, year, years (`1 year` is treated as `365 days`)
 If a time unit suffix is not specified, `hours` is assumed.
 Defaults to 24 hours.
+
+peerInfo.strategy
+:   Which strategy to use to find other peers. Currently only 'config' or 'jgroups'
+    is allowed. Defaults to 'config'.
+* The 'config' strategy allows to staticly configure the peer gerrit instance with
+the configuration parameter peerInfo.url.
+* The 'jgroups' strategy allows that a gerrit instance automatically finds the peer
+instances by using JGroups to send multicast messages. In this case the
+configuration parameters jgroups.* are used to control the sending of the multicast
+messages. During startup each instance will propagate its address over a JGroups
+multicast channel. JGroups takes care to inform each channel member a member leaves the
+channel.
+
+jgroups.preferIPv4
+:   Whether the System property "java.net.preferIPv4Stack" should be set to true.
+    Only valid when peerInforStrategy is set to 'jgroups'. The library JGroups
+    needed for peer discovery needs this property to be set in certain environments.
+    Defaults to false.
+
+jgroups.clusterName
+:   The name of the high-availability cluster. When peer discovery is not done statically
+    (e.g. as with PluginConfigPeerInfoProvider) and peers find themself dynamically this
+    name is used to determine which instances should work together. Only those gerrit
+    instances will communicate with each other which are configured for the same clusterName.
+    Defaults to "GerritPeerDiscovery".
+
+jgroups.skipInterfacePattern
+:   A java regular expression which matches all network interfaces which should be skipped
+    for JGroups communication. When peer discovery fails it may be that the host has multiple
+    network interfaces and an inappropriate interface is choosen by JGroups.
+    Defaults to "lo\d|utun\d|awdl\d" which skips interfaces like 'lo0', 'utun0', 'awdl1'
+    which are known not to be appropriate for JGroups communication.
