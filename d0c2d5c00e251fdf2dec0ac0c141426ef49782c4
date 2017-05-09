@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f214bab2_207eefd7",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-09T16:41:47Z",
+      "side": 1,
+      "message": "Any particular reason for this version and not the most recent version?",
+      "range": {
+        "startLine": 63,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 39
+      },
+      "revId": "d0c2d5c00e251fdf2dec0ac0c141426ef49782c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02c59891_4669307c",
+        "filename": "BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-09T16:41:47Z",
+      "side": 1,
+      "message": "sources are available for jgroups, remove that so we get the sources in the IDE.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "d0c2d5c00e251fdf2dec0ac0c141426ef49782c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8d5b54_6c17e2d8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-09T16:41:47Z",
+      "side": 1,
+      "message": "These new parameters will need to be documented in config.md",
+      "revId": "d0c2d5c00e251fdf2dec0ac0c141426ef49782c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c20ed4f6_b51fce73",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-09T16:41:47Z",
+      "side": 1,
+      "message": "Shall we name this parameter clusterName instead?\n\nFrom a system administrator perspective, I am not sure I want them to know about jgroups. The system administrator should know that masters in the cluster will auto discover themselves and this parameter is to identify to which cluster they belong in case more than one cluster are on the same sub-network.",
+      "range": {
+        "startLine": 65,
+        "startChar": 40,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "d0c2d5c00e251fdf2dec0ac0c141426ef49782c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ce913eb_65a486be",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-09T16:41:47Z",
+      "side": 1,
+      "message": "Here we will need to decide if we still support the configuration of peer url (PluginConfigPeerInfoProvider) or not.\n\nIf we support both ways, we need to check the config and return proper provider accordingly.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "d0c2d5c00e251fdf2dec0ac0c141426ef49782c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
