@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "609e2ee9_57007867",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-12T15:33:08Z",
+      "side": 1,
+      "message": "auto_discovery?",
+      "range": {
+        "startLine": 61,
+        "startChar": 75,
+        "endLine": 61,
+        "endChar": 82
+      },
+      "revId": "e5a1be723239979cdfd4b0c4af661060777fabfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38d5acbf_e98736eb",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2017-05-12T08:52:51Z",
       "side": 1,
       "message": "These config options are specific for the \u0027jgroups\u0027 strategy but, unfortunately, this is not obvious from this flat list of config options. I think this is a good motivation to propose moving the plugin\u0027s configuration out of gerrit.config and into its own high-availability.config file. Having a dedicated config file we could make use of (sub)sections and express the config options dependencies in a clean way. For example:\n\n  [main]\n    sharedDirectory \u003d /shared/dir\n    peerInfoStrategy \u003d jgroups\n\n  [remotePeer]\n    strategy \u003d jgroups\n    user \u003d ...\n    password \u003d ...\n\n  [jgroups]  # used if remotePeer.strategy \u003d\u003d jgroups\n    preferIPv4 \u003d true\n    clusterName \u003d foo\n\n  [peerInfo] # used if remotePeer.strategy \u003d\u003d config\n    url \u003d https://...\n\n  [transfer]\n    connectionTimeout \u003d 1000\n    socketTimeout \u003d 2000\n\n  [retry]\n    maxTries \u003d 3\n    retryInterval \u003d 1000ms\n\n  [threadPool \"index\"]\n    size \u003d 2\n\n  [threadPool \"cache\"]\n    size \u003d 2",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "e5a1be723239979cdfd4b0c4af661060777fabfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abb53203_50414612",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-12T15:33:08Z",
+      "side": 1,
+      "message": "I like the idea to go in a dedicated config",
+      "parentUuid": "38d5acbf_e98736eb",
       "range": {
         "startLine": 65,
         "startChar": 0,
