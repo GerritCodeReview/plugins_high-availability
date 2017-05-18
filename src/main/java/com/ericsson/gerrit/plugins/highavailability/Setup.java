@@ -20,10 +20,13 @@ import com.google.common.base.Strings;
 import com.google.gerrit.common.FileUtil;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.pgm.init.api.ConsoleUI;
+import com.google.gerrit.pgm.init.api.InitFlags;
 import com.google.gerrit.pgm.init.api.InitStep;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
@@ -32,13 +35,16 @@ public class Setup implements InitStep {
 
   private final ConsoleUI ui;
   private final String pluginName;
+  private final InitFlags flags;
   private final SitePaths site;
   private FileBasedConfig config;
+  private Path sharedDir;
 
   @Inject
-  public Setup(ConsoleUI ui, @PluginName String pluginName, SitePaths site) {
+  public Setup(ConsoleUI ui, @PluginName String pluginName, InitFlags flags, SitePaths site) {
     this.ui = ui;
     this.pluginName = pluginName;
+    this.flags = flags;
     this.site = site;
   }
 
@@ -59,16 +65,21 @@ public class Setup implements InitStep {
       configureIndexSection();
       configureWebsessiosSection();
       config.save();
+      flags.cfg.setBoolean("database", "h2", "autoServer", true);
+      createHAReplicaSite();
     }
   }
 
   private void configureMainSection() {
     ui.header("Main section");
-    String sharedDir =
-        promptAndSetString("Shared directory", MAIN_SECTION, SHARED_DIRECTORY_KEY, null);
-    if (!Strings.isNullOrEmpty(sharedDir)) {
-      Path shared = site.site_path.resolve(sharedDir);
-      FileUtil.mkdirsOrDie(shared, "cannot create " + shared);
+    String sharedDirDefault = ui.isBatch() ? "shared" : null;
+    String shared =
+        promptAndSetString(
+            "Shared directory", MAIN_SECTION, SHARED_DIRECTORY_KEY, sharedDirDefault);
+    if (!Strings.isNullOrEmpty(shared)) {
+      sharedDir = Paths.get(shared);
+      Path resolved = site.site_path.resolve(sharedDir);
+      FileUtil.mkdirsOrDie(resolved, "cannot create " + resolved);
     }
   }
 
@@ -134,6 +145,22 @@ public class Setup implements InitStep {
 
   private static String str(int n) {
     return Integer.toString(n);
+  }
+
+  private void createHAReplicaSite() throws Exception {
+    if (ui.yesno(true, "Create a local HA replica site")) {
+      if (sharedDir == null) {
+        ui.message(SHARED_DIRECTORY_KEY + " not set. Cannot setup HA replica");
+        return;
+      }
+      String replicaPath = ui.readString("ha/1", "Location of the HA replica");
+      Path replica = site.site_path.resolve(Paths.get(replicaPath));
+      if (Files.exists(replica)) {
+        ui.message("%s already exists, exiting", replica);
+        return;
+      }
+      new SetupLocalHAReplica(pluginName, site, flags, sharedDir, new SitePaths(replica)).run();
+    }
   }
 
   @Override
