@@ -78,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "c8e6136a_45e4ae4e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-05-19T11:57:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d1b85da_81faf68a",
+      "range": {
+        "startLine": 58,
+        "startChar": 79,
+        "endLine": 58,
+        "endChar": 90
+      },
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1401dafb_4876f631",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
         "patchSetId": 1
@@ -101,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "a8793740_f974684c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-05-19T11:57:51Z",
+      "side": 1,
+      "message": "Yes, because internally it uses Path.resolve which will just return the provider parameter if it is an absolute path.\n\nHowever, to make this more explicit I will replace this with:\n\n  site.site_path.resolve(sharedDir)\n\nso that this code doesn\u0027t depend on non-documented semantics of SitePaths.resolve.",
+      "parentUuid": "1401dafb_4876f631",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 41
+      },
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fe6fa6b_1a01dae5",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
         "patchSetId": 1
@@ -112,6 +160,24 @@
       "writtenOn": "2017-05-19T07:22:07Z",
       "side": 1,
       "message": "For these time settings, should we mention the unit?",
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fe31397_ee908d05",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-05-19T11:57:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fe6fa6b_1a01dae5",
       "revId": "02115301810a39455e369be787d2885bad1c7530",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
