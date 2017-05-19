@@ -62,6 +62,23 @@
       "revId": "02115301810a39455e369be787d2885bad1c7530",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fe6fa6b_1a01dae5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-19T07:22:07Z",
+      "side": 1,
+      "message": "For these time settings, should we mention the unit?",
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
