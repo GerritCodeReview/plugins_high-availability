@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2880ce2a_39ddd04d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-19T01:18:25Z",
+      "side": 1,
+      "message": "if you rebase on top of https://gerrit-review.googlesource.com/#/c/107370/, you could remove hard coded configuration keys and default values by using package visible constants from Configuration class.\n\nIn order to do so, this class would need to be moved in root package com.ericsson.gerrit.plugins.highavailability, next to Configuration class.",
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d1b85da_81faf68a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-19T01:18:25Z",
+      "side": 1,
+      "message": "I think default should be null, to be consistent with default in Configuration class",
+      "range": {
+        "startLine": 58,
+        "startChar": 79,
+        "endLine": 58,
+        "endChar": 90
+      },
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1401dafb_4876f631",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-19T01:18:25Z",
+      "side": 1,
+      "message": "will this work if the sharedDirectory an absolute path outside  of review site?",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 41
+      },
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
