@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1f4ee330_3d5ff757",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-05-19T11:32:10Z",
+      "side": 1,
+      "message": "\u003e if you rebase on top of https://gerrit-review.googlesource.com/#/c/107370/,\n \u003e you could remove hard coded configuration keys and default values\n \u003e by using package visible constants from Configuration class.\n\nOK.\n\n \u003e \n \u003e In order to do so, this class would need to be moved in root\n \u003e package com.ericsson.gerrit.plugins.highavailability, next to\n \u003e Configuration class.\n\nWhy not make these constants public instead?",
+      "parentUuid": "2880ce2a_39ddd04d",
+      "revId": "02115301810a39455e369be787d2885bad1c7530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d1b85da_81faf68a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/init/Setup.java",
         "patchSetId": 1
