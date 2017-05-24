@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ee520f8_c14aa667",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-05-24T12:40:42Z",
+      "side": 1,
+      "message": "It would be more elegant if only one provider (the configured one) is instantiated and not all available implementations.\nFor example, if one wants to use the PluginconfigPeerInfoProvider, then instantiating the JGroupsPeerInfoProvider is unnecessary and may even introduce unnecessary network traffic if the JGroupsPeerInfoProvider would call some jgroups initialization code in its start method.\n\nIn general, if we keep adding more PeerInfo providers, the approach of injecting them all here will not scale nicely.\n\nWe need some guice magic to make sure that only one PeerInfo provider gets instantiated.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 60
+      },
+      "revId": "ff9abf346c8d7db540c1538901f4cb41f1f93542",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26ab7ec9_d3a3aa5f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
         "patchSetId": 3
