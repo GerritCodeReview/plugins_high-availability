@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26ab7ec9_d3a3aa5f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-05-24T11:11:17Z",
+      "side": 1,
+      "message": "missing braces",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 48
+      },
+      "revId": "ff9abf346c8d7db540c1538901f4cb41f1f93542",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
