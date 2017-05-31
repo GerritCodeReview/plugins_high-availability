@@ -14,7 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.CACHE_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.*;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.CLEANUP_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.CONNECTION_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_CLEANUP_INTERVAL_MS;
@@ -195,6 +195,24 @@ public class ConfigurationTest {
   }
 
   @Test
+  public void testGetIndexSynchronize() throws Exception {
+    when(configMock.getBoolean(INDEX_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(true);
+    initializeConfiguration();
+    assertThat(configuration.index().synchronize()).isTrue();
+
+    when(configMock.getBoolean(INDEX_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(false);
+    initializeConfiguration();
+    assertThat(configuration.index().synchronize()).isFalse();
+
+    when(configMock.getBoolean(INDEX_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenThrow(new IllegalArgumentException(ERROR_MESSAGE));
+    initializeConfiguration();
+    assertThat(configuration.index().synchronize()).isTrue();
+  }
+
+  @Test
   public void testGetCacheThreadPoolSize() throws Exception {
     initializeConfiguration();
     assertThat(configuration.cache().threadPoolSize()).isEqualTo(0);
@@ -208,6 +226,42 @@ public class ConfigurationTest {
         .thenThrow(new IllegalArgumentException(ERROR_MESSAGE));
     initializeConfiguration();
     assertThat(configuration.cache().threadPoolSize()).isEqualTo(DEFAULT_THREAD_POOL_SIZE);
+  }
+
+  @Test
+  public void testGetCacheSynchronize() throws Exception {
+    when(configMock.getBoolean(CACHE_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(true);
+    initializeConfiguration();
+    assertThat(configuration.cache().synchronize()).isTrue();
+
+    when(configMock.getBoolean(CACHE_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(false);
+    initializeConfiguration();
+    assertThat(configuration.cache().synchronize()).isFalse();
+
+    when(configMock.getBoolean(CACHE_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenThrow(new IllegalArgumentException(ERROR_MESSAGE));
+    initializeConfiguration();
+    assertThat(configuration.cache().synchronize()).isTrue();
+  }
+
+  @Test
+  public void testGetEventSynchronize() throws Exception {
+    when(configMock.getBoolean(EVENT_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(true);
+    initializeConfiguration();
+    assertThat(configuration.event().synchronize()).isTrue();
+
+    when(configMock.getBoolean(EVENT_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(false);
+    initializeConfiguration();
+    assertThat(configuration.event().synchronize()).isFalse();
+
+    when(configMock.getBoolean(EVENT_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenThrow(new IllegalArgumentException(ERROR_MESSAGE));
+    initializeConfiguration();
+    assertThat(configuration.event().synchronize()).isTrue();
   }
 
   @Test
@@ -231,5 +285,23 @@ public class ConfigurationTest {
         .thenReturn("30 seconds");
     initializeConfiguration();
     assertThat(configuration.websession().cleanupInterval()).isEqualTo(SECONDS.toMillis(30));
+  }
+
+  @Test
+  public void testGetWebsessionSynchronize() throws Exception {
+    when(configMock.getBoolean(WEBSESSION_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(true);
+    initializeConfiguration();
+    assertThat(configuration.websession().synchronize()).isTrue();
+
+    when(configMock.getBoolean(WEBSESSION_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenReturn(false);
+    initializeConfiguration();
+    assertThat(configuration.websession().synchronize()).isFalse();
+
+    when(configMock.getBoolean(WEBSESSION_SECTION, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE))
+        .thenThrow(new IllegalArgumentException(ERROR_MESSAGE));
+    initializeConfiguration();
+    assertThat(configuration.websession().synchronize()).isTrue();
   }
 }
