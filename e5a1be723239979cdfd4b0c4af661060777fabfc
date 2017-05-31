@@ -69,6 +69,30 @@
       "revId": "e5a1be723239979cdfd4b0c4af661060777fabfc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "070a312d_0bba6be8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-05-31T23:43:05Z",
+      "side": 1,
+      "message": "FYI, I am working on dedicated config with sections",
+      "parentUuid": "abb53203_50414612",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "e5a1be723239979cdfd4b0c4af661060777fabfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
