@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c809e664_9374ad59",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-01T14:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1de68c81_82059f8a",
+      "range": {
+        "startLine": 82,
+        "startChar": 87,
+        "endLine": 82,
+        "endChar": 91
+      },
+      "revId": "d4ccd36c3dc3c87fa89537ac584f9eeb000ae09c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f85483aa_483ec40a",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-06-01T14:59:27Z",
       "side": 1,
       "message": "Errorprone is complaining about self equality.",
+      "range": {
+        "startLine": 220,
+        "startChar": 4,
+        "endLine": 220,
+        "endChar": 43
+      },
+      "revId": "d4ccd36c3dc3c87fa89537ac584f9eeb000ae09c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f10e7097_327ee2d6",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-01T14:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f85483aa_483ec40a",
       "range": {
         "startLine": 220,
         "startChar": 4,
