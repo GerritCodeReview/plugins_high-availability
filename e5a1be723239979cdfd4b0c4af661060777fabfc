@@ -93,6 +93,30 @@
       "revId": "e5a1be723239979cdfd4b0c4af661060777fabfc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9493c6b_5ff46a3f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-01T18:56:10Z",
+      "side": 1,
+      "message": "Done in https://gerrit-review.googlesource.com/#/c/108497/",
+      "parentUuid": "070a312d_0bba6be8",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "e5a1be723239979cdfd4b0c4af661060777fabfc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
