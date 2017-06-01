@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2babe280_266a5ae1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-01T01:06:15Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 9,
+        "startChar": 67,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "7c372e260df89079f1a99a7068abf70bd75711b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f80a16_36075f1d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-01T01:06:15Z",
+      "side": 1,
+      "message": "Exception.  We typically don\u0027t declare specific exception types in test methods.",
+      "range": {
+        "startLine": 209,
+        "startChar": 74,
+        "endLine": 209,
+        "endChar": 85
+      },
+      "revId": "7c372e260df89079f1a99a7068abf70bd75711b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9270e46e_0db355f8",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-01T01:06:15Z",
+      "side": 1,
+      "message": "Unrelated to this change, but if the test expects IOException it probably shouldn\u0027t declare it as being thrown.\n\nSee also the other comment about declaring only Exception in test methods.",
+      "range": {
+        "startLine": 56,
+        "startChar": 75,
+        "endLine": 56,
+        "endChar": 94
+      },
+      "revId": "7c372e260df89079f1a99a7068abf70bd75711b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
