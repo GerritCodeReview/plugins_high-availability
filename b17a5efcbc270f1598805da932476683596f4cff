@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f9aca6e_ffda8043",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-01T12:29:16Z",
+      "side": 1,
+      "message": "Make this more specific?\n\ni.e. \"Cache thread pool size\"?\n\nOr is it already obvious when it\u0027s under the \"Cache section\" header?",
+      "range": {
+        "startLine": 97,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "b17a5efcbc270f1598805da932476683596f4cff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6f2ff3_8ed65409",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-01T12:29:16Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 26
+      },
+      "revId": "b17a5efcbc270f1598805da932476683596f4cff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45720e52_dd27de64",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-01T12:29:16Z",
+      "side": 1,
+      "message": "Or:\n\n return (a \u003d\u003d null \u0026\u0026 b \u003d\u003d null) || (a !\u003d null \u0026\u0026 a.equals(b));",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 130,
+        "endChar": 36
+      },
+      "revId": "b17a5efcbc270f1598805da932476683596f4cff",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
