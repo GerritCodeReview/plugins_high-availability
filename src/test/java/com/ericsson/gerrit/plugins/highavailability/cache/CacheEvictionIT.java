@@ -27,20 +27,19 @@ import com.github.tomakehurst.wiremock.http.Request;
 import com.github.tomakehurst.wiremock.http.RequestListener;
 import com.github.tomakehurst.wiremock.http.Response;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.google.gerrit.acceptance.GerritConfig;
+import com.google.gerrit.acceptance.GlobalPluginConfig;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.TestPlugin;
+import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
-@Ignore
 @NoHttpd
 @UseSsh
 @TestPlugin(
@@ -55,10 +54,19 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
   @Rule public WireMockRule wireMockRule = new WireMockRule(options().port(PORT), false);
 
   @Test
-  @GerritConfig(name = "plugin.high-availability.url", value = URL)
-  @GerritConfig(name = "plugin.high-availability.user", value = "admin")
-  @GerritConfig(name = "plugin.high-availability.cacheThreadPoolSize", value = "10")
-  @GerritConfig(name = "plugin.high-availability.sharedDirectory", value = "directory")
+  @UseLocalDisk
+  @GlobalPluginConfig(pluginName = "high-availability", name = "peerInfo.url", value = URL)
+  @GlobalPluginConfig(pluginName = "high-availability", name = "http.user", value = "admin")
+  @GlobalPluginConfig(
+    pluginName = "high-availability",
+    name = "cache.cacheThreadPoolSize",
+    value = "10"
+  )
+  @GlobalPluginConfig(
+    pluginName = "high-availability",
+    name = "main.sharedDirectory",
+    value = "directory"
+  )
   public void flushAndSendPost() throws Exception {
     final String flushRequest = "/plugins/high-availability/cache/" + Constants.PROJECT_LIST;
     final CyclicBarrier checkPoint = new CyclicBarrier(2);
