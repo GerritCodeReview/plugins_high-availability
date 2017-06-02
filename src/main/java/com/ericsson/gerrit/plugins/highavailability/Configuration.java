@@ -33,17 +33,17 @@ import org.slf4j.LoggerFactory;
 public class Configuration {
   private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 
-  static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
-  static final String URL_KEY = "url";
-  static final String USER_KEY = "user";
-  static final String PASSWORD_KEY = "password";
-  static final String CONNECTION_TIMEOUT_KEY = "connectionTimeout";
-  static final String SOCKET_TIMEOUT_KEY = "socketTimeout";
-  static final String MAX_TRIES_KEY = "maxTries";
-  static final String RETRY_INTERVAL_KEY = "retryInterval";
-  static final String INDEX_THREAD_POOL_SIZE_KEY = "indexThreadPoolSize";
-  static final String CACHE_THREAD_POOL_SIZE_KEY = "cacheThreadPoolSize";
-  static final String CLEANUP_INTERVAL_KEY = "cleanupInterval";
+  public static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
+  public static final String URL_KEY = "url";
+  public static final String USER_KEY = "user";
+  public static final String PASSWORD_KEY = "password";
+  public static final String CONNECTION_TIMEOUT_KEY = "connectionTimeout";
+  public static final String SOCKET_TIMEOUT_KEY = "socketTimeout";
+  public static final String MAX_TRIES_KEY = "maxTries";
+  public static final String RETRY_INTERVAL_KEY = "retryInterval";
+  public static final String INDEX_THREAD_POOL_SIZE_KEY = "indexThreadPoolSize";
+  public static final String CACHE_THREAD_POOL_SIZE_KEY = "cacheThreadPoolSize";
+  public static final String CLEANUP_INTERVAL_KEY = "cleanupInterval";
 
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 5;
