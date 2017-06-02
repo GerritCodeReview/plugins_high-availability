@@ -27,8 +27,8 @@ import com.github.tomakehurst.wiremock.http.RequestListener;
 import com.github.tomakehurst.wiremock.http.Response;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.common.base.Throwables;
-import com.google.gerrit.acceptance.GerritConfig;
-import com.google.gerrit.acceptance.GerritConfigs;
+import com.google.gerrit.acceptance.GerritPluginConfig;
+import com.google.gerrit.acceptance.GerritPluginConfigs;
 import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.PluginDaemonTest;
 import java.util.concurrent.BrokenBarrierException;
@@ -44,11 +44,11 @@ public class CacheEvictionIT extends PluginDaemonTest {
   @Rule public WireMockRule wireMockRule = new WireMockRule(options().port(18888), false);
 
   @Test
-  @GerritConfigs({
-    @GerritConfig(name = "plugin.high-availability.url", value = "http://localhost:18888"),
-    @GerritConfig(name = "plugin.high-availability.user", value = "admin"),
-    @GerritConfig(name = "plugin.high-availability.cacheThreadPoolSize", value = "10"),
-    @GerritConfig(name = "plugin.high-availability.sharedDirectory", value = "directory")
+  @GerritPluginConfigs({
+    @GerritPluginConfig(pluginName = "high-availability", name = "peerInfo.url", value = "http://localhost:18888"),
+    @GerritPluginConfig(pluginName = "high-availability", name = "http.user", value = "admin"),
+    @GerritPluginConfig(pluginName = "high-availability", name = "cache.cacheThreadPoolSize", value = "10"),
+    @GerritPluginConfig(pluginName = "high-availability", name = "main.sharedDirectory", value = "directory")
   })
   public void flushAndSendPost() throws Exception {
     final String flushRequest = "/plugins/high-availability/cache/" + Constants.PROJECT_LIST;
