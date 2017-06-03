@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "cb763829_55391882",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-03T00:53:27Z",
+      "side": 1,
+      "message": "The reason why I created a section for cache, index and eventually event, is we are working on a change to allow to disable forwarding of each:\n\n[cache]\n    synchronize \u003d true\n    threadPoolSize \u003d 2\n[event]\n    synchronize \u003d true\n[index]\n    synchronize \u003d true\n    threadPoolsize \u003d 4    \n\nFor example, index forwarding need to be disabled if elasticsearch is used.",
+      "parentUuid": "f740b8d8_47c858f3",
+      "revId": "14f6525092730c28473b12567351d29bdc66d1c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb3c091f_fe287a59",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 11
