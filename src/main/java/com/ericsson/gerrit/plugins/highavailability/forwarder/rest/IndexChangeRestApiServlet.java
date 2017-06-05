@@ -27,21 +27,17 @@ import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-class IndexChangeRestApiServlet extends HttpServlet {
+class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(IndexChangeRestApiServlet.class);
-  private static final Map<Change.Id, AtomicInteger> changeIdLocks = new HashMap<>();
 
   private final ChangeIndexer indexer;
   private final SchemaFactory<ReviewDb> schemaFactory;
@@ -86,16 +82,8 @@ class IndexChangeRestApiServlet extends HttpServlet {
     }
   }
 
-  private static void sendError(HttpServletResponse rsp, int statusCode, String message) {
-    try {
-      rsp.sendError(statusCode, message);
-    } catch (IOException e) {
-      logger.error("Failed to send error messsage: " + e.getMessage(), e);
-    }
-  }
-
   private void index(Change.Id id, String operation) throws IOException, OrmException {
-    AtomicInteger changeIdLock = getAndIncrementChangeIdLock(id);
+    AtomicInteger changeIdLock = getAndIncrementIdLock(id);
     synchronized (changeIdLock) {
       if ("index".equals(operation)) {
         try (ReviewDb db = schemaFactory.open()) {
@@ -114,26 +102,7 @@ class IndexChangeRestApiServlet extends HttpServlet {
       }
     }
     if (changeIdLock.decrementAndGet() == 0) {
-      removeChangeIdLock(id);
-    }
-  }
-
-  private AtomicInteger getAndIncrementChangeIdLock(Change.Id id) {
-    synchronized (changeIdLocks) {
-      AtomicInteger changeIdLock = changeIdLocks.get(id);
-      if (changeIdLock == null) {
-        changeIdLock = new AtomicInteger(1);
-        changeIdLocks.put(id, changeIdLock);
-      } else {
-        changeIdLock.incrementAndGet();
-      }
-      return changeIdLock;
-    }
-  }
-
-  private void removeChangeIdLock(Change.Id id) {
-    synchronized (changeIdLocks) {
-      changeIdLocks.remove(id);
+      removeIdLock(id);
     }
   }
 }
