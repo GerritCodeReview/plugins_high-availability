@@ -24,21 +24,17 @@ import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-class IndexGroupRestApiServlet extends HttpServlet {
+class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.UUID> {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(IndexGroupRestApiServlet.class);
-  private static final Map<AccountGroup.UUID, AtomicInteger> accountGroupIdLocks = new HashMap<>();
 
   private final GroupIndexer indexer;
 
@@ -67,41 +63,14 @@ class IndexGroupRestApiServlet extends HttpServlet {
     }
   }
 
-  private static void sendError(HttpServletResponse rsp, int statusCode, String message) {
-    try {
-      rsp.sendError(statusCode, message);
-    } catch (IOException e) {
-      logger.error("Failed to send error messsage: " + e.getMessage(), e);
-    }
-  }
-
   private void index(AccountGroup.UUID uuid) throws IOException {
-    AtomicInteger accountGroupIdLock = getAndIncrementAccountGroupIdLock(uuid);
+    AtomicInteger accountGroupIdLock = getAndIncrementIdLock(uuid);
     synchronized (accountGroupIdLock) {
       indexer.index(uuid);
       logger.debug("Group {} successfully indexed", uuid);
     }
     if (accountGroupIdLock.decrementAndGet() == 0) {
-      removeAccountGroupIdLock(uuid);
-    }
-  }
-
-  private AtomicInteger getAndIncrementAccountGroupIdLock(AccountGroup.UUID uuid) {
-    synchronized (accountGroupIdLocks) {
-      AtomicInteger accountGroupIdLock = accountGroupIdLocks.get(uuid);
-      if (accountGroupIdLock == null) {
-        accountGroupIdLock = new AtomicInteger(1);
-        accountGroupIdLocks.put(uuid, accountGroupIdLock);
-      } else {
-        accountGroupIdLock.incrementAndGet();
-      }
-      return accountGroupIdLock;
-    }
-  }
-
-  private void removeAccountGroupIdLock(AccountGroup.UUID uuid) {
-    synchronized (accountGroupIdLocks) {
-      accountGroupIdLocks.remove(uuid);
+      removeIdLock(uuid);
     }
   }
 }

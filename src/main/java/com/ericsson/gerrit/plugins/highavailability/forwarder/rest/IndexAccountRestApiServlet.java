@@ -24,21 +24,17 @@ import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-class IndexAccountRestApiServlet extends HttpServlet {
+class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id> {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(IndexAccountRestApiServlet.class);
-  private static final Map<Account.Id, AtomicInteger> accountIdLocks = new HashMap<>();
 
   private final AccountIndexer indexer;
 
@@ -67,41 +63,14 @@ class IndexAccountRestApiServlet extends HttpServlet {
     }
   }
 
-  private static void sendError(HttpServletResponse rsp, int statusCode, String message) {
-    try {
-      rsp.sendError(statusCode, message);
-    } catch (IOException e) {
-      logger.error("Failed to send error messsage: " + e.getMessage(), e);
-    }
-  }
-
   private void index(Account.Id id) throws IOException {
-    AtomicInteger accountIdLock = getAndIncrementAccountIdLock(id);
+    AtomicInteger accountIdLock = getAndIncrementIdLock(id);
     synchronized (accountIdLock) {
       indexer.index(id);
       logger.debug("Account {} successfully indexed", id);
     }
     if (accountIdLock.decrementAndGet() == 0) {
-      removeAccountIdLock(id);
-    }
-  }
-
-  private AtomicInteger getAndIncrementAccountIdLock(Account.Id id) {
-    synchronized (accountIdLocks) {
-      AtomicInteger accountIdLock = accountIdLocks.get(id);
-      if (accountIdLock == null) {
-        accountIdLock = new AtomicInteger(1);
-        accountIdLocks.put(id, accountIdLock);
-      } else {
-        accountIdLock.incrementAndGet();
-      }
-      return accountIdLock;
-    }
-  }
-
-  private void removeAccountIdLock(Account.Id id) {
-    synchronized (accountIdLocks) {
-      accountIdLocks.remove(id);
+      removeIdLock(id);
     }
   }
 }
