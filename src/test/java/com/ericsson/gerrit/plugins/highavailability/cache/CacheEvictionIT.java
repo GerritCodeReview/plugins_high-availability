@@ -36,9 +36,11 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
+@Ignore
 @NoHttpd
 @UseSsh
 @TestPlugin(
