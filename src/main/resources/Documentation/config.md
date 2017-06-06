@@ -50,11 +50,11 @@ http.retryInterval
 :   The interval of time in milliseconds between the subsequent auto-retries.
     When not specified, the default value is set to 1000ms.
 
-cache.cacheThreadPoolSize
+cache.threadPoolSize
 :   Maximum number of threads used to send cache evictions to the target instance.
     Defaults to 1.
 
-index.indexThreadPoolSize
+index.threadPoolSize
 :   Maximum number of threads used to send index events to the target instance.
     Defaults to 1.
 

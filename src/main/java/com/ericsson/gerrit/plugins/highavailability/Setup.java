@@ -98,7 +98,7 @@ public class Setup implements InitStep {
     promptAndSetString(
         "Cache thread pool size",
         CACHE_SECTION,
-        CACHE_THREAD_POOL_SIZE_KEY,
+        THREAD_POOL_SIZE_KEY,
         str(DEFAULT_THREAD_POOL_SIZE));
   }
 
@@ -107,7 +107,7 @@ public class Setup implements InitStep {
     promptAndSetString(
         "Index thread pool size",
         INDEX_SECTION,
-        INDEX_THREAD_POOL_SIZE_KEY,
+        THREAD_POOL_SIZE_KEY,
         str(DEFAULT_THREAD_POOL_SIZE));
   }
 
