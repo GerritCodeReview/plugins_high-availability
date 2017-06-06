@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8b13482_df132ed8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-06-06T20:43:18Z",
+      "side": 1,
+      "message": "Missing:\n\n  boolean synchronize;\n\nhere and in the Index/Event classes. I am continuing discussion about this in the predecessor change.",
+      "revId": "668b71448d24b114dc031f1e55bda764be3ec09d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
