@@ -80,6 +80,30 @@
       "revId": "14f6525092730c28473b12567351d29bdc66d1c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4652f256_83dbd563",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-06T01:37:45Z",
+      "side": 1,
+      "message": "I pushed a follow up change[1] to address this comment, If you  agree with proposal, I will squash it into this change.\n\n[1]https://gerrit-review.googlesource.com/#/c/108994/",
+      "parentUuid": "eb3c091f_fe287a59",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 25
+      },
+      "revId": "14f6525092730c28473b12567351d29bdc66d1c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
