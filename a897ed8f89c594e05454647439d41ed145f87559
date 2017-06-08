@@ -22,6 +22,30 @@
       "revId": "a897ed8f89c594e05454647439d41ed145f87559",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f3968a_7b17672c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-08T12:05:56Z",
+      "side": 1,
+      "message": "It\u0027s hard to define a default value that make sense. This directory must be accessible from both masters.",
+      "parentUuid": "694b32d4_9320ef08",
+      "range": {
+        "startLine": 131,
+        "startChar": 6,
+        "endLine": 133,
+        "endChar": 7
+      },
+      "revId": "a897ed8f89c594e05454647439d41ed145f87559",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
