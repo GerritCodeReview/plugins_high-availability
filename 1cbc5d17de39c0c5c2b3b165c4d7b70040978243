@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17eb1456_dae1a661",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-06-08T15:32:32Z",
+      "side": 1,
+      "message": "This is probably not a good name for a base class of the Cache/Event/Index subclasses.\nThe intention is to keep common set of fields in the base class but it is named after the first field defined here. As soon as we add a second common field, the name of this class will be wrong?\nMaybe, name it Propagation or Forwarding.\n\nAnyway, I would also leave out the \"Section\" suffix as it is not used in any other classes here which represent a section.",
+      "range": {
+        "startLine": 221,
+        "startChar": 31,
+        "endLine": 221,
+        "endChar": 49
+      },
+      "revId": "1cbc5d17de39c0c5c2b3b165c4d7b70040978243",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03deeb6c_71493176",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-06-08T15:32:32Z",
+      "side": 1,
+      "message": "For me this order of words sound more natural:\n\n  Whether or not to synchronize the cache evictions\n\nbut I would just leave the \"or not\" out so that the text is:\n\n  Whether to synchronize the cache evictions",
+      "revId": "1cbc5d17de39c0c5c2b3b165c4d7b70040978243",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
