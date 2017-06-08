@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f741d1cc_eb6abdb6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-08T12:06:03Z",
+      "side": 1,
+      "message": "nit: space after",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 10
+      },
+      "revId": "dc6e7c9500d87dd410f539eb26e31177f76fd7a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d548e54_c4e3899d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-08T12:06:03Z",
+      "side": 1,
+      "message": "\"Failed to\"\n\nbut it see it\u0027s also like that at L133, so maybe leave it and clean up both in a separate commit?",
+      "range": {
+        "startLine": 143,
+        "startChar": 17,
+        "endLine": 143,
+        "endChar": 23
+      },
+      "revId": "dc6e7c9500d87dd410f539eb26e31177f76fd7a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "193bb222_fd281e77",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-08T12:06:03Z",
+      "side": 1,
+      "message": "not related to this change, but should these indentations be done with tab?",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 4
+      },
+      "revId": "dc6e7c9500d87dd410f539eb26e31177f76fd7a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
