@@ -77,52 +77,52 @@ public class Configuration {
   static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
   static final boolean DEFAULT_SYNCHRONIZE = true;
 
-  private final Main main;
-  private final PeerInfo peerInfo;
-  private final Http http;
-  private final Cache cache;
-  private final Event event;
-  private final Index index;
-  private final Websession websession;
+  private final MainSection mainSection;
+  private final PeerInfoSection peerInfoSection;
+  private final HttpSection httpSection;
+  private final CacheSection cacheSection;
+  private final EventSection eventSection;
+  private final IndexSection indexSection;
+  private final WebsessionSection websessionSection;
 
   @Inject
   Configuration(PluginConfigFactory pluginConfigFactory, @PluginName String pluginName) {
     Config cfg = pluginConfigFactory.getGlobalPluginConfig(pluginName);
-    main = new Main(cfg);
-    peerInfo = new PeerInfo(cfg);
-    http = new Http(cfg);
-    cache = new Cache(cfg);
-    event = new Event(cfg);
-    index = new Index(cfg);
-    websession = new Websession(cfg);
+    mainSection = new MainSection(cfg);
+    peerInfoSection = new PeerInfoSection(cfg);
+    httpSection = new HttpSection(cfg);
+    cacheSection = new CacheSection(cfg);
+    eventSection = new EventSection(cfg);
+    indexSection = new IndexSection(cfg);
+    websessionSection = new WebsessionSection(cfg);
   }
 
-  public Main main() {
-    return main;
+  public MainSection main() {
+    return mainSection;
   }
 
-  public PeerInfo peerInfo() {
-    return peerInfo;
+  public PeerInfoSection peerInfo() {
+    return peerInfoSection;
   }
 
-  public Http http() {
-    return http;
+  public HttpSection http() {
+    return httpSection;
   }
 
-  public Cache cache() {
-    return cache;
+  public CacheSection cache() {
+    return cacheSection;
   }
 
-  public Event event() {
-    return event;
+  public EventSection event() {
+    return eventSection;
   }
 
-  public Index index() {
-    return index;
+  public IndexSection index() {
+    return indexSection;
   }
 
-  public Websession websession() {
-    return websession;
+  public WebsessionSection websession() {
+    return websessionSection;
   }
 
   private static int getInt(Config cfg, String section, String name, int defaultValue) {
@@ -145,10 +145,10 @@ public class Configuration {
     }
   }
 
-  public static class Main {
+  public static class MainSection {
     private final String sharedDirectory;
 
-    private Main(Config cfg) {
+    private MainSection(Config cfg) {
       sharedDirectory =
           Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (sharedDirectory == null) {
@@ -161,10 +161,10 @@ public class Configuration {
     }
   }
 
-  public static class PeerInfo {
+  public static class PeerInfoSection {
     private final String url;
 
-    private PeerInfo(Config cfg) {
+    private PeerInfoSection(Config cfg) {
       url =
           CharMatcher.is('/')
               .trimTrailingFrom(
@@ -176,7 +176,7 @@ public class Configuration {
     }
   }
 
-  public static class Http {
+  public static class HttpSection {
     private final String user;
     private final String password;
     private final int connectionTimeout;
@@ -184,7 +184,7 @@ public class Configuration {
     private final int maxTries;
     private final int retryInterval;
 
-    private Http(Config cfg) {
+    private HttpSection(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
       connectionTimeout = getInt(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
@@ -230,10 +230,10 @@ public class Configuration {
     }
   }
 
-  public static class Cache extends SynchronizeSection {
+  public static class CacheSection extends SynchronizeSection {
     private final int threadPoolSize;
 
-    private Cache(Config cfg) {
+    private CacheSection(Config cfg) {
       super(cfg, CACHE_SECTION);
       threadPoolSize = getInt(cfg, CACHE_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
     }
@@ -243,16 +243,16 @@ public class Configuration {
     }
   }
 
-  public static class Event extends SynchronizeSection {
-    private Event(Config cfg) {
+  public static class EventSection extends SynchronizeSection {
+    private EventSection(Config cfg) {
       super(cfg, EVENT_SECTION);
     }
   }
 
-  public static class Index extends SynchronizeSection {
+  public static class IndexSection extends SynchronizeSection {
     private final int threadPoolSize;
 
-    private Index(Config cfg) {
+    private IndexSection(Config cfg) {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
     }
@@ -262,10 +262,10 @@ public class Configuration {
     }
   }
 
-  public static class Websession extends SynchronizeSection {
+  public static class WebsessionSection extends SynchronizeSection {
     private final long cleanupInterval;
 
-    private Websession(Config cfg) {
+    private WebsessionSection(Config cfg) {
       super(cfg, WEBSESSION_SECTION);
       this.cleanupInterval =
           ConfigUtil.getTimeUnit(
