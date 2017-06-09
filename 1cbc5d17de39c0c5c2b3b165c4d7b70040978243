@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5eefaa6b_0301d18f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-09T13:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17eb1456_dae1a661",
+      "range": {
+        "startLine": 221,
+        "startChar": 31,
+        "endLine": 221,
+        "endChar": 49
+      },
+      "revId": "1cbc5d17de39c0c5c2b3b165c4d7b70040978243",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03deeb6c_71493176",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2017-06-08T15:32:32Z",
       "side": 1,
       "message": "For me this order of words sound more natural:\n\n  Whether or not to synchronize the cache evictions\n\nbut I would just leave the \"or not\" out so that the text is:\n\n  Whether to synchronize the cache evictions",
+      "revId": "1cbc5d17de39c0c5c2b3b165c4d7b70040978243",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3313d75_e3d4e765",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-09T13:08:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03deeb6c_71493176",
       "revId": "1cbc5d17de39c0c5c2b3b165c4d7b70040978243",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
