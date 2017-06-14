@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8891abe0_6d047b40",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-14T07:22:33Z",
+      "side": 1,
+      "message": "The default should be one of the allowed values; \u0027config\u0027 or \u0027jgroups\u0027.",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "a9d6769d5e7a31fa3aa3c94a5058083e5a88a6f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1856f16_d39ab563",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-14T07:22:33Z",
+      "side": 1,
+      "message": "configured",
+      "range": {
+        "startLine": 75,
+        "startChar": 56,
+        "endLine": 75,
+        "endChar": 65
+      },
+      "revId": "a9d6769d5e7a31fa3aa3c94a5058083e5a88a6f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e96b199_546f802f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-14T07:22:33Z",
+      "side": 1,
+      "message": "instances",
+      "range": {
+        "startLine": 75,
+        "startChar": 4,
+        "endLine": 75,
+        "endChar": 12
+      },
+      "revId": "a9d6769d5e7a31fa3aa3c94a5058083e5a88a6f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6751b416_33a9576c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-06-14T07:22:33Z",
+      "side": 1,
+      "message": "enclose in quote?",
+      "range": {
+        "startLine": 76,
+        "startChar": 16,
+        "endLine": 76,
+        "endChar": 35
+      },
+      "revId": "a9d6769d5e7a31fa3aa3c94a5058083e5a88a6f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
