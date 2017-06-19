@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6afdc21f_77c10d48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-19T14:10:48Z",
+      "side": 1,
+      "message": "I was almost sure I forced the main.sharedDirectory to be an absolute path.\n\nMaybe I just thought of implementing this or I did implement it I and dropped it by mistake in one of the refactoring I did.\n\nAnyway...Does it make sense to resolve this from the review_site? This folder need to be shared by both instance and even if you have 2 instances on the same machine, they will each have their own review_site.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 25
+      },
+      "revId": "2cb93e15760fc288548e65ccccbd9a131ca4509f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
