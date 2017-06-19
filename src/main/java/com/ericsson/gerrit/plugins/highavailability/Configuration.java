@@ -17,11 +17,15 @@ package com.ericsson.gerrit.plugins.highavailability;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 import com.google.inject.ProvisionException;
 import com.google.inject.Singleton;
@@ -86,9 +90,11 @@ public class Configuration {
   private final Websession websession;
 
   @Inject
-  Configuration(PluginConfigFactory pluginConfigFactory, @PluginName String pluginName) {
+  Configuration(PluginConfigFactory pluginConfigFactory,
+      @PluginName String pluginName,
+      SitePaths site) {
     Config cfg = pluginConfigFactory.getGlobalPluginConfig(pluginName);
-    main = new Main(cfg);
+    main = new Main(site, cfg);
     peerInfo = new PeerInfo(cfg);
     http = new Http(cfg);
     cache = new Cache(cfg);
@@ -146,17 +152,23 @@ public class Configuration {
   }
 
   public static class Main {
-    private final String sharedDirectory;
+    private final Path sharedDirectory;
 
-    private Main(Config cfg) {
-      sharedDirectory =
+    private Main(SitePaths site, Config cfg) {
+      String shared =
           Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
-      if (sharedDirectory == null) {
+      if (shared == null) {
         throw new ProvisionException(SHARED_DIRECTORY_KEY + " must be configured");
+      }
+      Path p = Paths.get(shared);
+      if (p.isAbsolute()) {
+        sharedDirectory = p;
+      } else {
+        sharedDirectory = site.resolve(shared);
       }
     }
 
-    public String sharedDirectory() {
+    public Path sharedDirectory() {
       return sharedDirectory;
     }
   }
