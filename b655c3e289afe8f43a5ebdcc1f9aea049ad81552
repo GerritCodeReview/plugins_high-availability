@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22f74027_41d12bc4",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-06-20T07:48:04Z",
+      "side": 1,
+      "message": "Shall we use the PathSubject as suggested in the commit message of the merged change? Or do you want to first finish this merge and then fix asserts?",
+      "revId": "b655c3e289afe8f43a5ebdcc1f9aea049ad81552",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
