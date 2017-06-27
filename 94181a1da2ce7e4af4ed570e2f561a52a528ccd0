@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30463fdf_c505abdf",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-06-27T15:36:52Z",
+      "side": 1,
+      "message": "Move this in a constant of Configuration class that make same default there, otherwise default is null when ready configuration but default is different in batch init.\n\nUpdate the documentation to reflect that new default.",
+      "range": {
+        "startLine": 75,
+        "startChar": 46,
+        "endLine": 75,
+        "endChar": 52
+      },
+      "revId": "94181a1da2ce7e4af4ed570e2f561a52a528ccd0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
