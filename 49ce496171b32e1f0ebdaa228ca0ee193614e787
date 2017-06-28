@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1be778a2_7a97ef56",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-06-28T15:58:38Z",
+      "side": 1,
+      "message": "This must not be hardcoded and not here. This is probably a left-over from an experiment which I forgot to delete.",
+      "revId": "49ce496171b32e1f0ebdaa228ca0ee193614e787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
