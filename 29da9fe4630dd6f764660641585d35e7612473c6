@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d114699_e722eb2b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-07-03T15:51:36Z",
+      "side": 1,
+      "message": "its",
+      "range": {
+        "startLine": 47,
+        "startChar": 3,
+        "endLine": 47,
+        "endChar": 6
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aa01b05_6f63afd0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-07-03T15:51:36Z",
+      "side": 1,
+      "message": "which",
+      "range": {
+        "startLine": 49,
+        "startChar": 49,
+        "endLine": 49,
+        "endChar": 52
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b326ecb_fce63dfc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-07-03T15:51:36Z",
+      "side": 1,
+      "message": "which",
+      "range": {
+        "startLine": 50,
+        "startChar": 49,
+        "endLine": 50,
+        "endChar": 52
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c611dc24_a5bed301",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-07-03T15:51:36Z",
+      "side": 1,
+      "message": "continue to return",
+      "range": {
+        "startLine": 51,
+        "startChar": 27,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ee33acc_9ee57ad5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-07-03T15:51:36Z",
+      "side": 1,
+      "message": "Supported strategies are \u0027config\u0027 or \u0027jgroups\u0027. \n\nexplain these two strategies, what does \u0027config\u0027 or \u0027jgroups\u0027 mean ?",
+      "range": {
+        "startLine": 95,
+        "startChar": 47,
+        "endLine": 96,
+        "endChar": 15
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
