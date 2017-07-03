@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "110b70bd_373f387c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-03T08:34:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "528e4a47_11565b5a",
+      "revId": "a6127add13ba2d6f3fe9d44ce0266e9f01a33840",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32a7402b_80242b0c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fa37f656_5967261e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-03T08:34:15Z",
+      "side": 1,
+      "message": "Done. The next patchset is formatted with google format",
+      "parentUuid": "32a7402b_80242b0c",
+      "revId": "a6127add13ba2d6f3fe9d44ce0266e9f01a33840",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc0c703_a59c8263",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 7
@@ -47,6 +83,30 @@
       "writtenOn": "2017-06-30T20:39:54Z",
       "side": 1,
       "message": "remove\n\nOther code in this file also doesn\u0027t follow this coding style",
+      "range": {
+        "startLine": 346,
+        "startChar": 13,
+        "endLine": 346,
+        "endChar": 18
+      },
+      "revId": "a6127add13ba2d6f3fe9d44ce0266e9f01a33840",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "276f1b2e_513c0dee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-03T08:34:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc0c703_a59c8263",
       "range": {
         "startLine": 346,
         "startChar": 13,
