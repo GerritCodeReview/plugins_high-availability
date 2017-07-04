@@ -305,6 +305,30 @@
       "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907b0a0c_727327b9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-04T13:19:08Z",
+      "side": 1,
+      "message": "I\u0027ll rephrase the second sentence. But the explanation was already done in PS9",
+      "parentUuid": "d4cc50b9_da3ac0a7",
+      "range": {
+        "startLine": 95,
+        "startChar": 47,
+        "endLine": 96,
+        "endChar": 15
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
