@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "71690c85_111eb8b0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-07-04T11:27:09Z",
+      "side": 1,
+      "message": "no need to extend Forwarding section, you do not need the \"synchronize\" option in the JGroups Section",
+      "range": {
+        "startLine": 337,
+        "startChar": 30,
+        "endLine": 337,
+        "endChar": 48
+      },
+      "revId": "29da9fe4630dd6f764660641585d35e7612473c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d114699_e722eb2b",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 8
