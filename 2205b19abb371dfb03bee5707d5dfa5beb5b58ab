@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b8d52fb_a6831d84",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "subsection\n\nJGit\u0027s Config also names this parameter subsection.",
+      "range": {
+        "startLine": 173,
+        "startChar": 69,
+        "endLine": 173,
+        "endChar": 83
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca08a0c1_4c283f40",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "This method is only used to get the peer info strategy which is an enum.\nJGit\u0027s Config class already has support for enums (getEnum method) and I would propose to make use of it. Name this method getPeerInfoStrategy and return the concrete enum type:\n\n\n  private static PeerInfoStrategy getPeerInfoStrategy(Config cfg, String section, String subSectionName, String name,\n      PeerInfoStrategy defaultValue) {\n    return cfg.getEnum(section, subSectionName, name, defaultValue);\n  }",
+      "range": {
+        "startLine": 173,
+        "startChar": 24,
+        "endLine": 173,
+        "endChar": 33
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8959c02_ac0efe52",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "Assuming my previous proposal about this method is accepted this becomes just:\n\n        strategy \u003d getPeerInfoStrategy(cfg, PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.CONFIG);\n\nThe the rest of this method can be deleted.",
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ef7fa50_fce1c379",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "This is redundant, remove it.",
+      "range": {
+        "startLine": 218,
+        "startChar": 44,
+        "endLine": 218,
+        "endChar": 68
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a856fbc_8115b419",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "The whole catch block can be removed.",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 7
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e02e92b_9685368a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "Delete. This initialization happens by default.\n\nSame for the following two lines.",
+      "range": {
+        "startLine": 338,
+        "startChar": 39,
+        "endLine": 338,
+        "endChar": 46
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cecc4e17_29128137",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "Why do we need a Map here if there is at most one remote peer?",
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24dc6c6b_7d3d4346",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "delete default initialization",
+      "range": {
+        "startLine": 61,
+        "startChar": 30,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75206ff0_af411ec6",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "In this file we already use double quotes and back-ticks for highlighting text fragments. Unless there is a good reason to use single quotes here, stay consistent with what we already have.",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 7
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3510863_c3fe96ec",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "instance\n\nWe support only one peer node.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "269192f2_83126fe0",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "Need to be quoted: \"jgroups.*\" or `jgroups.*`",
+      "range": {
+        "startLine": 101,
+        "startChar": 25,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "221ccb85_6f76b460",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "advertise?",
+      "range": {
+        "startLine": 102,
+        "startChar": 44,
+        "endLine": 102,
+        "endChar": 53
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5545d5b6_b11c2096",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "when a",
+      "range": {
+        "startLine": 103,
+        "startChar": 68,
+        "endLine": 103,
+        "endChar": 69
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34a7c2a7_cc120568",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "Can you link to the relevant JGroups documentation?",
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b2ce15_364f3315",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "When peers discover themselves dynamically",
+      "range": {
+        "startLine": 113,
+        "startChar": 47,
+        "endLine": 114,
+        "endChar": 83
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26ccf948_f49d4984",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-05T13:46:29Z",
+      "side": 1,
+      "message": "This value doesn\u0027t match nicely with the option name \"clusterName\".\nI know that, internally, this is actually JGroups channel name. While \"GerritPeerDiscovery\" is a good channel name it is not really a good cluster name. Some proposals: GerritHA, GerritHACluster, HA",
+      "range": {
+        "startLine": 117,
+        "startChar": 17,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
