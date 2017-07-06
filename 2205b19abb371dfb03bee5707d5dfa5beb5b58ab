@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "6547b262_19ae2d71",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "I use getEnum() now when I read the strategy. Done. But this getString() was used in more places in the JGroups class. So I still need this method.",
+      "parentUuid": "ca08a0c1_4c283f40",
+      "range": {
+        "startLine": 173,
+        "startChar": 24,
+        "endLine": 173,
+        "endChar": 33
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "910474ea_4330682f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8d52fb_a6831d84",
+      "range": {
+        "startLine": 173,
+        "startChar": 69,
+        "endLine": 173,
+        "endChar": 83
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8959c02_ac0efe52",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 10
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "58c50e36_46d55794",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8959c02_ac0efe52",
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ef7fa50_fce1c379",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 10
@@ -76,6 +142,30 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "This is redundant, remove it.",
+      "range": {
+        "startLine": 218,
+        "startChar": 44,
+        "endLine": 218,
+        "endChar": 68
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24e3ff6c_63bf4263",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ef7fa50_fce1c379",
       "range": {
         "startLine": 218,
         "startChar": 44,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "8cc83189_b852ce61",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Also the modified code has a try/catch block. Also getEnum() will trow a runtime exception when the string in the config doesn\u0027t match to enum value. The default is only taken when the key can\u0027t be found at all in the configs.",
+      "parentUuid": "2a856fbc_8115b419",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 7
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e02e92b_9685368a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 10
@@ -122,6 +236,30 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "Delete. This initialization happens by default.\n\nSame for the following two lines.",
+      "range": {
+        "startLine": 338,
+        "startChar": 39,
+        "endLine": 338,
+        "endChar": 46
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f1e19e8_c21f6536",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e02e92b_9685368a",
       "range": {
         "startLine": 338,
         "startChar": 39,
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "76ea8fe0_766e9821",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Not needed anymore. You are right.",
+      "parentUuid": "cecc4e17_29128137",
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24dc6c6b_7d3d4346",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 10
@@ -162,6 +318,30 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "delete default initialization",
+      "range": {
+        "startLine": 61,
+        "startChar": 30,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfcdd840_bbec8a00",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24dc6c6b_7d3d4346",
       "range": {
         "startLine": 61,
         "startChar": 30,
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "f19cf2cb_5bae8940",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75206ff0_af411ec6",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 7
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3510863_c3fe96ec",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 10
@@ -208,6 +412,30 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "instance\n\nWe support only one peer node.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "567d1926_ea909623",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3510863_c3fe96ec",
       "range": {
         "startLine": 100,
         "startChar": 0,
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "5cfc8d48_37cf35dc",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "269192f2_83126fe0",
+      "range": {
+        "startLine": 101,
+        "startChar": 25,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "221ccb85_6f76b460",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 10
@@ -254,6 +506,30 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "advertise?",
+      "range": {
+        "startLine": 102,
+        "startChar": 44,
+        "endLine": 102,
+        "endChar": 53
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48616cef_1fcaba5f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "221ccb85_6f76b460",
       "range": {
         "startLine": 102,
         "startChar": 44,
@@ -289,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "d0f58e8a_cc2b51f9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5545d5b6_b11c2096",
+      "range": {
+        "startLine": 103,
+        "startChar": 68,
+        "endLine": 103,
+        "endChar": 69
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34a7c2a7_cc120568",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 10
@@ -300,6 +600,24 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "Can you link to the relevant JGroups documentation?",
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd8f4a7a_7dec61b9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34a7c2a7_cc120568",
       "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -329,6 +647,30 @@
     },
     {
       "key": {
+        "uuid": "f63c3785_3f1b8e15",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b2ce15_364f3315",
+      "range": {
+        "startLine": 113,
+        "startChar": 47,
+        "endLine": 114,
+        "endChar": 83
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ccf948_f49d4984",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 10
@@ -340,6 +682,30 @@
       "writtenOn": "2017-07-05T13:46:29Z",
       "side": 1,
       "message": "This value doesn\u0027t match nicely with the option name \"clusterName\".\nI know that, internally, this is actually JGroups channel name. While \"GerritPeerDiscovery\" is a good channel name it is not really a good cluster name. Some proposals: GerritHA, GerritHACluster, HA",
+      "range": {
+        "startLine": 117,
+        "startChar": 17,
+        "endLine": 117,
+        "endChar": 36
+      },
+      "revId": "2205b19abb371dfb03bee5707d5dfa5beb5b58ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11076e88_8b940c66",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-06T15:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26ccf948_f49d4984",
       "range": {
         "startLine": 117,
         "startChar": 17,
