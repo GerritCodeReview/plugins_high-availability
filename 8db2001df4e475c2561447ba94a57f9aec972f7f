@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d86bfb0_b070411b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-07T16:13:06Z",
+      "side": 1,
+      "message": "This code is not formatted using google-java-format",
+      "range": {
+        "startLine": 209,
+        "startChar": 15,
+        "endLine": 209,
+        "endChar": 18
+      },
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03084c25_b1732144",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-07T16:13:06Z",
+      "side": 1,
+      "message": "I am not sure if this fall-back mechanism, which assumes the default peer info strategy,\nreally brings us something. For example, an admin wants to configure \"jgroups\" strategy\nbut she makes a type and types:\n\n  [main]\n    strategy \u003d jgrups\n\nWith this fallback, the plugin will assume \"config\" strategy, which is (in this case)\nnot even configured. The plugin will load and start but it will not work.\n\nI would rather prefer that plugin fails to load in this case.",
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842582c1_83377a53",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-07T16:13:06Z",
+      "side": 1,
+      "message": "What does this mean? The peerAddress is known and a 3rd instance joins the cluster?\n\nIf my assumption is correct, we should at least log some warnings.",
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa8b5766_108d2ddf",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-07T16:13:06Z",
+      "side": 1,
+      "message": "For my understanding: how do we now that the viewAccepted was called because\nthe other peer has left the group?",
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
