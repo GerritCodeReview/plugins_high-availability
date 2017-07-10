@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e6755c20_71ea94af",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d86bfb0_b070411b",
+      "range": {
+        "startLine": 209,
+        "startChar": 15,
+        "endLine": 209,
+        "endChar": 18
+      },
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "03084c25_b1732144",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 11
@@ -36,6 +60,24 @@
       "writtenOn": "2017-07-07T16:13:06Z",
       "side": 1,
       "message": "I am not sure if this fall-back mechanism, which assumes the default peer info strategy,\nreally brings us something. For example, an admin wants to configure \"jgroups\" strategy\nbut she makes a type and types:\n\n  [main]\n    strategy \u003d jgrups\n\nWith this fallback, the plugin will assume \"config\" strategy, which is (in this case)\nnot even configured. The plugin will load and start but it will not work.\n\nI would rather prefer that plugin fails to load in this case.",
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a05b8d78_b8ca75e4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "yes, I agree. I was more thinking about the situation where nothing is configured. Configurations with typos should cause failures.",
+      "parentUuid": "03084c25_b1732144",
       "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "93b28130_f4cdbf89",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "Either a 3rd instance joins the group or the original peer is resending his data. Theoretically the PeerInfoProvider itself can handle any number of peers. But since we don\u0027t want/need this behaviour and since PeerInfoProvider anyhow only reports one peer (the first one) to the outside I\u0027ll add a warning here. Maybe it would be better to add the warning to viewAccepted() below. There you know how many peers are in the group. If the size is \u003e2 we could even throw an error. It would be bad if three peers think they are in a highavailability zone but only two are supported, or? I\u0027ll propose a new patchset",
+      "parentUuid": "842582c1_83377a53",
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa8b5766_108d2ddf",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 11
@@ -70,6 +130,24 @@
       "writtenOn": "2017-07-07T16:13:06Z",
       "side": 1,
       "message": "For my understanding: how do we now that the viewAccepted was called because\nthe other peer has left the group?",
+      "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c59d05d6_98c4034b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "you can\u0027t understand it because there is a bug in the if statement :-) There is a \u0027!\u0027 missing. It should be\n\n  if (peerAddress !\u003d null \u0026\u0026 !view.getMembers().contains(peerAddress))\n\nThen it\u0027s also clear why we know that this is called because another peer has left the group",
+      "parentUuid": "fa8b5766_108d2ddf",
       "revId": "8db2001df4e475c2561447ba94a57f9aec972f7f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true

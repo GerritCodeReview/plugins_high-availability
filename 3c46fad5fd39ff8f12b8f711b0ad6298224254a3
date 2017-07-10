@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "07a754c1_0f401096",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1893aaae_b7cd5024",
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77d52619_651b74f1",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 12
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "79cb678a_f8d85c39",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c506bc_eab91822",
+      "range": {
+        "startLine": 95,
+        "startChar": 4,
+        "endLine": 95,
+        "endChar": 45
+      },
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6cab1b4_768fc0d7",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 12
@@ -70,6 +112,30 @@
       "writtenOn": "2017-07-10T12:53:06Z",
       "side": 1,
       "message": "remove duplicate",
+      "range": {
+        "startLine": 103,
+        "startChar": 66,
+        "endLine": 103,
+        "endChar": 83
+      },
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86514fee_822ab95e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-10T13:12:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6cab1b4_768fc0d7",
       "range": {
         "startLine": 103,
         "startChar": 66,
