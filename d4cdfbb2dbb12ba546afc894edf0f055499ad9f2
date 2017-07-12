@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a95e0f14_111e41a8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "either use this. for all instance members in the constructor or for no one",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 8
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52936ed7_b25e42cd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "{} members joined jgroups channel {}.",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 97,
+        "endChar": 71
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ce0547e_feeb8d6d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "Members",
+      "range": {
+        "startLine": 97,
+        "startChar": 105,
+        "endLine": 97,
+        "endChar": 112
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edf3890e_e478d603",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "The javadoc of the viewAccepted method [1] advises against sending messages from this method:\n\n\"No long running actions, sending of messages ...\"\n\n[1] http://jgroups.org/javadoc/org/jgroups/MembershipListener.html#viewAccepted-org.jgroups.View-",
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0c59f19_f0c62bbd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "join into the previous line",
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89ef4e0e_cad0f531",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "This means that if the initial advertising (line 108) of myUrl failed (due to an intermittent network error), we will not try again to advertise myUrl.\nReloading the plugin in order to enforce a peer to again join the cluster\nand thus trigger \"viewAccepted\" seems to be the only way to recover.\nMaybe I am wrong here?\n\nIf my assumption is correct, then I think that advertising of myUrl should be a periodic task running at a fixed rate in a background thread?",
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe819ad8_53be49d7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "matches",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 21
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "921e07f9_fe6da815",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "whose?",
+      "range": {
+        "startLine": 139,
+        "startChar": 5,
+        "endLine": 139,
+        "endChar": 10
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a951475e_3ad55dfa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-12T15:42:13Z",
+      "side": 1,
+      "message": "IMO, this doesn\u0027t belong to javadoc of a method. This should rather go into the commit message.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
