@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fd56846d_7835a68f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-12T09:19:32Z",
+      "side": 1,
+      "message": "No, it is not. See the discussion on Patchset #11 JGroupsPeerInfoProvider.java#viewAccepted(View)",
+      "parentUuid": "77d52619_651b74f1",
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64c506bc_eab91822",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 12
