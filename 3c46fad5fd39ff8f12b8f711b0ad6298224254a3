@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "88309419_85ef94a1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-07-12T15:21:35Z",
+      "side": 1,
+      "message": "how does this patchset address what you said in patchset 11 ?\n\n\"If the size is \u003e2 we could even throw an error. It would be bad if three peers think they are in a highavailability zone but only two are supported, or? I\u0027ll propose a new patchset\"",
+      "parentUuid": "fd56846d_7835a68f",
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64c506bc_eab91822",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 12
