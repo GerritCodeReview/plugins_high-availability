@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73ae2de5_9746dd47",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a95e0f14_111e41a8",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 8
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52936ed7_b25e42cd",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 13
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "779c9a39_06cad37d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ce0547e_feeb8d6d",
+      "range": {
+        "startLine": 97,
+        "startChar": 105,
+        "endLine": 97,
+        "endChar": 112
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2138d579_6e029383",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52936ed7_b25e42cd",
+      "range": {
+        "startLine": 97,
+        "startChar": 13,
+        "endLine": 97,
+        "endChar": 71
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edf3890e_e478d603",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 13
@@ -82,6 +154,24 @@
       "writtenOn": "2017-07-12T15:42:13Z",
       "side": 1,
       "message": "The javadoc of the viewAccepted method [1] advises against sending messages from this method:\n\n\"No long running actions, sending of messages ...\"\n\n[1] http://jgroups.org/javadoc/org/jgroups/MembershipListener.html#viewAccepted-org.jgroups.View-",
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ca37c66_c49c7207",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Sure, but since we support only groups with two members I thought that we we can take the risk of a long running accept phase. In groups with dozens of members it can be harmful if every member can take long until he decides and until the main jgroups thread is free again to handle the protocol.\nBut you are right, maybe there are even other limitations/bugs which may occur. I\u0027ll propose execution in a new Thread. Done",
+      "parentUuid": "edf3890e_e478d603",
       "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "d92d5839_d305c08c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0c59f19_f0c62bbd",
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89ef4e0e_cad0f531",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 13
@@ -116,6 +224,24 @@
       "writtenOn": "2017-07-12T15:42:13Z",
       "side": 1,
       "message": "This means that if the initial advertising (line 108) of myUrl failed (due to an intermittent network error), we will not try again to advertise myUrl.\nReloading the plugin in order to enforce a peer to again join the cluster\nand thus trigger \"viewAccepted\" seems to be the only way to recover.\nMaybe I am wrong here?\n\nIf my assumption is correct, then I think that advertising of myUrl should be a periodic task running at a fixed rate in a background thread?",
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f39ee7f_88545222",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "I don\u0027t think that we should do it. Thats one of the basic tasks of jgroups to offer a \"reliable\" multicast. And that you can configure up to a very low level what kind of reliability you want (e.g. no message should be lost but it\u0027s ok if they reach the other side in the wrong order or if your messages get\u0027s duplicated). Thinks like making sure that messages reach the other end by sending acknowledgements and resending of messages if they are believed to be lost is a feature of JGroups. Let\u0027s configure our JGroups channel with the right quality of service instead of doing it on our own",
+      "parentUuid": "89ef4e0e_cad0f531",
       "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -168,6 +294,54 @@
     },
     {
       "key": {
+        "uuid": "d17c8cf7_5f48e656",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "921e07f9_fe6da815",
+      "range": {
+        "startLine": 139,
+        "startChar": 5,
+        "endLine": 139,
+        "endChar": 10
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b334bc17_ba6e4f87",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe819ad8_53be49d7",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 21
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a951475e_3ad55dfa",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 13
@@ -179,6 +353,30 @@
       "writtenOn": "2017-07-12T15:42:13Z",
       "side": 1,
       "message": "IMO, this doesn\u0027t belong to javadoc of a method. This should rather go into the commit message.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 43
+      },
+      "revId": "d4cdfbb2dbb12ba546afc894edf0f055499ad9f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c5b04ba_cda0d7b7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T08:38:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a951475e_3ad55dfa",
       "range": {
         "startLine": 142,
         "startChar": 0,
