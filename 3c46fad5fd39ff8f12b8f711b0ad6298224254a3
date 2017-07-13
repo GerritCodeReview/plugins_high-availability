@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "e479bb27_6ad5fdc9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-07-13T11:40:24Z",
+      "side": 1,
+      "message": "This patchset is not addressing the solution. But it was up to now not clear to me what we want: what should happen if the third instance wants to join a jgroups channel.\nDo want the the third gerrit doesn\u0027t come up or is a warning message enough",
+      "parentUuid": "88309419_85ef94a1",
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64c506bc_eab91822",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 12
