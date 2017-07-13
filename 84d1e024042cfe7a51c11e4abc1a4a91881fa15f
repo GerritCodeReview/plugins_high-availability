@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28244323_ac01be37",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-13T15:59:35Z",
+      "side": 1,
+      "message": "For my info: when is this exception thrown:\n1. when delivering the message to the other peer(s) definitely fails (after all\nconfigured retry options didn\u0027t work)\n2. when a single message sending fails?\n\nIf jgroups is configured to not loose any messages then it must be the case 1. Right?\nIf it would be case 2. then we would be responsible for retrying?",
+      "revId": "84d1e024042cfe7a51c11e4abc1a4a91881fa15f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
