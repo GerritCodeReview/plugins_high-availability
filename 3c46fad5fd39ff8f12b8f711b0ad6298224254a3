@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "beddf512_e63c8c6e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-13T15:51:33Z",
+      "side": 1,
+      "message": "I propose to address the issue of 3rd instance joining the group in a follow-up change.\n\nLet\u0027s submit this change as soon as we are sure that this will work well with 2 peers\nand then keep improving in small steps.",
+      "parentUuid": "afef55d3_1bf025fd",
+      "revId": "3c46fad5fd39ff8f12b8f711b0ad6298224254a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64c506bc_eab91822",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 12
