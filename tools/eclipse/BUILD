@@ -4,23 +4,16 @@ load("@com_googlesource_gerrit_bazlets//tools:py_binary_path.bzl", "py_binary_pa
 
 java_library(
     name = "classpath",
-    runtime_deps = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
-        "@wiremock//jar",
-        "@mockito//jar",
-        "@byte-buddy//jar",
-        "@objenesis//jar",
-        "//:high-availability__plugin",
+    runtime_deps = [
+        "//:high-availability__plugin_test_deps"
     ],
 )
 
 classpath_collector(
     name = "main_classpath_collect",
-    deps = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
-        "@wiremock//jar",
-        "@mockito//jar",
-        "@byte-buddy//jar",
-        "@objenesis//jar",
-        "//:high-availability__plugin",
+    #testonly = 1,
+    deps = [
+        "//:high-availability__plugin_test_deps"
     ],
 )
 
