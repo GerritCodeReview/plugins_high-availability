@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d2e82d9_f42286ff",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-19T13:24:09Z",
+      "side": 1,
+      "message": "e50890188cd63f79d4a8529f90024f56168f9c9a",
+      "range": {
+        "startLine": 5,
+        "startChar": 14,
+        "endLine": 5,
+        "endChar": 54
+      },
+      "revId": "23b8d755a9702308a0b52bb2d0daba1b87f07302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c04af8a2_41d7fc2f",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-19T13:24:09Z",
+      "side": 1,
+      "message": "should be commented out again",
+      "revId": "23b8d755a9702308a0b52bb2d0daba1b87f07302",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
