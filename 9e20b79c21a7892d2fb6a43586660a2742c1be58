@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b46f3bd_54e1c676",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-07-20T12:36:07Z",
+      "side": 1,
+      "message": "I need to set \"testonly \u003d 1\" for in-tree build because target \"//gerrit-acceptance-framework:lib\" is labeled as such.\n\nIf I set \"testonly \u003d 1\" on \"classpath\" and \"main_classpath_collect\" as well, it works.\n\n@Davido\nDo you think this make sense to label \"classpath\" and \"main_classpath_collect\" as testonly?\n\nOr we remove the testonly label from target \"//gerrit-acceptance-framework:lib\"?\n\nOr I abandon this change and accept the duplication?",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "9e20b79c21a7892d2fb6a43586660a2742c1be58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
