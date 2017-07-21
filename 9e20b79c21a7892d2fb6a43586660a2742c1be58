@@ -22,6 +22,30 @@
       "revId": "9e20b79c21a7892d2fb6a43586660a2742c1be58",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37fda253_ed31b6e4",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2017-07-21T03:47:33Z",
+      "side": 1,
+      "message": "\u003e @Davido\n \u003e Do you think this make sense to label \"classpath\" and\n \u003e \"main_classpath_collect\" as testonly?\n\nSure. That\u0027s was gerrit core does:\n\n  java_library(\n    name \u003d \"classpath\",\n    testonly \u003d 1,\n    runtime_deps \u003d LIBS + PGMLIBS + DEPS,\n  )",
+      "parentUuid": "1b46f3bd_54e1c676",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "9e20b79c21a7892d2fb6a43586660a2742c1be58",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
