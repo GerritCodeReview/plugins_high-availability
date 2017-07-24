@@ -46,6 +46,30 @@
       "revId": "2df26049ebcbef48db2859a804a0521d5f108dcb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae2a7e7c_67edd9f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-07-24T08:57:28Z",
+      "side": 1,
+      "message": "Thanks for clarification. If you want to support this use-case, I would rather prefer\nto make this very explicit by something like:\n\n  [main]\n    disabled \u003d true\n\nrather than relying on empty value of a mandatory configuration parameter.",
+      "parentUuid": "aa3e5474_424c07d1",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "2df26049ebcbef48db2859a804a0521d5f108dcb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
