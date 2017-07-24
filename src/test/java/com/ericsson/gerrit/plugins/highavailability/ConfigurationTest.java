@@ -41,11 +41,11 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.WEBSESS
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
-import com.google.inject.ProvisionException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -283,10 +283,11 @@ public class ConfigurationTest {
     assertEquals(configuration.main().sharedDirectory(), SHARED_DIR_PATH);
   }
 
-  @Test(expected = ProvisionException.class)
-  public void shouldThrowExceptionIfSharedDirectoryNotConfigured() throws Exception {
+  @Test
+  public void sharedDirectoryNotConfigured() throws Exception {
     when(configMock.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY)).thenReturn(null);
     initializeConfiguration();
+    assertNull(configuration.main().sharedDirectory());
   }
 
   @Test

@@ -38,19 +38,21 @@ class Module extends AbstractModule {
 
   @Override
   protected void configure() {
-    install(new ForwarderModule());
-    install(new RestForwarderModule());
+    if (config.main().sharedDirectory() != null) {
+      install(new ForwarderModule());
+      install(new RestForwarderModule());
 
-    if (config.cache().synchronize()) {
-      install(new CacheModule());
+      if (config.cache().synchronize()) {
+        install(new CacheModule());
+      }
+      if (config.event().synchronize()) {
+        install(new EventModule());
+      }
+      if (config.index().synchronize()) {
+        install(new IndexModule());
+      }
+      install(new PeerInfoModule());
     }
-    if (config.event().synchronize()) {
-      install(new EventModule());
-    }
-    if (config.index().synchronize()) {
-      install(new IndexModule());
-    }
-    install(new PeerInfoModule());
   }
 
   @Provides

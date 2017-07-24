@@ -24,7 +24,6 @@ import com.google.gerrit.server.config.ConfigUtil;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
-import com.google.inject.ProvisionException;
 import com.google.inject.Singleton;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -155,13 +154,15 @@ public class Configuration {
     private Main(SitePaths site, Config cfg) {
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (shared == null) {
-        throw new ProvisionException(SHARED_DIRECTORY_KEY + " must be configured");
-      }
-      Path p = Paths.get(shared);
-      if (p.isAbsolute()) {
-        sharedDirectory = p;
+        sharedDirectory = null;
+        log.warn(SHARED_DIRECTORY_KEY + " is not configured; plugin is inactive");
       } else {
-        sharedDirectory = site.resolve(shared);
+        Path p = Paths.get(shared);
+        if (p.isAbsolute()) {
+          sharedDirectory = p;
+        } else {
+          sharedDirectory = site.resolve(shared);
+        }
       }
     }
 
