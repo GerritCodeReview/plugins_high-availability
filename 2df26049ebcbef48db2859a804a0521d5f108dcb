@@ -22,6 +22,30 @@
       "revId": "2df26049ebcbef48db2859a804a0521d5f108dcb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3e5474_424c07d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-07-24T08:33:34Z",
+      "side": 1,
+      "message": "This is useful for the case where Gerrit is integrated into an environment where it can arbitrarily be running either in a clustered or non-clustered mode, and we don\u0027t want to introduce additional logic to conditionally add/remove the plugin.\n\nThe only real difference is that we don\u0027t end up with an exception in the server log, which can potentially cause unnecessary questions from users.",
+      "parentUuid": "20c5f6d4_1294986f",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "2df26049ebcbef48db2859a804a0521d5f108dcb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
