@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c83ccb1_db78a169",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-08-01T11:54:22Z",
+      "side": 1,
+      "message": "Use latest? c2a97a12543ce2ab59126570ca0aea163a0ee743 ?",
+      "range": {
+        "startLine": 6,
+        "startChar": 14,
+        "endLine": 6,
+        "endChar": 54
+      },
+      "revId": "d951303ec18fd892b2a01accd4d4ae2aea8ce8ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
