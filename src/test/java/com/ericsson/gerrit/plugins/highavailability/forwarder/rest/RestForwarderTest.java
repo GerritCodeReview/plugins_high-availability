@@ -249,7 +249,7 @@ public class RestForwarderTest {
   }
 
   private String buildCacheEndpoint(String name) {
-    return Joiner.on("/").join("/plugins", PLUGIN_NAME, "cache", name);
+    return Joiner.on("/").join("/plugins", PLUGIN_NAME, "cache", Constants.GERRIT, name);
   }
 
   @Test

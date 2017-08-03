@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import static com.ericsson.gerrit.plugins.highavailability.cache.Constants.GERRIT;
+
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
@@ -104,14 +106,19 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean evict(final String cacheName, final Object key) {
-    return new Request("evict for cache " + cacheName + "[" + key + "]") {
+  public boolean evict(final String pluginName, final String cacheName, final Object key) {
+    return new Request(String.format("evict for cache %s:%s[%s]", pluginName, cacheName, key)) {
       @Override
       HttpResult send() throws IOException {
         String json = GsonParser.toJson(cacheName, key);
-        return httpSession.post(Joiner.on("/").join(pluginRelativePath, "cache", cacheName), json);
+        return httpSession.post(
+            Joiner.on("/").join(pluginRelativePath, "cache", pluginName, cacheName), json);
       }
     }.execute();
+  }
+
+  public boolean evict(String cacheName, Object key) {
+    return evict(GERRIT, cacheName, key);
   }
 
   private abstract class Request {

@@ -35,9 +35,9 @@ import org.slf4j.LoggerFactory;
 
 @Singleton
 class CacheRestApiServlet extends HttpServlet {
-  private static final int CACHENAME_INDEX = 1;
+  private static final int PLUGIN_NAME_INDEX = 1;
+  private static final int CACHENAME_INDEX = 2;
   private static final long serialVersionUID = -1L;
-  private static final String GERRIT = "gerrit";
   private static final Logger logger = LoggerFactory.getLogger(CacheRestApiServlet.class);
 
   private final DynamicMap<Cache<?, ?>> cacheMap;
@@ -55,9 +55,13 @@ class CacheRestApiServlet extends HttpServlet {
     try {
       List<String> params = Splitter.on('/').splitToList(req.getPathInfo());
       String cacheName = params.get(CACHENAME_INDEX);
+      String pluginName = params.get(PLUGIN_NAME_INDEX);
       String json = req.getReader().readLine();
       Object key = GsonParser.fromJson(cacheName, json);
-      Cache<?, ?> cache = cacheMap.get(GERRIT, cacheName);
+      Cache<?, ?> cache = cacheMap.get(pluginName, cacheName);
+      if (cache == null) {
+        throw new IOException(String.format("cache %s:%s not found", pluginName, cacheName));
+      }
       Context.setForwardedEvent(true);
       evictCache(cache, cacheName, key);
       rsp.setStatus(SC_NO_CONTENT);
