@@ -45,6 +45,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean indexAccount(final int accountId) {
+    log.info("send index account: {}", accountId);
     return new Request("index account " + accountId) {
       @Override
       HttpResult send() throws IOException {
@@ -56,6 +57,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean indexChange(final int changeId) {
+    log.info("send index change: {}", changeId);
     return new Request("index change " + changeId) {
       @Override
       HttpResult send() throws IOException {
@@ -66,6 +68,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean deleteChangeFromIndex(final int changeId) {
+    log.info("send delete change: {}", changeId);
     return new Request("delete change " + changeId + " from index") {
       @Override
       HttpResult send() throws IOException {
@@ -76,6 +79,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean indexGroup(final String uuid) {
+    log.info("send index group: {}", uuid);
     return new Request("index group " + uuid) {
       @Override
       HttpResult send() throws IOException {
@@ -90,6 +94,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean send(final Event event) {
+    log.info("send event: {}", event.type);
     return new Request("send event " + event.type) {
       @Override
       HttpResult send() throws IOException {
@@ -105,7 +110,8 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean evict(final String cacheName, final Object key) {
-    return new Request("evict for cache " + cacheName + "[" + key + "]") {
+    log.info("send evict for cache {}[{}]", cacheName, key);
+    return new Request(String.format("evict for cache %s[%s]", cacheName, key)) {
       @Override
       HttpResult send() throws IOException {
         String json = GsonParser.toJson(cacheName, key);
