@@ -43,6 +43,6 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   @Override
   void index(Account.Id id, Operation operation) throws IOException {
     indexer.index(id);
-    logger.debug("Account {} successfully indexed", id);
+    logger.info("Account {} successfully indexed", id);
   }
 }
