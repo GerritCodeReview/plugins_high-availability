@@ -74,7 +74,13 @@ public class CacheRestApiServletTest {
   @Test
   public void evictGroupsMembers() throws Exception {
     configureMocksFor(Constants.GROUPS_MEMBERS);
-    servlet.doPost(request, response);
+    verifyResponseIsOK();
+  }
+
+  @Test
+  public void evictPluginCache() throws Exception {
+    configureMocksFor("my-plugin", "my-cache");
+    verifyResponseIsOK();
   }
 
   @Test
@@ -83,14 +89,9 @@ public class CacheRestApiServletTest {
     verifyResponseIsOK();
   }
 
-  private void verifyResponseIsOK() throws Exception {
-    servlet.doPost(request, response);
-    verify(response).setStatus(SC_NO_CONTENT);
-  }
-
   @Test
   public void badRequest() throws Exception {
-    when(request.getPathInfo()).thenReturn("/someCache");
+    when(request.getPathInfo()).thenReturn("/gerrit/someCache");
     String errorMessage = "someError";
     doThrow(new IOException(errorMessage)).when(request).getReader();
     servlet.doPost(request, response);
@@ -99,17 +100,26 @@ public class CacheRestApiServletTest {
 
   @Test
   public void errorWhileSendingErrorMessage() throws Exception {
-    when(request.getPathInfo()).thenReturn("/someCache");
+    when(request.getPathInfo()).thenReturn("/gerrit/someCache");
     String errorMessage = "someError";
     doThrow(new IOException(errorMessage)).when(request).getReader();
     servlet.doPost(request, response);
     verify(response).sendError(SC_BAD_REQUEST, errorMessage);
   }
 
+  private void verifyResponseIsOK() throws Exception {
+    servlet.doPost(request, response);
+    verify(response).setStatus(SC_NO_CONTENT);
+  }
+
+  private void configureMocksFor(String cacheName) throws Exception {
+    configureMocksFor(Constants.GERRIT, cacheName);
+  }
+
   @SuppressWarnings("unchecked")
-  private void configureMocksFor(String cacheName) throws IOException {
-    when(cacheMap.get("gerrit", cacheName)).thenReturn(mock(Cache.class));
-    when(request.getPathInfo()).thenReturn("/" + cacheName);
+  private void configureMocksFor(String pluginName, String cacheName) throws Exception {
+    when(cacheMap.get(pluginName, cacheName)).thenReturn(mock(Cache.class));
+    when(request.getPathInfo()).thenReturn(String.format("/%s/%s", pluginName, cacheName));
     when(request.getReader()).thenReturn(reader);
 
     if (Constants.PROJECTS.equals(cacheName)) {

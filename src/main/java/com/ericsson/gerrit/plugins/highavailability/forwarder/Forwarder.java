@@ -62,9 +62,10 @@ public interface Forwarder {
   /**
    * Forward a cache eviction event to the other master.
    *
+   * @param pluginName the name of the plugin that owns the cache, or `gerrit` for core cache.
    * @param cacheName the name of the cache to evict an entry from.
    * @param key the key identifying the entry to evict from the cache.
    * @return true if successful, otherwise false.
    */
-  boolean evict(String cacheName, Object key);
+  boolean evict(String pluginName, String cacheName, Object key);
 }

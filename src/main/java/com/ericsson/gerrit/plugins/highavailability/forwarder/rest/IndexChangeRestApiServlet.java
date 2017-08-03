@@ -57,11 +57,11 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
           }
           indexer.index(db, change);
         }
-        logger.debug("Change {} successfully indexed", id);
+        logger.info("Change {} successfully indexed", id);
         break;
       case DELETE:
         indexer.delete(id);
-        logger.debug("Change {} successfully deleted from index", id);
+        logger.info("Change {} successfully deleted from index", id);
         break;
     }
   }

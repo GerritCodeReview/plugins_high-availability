@@ -43,6 +43,6 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   @Override
   void index(AccountGroup.UUID uuid, Operation operation) throws IOException {
     indexer.index(uuid);
-    logger.debug("Group {} successfully indexed", uuid);
+    logger.info("Group {} successfully indexed", uuid);
   }
 }

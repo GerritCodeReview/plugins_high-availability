@@ -35,9 +35,9 @@ import org.slf4j.LoggerFactory;
 
 @Singleton
 class CacheRestApiServlet extends HttpServlet {
-  private static final int CACHENAME_INDEX = 1;
+  private static final int PLUGIN_NAME_INDEX = 1;
+  private static final int CACHENAME_INDEX = 2;
   private static final long serialVersionUID = -1L;
-  private static final String GERRIT = "gerrit";
   private static final Logger logger = LoggerFactory.getLogger(CacheRestApiServlet.class);
 
   private final DynamicMap<Cache<?, ?>> cacheMap;
@@ -55,12 +55,28 @@ class CacheRestApiServlet extends HttpServlet {
     try {
       List<String> params = Splitter.on('/').splitToList(req.getPathInfo());
       String cacheName = params.get(CACHENAME_INDEX);
+      String pluginName = params.get(PLUGIN_NAME_INDEX); //TODO This is always "gerrit" so just get rid of it
       String json = req.getReader().readLine();
       Object key = GsonParser.fromJson(cacheName, json);
-      Cache<?, ?> cache = cacheMap.get(GERRIT, cacheName);
-      Context.setForwardedEvent(true);
-      evictCache(cache, cacheName, key);
-      rsp.setStatus(SC_NO_CONTENT);
+      Cache<?, ?> cache;
+      int dot = cacheName.indexOf(".");
+      if (dot < 0) {
+        cache = cacheMap.get(pluginName, cacheName);
+      } else {
+        pluginName = cacheName.substring(0, dot);
+        cacheName = cacheName.substring(dot + 1);
+        logger.error(String.format("cache for plugin:%s[%s]", pluginName, cacheName));
+        cache = cacheMap.byPlugin(pluginName).get(cacheName).get();
+      }
+      if (cache == null) {
+        String msg = String.format("cache %s:%s not found", pluginName, cacheName);
+        logger.error("Failed to process eviction request: " + msg);
+        sendError(rsp, SC_BAD_REQUEST,msg);
+      } else {
+        Context.setForwardedEvent(true);
+        evictCache(cache, cacheName, key);
+        rsp.setStatus(SC_NO_CONTENT);
+      }
     } catch (IOException e) {
       logger.error("Failed to process eviction request: " + e.getMessage(), e);
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
@@ -84,6 +100,6 @@ class CacheRestApiServlet extends HttpServlet {
     } else {
       cache.invalidate(key);
     }
-    logger.debug("Invalidated " + cacheName);
+    logger.info("Invalidated " + cacheName);
   }
 }
