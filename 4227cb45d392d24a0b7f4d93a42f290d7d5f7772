@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ab71d53f_5bd3a6f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-03T20:47:45Z",
+      "side": 1,
+      "message": "Creating a new class will involve a lot of boilerplate code.  It\u0027s easier to add it here.",
+      "parentUuid": "075fd2b6_98c5183b",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "4227cb45d392d24a0b7f4d93a42f290d7d5f7772",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2192d3e3_132e46df",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 3
