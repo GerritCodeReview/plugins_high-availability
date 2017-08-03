@@ -14,8 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.cache;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -34,8 +36,12 @@ public class CachePatternMatcher {
 
   private final Pattern pattern;
 
-  CachePatternMatcher() {
-    this.pattern = Pattern.compile(Joiner.on("|").join(DEFAULT_PATTERNS));
+  @Inject
+  public CachePatternMatcher(Configuration cfg) {
+    List<String> patterns =
+        ImmutableList.of(
+            Joiner.on("|").join(DEFAULT_PATTERNS), Joiner.on("|").join(cfg.cache().getPatterns()));
+    this.pattern = Pattern.compile(Joiner.on("|").join(patterns));
   }
 
   public boolean matches(String cacheName) {
