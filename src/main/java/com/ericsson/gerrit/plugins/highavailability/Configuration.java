@@ -29,6 +29,9 @@ import com.google.inject.ProvisionException;
 import com.google.inject.Singleton;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.eclipse.jgit.lib.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +62,7 @@ public class Configuration {
 
   // cache section
   static final String CACHE_SECTION = "cache";
+  static final String PATTERN_KEY = "pattern";
 
   // event section
   static final String EVENT_SECTION = "event";
@@ -319,14 +323,20 @@ public class Configuration {
 
   public static class Cache extends Forwarding {
     private final int threadPoolSize;
+    private final List<String> patterns;
 
     private Cache(Config cfg) {
       super(cfg, CACHE_SECTION);
       threadPoolSize = getInt(cfg, CACHE_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+      patterns = Arrays.asList(cfg.getStringList(CACHE_SECTION, null, PATTERN_KEY));
     }
 
     public int threadPoolSize() {
       return threadPoolSize;
+    }
+
+    public List<String> patterns() {
+      return Collections.unmodifiableList(patterns);
     }
   }
 
