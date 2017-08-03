@@ -100,9 +100,21 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
     name = "main.sharedDirectory",
     value = "directory"
   )
+  @GlobalPluginConfig(
+    pluginName = "high-availability",
+    name = "cache.pattern",
+    values = {"^my_cache.*", "other"}
+  )
   public void matcher() throws Exception {
     assertThat(matcher).isNotNull();
-    for (String cache : ImmutableList.of("accounts_byemail", "ldap_groups", "project_list")) {
+    for (String cache :
+        ImmutableList.of(
+            "accounts_byemail",
+            "ldap_groups",
+            "project_list",
+            "my_cache_a",
+            "my_cache_b",
+            "other")) {
       assertThat(matcher.matches(cache)).isTrue();
     }
     for (String cache : ImmutableList.of("ldap_groups_by_include", "foo")) {
