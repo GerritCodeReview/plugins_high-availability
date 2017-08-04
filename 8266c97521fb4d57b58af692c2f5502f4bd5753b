@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21a3132a_7a561d9b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-04T15:19:16Z",
+      "side": 1,
+      "message": "pluginName is always \"gerrit\", not the name of the plugin that owns the cache.\n\nfor plugins, the cacheName is the plugin name and the cache name delimited with a dot, for example \"my-plugin.my-cache\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 41
+      },
+      "revId": "8266c97521fb4d57b58af692c2f5502f4bd5753b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99f0ad6a_001473a0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheRestApiServlet.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-04T15:19:16Z",
+      "side": 1,
+      "message": "I haven\u0027t tested whether this works when the pluginName.cacheName is split out from cacheName.  If it does, the code in L66-67 can be brought further up and we don\u0027t need to call cacheMap.byPlugin",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "8266c97521fb4d57b58af692c2f5502f4bd5753b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
