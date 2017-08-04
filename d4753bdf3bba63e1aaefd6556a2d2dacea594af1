@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73c8ba66_0d2bb867",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/CachePatternMatcher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-08-04T02:14:10Z",
+      "side": 1,
+      "message": "would this be easier to read?\n\nList\u003cString\u003e patterns \u003d new ArrayList\u003c\u003e(DEFAULT_PATTERNS);\npatterns.addAll(cfg.cache().getPatterns());\nthis.pattern \u003d Pattern.compile(Joiner.on(\"|\").join(patterns));",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 66
+      },
+      "revId": "d4753bdf3bba63e1aaefd6556a2d2dacea594af1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
