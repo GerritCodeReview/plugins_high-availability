@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97614047_d714ec8a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-08-04T13:56:42Z",
+      "side": 1,
+      "message": "rename this to something else to not conflict with variable that hold \"high-availability\" plugin name. cachePluginName?",
+      "range": {
+        "startLine": 46,
+        "startChar": 19,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "d40d6f65dcecaec02fc037de47f219750080ddf4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
