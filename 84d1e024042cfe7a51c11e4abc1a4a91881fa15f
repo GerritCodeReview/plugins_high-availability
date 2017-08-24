@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3e1bd9e9_60c38ce6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-24T08:17:21Z",
+      "side": 1,
+      "message": "This question is much deeper and unrelated to the jgroups usage for peer node discovery.\nYes, for a setup with N nodes, jgroups would make configuration much simpler compared to\nthe static configuration without jgroups where each node would need to know N-1 other nodes.\nWhich would mean N*(N-1) url to be configured.\n\nHowever, the whole HA plugin code assumes one peer node only.",
+      "parentUuid": "8c799c3d_e6d23241",
+      "range": {
+        "startLine": 49,
+        "startChar": 83,
+        "endLine": 51,
+        "endChar": 98
+      },
+      "revId": "84d1e024042cfe7a51c11e4abc1a4a91881fa15f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d55e6c4_c7299438",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 14
