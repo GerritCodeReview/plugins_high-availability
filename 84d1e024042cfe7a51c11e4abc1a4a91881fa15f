@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8c799c3d_e6d23241",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-24T08:09:40Z",
+      "side": 1,
+      "message": "OK, so in that case it means we still only support 2 nodes.  Thanks.\n\nIs there intention to add support in future for more than 2?",
+      "parentUuid": "64d1d149_ddd60d4f",
+      "range": {
+        "startLine": 49,
+        "startChar": 83,
+        "endLine": 51,
+        "endChar": 98
+      },
+      "revId": "84d1e024042cfe7a51c11e4abc1a4a91881fa15f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d55e6c4_c7299438",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 14
