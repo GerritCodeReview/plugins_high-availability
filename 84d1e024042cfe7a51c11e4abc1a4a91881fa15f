@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "64d1d149_ddd60d4f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-24T08:03:36Z",
+      "side": 1,
+      "message": "I think that this comment is matching the code from the PS10 and wasn\u0027t updated properly after\nI suggested not to maintain a Map of all nodes but keep only one (just look at my review comments in PS10).\n\nThe logic now is to keep only one peer node and ignore all others (joining the cluster).\nOnly when the current one leaves the cluster will this code accept the next one which joins\nas the remote peer.",
+      "parentUuid": "b26fa131_7276aef3",
+      "range": {
+        "startLine": 49,
+        "startChar": 83,
+        "endLine": 51,
+        "endChar": 98
+      },
+      "revId": "84d1e024042cfe7a51c11e4abc1a4a91881fa15f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d55e6c4_c7299438",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 14
