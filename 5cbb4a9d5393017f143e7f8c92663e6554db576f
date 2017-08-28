@@ -2,6 +2,321 @@
   "comments": [
     {
       "key": {
+        "uuid": "671d12b7_40eacd32",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "PeerInfo decides if we need this or not, so why is this object created unconditionally ?\nShouldn\u0027t PeerInfo create this only if needed ?",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f25561_1d08468c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "style nit: missing blanks around \u0027\u003d\u0027",
+      "range": {
+        "startLine": 174,
+        "startChar": 16,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ac4d8a7_ffa47865",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "why IllegalStateException [1] ? I think the definition of IllegalArgumentException [2] is a better match for this type of errors\n\n[1] https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html\n[2] https://docs.oracle.com/javase/8/docs/api/index.html?java/lang/IllegalArgumentException.html",
+      "range": {
+        "startLine": 209,
+        "startChar": 18,
+        "endLine": 209,
+        "endChar": 39
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00b954ba_02ee5161",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "fix TODO",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5065fece_79790b50",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "its",
+      "range": {
+        "startLine": 50,
+        "startChar": 60,
+        "endLine": 50,
+        "endChar": 64
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4447260b_7b5ebd86",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "mention which peer we expected ?",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "167c7bea_229d7239",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "failed",
+      "range": {
+        "startLine": 110,
+        "startChar": 61,
+        "endLine": 110,
+        "endChar": 76
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5498c6_24f2db84",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "maybe we should restore the previous configuration in stop()",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a56fec1_a9dadf64",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "joining jgroups channel {} failed",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc6b1c5b_464b4a9b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "use Optional to avoid returning null ?",
+      "range": {
+        "startLine": 140,
+        "startChar": 37,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "389871c2_80d5ee3a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "use switch ?\n\n switch (cfg.peerInfo().strategy()) {\n    case JGROUPS:\n        ...\n    case CONFIG:\n        ...\n    default:\n        ...\n }",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a6a3179_dc7d1af3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "I think this should throw IllegalArgumentException or UnsupportedOperationException",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b464437_42f23965",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "using",
+      "range": {
+        "startLine": 97,
+        "startChar": 78,
+        "endLine": 97,
+        "endChar": 82
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92fa1f82_bd3eb98e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "discovers",
+      "range": {
+        "startLine": 99,
+        "startChar": 55,
+        "endLine": 99,
+        "endChar": 74
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95399c6_829a0017",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "joins or leaves",
+      "range": {
+        "startLine": 103,
+        "startChar": 75,
+        "endLine": 103,
+        "endChar": 81
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "996ed978_d690e118",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -68,6 +383,29 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec3cc5d1_d6aa8dd2",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T07:19:17Z",
+      "side": 1,
+      "message": "Peer discovery may fail if",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 71
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     },
     {
       "key": {
