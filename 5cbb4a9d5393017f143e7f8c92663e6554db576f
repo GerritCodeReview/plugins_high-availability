@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5dfbdcc3_c4f0b769",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T09:48:31Z",
+      "side": 1,
+      "message": "\u003e PeerInfo decides if we need this or not,\n\nGood question. Actually after looking at this change again I believe that it was wrong\nto put \"strategy\" under the peerInfo section.\n\nMore about this below in my comment for the PeerInfo class.",
+      "parentUuid": "671d12b7_40eacd32",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "34f25561_1d08468c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
@@ -36,6 +54,23 @@
         "endLine": 174,
         "endChar": 17
       },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "742bb14a_c81a50f9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T09:48:31Z",
+      "side": 1,
+      "message": "This is a wrong place for the peer-info strategy. PeerInfo was used to store static URL\nof the remote peer node. Now that we want to support for config and jgroups strategies we shouldn\u0027t use the \"peerInfo\" section for configuring the strategy because this is ugly and asymmetric. For example his is how the configuration would look for the config strategy:\n\n  [peerInfo]\n    strategy \u003d config\n    url \u003d http://localhost:8081/\n\nand this is how it would look for the jgroups strategy:\n\n  [peerInfo]\n    strategy \u003d jgroups\n    # note that in this case peeInfo.url is ignored\n\n  [jgroups]\n    clusterName \u003d foo\n\nI would propose a different approach by using strategy specific subsections.\nFor the config strategy the configuration will look like this:\n\n  [peerInfo]\n    strategy \u003d config\n\n  [peerInfo \"config\"]\n    url \u003d http://localhost:8081/\n\nand for jgroups strategy it will look like this:\n\n  [peerInfo]\n    strategy \u003d jgroups\n\n  [peerInfo \"jgroups\"]\n    clusterName \u003d foo\n\n\nThis approach has another advantage that it is extensible i.e. we can add new subsections\nfor new strategies.\n\nI think we can all agree on this proposal? :-)\n\n\nFurther, I think that the \"config\" strategy name is not the best. I would rather propose to name\nit \"static\" as it is about static remote url configuration:\n\n  [peerInfo]\n    strategy \u003d static\n\n  [peerInfo \"static\"]\n    url \u003d http://localhost:8081/\n\n\nWhat do you think?",
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
