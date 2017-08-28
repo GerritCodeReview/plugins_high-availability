@@ -77,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "1a2876d3_e92cbbba",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-28T10:30:21Z",
+      "side": 1,
+      "message": "OK for me, but note that this means existing users will need to change their configs which will be using the form:\n\n [peerInfo]\n   url \u003d http://...\n\nwhich is not necessarily a huge problem because IIUC there are not many users other than me, you and Hugo.",
+      "parentUuid": "742bb14a_c81a50f9",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ac4d8a7_ffa47865",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
