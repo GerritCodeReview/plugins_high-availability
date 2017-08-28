@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "aa06af9e_43a948d7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-28T11:26:57Z",
+      "side": 1,
+      "message": "+1, I like this proposal.\nWe could migrate old-style configuration to new-style during init step",
+      "parentUuid": "1a2876d3_e92cbbba",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ac4d8a7_ffa47865",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
