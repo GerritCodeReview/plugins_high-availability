@@ -24,8 +24,8 @@ import com.google.gerrit.pgm.init.api.ConsoleUI;
 import com.google.gerrit.pgm.init.api.InitStep;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
-
 import java.nio.file.Path;
+import java.util.EnumSet;
 import java.util.Objects;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
@@ -76,7 +76,9 @@ public class Setup implements InitStep {
 
   private void configurePeerInfoSection() {
     ui.header("PeerInfo section");
-    PeerInfoStrategy strategy = ui.readEnum(PeerInfoStrategy.JGROUPS, "Peer info strategy");
+    PeerInfoStrategy strategy =
+        ui.readEnum(
+            PeerInfoStrategy.JGROUPS, EnumSet.allOf(PeerInfoStrategy.class), "Peer info strategy");
     config.setEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, strategy);
     if (strategy == PeerInfoStrategy.CONFIG) {
       promptAndSetString("Peer URL", PEER_INFO_SECTION, URL_KEY, null);
