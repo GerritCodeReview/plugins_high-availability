@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "a80db68b_f259a577",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34f25561_1d08468c",
+      "range": {
+        "startLine": 174,
+        "startChar": 16,
+        "endLine": 174,
+        "endChar": 17
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "742bb14a_c81a50f9",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
@@ -136,6 +160,53 @@
     },
     {
       "key": {
+        "uuid": "46fa1d57_a2588a35",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Actually I don\u0027t see much value in wrapping the IllegalArgumentException, thrown from the cfg.getEnum, into yet another exception. I will remove the try/catch block.",
+      "parentUuid": "9ac4d8a7_ffa47865",
+      "range": {
+        "startLine": 209,
+        "startChar": 18,
+        "endLine": 209,
+        "endChar": 39
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "254291ec_da338a56",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "This should be named PeerInfoJGroups to follow the [peerInfo \"jgroups\"] subsection name structure.",
+      "range": {
+        "startLine": 328,
+        "startChar": 22,
+        "endLine": 328,
+        "endChar": 29
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00b954ba_02ee5161",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
         "patchSetId": 15
@@ -150,6 +221,24 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1312c394_82621ea2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00b954ba_02ee5161",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "6637d983_29e7e9a5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5065fece_79790b50",
+      "range": {
+        "startLine": 50,
+        "startChar": 60,
+        "endLine": 50,
+        "endChar": 64
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4447260b_7b5ebd86",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 15
@@ -187,6 +300,24 @@
       "writtenOn": "2017-08-28T07:19:17Z",
       "side": 1,
       "message": "mention which peer we expected ?",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15ec0a2a_7f3eb315",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "\"expected\" or \"removed\"?\n\nWe don\u0027t expect any special peer here. The code here basically checks if out current remote peer\ndisconnected itself from the jgroups cluster. If yes, then we reset this.peerAddress and this.peerInfo. This makes it possible to accept a new peer (lines 78-85).",
+      "parentUuid": "4447260b_7b5ebd86",
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -216,6 +347,30 @@
     },
     {
       "key": {
+        "uuid": "bbaaba81_d2c83d3c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "167c7bea_229d7239",
+      "range": {
+        "startLine": 110,
+        "startChar": 61,
+        "endLine": 110,
+        "endChar": 76
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf5498c6_24f2db84",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 15
@@ -227,6 +382,24 @@
       "writtenOn": "2017-08-28T07:19:17Z",
       "side": 1,
       "message": "maybe we should restore the previous configuration in stop()",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d271c80_2cc19cd9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Looks like java.net.preferIPv4 is a global Java system property. Setting it from a plugin probably doesn\u0027t scale well. As soon we have two plugins setting this property we will\nlikely run into trouble.\n\nAs we discussed, we should rather just document importance of this property, but leave it to\nthe (Gerrit) admin to set the property on JVM level.",
+      "parentUuid": "bf5498c6_24f2db84",
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -256,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "2e026ac0_3ed11a18",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a56fec1_a9dadf64",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 76
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc6b1c5b_464b4a9b",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 15
@@ -279,6 +476,53 @@
     },
     {
       "key": {
+        "uuid": "3f58ee69_0d8881db",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc6b1c5b_464b4a9b",
+      "range": {
+        "startLine": 140,
+        "startChar": 37,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db68edd3_0180a39d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "This code looks buggy.\nWhy is there an early exit IPv4 but no early exist for IPv6?\n\nFor the preferIPv4\u003d\u003dfalse case, line 157 can never be reached. This means that\n\"ret\" will always be set to the last element of the inetAddresses of the last\nelement of the networkInterfaces for which code path reached line 155.\n\nSummary: for IPv4 this method returns the first appropriate address and for the IPv6\nit returns the last appropriate address.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 9
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "389871c2_80d5ee3a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
         "patchSetId": 15
@@ -293,6 +537,24 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7c7920_7cf6c4b4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "389871c2_80d5ee3a",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -319,6 +581,30 @@
     },
     {
       "key": {
+        "uuid": "9cf6711a_b0fdc727",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6a3179_dc7d1af3",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b464437_42f23965",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -342,6 +628,30 @@
     },
     {
       "key": {
+        "uuid": "3abd8330_e6adc20c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b464437_42f23965",
+      "range": {
+        "startLine": 97,
+        "startChar": 78,
+        "endLine": 97,
+        "endChar": 82
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92fa1f82_bd3eb98e",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -362,6 +672,30 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1a0e35e_2bc6e2a3",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92fa1f82_bd3eb98e",
+      "range": {
+        "startLine": 99,
+        "startChar": 55,
+        "endLine": 99,
+        "endChar": 74
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -411,6 +745,30 @@
     },
     {
       "key": {
+        "uuid": "32389aaa_72104309",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "996ed978_d690e118",
+      "range": {
+        "startLine": 107,
+        "startChar": 32,
+        "endLine": 107,
+        "endChar": 58
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7c08105_7a3ef4d0",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -422,6 +780,30 @@
       "writtenOn": "2017-08-28T07:13:38Z",
       "side": 1,
       "message": "peerInfo.strategy\n\nalso, enclose in backticks",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 108,
+        "endChar": 37
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93ccf700_7f70be17",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7c08105_7a3ef4d0",
       "range": {
         "startLine": 108,
         "startChar": 20,
@@ -457,6 +839,30 @@
     },
     {
       "key": {
+        "uuid": "4618ad0a_088405c9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9bfa43e_d920a142",
+      "range": {
+        "startLine": 115,
+        "startChar": 68,
+        "endLine": 116,
+        "endChar": 92
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec3cc5d1_d6aa8dd2",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -477,6 +883,30 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce311893_9f0c2238",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec3cc5d1_d6aa8dd2",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 71
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -503,6 +933,30 @@
     },
     {
       "key": {
+        "uuid": "67e28541_e90a39ab",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c100da6_1bd9de45",
+      "range": {
+        "startLine": 122,
+        "startChar": 57,
+        "endLine": 122,
+        "endChar": 64
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d1a02e6_8e067117",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -514,6 +968,30 @@
       "writtenOn": "2017-08-28T07:13:38Z",
       "side": 1,
       "message": "known to be inappropriate",
+      "range": {
+        "startLine": 124,
+        "startChar": 10,
+        "endLine": 124,
+        "endChar": 41
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f724b62e_d06fe48d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-28T15:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d1a02e6_8e067117",
       "range": {
         "startLine": 124,
         "startChar": 10,
