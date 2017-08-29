@@ -184,6 +184,30 @@
     },
     {
       "key": {
+        "uuid": "38bd76ed_c3da7a77",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T09:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46fa1d57_a2588a35",
+      "range": {
+        "startLine": 209,
+        "startChar": 18,
+        "endLine": 209,
+        "endChar": 39
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "254291ec_da338a56",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
@@ -204,6 +228,30 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "189fe2a9_f0236a69",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T09:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "254291ec_da338a56",
+      "range": {
+        "startLine": 328,
+        "startChar": 22,
+        "endLine": 328,
+        "endChar": 29
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -406,6 +454,24 @@
     },
     {
       "key": {
+        "uuid": "7ed3a815_b546c1c8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T09:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d271c80_2cc19cd9",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a56fec1_a9dadf64",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 15
@@ -520,6 +586,30 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56b8e1d_21f4fe65",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T09:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db68edd3_0180a39d",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 9
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -954,6 +1044,29 @@
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "181c3813_150752cd",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T09:35:17Z",
+      "side": 1,
+      "message": "IMHO, using a regex here to specify multiple skip interface patterns is probably not really necessary and is more error-prone than just using a wildcard with repeatable skipInterface line.\n\nFor example, instead of:\n\n  [jgroups]\n    skipInterfacePattern \u003d lo\\\\d|utun\\\\d|awdl\\\\d\n\n(note also the necessity for escaping of backslashes), we could have:\n\n  [jgroups]\n    skipInterface \u003d lo*\n    skipInterface \u003d utun*\n    skipInterface \u003d awd*\n\nI think this is more readable and enough.\n\nOpinions?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     },
     {
       "key": {
