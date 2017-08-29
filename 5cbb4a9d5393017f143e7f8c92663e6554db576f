@@ -232,6 +232,30 @@
     },
     {
       "key": {
+        "uuid": "2bb17943_2d35922c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T12:18:48Z",
+      "side": 1,
+      "message": "Yes, intentionally.\n\nI wanted to publish my own review comments before uploading a new patch-set. Gerrit doesn\u0027t allow me to selectively publish my draft comments.",
+      "parentUuid": "7ac7e8bc_d85e5c5c",
+      "range": {
+        "startLine": 209,
+        "startChar": 18,
+        "endLine": 209,
+        "endChar": 39
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "254291ec_da338a56",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
