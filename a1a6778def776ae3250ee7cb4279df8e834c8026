@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "732e962a_dcaa3787",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T13:41:05Z",
+      "side": 1,
+      "message": "This name is inconsistent with the same name in the JGroupsPeerInfoProvider which is channelName.",
+      "range": {
+        "startLine": 330,
+        "startChar": 19,
+        "endLine": 330,
+        "endChar": 30
+      },
+      "revId": "a1a6778def776ae3250ee7cb4279df8e834c8026",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8600ad1_1e8f7a65",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 16
@@ -70,6 +93,29 @@
       "revId": "a1a6778def776ae3250ee7cb4279df8e834c8026",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc2d5541_4515ba47",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-29T13:41:05Z",
+      "side": 1,
+      "message": "Why don\u0027t we store the Configuration.JGroups object here instead of duplicating declaration of every field here?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 39
+      },
+      "revId": "a1a6778def776ae3250ee7cb4279df8e834c8026",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     },
     {
       "key": {
