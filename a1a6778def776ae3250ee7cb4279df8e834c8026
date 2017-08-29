@@ -46,6 +46,30 @@
       "revId": "a1a6778def776ae3250ee7cb4279df8e834c8026",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "385d77a0_ed8ae720",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-29T07:07:56Z",
+      "side": 1,
+      "message": "of course.  sorry.\n\nthis can be changed later after merging up to stable-2.14",
+      "parentUuid": "b954ef6c_7579029a",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "a1a6778def776ae3250ee7cb4279df8e834c8026",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
