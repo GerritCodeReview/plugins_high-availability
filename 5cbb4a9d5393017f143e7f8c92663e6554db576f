@@ -208,6 +208,30 @@
     },
     {
       "key": {
+        "uuid": "7ac7e8bc_d85e5c5c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-29T12:16:44Z",
+      "side": 1,
+      "message": "it seems you missed to upload a new patchset for this fix",
+      "parentUuid": "38bd76ed_c3da7a77",
+      "range": {
+        "startLine": 209,
+        "startChar": 18,
+        "endLine": 209,
+        "endChar": 39
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "254291ec_da338a56",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 15
@@ -243,6 +267,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "254291ec_da338a56",
+      "range": {
+        "startLine": 328,
+        "startChar": 22,
+        "endLine": 328,
+        "endChar": 29
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffdab6db_c055eff7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-29T12:16:44Z",
+      "side": 1,
+      "message": "it seems you missed to upload a new patchset for this fix",
+      "parentUuid": "189fe2a9_f0236a69",
       "range": {
         "startLine": 328,
         "startChar": 22,
@@ -466,6 +514,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "8d271c80_2cc19cd9",
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a197c7a_de9e670c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-29T12:16:44Z",
+      "side": 1,
+      "message": "it seems you missed to upload a new patchset for this fix",
+      "parentUuid": "7ed3a815_b546c1c8",
       "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -812,6 +878,30 @@
     },
     {
       "key": {
+        "uuid": "b17ffac2_6f32d9c7",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-29T12:16:44Z",
+      "side": 1,
+      "message": "?",
+      "parentUuid": "e95399c6_829a0017",
+      "range": {
+        "startLine": 103,
+        "startChar": 75,
+        "endLine": 103,
+        "endChar": 81
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "996ed978_d690e118",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 15
@@ -1058,6 +1148,30 @@
       "writtenOn": "2017-08-29T09:35:17Z",
       "side": 1,
       "message": "IMHO, using a regex here to specify multiple skip interface patterns is probably not really necessary and is more error-prone than just using a wildcard with repeatable skipInterface line.\n\nFor example, instead of:\n\n  [jgroups]\n    skipInterfacePattern \u003d lo\\\\d|utun\\\\d|awdl\\\\d\n\n(note also the necessity for escaping of backslashes), we could have:\n\n  [jgroups]\n    skipInterface \u003d lo*\n    skipInterface \u003d utun*\n    skipInterface \u003d awd*\n\nI think this is more readable and enough.\n\nOpinions?",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 36
+      },
+      "revId": "5cbb4a9d5393017f143e7f8c92663e6554db576f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53d66220_ae80fcd5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 15
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-29T12:16:44Z",
+      "side": 1,
+      "message": "I agree, this looks simpler",
+      "parentUuid": "181c3813_150752cd",
       "range": {
         "startLine": 123,
         "startChar": 16,
