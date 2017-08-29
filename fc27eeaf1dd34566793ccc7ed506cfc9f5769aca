@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21c047e9_241c6524",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-29T01:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51da256b_9539b3c0",
+      "range": {
+        "startLine": 261,
+        "startChar": 24,
+        "endLine": 261,
+        "endChar": 35
+      },
+      "revId": "fc27eeaf1dd34566793ccc7ed506cfc9f5769aca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaf19052_f4b8ebe5",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-28T17:24:31Z",
       "side": 1,
       "message": "why do we need to fallback on Object class?",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 9
+      },
+      "revId": "fc27eeaf1dd34566793ccc7ed506cfc9f5769aca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ea3c043_5d0d16d5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-29T01:47:39Z",
+      "side": 1,
+      "message": "For the hard-coded caches we know that the cached object is one of the types in the cases above, or a String.  However for caches provided by plugins, the cached object can be any arbitrary type.",
+      "parentUuid": "eaf19052_f4b8ebe5",
       "range": {
         "startLine": 47,
         "startChar": 8,
