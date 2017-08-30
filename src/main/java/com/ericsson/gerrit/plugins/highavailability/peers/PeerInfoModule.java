@@ -14,9 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
-import com.google.common.base.Optional;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.TypeLiteral;
+import java.util.Optional;
 
 public class PeerInfoModule extends LifecycleModule {
   @Override
