@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3014f107_7c781025",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-30T10:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d384e06_46aed895",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 23
+      },
+      "revId": "be1901bdffc8b13d9b4ec80ad5c8222938af8280",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "053ee062_ccd789df",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 18
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5519870e_f144c3e9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-30T10:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "053ee062_ccd789df",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "be1901bdffc8b13d9b4ec80ad5c8222938af8280",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4eaf01b2_a3cf4ff6",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 18
@@ -68,6 +116,30 @@
       "revId": "be1901bdffc8b13d9b4ec80ad5c8222938af8280",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4929a6c_38f01760",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-30T10:57:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eaf01b2_a3cf4ff6",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "be1901bdffc8b13d9b4ec80ad5c8222938af8280",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
