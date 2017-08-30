@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "24a53948_8dc37412",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-30T11:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b73d66b_9aa9c3f2",
+      "range": {
+        "startLine": 108,
+        "startChar": 3,
+        "endLine": 108,
+        "endChar": 4
+      },
+      "revId": "49d69b221161b9bc1562c4e1d4f4061f8938fedf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0a97a13_e5042a39",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 19
@@ -36,6 +60,30 @@
       "writtenOn": "2017-08-30T11:36:10Z",
       "side": 1,
       "message": "This causes a warning in Eclipse:\n\n skipInterface cannot be resolved or is not a field",
+      "range": {
+        "startLine": 133,
+        "startChar": 26,
+        "endLine": 133,
+        "endChar": 48
+      },
+      "revId": "49d69b221161b9bc1562c4e1d4f4061f8938fedf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbde82a6_431efe97",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-30T11:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0a97a13_e5042a39",
       "range": {
         "startLine": 133,
         "startChar": 26,
