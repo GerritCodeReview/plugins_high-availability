@@ -20,6 +20,7 @@ import java.net.SocketException;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.Optional;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.google.common.base.Optional;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.inject.Inject;
@@ -56,7 +56,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   private static final Logger log = LoggerFactory.getLogger(JGroupsPeerInfoProvider.class);
   private String myUrl;
   private JChannel channel;
-  private Optional<PeerInfo> peerInfo = Optional.absent();
+  private Optional<PeerInfo> peerInfo = Optional.empty();
   private Address peerAddress;
   private String channelName;
   private boolean preferIPv4;
@@ -99,7 +99,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       if (peerAddress != null && !view.getMembers().contains(peerAddress)) {
         log.info("viewAccepted(): removed peerInfo");
         peerAddress = null;
-        peerInfo = Optional.absent();
+        peerInfo = Optional.empty();
       }
     }
     if (view.size() > 1) {
@@ -165,7 +165,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   public void stop() {
     log.info("closing jgroups channel {}", channelName);
     channel.close();
-    peerInfo = Optional.absent();
+    peerInfo = Optional.empty();
     peerAddress = null;
   }
 
