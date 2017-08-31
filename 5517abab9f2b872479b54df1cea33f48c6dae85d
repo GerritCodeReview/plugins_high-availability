@@ -42,6 +42,29 @@
     },
     {
       "key": {
+        "uuid": "8db1a3e6_afed7306",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-31T23:35:53Z",
+      "side": 1,
+      "message": "Singleton is not imported",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "5517abab9f2b872479b54df1cea33f48c6dae85d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78d65818_2482cbdc",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
         "patchSetId": 22
