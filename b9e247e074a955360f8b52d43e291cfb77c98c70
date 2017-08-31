@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c60c504e_601026d9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T07:31:35Z",
+      "side": 1,
+      "message": "How to reproduce this issue?\n\nJGroupsPeerInfoProvider should only be used when peerInfo.strategy() is JGROUPS, in which case\nthe Configuration.peerInfoJGroups is set to a non-null value.\n\nI wonder if the error you have seen is caused by an issue in mock setup.",
+      "parentUuid": "d615b823_195cefee",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69ec23da_9519bcb3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 20
