@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78d65818_2482cbdc",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-08-31T14:32:46Z",
+      "side": 1,
+      "message": "add tests for JGroups configuration ?",
+      "revId": "5517abab9f2b872479b54df1cea33f48c6dae85d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
