@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc4d9025_bec35e4b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T14:18:15Z",
+      "side": 1,
+      "message": "Sorry, this is because I forgot to fetch your patch-set :-(",
+      "parentUuid": "7ce747c6_17f7383c",
+      "range": {
+        "startLine": 108,
+        "startChar": 3,
+        "endLine": 108,
+        "endChar": 4
+      },
+      "revId": "4648eb5376cf8350fdd47b58e35b12bf5a42e294",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c2fa504_244407b4",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 21
