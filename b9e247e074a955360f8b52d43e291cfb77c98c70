@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "27477e6e_b3ab95c7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "821f67a3_65254879",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69ec23da_9519bcb3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 20
@@ -84,6 +108,30 @@
       "writtenOn": "2017-08-31T02:42:44Z",
       "side": 1,
       "message": "NPE",
+      "range": {
+        "startLine": 163,
+        "startChar": 20,
+        "endLine": 163,
+        "endChar": 49
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d14b5676_10ebbc28",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69ec23da_9519bcb3",
       "range": {
         "startLine": 163,
         "startChar": 20,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "d4648f02_c0b23ae9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da81bb1e_dc1bd7b1",
+      "range": {
+        "startLine": 176,
+        "startChar": 43,
+        "endLine": 176,
+        "endChar": 70
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c33bfe8_f07dcb66",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 20
@@ -130,6 +202,30 @@
       "writtenOn": "2017-08-31T02:42:44Z",
       "side": 1,
       "message": "Should not connect if there is no jgoups config.",
+      "range": {
+        "startLine": 189,
+        "startChar": 3,
+        "endLine": 189,
+        "endChar": 14
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab0fbc0f_aa71e0bd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c33bfe8_f07dcb66",
       "range": {
         "startLine": 189,
         "startChar": 3,
@@ -156,6 +252,24 @@
       "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a98517ee_c0446794",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b3039c2_e8e7c529",
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -235,6 +349,30 @@
       "side": 1,
       "message": "According to the style section of the contributor guideline [1], gerrit \"generally follows the google java style guide\".  Section 3.3.1  [2] explicitly forbids wildcard imports.\n\n[1] http://gerrit-documentation.storage.googleapis.com/Documentation/2.14/dev-contributing.html#style\n[2] https://google.github.io/styleguide/javaguide.html",
       "parentUuid": "d53c9618_b7264048",
+      "range": {
+        "startLine": 17,
+        "startChar": 72,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d721e204_28716118",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "349e3b5d_0581861c",
       "range": {
         "startLine": 17,
         "startChar": 72,
