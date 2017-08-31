@@ -16,6 +16,29 @@
       "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa0cffb_57943083",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-31T02:09:54Z",
+      "side": 1,
+      "message": "Don\u0027t use wildcard import.",
+      "range": {
+        "startLine": 17,
+        "startChar": 72,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
