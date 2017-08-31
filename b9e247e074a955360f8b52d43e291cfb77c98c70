@@ -131,6 +131,30 @@
       "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d53c9618_b7264048",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T07:20:15Z",
+      "side": 1,
+      "message": "I discussed this question with Hugo in Munich and he was OK to use wildcard import for his projects. However, if we have a general rule not to do that then I will do as you said.",
+      "parentUuid": "5aa0cffb_57943083",
+      "range": {
+        "startLine": 17,
+        "startChar": 72,
+        "endLine": 17,
+        "endChar": 75
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
