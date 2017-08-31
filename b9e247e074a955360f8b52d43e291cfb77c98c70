@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "d615b823_195cefee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-31T02:42:44Z",
+      "side": 1,
+      "message": "This is null when there is no jgroups configuration, which results in NPEs later.",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69ec23da_9519bcb3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-31T02:42:44Z",
+      "side": 1,
+      "message": "NPE",
+      "range": {
+        "startLine": 163,
+        "startChar": 20,
+        "endLine": 163,
+        "endChar": 49
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da81bb1e_dc1bd7b1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-31T02:42:44Z",
+      "side": 1,
+      "message": "NPE",
+      "range": {
+        "startLine": 176,
+        "startChar": 43,
+        "endLine": 176,
+        "endChar": 70
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c33bfe8_f07dcb66",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-08-31T02:42:44Z",
+      "side": 1,
+      "message": "Should not connect if there is no jgoups config.",
+      "range": {
+        "startLine": 189,
+        "startChar": 3,
+        "endLine": 189,
+        "endChar": 14
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2f22995_236c58bd",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
         "patchSetId": 20
