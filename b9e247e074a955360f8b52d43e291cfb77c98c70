@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "21be41c1_5b835168",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:58:03Z",
+      "side": 1,
+      "message": "Additional info: I tested on a real server but didn\u0027t and the issue was gone. However, I didn\u0027t run the CacheEvictionIT test on stable-2.14.",
+      "parentUuid": "27477e6e_b3ab95c7",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69ec23da_9519bcb3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/JGroupsPeerInfoProvider.java",
         "patchSetId": 20
