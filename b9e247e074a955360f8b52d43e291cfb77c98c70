@@ -142,6 +142,23 @@
     },
     {
       "key": {
+        "uuid": "5b3039c2_e8e7c529",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PeerInfoProvider.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T11:26:18Z",
+      "side": 1,
+      "message": "This needs to be @Singleton. Otherwise, a new instance of this class is created for every forwarding request which, from its constructor, creates a new instance of the configured (sub)provider.",
+      "revId": "b9e247e074a955360f8b52d43e291cfb77c98c70",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2f22995_236c58bd",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
         "patchSetId": 20
