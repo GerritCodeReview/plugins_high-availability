@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "ac889167_f9f9ab9b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T15:03:17Z",
+      "side": 1,
+      "message": "final",
+      "revId": "5517abab9f2b872479b54df1cea33f48c6dae85d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa477fe8_219f9533",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-08-31T15:03:17Z",
+      "side": 1,
+      "message": "this is unnecessary because strategy will be anyway initialized in the constructor",
+      "range": {
+        "startLine": 217,
+        "startChar": 37,
+        "endLine": 217,
+        "endChar": 66
+      },
+      "revId": "5517abab9f2b872479b54df1cea33f48c6dae85d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78d65818_2482cbdc",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
         "patchSetId": 22
