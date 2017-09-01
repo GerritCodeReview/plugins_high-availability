@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability;
 
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.CLEANUP_INTERVAL_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.CLUSTER_NAME_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.CONNECTION_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_CLEANUP_INTERVAL_MS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_MAX_TRIES;
@@ -27,6 +28,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.HTTP_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.INDEX_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGROUPS_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.MAX_TRIES_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PASSWORD_KEY;
@@ -34,6 +36,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.PATTERN
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PEER_INFO_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.RETRY_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.SHARED_DIRECTORY_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.SKIP_INTERFACE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.SOCKET_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.STATIC_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.STRATEGY_KEY;
@@ -47,6 +50,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
 import com.ericsson.gerrit.plugins.highavailability.cache.CachePatternMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.PluginConfigFactory;
@@ -55,6 +59,7 @@ import com.google.inject.ProvisionException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,6 +83,8 @@ public class ConfigurationTest {
   private static final Path SITE_PATH = Paths.get("/site_path");
   private static final String ERROR_MESSAGE = "some error message";
   private static final String[] CUSTOM_CACHE_PATTERNS = {"^my_cache.*", "other"};
+  private static final String CLUSTER_NAME = "cluster";
+  private static final String[] SKIP_INTERFACES = {"IF1", "IF2"};
 
   @Mock private PluginConfigFactory cfgFactoryMock;
   @Mock private Config configMock;
@@ -109,6 +116,23 @@ public class ConfigurationTest {
     when(configMock.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)).thenReturn(URL);
     initializeConfiguration();
     assertThat(configuration.peerInfoStatic().url()).isEqualTo(URL);
+  }
+
+  @Test
+  public void testGetJgroups() throws Exception {
+    initializeConfiguration();
+    assertThat(configuration.peerInfoJGroups()).isNull();
+
+    when(configMock.getEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, DEFAULT_PEER_INFO_STRATEGY))
+        .thenReturn(PeerInfoStrategy.JGROUPS);
+    when(configMock.getString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, CLUSTER_NAME_KEY))
+        .thenReturn(CLUSTER_NAME);
+    when(configMock.getStringList(PEER_INFO_SECTION, JGROUPS_SUBSECTION, SKIP_INTERFACE_KEY))
+        .thenReturn(SKIP_INTERFACES);
+    initializeConfiguration();
+    assertThat(configuration.peerInfoJGroups().clusterName()).isEqualTo(CLUSTER_NAME);
+    assertThat(configuration.peerInfoJGroups().skipInterface().asList())
+        .containsExactlyElementsIn(Arrays.asList(SKIP_INTERFACES));
   }
 
   @Test
