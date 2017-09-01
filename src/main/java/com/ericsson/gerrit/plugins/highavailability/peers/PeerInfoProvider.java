@@ -11,25 +11,38 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
-public class PluginConfigPeerInfoProvider implements Provider<Optional<PeerInfo>> {
+@Singleton
+public class PeerInfoProvider implements Provider<Optional<PeerInfo>> {
 
-  private final Optional<PeerInfo> peerInfo;
+  private final Provider<Optional<PeerInfo>> configuredProvider;
 
   @Inject
-  PluginConfigPeerInfoProvider(Configuration cfg) {
-    peerInfo = Optional.of(new PeerInfo(cfg.peerInfoStatic().url()));
+  PeerInfoProvider(Injector injector, Configuration cfg) {
+    PeerInfoStrategy strategy = cfg.peerInfo().strategy();
+    switch (strategy) {
+      case STATIC:
+        configuredProvider = injector.getInstance(PluginConfigPeerInfoProvider.class);
+        break;
+      case JGROUPS:
+        configuredProvider = injector.getInstance(JGroupsPeerInfoProvider.class);
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported peer info strategy: " + strategy);
+    }
   }
 
   @Override
   public Optional<PeerInfo> get() {
-    return peerInfo;
+    return configuredProvider.get();
   }
 }
