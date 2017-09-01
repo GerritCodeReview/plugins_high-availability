@@ -145,6 +145,24 @@
       "revId": "5517abab9f2b872479b54df1cea33f48c6dae85d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbec1c18_748db5e7",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-01T07:36:02Z",
+      "side": 1,
+      "message": "I added some tests in [1].  I did it as a separate change because I\u0027ve been working against 2.14 rather than 2.13.\n\n[1] https://gerrit-review.googlesource.com/124330",
+      "parentUuid": "78d65818_2482cbdc",
+      "revId": "5517abab9f2b872479b54df1cea33f48c6dae85d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
