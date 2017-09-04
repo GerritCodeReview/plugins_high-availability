@@ -118,6 +118,30 @@
       "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c59a484_7aff463f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinder.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-04T11:47:22Z",
+      "side": 1,
+      "message": "Tried to opt-in as described in [3] but it didn\u0027t work.\nUpgraded mockito to the latest version (2.9.0), still didn\u0027t work.\nTried additionally upgrading bytebuddy to 1.7.0 and also 1.7.5 but it didn\u0027t fix the problem.\n\nThe latest error (with both mockito and bytebuddy upgraded to their latest version) is:\n\n  java.lang.ClassNotFoundException: net.bytebuddy.agent.ByteBuddyAgent\n\nHowever, when I check the downloaded byte-buddy-\u003cversion\u003e.jar it really doesn\u0027t contain a class\nnamed ByteBuddyAgent.\n\nWhat it suspicious is that several lines above I see this message:\n\n  Could not initialize inline Byte Buddy mock maker. (This mock maker is not supported on Android.)\n\nAny idea why mockito thinks it is running on Android?",
+      "parentUuid": "accbcc48_8acc3c7f",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 93
+      },
+      "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
