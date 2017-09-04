@@ -46,6 +46,30 @@
       "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8261bae4_bd3735da",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinder.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-04T05:01:54Z",
+      "side": 1,
+      "message": "Instead of mocking the NetworkInterface class, wrap the call to it in a utility method and mock that instead?",
+      "parentUuid": "8761fda6_eee0d2b6",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 93
+      },
+      "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
