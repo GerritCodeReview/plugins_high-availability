@@ -22,6 +22,23 @@
       "revId": "07e3a4aa93bf8267217f0a36a07856c10c928c74",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82fcea2d_b369b0af",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-09-05T14:42:42Z",
+      "side": 1,
+      "message": "We need to do the same in CacheEvictionHandler and IndexEventHandler.\n\nHaving to do this change in 3 places indicate that there is some duplication. I will check if I refactor the code to remove this duplication.",
+      "revId": "07e3a4aa93bf8267217f0a36a07856c10c928c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
