@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.event;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.gerrit.common.EventListener;
@@ -27,24 +28,33 @@ class EventHandler implements EventListener {
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
+  private final boolean synchronous;
 
   @Inject
   EventHandler(
-      Forwarder forwarder, @EventExecutor Executor executor, @PluginName String pluginName) {
+      Forwarder forwarder,
+      @EventExecutor Executor executor,
+      @PluginName String pluginName,
+      Configuration cfg) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.synchronous = cfg.http().synchronous();
   }
 
   @Override
   public void onEvent(Event event) {
     if (!Context.isForwardedEvent() && event instanceof ProjectEvent) {
-      executor.execute(new EventTask(event));
+      if (synchronous) {
+        forwarder.send(event);
+      } else {
+        executor.execute(new EventTask(event));
+      }
     }
   }
 
   class EventTask implements Runnable {
-    private Event event;
+    private final Event event;
 
     EventTask(Event event) {
       this.event = event;
