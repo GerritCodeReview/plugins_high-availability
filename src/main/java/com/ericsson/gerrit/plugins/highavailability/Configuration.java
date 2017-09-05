@@ -55,6 +55,7 @@ public class Configuration {
   static final String SOCKET_TIMEOUT_KEY = "socketTimeout";
   static final String MAX_TRIES_KEY = "maxTries";
   static final String RETRY_INTERVAL_KEY = "retryInterval";
+  static final String SYNCHRONOUS_KEY = "synchronous";
 
   // cache section
   static final String CACHE_SECTION = "cache";
@@ -196,6 +197,7 @@ public class Configuration {
     private final int socketTimeout;
     private final int maxTries;
     private final int retryInterval;
+    private final boolean synchronous;
 
     private Http(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
@@ -204,6 +206,7 @@ public class Configuration {
       socketTimeout = getInt(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       retryInterval = getInt(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      synchronous = cfg.getBoolean(HTTP_SECTION, SYNCHRONOUS_KEY, false);
     }
 
     public String user() {
@@ -228,6 +231,10 @@ public class Configuration {
 
     public int retryInterval() {
       return retryInterval;
+    }
+
+    public boolean synchronous() {
+      return synchronous;
     }
   }
 
