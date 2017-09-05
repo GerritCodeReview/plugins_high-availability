@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4ed1730_5e7e7ba3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-09-05T14:38:57Z",
+      "side": 1,
+      "message": "This option should be in the main section, it would be a valid option even if we provide another implementation of the forwarder.\n\nThis option is to allow to use the HA plugin in active-active (load-balancing) mode. Is sending the calls synchronously the only thing we need to do? I think so but in case there is more, shall we name this option more about the fact that it\u0027s to support load-balancing rather than having multiple options?\n\nIt would probably be easier to understand from the user\u0027s perspective. Something like:\n\n[main]\n  mode \u003d warm-standby\n\n[main]\n   mode \u003d load-balancing",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "07e3a4aa93bf8267217f0a36a07856c10c928c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
