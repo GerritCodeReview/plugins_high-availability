@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "936b734e_43aa2291",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b6bc45f_03c21e02",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37b2aa56_5deb173d",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc30db81_2982416d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37b2aa56_5deb173d",
+      "range": {
+        "startLine": 119,
+        "startChar": 45,
+        "endLine": 119,
+        "endChar": 54
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,23 @@
     },
     {
       "key": {
+        "uuid": "fb1929c4_36573fdb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Also unused, removed.",
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67868854_bfe63eba",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
         "patchSetId": 3
@@ -82,6 +147,30 @@
       "writtenOn": "2017-09-06T10:46:41Z",
       "side": 1,
       "message": "Unused?",
+      "range": {
+        "startLine": 53,
+        "startChar": 27,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "283c6ecf_65afa0cb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Correct. After several cycles of optimization of this code this obviously became redundant.\nWhen this gets removed, then the whole factored-out ConfigUtil may also become redundant, at least within this change. I will need it for the follow-up change. Let me see.",
+      "parentUuid": "67868854_bfe63eba",
       "range": {
         "startLine": 53,
         "startChar": 27,
@@ -117,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "ee592274_d5dc54f2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Makes sense to do that in Gerrit core and (re)use here. Since Gerrit core didn\u0027t do that yet I didn\u0027t think that this (and possible other) plugins should fix that on their own.",
+      "parentUuid": "c923abd1_c96aa770",
+      "range": {
+        "startLine": 94,
+        "startChar": 44,
+        "endLine": 94,
+        "endChar": 52
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "565c6b6d_b63a0a1c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
         "patchSetId": 3
@@ -128,6 +241,30 @@
       "writtenOn": "2017-09-06T10:46:41Z",
       "side": 1,
       "message": "Any reason for declaring this as static final?",
+      "range": {
+        "startLine": 172,
+        "startChar": 10,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57ddce7a_4c58e871",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Removed final. Keep static as it doesn\u0027t depend on any instance field.",
+      "parentUuid": "565c6b6d_b63a0a1c",
       "range": {
         "startLine": 172,
         "startChar": 10,
@@ -160,6 +297,30 @@
       "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1569a62_bae881a5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-06T11:10:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df09ae71_693c4229",
+      "range": {
+        "startLine": 204,
+        "startChar": 2,
+        "endLine": 211,
+        "endChar": 3
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
