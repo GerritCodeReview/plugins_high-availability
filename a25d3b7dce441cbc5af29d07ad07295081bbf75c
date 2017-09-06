@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b6bc45f_03c21e02",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Needs to be a field? Cannot be a local variable?",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 25
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37b2aa56_5deb173d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Just inline here?",
+      "range": {
+        "startLine": 119,
+        "startChar": 45,
+        "endLine": 119,
+        "endChar": 54
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17f46ea1_74a377be",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 49,
+        "startChar": 26,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67868854_bfe63eba",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 53,
+        "startChar": 27,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c923abd1_c96aa770",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Extract to a constant?",
+      "range": {
+        "startLine": 94,
+        "startChar": 44,
+        "endLine": 94,
+        "endChar": 52
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "565c6b6d_b63a0a1c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Any reason for declaring this as static final?",
+      "range": {
+        "startLine": 172,
+        "startChar": 10,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df09ae71_693c4229",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-09-06T10:46:41Z",
+      "side": 1,
+      "message": "Unused method?",
+      "range": {
+        "startLine": 204,
+        "startChar": 2,
+        "endLine": 211,
+        "endChar": 3
+      },
+      "revId": "a25d3b7dce441cbc5af29d07ad07295081bbf75c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
