@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5f359f3_97e0a81b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-06T00:02:12Z",
+      "side": 1,
+      "message": "long line",
+      "revId": "e2a83d672051afac600d734ab16a43e1f86adb73",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
