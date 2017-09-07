@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "964c6a9a_b46c11d9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-07T08:48:12Z",
+      "side": 1,
+      "message": "Normally a successful forwarding is logged in the httpd_log on the receiving peer but I am also OK with adding additional logging here.\nPlease keep the coding style consistent with the logRetry i.e. extract this into own method and use:\n\n  if (log.isDebugEnabled())\n\nSame for the line 126",
+      "revId": "02bb523c173d815e85492c7a4de6a0a19617770c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
