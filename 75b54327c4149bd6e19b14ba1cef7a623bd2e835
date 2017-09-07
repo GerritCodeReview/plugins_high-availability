@@ -285,6 +285,30 @@
       "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1369576_eb974183",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-07T09:07:01Z",
+      "side": 1,
+      "message": "Just found out that, for the case when running inside a servlet container, I modified the\nhost name computation (in our internal fork) to:\n\n  String hostName \u003d InetAddress.getLocalHost().getHostName();\n\nMaybe this would in general work better than trying to parse httpd.listenUrl?\n\nComputing the port is still needed.\nIn our internal use case, the port number is constant. Here, we can only extract it\nfrom the httpd.listenUrl.",
+      "parentUuid": "8f7f3357_0d7b195a",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
