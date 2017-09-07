@@ -16,6 +16,24 @@
       "revId": "02bb523c173d815e85492c7a4de6a0a19617770c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae086713_f87a4543",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-07T10:54:38Z",
+      "side": 1,
+      "message": "I saw the logRetry method below but I\u0027m not convinced that it\u0027s necessary to do anything similar here.  It\u0027s only going to be called here, and there is no complex operation done on the object being logged.\n\nAlso, as far as I can see the isDebugEnabled() call is redundant because it\u0027s already done in the log implementation [1].\n\n\n[1] https://github.com/qos-ch/slf4j/blob/master/jcl-over-slf4j/src/main/java/org/apache/commons/logging/impl/SimpleLog.java#L390",
+      "parentUuid": "964c6a9a_b46c11d9",
+      "revId": "02bb523c173d815e85492c7a4de6a0a19617770c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
