@@ -237,6 +237,30 @@
       "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ea03cbb_b05eb1a2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-07T07:02:54Z",
+      "side": 1,
+      "message": "Another potential problem is that the httpdListenUrl can have multiple values (see config description [1] and core implementation [2]) while this is only considering a single value.\n\n[1] http://gerrit-documentation.storage.googleapis.com/Documentation/2.13/config-gerrit.html#httpd.listenUrl\n\n[2] https://gerrit.googlesource.com/gerrit/+/stable-2.13/gerrit-pgm/src/main/java/com/google/gerrit/pgm/http/jetty/JettyServer.java#298",
+      "parentUuid": "d9ab2a3b_9830a688",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "75b54327c4149bd6e19b14ba1cef7a623bd2e835",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
