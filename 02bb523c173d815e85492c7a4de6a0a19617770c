@@ -52,6 +52,24 @@
       "revId": "02bb523c173d815e85492c7a4de6a0a19617770c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1d1f85a_542997b7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-07T12:19:06Z",
+      "side": 1,
+      "message": "I removed the logRetry method in the follow-up commit.",
+      "parentUuid": "36198c88_2c5801ef",
+      "revId": "02bb523c173d815e85492c7a4de6a0a19617770c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
