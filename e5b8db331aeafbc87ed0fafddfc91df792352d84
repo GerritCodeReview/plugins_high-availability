@@ -22,6 +22,30 @@
       "revId": "e5b8db331aeafbc87ed0fafddfc91df792352d84",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c14505_7cbd85ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-07T13:17:35Z",
+      "side": 1,
+      "message": "True.  But in this case we already have the object that is being passed in (the exception) and we don\u0027t need to construct it.",
+      "parentUuid": "8c20b802_214ebbb7",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "e5b8db331aeafbc87ed0fafddfc91df792352d84",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
