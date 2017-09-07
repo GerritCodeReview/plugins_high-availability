@@ -22,6 +22,30 @@
       "revId": "31304ac54343c5f02699445457a64e64f084e9ee",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d894d1c2_87e40e5b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-07T08:57:01Z",
+      "side": 1,
+      "message": "The method returns true. The if expression evaluates to false and the commands inside the if block are skipped. This is exactly the intention here. Either a copy is created and both master and copy are configured (as described in the commit message) OR a copy is not created and\ninit proceeds with configureMainSection and configurePeerInfoSection like it did before this change.",
+      "parentUuid": "c06aa059_ee7ef1e6",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 41
+      },
+      "revId": "31304ac54343c5f02699445457a64e64f084e9ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
