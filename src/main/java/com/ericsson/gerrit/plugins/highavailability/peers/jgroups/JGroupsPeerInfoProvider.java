@@ -15,10 +15,12 @@ package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.config.GerritServerConfig;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.ProvisionException;
 import com.google.inject.Singleton;
 import java.net.InetAddress;
 import java.net.URISyntaxException;
@@ -49,25 +51,80 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     implements Provider<Optional<PeerInfo>>, LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(JGroupsPeerInfoProvider.class);
 
-  private final String myUrl;
+  private static final String HTTPD_SECTION = "httpd";
+  private static final String LISTEN_URL_KEY = "listenUrl";
+  private static final String LISTEN_URL = HTTPD_SECTION + "." + LISTEN_URL_KEY;
+  private static final String PROXY_PREFIX = "proxy-";
+
   private final Configuration.PeerInfoJGroups jgroupsConfig;
   private final InetAddressFinder finder;
+  private final String myUrl;
 
   private JChannel channel;
   private Optional<PeerInfo> peerInfo = Optional.empty();
   private Address peerAddress;
 
   @Inject
-  JGroupsPeerInfoProvider(
+  @VisibleForTesting
+  public JGroupsPeerInfoProvider(
       @GerritServerConfig Config srvConfig,
       Configuration pluginConfiguration,
-      InetAddressFinder finder)
-      throws UnknownHostException, URISyntaxException {
-    String hostName = InetAddress.getLocalHost().getHostName();
-    URIish u = new URIish(srvConfig.getString("httpd", null, "listenUrl"));
-    this.myUrl = u.setHost(hostName).toString();
+      InetAddressFinder finder) {
     this.jgroupsConfig = pluginConfiguration.peerInfoJGroups();
     this.finder = finder;
+    String url = jgroupsConfig.myUrl();
+    if (url == null) {
+      log.warn("myUrl not configured; attempting to determine from {}", LISTEN_URL);
+      try {
+        url = getMyUrlFromListenUrl(srvConfig);
+      } catch (PeerInfoProviderException e) {
+        throw new ProvisionException(e.getMessage());
+      }
+    }
+    this.myUrl = url;
+  }
+
+  private String getMyUrlFromListenUrl(Config srvConfig) throws PeerInfoProviderException {
+    String[] listenUrls = srvConfig.getStringList(HTTPD_SECTION, null, LISTEN_URL_KEY);
+    if (listenUrls.length != 1) {
+      throw new PeerInfoProviderException(
+          String.format(
+              "Can only determine myUrl from %s when there is exactly 1 value configured; found %d",
+              LISTEN_URL, listenUrls.length));
+    }
+    String url = listenUrls[0];
+    if (url.startsWith(PROXY_PREFIX)) {
+      throw new PeerInfoProviderException(
+          String.format(
+              "Cannot determine myUrl from %s when configured as reverse-proxy: %s",
+              LISTEN_URL, url));
+    }
+    if (url.contains("*")) {
+      throw new PeerInfoProviderException(
+          String.format(
+              "Cannot determine myUrl from %s when configured with wildcard: %s", LISTEN_URL, url));
+    }
+    try {
+      URIish u = new URIish(url);
+      return u.setHost(InetAddress.getLocalHost().getHostName()).toString();
+    } catch (URISyntaxException | UnknownHostException e) {
+      throw new PeerInfoProviderException(
+          String.format(
+              "Unable to determine myUrl from %s value [%s]: %s", LISTEN_URL, url, e.getMessage()));
+    }
+  }
+
+  private static class PeerInfoProviderException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    PeerInfoProviderException(String message) {
+      super(message);
+    }
+  }
+
+  @VisibleForTesting
+  public String myUrl() {
+    return myUrl;
   }
 
   @Override
