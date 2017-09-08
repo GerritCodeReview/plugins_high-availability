@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9046c009_71a32b43",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-08T07:48:15Z",
+      "side": 1,
+      "message": "Before going into a more detailed review I would like to propose to move all myUrl computation\nlogic into a MyUrlProvider. This will keep JGroupsPeerInfoProvider more focused on its main task (joining the cluster and exchanging peerInfo) and we will have a good place for enhancing the logic of myUrl computation in the future.",
+      "revId": "6eadd7a8588e8f76894ffed65350381ee9a1c677",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
