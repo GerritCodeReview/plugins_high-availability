@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5748c7a4_e42238c9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2017-09-09T18:17:24Z",
+      "side": 1,
+      "message": "I think this should not be a warning but info since explicit configuration is mandatory only in some specific cases and getMyUrlFromListenUrl() throws an exception in these cases",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
