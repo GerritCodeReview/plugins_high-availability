@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "33ffd01c_e10c8ff8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "was",
+      "range": {
+        "startLine": 9,
+        "startChar": 28,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c095cd82_25bb5b7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "were\n\netc... use past tense for describing status before this change",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 9
+      },
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "929e1f8d_6c0eba6a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "[optional] This is a String utility method, not really related to the Configuration class.\nMove it into a (new) StringUtils class?",
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5748c7a4_e42238c9",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProvider.java",
         "patchSetId": 3
@@ -19,6 +82,115 @@
         "endLine": 48,
         "endChar": 14
       },
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c23b83be_5447d892",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5748c7a4_e42238c9",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5a1629_c1cd3503",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "Since getMyUrlFromListenUrl cannot return null, the null protection of the trimTrailingSlash is redundant. Guava\u0027s CharMatcher could be used directly. After that, the Configuration.trimTrailingSlash is used form one place only and could be inlined there.",
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6eca8a_f85220b7",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "This is already tested in the previous test, line 189. I prefer to keep each test as narrow as possible and avoid repeating already tested cases.",
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac18c7a9_f67a216a",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "Same as previous comment",
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42779949_b99940a2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3398d92_4e503264",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-10T20:45:18Z",
+      "side": 1,
+      "message": "remove",
       "revId": "2b1ce190fc5d0f961bc001429ddf526a70ffe9de",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
