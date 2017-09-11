@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67e54c84_9641caa4",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-11T09:30:55Z",
+      "side": 1,
+      "message": "[optional] I wonder if all these new tests should be moved into a MyUrlProviderTest for a better\nseparation of concerns? MyUrlProvider is not just a pure translation from configuration file to configuration objects, it contains additional logic.",
+      "revId": "f5352eba0cb7c77dd1854dd04a3b6c539ed836b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d2ad924_095a86ef",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-11T09:30:55Z",
+      "side": 1,
+      "message": "If it would make sense to initialize myUrlProvider in the initializeConfiguration method then this two lines should be swapped (this is related to my comment in the getMyUrlProvider)",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 0
+      },
+      "revId": "f5352eba0cb7c77dd1854dd04a3b6c539ed836b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5153b10c_f1536793",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-11T09:30:55Z",
+      "side": 1,
+      "message": "would it make sense to initialize MyUrlProvider in the initializeConfiguration method?",
+      "revId": "f5352eba0cb7c77dd1854dd04a3b6c539ed836b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
