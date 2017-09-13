@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "37effe50_5fcdd5df",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-13T23:57:35Z",
+      "side": 1,
+      "message": "I thought about doing that, but it would introduce a lot of duplicate boiler plate code.",
+      "parentUuid": "67e54c84_9641caa4",
+      "revId": "f5352eba0cb7c77dd1854dd04a3b6c539ed836b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d2ad924_095a86ef",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
         "patchSetId": 4
@@ -53,6 +71,24 @@
       "writtenOn": "2017-09-11T09:30:55Z",
       "side": 1,
       "message": "would it make sense to initialize MyUrlProvider in the initializeConfiguration method?",
+      "revId": "f5352eba0cb7c77dd1854dd04a3b6c539ed836b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25700ab2_844221a4",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-09-13T23:57:35Z",
+      "side": 1,
+      "message": "Not really, there are several places where initializeConfiguration() is called without setting up the necessary configurations to make the provider work.",
+      "parentUuid": "5153b10c_f1536793",
       "revId": "f5352eba0cb7c77dd1854dd04a3b6c539ed836b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
