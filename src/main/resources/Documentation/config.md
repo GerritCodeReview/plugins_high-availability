@@ -54,6 +54,25 @@ File '@PLUGIN@.config'
   enable = true
 ```
 
+### JGroups based discovery and message transport
+
+In this case URLs of peers are not needed. All peers just need to join the same JGroups cluster
+defined by the `jgroups.clusterName`.
+```
+[main]
+  transport = jgroups
+  sharedDirectory = /directory/accessible/from/both/instances
+[autoReindex]
+  enabled = false
+[jgroups]
+  clusterName = foo
+  skipInterface = lo*
+  skipInterface = eth2
+  protocolStack = protocolStack.xml
+  timeout = 5000
+  maxTries = 100
+```
+
 ```main.sharedDirectory```
 :   Path to a directory accessible from both instances.
     When given as a relative path, then it is resolved against the $SITE_PATH
@@ -61,6 +80,11 @@ File '@PLUGIN@.config'
     sharedDirectory is given as "shared/dir" then the real path of the shared
     directory is "/gerrit/root/shared/dir". When not specified, the default
     is "shared".
+
+```main.transport```
+:   Message transport layer. Could be: `http` or `jgroups`.
+    When not specificed the default is `http`.
+    When set to `jgroups` then all `peerInfo.*` sections are unnecessary and ignored.
 
 ```autoReindex.enabled```
 :   Enable the tracking of the latest change indexed under data/high-availability
@@ -146,6 +170,22 @@ a member joins or leaves the cluster.
 ```jgroups.kubernetes.label```
 :   A label that will be used to select the pods in the format `label=value`. Can be set
     multiple times.
+
+```jgroups.timeout```
+:   Maximum interval of time in milliseconds the JGroups wait for a response
+    forwarding a message. When not specified, the default value is 5000ms
+
+```jgroups.maxTries```
+:   Maximum number of times JGroups should attempt to forward a message. Setting
+    this value to 0 will disable retries. When not specified, the default value
+    is 720 times.
+
+```jgroups.retryInterval```
+:   The interval of time in milliseconds between the subsequent auto-retries.
+    When not specified, the default value is set to 10000ms.
+
+NOTE: the default settings for `jgroups.timeout` and `jgroups.maxTries` ensure
+that JGroups will keep retrying to forward a message for one hour.
 
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.

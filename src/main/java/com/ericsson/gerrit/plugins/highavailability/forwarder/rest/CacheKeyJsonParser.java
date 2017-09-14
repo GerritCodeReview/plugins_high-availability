@@ -28,7 +28,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-class CacheKeyJsonParser {
+public class CacheKeyJsonParser {
   private final Gson gson;
 
   @Inject
