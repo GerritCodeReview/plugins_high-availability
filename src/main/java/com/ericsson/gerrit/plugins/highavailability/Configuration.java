@@ -41,6 +41,7 @@ public class Configuration {
   static final String MAIN_SECTION = "main";
   static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
   static final String DEFAULT_SHARED_DIRECTORY = "shared";
+  static final String TRANSPORT_KEY = "transport";
 
   // peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -54,6 +55,7 @@ public class Configuration {
   static final String JGROUPS_SECTION = "jgroups";
   static final String SKIP_INTERFACE_KEY = "skipInterface";
   static final String CLUSTER_NAME_KEY = "clusterName";
+  static final String TIMEOUT_KEY = "timeout";
 
   // http section
   static final String HTTP_SECTION = "http";
@@ -85,12 +87,15 @@ public class Configuration {
 
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 5;
+  static final int DEFAULT_MAX_TRIES_JGROUPS = 720;
   static final int DEFAULT_RETRY_INTERVAL = 1000;
+  static final int DEFAULT_RETRY_INTERVAL_JGROUPS = 10000;
   static final int DEFAULT_THREAD_POOL_SIZE = 1;
   static final String DEFAULT_CLEANUP_INTERVAL = "24 hours";
   static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
   static final boolean DEFAULT_SYNCHRONIZE = true;
   static final PeerInfoStrategy DEFAULT_PEER_INFO_STRATEGY = PeerInfoStrategy.STATIC;
+  static final Transport DEFAULT_TRANSPORT = Transport.HTTP;
   static final ImmutableList<String> DEFAULT_SKIP_INTERFACE_LIST =
       ImmutableList.of("lo*", "utun*", "awdl*");
   static final String DEFAULT_CLUSTER_NAME = "GerritHA";
@@ -109,6 +114,11 @@ public class Configuration {
   public enum PeerInfoStrategy {
     JGROUPS,
     STATIC
+  }
+
+  public enum Transport {
+    HTTP,
+    JGROUPS
   }
 
   @Inject
@@ -207,9 +217,11 @@ public class Configuration {
   }
 
   public static class Main {
+    private final Transport transport;
     private final Path sharedDirectory;
 
     private Main(SitePaths site, Config cfg) {
+      transport = cfg.getEnum(MAIN_SECTION, null, TRANSPORT_KEY, DEFAULT_TRANSPORT);
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (shared == null) {
         shared = DEFAULT_SHARED_DIRECTORY;
@@ -220,6 +232,10 @@ public class Configuration {
       } else {
         sharedDirectory = site.resolve(shared);
       }
+    }
+
+    public Transport transport() {
+      return transport;
     }
 
     public Path sharedDirectory() {
@@ -268,11 +284,18 @@ public class Configuration {
   public static class JGroups {
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
+    private final int timeout;
+    private final int maxTries;
+    private final int retryInterval;
 
     private JGroups(Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
       skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
+      timeout = getInt(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES_JGROUPS);
+      retryInterval =
+          getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL_JGROUPS);
     }
 
     public ImmutableList<String> skipInterface() {
@@ -281,6 +304,18 @@ public class Configuration {
 
     public String clusterName() {
       return clusterName;
+    }
+
+    public int timeout() {
+      return timeout;
+    }
+
+    public int maxTries() {
+      return maxTries;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
     }
   }
 

@@ -27,9 +27,19 @@ File '@PLUGIN@.config'
 :  clusterName = foo
 :  skipInterface = lo*
 :  skipInterface = eth2
+:  timeout = 5000
+:  maxTries = 100
 [http]
 :  user = username
 :  password = password
+
+[main]
+:  sharedDirectory = /directory/accessible/from/both/instances
+:  transport = jgroups
+[jgroups]
+:  cluster = foo
+:  skipInterface = lo*
+:  skipInterface = eth2
 
 main.sharedDirectory
 :   Path to a directory accessible from both master instances.
@@ -38,6 +48,10 @@ main.sharedDirectory
     sharedDirectory is given as "shared/dir" then the real path of the shared
     directory is "/gerrit/root/shared/dir". When not specified, the default
     is "shared".
+
+main.transport
+:   Message transport layer. Could be: `http` or `jgroups`.
+    When not specificed the default is `http`
 
 peerInfo.strategy
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
@@ -75,6 +89,22 @@ jgroups.skipInterface
     This option can be repeated many times in the `jgroups` section.
     Defaults to the list of: `lo*`, `utun*`, `awdl*` which are known to be
     inappropriate for JGroups communication.
+
+jgroups.timeout
+:   Maximum interval of time in milliseconds the JGroups wait for a response
+    forwarding a message. When not specified, the default value is 5000ms
+
+jgroups.maxTries
+:   Maximum number of times JGroups should attempt to forward a message. Setting
+    this value to 0 will disable retries. When not specified, the default value
+    is 720 times.
+
+jgroups.retryInterval
+:   The interval of time in milliseconds between the subsequent auto-retries.
+    When not specified, the default value is set to 10000ms.
+
+NOTE: the default settings for `jgroups.timeout` and `jgroups.maxTries` ensure
+that JGroups will keep retrying to forward a message for one hour.
 
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.
