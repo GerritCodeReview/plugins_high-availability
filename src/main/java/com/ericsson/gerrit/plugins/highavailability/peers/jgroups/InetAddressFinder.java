@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-class InetAddressFinder {
+public class InetAddressFinder {
   private static final Logger log = LoggerFactory.getLogger(InetAddressFinder.class);
 
   private final boolean preferIPv4;
@@ -51,7 +51,7 @@ class InetAddressFinder {
    *
    * @return an Optional<InetAddress>
    */
-  Optional<InetAddress> findAddress() throws SocketException {
+  public Optional<InetAddress> findAddress() throws SocketException {
     return findFirstAppropriateAddress(Collections.list(NetworkInterface.getNetworkInterfaces()));
   }
 
