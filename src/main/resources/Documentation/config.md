@@ -35,11 +35,22 @@ File '@PLUGIN@.config'
   skipInterface = lo*
   skipInterface = eth2
   protocolStack = protocolStack.xml
+  timeout = 5000
 [http]
   user = username
   password = password
 [healthcheck]
   enable = true
+```
+
+```
+[main]
+  sharedDirectory = /directory/accessible/from/both/instances
+  transport = jgroups
+[jgroups]
+  cluster = foo
+  skipInterface = lo*
+  skipInterface = eth2
 ```
 
 ```main.sharedDirectory```
@@ -49,6 +60,10 @@ File '@PLUGIN@.config'
     sharedDirectory is given as "shared/dir" then the real path of the shared
     directory is "/gerrit/root/shared/dir". When not specified, the default
     is "shared".
+
+```main.transport```
+:   Message transport layer. Can be set to either: `http` or `jgroups`.
+    When not specificed the default is `http`.
 
 ```main.maxTries```
 :   Maximum number of times the plugin should attempt when forwarding messages in
@@ -107,6 +122,10 @@ a member joins or leaves the cluster.
     resolved from the site's `etc` folder. For more information on protocol stack and
     its configuration file syntax please refer to JGroups documentation.
     See [JGroups - Advanced topics](http://jgroups.org/manual-3.x/html/user-advanced.html).
+
+```jgroups.timeout```
+:   Maximum interval of time in milliseconds the JGroups wait for a response
+    forwarding a message. When not specified, the default value is 5000ms.
 
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.
