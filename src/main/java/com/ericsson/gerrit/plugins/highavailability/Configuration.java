@@ -45,6 +45,7 @@ public class Configuration {
   static final String MAIN_SECTION = "main";
   static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
   static final String DEFAULT_SHARED_DIRECTORY = "shared";
+  static final String TRANSPORT_KEY = "transport";
   static final String MAX_TRIES_KEY = "maxTries";
   static final String RETRY_INTERVAL_KEY = "retryInterval";
 
@@ -61,6 +62,7 @@ public class Configuration {
   static final String SKIP_INTERFACE_KEY = "skipInterface";
   static final String CLUSTER_NAME_KEY = "clusterName";
   static final String PROTOCOL_STACK_KEY = "protocolStack";
+  static final String TIMEOUT_KEY = "timeout";
 
   // http section
   static final String HTTP_SECTION = "http";
@@ -102,6 +104,7 @@ public class Configuration {
   static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
   static final boolean DEFAULT_SYNCHRONIZE = true;
   static final PeerInfoStrategy DEFAULT_PEER_INFO_STRATEGY = PeerInfoStrategy.STATIC;
+  static final Transport DEFAULT_TRANSPORT = Transport.HTTP;
   static final ImmutableList<String> DEFAULT_SKIP_INTERFACE_LIST =
       ImmutableList.of("lo*", "utun*", "awdl*");
   static final String DEFAULT_CLUSTER_NAME = "GerritHA";
@@ -121,6 +124,11 @@ public class Configuration {
   public enum PeerInfoStrategy {
     JGROUPS,
     STATIC
+  }
+
+  public enum Transport {
+    HTTP,
+    JGROUPS
   }
 
   @Inject
@@ -208,11 +216,13 @@ public class Configuration {
   }
 
   public static class Main {
+    private final Transport transport;
     private final Path sharedDirectory;
     private final int maxTries;
     private final int retryInterval;
 
     private Main(SitePaths site, Config cfg) {
+      transport = cfg.getEnum(MAIN_SECTION, null, TRANSPORT_KEY, DEFAULT_TRANSPORT);
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (shared == null) {
         shared = DEFAULT_SHARED_DIRECTORY;
@@ -257,6 +267,10 @@ public class Configuration {
         log.warn("Value '{}' for key '{}' is not a valid number.", toParse, key);
         return -1;
       }
+    }
+
+    public Transport transport() {
+      return transport;
     }
 
     public Path sharedDirectory() {
@@ -317,6 +331,7 @@ public class Configuration {
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
     private final Optional<Path> protocolStack;
+    private final int timeout;
 
     private JGroups(SitePaths site, Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
@@ -328,6 +343,7 @@ public class Configuration {
       log.debug(
           "Protocol stack config {}",
           protocolStack.isPresent() ? protocolStack.get() : "not configured, using default stack.");
+      timeout = getInt(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
     }
 
     private static String getString(
@@ -351,6 +367,10 @@ public class Configuration {
 
     public String clusterName() {
       return clusterName;
+    }
+
+    public int timeout() {
+      return timeout;
     }
   }
 
