@@ -77,6 +77,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   public void receive(Message msg) {
     synchronized (this) {
       if (peerAddress != null) {
+        log.debug("Peer address is {}", peerAddress);
         return;
       }
       peerAddress = msg.getSrc();
@@ -106,9 +107,17 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
         peerInfo = Optional.empty();
       }
     }
+    log.debug(
+        "View {} has {} members: {}",
+        view.getViewId(),
+        view.getMembers().size(),
+        view.getMembers());
     if (view.size() > 1) {
       try {
         channel.send(new Message(null, myUrl));
+        if (log.isDebugEnabled()) {
+          log.debug("Message sent using channel {}", channel.toString(true));
+        }
       } catch (Exception e) {
         // channel communication caused an error. Can't do much about it.
         log.error(
