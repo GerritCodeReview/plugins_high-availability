@@ -13,6 +13,7 @@ TEST_DEPS = GERRIT_PLUGIN_API + GERRIT_TESTS + [
   ':high-availability__plugin',
   ':mockito',
   ':wiremock',
+  ':jgroups',
 ]
 
 gerrit_plugin(

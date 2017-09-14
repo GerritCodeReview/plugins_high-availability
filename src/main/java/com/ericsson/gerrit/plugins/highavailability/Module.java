@@ -14,9 +14,14 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
@@ -24,9 +29,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 class Module extends AbstractModule {
   private final Configuration config;
@@ -39,7 +41,18 @@ class Module extends AbstractModule {
   @Override
   protected void configure() {
     install(new ForwarderModule());
-    install(new RestForwarderModule());
+
+    switch (config.main().transport()) {
+      case HTTP:
+        install(new RestForwarderModule());
+        install(new PeerInfoModule(config.peerInfo().strategy()));
+        break;
+      case JGROUPS:
+        install(new JGroupsForwarderModule());
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported transport: " + config.main().transport());
+    }
 
     if (config.cache().synchronize()) {
       install(new CacheModule());
@@ -50,7 +63,6 @@ class Module extends AbstractModule {
     if (config.index().synchronize()) {
       install(new IndexModule());
     }
-    install(new PeerInfoModule(config.peerInfo().strategy()));
   }
 
   @Provides
