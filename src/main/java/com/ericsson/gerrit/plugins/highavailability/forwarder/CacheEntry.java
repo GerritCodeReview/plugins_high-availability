@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import java.util.Objects;
 
 /** Represents a cache entry to evict */
 public class CacheEntry {
@@ -46,6 +47,22 @@ public class CacheEntry {
 
   public Object getKey() {
     return key;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof CacheEntry) {
+      CacheEntry e = (CacheEntry) o;
+      return Objects.equals(pluginName, e.pluginName)
+          && Objects.equals(cacheName, e.cacheName)
+          && Objects.equals(key, e.key);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pluginName, cacheName, key);
   }
 
   /**

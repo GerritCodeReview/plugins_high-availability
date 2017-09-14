@@ -89,6 +89,11 @@ public class Configuration {
     STATIC
   }
 
+  public enum Transport {
+    HTTP,
+    JGROUPS
+  }
+
   @Inject
   Configuration(SitePaths sitePaths) {
     this(getConfigFile(sitePaths, PLUGIN_CONFIG_FILE), sitePaths);
@@ -203,10 +208,14 @@ public class Configuration {
     static final String MAIN_SECTION = "main";
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
     static final String DEFAULT_SHARED_DIRECTORY = "shared";
+    static final String TRANSPORT_KEY = "transport";
+    static final Transport DEFAULT_TRANSPORT = Transport.HTTP;
 
+    private final Transport transport;
     private final Path sharedDirectory;
 
     private Main(SitePaths site, Config cfg) {
+      transport = cfg.getEnum(MAIN_SECTION, null, TRANSPORT_KEY, DEFAULT_TRANSPORT);
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (shared == null) {
         shared = DEFAULT_SHARED_DIRECTORY;
@@ -217,6 +226,10 @@ public class Configuration {
       } else {
         sharedDirectory = site.resolve(shared);
       }
+    }
+
+    public Transport transport() {
+      return transport;
     }
 
     public Path sharedDirectory() {
@@ -325,8 +338,14 @@ public class Configuration {
   }
 
   public static class JGroups {
+    static final int DEFAULT_MAX_TRIES_JGROUPS = 720;
+    static final int DEFAULT_RETRY_INTERVAL_JGROUPS = 10000;
+
     static final String SKIP_INTERFACE_KEY = "skipInterface";
     static final String CLUSTER_NAME_KEY = "clusterName";
+    static final String MAX_TRIES_KEY = "maxTries";
+    static final String RETRY_INTERVAL_KEY = "retryInterval";
+    static final String TIMEOUT_KEY = "timeout";
     static final String KUBERNETES_KEY = "kubernetes";
     static final String PROTOCOL_STACK_KEY = "protocolStack";
     static final ImmutableList<String> DEFAULT_SKIP_INTERFACE_LIST =
@@ -335,6 +354,9 @@ public class Configuration {
 
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
+    private final int timeout;
+    private final int maxTries;
+    private final int retryInterval;
     private final boolean useKubernetes;
     private final Optional<Path> protocolStack;
 
@@ -344,6 +366,10 @@ public class Configuration {
       log.atFine().log("Skip interface(s): %s", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.atFine().log("Cluster name: %s", clusterName);
+      timeout = getInt(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES_JGROUPS);
+      retryInterval =
+          getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL_JGROUPS);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
@@ -372,6 +398,18 @@ public class Configuration {
 
     public String clusterName() {
       return clusterName;
+    }
+
+    public int timeout() {
+      return timeout;
+    }
+
+    public int maxTries() {
+      return maxTries;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
     }
 
     public boolean useKubernetes() {

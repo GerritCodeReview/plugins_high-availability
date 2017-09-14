@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.autoreindex.AutoReindexModul
 import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
@@ -41,7 +42,18 @@ class Module extends LifecycleModule {
   protected void configure() {
     install(new EnvModule());
     install(new ForwarderModule());
-    install(new RestForwarderModule());
+
+    switch (config.main().transport()) {
+      case HTTP:
+        install(new RestForwarderModule());
+        install(new PeerInfoModule(config.peerInfo().strategy()));
+        break;
+      case JGROUPS:
+        install(new JGroupsForwarderModule());
+        break;
+      default:
+        throw new IllegalArgumentException("Unsupported transport: " + config.main().transport());
+    }
 
     if (config.cache().synchronize()) {
       install(new CacheModule());
@@ -55,7 +67,6 @@ class Module extends LifecycleModule {
     if (config.autoReindex().enabled()) {
       install(new AutoReindexModule());
     }
-    install(new PeerInfoModule(config.peerInfo().strategy()));
 
     if (config.sharedRefDb().getSharedRefDb().isEnabled()) {
       listener().to(PluginStartup.class);
