@@ -21,6 +21,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.util.IndexAccounts;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.gwtorm.client.KeyUtil;
@@ -53,7 +54,7 @@ public class IndexAccountRestApiServletTest {
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexAccountRestApiServlet(indexer);
+    servlet = new IndexAccountRestApiServlet(new IndexAccounts(indexer));
     id = Account.Id.parse(ACCOUNT_NUMBER);
     when(req.getPathInfo()).thenReturn("/index/account/" + ACCOUNT_NUMBER);
   }

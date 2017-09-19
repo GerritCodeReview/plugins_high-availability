@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.util.CacheEviction;
 import com.google.common.cache.Cache;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import java.io.BufferedReader;
@@ -44,7 +45,7 @@ public class CacheRestApiServletTest {
 
   @Before
   public void setUp() {
-    servlet = new CacheRestApiServlet(cacheMap);
+    servlet = new CacheRestApiServlet(new CacheEviction(cacheMap));
   }
 
   @Test
