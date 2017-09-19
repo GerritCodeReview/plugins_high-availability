@@ -24,6 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.util.IndexChanges;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ChangeAccess;
@@ -69,7 +70,7 @@ public class IndexChangeRestApiServletTest {
 
   @Before
   public void setUpMocks() {
-    indexRestApiServlet = new IndexChangeRestApiServlet(indexer, schemaFactory);
+    indexRestApiServlet = new IndexChangeRestApiServlet(new IndexChanges(indexer, schemaFactory));
     id = Change.Id.parse(CHANGE_NUMBER);
     when(req.getPathInfo()).thenReturn("/index/change/" + CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());

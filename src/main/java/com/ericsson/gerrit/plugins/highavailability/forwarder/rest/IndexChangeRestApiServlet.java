@@ -19,17 +19,13 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.util.IndexChanges;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.util.IndexChanges.Operation;
 import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,30 +37,27 @@ import org.slf4j.LoggerFactory;
 class IndexChangeRestApiServlet extends HttpServlet {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(IndexChangeRestApiServlet.class);
-  private static final Map<Change.Id, AtomicInteger> changeIdLocks = new HashMap<>();
 
-  private final ChangeIndexer indexer;
-  private final SchemaFactory<ReviewDb> schemaFactory;
+  private final IndexChanges indexChanges;
 
   @Inject
-  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
-    this.indexer = indexer;
-    this.schemaFactory = schemaFactory;
+  IndexChangeRestApiServlet(IndexChanges indexChanges) {
+    this.indexChanges = indexChanges;
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse rsp)
       throws IOException, ServletException {
-    process(req, rsp, "index");
+    process(req, rsp, Operation.UPDATE);
   }
 
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse rsp)
       throws IOException, ServletException {
-    process(req, rsp, "delete");
+    process(req, rsp, Operation.DELETE);
   }
 
-  private void process(HttpServletRequest req, HttpServletResponse rsp, String operation) {
+  private void process(HttpServletRequest req, HttpServletResponse rsp, Operation op) {
     rsp.setContentType("text/plain");
     rsp.setCharacterEncoding("UTF-8");
     String path = req.getPathInfo();
@@ -72,7 +65,7 @@ class IndexChangeRestApiServlet extends HttpServlet {
     Change.Id id = Change.Id.parse(changeId);
     try {
       Context.setForwardedEvent(true);
-      index(id, operation);
+      indexChanges.index(id, op);
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
@@ -91,51 +84,6 @@ class IndexChangeRestApiServlet extends HttpServlet {
       rsp.sendError(statusCode, message);
     } catch (IOException e) {
       logger.error("Failed to send error messsage: " + e.getMessage(), e);
-    }
-  }
-
-  private void index(Change.Id id, String operation) throws IOException, OrmException {
-    AtomicInteger changeIdLock = getAndIncrementChangeIdLock(id);
-    synchronized (changeIdLock) {
-      if ("index".equals(operation)) {
-        try (ReviewDb db = schemaFactory.open()) {
-          Change change = db.changes().get(id);
-          if (change == null) {
-            indexer.delete(id);
-            return;
-          }
-          indexer.index(db, change);
-        }
-        logger.debug("Change {} successfully indexed", id);
-      }
-      if ("delete".equals(operation)) {
-        indexer.delete(id);
-        logger.debug("Change {} successfully deleted from index", id);
-      }
-    }
-    if (changeIdLock.decrementAndGet() == 0) {
-      removeChangeIdLock(id);
-    }
-  }
-
-  private AtomicInteger getAndIncrementChangeIdLock(Change.Id id) {
-    synchronized (changeIdLocks) {
-      AtomicInteger changeIdLock = changeIdLocks.get(id);
-      if (changeIdLock == null) {
-        changeIdLock = new AtomicInteger(1);
-        changeIdLocks.put(id, changeIdLock);
-      } else {
-        changeIdLock.incrementAndGet();
-      }
-      return changeIdLock;
-    }
-  }
-
-  private void removeChangeIdLock(Change.Id id) {
-    synchronized (changeIdLocks) {
-      if (changeIdLocks.get(id).get() == 0) {
-        changeIdLocks.remove(id);
-      }
     }
   }
 }
