@@ -49,6 +49,11 @@ public class Configuration {
   static final String URL_KEY = "url";
   static final String STRATEGY_KEY = "strategy";
 
+  // jgroups section
+  static final String JGROUPS_SECTION = "jgroups";
+  static final String SKIP_INTERFACE_KEY = "skipInterface";
+  static final String CLUSTER_NAME_KEY = "clusterName";
+
   // http section
   static final String HTTP_SECTION = "http";
   static final String USER_KEY = "user";
@@ -77,10 +82,6 @@ public class Configuration {
   static final String WEBSESSION_SECTION = "websession";
   static final String CLEANUP_INTERVAL_KEY = "cleanupInterval";
 
-  // jgroups section used if peerInfo.strategy == jgroups
-  static final String SKIP_INTERFACE_KEY = "skipInterface";
-  static final String CLUSTER_NAME_KEY = "clusterName";
-
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 5;
   static final int DEFAULT_RETRY_INTERVAL = 1000;
@@ -95,6 +96,7 @@ public class Configuration {
 
   private final Main main;
   private final PeerInfo peerInfo;
+  private final JGroups jgroups;
   private final Http http;
   private final Cache cache;
   private final Event event;
@@ -124,6 +126,7 @@ public class Configuration {
       default:
         throw new IllegalArgumentException("Not supported strategy: " + peerInfo.strategy);
     }
+    jgroups = new JGroups(cfg);
     http = new Http(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
@@ -145,6 +148,10 @@ public class Configuration {
 
   public PeerInfoJGroups peerInfoJGroups() {
     return peerInfoJGroups;
+  }
+
+  public JGroups jgroups() {
+    return jgroups;
   }
 
   public Http http() {
@@ -243,15 +250,22 @@ public class Configuration {
   }
 
   public static class PeerInfoJGroups {
+
+    private PeerInfoJGroups(Config cfg) {}
+
+    public String myUrl() {
+      throw new UnsupportedOperationException("peerInfo.jgroups.myUrl not supported");
+    }
+  }
+
+  public static class JGroups {
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
 
-    private PeerInfoJGroups(Config cfg) {
-      String[] skip = cfg.getStringList(PEER_INFO_SECTION, JGROUPS_SUBSECTION, SKIP_INTERFACE_KEY);
+    private JGroups(Config cfg) {
+      String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
       skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
-      clusterName =
-          getString(
-              cfg, PEER_INFO_SECTION, JGROUPS_SUBSECTION, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
+      clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
     }
 
     public ImmutableList<String> skipInterface() {

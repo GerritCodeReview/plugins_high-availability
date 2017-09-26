@@ -57,7 +57,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   }
 
   private final String myUrl;
-  private final Configuration.PeerInfoJGroups jgroupsConfig;
+  private final Configuration.JGroups jgroupsConfig;
   private final InetAddressFinder finder;
 
   private JChannel channel;
@@ -73,7 +73,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     String hostName = InetAddress.getLocalHost().getHostName();
     URIish u = new URIish(srvConfig.getString("httpd", null, "listenUrl"));
     this.myUrl = u.setHost(hostName).toString();
-    this.jgroupsConfig = pluginConfiguration.peerInfoJGroups();
+    this.jgroupsConfig = pluginConfiguration.jgroups();
     this.finder = finder;
   }
 
