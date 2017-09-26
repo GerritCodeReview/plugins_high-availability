@@ -22,6 +22,30 @@
       "revId": "1bf2d7417e883908435b71ebb156ba9ab8c4f128",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a50b5ef8_73f04367",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-26T17:21:39Z",
+      "side": 1,
+      "message": "Because myUrl is only needed when JGroups is used for peer discovery and HTTP is used for message transport.\n\nWhen JGroups is used for message transport then we don\u0027t need myUrl. The whole complexity of myUrl computation is gone.\n\nI will upload JGroups based message forwarding in few days, after our internal testing is done.",
+      "parentUuid": "3c3cce6a_82469e9f",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "1bf2d7417e883908435b71ebb156ba9ab8c4f128",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
