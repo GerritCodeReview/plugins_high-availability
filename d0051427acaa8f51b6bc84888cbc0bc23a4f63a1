@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66a76e60_4eba8409",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-26T09:56:32Z",
+      "side": 1,
+      "message": "\u003e really ?\n\nWell, once we have JGroups based message transport we may really start to hate http ;-)\n\n\u003e \n\u003e s/hate/have a/",
+      "parentUuid": "ee53dcae_7b09d3bb",
+      "range": {
+        "startLine": 13,
+        "startChar": 13,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "d0051427acaa8f51b6bc84888cbc0bc23a4f63a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf9ec42a_bd778e1f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
