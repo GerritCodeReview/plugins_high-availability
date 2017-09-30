@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59b1dc95_aabe5dd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-30T20:19:15Z",
+      "side": 1,
+      "message": "This is actually not possible. According to my discussion [1] on the jgroups-dev\nmailing list, JGroups will never deliver already sent message to a node which\njoins the cluster after the message is already sent.\n\n[1] https://groups.google.com/d/msg/jgroups-dev/5qnQZtFpA7I/4gZxN7QCAwAJ",
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
