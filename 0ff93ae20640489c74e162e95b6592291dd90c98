@@ -33,6 +33,29 @@
       "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a62fb726_f1002084",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-30T20:28:19Z",
+      "side": 1,
+      "message": "We need configurable JGroups channel. This changes uses \"new JChannel()\"\nwhich means: default configuration. JGroups channel provides many constructors\nincluding the one [1] which accepts a property file. We should check existence of\nthe property file at, for example, $SITE/etc/jchannel.properties, and if the\nfile is present use it.\n\n[1] http://www.jgroups.org/javadoc/org/jgroups/JChannel.html#JChannel-java.io.File-",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 50
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
