@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0b6c5870_91ff65ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-09-30T20:22:20Z",
+      "side": 1,
+      "message": "This is actually not possible if we think about other node joining the cluster\nafter the message has been sent. I discussed this on jgroups-dev mailing list [1]\n\n[1] https://groups.google.com/d/msg/jgroups-dev/5qnQZtFpA7I/4gZxN7QCAwAJ",
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "59b1dc95_aabe5dd8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
