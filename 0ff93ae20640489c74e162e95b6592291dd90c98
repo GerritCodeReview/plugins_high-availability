@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "1dbfda93_24c2be0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-10-01T19:35:05Z",
+      "side": 1,
+      "message": "\u003e Maybe my suggestion of extracting the retry logic out of the http layer was not that good after all. When we will want to rely on JGroups for the retry delivery, the extracted retry logic will become an issue.\n\nI am aware that how jgroups is used from this change is likely suboptimal. However, as\nthe very first step I wanted to stay as close as possible to the http based solution which\nis well tested. I believe that we could start with the approach like in this change and\nthen keep improving in small steps until we reach state which is more aligned with the\njgroups idea.\n\n\n\u003e I read Bela Ban\u0027s answer and state transfer seems to be the main way for a new JGroup member to get what it missed.\n\nYes, state transfer would be JGroups compliant approach. But it is also more tricky to\nimplement as the very first step.\n\n\u003e \n\u003e I do not know if this is a good idea I will share anyway:\n\u003e \n\u003e Let\u0027s assume every node in the cluster knows how many peers there should be (e.g.getting it from the configuration). When something is happening, if numbers of peers in the view is equal to number of expected peer, then just send the message.\n\nWe must also check the response(s) and make sure that all peers received the message. Even if all peers were in the view at the moment when we checked, a peer could disappear just before the message is sent.\n\n\u003e If number of peers in the view is lower than the number of expected peer, then send the message but also store it the the state so when the other expected nodes connect, they will get what they missed from the state transfer and empty the state.\n\nI think that it is a bit more complex than you described in case we are talking about a\ngeneric solution which supports N peers.\nFor example, where would the missed messages be collected? There must be an agreement between\npeers on which one is responsible for keeping the state. Maybe jgroups already provides support\nfor this scenario, we need to read the docs.\nFurther, knowing when to empty the state becomes trickier if more than one peer missed some\nmessages. They could have missed different sets of messages. Therefore, the state must\nintroduce some sequence numbers associated to each entry in the state. When a peer joins\nagain it needs to tell which was the last sequence number it received.\nDo we want to maintain global sequence numbers, or one per each message type?\nWe also need to know how many peers missed some messages and when it is safe to clean the state.\nMaybe we have to uniquely identify each peer instead of just counting them?\n\nI believe that all these issues are solvable but it would take us more time to come\nto something productively useable.",
+      "parentUuid": "49df5505_a2bd8818",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b1dc95_aabe5dd8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
