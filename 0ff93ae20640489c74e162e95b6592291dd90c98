@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "8b3c7b0d_440ba750",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-10-01T19:50:45Z",
+      "side": 1,
+      "message": "\u003e We also need to know how many peers missed some messages and when it is safe to clean the state.\n\u003e Maybe we have to uniquely identify each peer instead of just counting them?\n\nThinking more about this issue I believe that we should never clean the whole state as it is very tricky to know when it is safe to do.\nInstead, the state should simply be a bounded list of last N (configurable) messages. When the state list is full, the oldest entries get automatically dropped.\nWhen a state transfer is requested by a peer, we send the last M missed messages from the list, where M is the number of messages missed by the peer.",
+      "parentUuid": "1dbfda93_24c2be0b",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b1dc95_aabe5dd8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
