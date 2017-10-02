@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "a600c58e_04808910",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-10-02T06:55:18Z",
+      "side": 1,
+      "message": "\u003e \u003e Maybe my suggestion of extracting the retry logic out of the http\n \u003e layer was not that good after all. When we will want to rely on\n \u003e JGroups for the retry delivery, the extracted retry logic will\n \u003e become an issue.\n \u003e \n \u003e I am aware that how jgroups is used from this change is likely\n \u003e suboptimal. However, as\n \u003e the very first step I wanted to stay as close as possible to the\n \u003e http based solution which\n \u003e is well tested. I believe that we could start with the approach\n \u003e like in this change and\n \u003e then keep improving in small steps until we reach state which is\n \u003e more aligned with the\n \u003e jgroups idea.\n \u003e \n\n \nI am totally fine with the current approach. My comment was more about\nwhen we will want to implement a retry within the JGroups layer, maybe\nwe will need to move back the general retry in the http layer.",
+      "parentUuid": "1dbfda93_24c2be0b",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b1dc95_aabe5dd8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
