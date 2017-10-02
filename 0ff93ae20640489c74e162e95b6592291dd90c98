@@ -138,6 +138,30 @@
     },
     {
       "key": {
+        "uuid": "b439d1f1_c5408717",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-10-02T08:08:33Z",
+      "side": 1,
+      "message": "You are right, forget my comment, I will blame it on the jet lag :)",
+      "parentUuid": "d3f2931c_0daf6c38",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59b1dc95_aabe5dd8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
