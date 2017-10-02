@@ -201,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "d05bcaff_ee14673e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-10-02T07:58:16Z",
+      "side": 1,
+      "message": "All DEFAULT_* constants were located here at the bottom. You are probably right that these constants should all be moved to their corresponding sections but this issue is not introduced with this change.",
+      "parentUuid": "a00734b9_b7c5a692",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 51
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7993fa92_f240ef80",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
@@ -212,6 +236,30 @@
       "writtenOn": "2017-10-01T09:56:57Z",
       "side": 1,
       "message": "Same as above?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 58
+      },
+      "revId": "0ff93ae20640489c74e162e95b6592291dd90c98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9ff7dde_568d5de5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-10-02T07:58:16Z",
+      "side": 1,
+      "message": "Same answer :-)",
+      "parentUuid": "7993fa92_f240ef80",
       "range": {
         "startLine": 91,
         "startChar": 2,
