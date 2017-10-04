@@ -21,6 +21,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.CONNECT
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_CLEANUP_INTERVAL_MS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_CLUSTER_NAME;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_MAX_TRIES;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_MODE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_PEER_INFO_STRATEGY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_RETRY_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_SKIP_INTERFACE_LIST;
@@ -34,6 +35,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGROUPS
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGROUPS_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.MAX_TRIES_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.MODE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.MY_URL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PASSWORD_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PATTERN_KEY;
@@ -460,6 +462,23 @@ public class ConfigurationTest {
         .thenThrow(new IllegalArgumentException(ERROR_MESSAGE));
     initializeConfiguration();
     assertThat(configuration.event().synchronize()).isTrue();
+  }
+
+  @Test
+  public void testGetMode() throws Exception {
+    when(configMock.getEnum(MAIN_SECTION, null, MODE_KEY, DEFAULT_MODE)).thenReturn(DEFAULT_MODE);
+    initializeConfiguration();
+    assertThat(configuration.main().mode()).isEqualTo(DEFAULT_MODE);
+
+    when(configMock.getEnum(MAIN_SECTION, null, MODE_KEY, DEFAULT_MODE))
+        .thenReturn(Configuration.Mode.WARM_STANDBY);
+    initializeConfiguration();
+    assertEquals(configuration.main().mode(), Configuration.Mode.WARM_STANDBY);
+
+    when(configMock.getEnum(MAIN_SECTION, null, MODE_KEY, DEFAULT_MODE))
+        .thenReturn(Configuration.Mode.LOAD_BALANCING);
+    initializeConfiguration();
+    assertEquals(configuration.main().mode(), Configuration.Mode.LOAD_BALANCING);
   }
 
   @Test

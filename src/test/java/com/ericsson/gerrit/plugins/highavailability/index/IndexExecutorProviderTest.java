@@ -15,13 +15,13 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.Mode;
+
 import com.google.gerrit.server.git.WorkQueue;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
@@ -30,31 +30,66 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IndexExecutorProviderTest {
+
+  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  private Configuration configMock;
   @Mock private WorkQueue.Executor executorMock;
+  @Mock private WorkQueue workQueueMock;
+
   private IndexExecutorProvider indexExecutorProvider;
 
-  @Before
-  public void setUp() throws Exception {
-    executorMock = mock(WorkQueue.Executor.class);
-    WorkQueue workQueueMock = mock(WorkQueue.class);
-    when(workQueueMock.createQueue(4, "Forward-index-event")).thenReturn(executorMock);
-    Configuration configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
+  @Test
+  public void shouldReturnWorkQueueExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.WARM_STANDBY);
     when(configMock.index().threadPoolSize()).thenReturn(4);
+    when(workQueueMock.createQueue(4, "Forward-index-event")).thenReturn(executorMock);
     indexExecutorProvider = new IndexExecutorProvider(workQueueMock, configMock);
-  }
 
-  @Test
-  public void shouldReturnExecutor() throws Exception {
     assertThat(indexExecutorProvider.get()).isEqualTo(executorMock);
   }
 
   @Test
-  public void testStop() throws Exception {
+  public void testStopWorkQueueExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.WARM_STANDBY);
+    when(configMock.index().threadPoolSize()).thenReturn(4);
+    when(workQueueMock.createQueue(4, "Forward-index-event")).thenReturn(executorMock);
+    indexExecutorProvider = new IndexExecutorProvider(workQueueMock, configMock);
+
     indexExecutorProvider.start();
-    assertThat(indexExecutorProvider.get()).isEqualTo(executorMock);
+    assertThat(indexExecutorProvider.get()).isNotNull();
     indexExecutorProvider.stop();
     verify(executorMock).shutdown();
     verify(executorMock).unregisterWorkQueue();
+    assertThat(indexExecutorProvider.get()).isNull();
+  }
+
+  @Test
+  public void shouldReturnDirectExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.LOAD_BALANCING);
+    indexExecutorProvider = new IndexExecutorProvider(workQueueMock, configMock);
+
+    // Determine if executor is a direct exector by checking if the thread
+    // executing the task is the same as the submiter thread.
+    final Thread submiterThread = Thread.currentThread();
+    indexExecutorProvider.get().execute(new Runnable() {
+      @Override
+      public void run() {
+       assertThat(Thread.currentThread()).isEqualTo(submiterThread);
+      }
+    });
+
+    indexExecutorProvider.stop();
+  }
+
+
+  @Test
+  public void testStopWorkDirectExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.LOAD_BALANCING);
+    indexExecutorProvider = new IndexExecutorProvider(workQueueMock, configMock);
+
+    indexExecutorProvider.start();
+    assertThat(indexExecutorProvider.get()).isNotNull();
+    indexExecutorProvider.stop();
     assertThat(indexExecutorProvider.get()).isNull();
   }
 }

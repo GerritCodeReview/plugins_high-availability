@@ -43,6 +43,8 @@ public class Configuration {
 
   // main section
   static final String MAIN_SECTION = "main";
+  static final String MODE_KEY = "mode";
+  static final Mode DEFAULT_MODE = Mode.WARM_STANDBY;
   static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
   static final String DEFAULT_SHARED_DIRECTORY = "shared";
 
@@ -114,6 +116,11 @@ public class Configuration {
   public enum PeerInfoStrategy {
     JGROUPS,
     STATIC
+  }
+
+  public enum Mode {
+    WARM_STANDBY,
+    LOAD_BALANCING
   }
 
   @Inject
@@ -212,9 +219,11 @@ public class Configuration {
   }
 
   public static class Main {
+    private final Mode mode;
     private final Path sharedDirectory;
 
     private Main(SitePaths site, Config cfg) {
+      mode = cfg.getEnum(MAIN_SECTION, null, MODE_KEY, DEFAULT_MODE);
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (shared == null) {
         throw new ProvisionException(SHARED_DIRECTORY_KEY + " must be configured");
@@ -225,6 +234,10 @@ public class Configuration {
       } else {
         sharedDirectory = site.resolve(shared);
       }
+    }
+
+    public Mode mode() {
+      return mode;
     }
 
     public Path sharedDirectory() {

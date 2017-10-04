@@ -31,6 +31,12 @@ File '@PLUGIN@.config'
 :  user = username
 :  password = password
 
+main.mode
+:   High availability mode. Supported modes are `warm_standby` and `load_balancing`.
+    If seccond server is passive and only handle traffic in case of failover,
+    `warm_standby` mode must be used. If both servers are configure to handle
+    traffic, `load_balancing` mode must be use. Defaults to `warm_standby`.
+
 main.sharedDirectory
 :   Path to a directory accessible from both master instances.
     When given as a relative path, then it is resolved against the $SITE_PATH

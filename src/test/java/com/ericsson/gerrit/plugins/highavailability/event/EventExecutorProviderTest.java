@@ -15,41 +15,80 @@
 package com.ericsson.gerrit.plugins.highavailability.event;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 import com.google.gerrit.server.git.WorkQueue;
-import org.junit.Before;
+
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.Mode;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventExecutorProviderTest {
+
+  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  private Configuration configMock;
   @Mock private WorkQueue.Executor executorMock;
+  @Mock private WorkQueue workQueueMock;
+
   private EventExecutorProvider eventsExecutorProvider;
 
-  @Before
-  public void setUp() throws Exception {
-    WorkQueue workQueueMock = mock(WorkQueue.class);
+  @Test
+  public void shouldReturnWorkQueueExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.WARM_STANDBY);
     when(workQueueMock.createQueue(1, "Forward-stream-event")).thenReturn(executorMock);
-    eventsExecutorProvider = new EventExecutorProvider(workQueueMock);
-  }
+    eventsExecutorProvider = new EventExecutorProvider(workQueueMock, configMock);
 
-  @Test
-  public void shouldReturnExecutor() throws Exception {
     assertThat(eventsExecutorProvider.get()).isEqualTo(executorMock);
   }
 
   @Test
-  public void testStop() throws Exception {
+  public void testStopWorkQueueExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.WARM_STANDBY);
+    when(workQueueMock.createQueue(1, "Forward-stream-event")).thenReturn(executorMock);
+    eventsExecutorProvider = new EventExecutorProvider(workQueueMock, configMock);
+
     eventsExecutorProvider.start();
-    assertThat(eventsExecutorProvider.get()).isEqualTo(executorMock);
+    assertThat(eventsExecutorProvider.get()).isNotNull();
     eventsExecutorProvider.stop();
     verify(executorMock).shutdown();
     verify(executorMock).unregisterWorkQueue();
+    assertThat(eventsExecutorProvider.get()).isNull();
+  }
+
+  @Test
+  public void shouldReturnDirectExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.LOAD_BALANCING);
+    eventsExecutorProvider = new EventExecutorProvider(workQueueMock, configMock);
+
+    // Determine if executor is a direct exector by checking if the thread
+    // executing the task is the same as the submiter thread.
+    final Thread submiterThread = Thread.currentThread();
+    eventsExecutorProvider.get().execute(new Runnable() {
+      @Override
+      public void run() {
+       assertThat(Thread.currentThread()).isEqualTo(submiterThread);
+      }
+    });
+
+    eventsExecutorProvider.stop();
+  }
+
+
+  @Test
+  public void testStopWorkDirectExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.LOAD_BALANCING);
+    eventsExecutorProvider = new EventExecutorProvider(workQueueMock, configMock);
+
+    eventsExecutorProvider.start();
+    assertThat(eventsExecutorProvider.get()).isNotNull();
+    eventsExecutorProvider.stop();
     assertThat(eventsExecutorProvider.get()).isNull();
   }
 }

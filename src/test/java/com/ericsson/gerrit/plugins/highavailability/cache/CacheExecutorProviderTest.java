@@ -15,13 +15,13 @@
 package com.ericsson.gerrit.plugins.highavailability.cache;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.Mode;
+
 import com.google.gerrit.server.git.WorkQueue;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Answers;
@@ -31,32 +31,65 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class CacheExecutorProviderTest {
 
+  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  private Configuration configMock;
   @Mock private WorkQueue.Executor executorMock;
+  @Mock private WorkQueue workQueueMock;
 
   private CacheExecutorProvider cacheExecutorProvider;
 
-  @Before
-  public void setUp() throws Exception {
-    WorkQueue workQueueMock = mock(WorkQueue.class);
-    when(workQueueMock.createQueue(4, "Forward-cache-eviction-event")).thenReturn(executorMock);
-    Configuration configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
+  @Test
+  public void shouldReturnWorkQueueExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.WARM_STANDBY);
     when(configMock.cache().threadPoolSize()).thenReturn(4);
-
+    when(workQueueMock.createQueue(4, "Forward-cache-eviction-event")).thenReturn(executorMock);
     cacheExecutorProvider = new CacheExecutorProvider(workQueueMock, configMock);
-  }
 
-  @Test
-  public void shouldReturnExecutor() throws Exception {
     assertThat(cacheExecutorProvider.get()).isEqualTo(executorMock);
   }
 
   @Test
-  public void testStop() throws Exception {
+  public void testStopWorkQueueExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.WARM_STANDBY);
+    when(configMock.cache().threadPoolSize()).thenReturn(4);
+    when(workQueueMock.createQueue(4, "Forward-cache-eviction-event")).thenReturn(executorMock);
+    cacheExecutorProvider = new CacheExecutorProvider(workQueueMock, configMock);
+
     cacheExecutorProvider.start();
-    assertThat(cacheExecutorProvider.get()).isEqualTo(executorMock);
+    assertThat(cacheExecutorProvider.get()).isNotNull();
     cacheExecutorProvider.stop();
     verify(executorMock).shutdown();
     verify(executorMock).unregisterWorkQueue();
+    assertThat(cacheExecutorProvider.get()).isNull();
+  }
+
+  @Test
+  public void shouldReturnDirectExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.LOAD_BALANCING);
+    cacheExecutorProvider = new CacheExecutorProvider(workQueueMock, configMock);
+
+    // Determine if executor is a direct exector by checking if the thread
+    // executing the task is the same as the submiter thread.
+    final Thread submiterThread = Thread.currentThread();
+    cacheExecutorProvider.get().execute(new Runnable() {
+      @Override
+      public void run() {
+       assertThat(Thread.currentThread()).isEqualTo(submiterThread);
+      }
+    });
+
+    cacheExecutorProvider.stop();
+  }
+
+
+  @Test
+  public void testStopWorkDirectExecutor() throws Exception {
+    when(configMock.main().mode()).thenReturn(Mode.LOAD_BALANCING);
+    cacheExecutorProvider = new CacheExecutorProvider(workQueueMock, configMock);
+
+    cacheExecutorProvider.start();
+    assertThat(cacheExecutorProvider.get()).isNotNull();
+    cacheExecutorProvider.stop();
     assertThat(cacheExecutorProvider.get()).isNull();
   }
 }
