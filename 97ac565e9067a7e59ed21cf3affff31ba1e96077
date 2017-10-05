@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "238e9087_cd03134e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-10-05T20:01:19Z",
+      "side": 1,
+      "message": "Does this mean that when the other instance is not available, the first instance will quickly stall as all threads will eventually block on a synchronous forwarding call? This would mean that a rolling upgrade is not possible in that mode. Right?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "97ac565e9067a7e59ed21cf3affff31ba1e96077",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

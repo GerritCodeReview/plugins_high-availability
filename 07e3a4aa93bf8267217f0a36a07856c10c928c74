@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a5a775d2_cbf55841",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-10-05T20:01:19Z",
+      "side": 1,
+      "message": "I didn\u0027t really understand the commit message of the last patch-set (3) until I read comment form Hugo here :-) Especially why load-balancing relates to synchronous forwarding.\n\nRegarding names, why not:\n\n  [main]\n    mode \u003d multi-master",
+      "parentUuid": "d4ed1730_5e7e7ba3",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "07e3a4aa93bf8267217f0a36a07856c10c928c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82fcea2d_b369b0af",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
         "patchSetId": 1
