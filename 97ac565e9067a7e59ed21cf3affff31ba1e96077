@@ -22,6 +22,30 @@
       "revId": "97ac565e9067a7e59ed21cf3affff31ba1e96077",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c63a6d79_1aeee2c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-10-05T21:51:32Z",
+      "side": 1,
+      "message": "\u003e Does this mean that when the other instance is not available, the\n \u003e first instance will quickly stall as all threads will eventually\n \u003e block on a synchronous forwarding call?\n\n...hummm...yes, this is why this commit is RFC. You have a very  good point here.\n\nActually, we want synchronous calls only if server is available and if not available, we want the original request to complete and the forwarded one to pile up until server comes back. Once the server is back, it should process the pile up before handling request by itself. The HA plugin needs to signal the reverse proxy when it is ready to handle traffic. We have such a signaling mechanism here, I need to include it in HA plugin.\n\nOk, I will go back to the drawing table :)\n\n \u003e This would mean that a rolling upgrade is not possible in that mode. Right?\n\nAgain, you are right. If I implement what I mentioned above, it will fix this issue.",
+      "parentUuid": "238e9087_cd03134e",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "97ac565e9067a7e59ed21cf3affff31ba1e96077",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
