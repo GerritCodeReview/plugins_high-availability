@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7ce928d7_e63b378c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-10-05T21:40:54Z",
+      "side": 1,
+      "message": "Ack, I will add more detail to the commit message.\n\nFor the name of the 2 modes, I do not mind changing them but multi-master means something different depending who you ask (e.g. for some people, it means geographically distributed masters). I would like to avoid this name if possible.\n\nI will read documentation of some reverse proxy (HAProxy, Nginx) to see which name they give to those 2 modes. I think we should use same terminology.\n\n.",
+      "parentUuid": "a5a775d2_cbf55841",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "07e3a4aa93bf8267217f0a36a07856c10c928c74",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82fcea2d_b369b0af",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
         "patchSetId": 1
