@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db6da631_d5bdff95",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-14T10:27:06Z",
+      "side": 1,
+      "message": "Long line?\n\nPlease make sure it\u0027s formatted with google-java-format.",
+      "revId": "cffc6add61074ef3f64a94f5e3a4712f44d044dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
