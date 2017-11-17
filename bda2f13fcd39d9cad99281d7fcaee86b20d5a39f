@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5500cda_e03aaa63",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-17T18:41:47Z",
+      "side": 1,
+      "message": "The IT tests are failing because @PluginData is not binded and we now use this in HealthServlet.\n\nI need to investigate but it looks like a bug in the core acceptance test framework.",
+      "range": {
+        "startLine": 25,
+        "startChar": 24,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "bda2f13fcd39d9cad99281d7fcaee86b20d5a39f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e6958f_95890925",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-17T18:41:47Z",
+      "side": 1,
+      "message": "we should restrict this method to admin only",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "bda2f13fcd39d9cad99281d7fcaee86b20d5a39f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508ee871_df415c22",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-17T18:41:47Z",
+      "side": 1,
+      "message": "we should restrict this method to admin only",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 76
+      },
+      "revId": "bda2f13fcd39d9cad99281d7fcaee86b20d5a39f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
