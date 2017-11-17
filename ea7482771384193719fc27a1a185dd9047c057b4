@@ -16,6 +16,24 @@
       "revId": "ea7482771384193719fc27a1a185dd9047c057b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c72e824_c5093be2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-17T18:34:42Z",
+      "side": 1,
+      "message": "Done, PS2 use a file in plugin data dir to persist the unhealthy state and I added unit tests also.",
+      "parentUuid": "def423d3_003365ea",
+      "revId": "ea7482771384193719fc27a1a185dd9047c057b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
