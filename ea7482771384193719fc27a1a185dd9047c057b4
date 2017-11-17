@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "def423d3_003365ea",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-17T12:34:02Z",
+      "side": 1,
+      "message": "Our implementation persist the health status into a file. Actually health status is return based on existence of the file. If the file exist, unhealthy otherwise healthy.\n\nThis offers 2 advantages:\n-a node can be marked unhealthy even when unresponsive\n-typical use case is to mark node unhealthy, troubleshoot, restart, make sure node is ok and then mark it as healthy. The file allows to persist the unhealthy state across restart.\n\nThat said, I like the idea of setting the state using REST API.\n\nMaybe we can combine both ideas. I will work on that when I get into the office today.",
+      "revId": "ea7482771384193719fc27a1a185dd9047c057b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
