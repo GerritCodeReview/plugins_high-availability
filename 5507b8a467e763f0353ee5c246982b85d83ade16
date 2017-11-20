@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e512b942_d579f109",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-20T03:58:38Z",
+      "side": 1,
+      "message": "Format with gjf",
+      "revId": "5507b8a467e763f0353ee5c246982b85d83ade16",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ea6e16c_9a8b9ede",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServletTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-20T03:58:38Z",
+      "side": 1,
+      "message": "Unhealthy",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "5507b8a467e763f0353ee5c246982b85d83ade16",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
