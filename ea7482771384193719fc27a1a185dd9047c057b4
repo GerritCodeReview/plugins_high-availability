@@ -52,6 +52,24 @@
       "revId": "ea7482771384193719fc27a1a185dd9047c057b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "121eb6d0_ceaea94b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-21T01:34:41Z",
+      "side": 1,
+      "message": "\u003e \u003e a node can be marked unhealthy even when unresponsive\n \u003e \n \u003e If a node is unresponsive won\u0027t it already be considered unhealthy\n \u003e after not responding to the healthcheck call from HAProxy?\n \nI meant Gerrit could be blocked somehow but tcp check from HAProxy still responding.\n\nExample(real one from 2.14): account cache have a bug where it get locked forever and all threads accessing it will be blocked. Http thread pool will eventually be depleted so it will be impossible to tell health server to mark it offline.\n\nI know, this is unlikely so that\u0027s why I think the endpoint to control the server\u0027s health is nice but we need a back door which the file offer us.",
+      "parentUuid": "951392ac_c134595e",
+      "revId": "ea7482771384193719fc27a1a185dd9047c057b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
