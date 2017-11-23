@@ -279,7 +279,7 @@ public class Configuration {
 
     private JGroups(Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
-      skipInterface = skip == null ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
+      skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
       log.debug("Skip interface(s): {}", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.debug("Cluster name: {}", clusterName);
