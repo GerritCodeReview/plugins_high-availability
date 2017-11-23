@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bccfeed9_663a6259",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-23T23:43:23Z",
+      "side": 1,
+      "message": "Why use string formatting here, but not in the previous logs?",
+      "range": {
+        "startLine": 283,
+        "startChar": 36,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "89d01f1eb8f1a739ee848ec01fb27c55d442abdb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
