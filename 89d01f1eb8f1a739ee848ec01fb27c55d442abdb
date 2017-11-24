@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e7b3e710_32bdcb96",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-24T06:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87f570ee_3e4a1ffb",
+      "range": {
+        "startLine": 240,
+        "startChar": 5,
+        "endLine": 240,
+        "endChar": 48
+      },
+      "revId": "89d01f1eb8f1a739ee848ec01fb27c55d442abdb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87760e80_1bdd36c7",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "89687923_a6ae3f54",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-24T06:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87760e80_1bdd36c7",
+      "range": {
+        "startLine": 255,
+        "startChar": 6,
+        "endLine": 255,
+        "endChar": 31
+      },
+      "revId": "89d01f1eb8f1a739ee848ec01fb27c55d442abdb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76cc561c_1c8de11a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2017-11-24T00:40:56Z",
       "side": 1,
       "message": "log.debug(\"My Url: {}\", myUrl);",
+      "range": {
+        "startLine": 268,
+        "startChar": 6,
+        "endLine": 268,
+        "endChar": 36
+      },
+      "revId": "89d01f1eb8f1a739ee848ec01fb27c55d442abdb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbda7c62_66efdc88",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-24T06:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76cc561c_1c8de11a",
       "range": {
         "startLine": 268,
         "startChar": 6,
