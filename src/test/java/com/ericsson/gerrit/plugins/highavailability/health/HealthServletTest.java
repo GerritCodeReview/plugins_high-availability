@@ -17,21 +17,27 @@ package com.ericsson.gerrit.plugins.highavailability.health;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class HealthServletTest {
+
+  @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
 
   private HealthServlet servlet;
 
   @Before
   public void setUp() throws Exception {
-    servlet = new HealthServlet();
+    servlet = new HealthServlet(tempFolder.getRoot().toPath());
   }
 
   @Test
@@ -57,6 +63,16 @@ public class HealthServletTest {
   }
 
   @Test
+  public void testErrorDuringTransitionToUnhealty() throws IOException {
+    //remove plugin data dir to create an IOException
+    tempFolder.delete();
+
+    HttpServletResponse responseMock = mock(HttpServletResponse.class);
+    servlet.doDelete(null, responseMock);
+    verify(responseMock).sendError(SC_INTERNAL_SERVER_ERROR);
+  }
+
+  @Test
   public void testTransitionToHealty() throws IOException {
     // first, mark as unhealthy
     servlet.doDelete(null, mock(HttpServletResponse.class));
@@ -73,6 +89,16 @@ public class HealthServletTest {
     servlet.doPost(null, responseMock);
     verify(responseMock).setStatus(SC_NO_CONTENT);
     assertIsHealthy();
+  }
+
+  @Test
+  public void testErrorDuringTransitionToHealty() throws IOException {
+    //Create unheathy.txt as a folder with content to create a IOException
+    Files.createFile(tempFolder.newFolder("unhealthy.txt").toPath().resolve("child"));
+
+    HttpServletResponse responseMock = mock(HttpServletResponse.class);
+    servlet.doPost(null, responseMock);
+    verify(responseMock).sendError(SC_INTERNAL_SERVER_ERROR);
   }
 
   @Test
