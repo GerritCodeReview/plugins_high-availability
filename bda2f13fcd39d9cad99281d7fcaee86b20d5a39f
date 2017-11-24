@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "2d45fa23_0b20890d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-24T18:25:55Z",
+      "side": 1,
+      "message": "Thanks, I will check it out.",
+      "parentUuid": "2043ccd3_0efa79ae",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "bda2f13fcd39d9cad99281d7fcaee86b20d5a39f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "508ee871_df415c22",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
         "patchSetId": 2
