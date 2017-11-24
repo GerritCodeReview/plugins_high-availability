@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2043ccd3_0efa79ae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-11-24T18:13:04Z",
+      "side": 1,
+      "message": "The importer plugin implements many REST endpoints.\n\nKeep in mind that REST endpoints have to be bound in plugin\u0027s system module as\nbinding them in plugins http module doesn\u0027t work for some reason, likely a bug\nin plugin loading mechanism.",
+      "parentUuid": "616f50e1_a7222220",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "bda2f13fcd39d9cad99281d7fcaee86b20d5a39f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "508ee871_df415c22",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
         "patchSetId": 2
