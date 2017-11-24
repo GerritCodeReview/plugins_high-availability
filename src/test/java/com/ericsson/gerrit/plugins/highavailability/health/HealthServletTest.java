@@ -14,13 +14,18 @@
 
 package com.ericsson.gerrit.plugins.highavailability.health;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.google.gerrit.server.CurrentUser;
+import com.google.gerrit.server.account.CapabilityControl;
+import com.google.inject.Provider;
 import java.io.IOException;
 import java.nio.file.Files;
 import javax.servlet.http.HttpServletResponse;
@@ -28,16 +33,27 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HealthServletTest {
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
+
+  @Mock private Provider<CurrentUser> currentUserProviderMock;
+  @Mock private CurrentUser currentUserMock;
+  @Mock private CapabilityControl capabilityControlMock;
 
   private HealthServlet servlet;
 
   @Before
   public void setUp() throws Exception {
-    servlet = new HealthServlet(tempFolder.getRoot().toPath());
+    when(currentUserProviderMock.get()).thenReturn(currentUserMock);
+    when(currentUserMock.getCapabilities()).thenReturn(capabilityControlMock);
+    when(capabilityControlMock.canAdministrateServer()).thenReturn(true);
+    servlet = new HealthServlet(tempFolder.getRoot().toPath(), currentUserProviderMock);
   }
 
   @Test
@@ -60,6 +76,17 @@ public class HealthServletTest {
     servlet.doDelete(null, responseMock);
     verify(responseMock).setStatus(SC_NO_CONTENT);
     assertIsUnhealthy();
+  }
+
+  @Test
+  public void testTransitionToUnhealthyByNonAdmins() throws IOException {
+    assertIsHealthy();
+
+    when(capabilityControlMock.canAdministrateServer()).thenReturn(false);
+    HttpServletResponse responseMock = mock(HttpServletResponse.class);
+    servlet.doDelete(null, responseMock);
+    verify(responseMock).sendError(SC_FORBIDDEN);
+    assertIsHealthy();
   }
 
   @Test
@@ -89,6 +116,19 @@ public class HealthServletTest {
     servlet.doPost(null, responseMock);
     verify(responseMock).setStatus(SC_NO_CONTENT);
     assertIsHealthy();
+  }
+
+  @Test
+  public void testTransitionToHealthyByNonAdmins() throws IOException {
+    // first, mark as unhealthy
+    servlet.doDelete(null, mock(HttpServletResponse.class));
+    assertIsUnhealthy();
+
+    when(capabilityControlMock.canAdministrateServer()).thenReturn(false);
+    HttpServletResponse responseMock = mock(HttpServletResponse.class);
+    servlet.doPost(null, responseMock);
+    verify(responseMock).sendError(SC_FORBIDDEN);
+    assertIsUnhealthy();
   }
 
   @Test
