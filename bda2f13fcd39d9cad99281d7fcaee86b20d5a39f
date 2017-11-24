@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "616f50e1_a7222220",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-24T17:58:19Z",
+      "side": 1,
+      "message": "I was looking for the documentation to implement a plugin REST endpoint but I only found the one about the HttpServlet.\n\nDo you have an example of a plugin with a REST endpoint?",
+      "parentUuid": "33dd40b5_d391222f",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "bda2f13fcd39d9cad99281d7fcaee86b20d5a39f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "508ee871_df415c22",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
         "patchSetId": 2
