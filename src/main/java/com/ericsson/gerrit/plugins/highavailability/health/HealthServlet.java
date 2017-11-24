@@ -14,12 +14,15 @@
 
 package com.ericsson.gerrit.plugins.highavailability.health;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 
 import com.google.gerrit.extensions.annotations.PluginData;
+import com.google.gerrit.server.CurrentUser;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
@@ -38,14 +41,20 @@ public class HealthServlet extends HttpServlet {
   private static final long serialVersionUID = -1L;
 
   private final File unhealthyFile;
+  private final Provider<CurrentUser> currentUserProvider;
 
   @Inject
-  HealthServlet(@PluginData Path pluginDataDir) {
+  HealthServlet(@PluginData Path pluginDataDir, Provider<CurrentUser> currentUserProvider) {
     unhealthyFile = pluginDataDir.resolve("unhealthy.txt").toFile();
+    this.currentUserProvider = currentUserProvider;
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
+    if (!currentUserProvider.get().getCapabilities().canAdministrateServer()) {
+      sendError(rsp, SC_FORBIDDEN);
+      return;
+    }
     try {
       setHealthy();
       rsp.setStatus(SC_NO_CONTENT);
@@ -57,6 +66,10 @@ public class HealthServlet extends HttpServlet {
 
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse rsp) {
+    if (!currentUserProvider.get().getCapabilities().canAdministrateServer()) {
+      sendError(rsp, SC_FORBIDDEN);
+      return;
+    }
     try {
       setUnhealthy();
       rsp.setStatus(SC_NO_CONTENT);
