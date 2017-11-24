@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36b9ffc6_86d57b4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-24T15:54:17Z",
+      "side": 1,
+      "message": "let\u0027s use the open source version documentation",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 73
+      },
+      "revId": "79b9c58c4251c2190dda830fdec40b9e8f46eab5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57be758f_6c43f40a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-24T15:54:17Z",
+      "side": 1,
+      "message": "log to be consistent with logger in other classes",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "79b9c58c4251c2190dda830fdec40b9e8f46eab5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
