@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcbd6ea9_d1b50b12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-27T15:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ad2af36_a43dcc95",
+      "range": {
+        "startLine": 9,
+        "startChar": 48,
+        "endLine": 9,
+        "endChar": 51
+      },
+      "revId": "a2251851de83c6bf63412562b3faa2e036a4ee24",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db343740_ba5071cb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-11-25T01:06:51Z",
       "side": 1,
       "message": "the other",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 33
+      },
+      "revId": "a2251851de83c6bf63412562b3faa2e036a4ee24",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08849bf5_90261d9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-27T15:03:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db343740_ba5071cb",
       "range": {
         "startLine": 10,
         "startChar": 28,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "899a33e0_dc42e1a8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-27T15:03:57Z",
+      "side": 1,
+      "message": "That was the way I implemented it originally by I change because of a possible issue flagged by Sonarqube. See my comment below.",
+      "parentUuid": "f81a4809_75908eb2",
+      "range": {
+        "startLine": 44,
+        "startChar": 16,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "a2251851de83c6bf63412562b3faa2e036a4ee24",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d460e67_74fcfbf0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2017-11-25T01:06:51Z",
       "side": 1,
       "message": "use Files.exists(unhealthyFile) ?",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "a2251851de83c6bf63412562b3faa2e036a4ee24",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77b51823_ee8bf40f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-27T15:03:57Z",
+      "side": 1,
+      "message": "According to Sonarqube:\n\nJava 8\u0027s \"Files.exists\" should not be used (squid:S3725)\n\nCODE_SMELL Code smell MAJOR Major\nThe Files.exists method has noticeably poor performance in JDK 8, and can slow an application significantly when used to check files that don\u0027t actually exist.\n\nThe same goes for Files.notExists, Files.isDirectory and Files.isRegularFile.\n\nNote that this rule is automatically disabled when the project\u0027s sonar.java.source is not 8.\n\nNoncompliant Code Example\n\nPath myPath;\nif(java.nio.Files.exists(myPath)) {  // Noncompliant\n // do something\n}\nCompliant Solution\n\nPath myPath;\nif(myPath.toFile().exists())) {\n // do something\n}\nSee\n\nhttps://bugs.openjdk.java.net/browse/JDK-8153414\nhttps://bugs.openjdk.java.net/browse/JDK-8154077",
+      "parentUuid": "5d460e67_74fcfbf0",
       "range": {
         "startLine": 101,
         "startChar": 8,
