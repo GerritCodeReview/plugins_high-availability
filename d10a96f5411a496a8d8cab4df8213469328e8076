@@ -22,6 +22,30 @@
       "revId": "d10a96f5411a496a8d8cab4df8213469328e8076",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dcd7d3f_3bf73764",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-27T14:55:34Z",
+      "side": 1,
+      "message": "204 means that the request was successful but no content is returned and 200 normally return content.\n\nSince we are not returning anything I thought that 204 was a better choice but I do not mind putting back 200 if you prefer.\n\nIt does not change anything for HAProxy, by default it considers 200 and 204 healthy.",
+      "parentUuid": "95660900_88edd924",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "d10a96f5411a496a8d8cab4df8213469328e8076",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
