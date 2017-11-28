@@ -26,6 +26,7 @@ import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventDeserializer;
+import com.google.gerrit.server.events.ProjectEvent;
 import com.google.gerrit.server.events.SupplierDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,17 +55,20 @@ public class MessageProcessor implements RequestHandler {
   private final IndexAccounts indexAccounts;
   private final CacheEviction cacheEviction;
   private final EventDispatcher dispatcher;
+  private final ProjectEventHandler projectEventHandler;
 
   @Inject
   MessageProcessor(
       IndexChanges indexChanges,
       IndexAccounts indexAccounts,
       CacheEviction cacheEviction,
-      EventDispatcher dispatcher) {
+      EventDispatcher dispatcher,
+      ProjectEventHandler projectEventHandler) {
     this.indexChanges = indexChanges;
     this.indexAccounts = indexAccounts;
     this.cacheEviction = cacheEviction;
     this.dispatcher = dispatcher;
+    this.projectEventHandler = projectEventHandler;
   }
 
   @Override
@@ -107,6 +111,9 @@ public class MessageProcessor implements RequestHandler {
 
       } else if (cmd instanceof PostEvent) {
         Event event = ((PostEvent) cmd).getEvent();
+        if (event instanceof ProjectEvent) {
+          projectEventHandler.handle((ProjectEvent) event);
+        }
         try {
           dispatcher.postEvent(event);
           log.debug("Dispatching event {} done", event);

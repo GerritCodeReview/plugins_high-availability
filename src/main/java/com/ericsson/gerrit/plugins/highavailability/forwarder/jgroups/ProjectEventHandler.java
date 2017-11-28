@@ -14,20 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.inject.Scopes;
-import org.jgroups.blocks.MessageDispatcher;
-import org.jgroups.blocks.RequestHandler;
+import com.google.gerrit.server.events.ProjectEvent;
 
-public class JGroupsForwarderModule extends LifecycleModule {
-
-  @Override
-  protected void configure() {
-    bind(Forwarder.class).to(JGroupsForwarder.class);
-    bind(MessageDispatcher.class).toProvider(MessageDispatcherProvider.class).in(Scopes.SINGLETON);
-    bind(RequestHandler.class).to(MessageProcessor.class);
-    bind(ProjectEventHandler.class).to(ProjectListCacheUpdater.class);
-    listener().to(OnStartStop.class);
-  }
+public interface ProjectEventHandler {
+  void handle(ProjectEvent event);
 }
