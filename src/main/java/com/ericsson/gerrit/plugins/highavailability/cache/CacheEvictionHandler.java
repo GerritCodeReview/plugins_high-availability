@@ -37,7 +37,7 @@ class CacheEvictionHandler<K, V> implements CacheRemovalListener<K, V> {
     this.pluginName = pluginName;
     pattern =
         Pattern.compile(
-            "^accounts.*|^groups.*|ldap_groups|ldap_usernames|^project.*|sshkeys|web_sessions");
+            "^accounts.*|^groups.*|ldap_groups|ldap_usernames|projects|sshkeys|web_sessions");
   }
 
   @Override
