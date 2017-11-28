@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "5fcfb323_6b904526",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-28T00:42:31Z",
+      "side": 1,
+      "message": "Hmm, we use the Files methods all over core Gerrit.  Do we need to change them?",
+      "parentUuid": "f68a0547_02fecd48",
+      "range": {
+        "startLine": 101,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "a2251851de83c6bf63412562b3faa2e036a4ee24",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8a85d0e0_c005bcd3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/health/HealthServlet.java",
         "patchSetId": 4
