@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76f1d490_9e0017e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-29T13:43:10Z",
+      "side": 1,
+      "message": "I thought the same until a few days ago when Hector pointed me to https://www.slf4j.org/faq.html#paramException.\n\nIt\u0027s not well documented, actually it\u0027s not in the javadoc at all, only in the FAQ.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "3231541b4de736d441ff86b236ed84e5e8905d52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
