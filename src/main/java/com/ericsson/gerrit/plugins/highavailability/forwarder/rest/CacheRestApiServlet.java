@@ -108,9 +108,10 @@ class CacheRestApiServlet extends HttpServlet {
     if (Constants.PROJECT_LIST.equals(cacheName)) {
       // One key is holding the list of projects
       cache.invalidateAll();
+      logger.debug("Invalidated cache {}", cacheName);
     } else {
       cache.invalidate(key);
+      logger.debug("Invalidated cache {}[{}]", key, cacheName);
     }
-    logger.debug("Invalidated {}", cacheName);
   }
 }
