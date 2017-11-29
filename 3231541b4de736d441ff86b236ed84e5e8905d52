@@ -22,6 +22,30 @@
       "revId": "3231541b4de736d441ff86b236ed84e5e8905d52",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d05ef11_dbca8b72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-29T14:22:42Z",
+      "side": 1,
+      "message": "I\u0027ll rework this tomorrow.",
+      "parentUuid": "76f1d490_9e0017e1",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "3231541b4de736d441ff86b236ed84e5e8905d52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
