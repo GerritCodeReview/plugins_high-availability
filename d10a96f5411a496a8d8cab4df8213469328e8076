@@ -70,6 +70,30 @@
       "revId": "d10a96f5411a496a8d8cab4df8213469328e8076",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99b31b51_4a9b52e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-29T02:04:28Z",
+      "side": 1,
+      "message": "I removed the line from the commit message because this option is not needed, by default HAProxy considers that response statuses 2xx and 3xx are healthy and others unhealthy.",
+      "parentUuid": "0e99cfcf_645e4aa1",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 61
+      },
+      "revId": "d10a96f5411a496a8d8cab4df8213469328e8076",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
