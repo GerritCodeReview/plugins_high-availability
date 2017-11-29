@@ -22,6 +22,30 @@
       "revId": "4fb4a212371b94616e531a804ebedb0f568ff597",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c1572f4_e6c663f3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-29T08:14:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d401985e_436b8a19",
+      "range": {
+        "startLine": 114,
+        "startChar": 47,
+        "endLine": 114,
+        "endChar": 61
+      },
+      "revId": "4fb4a212371b94616e531a804ebedb0f568ff597",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
