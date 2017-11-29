@@ -61,7 +61,7 @@ class CacheRestApiServlet extends HttpServlet {
       Cache<?, ?> cache = cacheMap.get(cacheKey.pluginName, cacheKey.cacheName);
       if (cache == null) {
         String msg = String.format("cache %s not found", cacheName);
-        logger.error("Failed to process eviction request: " + msg);
+        logger.error("Failed to process eviction request: {}", msg);
         sendError(rsp, SC_BAD_REQUEST, msg);
       } else {
         Context.setForwardedEvent(true);
@@ -111,6 +111,6 @@ class CacheRestApiServlet extends HttpServlet {
     } else {
       cache.invalidate(key);
     }
-    logger.debug("Invalidated " + cacheName);
+    logger.debug("Invalidated {}", cacheName);
   }
 }
