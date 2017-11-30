@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffabbad5_5e8b4481",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-11-30T09:57:12Z",
+      "side": 1,
+      "message": "Servlets are by default singletons. This will now serialize all indexing operations, even those indexing different id\u0027s.\nBefore this change threads would only synchronize here if they would try to index the same id.",
+      "revId": "ee13d9cbc1b4e549ac44d48c3826f20e39cf5e43",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
