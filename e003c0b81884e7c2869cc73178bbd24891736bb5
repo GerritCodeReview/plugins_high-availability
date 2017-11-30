@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ca52dbca_059879b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-30T13:21:58Z",
+      "side": 1,
+      "message": "Not that I am against this change, it\u0027s simply me being curious: why would you want to disable this Servlet even if you are not using it?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "e003c0b81884e7c2869cc73178bbd24891736bb5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f1f8e80_e7a1ae49",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
