@@ -34,6 +34,24 @@
       "revId": "ee13d9cbc1b4e549ac44d48c3826f20e39cf5e43",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9baa56f5_7c2ed02b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-11-30T12:59:54Z",
+      "side": 1,
+      "message": "\u003e I wasn\u0027t sure if this was the correct solution, but on the other hand the report from spotbugs makes sense.\n\nI agree that this code is not perfect.\n\n\u003e Why are we using an AtomicInteger here if we\u0027re not making use of its atomicity?\n\nWe do use its atomicity: for example at the line 90 which is outside of any synchronized block.\n\nA cleaner solution would be to synchronize on \"id\" but the local id we have here is\nnot the same object as the corresponding key in the idLocks Map, although they are equal\nby object equality. Therefore to synchronize on \"id\" we would first need to get that\nkey from the idLocks map which is probably even more lines of code here.\n\nIMHO, a proper solution here would be to convert idLocks into a guava Cache\u003cT, Lock\u003e like\nI did in [1] to properly guard concurrent project creation. This approach would eliminate\nthe need for getAndIncrementIdLock/removeIdLock methods completely and would\nalso address the issue you are trying to resolve with this change. The coding here\nwould then look like:\n\n  Lock idLock \u003d idLocks.get(id);\n  idLock.lock();\n  try {\n    ...\n  } finally {\n    idLock.unlock();\n  }\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/131515",
+      "parentUuid": "25be39c6_774c707b",
+      "revId": "ee13d9cbc1b4e549ac44d48c3826f20e39cf5e43",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
