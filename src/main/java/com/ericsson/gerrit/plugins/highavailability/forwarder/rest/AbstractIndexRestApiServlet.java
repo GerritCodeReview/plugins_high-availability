@@ -21,12 +21,16 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,9 +41,10 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(AbstractIndexRestApiServlet.class);
-  private final Map<T, AtomicInteger> idLocks = new HashMap<>();
+
   private final String type;
   private final boolean allowDelete;
+  private final LoadingCache<T, Lock> idLocks;
 
   enum Operation {
     INDEX,
@@ -53,6 +58,17 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
   AbstractIndexRestApiServlet(String type, boolean allowDelete) {
     this.type = type;
     this.allowDelete = allowDelete;
+    this.idLocks =
+        CacheBuilder.newBuilder()
+            .maximumSize(1024)
+            .expireAfterAccess(5, TimeUnit.MINUTES)
+            .build(
+                new CacheLoader<T, Lock>() {
+                  @Override
+                  public Lock load(T key) throws Exception {
+                    return new ReentrantLock();
+                  }
+                });
   }
 
   AbstractIndexRestApiServlet(String type) {
@@ -83,12 +99,12 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     logger.debug("{} {} {}", operation.name().toLowerCase(Locale.US), type, id);
     try {
       Context.setForwardedEvent(true);
-      AtomicInteger idLock = getAndIncrementIdLock(id);
-      synchronized (idLock) {
+      Lock idLock = getLock(id);
+      idLock.lock();
+      try {
         index(id, operation);
-      }
-      if (idLock.decrementAndGet() == 0) {
-        removeIdLock(id);
+      } finally {
+        idLock.unlock();
       }
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
@@ -103,24 +119,11 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     }
   }
 
-  private AtomicInteger getAndIncrementIdLock(T id) {
-    synchronized (idLocks) {
-      AtomicInteger lock = idLocks.get(id);
-      if (lock == null) {
-        lock = new AtomicInteger(1);
-        idLocks.put(id, lock);
-      } else {
-        lock.incrementAndGet();
-      }
-      return lock;
-    }
-  }
-
-  private void removeIdLock(T id) {
-    synchronized (idLocks) {
-      if (idLocks.get(id).get() == 0) {
-        idLocks.remove(id);
-      }
+  private Lock getLock(T id) {
+    try {
+      return idLocks.get(id);
+    } catch (ExecutionException e) {
+      throw new RuntimeException("Failed to get lock for " + id, e);
     }
   }
 
