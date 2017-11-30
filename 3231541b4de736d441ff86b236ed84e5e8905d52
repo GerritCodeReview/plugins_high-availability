@@ -140,6 +140,30 @@
       "revId": "3231541b4de736d441ff86b236ed84e5e8905d52",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2a05c57_bcc9151d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2017-11-30T02:21:51Z",
+      "side": 1,
+      "message": "You\u0027re right, sorry.",
+      "parentUuid": "bf9aca7f_bc4ea607",
+      "range": {
+        "startLine": 198,
+        "startChar": 52,
+        "endLine": 198,
+        "endChar": 69
+      },
+      "revId": "3231541b4de736d441ff86b236ed84e5e8905d52",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
