@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f1f8e80_e7a1ae49",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-11-30T10:00:30Z",
+      "side": 1,
+      "message": "While I would actually prefer your naming here, looking at the rest of this class shows that we always use _KEY suffix for names like this one. Therefore, this should also be named consistently: ENABLE_KEY.",
+      "range": {
+        "startLine": 89,
+        "startChar": 22,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "e003c0b81884e7c2869cc73178bbd24891736bb5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
