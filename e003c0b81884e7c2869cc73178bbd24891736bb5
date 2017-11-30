@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b0d6b9cb_bacebe25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-11-30T14:06:19Z",
+      "side": 1,
+      "message": "that make sense",
+      "parentUuid": "73a2b1dc_07b1d4a1",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "e003c0b81884e7c2869cc73178bbd24891736bb5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f1f8e80_e7a1ae49",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
