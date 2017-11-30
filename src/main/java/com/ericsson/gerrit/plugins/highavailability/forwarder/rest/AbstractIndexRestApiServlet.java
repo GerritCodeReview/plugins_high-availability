@@ -84,7 +84,7 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     try {
       Context.setForwardedEvent(true);
       AtomicInteger idLock = getAndIncrementIdLock(id);
-      synchronized (idLock) {
+      synchronized (this) {
         index(id, operation);
       }
       if (idLock.decrementAndGet() == 0) {
