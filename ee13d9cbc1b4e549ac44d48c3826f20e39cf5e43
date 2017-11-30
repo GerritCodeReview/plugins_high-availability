@@ -16,6 +16,24 @@
       "revId": "ee13d9cbc1b4e549ac44d48c3826f20e39cf5e43",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25be39c6_774c707b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-11-30T11:10:57Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure if this was the correct solution, but on the other hand the report from spotbugs makes sense.  Why are we using an AtomicInteger here if we\u0027re not making use of its atomicity?",
+      "parentUuid": "ffabbad5_5e8b4481",
+      "revId": "ee13d9cbc1b4e549ac44d48c3826f20e39cf5e43",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
