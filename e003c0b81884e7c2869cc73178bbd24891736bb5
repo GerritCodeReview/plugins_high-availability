@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7bd6c04e_87834d21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-01T01:40:56Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message to make the intent clearer.",
+      "parentUuid": "b0d6b9cb_bacebe25",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 38
+      },
+      "revId": "e003c0b81884e7c2869cc73178bbd24891736bb5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f1f8e80_e7a1ae49",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 1
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "0f1f8e80_e7a1ae49",
+      "range": {
+        "startLine": 89,
+        "startChar": 22,
+        "endLine": 89,
+        "endChar": 28
+      },
+      "revId": "e003c0b81884e7c2869cc73178bbd24891736bb5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00c4c705_18846587",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-01T01:40:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8ab295_a840ad7a",
       "range": {
         "startLine": 89,
         "startChar": 22,
