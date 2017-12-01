@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08418726_215051fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-01T12:29:59Z",
+      "side": 1,
+      "message": "I like this idea but do you mind if we hold on merging this change?\n\nSince upgraded to 2.14, we have this issue[1] which is most likely a bug in Guava cache. When the issue happens, the LoadingCache is unusable until you restart Gerrit.\n\nWe spent a lot of time trying to investigate/reproduce/fix this issue with no luck so far. Investigating this issue made us realize that there are quite a few major issues reported on Guava cache that were never fixed. One of the Guava cache former developer wrote another cache[2] which he claims to be the 2.0 of guava cache.\n\nI have a change which is replacing Guava cache by Caffeine but before uploading it in the open source, I want to run it in production for one two weeks to be sure it fix the problem and do not bring other problems.\n\nEven though I prefer the way the code is in your change, I would like to hold on merging it and if my caffeine test in production is a success, I would prefer that we use a Caffeine cache instead. \n\n[1]https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d7645\n[2]https://github.com/ben-manes/caffeine",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
