@@ -237,7 +237,6 @@ public class Configuration {
 
     private PeerInfo(Config cfg) {
       strategy = cfg.getEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, DEFAULT_PEER_INFO_STRATEGY);
-      log.debug("Strategy: {}", strategy.name());
     }
 
     public PeerInfoStrategy strategy() {
@@ -252,7 +251,6 @@ public class Configuration {
       url =
           trimTrailingSlash(
               Strings.nullToEmpty(cfg.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)));
-      log.debug("Url: {}", url);
     }
 
     public String url() {
@@ -265,7 +263,6 @@ public class Configuration {
 
     private PeerInfoJGroups(Config cfg) {
       myUrl = trimTrailingSlash(cfg.getString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, MY_URL_KEY));
-      log.debug("My Url: {}", myUrl);
     }
 
     public String myUrl() {
@@ -279,10 +276,8 @@ public class Configuration {
 
     private JGroups(Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
-      skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
-      log.debug("Skip interface(s): {}", skipInterface);
+      skipInterface = skip == null ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
-      log.debug("Cluster name: {}", clusterName);
     }
 
     public ImmutableList<String> skipInterface() {
