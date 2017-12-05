@@ -52,6 +52,24 @@
       "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38d2f29d_f66bd71d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-05T04:36:44Z",
+      "side": 1,
+      "message": "The change I did is replacing guava caches in Gerrit core.\n\nI do not know yet if caffeine will be better than guava so that\u0027s why I will deploy it in prod first. If it turns out to fix the problem and not create others, I will upload my change as a RFC.",
+      "parentUuid": "6bcf334d_b0e841b5",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
