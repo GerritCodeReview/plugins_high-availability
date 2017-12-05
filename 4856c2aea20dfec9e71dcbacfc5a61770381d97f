@@ -106,6 +106,24 @@
       "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a073c8d9_b1fe24eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-05T14:01:43Z",
+      "side": 1,
+      "message": "\u003e OK, but if it\u0027s on core it\u0027s probably not possible to introduce on\n \u003e the stable-2.14 branch, right?\n\nEven if this is to fix an issue, it\u0027s too risky to change a core library on a stable branch. I would upload this on master. If people face the same issue, they could cherry pick the change to their fork, the change is pretty small and can easily be cherry-picked.\n\n \u003e \n \u003e BTW speaking of caches, Jacek had the idea to use infinispan which\n \u003e provides a distributed cache solution.  We were wondering if it\n \u003e would be a good idea to make the cache implementation pluggable. \n \u003e What do you think?\n\nI think having the option to have something pluggable is always a good idea.\n\nEvicting the other master cache was the step one to have HA solution. I am looking forward to have a solution where caches are shared within the cluster, same for secondary indexes.",
+      "parentUuid": "59286494_1f12e8eb",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
