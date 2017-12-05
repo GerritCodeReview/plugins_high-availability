@@ -88,6 +88,24 @@
       "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4a5b820_0c395602",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-05T09:29:34Z",
+      "side": 1,
+      "message": "\u003e BTW speaking of caches, Jacek had the idea to use infinispan which provides a distributed cache solution.  We were wondering if it would be a good idea to make the cache implementation pluggable.  What do you think?\n\n+1\nWith a distributed cache (and elastic search) HA setup would become much more robust IMHO.",
+      "parentUuid": "59286494_1f12e8eb",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
