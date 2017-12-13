@@ -18,6 +18,7 @@ import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.common.Nullable;
@@ -56,6 +57,7 @@ public class Configuration {
   static final String SKIP_INTERFACE_KEY = "skipInterface";
   static final String CLUSTER_NAME_KEY = "clusterName";
   static final String TIMEOUT_KEY = "timeout";
+  static final String PROTOCOL_STACK_KEY = "protocolStack";
 
   // http section
   static final String HTTP_SECTION = "http";
@@ -137,7 +139,7 @@ public class Configuration {
       default:
         throw new IllegalArgumentException("Not supported strategy: " + peerInfo.strategy);
     }
-    jgroups = new JGroups(cfg);
+    jgroups = new JGroups(site, cfg);
     http = new Http(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
@@ -287,8 +289,9 @@ public class Configuration {
     private final int timeout;
     private final int maxTries;
     private final int retryInterval;
+    private final Optional<Path> protocolStack;
 
-    private JGroups(Config cfg) {
+    private JGroups(SitePaths site, Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
       skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
@@ -296,6 +299,21 @@ public class Configuration {
       maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES_JGROUPS);
       retryInterval =
           getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL_JGROUPS);
+      protocolStack = getProtocolStack(cfg, site);
+      log.debug(
+          "Protocol stack config {}",
+          protocolStack.isPresent() ? protocolStack.get() : "not configured, using default stack.");
+    }
+
+    private Optional<Path> getProtocolStack(Config cfg, SitePaths site) {
+      String location = cfg.getString(JGROUPS_SECTION, null, PROTOCOL_STACK_KEY);
+      return location == null
+          ? Optional.<Path>absent()
+          : Optional.of(site.etc_dir.resolve(location));
+    }
+
+    public Optional<Path> protocolStack() {
+      return protocolStack;
     }
 
     public ImmutableList<String> skipInterface() {
