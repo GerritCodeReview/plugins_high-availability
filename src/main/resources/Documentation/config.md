@@ -27,6 +27,7 @@ File '@PLUGIN@.config'
 :  clusterName = foo
 :  skipInterface = lo*
 :  skipInterface = eth2
+:  protocolStack = protocolStack.xml
 [http]
 :  user = username
 :  password = password
@@ -77,6 +78,12 @@ jgroups.skipInterface
     This option can be repeated many times in the `jgroups` section.
     Defaults to the list of: `lo*`, `utun*`, `awdl*` which are known to be
     inappropriate for JGroups communication.
+
+jgroups.protocolStack
+:   This optional parameter specifies the location of an xml file that contains the
+    definition of JGroups protocol stack. If not specified the default protocol stack
+    will be used. Default location of the file is `gerrit/etc` directory but absolute
+    path can be specified too.
 
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.
