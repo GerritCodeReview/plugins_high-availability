@@ -58,6 +58,7 @@ public class Configuration {
   static final String JGROUPS_SECTION = "jgroups";
   static final String SKIP_INTERFACE_KEY = "skipInterface";
   static final String CLUSTER_NAME_KEY = "clusterName";
+  static final String PROTOCOL_STACK_KEY = "protocolStack";
 
   // http section
   static final String HTTP_SECTION = "http";
@@ -138,7 +139,7 @@ public class Configuration {
       default:
         throw new IllegalArgumentException("Not supported strategy: " + peerInfo.strategy);
     }
-    jgroups = new JGroups(cfg);
+    jgroups = new JGroups(site, cfg);
     http = new Http(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
@@ -287,13 +288,34 @@ public class Configuration {
   public static class JGroups {
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
+    private final String protocolStack;
 
-    private JGroups(Config cfg) {
+    private JGroups(SitePaths site, Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
       skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
       log.debug("Skip interface(s): {}", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.debug("Cluster name: {}", clusterName);
+      protocolStack = getProtocolStack(cfg, site);
+      log.debug("Protocol stack config {}", protocolStack == null
+        ? "not found. Using default stack."
+        : protocolStack);
+    }
+
+    private String getProtocolStack(Config cfg, SitePaths site) {
+      String location = cfg.getString(JGROUPS_SECTION, null, PROTOCOL_STACK_KEY);
+      if (location == null) {
+        return null;
+      }
+      Path p = Paths.get(location);
+      if (p.isAbsolute()) {
+        return location;
+      }
+      return site.etc_dir.resolve(location).toString();
+    }
+
+    public String protocolStack() {
+      return protocolStack;
     }
 
     public ImmutableList<String> skipInterface() {
