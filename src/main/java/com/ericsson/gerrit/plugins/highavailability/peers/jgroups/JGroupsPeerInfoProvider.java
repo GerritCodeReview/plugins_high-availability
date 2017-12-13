@@ -110,9 +110,10 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
 
   public void connect() {
     try {
-      channel = new JChannel();
+      channel = getChannel();
       Optional<InetAddress> address = finder.findAddress();
       if (address.isPresent()) {
+        log.debug("Protocol stack: " + channel.getProtocolStack());
         channel.getProtocolStack().getTransport().setBindAddress(address.get());
         log.debug("Channel bound to {}", address.get());
       } else {
@@ -131,6 +132,17 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
           jgroupsConfig.clusterName(),
           channel.getName(),
           e);
+    }
+  }
+
+  private JChannel getChannel() {
+    String protocolStack = "";
+    try {
+      protocolStack = jgroupsConfig.protocolStack();
+      return protocolStack == null ? new JChannel() : new JChannel(protocolStack);
+    } catch (Exception e) {
+      log.error("Unable to create a new channel with {}", protocolStack, e);
+      return null;
     }
   }
 
