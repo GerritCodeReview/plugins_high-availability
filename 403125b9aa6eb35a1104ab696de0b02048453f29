@@ -42,6 +42,29 @@
     },
     {
       "key": {
+        "uuid": "c680a62e_1f65d409",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-14T03:59:07Z",
+      "side": 1,
+      "message": "This will result in:\n\n \"Unable to create a new channel with null\"\n\nwhen protocolStack was not specified in the plugin config.",
+      "range": {
+        "startLine": 144,
+        "startChar": 53,
+        "endLine": 144,
+        "endChar": 71
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4282acb0_e5d54c86",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 1
