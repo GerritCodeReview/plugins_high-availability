@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3428a109_2effa49e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-14T03:54:29Z",
+      "side": 1,
+      "message": "In an offline discussion I asked why we use configuration for this rather than just saying that if a specific properties file exists at a specific location, it is used, otherwise it defaults to no properties.  The answer is that this allows to have multiple properties files and easily switch between them by changing the config.\n\nPerhaps that should be added in the commit message.",
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aabb3ab3_22d11dba",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 1
