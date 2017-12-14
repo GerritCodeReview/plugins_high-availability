@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02c6301b_6740c6ac",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "Optional\u003cPath\u003e",
+      "range": {
+        "startLine": 291,
+        "startChar": 18,
+        "endLine": 291,
+        "endChar": 24
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97e4b9cd_f1dc4bff",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "Optional\u003cPath\u003e",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 18
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79a97caa_d95c5b18",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "optional: this is not necessary as Path.resolve(location) will return location if it is absolute.",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 7
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2581129_83134c4c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "remove once protocolStack is of type Path",
+      "range": {
+        "startLine": 314,
+        "startChar": 43,
+        "endLine": 314,
+        "endChar": 54
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b26da249_f5c9c216",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "Optional\u003cPath\u003e",
+      "range": {
+        "startLine": 317,
+        "startChar": 11,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1231a594_9eeb6b28",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "shouldn\u0027t be necessary if getChannel throws exception instead of returning null",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 5
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "299134ba_0e141a8f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "Why return null here, why not propagate the exception?\n\nCan we do anything useful if a JChannel wasn\u0027t instantiated?",
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa08a1ca_75e61c8c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "path?",
+      "range": {
+        "startLine": 83,
+        "startChar": 42,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dc4037d_5c017acb",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-14T19:45:59Z",
+      "side": 1,
+      "message": "Better mention that, when the value is a relative path, it is relative to the $SITE/etc directory.",
+      "range": {
+        "startLine": 85,
+        "startChar": 18,
+        "endLine": 86,
+        "endChar": 30
+      },
+      "revId": "f4fd0be18f3d666255036a7d81d27f98383caa2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
