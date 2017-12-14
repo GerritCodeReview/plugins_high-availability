@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "62f007f0_8a98f54f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2017-12-14T11:19:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aabb3ab3_22d11dba",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 52
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c680a62e_1f65d409",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 1
@@ -53,6 +77,30 @@
       "writtenOn": "2017-12-14T03:59:07Z",
       "side": 1,
       "message": "This will result in:\n\n \"Unable to create a new channel with null\"\n\nwhen protocolStack was not specified in the plugin config.",
+      "range": {
+        "startLine": 144,
+        "startChar": 53,
+        "endLine": 144,
+        "endChar": 71
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "323df09d_bf643901",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2017-12-14T11:19:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c680a62e_1f65d409",
       "range": {
         "startLine": 144,
         "startChar": 53,
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "46be6f53_e1e5d9dc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2017-12-14T11:19:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4282acb0_e5d54c86",
+      "range": {
+        "startLine": 145,
+        "startChar": 6,
+        "endLine": 145,
+        "endChar": 18
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69c23d92_a2073ffc",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -99,6 +171,30 @@
       "writtenOn": "2017-12-14T03:50:54Z",
       "side": 1,
       "message": "I wonder if a better name would be \"propertiesFile\"?  In the JChannel constructor the parameter is named \"properties\".",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff3deaf_4949d2f7",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2017-12-14T11:19:12Z",
+      "side": 1,
+      "message": "I am not sure if \"propertiesFile\" is a better name. Properties is a very generic term, and it actually does not mention what kind of properties are expected. Also note that as the input here we expect XML file, so to me protocolStack is a better name. However I could think about something like protocolStackXmlConfig. What do you think?",
+      "parentUuid": "69c23d92_a2073ffc",
       "range": {
         "startLine": 82,
         "startChar": 8,
