@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aabb3ab3_22d11dba",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-14T03:50:54Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be inside the try block.  Only the JChannel instantiation throws anything.",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 52
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4282acb0_e5d54c86",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-14T03:50:54Z",
+      "side": 1,
+      "message": "Returning null here will result in NullPointerException at L116 (if debug is enabled) or L122.",
+      "range": {
+        "startLine": 145,
+        "startChar": 6,
+        "endLine": 145,
+        "endChar": 18
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69c23d92_a2073ffc",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-14T03:50:54Z",
+      "side": 1,
+      "message": "I wonder if a better name would be \"propertiesFile\"?  In the JChannel constructor the parameter is named \"properties\".",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
