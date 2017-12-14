@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ce8dc0f_5716be4c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2017-12-14T16:15:26Z",
+      "side": 1,
+      "message": "Note that I\u0027ve changed the logic of this method in [1] so that this part will no longer be necessary.\n\n[1] https://gerrit-review.googlesource.com/147990",
+      "range": {
+        "startLine": 129,
+        "startChar": 6,
+        "endLine": 137,
+        "endChar": 7
+      },
+      "revId": "a5b4b0c7eb1dfdc5446cd49db6ba7fe0d3cb5b04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
