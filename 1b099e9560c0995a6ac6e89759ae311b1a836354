@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fe8e7de_bf6fceab",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-15T13:35:25Z",
+      "side": 1,
+      "message": "This is unnecessary. When removed, google-java-format will join the three lines into one",
+      "range": {
+        "startLine": 304,
+        "startChar": 35,
+        "endLine": 304,
+        "endChar": 46
+      },
+      "revId": "1b099e9560c0995a6ac6e89759ae311b1a836354",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05bbb27_a6d4e5cb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-15T13:35:25Z",
+      "side": 1,
+      "message": "please format with google-java-format. Now this should fit into one line",
+      "range": {
+        "startLine": 310,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 55
+      },
+      "revId": "1b099e9560c0995a6ac6e89759ae311b1a836354",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}

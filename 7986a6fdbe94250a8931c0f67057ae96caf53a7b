@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "e07d9d29_41f4fc49",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-15T13:35:25Z",
+      "side": 1,
+      "message": "Correct, my mistake.",
+      "parentUuid": "4bf06cd4_8b87584e",
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "89a8c180_024c2d6c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 5
