@@ -45,6 +45,29 @@
       "revId": "20f9da0098c6d9c01b2bdc0161a944221a030515",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f02fb9_f3e2bd67",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-18T16:52:06Z",
+      "side": 1,
+      "message": "this colon show up in the rendered code block and thus make this example an invalid config.\n\nIf I remove it, the indentation is preserved in gitiles but not when looking at the plugin doc from Gerrit.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "20f9da0098c6d9c01b2bdc0161a944221a030515",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
