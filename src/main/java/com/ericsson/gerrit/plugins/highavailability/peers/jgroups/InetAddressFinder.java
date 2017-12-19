@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.net.Inet4Address;
@@ -30,6 +31,7 @@ import java.util.Optional;
 
 @Singleton
 public class InetAddressFinder {
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final boolean preferIPv4;
   private final Configuration.JGroups jgroupsConfig;
@@ -56,16 +58,35 @@ public class InetAddressFinder {
   Optional<InetAddress> findFirstAppropriateAddress(List<NetworkInterface> networkInterfaces)
       throws SocketException {
     for (NetworkInterface ni : networkInterfaces) {
-      if (ni.isLoopback() || !ni.isUp() || !ni.supportsMulticast() || shouldSkip(ni.getName())) {
+      if (ni.isLoopback() || !ni.isUp() || !ni.supportsMulticast()) {
+        log.atFine().log(
+            "ignoring network interface %s [isLoopback: %s, isUp: %s, supportsMulticast: %s]",
+            ni.getName(),
+            ni.isLoopback(),
+            ni.isUp(),
+            ni.supportsMulticast());
+        continue;
+      }
+      if (shouldSkip(ni.getName())) {
         continue;
       }
       Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
       while (inetAddresses.hasMoreElements()) {
         InetAddress a = inetAddresses.nextElement();
         if (preferIPv4 && a instanceof Inet4Address) {
+          log.atFine().log(
+              "using IPv4 network interface %s [hostAddress = %s, hostName: %s]",
+              ni.getName(),
+              a.getHostAddress(),
+              a.getHostName());
           return Optional.of(a);
         }
         if (!preferIPv4 && a instanceof Inet6Address) {
+          log.atFine().log(
+              "using IPv6 network interface %s [hostAddress: %s, hostName: %s]",
+              ni.getName(),
+              a.getHostAddress(),
+              a.getHostName());
           return Optional.of(a);
         }
       }
@@ -76,10 +97,8 @@ public class InetAddressFinder {
   @VisibleForTesting
   boolean shouldSkip(String name) {
     for (String s : jgroupsConfig.skipInterface()) {
-      if (s.endsWith("*") && name.startsWith(s.substring(0, s.length() - 1))) {
-        return true;
-      }
-      if (name.equals(s)) {
+      if (name.equals(s) || s.endsWith("*") && name.startsWith(s.substring(0, s.length() - 1))) {
+        log.atFine().log("skipping network interface %s because it matches %s", name, s);
         return true;
       }
     }
