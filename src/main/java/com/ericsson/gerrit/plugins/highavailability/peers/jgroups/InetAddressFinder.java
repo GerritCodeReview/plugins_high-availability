@@ -27,9 +27,12 @@ import java.net.SocketException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class InetAddressFinder {
+  private static final Logger log = LoggerFactory.getLogger(InetAddressFinder.class);
 
   private final boolean preferIPv4;
   private final Configuration.JGroups jgroupsConfig;
@@ -57,6 +60,11 @@ public class InetAddressFinder {
       throws SocketException {
     for (NetworkInterface ni : networkInterfaces) {
       if (ni.isLoopback() || !ni.isUp() || !ni.supportsMulticast()) {
+        log.debug("ignoring network interface {}, (isLoopback, isUp, supportsMulticast) = ({}, {}, {})",
+            ni.getName(),
+            ni.isLoopback(),
+            ni.isUp(),
+            ni.supportsMulticast());
         continue;
       }
       if (shouldSkip(ni.getName())) {
@@ -66,9 +74,17 @@ public class InetAddressFinder {
       while (inetAddresses.hasMoreElements()) {
         InetAddress a = inetAddresses.nextElement();
         if (preferIPv4 && a instanceof Inet4Address) {
+          log.debug("using IPv4 network interface {}, host-address: {}, host-name: {}",
+              ni.getName(),
+              a.getHostAddress(),
+              a.getHostName());
           return Optional.of(a);
         }
         if (!preferIPv4 && a instanceof Inet6Address) {
+          log.debug("using IPv6 network interface {}, host-address: {}, host-name: {}",
+              ni.getName(),
+              a.getHostAddress(),
+              a.getHostName());
           return Optional.of(a);
         }
       }
@@ -80,6 +96,7 @@ public class InetAddressFinder {
   boolean shouldSkip(String name) {
     for (String s : jgroupsConfig.skipInterface()) {
       if (s.endsWith("*") && name.startsWith(s.substring(0, s.length() - 1))) {
+        log.debug("skipping network interface {} because it matches {}", name, s);
         return true;
       }
       if (name.equals(s)) {
