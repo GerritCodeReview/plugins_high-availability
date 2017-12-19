@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "786921da_53421a0b",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-12-19T04:35:04Z",
+      "side": 1,
+      "message": "Eryk was doing some setup with AWS which is why we needed the jgroups configurability, but I\u0027m not sure how exactly the filesystem is set up.",
+      "parentUuid": "a7da09f0_ac0b72ba",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 12
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fef8c08c_f4d614e6",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
