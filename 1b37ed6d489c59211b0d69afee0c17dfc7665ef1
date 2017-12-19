@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "271233f1_07538c1f",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-19T02:03:40Z",
+      "side": 1,
+      "message": "You are right, this was true when I started this plugin but may no longer be true.\n\nOne question though, even with REST API forwarding, the masters could have been geographically far from each other but how do you share repositories then?",
+      "parentUuid": "5f46e392_477729c1",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 12
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fef8c08c_f4d614e6",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
