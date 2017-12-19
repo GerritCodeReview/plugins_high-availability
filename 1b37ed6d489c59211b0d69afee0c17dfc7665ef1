@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a7da09f0_ac0b72ba",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-19T02:09:45Z",
+      "side": 1,
+      "message": "I am curious to know what filesystem you use but still, this is not a true requirement from the plugin perspective so I will remove this line.",
+      "parentUuid": "271233f1_07538c1f",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 12
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fef8c08c_f4d614e6",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
@@ -60,6 +84,30 @@
       "writtenOn": "2017-12-19T01:58:11Z",
       "side": 1,
       "message": "masters",
+      "range": {
+        "startLine": 31,
+        "startChar": 49,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8df4e4cc_2606465c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-19T02:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fef8c08c_f4d614e6",
       "range": {
         "startLine": 31,
         "startChar": 49,
@@ -118,6 +166,54 @@
     },
     {
       "key": {
+        "uuid": "9f1a1b74_6ab34134",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-19T02:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ac5b291_a0544959",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa808a57_0156f621",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-19T02:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0abc26d_52e92b50",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 47
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a24170c8_0f06ff1b",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
@@ -129,6 +225,30 @@
       "writtenOn": "2017-12-19T01:58:11Z",
       "side": 1,
       "message": "\"A directory on a shared file system must be available for @PLUGIN@ to use\"",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 77
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb90642_81b956d7",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-19T02:09:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a24170c8_0f06ff1b",
       "range": {
         "startLine": 56,
         "startChar": 2,
