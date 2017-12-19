@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "c8f0b25b_8c9ebde8",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2017-12-19T14:45:04Z",
+      "side": 1,
+      "message": "In our setup the filesystem is shared via nfs4. While it is correct that the co-located masters is not a hard requirement, the fact that the filesystem is shared implies that masters must be located \"close enough\" to make it to work.",
+      "parentUuid": "786921da_53421a0b",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 12
+      },
+      "revId": "1b37ed6d489c59211b0d69afee0c17dfc7665ef1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fef8c08c_f4d614e6",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 3
