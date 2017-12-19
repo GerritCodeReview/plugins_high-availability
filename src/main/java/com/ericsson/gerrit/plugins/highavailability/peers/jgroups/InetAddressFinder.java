@@ -27,9 +27,12 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 class InetAddressFinder {
+  private static final Logger log = LoggerFactory.getLogger(InetAddressFinder.class);
 
   private final boolean preferIPv4;
   private final Configuration.JGroups jgroupsConfig;
@@ -56,19 +59,18 @@ class InetAddressFinder {
   Optional<InetAddress> findFirstAppropriateAddress(List<NetworkInterface> networkInterfaces)
       throws SocketException {
     for (NetworkInterface ni : networkInterfaces) {
-      if (ni.isLoopback() || !ni.isUp() || !ni.supportsMulticast()) {
-        continue;
-      }
-      if (shouldSkip(ni.getName())) {
+      if (isUnsuitable(ni) || shouldSkip(ni.getName())) {
         continue;
       }
       Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
       while (inetAddresses.hasMoreElements()) {
         InetAddress a = inetAddresses.nextElement();
         if (preferIPv4 && a instanceof Inet4Address) {
+          log(ni, a, "IPv4");
           return Optional.of(a);
         }
         if (!preferIPv4 && a instanceof Inet6Address) {
+          log(ni, a, "IPv6");
           return Optional.of(a);
         }
       }
@@ -76,10 +78,24 @@ class InetAddressFinder {
     return Optional.empty();
   }
 
+  private static boolean isUnsuitable(NetworkInterface ni) throws SocketException {
+    if (ni.isLoopback() || !ni.isUp() || !ni.supportsMulticast()) {
+      log.debug(
+          "ignoring network interface {} [isLoopback: {}, isUp: {}, supportsMulticast: {}]",
+          ni.getName(),
+          ni.isLoopback(),
+          ni.isUp(),
+          ni.supportsMulticast());
+      return true;
+    }
+    return false;
+  }
+
   @VisibleForTesting
   boolean shouldSkip(String name) {
     for (String s : jgroupsConfig.skipInterface()) {
       if (s.endsWith("*") && name.startsWith(s.substring(0, s.length() - 1))) {
+        log.debug("skipping network interface {} because it matches {}", name, s);
         return true;
       }
       if (name.equals(s)) {
@@ -87,5 +103,14 @@ class InetAddressFinder {
       }
     }
     return false;
+  }
+
+  private static void log(NetworkInterface ni, InetAddress a, String ipType) {
+    log.debug(
+        "using {} network interface {} [hostAddress: {}, hostName: {}]",
+        ipType,
+        ni.getName(),
+        a.getHostAddress(),
+        a.getHostName());
   }
 }
