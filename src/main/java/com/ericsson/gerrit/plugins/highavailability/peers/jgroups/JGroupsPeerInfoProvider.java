@@ -56,6 +56,13 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   private JChannel channel;
   private Optional<PeerInfo> peerInfo = Optional.absent();
   private Address peerAddress;
+  private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
+
+  static {
+    if (System.getProperty(JGROUPS_LOG_FACTORY_PROPERTY) == null) {
+      System.setProperty(JGROUPS_LOG_FACTORY_PROPERTY, SLF4JLogFactory.class.getName());
+    }
+  }
 
   @Inject
   JGroupsPeerInfoProvider(
