@@ -57,6 +57,14 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   private Optional<PeerInfo> peerInfo = Optional.absent();
   private Address peerAddress;
 
+  static {
+    final String jgroupsLogFactoryProperty = "jgroups.logging.log_factory_class";
+    if (System.getProperty(jgroupsLogFactoryProperty) == null) {
+      System.setProperty(jgroupsLogFactoryProperty,
+          "com.ericsson.gerrit.plugins.highavailability.peers.jgroups.SLF4JLogFactory");
+    }
+  }
+
   @Inject
   JGroupsPeerInfoProvider(
       @GerritServerConfig Config srvConfig,
