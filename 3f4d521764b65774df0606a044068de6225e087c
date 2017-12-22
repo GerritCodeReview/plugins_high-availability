@@ -22,6 +22,30 @@
       "revId": "3f4d521764b65774df0606a044068de6225e087c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9bc6f9e_4ca959be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2017-12-22T18:35:55Z",
+      "side": 1,
+      "message": "I think it will work if we set this property in a static block before we start using jgroups:\n\n@Singleton\npublic class JGroupsPeerInfoProvider extends ReceiverAdapter\n    implements Provider\u003cOptional\u003cPeerInfo\u003e\u003e, LifecycleListener {\n  static {\n    System.setProperty(\"jgroups.logging.log_factory_class\",\n        \"com.ericsson.gerrit.plugins.highavailability.peers.jgroups.SLF4JLogFactory\");\n  }\n...",
+      "parentUuid": "1f39a08a_23a08d9b",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 39
+      },
+      "revId": "3f4d521764b65774df0606a044068de6225e087c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
