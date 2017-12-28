@@ -46,6 +46,46 @@
       "revId": "3f4d521764b65774df0606a044068de6225e087c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "579523ad_72d9bd27",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/SLF4JLogFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-28T18:25:30Z",
+      "side": 1,
+      "message": "Put {@code ... } around?",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 113
+      },
+      "revId": "3f4d521764b65774df0606a044068de6225e087c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86095fae_63e99a36",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/SLF4JLogFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-28T18:25:30Z",
+      "side": 1,
+      "message": "@author tags are not used in Gerrit and Gerrit plugins code.",
+      "revId": "3f4d521764b65774df0606a044068de6225e087c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
