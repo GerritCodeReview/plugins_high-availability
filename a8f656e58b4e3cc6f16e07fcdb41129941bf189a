@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5b53b0c_31a308f7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-12-29T14:37:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5090d730_21e5f86c",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "a8f656e58b4e3cc6f16e07fcdb41129941bf189a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7925ce1a_ff9cb1c0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2017-12-28T18:25:30Z",
       "side": 1,
       "message": "SLF4JLogFactory.class.getName()",
+      "revId": "a8f656e58b4e3cc6f16e07fcdb41129941bf189a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "692581c8_952306dc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1004323
+      },
+      "writtenOn": "2017-12-29T14:37:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7925ce1a_ff9cb1c0",
       "revId": "a8f656e58b4e3cc6f16e07fcdb41129941bf189a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
