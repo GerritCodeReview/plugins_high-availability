@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8835864e_548a9040",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2017-12-29T20:01:21Z",
+      "side": 1,
+      "message": "Sorry that I forgot to mention this in my previous review: please move all\nstatic variables and code blocks up, just under the Logger line.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "251b3ba781fa7dfe5335b2d1738ee5d38c03dc61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
