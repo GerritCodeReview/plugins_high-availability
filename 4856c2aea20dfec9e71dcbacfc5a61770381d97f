@@ -160,6 +160,24 @@
       "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa74504_d9167933",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-01-08T15:26:31Z",
+      "side": 1,
+      "message": "The problem is we used to have issue with the Guava cache every few days max and now the problem seems to be gone somehow. We kept upgrading to the latest stable-2.14 branch and it looks like we no longer have the right conditions for the issue to happen.\n\nI do not feel like testing a new cache library on our production servers if I do not absolutely need to.\n\nThat said, I think we should no longer hold this change. It would be even better if the issue happens in ha plugin, easier to revert and this would not impact users directly.",
+      "parentUuid": "b2e9664b_0ddbf90e",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
