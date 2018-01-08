@@ -142,6 +142,24 @@
       "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2e9664b_0ddbf90e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-08T14:43:13Z",
+      "side": 1,
+      "message": "\u003e FYI, I tested Gerrit with caffeine cache on slave cluster and every thing looks good so far. I will deploy that on master cluster tomorrow. I will keep you posted if this fixes our cache locking issue and most important, does not cause other problems :)\n\nAny results so far?",
+      "parentUuid": "f85745f1_c4c3a36f",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
