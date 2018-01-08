@@ -204,6 +204,30 @@
     },
     {
       "key": {
+        "uuid": "2ed66ea0_ea0b4888",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-08T16:01:06Z",
+      "side": 1,
+      "message": "\u003e Can we have this unlimited?\n\nI think that removing this line would remove the limit but I don\u0027t think that we need it really\nunlimited. Even in the old version it was effectively limited by the number of threads in the thread pool which was processing indexing requests.\n\nWill we really ever run more than 1024 concurrent indexing tasks?",
+      "parentUuid": "18d571a6_b80abd8a",
+      "range": {
+        "startLine": 63,
+        "startChar": 12,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5928d2a7_3d583084",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 2
@@ -215,6 +239,30 @@
       "writtenOn": "2018-01-08T15:40:42Z",
       "side": 1,
       "message": "I am not convinced about this eviction policy. Before, the eviction would happen immediately after the last thread release the lock. Now it based on an arbitrary timeout.\n\nThis indexing time is normally really quick but if the change upload a huge file, it can take more than five minutes.",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d99d5f00_18294068",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-08T16:01:06Z",
+      "side": 1,
+      "message": "\u003e I am not convinced about this eviction policy. Before, the eviction would happen immediately after the last thread release the lock.\n\nWhy was it important to discard the lock object immediately?\nReusing a cached lock is not bad: a new lock object doesn\u0027t need to be (re)created as long as it is cached.\n\n\u003e \n\u003e This indexing time is normally really quick but if the change upload a huge file, it can take more than five minutes.\n\nAgreed. We can remove that time based eviction here and stick to only size based eviction.",
+      "parentUuid": "5928d2a7_3d583084",
       "range": {
         "startLine": 64,
         "startChar": 13,
