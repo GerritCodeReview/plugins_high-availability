@@ -344,6 +344,30 @@
       "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89520ff8_2bf8f06a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-08T16:36:22Z",
+      "side": 1,
+      "message": "Sorry.\nYes, it is until this line is removed :-)",
+      "parentUuid": "f9b9d09e_203821e4",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
