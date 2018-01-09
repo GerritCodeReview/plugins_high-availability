@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c519199_5b6df6e1",
+        "filename": "tools/eclipse/project.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-01-09T15:34:54Z",
+      "side": 1,
+      "message": "Instead of parsing the arguments before passing them to project.py, I would simply delegate any arguments received in project.sh to project.py.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 2
+      },
+      "revId": "4f060e58e5999147ac8c064ec79b4de2c1f862b6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
