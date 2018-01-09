@@ -12,4 +12,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-`bazel query @com_googlesource_gerrit_bazlets//tools/eclipse:project --output location | sed s/BUILD:.*//`project.py -n high-availability -r .
+
+# Check if the bazel 'batch' option has been passed
+if [[ $1 == '-b' || $1 == '--batch' ]]; then
+  batch='-b'
+fi
+
+path=$(bazel query @com_googlesource_gerrit_bazlets//tools/eclipse:project --output location \
+    | sed s/BUILD:.*//)
+${path}project.py -n high-availability -r . "${batch}"
+
