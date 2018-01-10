@@ -181,6 +181,24 @@
     },
     {
       "key": {
+        "uuid": "8fb97687_f9211b42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-01-10T19:58:42Z",
+      "side": 1,
+      "message": "\u003e The problem is we used to have issue with the Guava cache every few\n \u003e days max and now the problem seems to be gone somehow. We kept\n \u003e upgrading to the latest stable-2.14 branch and it looks like we no\n \u003e longer have the right conditions for the issue to happen.\n\nFYI, the guava cache bug just happened again. I will test caffeine in production tomorrow for sure this time.\n\nWe can still get this change in and if caffeine prove to be the solution, I will do a separate change to move from guava to caffeine.",
+      "parentUuid": "1aa74504_d9167933",
+      "revId": "4856c2aea20dfec9e71dcbacfc5a61770381d97f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18d571a6_b80abd8a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 2
