@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f70da92e_9ad6914f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/ProjectListCacheUpdater.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-11T12:55:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c0a0f53_c9297b5d",
+      "revId": "150c15c5ca7c683b57dd0b9a660e7075eda028db",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad0ef1b9_18bbae47",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/ProjectListCacheUpdater.java",
         "patchSetId": 1
@@ -47,6 +65,30 @@
       "writtenOn": "2018-01-11T12:31:04Z",
       "side": 1,
       "message": "Aren\u0027t the event name constants public?",
+      "range": {
+        "startLine": 41,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "150c15c5ca7c683b57dd0b9a660e7075eda028db",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39258dc0_abaddb4d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/ProjectListCacheUpdater.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-11T12:55:36Z",
+      "side": 1,
+      "message": "Seems like they are not, see:\n\nhttps://gerrit.googlesource.com/gerrit/+/stable-2.13/gerrit-server/src/main/java/com/google/gerrit/server/events/ProjectCreatedEvent.java#20",
+      "parentUuid": "ad0ef1b9_18bbae47",
       "range": {
         "startLine": 41,
         "startChar": 11,
