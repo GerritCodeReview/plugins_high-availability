@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "630cbaba_2779ea89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-01-11T11:50:52Z",
+      "side": 1,
+      "message": "NOTE: this changes is based on jgroups message forwarding and ignores REST\nbased forwarding. As such it is incomplete. Nevertheless, I wanted to bring\nthis out as the issue described here becomes relevant for anyone running\nactive/active HA.\n\nNOTE: this change requires a small extension in the ProjectCache interface [1].\nWithout [1] it will not build. I pushed [1] for 2.14 as it is very unlikely\nthat a new 2.13 will be released.\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/151693",
+      "revId": "150c15c5ca7c683b57dd0b9a660e7075eda028db",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
