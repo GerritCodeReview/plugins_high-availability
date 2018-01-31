@@ -37,6 +37,7 @@ import java.net.NetworkInterface;
 import java.util.List;
 import java.util.Optional;
 import org.apache.http.HttpStatus;
+import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.junit.After;
 import org.junit.Before;
@@ -93,12 +94,16 @@ public class JGroupsKubernetesPeerInfoProviderTest {
     } else {
       when(finder.findAddress()).thenReturn(Optional.of(Inet4Address.getByName("127.0.0.1")));
     }
+    JChannel channel1 = new JChannelProvider(pluginConfigurationMock).get();
+    JChannel channel2 = new JChannelProvider(pluginConfigurationMock).get();
     jGroupsPeerInfoProvider =
         Mockito.spy(
-            new JGroupsPeerInfoProvider(pluginConfigurationMock, finder, myUrlProviderTest));
+            new JGroupsPeerInfoProvider(
+                pluginConfigurationMock, finder, myUrlProviderTest, channel1));
     jGroupsPeerInfoProvider2 =
         Mockito.spy(
-            new JGroupsPeerInfoProvider(pluginConfigurationMock, finder, myUrlProviderTest));
+            new JGroupsPeerInfoProvider(
+                pluginConfigurationMock, finder, myUrlProviderTest, channel2));
 
     StringBuilder kubeApiUrlBuilder = new StringBuilder();
     kubeApiUrlBuilder.append("/api/v1/namespaces/");

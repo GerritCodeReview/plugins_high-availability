@@ -54,8 +54,9 @@ public class JGroupsPeerInfoProviderTest {
   @Before
   public void setUp() throws Exception {
     finder = new InetAddressFinder(pluginConfigurationMock);
+    JChannel channel = new JChannelProvider(pluginConfigurationMock).get();
     jGroupsPeerInfoProvider =
-        new JGroupsPeerInfoProvider(pluginConfigurationMock, finder, myUrlProviderTest);
+        new JGroupsPeerInfoProvider(pluginConfigurationMock, finder, myUrlProviderTest, channel);
     peerInfo = Optional.of(new PeerInfo("test message"));
     channel.setName("testChannel");
   }
@@ -92,14 +93,6 @@ public class JGroupsPeerInfoProviderTest {
     when(view.size()).thenReturn(3);
     when(members.size()).thenReturn(3);
     jGroupsPeerInfoProvider.setChannel(channel);
-    jGroupsPeerInfoProvider.viewAccepted(view);
-  }
-
-  @Test(expected = NullPointerException.class)
-  public void testViewAcceptedWithExceptionThrown() throws Exception {
-    when(view.getMembers()).thenReturn(members);
-    when(view.size()).thenReturn(2);
-    when(members.size()).thenReturn(2);
     jGroupsPeerInfoProvider.viewAccepted(view);
   }
 
