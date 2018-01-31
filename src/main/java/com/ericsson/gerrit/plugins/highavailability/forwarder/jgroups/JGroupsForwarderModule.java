@@ -15,8 +15,10 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProvider;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Scopes;
+import org.jgroups.JChannel;
 import org.jgroups.blocks.MessageDispatcher;
 import org.jgroups.blocks.RequestHandler;
 
@@ -28,6 +30,7 @@ public class JGroupsForwarderModule extends LifecycleModule {
     bind(MessageDispatcher.class).toProvider(MessageDispatcherProvider.class).in(Scopes.SINGLETON);
     bind(RequestHandler.class).to(MessageProcessor.class);
     bind(ProjectEventHandler.class).to(ProjectListCacheUpdater.class);
+    bind(JChannel.class).toProvider(JChannelProvider.class);
     listener().to(OnStartStop.class);
   }
 }

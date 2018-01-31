@@ -22,7 +22,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.net.InetAddress;
-import java.nio.file.Path;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -56,6 +55,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   private final Configuration.JGroups jgroupsConfig;
   private final InetAddressFinder finder;
   private final String myUrl;
+  private final Provider<JChannel> channelProvider;
 
   private JChannel channel;
   private Optional<PeerInfo> peerInfo = Optional.absent();
@@ -63,10 +63,14 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
 
   @Inject
   JGroupsPeerInfoProvider(
-      Configuration pluginConfiguration, InetAddressFinder finder, MyUrlProvider myUrlProvider) {
+      Configuration pluginConfiguration,
+      InetAddressFinder finder,
+      MyUrlProvider myUrlProvider,
+      Provider<JChannel> channelProvider) {
     this.jgroupsConfig = pluginConfiguration.jgroups();
     this.finder = finder;
     this.myUrl = myUrlProvider.get();
+    this.channelProvider = channelProvider;
   }
 
   @Override
@@ -113,7 +117,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
 
   public void connect() {
     try {
-      channel = getChannel();
+      channel = channelProvider.get();
       Optional<InetAddress> address = finder.findAddress();
       if (address.isPresent()) {
         log.debug("Protocol stack: " + channel.getProtocolStack());
@@ -125,21 +129,6 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       log.info("Successfully joined jgroups channel {}", channel.getName());
     } catch (Exception e) {
       log.error("joining jgroups channel {} failed", channel.getName(), e);
-    }
-  }
-
-  private JChannel getChannel() throws Exception {
-    Optional<Path> protocolStack = jgroupsConfig.protocolStack();
-    try {
-      return protocolStack.isPresent()
-          ? new JChannel(protocolStack.get().toString())
-          : new JChannel();
-    } catch (Exception e) {
-      log.error(
-          "Unable to create a channel with protocol stack: {}",
-          protocolStack == null ? "default" : protocolStack,
-          e);
-      throw e;
     }
   }
 

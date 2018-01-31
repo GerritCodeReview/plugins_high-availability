@@ -36,19 +36,24 @@ public class MessageDispatcherProvider implements Provider<MessageDispatcher> {
   private final InetAddressFinder finder;
   private final JGroups jgroupsConfig;
   private final RequestHandler requestHandler;
+  private final Provider<JChannel> channelProvider;
 
   @Inject
   MessageDispatcherProvider(
-      InetAddressFinder finder, Configuration pluginConfiguration, RequestHandler requestHandler) {
+      InetAddressFinder finder,
+      Configuration pluginConfiguration,
+      RequestHandler requestHandler,
+      Provider<JChannel> channelProvider) {
     this.finder = finder;
     this.jgroupsConfig = pluginConfiguration.jgroups();
     this.requestHandler = requestHandler;
+    this.channelProvider = channelProvider;
   }
 
   @Override
   public MessageDispatcher get() {
     try {
-      JChannel channel = new JChannel();
+      JChannel channel = channelProvider.get();
       Optional<InetAddress> address = finder.findAddress();
       if (address.isPresent()) {
         channel.getProtocolStack().getTransport().setBindAddress(address.get());
