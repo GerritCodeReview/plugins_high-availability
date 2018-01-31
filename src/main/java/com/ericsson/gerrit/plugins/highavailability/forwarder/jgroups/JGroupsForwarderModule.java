@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProviderModule;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ public class JGroupsForwarderModule extends LifecycleModule {
     bind(Forwarder.class).to(JGroupsForwarder.class);
     bind(MessageDispatcher.class).toProvider(MessageDispatcherProvider.class).in(Scopes.SINGLETON);
     bind(RequestHandler.class).to(MessageProcessor.class);
+    install(new JChannelProviderModule());
     listener().to(OnStartStop.class);
   }
 

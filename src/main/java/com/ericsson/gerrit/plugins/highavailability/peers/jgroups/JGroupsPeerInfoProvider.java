@@ -24,7 +24,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.net.InetAddress;
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.Set;
 import org.jgroups.Address;
@@ -57,7 +56,6 @@ public class JGroupsPeerInfoProvider
   }
 
   private final Configuration.JGroups jgroupsConfig;
-  private final Configuration.JGroupsKubernetes jgroupsKubernetesConfig;
   private final InetAddressFinder finder;
   private final String myUrl;
 
@@ -67,11 +65,14 @@ public class JGroupsPeerInfoProvider
 
   @Inject
   JGroupsPeerInfoProvider(
-      Configuration pluginConfiguration, InetAddressFinder finder, MyUrlProvider myUrlProvider) {
+      Configuration pluginConfiguration,
+      InetAddressFinder finder,
+      MyUrlProvider myUrlProvider,
+      JChannel channel) {
     this.jgroupsConfig = pluginConfiguration.jgroups();
-    this.jgroupsKubernetesConfig = pluginConfiguration.jgroupsKubernetes();
     this.finder = finder;
     this.myUrl = myUrlProvider.get();
+    this.channel = channel;
   }
 
   @Override
@@ -120,7 +121,6 @@ public class JGroupsPeerInfoProvider
 
   public void connect() {
     try {
-      channel = getChannel();
       Optional<InetAddress> address = finder.findAddress();
       if (address.isPresent()) {
         log.atFine().log("Protocol stack: %s", channel.getProtocolStack());
@@ -143,31 +143,6 @@ public class JGroupsPeerInfoProvider
       } else {
         log.atSevere().withCause(e).log("joining cluster %s failed", jgroupsConfig.clusterName());
       }
-    }
-  }
-
-  private JChannel getChannel() throws Exception {
-    Optional<Path> protocolStack = jgroupsConfig.protocolStack();
-    try {
-      if (protocolStack.isPresent()) {
-        return new JChannel(protocolStack.get().toString());
-      }
-      if (jgroupsConfig.useKubernetes()) {
-        if (jgroupsKubernetesConfig.namespace() != null) {
-          System.setProperty("KUBERNETES_NAMESPACE", jgroupsKubernetesConfig.namespace());
-        }
-        if (!jgroupsKubernetesConfig.labels().isEmpty()) {
-          System.setProperty(
-              "KUBERNETES_LABELS", String.join(",", jgroupsKubernetesConfig.labels()));
-        }
-        return new JChannel(getClass().getResource("kubernetes.xml").toString());
-      }
-      return new JChannel();
-    } catch (Exception e) {
-      log.atSevere().withCause(e).log(
-          "Unable to create a channel with protocol stack: %s",
-          protocolStack.isPresent() ? protocolStack : "default");
-      throw e;
     }
   }
 
