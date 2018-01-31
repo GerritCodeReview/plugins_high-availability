@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProviderModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JGroupsPeerInfoProvider;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.TypeLiteral;
@@ -37,6 +38,7 @@ public class PeerInfoModule extends LifecycleModule {
       case JGROUPS:
         bind(new TypeLiteral<Set<PeerInfo>>() {}).toProvider(JGroupsPeerInfoProvider.class);
         listener().to(JGroupsPeerInfoProvider.class);
+        install(new JChannelProviderModule());
         break;
       default:
         throw new IllegalArgumentException("Unsupported peer info strategy: " + strategy);
