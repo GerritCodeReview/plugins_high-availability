@@ -15,10 +15,12 @@
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProvider;
 import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JGroupsPeerInfoProvider;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.TypeLiteral;
 import java.util.Optional;
+import org.jgroups.JChannel;
 
 public class PeerInfoModule extends LifecycleModule {
 
@@ -36,6 +38,7 @@ public class PeerInfoModule extends LifecycleModule {
             .toProvider(PluginConfigPeerInfoProvider.class);
         break;
       case JGROUPS:
+        bind(JChannel.class).toProvider(JChannelProvider.class);
         bind(new TypeLiteral<Optional<PeerInfo>>() {}).toProvider(JGroupsPeerInfoProvider.class);
         listener().to(JGroupsPeerInfoProvider.class);
         break;
