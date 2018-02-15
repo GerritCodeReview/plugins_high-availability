@@ -46,6 +46,30 @@
       "revId": "53ef4bec86da24a22161e3f79aeefe9e14f514e0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c2ae044_c3092aa0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-02-15T22:48:58Z",
+      "side": 1,
+      "message": "This code block was in this change since the PS-1.\n\nI don\u0027t remember what was the idea behind it... Looks like PeerInfoJGroups class\ncan be removed in stable-2.13 as we don\u0027t support the peerInfo.jgroups.myUrl in 2.13.\nIt might be that I thought that removing this class would require much more\nchanges, so I just added this exception here.\n\nTomorrow I will have a fresh look at this again.",
+      "parentUuid": "b2f9587a_dd0a2b3a",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 259,
+        "endChar": 3
+      },
+      "revId": "53ef4bec86da24a22161e3f79aeefe9e14f514e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
