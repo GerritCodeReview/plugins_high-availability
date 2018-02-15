@@ -206,7 +206,7 @@ public class Configuration {
     private Main(SitePaths site, Config cfg) {
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
       if (shared == null) {
-        throw new ProvisionException(SHARED_DIRECTORY_KEY + " must be configured");
+        shared = DEFAULT_SHARED_DIRECTORY;
       }
       Path p = Paths.get(shared);
       if (p.isAbsolute()) {
