@@ -142,6 +142,30 @@
       "revId": "53ef4bec86da24a22161e3f79aeefe9e14f514e0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c04aa223_be9beb0b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-02-16T15:03:19Z",
+      "side": 1,
+      "message": "It turns out, that it way easier to downport this change if [1] is\ndownported first.\n\n[1] https://gerrit-review.googlesource.com/c/plugins/high-availability/+/125791",
+      "parentUuid": "1934a53c_95bc69dd",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 259,
+        "endChar": 3
+      },
+      "revId": "53ef4bec86da24a22161e3f79aeefe9e14f514e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
