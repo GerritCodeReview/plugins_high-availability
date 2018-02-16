@@ -94,6 +94,30 @@
       "revId": "53ef4bec86da24a22161e3f79aeefe9e14f514e0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd695618_b54bd258",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:53:03Z",
+      "side": 1,
+      "message": "Never mind, now I see that it is a cherry pick from stable-2.14",
+      "parentUuid": "cc230418_510e4c73",
+      "range": {
+        "startLine": 254,
+        "startChar": 3,
+        "endLine": 259,
+        "endChar": 3
+      },
+      "revId": "53ef4bec86da24a22161e3f79aeefe9e14f514e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
