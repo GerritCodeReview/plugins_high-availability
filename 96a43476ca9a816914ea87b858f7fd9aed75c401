@@ -16,6 +16,40 @@
       "revId": "96a43476ca9a816914ea87b858f7fd9aed75c401",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "392eeaab_d85462fa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:51:07Z",
+      "side": 1,
+      "message": "This is no longer used.",
+      "revId": "96a43476ca9a816914ea87b858f7fd9aed75c401",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e2893d3_72a05ada",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-16T07:51:07Z",
+      "side": 1,
+      "message": "This is no longer used.",
+      "revId": "96a43476ca9a816914ea87b858f7fd9aed75c401",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
