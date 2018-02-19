@@ -7,31 +7,35 @@ should be specified in `$site_path/etc/@PLUGIN@.config` file:
 File '@PLUGIN@.config'
 --------------------
 
+```
 [main]
-:  sharedDirectory = /directory/accessible/from/both/instances
+  sharedDirectory = /directory/accessible/from/both/instances
 [peerInfo]
-:  strategy = static
+  strategy = static
 [peerInfo "static"]
-:  url = target_instance_url
+  url = target_instance_url
 [http]
-:  user = username
-:  password = password
+  user = username
+  password = password
+```
 
+```
 [main]
-:  sharedDirectory = /directory/accessible/from/both/instances
+  sharedDirectory = /directory/accessible/from/both/instances
 [peerInfo]
-:  strategy = jgroups
+  strategy = jgroups
 [peerInfo "jgroups"]
-:  myUrl = local_instance_url
+  myUrl = local_instance_url
 [jgroups]
-:  clusterName = foo
-:  skipInterface = lo*
-:  skipInterface = eth2
+  clusterName = foo
+  skipInterface = lo*
+  skipInterface = eth2
 [http]
-:  user = username
-:  password = password
+  user = username
+  password = password
 [healthcheck]
-:  enable = true
+  enable = true
+```
 
 main.sharedDirectory
 :   Path to a directory accessible from both master instances.
