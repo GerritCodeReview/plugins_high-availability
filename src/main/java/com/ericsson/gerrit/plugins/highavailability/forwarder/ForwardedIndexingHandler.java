@@ -14,9 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.common.util.concurrent.Striped;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.concurrent.locks.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +32,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ForwardedIndexingHandler<T> {
   protected final Logger log = LoggerFactory.getLogger(getClass());
+  private final IndexTs indexTs;
 
   public enum Operation {
     INDEX,
@@ -38,6 +42,10 @@ public abstract class ForwardedIndexingHandler<T> {
     public String toString() {
       return name().toLowerCase();
     }
+  }
+
+  public ForwardedIndexingHandler(IndexTs indexTs) {
+    this.indexTs = indexTs;
   }
 
   private final Striped<Lock> idLocks = Striped.lock(10);
@@ -78,5 +86,9 @@ public abstract class ForwardedIndexingHandler<T> {
     } finally {
       Context.unsetForwardedEvent();
     }
+  }
+
+  protected void updateIndexTs(IndexName indexName, LocalDateTime ts) {
+    indexTs.update(indexName, ts);
   }
 }
