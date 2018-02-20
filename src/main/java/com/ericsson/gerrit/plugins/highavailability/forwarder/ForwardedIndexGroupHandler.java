@@ -14,12 +14,15 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * Index a group using {@link GroupIndexer}. This class is meant to be used on the receiving side of
@@ -32,7 +35,8 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   private final GroupIndexer indexer;
 
   @Inject
-  ForwardedIndexGroupHandler(GroupIndexer indexer) {
+  ForwardedIndexGroupHandler(GroupIndexer indexer, IndexTs indexTs) {
+    super(indexTs);
     this.indexer = indexer;
   }
 
@@ -40,6 +44,7 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   protected void doIndex(AccountGroup.UUID uuid) throws IOException, OrmException {
     indexer.index(uuid);
     log.debug("Group {} successfully indexed", uuid);
+    updateIndexTs(IndexName.GROUP, LocalDateTime.now());
   }
 
   @Override
