@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Change.Id;
 import com.google.gerrit.reviewdb.server.ReviewDb;
@@ -24,6 +26,7 @@ import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * Index a change using {@link ChangeIndexer}. This class is meant to be used on the receiving side
@@ -37,7 +40,9 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<Change
   private final SchemaFactory<ReviewDb> schemaFactory;
 
   @Inject
-  ForwardedIndexChangeHandler(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
+  ForwardedIndexChangeHandler(
+      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, IndexTs indexTs) {
+    super(indexTs);
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
   }
@@ -61,12 +66,16 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<Change
       indexer.delete(id);
       log.debug("Change {} not found, deleted from index", id);
     }
+    updateIndexTs(
+        IndexName.CHANGE,
+        change == null ? LocalDateTime.now() : change.getLastUpdatedOn().toLocalDateTime());
   }
 
   @Override
   protected void doDelete(Id id) throws IOException {
     indexer.delete(id);
     log.debug("Change {} successfully deleted from index", id);
+    updateIndexTs(IndexName.CHANGE, LocalDateTime.now());
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
