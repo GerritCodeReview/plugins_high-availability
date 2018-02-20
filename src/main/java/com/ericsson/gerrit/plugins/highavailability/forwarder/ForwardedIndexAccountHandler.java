@@ -14,12 +14,15 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * Index an account using {@link AccountIndexer}. This class is meant to be used on the receiving
@@ -32,7 +35,8 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   private final AccountIndexer indexer;
 
   @Inject
-  ForwardedIndexAccountHandler(AccountIndexer indexer) {
+  ForwardedIndexAccountHandler(AccountIndexer indexer, IndexTs indexTs) {
+    super(indexTs);
     this.indexer = indexer;
   }
 
@@ -40,6 +44,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   protected void doIndex(Account.Id id) throws IOException, OrmException {
     indexer.index(id);
     log.debug("Account {} successfully indexed", id);
+    updateIndexTs(IndexName.ACCOUNT, LocalDateTime.now());
   }
 
   @Override

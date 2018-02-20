@@ -20,6 +20,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import java.io.IOException;
@@ -37,12 +38,13 @@ public class ForwardedIndexGroupHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private GroupIndexer indexerMock;
+  @Mock private IndexTs indexTsMock;
   private ForwardedIndexGroupHandler handler;
   private AccountGroup.UUID uuid;
 
   @Before
   public void setUp() throws Exception {
-    handler = new ForwardedIndexGroupHandler(indexerMock);
+    handler = new ForwardedIndexGroupHandler(indexerMock, indexTsMock);
     uuid = new AccountGroup.UUID("123");
   }
 
