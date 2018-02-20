@@ -14,11 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs.IndexName;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +32,8 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   private final GroupIndexer indexer;
 
   @Inject
-  IndexGroupRestApiServlet(GroupIndexer indexer) {
-    super("group");
+  IndexGroupRestApiServlet(GroupIndexer indexer, IndexTs indexTs) {
+    super(IndexName.GROUP, indexTs);
     this.indexer = indexer;
   }
 
@@ -44,5 +46,6 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   void index(AccountGroup.UUID uuid, Operation operation) throws IOException {
     indexer.index(uuid);
     logger.debug("Group {} successfully indexed", uuid);
+    updateIndexTs(LocalDateTime.now());
   }
 }
