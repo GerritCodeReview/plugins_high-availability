@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs.IndexName;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.index.change.ChangeIndexer;
@@ -32,12 +33,15 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
 
   private final ChangeIndexer indexer;
   private final SchemaFactory<ReviewDb> schemaFactory;
+  private final IndexTs indexTs;
 
   @Inject
-  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
+  IndexChangeRestApiServlet(
+      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, IndexTs indexTs) {
     super("change", true);
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
+    this.indexTs = indexTs;
   }
 
   @Override
@@ -56,8 +60,9 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
             return;
           }
           indexer.index(db, change);
+          logger.debug("Change {} successfully indexed", id);
+          indexTs.update(IndexName.CHANGE, change.getLastUpdatedOn().toLocalDateTime());
         }
-        logger.debug("Change {} successfully indexed", id);
         break;
       case DELETE:
         indexer.delete(id);
