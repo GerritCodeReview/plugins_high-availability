@@ -24,6 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ChangeAccess;
@@ -55,6 +56,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ChangeIndexer indexerMock;
   @Mock private SchemaFactory<ReviewDb> schemaFactoryMock;
+  @Mock private IndexTs indexTsMock;
   @Mock private ReviewDb dbMock;
   @Mock private ChangeAccess changeAccessMock;
   private ForwardedIndexChangeHandler handler;
@@ -67,7 +69,7 @@ public class ForwardedIndexChangeHandlerTest {
     when(dbMock.changes()).thenReturn(changeAccessMock);
     id = new Change.Id(123);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
-    handler = new ForwardedIndexChangeHandler(indexerMock, schemaFactoryMock);
+    handler = new ForwardedIndexChangeHandler(indexerMock, schemaFactoryMock, indexTsMock);
   }
 
   @Test
