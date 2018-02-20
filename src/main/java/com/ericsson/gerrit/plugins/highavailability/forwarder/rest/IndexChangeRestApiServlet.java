@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs.IndexName;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.index.change.ChangeIndexer;
@@ -35,8 +36,9 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
   private final SchemaFactory<ReviewDb> schemaFactory;
 
   @Inject
-  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
-    super("change", true);
+  IndexChangeRestApiServlet(
+      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, IndexTs indexTs) {
+    super(IndexName.CHANGE, true, indexTs);
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
   }
@@ -54,10 +56,9 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
           Change change = db.changes().get(id);
           if (change == null) {
             indexer.delete(id);
-            return;
+          } else {
+            logger.debug("Change {} successfully indexed", id);
           }
-          indexer.index(db, change);
-          logger.debug("Change {} successfully indexed", id);
         } catch (Exception e) {
           if (!isCausedByNoSuchChangeException(e)) {
             throw e;
@@ -70,6 +71,7 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
         logger.debug("Change {} successfully deleted from index", id);
         break;
     }
+    updateIndexTs(change == null ? LocalDateTime.now() : change.getLastUpdatedOn().toLocalDateTime());
   }
 
   private boolean isCausedByNoSuchChangeException(Throwable throwable) {
