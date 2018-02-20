@@ -28,11 +28,13 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   private static final Logger logger = LoggerFactory.getLogger(IndexAccountRestApiServlet.class);
 
   private final AccountIndexer indexer;
+  private final LastSuccessfulIndexTs indexTs;
 
   @Inject
-  IndexAccountRestApiServlet(AccountIndexer indexer) {
+  IndexAccountRestApiServlet(AccountIndexer indexer, LastSuccessfulIndexTs indexTs) {
     super("account");
     this.indexer = indexer;
+    this.indexTs = indexTs;
   }
 
   @Override
@@ -44,5 +46,6 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   void index(Account.Id id, Operation operation) throws IOException {
     indexer.index(id);
     logger.debug("Account {} successfully indexed", id);
+    indexTs.update("account");
   }
 }

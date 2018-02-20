@@ -50,6 +50,13 @@ main.sharedDirectory
     directory is "/gerrit/root/shared/dir". When not specified, the default
     is "shared".
 
+main.autoReindexAtStart
+:   Enable the tracking of the latest change indexed under data/high-availability
+    for each of the indexes. At startup scans all the changes, accounts and groups
+    and reindex the ones that have been updated by other nodes while the server was down.
+    When not specified, the default is "false", that means no automatic tracking
+    and indexing at start.
+
 peerInfo.strategy
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
     Defaults to `static`.

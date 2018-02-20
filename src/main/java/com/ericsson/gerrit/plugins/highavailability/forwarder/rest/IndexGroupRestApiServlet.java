@@ -28,11 +28,13 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   private static final Logger logger = LoggerFactory.getLogger(IndexGroupRestApiServlet.class);
 
   private final GroupIndexer indexer;
+  private final LastSuccessfulIndexTs indexTs;
 
   @Inject
-  IndexGroupRestApiServlet(GroupIndexer indexer) {
+  IndexGroupRestApiServlet(GroupIndexer indexer, LastSuccessfulIndexTs indexTs) {
     super("group");
     this.indexer = indexer;
+    this.indexTs = indexTs;
   }
 
   @Override
@@ -44,5 +46,6 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   void index(AccountGroup.UUID uuid, Operation operation) throws IOException {
     indexer.index(uuid);
     logger.debug("Group {} successfully indexed", uuid);
+    indexTs.update("group");
   }
 }
