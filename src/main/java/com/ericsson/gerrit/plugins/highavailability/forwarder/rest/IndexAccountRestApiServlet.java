@@ -14,11 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs.IndexName;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,11 +30,13 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   private static final Logger logger = LoggerFactory.getLogger(IndexAccountRestApiServlet.class);
 
   private final AccountIndexer indexer;
+  private final IndexTs indexTs;
 
   @Inject
-  IndexAccountRestApiServlet(AccountIndexer indexer) {
+  IndexAccountRestApiServlet(AccountIndexer indexer, IndexTs indexTs) {
     super("account");
     this.indexer = indexer;
+    this.indexTs = indexTs;
   }
 
   @Override
@@ -44,5 +48,6 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   void index(Account.Id id, Operation operation) throws IOException {
     indexer.index(id);
     logger.debug("Account {} successfully indexed", id);
+    indexTs.update(IndexName.ACCOUNT, LocalDateTime.now());
   }
 }
