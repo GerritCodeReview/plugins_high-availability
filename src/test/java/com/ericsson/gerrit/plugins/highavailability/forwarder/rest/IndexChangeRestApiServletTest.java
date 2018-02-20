@@ -59,6 +59,7 @@ public class IndexChangeRestApiServletTest {
   @Mock private ReviewDb db;
   @Mock private HttpServletRequest req;
   @Mock private HttpServletResponse rsp;
+  @Mock private IndexTs indexTs;
   private Change.Id id;
   private Change change;
   private IndexChangeRestApiServlet indexRestApiServlet;
@@ -70,7 +71,7 @@ public class IndexChangeRestApiServletTest {
 
   @Before
   public void setUpMocks() {
-    indexRestApiServlet = new IndexChangeRestApiServlet(indexer, schemaFactory);
+    indexRestApiServlet = new IndexChangeRestApiServlet(indexer, schemaFactory, indexTs);
     id = Change.Id.parse(CHANGE_NUMBER);
     when(req.getPathInfo()).thenReturn("/index/change/" + CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());

@@ -21,9 +21,11 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
 import com.google.common.util.concurrent.Striped;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.concurrent.locks.Lock;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +37,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(AbstractIndexRestApiServlet.class);
 
-  private final String type;
+  private final AbstractIndexRestApiServlet.IndexName indexName;
   private final boolean allowDelete;
+  private final IndexTs indexTs;
   private final Striped<Lock> idLocks;
 
   enum Operation {
@@ -49,18 +52,31 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     }
   }
 
+  public enum IndexName {
+    CHANGE,
+    ACCOUNT,
+    GROUP;
+
+    @Override
+    public String toString() {
+      return super.toString().toLowerCase();
+    }
+  }
+
   abstract T parse(String id);
 
   abstract void index(T id, Operation operation) throws IOException, OrmException;
 
-  AbstractIndexRestApiServlet(String type, boolean allowDelete) {
-    this.type = type;
+  AbstractIndexRestApiServlet(
+      AbstractIndexRestApiServlet.IndexName indexName, boolean allowDelete, IndexTs indexTs) {
+    this.indexName = indexName;
     this.allowDelete = allowDelete;
     this.idLocks = Striped.lock(10);
+    this.indexTs = indexTs;
   }
 
-  AbstractIndexRestApiServlet(String type) {
-    this(type, false);
+  AbstractIndexRestApiServlet(AbstractIndexRestApiServlet.IndexName indexName, IndexTs indexTs) {
+    this(indexName, false, indexTs);
   }
 
   @Override
@@ -71,7 +87,8 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse rsp) {
     if (!allowDelete) {
-      sendError(rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", type));
+      sendError(
+          rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", indexName));
     } else {
       process(req, rsp, Operation.DELETE);
     }
@@ -82,7 +99,7 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     rsp.setCharacterEncoding(UTF_8.name());
     String path = req.getPathInfo();
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
-    logger.debug("{} {} {}", operation, type, id);
+    logger.debug("{} {} {}", operation, indexName, id);
     try {
       Context.setForwardedEvent(true);
       Lock idLock = idLocks.get(id);
@@ -95,9 +112,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
-      logger.error("Unable to update {} index", type, e);
+      logger.error("Unable to update {} index", indexName, e);
     } catch (OrmException e) {
-      String msg = String.format("Error trying to find %s \n", type);
+      String msg = String.format("Error trying to find %s \n", indexName);
       sendError(rsp, SC_NOT_FOUND, msg);
       logger.debug(msg, e);
     } finally {
@@ -111,5 +128,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     } catch (IOException e) {
       logger.error("Failed to send error messsage: {}", e.getMessage(), e);
     }
+  }
+
+  protected void updateIndexTs(LocalDateTime ts) {
+    indexTs.update(indexName, ts);
   }
 }

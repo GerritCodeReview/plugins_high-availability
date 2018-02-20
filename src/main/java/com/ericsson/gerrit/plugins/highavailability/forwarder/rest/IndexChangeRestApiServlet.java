@@ -23,6 +23,7 @@ import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,9 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
   private final SchemaFactory<ReviewDb> schemaFactory;
 
   @Inject
-  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
-    super("change", true);
+  IndexChangeRestApiServlet(
+      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, IndexTs indexTs) {
+    super(AbstractIndexRestApiServlet.IndexName.CHANGE, true, indexTs);
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
   }
@@ -48,16 +50,17 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
 
   @Override
   void index(Change.Id id, Operation operation) throws IOException, OrmException {
+    Change change = null;
     switch (operation) {
       case INDEX:
         try (ReviewDb db = schemaFactory.open()) {
-          Change change = db.changes().get(id);
+          change = db.changes().get(id);
           if (change == null) {
             indexer.delete(id);
-            return;
+          } else {
+            indexer.index(db, change);
+            logger.debug("Change {} successfully indexed", id);
           }
-          indexer.index(db, change);
-          logger.debug("Change {} successfully indexed", id);
         } catch (Exception e) {
           if (!isCausedByNoSuchChangeException(e)) {
             throw e;
@@ -70,6 +73,8 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
         logger.debug("Change {} successfully deleted from index", id);
         break;
     }
+    updateIndexTs(
+        change == null ? LocalDateTime.now() : change.getLastUpdatedOn().toLocalDateTime());
   }
 
   private boolean isCausedByNoSuchChangeException(Throwable throwable) {

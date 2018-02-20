@@ -19,6 +19,7 @@ import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,8 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   private final AccountIndexer indexer;
 
   @Inject
-  IndexAccountRestApiServlet(AccountIndexer indexer) {
-    super("account");
+  IndexAccountRestApiServlet(AccountIndexer indexer, IndexTs indexTs) {
+    super(AbstractIndexRestApiServlet.IndexName.ACCOUNT, indexTs);
     this.indexer = indexer;
   }
 
@@ -44,5 +45,6 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   void index(Account.Id id, Operation operation) throws IOException {
     indexer.index(id);
     logger.debug("Account {} successfully indexed", id);
+    updateIndexTs(LocalDateTime.now());
   }
 }
