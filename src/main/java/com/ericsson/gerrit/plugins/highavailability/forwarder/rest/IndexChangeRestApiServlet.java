@@ -32,12 +32,14 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
 
   private final ChangeIndexer indexer;
   private final SchemaFactory<ReviewDb> schemaFactory;
+  private final LastSuccessfulIndexTs indexTs;
 
   @Inject
-  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
+  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, LastSuccessfulIndexTs indexTs) {
     super("change", true);
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
+    this.indexTs = indexTs;
   }
 
   @Override
@@ -64,5 +66,7 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
         logger.debug("Change {} successfully deleted from index", id);
         break;
     }
+
+    indexTs.update("change");
   }
 }

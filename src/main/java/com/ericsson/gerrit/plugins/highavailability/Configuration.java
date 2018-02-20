@@ -46,6 +46,7 @@ public class Configuration {
   static final String MAIN_SECTION = "main";
   static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
   static final String DEFAULT_SHARED_DIRECTORY = "shared";
+  static final String AUTO_REINDEX_AT_START = "autoReindexAtStart";
 
   // peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -226,6 +227,7 @@ public class Configuration {
 
   public static class Main {
     private final Path sharedDirectory;
+    private final boolean autoReindexAtStart;
 
     private Main(SitePaths site, Config cfg) {
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
@@ -238,10 +240,15 @@ public class Configuration {
       } else {
         sharedDirectory = site.resolve(shared);
       }
+      autoReindexAtStart = cfg.getBoolean(MAIN_SECTION, AUTO_REINDEX_AT_START, false);
     }
 
     public Path sharedDirectory() {
       return sharedDirectory;
+    }
+
+    public boolean autoReindexAtStart() {
+      return autoReindexAtStart;
     }
   }
 
