@@ -38,6 +38,24 @@
     },
     {
       "key": {
+        "uuid": "70698b78_99d5d696",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T13:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2914725c_91f0fa7e",
+      "revId": "6dcdfe47f522b752edeb73710a8b0cd3c1932567",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db9f9244_60a5e5ab",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
         "patchSetId": 6
