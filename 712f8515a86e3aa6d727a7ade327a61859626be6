@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd3374d1_5cc9db51",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T16:29:11Z",
+      "side": 1,
+      "message": "The \"many causes\" are not that many after all.\nAn account table stores the following information\n- full name\n- preferred email\n- inactive\n- status\n\nMost of the people are using this in-sync with LDAP, so Gerrit is just a cached copy of that information.\n\nHow often are full name and preferred email changes?\nHow often you disable accounts?\nStatus ... that may be out of sync but it is not a critical issue IMHO.\n\nYes, registeredOn is the only TS we have on the accounts table.\nLet\u0027s see what would be the cases where this is a problem.\n\nYou should have at the same time:\n\n1. Network slowdown between the two nodes for a long time but *less* than 1h (for your case)\n2. The failover node going down *exactly* the events were sent through\n3. An account getting disabled exactly in that timeframe on the active node\n4. Someone changing their status or being disabled *exactly*  in that timeframe\n\nYes, it may happen. We can include an option to say \"full reindex accounts if you see something strange\" and that would cover when 1. 2. 3. and 4. happen at the same time.\n\nThe full reindex of accounts is not very expensive like a full changes reindex after all.\n\nHow does it sound?",
+      "parentUuid": "f416e06c_5c35639a",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "712f8515a86e3aa6d727a7ade327a61859626be6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1f91dfd_4b6bc497",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ChangeReindexRunnable.java",
         "patchSetId": 7
