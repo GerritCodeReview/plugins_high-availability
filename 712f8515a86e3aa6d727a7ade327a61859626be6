@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f416e06c_5c35639a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T15:10:29Z",
+      "side": 1,
+      "message": "Account creation is only one of the many causes of account being reindexed. This will definitely not reindex all the account that were modified while the node was down.\n\nI do not have anything to propose here though. That\u0027s why I said that we considered the approach you are trying to do in this change but we ruled it out because it was just not working for all the cases.\n\nHigh-availability plugin must be rock solid, this is not a best effort thing. I do not want to add a feature that will give a false impression to the administrators that you can rely on autoIndexAtStartup if it\u0027s not 100% functional.",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "712f8515a86e3aa6d727a7ade327a61859626be6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1f91dfd_4b6bc497",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ChangeReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T15:10:29Z",
+      "side": 1,
+      "message": "As I mentioned before, we do not have a solution for deleted change and I do not see and an easy one.\n\nWe need to be able to cover all the cases otherwise this feature is not working. If we cannot cover all the cases, the administrators that want high-availability only have one option, use a combination of http.maxRetries and http.retryInterval that give them a period of time that the node can be down without losing events. If node is down for longer, they need to realing the secondary indexes manually before rejoining the node in the cluster.",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "712f8515a86e3aa6d727a7ade327a61859626be6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91cb98c7_a539e97a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ChangeReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T15:10:29Z",
+      "side": 1,
+      "message": "Won\u0027t this fetch a really big amount of data? FYI, we have 3.5 million changes.",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "712f8515a86e3aa6d727a7ade327a61859626be6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
