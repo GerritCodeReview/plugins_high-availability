@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1377f6c7_c9feb22c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T02:09:22Z",
+      "side": 1,
+      "message": "I like the idea of each node indexing what it missed during downtime. We thought about doing it like that when we originally designed the plugin but we decided to not implement that for the reasons mentioned below.\n\nInstead, you need to use a combination of http.maxTries and http.retryInterval that allows the other node to be offline for an amount of time (For us, node can be offline for up to one hour). When the node dies or we stop it, the forwarding event will pile up on the active server until the other node comes back and the pile up will sent.\n\nThis feature would be useful for us to cover the case when the node is offline for more than one hour if we could figure out a way to solve the issues.",
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7777257_9159a074",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T02:09:22Z",
+      "side": 1,
+      "message": "Tracking the last successful update does not work in some cases, here is an example:\n\nLet\u0027s say that there is a burst/pile up of 10 000 changes indexing events in the queue of the active node at 12:00. This means that all the changes were modified before 12:00 (forwarding indexing event is done asynchronously). The first change of the 10 000 is successfully indexed at 12:01 and the passive node dies (or is shut down). When the passive node comes back it will check what it missed between the current time and 12:01 (last successful update). The other 9999 changes that were updated before 12:00 and never successfully forwarded to the passive won\u0027t be reindexed thus be stale.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7de48bdd_7e24dbfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T02:09:22Z",
+      "side": 1,
+      "message": "This works with DB but it won\u0027t work with notedb. I know this is stable-2.14 and we use DB here but just saying :)\n\nAnother case where this won\u0027t work is for the deleted changes. AFAIK, there is no way currently to query the change that we deleted during the time the node was offline.",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af65046c_b52abfbe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexAtStart.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T02:09:22Z",
+      "side": 1,
+      "message": "Do you have an idea how we can make this feature works for accounts and groups, how can we know which accounts/groups were updated while the node was offline?",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd5b3985_fe9f5cc7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexAtStart.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T02:09:22Z",
+      "side": 1,
+      "message": "This will need to be done in another thread otherwise it will prevent plugin to finish loading until reindexing is done.",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a2c7f34_900ef285",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-21T02:09:22Z",
+      "side": 1,
+      "message": "We need to do something here to be thread safe. This method will be called concurrently by multiple threads.",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 3
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
