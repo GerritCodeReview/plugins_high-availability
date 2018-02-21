@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "615359fc_c1b1dfeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "There are situations where either the node is offline (or unreachable by the other node) for over an hour and you don\u0027t want to keep piling up the events to avoid putting pressure on its heap.\n\nAdditionally, if the main node goes down, all those events are lost anyway.\n\nThat\u0027s why I am investing in this transparent recovery at startup :-) \nHappy that this would help you guys also.",
+      "parentUuid": "1377f6c7_c9feb22c",
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7777257_9159a074",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2018-02-21T02:09:22Z",
       "side": 1,
       "message": "Tracking the last successful update does not work in some cases, here is an example:\n\nLet\u0027s say that there is a burst/pile up of 10 000 changes indexing events in the queue of the active node at 12:00. This means that all the changes were modified before 12:00 (forwarding indexing event is done asynchronously). The first change of the 10 000 is successfully indexed at 12:01 and the passive node dies (or is shut down). When the passive node comes back it will check what it missed between the current time and 12:01 (last successful update). The other 9999 changes that were updated before 12:00 and never successfully forwarded to the passive won\u0027t be reindexed thus be stale.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "829b2501_df6ac912",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "True, we should track the timestamp of the *event* and not the one of the system.",
+      "parentUuid": "d7777257_9159a074",
       "range": {
         "startLine": 9,
         "startChar": 1,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "84c81e05_36f33ed0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Yes, this is what is needed in stable-2.14 and then, in 2.15 and beyond, a NoteDb-specific version needs to be implemented.\n\nDeleted changes, yes that\u0027s a big problem. Not sure how to tackle this though, because the change isn\u0027t there anymore, not even a tombstone.",
+      "parentUuid": "7de48bdd_7e24dbfe",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af65046c_b52abfbe",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexAtStart.java",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2018-02-21T02:09:22Z",
       "side": 1,
       "message": "Do you have an idea how we can make this feature works for accounts and groups, how can we know which accounts/groups were updated while the node was offline?",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8534979f_dbf70417",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexAtStart.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Yes, that\u0027s why the change is WIP. But your early feedback was more than needed to get some guidance on this.",
+      "parentUuid": "af65046c_b52abfbe",
       "range": {
         "startLine": 51,
         "startChar": 4,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "a650701f_deebb100",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexAtStart.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve just realised when I did a real-life testing on two test nodes.",
+      "parentUuid": "dd5b3985_fe9f5cc7",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 5
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7354dac_c3d11549",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
         "patchSetId": 2
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "6ff34d94_282725dc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7354dac_c3d11549",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "919b0675_4ce0773f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
         "patchSetId": 2
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "bf85bbe9_cf52aab3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Yep, will do in the next PS.",
+      "parentUuid": "919b0675_4ce0773f",
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9deff3c0_957aa10b",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
         "patchSetId": 2
@@ -162,6 +318,30 @@
       "writtenOn": "2018-02-21T02:17:49Z",
       "side": 1,
       "message": "This is rather a long class name.\n\nChange it to just IndexTimestamp?  If we want to explicitly convey that it\u0027s for the last successful index, it can be mentioned in the javadoc.",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "717cedef_cb3533a9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "9deff3c0_957aa10b",
       "range": {
         "startLine": 32,
         "startChar": 13,
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "79faa8ad_03dbb251",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2946a5e2_6e1afbc9",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a2c7f34_900ef285",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
         "patchSetId": 2
@@ -208,6 +412,30 @@
       "writtenOn": "2018-02-21T02:09:22Z",
       "side": 1,
       "message": "We need to do something here to be thread safe. This method will be called concurrently by multiple threads.",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 3
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb935a0a_4203c06e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "I would avoid introducing locks. The in-memory update could just be done without guards. Worse case, we may use a slightly inaccurate lastTs, which could not be a big problem. If we overwrite a timestamp with an earlier one, we may just reindex a bit more at startup.\n\nThe flush of the in-memory data can be done asynchronously in a single executor queue.",
+      "parentUuid": "1a2c7f34_900ef285",
       "range": {
         "startLine": 45,
         "startChar": 2,
@@ -240,6 +468,30 @@
       "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35d94c2_11843cfb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-21T03:34:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "da451a74_1c080b90",
+      "range": {
+        "startLine": 65,
+        "startChar": 57,
+        "endLine": 65,
+        "endChar": 65
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
