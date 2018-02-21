@@ -111,6 +111,92 @@
     },
     {
       "key": {
+        "uuid": "b7354dac_c3d11549",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T02:17:49Z",
+      "side": 1,
+      "message": "This is added in all the Index...RestApiServlet implementations.  It would be better to make it a generic class and add as a member in AbstractIndexRestApiServlet.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919b0675_4ce0773f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T02:17:49Z",
+      "side": 1,
+      "message": "Format the code with gjf.",
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9deff3c0_957aa10b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T02:17:49Z",
+      "side": 1,
+      "message": "This is rather a long class name.\n\nChange it to just IndexTimestamp?  If we want to explicitly convey that it\u0027s for the last successful index, it can be mentioned in the javadoc.",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2946a5e2_6e1afbc9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T02:17:49Z",
+      "side": 1,
+      "message": "Extract this in the constructor and store in a final boolean member, rather than keeping a reference to the entire Configuration object.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a2c7f34_900ef285",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
         "patchSetId": 2
@@ -131,6 +217,52 @@
       "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da451a74_1c080b90",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/LastSuccessfulIndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T02:17:49Z",
+      "side": 1,
+      "message": "Use the Logger\u0027s built-in formatting to avoid the concatenation when the log level is not enabled.  Same in other places where logging is done.",
+      "range": {
+        "startLine": 65,
+        "startChar": 57,
+        "endLine": 65,
+        "endChar": 65
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d06abb3_c98079ee",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T02:17:49Z",
+      "side": 1,
+      "message": "Change this to \"document\" or something else generic?  As mentioned in the next sentence, it\u0027s not only for indexing of changes.",
+      "range": {
+        "startLine": 54,
+        "startChar": 38,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "29afe836829d700f01ce1c35f9c390c45ce0332b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
