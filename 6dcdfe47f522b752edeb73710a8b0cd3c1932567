@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eacb7d7c_bcbc494e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T07:36:55Z",
+      "side": 1,
+      "message": "Copyright for new files should be AOSP.\n\n(I know it\u0027s Ericsson on some of the files that were brought in from the separate plugins, but since then newly added files are AOSP).",
+      "revId": "6dcdfe47f522b752edeb73710a8b0cd3c1932567",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db9f9244_60a5e5ab",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T07:36:55Z",
+      "side": 1,
+      "message": "As mentioned in the earlier review, it would be better to make this a generic class and have the member defined in the base class.",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "6dcdfe47f522b752edeb73710a8b0cd3c1932567",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830b0950_d7568605",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-21T07:36:55Z",
+      "side": 1,
+      "message": "If we\u0027re going to introduce a new enum, let\u0027s also use it in the IndexAccountRestApiServlet, i.e. so we would replace the string at L37.",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "6dcdfe47f522b752edeb73710a8b0cd3c1932567",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
