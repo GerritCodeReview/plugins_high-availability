@@ -266,6 +266,30 @@
     },
     {
       "key": {
+        "uuid": "ca2da16d_933901a4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-22T08:23:19Z",
+      "side": 1,
+      "message": "At the moment yes, but based on the feedback from Hugo, I will have to get some information about when the accounts and groups were modified. The current time won\u0027t be used anymore and any type will have to find \"its own time\".",
+      "parentUuid": "29e942f0_c225298d",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d54ac03_16245f77",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 10
