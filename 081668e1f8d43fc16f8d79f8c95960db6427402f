@@ -70,6 +70,30 @@
       "revId": "081668e1f8d43fc16f8d79f8c95960db6427402f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deb7a9c1_ba64cd21",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-02-22T14:31:20Z",
+      "side": 1,
+      "message": "I believe that I debugged that test and found out that overriding\nin mockito didn\u0027t work as I expected. Maybe I did some mistake... let\nme try again.",
+      "parentUuid": "1f700f0d_21b2109c",
+      "range": {
+        "startLine": 464,
+        "startChar": 4,
+        "endLine": 466,
+        "endChar": 0
+      },
+      "revId": "081668e1f8d43fc16f8d79f8c95960db6427402f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
