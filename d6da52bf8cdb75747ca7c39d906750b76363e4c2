@@ -22,6 +22,30 @@
       "revId": "d6da52bf8cdb75747ca7c39d906750b76363e4c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c9f672_7030f2f0",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T14:11:05Z",
+      "side": 1,
+      "message": "I can\u0027t remember if I stepped though that one in the debugger. The reason it was failing before was because of one of the other values, that is set up above, was not getting set when the mock object was created locally.\n\nThe test passes, so I guess it is working as expected. \n\nI didn\u0027t check it on the 2.13 branch because my buck environment needs setting up properly. I\u0027ll do it tomorrow.",
+      "parentUuid": "8b1ac7c7_473d688e",
+      "range": {
+        "startLine": 500,
+        "startChar": 73,
+        "endLine": 500,
+        "endChar": 88
+      },
+      "revId": "d6da52bf8cdb75747ca7c39d906750b76363e4c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
