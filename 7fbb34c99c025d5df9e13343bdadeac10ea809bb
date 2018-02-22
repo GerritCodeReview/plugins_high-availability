@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b73e0ba_72d07d1a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "AccountReindexRunnable",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1943d1f1_80f80800",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ChangeReindexRunnable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "ChangeReindexRunnable",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38909e4a_06748e82",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ReindexRunnable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "ReindexRunnable",
+      "range": {
+        "startLine": 31,
+        "startChar": 60,
+        "endLine": 31,
+        "endChar": 79
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8959410d_cb54f800",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "previously we passed a String here, but now it\u0027s an enum.  How does this get rendered?",
+      "range": {
+        "startLine": 77,
+        "startChar": 83,
+        "endLine": 77,
+        "endChar": 92
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dbf05ef_54b99b89",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "indexTS should be called here after this line",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 29
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d54ac03_16245f77",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "Not needed; can be inlined after L93",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 142,
+        "endChar": 3
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe711acb_be9c35ea",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "This should be done in the abstract class after the call to index()",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff0ab544_d152b51c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "Remove; should be done in the abstract class.",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 69
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e95da6_b8f63193",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexGroupRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-22T08:01:16Z",
+      "side": 1,
+      "message": "Remove; should be done in the abstract class",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "7fbb34c99c025d5df9e13343bdadeac10ea809bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
