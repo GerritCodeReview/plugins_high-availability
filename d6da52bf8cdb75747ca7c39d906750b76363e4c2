@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b1ac7c7_473d688e",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-02-22T13:02:45Z",
+      "side": 1,
+      "message": "Are you sure that the mock will actually return null?\nIn the setUp method (113-114) the mock is configured to return non-null.\nI am not sure that mockito will respect only the last value.\nAt least in stable-2.13 overriding this way didn\u0027t work for me.",
+      "range": {
+        "startLine": 500,
+        "startChar": 73,
+        "endLine": 500,
+        "endChar": 88
+      },
+      "revId": "d6da52bf8cdb75747ca7c39d906750b76363e4c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
