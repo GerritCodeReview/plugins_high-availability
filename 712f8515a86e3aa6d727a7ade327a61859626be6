@@ -140,6 +140,30 @@
       "revId": "712f8515a86e3aa6d727a7ade327a61859626be6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea36d608_16f2c69e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ChangeReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-02-22T08:03:46Z",
+      "side": 1,
+      "message": "Just completed some tests on GerritHub.io, we have 400k changes:\n- the pure scanning with nothing to index: 400 msec (1usec per change)\n- scanning with 100 changes to reindex: 1600 msec (62 changes/sec)\n\nThe overhead in your case, with 3.2M changes would be 3.2s every hour.\nI am sure we can improve the performance, but for GerritHub.io is already \"good enough\" to go live.",
+      "parentUuid": "13734665_97de1bca",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "712f8515a86e3aa6d727a7ade327a61859626be6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
