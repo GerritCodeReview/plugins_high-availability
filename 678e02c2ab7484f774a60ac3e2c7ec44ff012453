@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c2b3b5b_17e1c9ae",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-23T03:40:44Z",
+      "side": 1,
+      "message": "static final",
+      "revId": "678e02c2ab7484f774a60ac3e2c7ec44ff012453",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "527b943b_1b36fd4e",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ConfigurationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-23T03:40:44Z",
+      "side": 1,
+      "message": "Remove this blank line?",
+      "revId": "678e02c2ab7484f774a60ac3e2c7ec44ff012453",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
