@@ -22,6 +22,30 @@
       "revId": "39e5a6aefa85b0e6f29928db283c95860bd11949",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afd641ea_e965ea7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-23T02:08:04Z",
+      "side": 1,
+      "message": "I should have done this in multiple commit. These refactoring are kind of required to untangle the MyUrlProvider tests from the configuration ones.\n\nI would like to keep this in one commit if you agree to let this one slip by ;-)\n\nI am simplifying/rewriting the configuration test, I will make sure to not do same mistake, one commit per thing I am changing :)",
+      "parentUuid": "a8d53033_78ffc3ed",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 13,
+        "endChar": 60
+      },
+      "revId": "39e5a6aefa85b0e6f29928db283c95860bd11949",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
