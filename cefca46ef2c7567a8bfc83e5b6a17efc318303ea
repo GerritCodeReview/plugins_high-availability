@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "279558ef_7c036d81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-23T18:50:16Z",
+      "side": 1,
+      "message": "To be honest, I am not sure what you are trying to fix here. Are you saying that building high-availability plugin in Gerrit source tree is the problem?",
+      "revId": "cefca46ef2c7567a8bfc83e5b6a17efc318303ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83f843b5_efa4d196",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
