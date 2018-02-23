@@ -39,6 +39,29 @@
       "revId": "cefca46ef2c7567a8bfc83e5b6a17efc318303ea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5327258_21f50fbc",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-23T19:03:34Z",
+      "side": 1,
+      "message": "ok, I know the build is failing be cause this needs to be high_availability",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 24
+      },
+      "revId": "cefca46ef2c7567a8bfc83e5b6a17efc318303ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
