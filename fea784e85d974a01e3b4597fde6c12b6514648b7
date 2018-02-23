@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df3f64a4_31b54336",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CachePattenMatcherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-02-23T15:23:44Z",
+      "side": 1,
+      "message": "Use ImmutableList.of(\"^my_cache.*\", \"other\") here?",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "fea784e85d974a01e3b4597fde6c12b6514648b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
