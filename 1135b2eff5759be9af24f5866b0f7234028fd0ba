@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d14de30_16545a14",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ChangeReindexRunnable.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-02-25T07:28:03Z",
+      "side": 1,
+      "message": "As pointed out by Hugo, the database select approach would only work on stable-2.14 and on non migrated sites to NoteDb on stabe-2.15 and later.\n\nI agree, this feature is a useful addition and is better then the only alternative we have now: full reindexing that is very time consuming for big sites.\n\nForward porting would require the scan of index specific refs \n (accounts, changes, groups). I think this scan should work, as it should only lazy ready minimal part of the change meta data, so that I expect that approach be much faster, then ful reindex.\n\nStill, I think loud about alternative approaches to this suggestion:\n\n* 1. Set up in addition to active and passive nodes, a standalone queue that would always consume reindex events and passive node could query that queue for lost event starting from specific time.\n* 2. Set up the recording mode on the active node, and put the events in addition to some kind of storage: in memory only cache or (better) persistent cache, and set up a REST endpoint and allow the passive node to query the missed events started from specific time.\n* 3. Make the solution 2. as gerrit plugin: reindex-event-recorder-plugin. This plugin, loaded in active node would record the reindex event in a simple database table (even a generic one should work: id, index_type, reindex_time) and given that we already have database dependency in gerrit because of account_patch_reviews, this approach wouldn\u0027t add any new complexity. The passive node, on start, could do two different thing to recover:\n* a) call REST endpoint on the master node exposed by reindex-event-recorder-plugin and ask for the ids for entities to reindex (for specific entity type)\n* b) query the database directly.\n\nSo basically, the alternative solution to full ref scan, once the database gone, is to avoid losing the events.\n\nMy suggestion would be to define Recover-(Lost)-Reindex-Event strategy in this plugin and add additional strategies when different strategies are implemented:\n\n* Full table scan\n* Full ref scan\n* Stadalone Queue\n* Query active node\n* reindex-event-recorder-plugin\n* ...",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 29
+      },
+      "revId": "1135b2eff5759be9af24f5866b0f7234028fd0ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
