@@ -22,6 +22,30 @@
       "revId": "da62dc70ee7dd6e4edc95a047ecb097d79c1d916",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a0c558f_a24cd638",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-26T18:44:39Z",
+      "side": 1,
+      "message": "I copy-pasted this sentence from Sonarqube rule.",
+      "parentUuid": "8f634833_0dc6cee6",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "da62dc70ee7dd6e4edc95a047ecb097d79c1d916",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
