@@ -46,6 +46,30 @@
       "revId": "da62dc70ee7dd6e4edc95a047ecb097d79c1d916",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a801879_9490bb01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-26T23:42:16Z",
+      "side": 1,
+      "message": "It turns out that quite a lot of the Sonarqube contributors are French speakers :P\n\nhttps://github.com/SonarSource/sonarqube/graphs/contributors",
+      "parentUuid": "2a0c558f_a24cd638",
+      "range": {
+        "startLine": 10,
+        "startChar": 50,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "da62dc70ee7dd6e4edc95a047ecb097d79c1d916",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
