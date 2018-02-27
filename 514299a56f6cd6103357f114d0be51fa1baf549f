@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e03f383_bdf6872d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-27T01:19:49Z",
+      "side": 1,
+      "message": "nit: move the blank line so that the final and non-final members are grouped correctly.",
+      "revId": "514299a56f6cd6103357f114d0be51fa1baf549f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
