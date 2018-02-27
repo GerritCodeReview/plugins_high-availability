@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7137b29b_0f2473ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-27T01:29:08Z",
+      "side": 1,
+      "message": "Mention that the Locale.US is removed?",
+      "revId": "7a1e09af81d323712c75b9e6f7413dc2e2252cca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
