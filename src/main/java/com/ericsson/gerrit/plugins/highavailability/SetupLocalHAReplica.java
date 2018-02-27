@@ -46,7 +46,7 @@ class SetupLocalHAReplica {
   private final SitePaths master;
   private final FileBasedConfig masterConfig;
 
-  private Path sharedDir;
+  private final Path sharedDir;
   private SitePaths replica;
 
   @Inject
