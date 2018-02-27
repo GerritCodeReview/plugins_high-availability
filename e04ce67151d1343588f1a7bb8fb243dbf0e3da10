@@ -22,6 +22,30 @@
       "revId": "e04ce67151d1343588f1a7bb8fb243dbf0e3da10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f35f1751_02523ed0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-02-27T01:25:43Z",
+      "side": 1,
+      "message": "I think this was just done by habit.  IIRC there are some tools that complain if using toLowerCase leaving the default local (maybe Findbugs?).\n\nIn this case it\u0027s probably OK to remove it since we know it will only ever be called against the values in this enum, and therefore will never have any locale specific characters.",
+      "parentUuid": "d1af63ca_22821def",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 41
+      },
+      "revId": "e04ce67151d1343588f1a7bb8fb243dbf0e3da10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
