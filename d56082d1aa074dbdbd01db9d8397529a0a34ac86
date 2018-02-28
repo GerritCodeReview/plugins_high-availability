@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ef8428b_4d328c41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-28T23:34:12Z",
+      "side": 1,
+      "message": "changes, groups and accounts",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "d56082d1aa074dbdbd01db9d8397529a0a34ac86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5af6b79_41318532",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-28T23:34:12Z",
+      "side": 1,
+      "message": "This is executing on the node that just came back, using the indexer directly will cause the indexing event to be forwarded to the other master.\n\nIn AbstractIndexRestApiServlet, the class handling the forwarded events, we use Context.setForwardedEvent(true) to prevent IndexEventHandler from forwarding this event to the other node.\n\nIn addition, AbstractIndexRestApiServlet prevents indexing the same account/group/change concurrently. We need to do some refactoring to be able to reuse that code from this class to prevent forwarding the indexing event to the other node and also prevent running indexing concurrently on the same document.\n\nI will work on extracting that out of the rest api layer. We need that refactoring for this change but it will also be needed for adding a new transport layer.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "d56082d1aa074dbdbd01db9d8397529a0a34ac86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa92f38d_dccd37aa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-28T23:34:12Z",
+      "side": 1,
+      "message": "This is another feature on top of autoReindex on startup, move it into its own change.",
+      "revId": "d56082d1aa074dbdbd01db9d8397529a0a34ac86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1b68073_f9ce7064",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/GroupReindexRunnable.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-28T23:34:12Z",
+      "side": 1,
+      "message": "missing license header",
+      "revId": "d56082d1aa074dbdbd01db9d8397529a0a34ac86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b87c04a_8fd5bab5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ReindexRunnable.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-28T23:34:12Z",
+      "side": 1,
+      "message": "This is giving us the list of existing items in the db, would it be possible, before that, to get the list of items in the secondary index that way we could remove items that were deleted from the db that are still in secondary index?",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "d56082d1aa074dbdbd01db9d8397529a0a34ac86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbcda0b5_540c9681",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-02-28T23:34:12Z",
+      "side": 1,
+      "message": "Using an enum instead of a string is a supporting refactoring, extract this into its own change.",
+      "range": {
+        "startLine": 41,
+        "startChar": 16,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "d56082d1aa074dbdbd01db9d8397529a0a34ac86",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
