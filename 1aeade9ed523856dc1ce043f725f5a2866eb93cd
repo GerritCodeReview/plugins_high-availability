@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "3d30ca24_ce2ac08d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-03-01T17:46:17Z",
+      "side": 1,
+      "message": "\u003e Lock striping is a common technique. A fixed size stripe is an locks[] array, selecting the lock as locks[key % locks.length]. This can result in collisions, but this is usually benign if a decent size with a good hashing function. The number of allocations is fixed.\n\nI believe that now I understood lock striping. Thanks!\n\nBased on the above explanation I think we should be fine with a fixed length locks array.\nIn the worst case two unrelated IDs may produce the same hash code and therefore use\nthe same lock. But this should happen rarely and is not dangerous.\n\n+1 for lock striping.",
+      "parentUuid": "8e1fb67f_44d78568",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 7
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba47c80e_e8a427d3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 9
