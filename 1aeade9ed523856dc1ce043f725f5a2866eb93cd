@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "af2986a7_d110d767",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-03-01T15:49:59Z",
+      "side": 1,
+      "message": "\u003e The previous implementation was removing the locks once no longer\n \u003e needed.\n\nWhat do you refer to by \"previous implementation\"? The base version (without guava) or the version with guava cache?\n\nAFAIU we have three versions of code to compare:\n1 base version\n2 version with guava Cache\n3 version with guava Striped\n\nIIUC, your computations refer to the version 3.\nThe version 2 uses guava cache and is not prone to ever growing\nnumber of in-memory locks.\n\nBen points to other possible issues with using guava cache for this purpose but also points that we\ncould use weakValues option to mitigate these risks, IIUC.\n\nFurther, the guava cache is oversized (1024 entries) and, as discussed in PS-2, having 1024 concurrent indexing tasks is unrealistic. We don\u0027t even have 1024 threads available. Therefore, the risk of a lock being removed while in use is probably inexistent.\n\nBen please correct me if I am wrong.",
+      "parentUuid": "27f762d5_a41afc5a",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 7
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba47c80e_e8a427d3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 9
