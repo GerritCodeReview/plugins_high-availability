@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "16bea048_99377705",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-01T16:50:59Z",
+      "side": 1,
+      "message": "\u003e \u003e The previous implementation was removing the locks once no longer\n \u003e \u003e needed.\n \u003e \n \u003e What do you refer to by \"previous implementation\"? The base version\n \u003e (without guava) or the version with guava cache?\n\n\nI was referring to the ugly code in the base version (without guava) :)\n\n\n\u003e Ben points to other possible issues with using guava cache for this\n\u003e purpose but also points that we\n\u003e could use weakValues option to mitigate these risks, IIUC.\n\n\nI am really not a big fan of weak references. They do not work well with large heap(e.g. 256GB). Before, JGit repository cache was based on weak references and the problem is weak references are collected too late in large heap. Because the heap is large, they are not collected until the heap is almost full and by that time, JVM gc is struggling big time making Gerrit unusable. I removed usage of weak references every where I could and we had to set -XX:SoftRefLRUPolicyMSPerMB\u003d0 because we use libraries such as Lucece which use them. That option force the gc to collected them as soon as not used.",
+      "parentUuid": "af2986a7_d110d767",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 7
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba47c80e_e8a427d3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 9
