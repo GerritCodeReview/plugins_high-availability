@@ -22,6 +22,52 @@
       "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27f762d5_a41afc5a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-01T14:19:34Z",
+      "side": 1,
+      "message": "First, I want to say I really like how much simpler/nicer is the code.\n\nIds can be account, groups or changes. If I understand correctly, each different id will have it\u0027s own lock and this lock will never be removed until Striped itself is reclaimable which only happens when you unload the plugin in this case.\n\nLet\u0027s say that the plugin stays up for a few weeks, this means for us possibly:\n\n25000 accounts lock + 1000 groups lock + (30 days * 25 000 changes locks) \u003d 776 000 locks in memory.\n\nShould we be concerned by having so many lock in memory?\n\nThe previous implementation was removing the locks once no longer needed.",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 7
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba47c80e_e8a427d3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-01T14:19:34Z",
+      "side": 1,
+      "message": "I do not think we need a private method anymore, simply call idLocks.get(id) at line 88",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 3
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
