@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8e1fb67f_44d78568",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1060013
+      },
+      "writtenOn": "2018-03-01T16:52:05Z",
+      "side": 1,
+      "message": "Since code ages poorly, I prefer to base correctness on assumptions, like that the cache won\u0027t evict due to the size being large enough. Others might naively copy the code or shrink the size. If changing from LRU (Guava) to another policy (Caffeine), a recently added entry may be evicted first. This can occur as frequency tends to offer a higher hit rate, and most entries are one-hit pollutants. So the assumptions in code may not always be clear and fail in a quietly (and harmful) manner.\n\nLock striping is a common technique. A fixed size stripe is an locks[] array, selecting the lock as locks[key % locks.length]. This can result in collisions, but this is usually benign if a decent size with a good hashing function. The number of allocations is fixed.\n\nDynamic striping uses a weak valued hash table to collect unused locks (no strong references). This can avoid collisions as every key is unique. However, it adds more recycling churn and rarely offers a performance benefit. Usually there is a more intelligent alternative if there is a performance problem.\n\nWhen I introduced the author of Striped these techniques, and my code implementing them, I had written a dynamic stripe merely for fun (as I only used a fixed striping).",
+      "parentUuid": "af2986a7_d110d767",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 94,
+        "endChar": 7
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba47c80e_e8a427d3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
         "patchSetId": 9
