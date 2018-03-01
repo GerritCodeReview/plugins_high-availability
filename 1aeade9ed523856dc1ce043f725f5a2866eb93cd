@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "650bce65_51fcda6a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-03-01T13:12:51Z",
+      "side": 1,
+      "message": "I\u0027m new to this object (thanks Ben for pointing to this option) and I wonder if there is any benefit of using the lazy weak alternative constructor in this case.",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 35
+      },
+      "revId": "1aeade9ed523856dc1ce043f725f5a2866eb93cd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
