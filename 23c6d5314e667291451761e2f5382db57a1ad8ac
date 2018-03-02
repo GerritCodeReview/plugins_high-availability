@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed2ec7e6_3e35f1ee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/DispatchEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-02T02:43:15Z",
+      "side": 1,
+      "message": "event",
+      "range": {
+        "startLine": 42,
+        "startChar": 42,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "23c6d5314e667291451761e2f5382db57a1ad8ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
