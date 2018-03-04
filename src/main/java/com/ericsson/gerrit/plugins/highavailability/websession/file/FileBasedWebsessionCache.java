@@ -32,6 +32,9 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +44,31 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
 public class FileBasedWebsessionCache implements Cache<String, WebSessionManager.Val> {
+  public static class TimeMachine {
+    private static Clock clock = Clock.systemDefaultZone();
+
+    public static Instant now() {
+      return Instant.now(getClock());
+    }
+
+    public static void useFixedClockAt(Instant instant) {
+      clock = Clock.fixed(instant, ZoneId.systemDefault());
+    }
+
+    public static void useSystemDefaultZoneClock() {
+      clock = Clock.systemDefaultZone();
+    }
+
+    private static Clock getClock() {
+      return clock;
+    }
+  }
+
   private static final Logger log = LoggerFactory.getLogger(FileBasedWebsessionCache.class);
 
   private final Path websessionsDir;
@@ -74,8 +96,8 @@ public class FileBasedWebsessionCache implements Cache<String, WebSessionManager
     for (Path path : listFiles()) {
       Val val = readFile(path);
       if (val != null) {
-        DateTime expires = new DateTime(val.getExpiresAt());
-        if (expires.isBefore(new DateTime())) {
+        Instant expires = Instant.ofEpochMilli(val.getExpiresAt());
+        if (expires.isBefore(TimeMachine.now())) {
           deleteFile(path);
         }
       }
