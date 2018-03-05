@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad228444_779fec3e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/websession/file/FileBasedWebsessionCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-05T20:09:09Z",
+      "side": 1,
+      "message": "If I understand, everywhere we need current time we need to use this class in order to be able to override the current time in the test.\n\nIf this is the case, we should extract this class into its own file a put it in the root package so it\u0027s not buried in here.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 3
+      },
+      "revId": "5eb14218a1d9d5ab3ba16574a7d245fa8469cb4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
