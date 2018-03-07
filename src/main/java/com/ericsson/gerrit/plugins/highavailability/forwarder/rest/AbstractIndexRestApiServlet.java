@@ -22,8 +22,11 @@ import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.google.common.util.concurrent.Striped;
+import com.google.gerrit.reviewdb.client.Change;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +37,11 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(AbstractIndexRestApiServlet.class);
+  private static final Optional<LocalDateTime> NO_TS = Optional.empty();
 
   private final IndexName indexName;
   private final boolean allowDelete;
+  private final IndexTs indexTs;
   private final Striped<Lock> idLocks;
 
   enum Operation {
@@ -64,14 +69,15 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
 
   abstract void index(T id, Operation operation) throws IOException, OrmException;
 
-  AbstractIndexRestApiServlet(IndexName indexName, boolean allowDelete) {
+  AbstractIndexRestApiServlet(IndexName indexName, boolean allowDelete, IndexTs indexTs) {
     this.indexName = indexName;
     this.allowDelete = allowDelete;
     this.idLocks = Striped.lock(10);
+    this.indexTs = indexTs;
   }
 
-  AbstractIndexRestApiServlet(IndexName indexName) {
-    this(indexName, false);
+  AbstractIndexRestApiServlet(IndexName indexName, IndexTs indexTs) {
+    this(indexName, false, indexTs);
   }
 
   @Override
@@ -123,5 +129,13 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
     } catch (IOException e) {
       logger.error("Failed to send error messsage: {}", e.getMessage(), e);
     }
+  }
+
+  protected void updateIndexTs(Change.Id id, LocalDateTime ts) {
+    indexTs.update(indexName, Operation.INDEX, "" + id.id, Optional.of(ts));
+  }
+
+  protected void deleteIndexTs(Change.Id id) {
+    indexTs.update(indexName, Operation.DELETE, "" + id.id, NO_TS);
   }
 }

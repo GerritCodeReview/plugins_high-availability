@@ -35,8 +35,9 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
   private final SchemaFactory<ReviewDb> schemaFactory;
 
   @Inject
-  IndexChangeRestApiServlet(ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory) {
-    super(IndexName.CHANGE, true);
+  IndexChangeRestApiServlet(
+      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, IndexTs indexTs) {
+    super(IndexName.CHANGE, true, indexTs);
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
   }
@@ -56,6 +57,7 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
           if (change != null) {
             indexer.index(db, change);
             logger.debug("Change {} successfully indexed", id);
+            updateIndexTs(id, change.getLastUpdatedOn().toLocalDateTime());
           }
         } catch (Exception e) {
           if (!isCausedByNoSuchChangeException(e)) {
@@ -66,11 +68,13 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
         if (change == null) {
           indexer.delete(id);
           logger.debug("Change {} not found, deleted from index", id);
+          deleteIndexTs(id);
         }
         break;
       case DELETE:
         indexer.delete(id);
         logger.debug("Change {} successfully deleted from index", id);
+        deleteIndexTs(id);
         break;
     }
   }
