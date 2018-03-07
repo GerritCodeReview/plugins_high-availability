@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcd67457_5396fe8e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-03-07T23:20:05Z",
+      "side": 1,
+      "message": "This Change instance is only used in the INDEX case.  Move the declaration to between L53 and L54.",
+      "revId": "103073709c0fcaa27ea4cf93c7009841956ec2b7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
