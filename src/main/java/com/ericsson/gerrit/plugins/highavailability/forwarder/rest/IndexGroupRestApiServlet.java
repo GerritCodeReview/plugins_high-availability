@@ -24,8 +24,8 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   private static final long serialVersionUID = -1L;
 
   @Inject
-  IndexGroupRestApiServlet(ForwardedIndexGroupHandler handler) {
-    super(handler, IndexName.GROUP);
+  IndexGroupRestApiServlet(ForwardedIndexGroupHandler handler, IndexTs indexTs) {
+    super(handler, IndexName.GROUP, indexTs);
   }
 
   @Override

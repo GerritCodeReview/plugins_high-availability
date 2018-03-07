@@ -27,6 +27,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
@@ -38,17 +39,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class IndexChangeRestApiServletTest {
   private static final int CHANGE_NUMBER = 1;
+  private static final java.util.Optional<LocalDateTime> NO_TS = java.util.Optional.empty();
+
 
   @Mock private ForwardedIndexChangeHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private IndexTs indexTs;
 
-  private Change.Id id;
+    private Change.Id id;
   private IndexChangeRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexChangeRestApiServlet(handlerMock);
+    servlet = new IndexChangeRestApiServlet(handlerMock, indexTs);
     id = new Change.Id(CHANGE_NUMBER);
     when(requestMock.getPathInfo()).thenReturn("/index/change/" + CHANGE_NUMBER);
   }
@@ -58,6 +62,7 @@ public class IndexChangeRestApiServletTest {
     servlet.doPost(requestMock, responseMock);
     verify(handlerMock, times(1)).index(id, Operation.INDEX);
     verify(responseMock).setStatus(SC_NO_CONTENT);
+    verifyIndexTsUpdated();
   }
 
   @Test
@@ -65,6 +70,7 @@ public class IndexChangeRestApiServletTest {
     servlet.doDelete(requestMock, responseMock);
     verify(handlerMock, times(1)).index(id, Operation.DELETE);
     verify(responseMock).setStatus(SC_NO_CONTENT);
+    verifyDeleteTsUpdated();
   }
 
   @Test
@@ -72,6 +78,7 @@ public class IndexChangeRestApiServletTest {
     doThrow(new IOException("io-error")).when(handlerMock).index(id, Operation.INDEX);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, "io-error");
+    verifyZeroInteractions(indexTs);
   }
 
   @Test
@@ -79,6 +86,7 @@ public class IndexChangeRestApiServletTest {
     doThrow(new OrmException("some message")).when(handlerMock).index(id, Operation.INDEX);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_NOT_FOUND, "Error trying to find change");
+    verifyZeroInteractions(indexTs);
   }
 
   @Test
@@ -87,5 +95,18 @@ public class IndexChangeRestApiServletTest {
     doThrow(new IOException("someError")).when(responseMock).sendError(SC_CONFLICT, "io-error");
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, "io-error");
+  }
+
+  private void verifyIndexTsUpdated() {
+    verify(indexTs, times(1))
+        .update(
+            IndexName.CHANGE,
+            Operation.INDEX,
+            CHANGE_NUMBER,
+            java.util.Optional.of(change.getLastUpdatedOn().toLocalDateTime()));
+  }
+
+  private void verifyDeleteTsUpdated() {
+    verify(indexTs, times(1)).update(IndexName.CHANGE, Operation.DELETE, CHANGE_NUMBER, NO_TS);
   }
 }

@@ -28,10 +28,22 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
+  private static final Optional<LocalDateTime> NO_TS = Optional.empty();
 
   private final ForwardedIndexingHandler<T> forwardedIndexingHandler;
   private final IndexName indexName;
   private final boolean allowDelete;
+  private final IndexTs indexTs;
+
+  enum Operation {
+    INDEX,
+    DELETE;
+
+    @Override
+    public String toString() {
+      return name().toLowerCase();
+    }
+  }
 
   public enum IndexName {
     CHANGE,
@@ -46,18 +58,22 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
 
   abstract T parse(String id);
 
+  abstract void index(T id, Operation operation) throws IOException, OrmException;
+
   AbstractIndexRestApiServlet(
       ForwardedIndexingHandler<T> forwardedIndexingHandler,
       IndexName indexName,
-      boolean allowDelete) {
+      boolean allowDelete,
+      IndexTs indexTs) {
     this.forwardedIndexingHandler = forwardedIndexingHandler;
     this.indexName = indexName;
     this.allowDelete = allowDelete;
+    this.indexTs = indexTs;
   }
 
   AbstractIndexRestApiServlet(
-      ForwardedIndexingHandler<T> forwardedIndexingHandler, IndexName indexName) {
-    this(forwardedIndexingHandler, indexName, false);
+      ForwardedIndexingHandler<T> forwardedIndexingHandler, IndexName indexName, IndexTs indexTs) {
+    this(forwardedIndexingHandler, indexName, false, indexTs);
   }
 
   @Override
@@ -90,5 +106,13 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
       sendError(rsp, SC_NOT_FOUND, msg);
       logger.debug(msg, e);
     }
+  }
+
+  protected void updateIndexTs(Change.Id id, LocalDateTime ts) {
+    indexTs.update(indexName, Operation.INDEX, "" + id.id, Optional.of(ts));
+  }
+
+  protected void deleteIndexTs(Change.Id id) {
+    indexTs.update(indexName, Operation.DELETE, "" + id.id, NO_TS);
   }
 }

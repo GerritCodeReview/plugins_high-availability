@@ -41,13 +41,14 @@ public class IndexAccountRestApiServletTest {
   @Mock private ForwardedIndexAccountHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private IndexTs indexTs;
 
   private Account.Id id;
   private IndexAccountRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexAccountRestApiServlet(handlerMock);
+    servlet = new IndexAccountRestApiServlet(handlerMock, indexTs);
     id = new Account.Id(ACCOUNT_NUMBER);
     when(requestMock.getPathInfo()).thenReturn("/index/account/" + ACCOUNT_NUMBER);
   }

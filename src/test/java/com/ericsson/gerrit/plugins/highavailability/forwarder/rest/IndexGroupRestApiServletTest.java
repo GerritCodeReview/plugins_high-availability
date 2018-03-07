@@ -41,13 +41,14 @@ public class IndexGroupRestApiServletTest {
   @Mock private ForwardedIndexGroupHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private IndexTs indexTs;
 
   private AccountGroup.UUID uuid;
   private IndexGroupRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexGroupRestApiServlet(handlerMock);
+    servlet = new IndexGroupRestApiServlet(handlerMock, indexTs);
     uuid = new AccountGroup.UUID(UUID);
     when(requestMock.getPathInfo()).thenReturn("/index/group/" + UUID);
   }

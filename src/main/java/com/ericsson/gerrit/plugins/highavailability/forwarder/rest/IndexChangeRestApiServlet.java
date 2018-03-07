@@ -24,8 +24,8 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
   private static final long serialVersionUID = -1L;
 
   @Inject
-  IndexChangeRestApiServlet(ForwardedIndexChangeHandler handler) {
-    super(handler, IndexName.CHANGE, true);
+  IndexChangeRestApiServlet(ForwardedIndexChangeHandler handler, IndexTs indexTs) {
+    super(handler, IndexName.CHANGE, true, indexTs);
   }
 
   @Override

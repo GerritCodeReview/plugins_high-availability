@@ -24,8 +24,8 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   private static final long serialVersionUID = -1L;
 
   @Inject
-  IndexAccountRestApiServlet(ForwardedIndexAccountHandler handler) {
-    super(handler, IndexName.ACCOUNT);
+  IndexAccountRestApiServlet(ForwardedIndexAccountHandler handler, IndexTs indexTs) {
+    super(handler, IndexName.ACCOUNT, indexTs);
   }
 
   @Override
