@@ -24,6 +24,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.Operation;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ChangeAccess;
@@ -35,6 +37,7 @@ import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.gwtorm.server.StandardKeyEncoder;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
@@ -53,12 +56,14 @@ public class IndexChangeRestApiServletTest {
   private static final boolean THROW_IO_EXCEPTION = true;
   private static final boolean THROW_ORM_EXCEPTION = true;
   private static final String CHANGE_NUMBER = "1";
+  private static final java.util.Optional<LocalDateTime> NO_TS = java.util.Optional.empty();
 
   @Mock private ChangeIndexer indexer;
   @Mock private SchemaFactory<ReviewDb> schemaFactory;
   @Mock private ReviewDb db;
   @Mock private HttpServletRequest req;
   @Mock private HttpServletResponse rsp;
+  @Mock private IndexTs indexTs;
   private Change.Id id;
   private Change change;
   private IndexChangeRestApiServlet indexRestApiServlet;
@@ -70,7 +75,7 @@ public class IndexChangeRestApiServletTest {
 
   @Before
   public void setUpMocks() {
-    indexRestApiServlet = new IndexChangeRestApiServlet(indexer, schemaFactory);
+    indexRestApiServlet = new IndexChangeRestApiServlet(indexer, schemaFactory, indexTs);
     id = Change.Id.parse(CHANGE_NUMBER);
     when(req.getPathInfo()).thenReturn("/index/change/" + CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
@@ -81,6 +86,7 @@ public class IndexChangeRestApiServletTest {
     setupPostMocks(CHANGE_EXISTS);
     indexRestApiServlet.doPost(req, rsp);
     verify(indexer, times(1)).index(db, change);
+    verifyIndexTsUpdated();
     verify(rsp).setStatus(SC_NO_CONTENT);
   }
 
@@ -89,6 +95,7 @@ public class IndexChangeRestApiServletTest {
     setupPostMocks(CHANGE_DOES_NOT_EXIST);
     indexRestApiServlet.doPost(req, rsp);
     verify(indexer, times(1)).delete(id);
+    verifyDeleteTsUpdated();
     verify(rsp).setStatus(SC_NO_CONTENT);
   }
 
@@ -96,6 +103,7 @@ public class IndexChangeRestApiServletTest {
   public void schemaThrowsExceptionWhenLookingUpForChange() throws Exception {
     setupPostMocks(CHANGE_EXISTS, THROW_ORM_EXCEPTION);
     indexRestApiServlet.doPost(req, rsp);
+    verifyZeroInteractions(indexTs);
     verify(rsp).sendError(SC_NOT_FOUND, "Error trying to find change \n");
   }
 
@@ -104,6 +112,7 @@ public class IndexChangeRestApiServletTest {
     doThrow(new NoSuchChangeException(id)).when(schemaFactory).open();
     indexRestApiServlet.doPost(req, rsp);
     verify(indexer, times(1)).delete(id);
+    verifyDeleteTsUpdated();
     verify(rsp).setStatus(SC_NO_CONTENT);
   }
 
@@ -113,6 +122,7 @@ public class IndexChangeRestApiServletTest {
     doThrow(e).when(schemaFactory).open();
     indexRestApiServlet.doPost(req, rsp);
     verify(indexer, times(1)).delete(id);
+    verifyDeleteTsUpdated();
     verify(rsp).setStatus(SC_NO_CONTENT);
   }
 
@@ -121,12 +131,14 @@ public class IndexChangeRestApiServletTest {
     setupPostMocks(CHANGE_EXISTS, DO_NOT_THROW_ORM_EXCEPTION, THROW_IO_EXCEPTION);
     indexRestApiServlet.doPost(req, rsp);
     verify(rsp).sendError(SC_CONFLICT, "io-error");
+    verifyZeroInteractions(indexTs);
   }
 
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
     indexRestApiServlet.doDelete(req, rsp);
     verify(indexer, times(1)).delete(id);
+    verifyDeleteTsUpdated();
     verify(rsp).setStatus(SC_NO_CONTENT);
   }
 
@@ -135,6 +147,7 @@ public class IndexChangeRestApiServletTest {
     doThrow(new IOException("io-error")).when(indexer).delete(id);
     indexRestApiServlet.doDelete(req, rsp);
     verify(rsp).sendError(SC_CONFLICT, "io-error");
+    verifyZeroInteractions(indexTs);
   }
 
   @Test
@@ -174,5 +187,18 @@ public class IndexChangeRestApiServletTest {
         when(ca.get(id)).thenReturn(null);
       }
     }
+  }
+
+  private void verifyIndexTsUpdated() {
+    verify(indexTs, times(1))
+        .update(
+            IndexName.CHANGE,
+            Operation.INDEX,
+            CHANGE_NUMBER,
+            java.util.Optional.of(change.getLastUpdatedOn().toLocalDateTime()));
+  }
+
+  private void verifyDeleteTsUpdated() {
+    verify(indexTs, times(1)).update(IndexName.CHANGE, Operation.DELETE, CHANGE_NUMBER, NO_TS);
   }
 }
