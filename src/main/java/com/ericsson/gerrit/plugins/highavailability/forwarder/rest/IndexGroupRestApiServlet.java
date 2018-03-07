@@ -30,8 +30,8 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.
   private final GroupIndexer indexer;
 
   @Inject
-  IndexGroupRestApiServlet(GroupIndexer indexer) {
-    super(IndexName.GROUP);
+  IndexGroupRestApiServlet(GroupIndexer indexer, IndexTs indexTs) {
+    super(IndexName.GROUP, indexTs);
     this.indexer = indexer;
   }
 
