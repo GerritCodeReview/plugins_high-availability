@@ -61,12 +61,12 @@ class EventRestApiServlet extends HttpServlet {
             rsp, SC_UNSUPPORTED_MEDIA_TYPE, "Expecting " + JSON_UTF_8.toString() + " content type");
         return;
       }
-      forwardedEventHandler.dispatch(getEventFromRequest(req));
+      forwardedEventHandler.handle(getEventFromRequest(req));
       rsp.setStatus(SC_NO_CONTENT);
     } catch (OrmException e) {
       logger.debug("Error trying to find a change ", e);
       sendError(rsp, SC_NOT_FOUND, "Change not found\n");
-    } catch (IOException e) {
+    } catch (Exception e) {
       logger.error("Unable to re-trigger event", e);
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }

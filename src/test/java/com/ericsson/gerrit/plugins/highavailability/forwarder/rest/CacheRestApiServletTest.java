@@ -104,7 +104,7 @@ public class CacheRestApiServletTest {
     String cacheName = "nonexistingCache";
     configureMocksFor(pluginName, cacheName);
     CacheNotFoundException e = new CacheNotFoundException(pluginName, cacheName);
-    doThrow(e).when(forwardedCacheEvictionHandlerMock).evict(any());
+    doThrow(e).when(forwardedCacheEvictionHandlerMock).handle(any());
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_BAD_REQUEST, e.getMessage());
   }

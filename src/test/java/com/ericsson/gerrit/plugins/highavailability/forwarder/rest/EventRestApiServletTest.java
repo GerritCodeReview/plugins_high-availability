@@ -75,7 +75,7 @@ public class EventRestApiServletTest {
 
     eventRestApiServlet.doPost(requestMock, responseMock);
 
-    verify(forwardedEventHandlerMock).dispatch(any(RefReplicationDoneEvent.class));
+    verify(forwardedEventHandlerMock).handle(any(RefReplicationDoneEvent.class));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
@@ -88,7 +88,7 @@ public class EventRestApiServletTest {
     when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader(event)));
     doThrow(new OrmException(ERR_MSG))
         .when(forwardedEventHandlerMock)
-        .dispatch(any(RefReplicationDoneEvent.class));
+        .handle(any(RefReplicationDoneEvent.class));
     eventRestApiServlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_NOT_FOUND, "Change not found\n");
   }

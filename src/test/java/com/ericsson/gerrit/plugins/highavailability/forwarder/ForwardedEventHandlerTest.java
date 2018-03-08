@@ -47,7 +47,7 @@ public class ForwardedEventHandlerTest {
   @Test
   public void testSuccessfulDispatching() throws Exception {
     Event event = new ProjectCreatedEvent();
-    forwardedEventHandler.dispatch(event);
+    forwardedEventHandler.handle(event);
     verify(dispatcherMock).postEvent(event);
   }
 
@@ -66,7 +66,7 @@ public class ForwardedEventHandlerTest {
         .postEvent(event);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    forwardedEventHandler.dispatch(event);
+    forwardedEventHandler.handle(event);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(dispatcherMock).postEvent(event);
@@ -86,7 +86,7 @@ public class ForwardedEventHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
-      forwardedEventHandler.dispatch(event);
+      forwardedEventHandler.handle(event);
       fail("should have throw an OrmException");
     } catch (OrmException e) {
       assertThat(e.getMessage()).isEqualTo("someMessage");

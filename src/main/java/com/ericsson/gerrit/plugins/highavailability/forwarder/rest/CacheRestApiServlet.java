@@ -52,13 +52,13 @@ class CacheRestApiServlet extends HttpServlet {
       List<String> params = Splitter.on('/').splitToList(req.getPathInfo());
       String cacheName = params.get(CACHENAME_INDEX);
       String json = req.getReader().readLine();
-      forwardedCacheEvictionHandler.evict(
+      forwardedCacheEvictionHandler.handle(
           CacheEntry.from(cacheName, GsonParser.fromJson(cacheName, json)));
       rsp.setStatus(SC_NO_CONTENT);
     } catch (CacheNotFoundException e) {
       logger.error("Failed to process eviction request: {}", e.getMessage());
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
-    } catch (IOException e) {
+    } catch (Exception e) {
       logger.error("Failed to process eviction request: {}", e.getMessage(), e);
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }

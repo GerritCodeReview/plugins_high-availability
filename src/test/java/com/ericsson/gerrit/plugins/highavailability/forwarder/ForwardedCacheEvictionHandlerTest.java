@@ -52,7 +52,7 @@ public class ForwardedCacheEvictionHandlerTest {
     exception.expect(CacheNotFoundException.class);
     exception.expectMessage(
         String.format("cache %s.%s not found", entry.getPluginName(), entry.getCacheName()));
-    forwardedCacheEvictionHandler.evict(entry);
+    forwardedCacheEvictionHandler.handle(entry);
   }
 
   @Test
@@ -60,7 +60,7 @@ public class ForwardedCacheEvictionHandlerTest {
     CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.ACCOUNTS, new Account.Id(123));
     doReturn(cacheMock).when(cacheMapMock).get(entry.getPluginName(), entry.getCacheName());
 
-    forwardedCacheEvictionHandler.evict(entry);
+    forwardedCacheEvictionHandler.handle(entry);
     verify(cacheMock).invalidate(entry.getKey());
   }
 
@@ -69,7 +69,7 @@ public class ForwardedCacheEvictionHandlerTest {
     CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.PROJECT_LIST, null);
     doReturn(cacheMock).when(cacheMapMock).get(entry.getPluginName(), entry.getCacheName());
 
-    forwardedCacheEvictionHandler.evict(entry);
+    forwardedCacheEvictionHandler.handle(entry);
     verify(cacheMock).invalidateAll();
   }
 
@@ -90,7 +90,7 @@ public class ForwardedCacheEvictionHandlerTest {
         .invalidate(entry.getKey());
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    forwardedCacheEvictionHandler.evict(entry);
+    forwardedCacheEvictionHandler.handle(entry);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(cacheMock).invalidate(entry.getKey());
@@ -112,7 +112,7 @@ public class ForwardedCacheEvictionHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
-      forwardedCacheEvictionHandler.evict(entry);
+      forwardedCacheEvictionHandler.handle(entry);
     } catch (RuntimeException e) {
     }
     assertThat(Context.isForwardedEvent()).isFalse();
