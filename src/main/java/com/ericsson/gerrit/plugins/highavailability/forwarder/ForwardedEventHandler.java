@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.gerrit.common.EventDispatcher;
 import com.google.gerrit.server.events.Event;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.slf4j.Logger;
@@ -28,29 +27,19 @@ import org.slf4j.LoggerFactory;
  * causing an infinite forwarding loop between the 2 nodes.
  */
 @Singleton
-public class DispatchEvent {
-  private static final Logger logger = LoggerFactory.getLogger(DispatchEvent.class);
+public class ForwardedEventHandler extends ForwardedTaskHandler<Event> {
+  private static final Logger logger = LoggerFactory.getLogger(ForwardedEventHandler.class);
 
   private final EventDispatcher dispatcher;
 
   @Inject
-  public DispatchEvent(EventDispatcher dispatcher) {
+  public ForwardedEventHandler(EventDispatcher dispatcher) {
     this.dispatcher = dispatcher;
   }
 
-  /**
-   * Dispatch an event in the local node, event will not be forwarded to the other node.
-   *
-   * @param event The event to dispatch
-   * @throws OrmException If an error occur while retrieving the change the event belongs to.
-   */
-  public void dispatch(Event event) throws OrmException {
-    try {
-      Context.setForwardedEvent(true);
-      logger.debug("dispatching event {}", event.getType());
-      dispatcher.postEvent(event);
-    } finally {
-      Context.unsetForwardedEvent();
-    }
+  @Override
+  void doHandle(Event event) throws Exception {
+    logger.debug("dispatching event {}", event.getType());
+    dispatcher.postEvent(event);
   }
 }
