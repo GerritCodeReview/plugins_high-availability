@@ -28,13 +28,13 @@ import org.slf4j.LoggerFactory;
  * causing an infinite forwarding loop between the 2 nodes.
  */
 @Singleton
-public class DispatchEvent {
-  private static final Logger logger = LoggerFactory.getLogger(DispatchEvent.class);
+public class ForwardedEventHandler extends ForwardedTaskHandler<Event> {
+  private static final Logger logger = LoggerFactory.getLogger(ForwardedEventHandler.class);
 
   private final EventDispatcher dispatcher;
 
   @Inject
-  public DispatchEvent(EventDispatcher dispatcher) {
+  public ForwardedEventHandler(EventDispatcher dispatcher) {
     this.dispatcher = dispatcher;
   }
 
@@ -44,13 +44,9 @@ public class DispatchEvent {
    * @param event The event to dispatch
    * @throws OrmException If an error occur while retrieving the change the event belongs to.
    */
-  public void dispatch(Event event) throws OrmException {
-    try {
-      Context.setForwardedEvent(true);
-      logger.debug("dispatching event {}", event.getType());
-      dispatcher.postEvent(event);
-    } finally {
-      Context.unsetForwardedEvent();
-    }
+  @Override
+  void doHandle(Event event) throws OrmException {
+    logger.debug("dispatching event {}", event.getType());
+    dispatcher.postEvent(event);
   }
 }

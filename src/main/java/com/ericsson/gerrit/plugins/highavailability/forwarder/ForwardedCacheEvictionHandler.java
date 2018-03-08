@@ -28,13 +28,13 @@ import org.slf4j.LoggerFactory;
  * forwarding loop between the 2 nodes.
  */
 @Singleton
-public class EvictCache {
-  private static final Logger logger = LoggerFactory.getLogger(EvictCache.class);
+public class ForwardedCacheEvictionHandler extends ForwardedTaskHandler<CacheEntry> {
+  private static final Logger logger = LoggerFactory.getLogger(ForwardedCacheEvictionHandler.class);
 
   private final DynamicMap<Cache<?, ?>> cacheMap;
 
   @Inject
-  public EvictCache(DynamicMap<Cache<?, ?>> cacheMap) {
+  public ForwardedCacheEvictionHandler(DynamicMap<Cache<?, ?>> cacheMap) {
     this.cacheMap = cacheMap;
   }
 
@@ -45,23 +45,19 @@ public class EvictCache {
    * @param cacheEntry the entry to evict
    * @throws CacheNotFoundException if cache does not exist
    */
-  public void evict(CacheEntry entry) throws CacheNotFoundException {
+  @Override
+  void doHandle(CacheEntry entry) throws CacheNotFoundException {
     Cache<?, ?> cache = cacheMap.get(entry.getPluginName(), entry.getCacheName());
     if (cache == null) {
       throw new CacheNotFoundException(entry.getPluginName(), entry.getCacheName());
     }
-    try {
-      Context.setForwardedEvent(true);
-      if (Constants.PROJECT_LIST.equals(entry.getCacheName())) {
-        // One key is holding the list of projects
-        cache.invalidateAll();
-        logger.debug("Invalidated cache {}", entry.getCacheName());
-      } else {
-        cache.invalidate(entry.getKey());
-        logger.debug("Invalidated cache {}[{}]", entry.getCacheName(), entry.getKey());
-      }
-    } finally {
-      Context.unsetForwardedEvent();
+    if (Constants.PROJECT_LIST.equals(entry.getCacheName())) {
+      // One key is holding the list of projects
+      cache.invalidateAll();
+      logger.debug("Invalidated cache {}", entry.getCacheName());
+    } else {
+      cache.invalidate(entry.getKey());
+      logger.debug("Invalidated cache {}[{}]", entry.getCacheName(), entry.getKey());
     }
   }
 }
