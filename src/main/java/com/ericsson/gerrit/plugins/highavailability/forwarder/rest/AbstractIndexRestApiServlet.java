@@ -21,10 +21,10 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
-import com.google.common.util.concurrent.Striped;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexingOperation;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
-import java.util.concurrent.locks.Lock;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,19 +35,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(AbstractIndexRestApiServlet.class);
 
+  private final ForwardedIndexingHandler<T> forwardedIndexingHandler;
   private final IndexName indexName;
   private final boolean allowDelete;
-  private final Striped<Lock> idLocks;
-
-  enum Operation {
-    INDEX,
-    DELETE;
-
-    @Override
-    public String toString() {
-      return name().toLowerCase();
-    }
-  }
 
   public enum IndexName {
     CHANGE,
@@ -62,21 +52,23 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
 
   abstract T parse(String id);
 
-  abstract void index(T id, Operation operation) throws IOException, OrmException;
-
-  AbstractIndexRestApiServlet(IndexName indexName, boolean allowDelete) {
+  AbstractIndexRestApiServlet(
+      ForwardedIndexingHandler<T> forwardedIndexingHandler,
+      IndexName indexName,
+      boolean allowDelete) {
+    this.forwardedIndexingHandler = forwardedIndexingHandler;
     this.indexName = indexName;
     this.allowDelete = allowDelete;
-    this.idLocks = Striped.lock(10);
   }
 
-  AbstractIndexRestApiServlet(IndexName indexName) {
-    this(indexName, false);
+  AbstractIndexRestApiServlet(
+      ForwardedIndexingHandler<T> forwardedIndexingHandler, IndexName indexName) {
+    this(forwardedIndexingHandler, indexName, false);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
-    process(req, rsp, Operation.INDEX);
+    process(req, rsp, IndexingOperation.INDEX);
   }
 
   @Override
@@ -85,25 +77,18 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
       sendError(
           rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", indexName));
     } else {
-      process(req, rsp, Operation.DELETE);
+      process(req, rsp, IndexingOperation.DELETE);
     }
   }
 
-  private void process(HttpServletRequest req, HttpServletResponse rsp, Operation operation) {
+  private void process(
+      HttpServletRequest req, HttpServletResponse rsp, IndexingOperation operation) {
     rsp.setContentType("text/plain");
     rsp.setCharacterEncoding(UTF_8.name());
     String path = req.getPathInfo();
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
-    logger.debug("{} {} {}", operation, indexName, id);
     try {
-      Context.setForwardedEvent(true);
-      Lock idLock = idLocks.get(id);
-      idLock.lock();
-      try {
-        index(id, operation);
-      } finally {
-        idLock.unlock();
-      }
+      forwardedIndexingHandler.index(id, operation);
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
