@@ -17,10 +17,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
-import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundException;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.EvictCache;
-import com.google.common.annotations.VisibleForTesting;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.google.common.base.Splitter;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -38,11 +37,11 @@ class CacheRestApiServlet extends HttpServlet {
   private static final long serialVersionUID = -1L;
   private static final Logger logger = LoggerFactory.getLogger(CacheRestApiServlet.class);
 
-  private final EvictCache evictCache;
+  private final ForwardedCacheEvictionHandler forwardedCacheEvictionHandler;
 
   @Inject
-  CacheRestApiServlet(EvictCache evictCache) {
-    this.evictCache = evictCache;
+  CacheRestApiServlet(ForwardedCacheEvictionHandler forwardedCacheEvictionHandler) {
+    this.forwardedCacheEvictionHandler = forwardedCacheEvictionHandler;
   }
 
   @Override
@@ -53,9 +52,8 @@ class CacheRestApiServlet extends HttpServlet {
       List<String> params = Splitter.on('/').splitToList(req.getPathInfo());
       String cacheName = params.get(CACHENAME_INDEX);
       String json = req.getReader().readLine();
-      Object key = GsonParser.fromJson(cacheName, json);
-      CacheParameters cacheKey = getCacheParameters(cacheName);
-      evictCache.evict(cacheKey.pluginName, cacheKey.cacheName, key);
+      forwardedCacheEvictionHandler.evict(
+          CacheEntry.from(cacheName, GsonParser.fromJson(cacheName, json)));
       rsp.setStatus(SC_NO_CONTENT);
     } catch (CacheNotFoundException e) {
       logger.error("Failed to process eviction request: {}", e.getMessage());
@@ -64,26 +62,6 @@ class CacheRestApiServlet extends HttpServlet {
       logger.error("Failed to process eviction request: {}", e.getMessage(), e);
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }
-  }
-
-  @VisibleForTesting
-  public static class CacheParameters {
-    public final String pluginName;
-    public final String cacheName;
-
-    public CacheParameters(String pluginName, String cacheName) {
-      this.pluginName = pluginName;
-      this.cacheName = cacheName;
-    }
-  }
-
-  @VisibleForTesting
-  public static CacheParameters getCacheParameters(String cache) {
-    int dot = cache.indexOf('.');
-    if (dot > 0) {
-      return new CacheParameters(cache.substring(0, dot), cache.substring(dot + 1));
-    }
-    return new CacheParameters(Constants.GERRIT, cache);
   }
 
   private static void sendError(HttpServletResponse rsp, int statusCode, String message) {
