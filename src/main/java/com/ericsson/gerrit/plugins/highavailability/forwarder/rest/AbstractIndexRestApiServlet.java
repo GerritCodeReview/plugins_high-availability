@@ -25,15 +25,11 @@ import com.google.common.util.concurrent.Striped;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
+public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
-  private static final Logger logger = LoggerFactory.getLogger(AbstractIndexRestApiServlet.class);
 
   private final IndexName indexName;
   private final boolean allowDelete;
@@ -114,14 +110,6 @@ public abstract class AbstractIndexRestApiServlet<T> extends HttpServlet {
       logger.debug(msg, e);
     } finally {
       Context.unsetForwardedEvent();
-    }
-  }
-
-  private void sendError(HttpServletResponse rsp, int statusCode, String message) {
-    try {
-      rsp.sendError(statusCode, message);
-    } catch (IOException e) {
-      logger.error("Failed to send error messsage: {}", e.getMessage(), e);
     }
   }
 }
