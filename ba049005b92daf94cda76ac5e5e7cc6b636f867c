@@ -16,6 +16,24 @@
       "revId": "ba049005b92daf94cda76ac5e5e7cc6b636f867c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c659afdc_96782239",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheRestApiServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-16T03:02:18Z",
+      "side": 0,
+      "message": "Yes because I did not use a static logger and I set the logger name to getClass() method which will return the concrete class name.\n\nThe downside of doing a non static logger is we have one per instance but since the servlets are singleton, this is not an issue.",
+      "parentUuid": "ef90bb50_394264a9",
+      "revId": "ba049005b92daf94cda76ac5e5e7cc6b636f867c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
