@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef90bb50_394264a9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheRestApiServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-03-16T02:38:48Z",
+      "side": 0,
+      "message": "If we use the Logger instance from the base class, does it still show the logs with the correct class name?  If it only shows the base class name it would make it more difficult to track down where logs are coming from, and to change log level per class.",
+      "revId": "ba049005b92daf94cda76ac5e5e7cc6b636f867c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
