@@ -24,20 +24,17 @@ import static org.mockito.Mockito.when;
 
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
-import com.google.gwtorm.client.KeyUtil;
-import com.google.gwtorm.server.StandardKeyEncoder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IndexGroupRestApiServletTest {
+public class IndexGroupRestApiServletTest extends GwtOrmIdParseSupport {
   private static final String UUID = "we235jdf92nfj2351";
 
   @Mock private GroupIndexer indexerMock;
@@ -46,11 +43,6 @@ public class IndexGroupRestApiServletTest {
 
   private AccountGroup.UUID uuid;
   private IndexGroupRestApiServlet servlet;
-
-  @BeforeClass
-  public static void setup() {
-    KeyUtil.setEncoderImpl(new StandardKeyEncoder());
-  }
 
   @Before
   public void setUpMocks() {
