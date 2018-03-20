@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e0c9476d_f38ab0f3",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T14:25:50Z",
+      "side": 1,
+      "message": "\u003e KeyUtil is not referenced by any \"live\" part of the high-availability plugin code.\n\nYou are right but Account.Id.parse will. This is required otherwise Account.Id.parse won\u0027t work.",
+      "parentUuid": "9e1897d6_15de689f",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
