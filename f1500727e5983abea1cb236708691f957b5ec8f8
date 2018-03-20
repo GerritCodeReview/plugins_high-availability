@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "f985cf65_cbeeea63",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T15:10:50Z",
+      "side": 1,
+      "message": "\u003e This is common in all the handler tests. Can we move it up to a\n \u003e base class?\n \u003e \n \u003e Can probably move the ExpectedException up too.\n\nSure but one question: We already have 5 other non-IT test classes with this so should we make a base class for all the non IT test classes or only the ones which really need this?",
+      "parentUuid": "cb6bb774_16e73589",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
