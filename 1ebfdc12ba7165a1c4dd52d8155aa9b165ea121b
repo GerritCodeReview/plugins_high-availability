@@ -70,6 +70,30 @@
       "revId": "1ebfdc12ba7165a1c4dd52d8155aa9b165ea121b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f49375db_ea0c56ae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-03-20T16:36:21Z",
+      "side": 1,
+      "message": "I agree with Hugo. Setting encoder explicitly should only be done from testing code.",
+      "parentUuid": "26405c0f_2804624d",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "1ebfdc12ba7165a1c4dd52d8155aa9b165ea121b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
