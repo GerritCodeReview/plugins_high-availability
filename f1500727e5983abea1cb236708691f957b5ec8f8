@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f5d3c07b_e2cf52ff",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-20T14:25:17Z",
+      "side": 1,
+      "message": "Let me try pushing a change where I remove all that code and see if it works (or not) consistently. For sure none of the HA code requires it and that\u0027s why I was surprised that the tests instead are requiring it :-O",
+      "parentUuid": "429dae19_d2402481",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
