@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3d8f636_0a709312",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AccountIdParseSupport.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:36:45Z",
+      "side": 1,
+      "message": "We need a more general name, see comment below",
+      "range": {
+        "startLine": 22,
+        "startChar": 22,
+        "endLine": 22,
+        "endChar": 43
+      },
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad5f559c_c545ff89",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AccountIdParseSupport.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:36:45Z",
+      "side": 1,
+      "message": "Account.Id.parse() but also Change.Id.parse() AccountGroup.UUID.parse()",
+      "range": {
+        "startLine": 25,
+        "startChar": 59,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9497d31_a3263c88",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServletTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:36:45Z",
+      "side": 1,
+      "message": "this test is failing if ran alone, it needs to extend the class setting up the encoder",
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe57145d_2bcd9105",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexGroupRestApiServletTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:36:45Z",
+      "side": 1,
+      "message": "this test is failing if ran alone, it needs to extend the class setting up the encoder",
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00afbbf4_ab8bf8e3",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:36:45Z",
+      "side": 1,
+      "message": "this test is failing if ran alone, it needs to extend the class setting up the encoder",
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76d007b2_be815c93",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:36:45Z",
+      "side": 1,
+      "message": "this test is failing if ran alone, it needs to extend the class setting up the encoder",
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
