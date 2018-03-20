@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0464125d_9291b2a7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T16:28:23Z",
+      "side": 1,
+      "message": "I am not sure this is a good idea. Won\u0027t this replace the encoder configured by the core in Gerrit.java?\n\nKeyUtil.setEncoderImpl(\n        new KeyUtil.Encoder() {\n          @Override\n          public String encode(String e) {\n            e \u003d URL.encodeQueryString(e);\n            e \u003d fixPathImpl(e);\n            e \u003d fixColonImpl(e);\n            e \u003d fixDoubleQuote(e);\n            return e;\n          }\n\n          @Override\n          public String decode(final String e) {\n            return URL.decodeQueryString(e);\n          }\n\n          private native String fixPathImpl(String path)\n              /*-{ return path.replace(/%2F/g, \"/\"); }-*/ ;\n\n          private native String fixColonImpl(String path)\n              /*-{ return path.replace(/%3A/g, \":\"); }-*/ ;\n\n          private native String fixDoubleQuote(String path)\n              /*-{ return path.replace(/%22/g, \u0027\"\u0027); }-*/ ;\n        });",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "1ebfdc12ba7165a1c4dd52d8155aa9b165ea121b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
