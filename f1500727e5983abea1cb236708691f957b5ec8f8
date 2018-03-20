@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e1897d6_15de689f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-20T14:16:00Z",
+      "side": 1,
+      "message": "Actually, I do not even understand why do we have this low-level implementation details in our tests :-O\nKeyUtil is not referenced by any \"live\" part of the high-availability plugin code.\n\nWhy do we need to have it in our tests?",
+      "parentUuid": "cb6bb774_16e73589",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
