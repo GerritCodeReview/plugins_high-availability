@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "9add257e_94df1c88",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-20T14:32:24Z",
+      "side": 1,
+      "message": "I saw the Account.Id parse now, thanks for the pointer. However, I agree with David, it should centralised in a common class rather than distributed all across all tests. Let me at least do that in a separate change.",
+      "parentUuid": "3301b815_5df9f200",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
