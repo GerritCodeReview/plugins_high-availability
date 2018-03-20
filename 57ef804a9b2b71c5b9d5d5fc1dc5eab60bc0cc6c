@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d850a06e_34a482f5",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T22:20:41Z",
+      "side": 1,
+      "message": "this test is failing when executed alone. The problem is we pass the uuid to forwarder.evict and we the uuid.toString is called which will end up using the encoder.",
+      "range": {
+        "startLine": 197,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 3
+      },
+      "revId": "57ef804a9b2b71c5b9d5d5fc1dc5eab60bc0cc6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b94ea73_899b17bb",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T22:20:41Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 206,
+        "startChar": 2,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "57ef804a9b2b71c5b9d5d5fc1dc5eab60bc0cc6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
