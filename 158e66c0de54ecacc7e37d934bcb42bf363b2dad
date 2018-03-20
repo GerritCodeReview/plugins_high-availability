@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "327378df_aa981baa",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T18:48:25Z",
+      "side": 1,
+      "message": "this test is failing if ran alone, it needs to extend the class setting up the encoder.",
+      "revId": "158e66c0de54ecacc7e37d934bcb42bf363b2dad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
