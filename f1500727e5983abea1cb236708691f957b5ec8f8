@@ -217,6 +217,30 @@
     },
     {
       "key": {
+        "uuid": "51b06c1e_2b41b3fa",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T19:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7423eca1_4dc5389e",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
@@ -228,6 +252,30 @@
       "writtenOn": "2018-03-20T02:13:40Z",
       "side": 1,
       "message": "It\u0027s potentially confusing to have methods named setup and setUp.  Can we rename one of them?",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 19
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e54c4e29_d1e2fd0f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T19:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8abc60c_09aabfcf",
       "range": {
         "startLine": 52,
         "startChar": 14,
@@ -263,6 +311,30 @@
     },
     {
       "key": {
+        "uuid": "b2dfdc96_62f6e7ee",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T19:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89b7a97f_66075faa",
+      "range": {
+        "startLine": 104,
+        "startChar": 24,
+        "endLine": 104,
+        "endChar": 29
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11e043d6_073c7168",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
         "patchSetId": 1
@@ -286,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "caa8374c_c2284289",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T19:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11e043d6_073c7168",
+      "range": {
+        "startLine": 95,
+        "startChar": 27,
+        "endLine": 95,
+        "endChar": 29
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0e548de_d34c1379",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
         "patchSetId": 1
@@ -297,6 +393,30 @@
       "writtenOn": "2018-03-20T02:13:40Z",
       "side": 1,
       "message": "changeExists",
+      "range": {
+        "startLine": 186,
+        "startChar": 14,
+        "endLine": 186,
+        "endChar": 25
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ac454f_a7ee33a9",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T19:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0e548de_d34c1379",
       "range": {
         "startLine": 186,
         "startChar": 14,
