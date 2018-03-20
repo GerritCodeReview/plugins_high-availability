@@ -16,12 +16,19 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
+import com.google.gwtorm.client.KeyUtil;
+import com.google.gwtorm.jdbc.Database;
+import com.google.gwtorm.server.StandardKeyEncoder;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
 
 @Singleton
 class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id> {
+  static {
+    KeyUtil.setEncoderImpl(new StandardKeyEncoder()); // Implicitly needed by Account.Id.parse() otherwise it could raise NPEs
+  }
+
   private static final long serialVersionUID = -1L;
 
   private final AccountIndexer indexer;
