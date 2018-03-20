@@ -118,6 +118,30 @@
       "revId": "1ebfdc12ba7165a1c4dd52d8155aa9b165ea121b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de76864a_7261eb87",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-20T16:55:00Z",
+      "side": 1,
+      "message": "In PS3 the concerns should be resolved because the code gets invoked only during the only test that actually needs it.",
+      "parentUuid": "67ba78b5_8405fb51",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 3
+      },
+      "revId": "1ebfdc12ba7165a1c4dd52d8155aa9b165ea121b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
