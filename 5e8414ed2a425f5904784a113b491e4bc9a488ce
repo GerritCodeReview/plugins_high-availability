@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "fe74a988_ccd3580c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AccountIdParseSupport.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-20T17:41:55Z",
+      "side": 1,
+      "message": "Interesting, why then causes to fail only the account tests?\nI believe there is something more to be investigated then.",
+      "parentUuid": "ad5f559c_c545ff89",
+      "range": {
+        "startLine": 25,
+        "startChar": 59,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9497d31_a3263c88",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServletTest.java",
         "patchSetId": 5
@@ -62,6 +86,24 @@
       "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5186e33_12dc4164",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServletTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-20T17:41:55Z",
+      "side": 1,
+      "message": "See my previous comments: there is something wrong out here.\nAgain, these implementation details should not arise in tests, let me dig a bit more into it.",
+      "parentUuid": "e9497d31_a3263c88",
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     },
     {
       "key": {
