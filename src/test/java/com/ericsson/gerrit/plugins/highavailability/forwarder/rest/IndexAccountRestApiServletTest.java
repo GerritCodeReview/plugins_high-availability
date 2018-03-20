@@ -24,13 +24,10 @@ import static org.mockito.Mockito.when;
 
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
-import com.google.gwtorm.client.KeyUtil;
-import com.google.gwtorm.server.StandardKeyEncoder;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -38,7 +35,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IndexAccountRestApiServletTest {
-  private static final String ACCOUNT_NUMBER = "1";
+  private static final int ACCOUNT_NUMBER = 1;
 
   @Mock private AccountIndexer indexerMock;
   @Mock private HttpServletRequest requestMock;
@@ -47,15 +44,14 @@ public class IndexAccountRestApiServletTest {
   private Account.Id id;
   private IndexAccountRestApiServlet servlet;
 
-  @BeforeClass
-  public static void setup() {
-    KeyUtil.setEncoderImpl(new StandardKeyEncoder());
+  static {
+    IndexAccountRestApiServlet.initEncoderImpl();
   }
 
   @Before
   public void setUpMocks() {
     servlet = new IndexAccountRestApiServlet(indexerMock);
-    id = Account.Id.parse(ACCOUNT_NUMBER);
+    id = new Account.Id(ACCOUNT_NUMBER);
     when(requestMock.getPathInfo()).thenReturn("/index/account/" + ACCOUNT_NUMBER);
   }
 

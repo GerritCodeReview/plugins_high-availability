@@ -14,8 +14,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
+import com.google.gwtorm.client.KeyUtil;
+import com.google.gwtorm.server.StandardKeyEncoder;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -41,5 +44,11 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   void index(Account.Id id, Operation operation) throws IOException {
     indexer.index(id);
     logger.debug("Account {} successfully indexed", id);
+  }
+
+  @VisibleForTesting
+  static void initEncoderImpl() {
+    KeyUtil.setEncoderImpl(
+        new StandardKeyEncoder()); // Implicitly needed by Account.Id.parse() otherwise it could raise NPEs
   }
 }
