@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "429dae19_d2402481",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-03-20T14:22:06Z",
+      "side": 1,
+      "message": "I remember getting some unexpected errors in tests when this code was missing.\nLooks like gwtorm requires this initialization code.",
+      "parentUuid": "9e1897d6_15de689f",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 3
+      },
+      "revId": "f1500727e5983abea1cb236708691f957b5ec8f8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8abc60c_09aabfcf",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 1
