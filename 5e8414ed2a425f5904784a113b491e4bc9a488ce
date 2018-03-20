@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "224e0827_b1cb8be0",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AccountIdParseSupport.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-20T17:47:18Z",
+      "side": 1,
+      "message": "For me, they were all failing.",
+      "parentUuid": "fe74a988_ccd3580c",
+      "range": {
+        "startLine": 25,
+        "startChar": 59,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "5e8414ed2a425f5904784a113b491e4bc9a488ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9497d31_a3263c88",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServletTest.java",
         "patchSetId": 5
