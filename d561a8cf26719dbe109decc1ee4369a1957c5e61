@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "654bfafc_8ea63b7f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-21T07:26:22Z",
+      "side": 1,
+      "message": "But this breaks encapsulation as well because assumes that you are using a AccountGroup.UUID internally and you are invoking the toString() method.\n\nI have thought about another cleaner solution. Let me push it for review in a few mins :-)",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "d561a8cf26719dbe109decc1ee4369a1957c5e61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
