@@ -16,6 +16,24 @@
       "revId": "56ab45b92019c308ffdc0d6681dba5464ee48b69",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca460cfe_2c85b8d7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-03-21T02:37:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d99213a_8dbeafa4",
+      "revId": "56ab45b92019c308ffdc0d6681dba5464ee48b69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
