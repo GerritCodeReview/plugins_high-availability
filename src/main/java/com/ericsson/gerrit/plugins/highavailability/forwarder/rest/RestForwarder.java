@@ -45,7 +45,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean indexAccount(final int accountId) {
-    return new Request("index account " + accountId) {
+    return new Request("index account", accountId) {
       @Override
       HttpResult send() throws IOException {
         return httpSession.post(
@@ -56,7 +56,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean indexChange(final int changeId) {
-    return new Request("index change " + changeId) {
+    return new Request("index change", changeId) {
       @Override
       HttpResult send() throws IOException {
         return httpSession.post(buildIndexEndpoint(changeId));
@@ -66,7 +66,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean deleteChangeFromIndex(final int changeId) {
-    return new Request("delete change " + changeId + " from index") {
+    return new Request("delete change", changeId) {
       @Override
       HttpResult send() throws IOException {
         return httpSession.delete(buildIndexEndpoint(changeId));
@@ -76,7 +76,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean indexGroup(final String uuid) {
-    return new Request("index group " + uuid) {
+    return new Request("index group", uuid) {
       @Override
       HttpResult send() throws IOException {
         return httpSession.post(Joiner.on("/").join(pluginRelativePath, "index/group", uuid));
@@ -90,7 +90,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean send(final Event event) {
-    return new Request("send event " + event.type) {
+    return new Request("send event", event.type) {
       @Override
       HttpResult send() throws IOException {
         String serializedEvent =
@@ -105,7 +105,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean evict(final String cacheName, final Object key) {
-    return new Request("invalidate cache " + cacheName + "[" + key + "]") {
+    return new Request("invalidate cache " + cacheName, key) {
       @Override
       HttpResult send() throws IOException {
         String json = GsonParser.toJson(cacheName, key);
@@ -115,38 +115,40 @@ class RestForwarder implements Forwarder {
   }
 
   private abstract class Request {
-    private final String name;
+    private final String action;
+    private final Object key;
     private int execCnt;
 
-    Request(String name) {
-      this.name = name;
+    Request(String action, Object key) {
+      this.action = action;
+      this.key = key;
     }
 
     boolean execute() {
-      log.debug(name);
+      log.debug("Executing {} {}", action, key);
       for (; ; ) {
         try {
           execCnt++;
           tryOnce();
-          log.debug("{} OK", name);
+          log.debug("{} {} OK", action, key);
           return true;
         } catch (ForwardingException e) {
           int maxTries = cfg.http().maxTries();
-          log.debug("Failed to {} [{}/{}]", name, execCnt, maxTries, e);
+          log.debug("Failed to {} {} [{}/{}]", action, key, execCnt, maxTries, e);
           if (!e.isRecoverable()) {
-            log.error("{} failed with unrecoverable error; giving up", name);
+            log.error("{} {} failed with unrecoverable error; giving up", action, key, e);
             return false;
           }
           if (execCnt >= maxTries) {
-            log.error("Failed to {} after {} tries; giving up", name, maxTries);
+            log.error("Failed to {} {} after {} tries; giving up", action, key, maxTries);
             return false;
           }
 
-          log.debug("Retrying to {}", name);
+          log.debug("Retrying to {} {}", action, key);
           try {
             Thread.sleep(cfg.http().retryInterval());
           } catch (InterruptedException ie) {
-            log.error("{} was interrupted; giving up", name, ie);
+            log.error("{} {} was interrupted; giving up", action, key, ie);
             Thread.currentThread().interrupt();
             return false;
           }
@@ -158,7 +160,8 @@ class RestForwarder implements Forwarder {
       try {
         HttpResult result = send();
         if (!result.isSuccessful()) {
-          throw new ForwardingException(true, "Unable to " + name + ": " + result.getMessage());
+          throw new ForwardingException(
+              true, String.format("Unable to %s %s : %s", action, key, result.getMessage()));
         }
       } catch (IOException e) {
         throw new ForwardingException(isRecoverable(e), e.getMessage(), e);
