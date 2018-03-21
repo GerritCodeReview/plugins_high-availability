@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16c5be58_4f2564c3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-21T02:52:45Z",
+      "side": 1,
+      "message": "To be honest, I do not like this. It breaks the encapsulation of the key and only for the sake of removing a setup in the tests.\n\nAll this started to remove the duplicated setup in the test classes which is perfectly fine but with all the other changes done, the only unit test that would require the encoder to be set is the RestForwarderTest.\n\nThe test is \"better\" but now we have instanceof in the runtime code which is typically a smell for bad design.\n\nI will do a follow up change to remove that",
+      "range": {
+        "startLine": 119,
+        "startChar": 2,
+        "endLine": 127,
+        "endChar": 3
+      },
+      "revId": "2d2f02828b8703aa4459b2c39ec252acb7845ddc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
