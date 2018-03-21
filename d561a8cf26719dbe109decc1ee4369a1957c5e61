@@ -22,6 +22,30 @@
       "revId": "d561a8cf26719dbe109decc1ee4369a1957c5e61",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b40750a_07e41a00",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-21T07:47:07Z",
+      "side": 1,
+      "message": "There you go  Idecb1c0c. It is much cleaner and even \"a bit\" faster because of the proper delayed debug formatting.",
+      "parentUuid": "654bfafc_8ea63b7f",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "d561a8cf26719dbe109decc1ee4369a1957c5e61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
