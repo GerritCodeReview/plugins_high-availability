@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "857ecf43_20086256",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-03-22T04:58:38Z",
+      "side": 1,
+      "message": "This results in a change in the output from:\n\n delete change NNN from index\n\nto\n\n delete from index change NNN\n\nand the new version is no longer grammatically correct.\n\nCan we make the Request constructor accept a string that can take a formatting token, and have it formatted properly in the implementation?",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
