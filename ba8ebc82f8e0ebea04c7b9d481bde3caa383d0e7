@@ -22,6 +22,53 @@
       "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "191a050c_4e3da5ee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-03-22T05:02:25Z",
+      "side": 1,
+      "message": "Actually, maybe just make it \"delete change\"?",
+      "parentUuid": "857ecf43_20086256",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8307338_de744a6a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-03-22T05:02:25Z",
+      "side": 1,
+      "message": "nit: this one has a trailing space while the others don\u0027t",
+      "range": {
+        "startLine": 69,
+        "startChar": 48,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
