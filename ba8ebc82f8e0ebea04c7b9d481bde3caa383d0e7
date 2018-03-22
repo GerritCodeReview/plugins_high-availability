@@ -69,6 +69,54 @@
       "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2132138b_0e6a809b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-22T07:45:07Z",
+      "side": 1,
+      "message": "True, it shouldn\u0027t.",
+      "parentUuid": "b8307338_de744a6a",
+      "range": {
+        "startLine": 69,
+        "startChar": 48,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3362a8_16d9ce2a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-03-22T07:45:07Z",
+      "side": 1,
+      "message": "True, simpler and clearer wording :-)\nLet me change that in the next PS.",
+      "parentUuid": "191a050c_4e3da5ee",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "ba8ebc82f8e0ebea04c7b9d481bde3caa383d0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
