@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcdeec39_81a4a547",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-26T22:49:19Z",
+      "side": 1,
+      "message": "probably not needed",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "8d02465d6979d0fc5158802dc56c57e28d016791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09c09ab3_2e64e35d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ProjectListRestApiServletIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-03-26T22:49:19Z",
+      "side": 1,
+      "message": "probably not needed",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 7
+      },
+      "revId": "8d02465d6979d0fc5158802dc56c57e28d016791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
