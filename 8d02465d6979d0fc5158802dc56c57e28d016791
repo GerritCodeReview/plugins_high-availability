@@ -50,6 +50,52 @@
     },
     {
       "key": {
+        "uuid": "e982a2cb_16a6af11",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-03-26T23:58:52Z",
+      "side": 1,
+      "message": "Have you tested removing this final? According to JLS: \"... starting in Java SE 8, a local class can access local variables and parameters of the enclosing block that are final or effectively final. A variable or parameter whose value is never changed after it is initialized is effectively final.\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 9
+      },
+      "revId": "8d02465d6979d0fc5158802dc56c57e28d016791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb60fd2_9a554e0c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-03-26T23:58:52Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 9
+      },
+      "revId": "8d02465d6979d0fc5158802dc56c57e28d016791",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09c09ab3_2e64e35d",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ProjectListRestApiServletIT.java",
         "patchSetId": 4
