@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc72f6ae_326e62e6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-04-05T23:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eabef0cb_6ba7945b",
+      "range": {
+        "startLine": 120,
+        "startChar": 50,
+        "endLine": 120,
+        "endChar": 64
+      },
+      "revId": "f220a2167b5e5f08e8f0c05fe95154d9a265b246",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f298b327_188166fc",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-05T23:43:24Z",
       "side": 1,
       "message": "let\u0027s do the same here, to avoid possible unneeded string concatenation",
+      "range": {
+        "startLine": 130,
+        "startChar": 53,
+        "endLine": 130,
+        "endChar": 67
+      },
+      "revId": "f220a2167b5e5f08e8f0c05fe95154d9a265b246",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b622c7d_2bd5e91b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-04-05T23:52:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f298b327_188166fc",
       "range": {
         "startLine": 130,
         "startChar": 53,
