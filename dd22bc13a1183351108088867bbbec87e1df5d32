@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e7e7d3d_f89ee63f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-04-17T13:39:01Z",
+      "side": 1,
+      "message": "these are the same as the one in http section, I wonder if we should extact them to the main section?",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 289,
+        "endChar": 36
+      },
+      "revId": "dd22bc13a1183351108088867bbbec87e1df5d32",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "067ab25b_d30f14ef",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-04-17T13:39:01Z",
+      "side": 1,
+      "message": "720 every 10 secondes \u003d 2 hours or my calculation is not right?",
+      "range": {
+        "startLine": 107,
+        "startChar": 57,
+        "endLine": 107,
+        "endChar": 65
+      },
+      "revId": "dd22bc13a1183351108088867bbbec87e1df5d32",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
