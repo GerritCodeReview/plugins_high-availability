@@ -16,6 +16,24 @@
       "revId": "06dc95aeffd2c96aa574b18eb520b6afc77c257d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eec3419_8e44cf2e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-04-20T07:55:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd8937af_4eed0c04",
+      "revId": "06dc95aeffd2c96aa574b18eb520b6afc77c257d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
