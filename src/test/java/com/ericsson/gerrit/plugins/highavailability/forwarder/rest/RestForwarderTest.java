@@ -69,8 +69,8 @@ public class RestForwarderTest {
   public void setUp() {
     httpSessionMock = mock(HttpSession.class);
     Configuration configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
-    when(configMock.http().maxTries()).thenReturn(3);
-    when(configMock.http().retryInterval()).thenReturn(10);
+    when(configMock.main().maxTries()).thenReturn(3);
+    when(configMock.main().retryInterval()).thenReturn(10);
     forwarder = new RestForwarder(httpSessionMock, PLUGIN_NAME, configMock);
   }
 
