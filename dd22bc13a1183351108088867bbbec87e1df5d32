@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "918bfdd1_d71172a2",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-04-21T08:57:42Z",
+      "side": 1,
+      "message": "specified",
+      "range": {
+        "startLine": 54,
+        "startChar": 13,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "dd22bc13a1183351108088867bbbec87e1df5d32",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "067ab25b_d30f14ef",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 3
