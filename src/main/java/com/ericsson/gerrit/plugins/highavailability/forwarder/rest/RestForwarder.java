@@ -158,7 +158,7 @@ class RestForwarder implements Forwarder {
           log.debug("{} {} OK", action, key);
           return true;
         } catch (ForwardingException e) {
-          int maxTries = cfg.http().maxTries();
+          int maxTries = cfg.main().maxTries();
           log.debug("Failed to {} {} [{}/{}]", action, key, execCnt, maxTries, e);
           if (!e.isRecoverable()) {
             log.error("{} {} failed with unrecoverable error; giving up", action, key, e);
@@ -171,7 +171,7 @@ class RestForwarder implements Forwarder {
 
           log.debug("Retrying to {} {}", action, key);
           try {
-            Thread.sleep(cfg.http().retryInterval());
+            Thread.sleep(cfg.main().retryInterval());
           } catch (InterruptedException ie) {
             log.error("{} {} was interrupted; giving up", action, key, ie);
             Thread.currentThread().interrupt();
