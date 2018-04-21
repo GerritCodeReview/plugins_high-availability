@@ -58,7 +58,7 @@ public class ProjectListIT extends LightweightPluginDaemonTest {
   @Test
   @UseLocalDisk
   @GlobalPluginConfig(pluginName = "high-availability", name = "peerInfo.static.url", value = URL)
-  @GlobalPluginConfig(pluginName = "high-availability", name = "http.retryInterval", value = "100")
+  @GlobalPluginConfig(pluginName = "high-availability", name = "main.retryInterval", value = "100")
   public void addToProjectListAreForwarded() throws Exception {
     String createdProjectEncoded = Url.encode("org-a/some-project");
     String expectedRequest =

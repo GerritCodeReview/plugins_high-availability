@@ -72,10 +72,10 @@ public class HttpSessionTest {
     configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
     when(configMock.http().user()).thenReturn("user");
     when(configMock.http().password()).thenReturn("pass");
-    when(configMock.http().maxTries()).thenReturn(MAX_TRIES);
+    when(configMock.main().maxTries()).thenReturn(MAX_TRIES);
     when(configMock.http().connectionTimeout()).thenReturn(TIMEOUT);
     when(configMock.http().socketTimeout()).thenReturn(TIMEOUT);
-    when(configMock.http().retryInterval()).thenReturn(RETRY_INTERVAL);
+    when(configMock.main().retryInterval()).thenReturn(RETRY_INTERVAL);
 
     PeerInfo peerInfo = mock(PeerInfo.class);
     when(peerInfo.getDirectUrl()).thenReturn(url);
