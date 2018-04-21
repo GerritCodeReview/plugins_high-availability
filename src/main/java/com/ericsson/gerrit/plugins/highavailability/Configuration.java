@@ -45,6 +45,8 @@ public class Configuration {
   static final String MAIN_SECTION = "main";
   static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
   static final String DEFAULT_SHARED_DIRECTORY = "shared";
+  static final String MAX_TRIES_KEY = "maxTries";
+  static final String RETRY_INTERVAL_KEY = "retryInterval";
 
   // peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -66,8 +68,6 @@ public class Configuration {
   static final String PASSWORD_KEY = "password";
   static final String CONNECTION_TIMEOUT_KEY = "connectionTimeout";
   static final String SOCKET_TIMEOUT_KEY = "socketTimeout";
-  static final String MAX_TRIES_KEY = "maxTries";
-  static final String RETRY_INTERVAL_KEY = "retryInterval";
 
   // cache section
   static final String CACHE_SECTION = "cache";
@@ -209,6 +209,8 @@ public class Configuration {
 
   public static class Main {
     private final Path sharedDirectory;
+    private final int maxTries;
+    private final int retryInterval;
 
     private Main(SitePaths site, Config cfg) {
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
@@ -221,10 +223,52 @@ public class Configuration {
       } else {
         sharedDirectory = site.resolve(shared);
       }
+      maxTries = migrate(cfg, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
+      retryInterval = migrate(cfg, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+    }
+
+    private int migrate(Config cfg, String key, int defaultValue) {
+      String fromNewLocation = cfg.getString(MAIN_SECTION, null, key);
+      if (!Strings.isNullOrEmpty(fromNewLocation)) {
+        int value = parseInt(key, fromNewLocation);
+        if (value > -1) {
+          return value;
+        }
+      }
+      String fromOldLocation = cfg.getString(HTTP_SECTION, null, key);
+      if (!Strings.isNullOrEmpty(fromOldLocation)) {
+        log.warn(
+            "Key '{}' has moved to the '{}' section. Please, update your configuration",
+            key,
+            MAIN_SECTION);
+        int value = parseInt(key, fromOldLocation);
+        if (value > -1) {
+          return value;
+        }
+      }
+      log.info("Using default value {} for key '{}'", defaultValue, key);
+      return defaultValue;
+    }
+
+    private int parseInt(String key, String toParse) {
+      try {
+        return Integer.parseInt(toParse);
+      } catch (NumberFormatException e) {
+        log.warn("Value '{}' for key '{}' is not a valid number.", toParse, key);
+        return -1;
+      }
     }
 
     public Path sharedDirectory() {
       return sharedDirectory;
+    }
+
+    public int maxTries() {
+      return maxTries;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
     }
   }
 
@@ -315,16 +359,12 @@ public class Configuration {
     private final String password;
     private final int connectionTimeout;
     private final int socketTimeout;
-    private final int maxTries;
-    private final int retryInterval;
 
     private Http(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
       connectionTimeout = getInt(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       socketTimeout = getInt(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
-      maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval = getInt(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
     }
 
     public String user() {
@@ -341,14 +381,6 @@ public class Configuration {
 
     public int socketTimeout() {
       return socketTimeout;
-    }
-
-    public int maxTries() {
-      return maxTries;
-    }
-
-    public int retryInterval() {
-      return retryInterval;
     }
   }
 
