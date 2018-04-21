@@ -229,28 +229,6 @@ public class ConfigurationTest {
   }
 
   @Test
-  public void testGetMaxTries() throws Exception {
-    assertThat(getConfiguration().http().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
-
-    globalPluginConfig.setInt(HTTP_SECTION, null, MAX_TRIES_KEY, MAX_TRIES);
-    assertThat(getConfiguration().http().maxTries()).isEqualTo(MAX_TRIES);
-
-    globalPluginConfig.setString(HTTP_SECTION, null, MAX_TRIES_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
-  }
-
-  @Test
-  public void testGetRetryInterval() throws Exception {
-    assertThat(getConfiguration().http().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
-
-    globalPluginConfig.setInt(HTTP_SECTION, null, RETRY_INTERVAL_KEY, RETRY_INTERVAL);
-    assertThat(getConfiguration().http().retryInterval()).isEqualTo(RETRY_INTERVAL);
-
-    globalPluginConfig.setString(HTTP_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
-  }
-
-  @Test
   public void testGetIndexThreadPoolSize() throws Exception {
     assertThat(getConfiguration().index().threadPoolSize()).isEqualTo(DEFAULT_THREAD_POOL_SIZE);
 
@@ -333,6 +311,64 @@ public class ConfigurationTest {
         MAIN_SECTION, null, SHARED_DIRECTORY_KEY, RELATIVE_SHARED_DIRECTORY);
     assertEquals(
         getConfiguration().main().sharedDirectory(), SITE_PATH.resolve(RELATIVE_SHARED_DIRECTORY));
+  }
+
+  @Test
+  public void testGetMaxTries() throws Exception {
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
+
+    globalPluginConfig.setInt(MAIN_SECTION, null, MAX_TRIES_KEY, MAX_TRIES);
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(MAX_TRIES);
+
+    globalPluginConfig.setString(MAIN_SECTION, null, MAX_TRIES_KEY, INVALID_INT);
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
+  }
+
+  @Test
+  public void shouldReadMaxTriesFromHttpSection() throws Exception {
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
+
+    globalPluginConfig.setInt(HTTP_SECTION, null, MAX_TRIES_KEY, MAX_TRIES);
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(MAX_TRIES);
+
+    globalPluginConfig.setString(HTTP_SECTION, null, MAX_TRIES_KEY, INVALID_INT);
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
+  }
+
+  @Test
+  public void shouldReadMaxTriesIfHttpSectionMalformed() throws Exception {
+    globalPluginConfig.setString(MAIN_SECTION, null, MAX_TRIES_KEY, INVALID_INT);
+    globalPluginConfig.setString(HTTP_SECTION, null, MAX_TRIES_KEY, "5");
+    assertThat(getConfiguration().main().maxTries()).isEqualTo(MAX_TRIES);
+  }
+
+  @Test
+  public void testGetRetryInterval() throws Exception {
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
+
+    globalPluginConfig.setInt(MAIN_SECTION, null, RETRY_INTERVAL_KEY, RETRY_INTERVAL);
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(RETRY_INTERVAL);
+
+    globalPluginConfig.setString(MAIN_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
+  }
+
+  @Test
+  public void shouldReadRetryIntervalFromHttpSection() throws Exception {
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
+
+    globalPluginConfig.setInt(HTTP_SECTION, null, RETRY_INTERVAL_KEY, RETRY_INTERVAL);
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(RETRY_INTERVAL);
+
+    globalPluginConfig.setString(HTTP_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
+  }
+
+  @Test
+  public void shouldReturnRetryIntervalDefaultIfMainAndHttpSectionsMalformed() throws Exception {
+    globalPluginConfig.setString(HTTP_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
+    globalPluginConfig.setString(HTTP_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
+    assertThat(getConfiguration().main().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
   }
 
   @Test
