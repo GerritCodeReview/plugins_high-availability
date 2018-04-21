@@ -50,6 +50,19 @@ File '@PLUGIN@.config'
     directory is "/gerrit/root/shared/dir". When not specified, the default
     is "shared".
 
+```main.maxTries```
+:   Maximum number of times the plugin should attempt when forwarding messages in
+    the target instance. Setting this value to 0 will disable retries. When not
+    specified, the default value is 360. After this number of failed tries, an
+    error is logged.
+
+```main.retryInterval```
+:   The interval of time in milliseconds between the subsequent auto-retries.
+    When not specified, the default value is set to 10000ms.
+
+NOTE: the default settings for `main.timeout` and `main.maxTries` ensure that
+the plugin will keep retrying to forward a message for one hour.
+
 ```peerInfo.strategy```
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
     Defaults to `static`.
@@ -119,14 +132,10 @@ calls by specifying the following fields:
     the default value is set to 5000ms.
 
 ```http.maxTries```
-:   Maximum number of times the plugin should attempt when calling a REST API in
-    the target instance. Setting this value to 0 will disable retries. When not
-    specified, the default value is 360. After this number of failed tries, an
-    error is logged.
+:   Deprecated, use main.maxTries.
 
 ```http.retryInterval```
-:   The interval of time in milliseconds between the subsequent auto-retries.
-    When not specified, the default value is set to 10000ms.
+:   Deprecated, use main.retryInterval.
 
 NOTE: the default settings for `http.timeout` and `http.maxTries` ensure that
 the plugin will keep retrying to forward a message for one hour.
