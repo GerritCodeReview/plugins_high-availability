@@ -56,11 +56,11 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexChange(final int changeId) {
+  public boolean indexChange(final String projectName, final int changeId) {
     return new Request("index change", changeId) {
       @Override
       HttpResult send() throws IOException {
-        return httpSession.post(buildIndexEndpoint(changeId));
+        return httpSession.post(buildIndexEndpoint(projectName, changeId));
       }
     }.execute();
   }
@@ -70,7 +70,7 @@ class RestForwarder implements Forwarder {
     return new Request("delete change", changeId) {
       @Override
       HttpResult send() throws IOException {
-        return httpSession.delete(buildIndexEndpoint(changeId));
+        return httpSession.delete(buildIndexEndpoint("", changeId));
       }
     }.execute();
   }
@@ -85,8 +85,8 @@ class RestForwarder implements Forwarder {
     }.execute();
   }
 
-  private String buildIndexEndpoint(int changeId) {
-    return Joiner.on("/").join(pluginRelativePath, "index/change", changeId);
+  private String buildIndexEndpoint(String projectName, int changeId) {
+    return Joiner.on("/").join(pluginRelativePath, "index/change", projectName + '~' + changeId);
   }
 
   @Override

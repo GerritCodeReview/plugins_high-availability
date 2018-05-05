@@ -21,26 +21,36 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
+import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.server.ChangeFinder;
 import com.google.inject.Inject;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class IndexEventHandler
     implements ChangeIndexedListener, AccountIndexedListener, GroupIndexedListener {
+  private static final Logger logger = LoggerFactory.getLogger(IndexEventHandler.class);
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
   private final Set<IndexTask> queuedTasks =
       Collections.newSetFromMap(new ConcurrentHashMap<IndexTask, Boolean>());
+  private final ChangeFinder changeFinder;
 
   @Inject
   IndexEventHandler(
-      @IndexExecutor Executor executor, @PluginName String pluginName, Forwarder forwarder) {
+      @IndexExecutor Executor executor,
+      @PluginName String pluginName,
+      Forwarder forwarder,
+      ChangeFinder changeFinder) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.changeFinder = changeFinder;
   }
 
   @Override
@@ -55,12 +65,15 @@ class IndexEventHandler
 
   @Override
   public void onChangeIndexed(int id) {
-    executeIndexChangeTask(id, false);
+    String projectName = projectOf(id);
+    if (projectName != null) {
+      executeIndexChangeTask(projectName, id, false);
+    }
   }
 
   @Override
   public void onChangeDeleted(int id) {
-    executeIndexChangeTask(id, true);
+    executeIndexChangeTask("", id, true);
   }
 
   @Override
@@ -73,9 +86,18 @@ class IndexEventHandler
     }
   }
 
-  private void executeIndexChangeTask(int id, boolean deleted) {
+  private String projectOf(int id) {
+    try {
+      return changeFinder.findOne(new Change.Id(id)).getProjectName().get();
+    } catch (Exception e) {
+      logger.warn("Unable to find change with id={}", id, e);
+      return null;
+    }
+  }
+
+  private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
     if (!Context.isForwardedEvent()) {
-      IndexChangeTask task = new IndexChangeTask(id, deleted);
+      IndexChangeTask task = new IndexChangeTask(projectName, id, deleted);
       if (queuedTasks.add(task)) {
         executor.execute(task);
       }
@@ -95,8 +117,10 @@ class IndexEventHandler
   class IndexChangeTask extends IndexTask {
     private final boolean deleted;
     private final int changeId;
+    private final String projectName;
 
-    IndexChangeTask(int changeId, boolean deleted) {
+    IndexChangeTask(String projectName, int changeId, boolean deleted) {
+      this.projectName = projectName;
       this.changeId = changeId;
       this.deleted = deleted;
     }
@@ -106,7 +130,7 @@ class IndexEventHandler
       if (deleted) {
         forwarder.deleteChangeFromIndex(changeId);
       } else {
-        forwarder.indexChange(changeId);
+        forwarder.indexChange(projectName, changeId);
       }
     }
 

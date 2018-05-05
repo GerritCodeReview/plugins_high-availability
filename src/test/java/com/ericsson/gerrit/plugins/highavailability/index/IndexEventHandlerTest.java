@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
@@ -29,6 +30,9 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.server.ChangeFinder;
+import com.google.gerrit.server.notedb.ChangeNotes;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,23 +50,31 @@ public class IndexEventHandlerTest {
 
   private IndexEventHandler indexEventHandler;
   @Mock private Forwarder forwarder;
+  @Mock private ChangeFinder changeFinderMock;
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
+  private String projectName;
+  @Mock private Change changeMock;
+  @Mock private ChangeNotes changeNotesMock;
 
   @Before
-  public void setUpMocks() {
+  public void setUpMocks() throws Exception {
     changeId = new Change.Id(CHANGE_ID);
     accountId = new Account.Id(ACCOUNT_ID);
     accountGroupUUID = new AccountGroup.UUID(UUID);
     indexEventHandler =
-        new IndexEventHandler(MoreExecutors.directExecutor(), PLUGIN_NAME, forwarder);
+        new IndexEventHandler(
+            MoreExecutors.directExecutor(), PLUGIN_NAME, forwarder, changeFinderMock);
+    when(changeMock.getProject()).thenReturn(new Project.NameKey(projectName));
+    when(changeNotesMock.getChange()).thenReturn(changeMock);
+    when(changeFinderMock.findOne(changeId)).thenReturn(changeNotesMock);
   }
 
   @Test
   public void shouldIndexInRemoteOnChangeIndexedEvent() throws Exception {
     indexEventHandler.onChangeIndexed(changeId.get());
-    verify(forwarder).indexChange(CHANGE_ID);
+    verify(forwarder).indexChange(projectName, CHANGE_ID);
   }
 
   @Test
@@ -113,16 +125,17 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
-    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder);
+    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeFinderMock);
     indexEventHandler.onChangeIndexed(changeId.get());
     indexEventHandler.onChangeIndexed(changeId.get());
-    verify(poolMock, times(1)).execute(indexEventHandler.new IndexChangeTask(CHANGE_ID, false));
+    verify(poolMock, times(1))
+        .execute(indexEventHandler.new IndexChangeTask(projectName, CHANGE_ID, false));
   }
 
   @Test
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
-    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder);
+    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeFinderMock);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -131,7 +144,7 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
-    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder);
+    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeFinderMock);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
@@ -139,7 +152,7 @@ public class IndexEventHandlerTest {
 
   @Test
   public void testIndexChangeTaskToString() throws Exception {
-    IndexChangeTask task = indexEventHandler.new IndexChangeTask(CHANGE_ID, false);
+    IndexChangeTask task = indexEventHandler.new IndexChangeTask(projectName, CHANGE_ID, false);
     assertThat(task.toString())
         .isEqualTo(
             String.format("[%s] Index change %s in target instance", PLUGIN_NAME, CHANGE_ID));
@@ -162,25 +175,29 @@ public class IndexEventHandlerTest {
 
   @Test
   public void testIndexChangeTaskHashCodeAndEquals() {
-    IndexChangeTask task = indexEventHandler.new IndexChangeTask(CHANGE_ID, false);
+    IndexChangeTask task = indexEventHandler.new IndexChangeTask(projectName, CHANGE_ID, false);
 
     IndexChangeTask sameTask = task;
     assertThat(task.equals(sameTask)).isTrue();
     assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
 
-    IndexChangeTask identicalTask = indexEventHandler.new IndexChangeTask(CHANGE_ID, false);
+    IndexChangeTask identicalTask =
+        indexEventHandler.new IndexChangeTask(projectName, CHANGE_ID, false);
     assertThat(task.equals(identicalTask)).isTrue();
     assertThat(task.hashCode()).isEqualTo(identicalTask.hashCode());
 
     assertThat(task.equals(null)).isFalse();
-    assertThat(task.equals(indexEventHandler.new IndexChangeTask(CHANGE_ID + 1, false))).isFalse();
+    assertThat(
+            task.equals(indexEventHandler.new IndexChangeTask(projectName, CHANGE_ID + 1, false)))
+        .isFalse();
     assertThat(task.hashCode()).isNotEqualTo("test".hashCode());
 
-    IndexChangeTask differentChangeIdTask = indexEventHandler.new IndexChangeTask(123, false);
+    IndexChangeTask differentChangeIdTask =
+        indexEventHandler.new IndexChangeTask(projectName, 123, false);
     assertThat(task.equals(differentChangeIdTask)).isFalse();
     assertThat(task.hashCode()).isNotEqualTo(differentChangeIdTask.hashCode());
 
-    IndexChangeTask removeTask = indexEventHandler.new IndexChangeTask(CHANGE_ID, true);
+    IndexChangeTask removeTask = indexEventHandler.new IndexChangeTask("", CHANGE_ID, true);
     assertThat(task.equals(removeTask)).isFalse();
     assertThat(task.hashCode()).isNotEqualTo(removeTask.hashCode());
   }
