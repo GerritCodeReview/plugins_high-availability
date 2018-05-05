@@ -15,12 +15,11 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
-import com.google.gerrit.reviewdb.client.Change;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
+class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<String> {
   private static final long serialVersionUID = -1L;
 
   @Inject
@@ -29,7 +28,7 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<Change.Id> {
   }
 
   @Override
-  Change.Id parse(String id) {
-    return new Change.Id(Integer.parseInt(id));
+  String parse(String id) {
+    return id;
   }
 }

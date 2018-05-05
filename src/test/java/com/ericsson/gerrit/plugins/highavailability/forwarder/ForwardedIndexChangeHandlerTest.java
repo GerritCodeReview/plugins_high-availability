@@ -28,6 +28,7 @@ import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ChangeAccess;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.ChangeFinder;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gwtorm.server.OrmException;
@@ -57,9 +58,11 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private SchemaFactory<ReviewDb> schemaFactoryMock;
   @Mock private ReviewDb dbMock;
   @Mock private ChangeAccess changeAccessMock;
+  @Mock private ChangeFinder changeFinderMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
   private Change change;
+  private String projectName = "testproject";
 
   @Before
   public void setUp() throws Exception {
@@ -67,26 +70,30 @@ public class ForwardedIndexChangeHandlerTest {
     when(dbMock.changes()).thenReturn(changeAccessMock);
     id = new Change.Id(123);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
-    handler = new ForwardedIndexChangeHandler(indexerMock, schemaFactoryMock);
+    handler = new ForwardedIndexChangeHandler(indexerMock, schemaFactoryMock, changeFinderMock);
   }
 
   @Test
   public void changeIsIndexed() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS);
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
     verify(indexerMock, times(1)).index(dbMock, change);
+  }
+
+  private String fullChangeId(Change.Id id) {
+    return projectName + "~" + id.get();
   }
 
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
-    handler.index(id, Operation.DELETE);
+    handler.index(fullChangeId(id), Operation.DELETE);
     verify(indexerMock, times(1)).delete(id);
   }
 
   @Test
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST);
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
     verify(indexerMock, times(1)).delete(id);
   }
 
@@ -94,13 +101,13 @@ public class ForwardedIndexChangeHandlerTest {
   public void schemaThrowsExceptionWhenLookingUpForChange() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_ORM_EXCEPTION);
     exception.expect(OrmException.class);
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
   }
 
   @Test
   public void indexerThrowsNoSuchChangeExceptionTryingToPostChange() throws Exception {
     doThrow(new NoSuchChangeException(id)).when(schemaFactoryMock).open();
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
     verify(indexerMock, times(1)).delete(id);
   }
 
@@ -108,7 +115,7 @@ public class ForwardedIndexChangeHandlerTest {
   public void indexerThrowsNestedNoSuchChangeExceptionTryingToPostChange() throws Exception {
     OrmException e = new OrmException("test", new NoSuchChangeException(id));
     doThrow(e).when(schemaFactoryMock).open();
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
     verify(indexerMock, times(1)).delete(id);
   }
 
@@ -116,7 +123,7 @@ public class ForwardedIndexChangeHandlerTest {
   public void indexerThrowsIOExceptionTryingToIndexChange() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, DO_NOT_THROW_ORM_EXCEPTION, THROW_IO_EXCEPTION);
     exception.expect(IOException.class);
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
   }
 
   @Test
@@ -134,7 +141,7 @@ public class ForwardedIndexChangeHandlerTest {
         .index(dbMock, change);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(id, Operation.INDEX);
+    handler.index(fullChangeId(id), Operation.INDEX);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock, times(1)).index(dbMock, change);
@@ -154,7 +161,7 @@ public class ForwardedIndexChangeHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
-      handler.index(id, Operation.INDEX);
+      handler.index(fullChangeId(id), Operation.INDEX);
       fail("should have thrown an IOException");
     } catch (IOException e) {
       assertThat(e.getMessage()).isEqualTo("someMessage");
