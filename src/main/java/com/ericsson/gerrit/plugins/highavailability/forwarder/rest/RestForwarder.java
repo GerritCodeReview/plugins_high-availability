@@ -20,6 +20,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
+import com.google.common.net.UrlEscapers;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.SupplierSerializer;
@@ -56,11 +57,11 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexChange(final int changeId) {
+  public boolean indexChange(final String projectName, final int changeId) {
     return new Request("index change", changeId) {
       @Override
       HttpResult send() throws IOException {
-        return httpSession.post(buildIndexEndpoint(changeId));
+        return httpSession.post(buildIndexEndpoint(projectName, changeId));
       }
     }.execute();
   }
@@ -86,7 +87,13 @@ class RestForwarder implements Forwarder {
   }
 
   private String buildIndexEndpoint(int changeId) {
-    return Joiner.on("/").join(pluginRelativePath, "index/change", changeId);
+    return buildIndexEndpoint("", changeId);
+  }
+
+  private String buildIndexEndpoint(String projectName, int changeId) {
+    String escapedProjectName = UrlEscapers.urlFragmentEscaper().escape(projectName);
+    return Joiner.on("/")
+        .join(pluginRelativePath, "index/change", escapedProjectName + '~' + changeId);
   }
 
   @Override
