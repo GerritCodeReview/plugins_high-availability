@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41a1b58f_209db5f1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-07T01:00:03Z",
+      "side": 1,
+      "message": "Instead of passing empty string here, make another variant of buildIndexEndpoint that only takes the changeId, and pass the empty string there.",
+      "range": {
+        "startLine": 73,
+        "startChar": 53,
+        "endLine": 73,
+        "endChar": 57
+      },
+      "revId": "ee8c2bab0073ae55631103b4ad35a05b01df1cf5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ea11f3_a798d998",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-07T01:00:03Z",
+      "side": 1,
+      "message": "Do we need to URL-encode the project name?",
+      "range": {
+        "startLine": 89,
+        "startChar": 67,
+        "endLine": 89,
+        "endChar": 78
+      },
+      "revId": "ee8c2bab0073ae55631103b4ad35a05b01df1cf5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c92318fe_c3aa40ed",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-07T01:00:03Z",
+      "side": 1,
+      "message": "Should be \"log\".  See I4e6f8a5b685113bf5c26e6ad3d86954c258dc2ce",
+      "range": {
+        "startLine": 36,
+        "startChar": 30,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "ee8c2bab0073ae55631103b4ad35a05b01df1cf5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e52807bf_0099636b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexChangeRestApiServletTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-07T01:00:03Z",
+      "side": 1,
+      "message": "Maybe we should also test a nested project name?  I.e \"test/project\" or something like that.",
+      "revId": "ee8c2bab0073ae55631103b4ad35a05b01df1cf5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
