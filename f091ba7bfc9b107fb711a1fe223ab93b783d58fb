@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f00fb5f7_1197321f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-08T06:25:45Z",
+      "side": 1,
+      "message": "Good idea, let me check.",
+      "parentUuid": "097eef2d_1608f240",
+      "range": {
+        "startLine": 94,
+        "startChar": 32,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "f091ba7bfc9b107fb711a1fe223ab93b783d58fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4334ed9_a8e9ae52",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
         "patchSetId": 2
@@ -36,6 +60,54 @@
       "writtenOn": "2018-05-08T00:46:47Z",
       "side": 1,
       "message": "Instead of doing this before forwarding, why not forwarding only the change id as before and do this changeFinder.findOne(new Change.Id(id)) on the receiving side?",
+      "range": {
+        "startLine": 91,
+        "startChar": 13,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "f091ba7bfc9b107fb711a1fe223ab93b783d58fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9b0dd5b_ef668fc2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-08T06:25:45Z",
+      "side": 1,
+      "message": "Nope, remember that only the sender side has caches and indexes up-to-date. The reiver won’t be able to find it by lookup.",
+      "parentUuid": "b4334ed9_a8e9ae52",
+      "range": {
+        "startLine": 91,
+        "startChar": 13,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "f091ba7bfc9b107fb711a1fe223ab93b783d58fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b8fbccc_43355399",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-08T06:25:45Z",
+      "side": 1,
+      "message": "Nope, remember that only the sender side has caches and indexes up-to-date. The reiver won’t be able to find it by lookup.",
+      "parentUuid": "b4334ed9_a8e9ae52",
       "range": {
         "startLine": 91,
         "startChar": 13,
