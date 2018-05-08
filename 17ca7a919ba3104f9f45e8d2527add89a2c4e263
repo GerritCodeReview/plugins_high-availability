@@ -16,6 +16,24 @@
       "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "672516a8_854aed91",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-08T20:40:34Z",
+      "side": 1,
+      "message": "Oh yes, the mocking in this test is very heavy, a symptom that either there is a design issue with the code OR we are testing way too much. Follow-up change?",
+      "parentUuid": "75feb6f4_9ae51b83",
+      "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
