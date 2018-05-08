@@ -70,6 +70,24 @@
       "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48f05000_a7c5f45c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-08T20:59:44Z",
+      "side": 1,
+      "message": "Tests on 2.15 are timing out since https://gerrit-review.googlesource.com/#/c/plugins/high-availability/+/174532/-1..1\n\nI will work on fixing that tonight and will address my own comments on the current change.",
+      "parentUuid": "fdba325e_694a5293",
+      "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
