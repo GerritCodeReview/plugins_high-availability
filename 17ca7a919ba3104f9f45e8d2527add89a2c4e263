@@ -52,6 +52,24 @@
       "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd7ad2de_427704d1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-08T20:47:42Z",
+      "side": 1,
+      "message": "Agreed. Just let\u0027s make sure to test the right thing :-) because tests aren\u0027t tested by definition.",
+      "parentUuid": "fdba325e_694a5293",
+      "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
