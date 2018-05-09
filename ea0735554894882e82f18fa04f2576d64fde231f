@@ -22,6 +22,30 @@
       "revId": "ea0735554894882e82f18fa04f2576d64fde231f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c3511f8_a9945f93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-09T23:02:09Z",
+      "side": 1,
+      "message": "It\u0027s better to do it here so that we don\u0027t have to deal with any merge conflicts later if we need to make further changes on stable-2.14.",
+      "parentUuid": "4588f394_a19a2c6f",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 55
+      },
+      "revId": "ea0735554894882e82f18fa04f2576d64fde231f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
