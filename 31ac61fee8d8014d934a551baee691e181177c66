@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89c2ed58_95979fe0",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/AccountIndexForwardingIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-09T23:20:13Z",
+      "side": 1,
+      "message": "Should we just keep consistent with stable-2.14 and leave as setup()?",
+      "range": {
+        "startLine": 23,
+        "startChar": 14,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "31ac61fee8d8014d934a551baee691e181177c66",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
