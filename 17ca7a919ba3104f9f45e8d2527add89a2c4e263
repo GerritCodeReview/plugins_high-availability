@@ -124,6 +124,24 @@
       "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71d9531f_ed856dad",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-09T03:30:32Z",
+      "side": 1,
+      "message": "\u003e When I tested that merge the tests were taking a long time for me, but didn\u0027t time out.\n\nI know what is the issue, I will finish and push the change tomorrow",
+      "parentUuid": "1a4f78c2_b493ddc7",
+      "revId": "17ca7a919ba3104f9f45e8d2527add89a2c4e263",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
