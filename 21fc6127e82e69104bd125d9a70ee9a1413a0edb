@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "daf63970_3ec6ba5d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-10T14:35:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c055efff_a709e943",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 51
+      },
+      "revId": "21fc6127e82e69104bd125d9a70ee9a1413a0edb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75d9183d_8fccb0fb",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 8
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "22999365_b495bd62",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-10T14:35:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "96d72032_90527a9d",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "21fc6127e82e69104bd125d9a70ee9a1413a0edb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e78fbfa8_d611cf83",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 8
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "e78fbfa8_d611cf83",
+      "range": {
+        "startLine": 57,
+        "startChar": 27,
+        "endLine": 57,
+        "endChar": 44
+      },
+      "revId": "21fc6127e82e69104bd125d9a70ee9a1413a0edb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbd6f2c2_568dd8e4",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-10T14:35:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d889af01_e41b5b24",
       "range": {
         "startLine": 57,
         "startChar": 27,
