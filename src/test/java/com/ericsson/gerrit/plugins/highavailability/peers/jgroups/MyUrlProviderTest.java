@@ -46,7 +46,7 @@ public class MyUrlProviderTest {
   private Config gerritServerConfig;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     gerritServerConfig = new Config();
   }
 
@@ -69,14 +69,14 @@ public class MyUrlProviderTest {
   }
 
   @Test
-  public void testGetJGroupsMyUrlFromListenUrlWhenNoListenUrlSpecified() throws Exception {
+  public void testGetJGroupsMyUrlFromListenUrlWhenNoListenUrlSpecified() {
     exception.expect(ProvisionException.class);
     exception.expectMessage("exactly 1 value configured; found 0");
     getMyUrlProvider();
   }
 
   @Test
-  public void testGetJGroupsMyUrlFromListenUrlWhenMultipleListenUrlsSpecified() throws Exception {
+  public void testGetJGroupsMyUrlFromListenUrlWhenMultipleListenUrlsSpecified() {
     gerritServerConfig.setStringList(HTTPD, null, LISTEN_URL, Lists.newArrayList("a", "b"));
     exception.expect(ProvisionException.class);
     exception.expectMessage("exactly 1 value configured; found 2");
@@ -84,7 +84,7 @@ public class MyUrlProviderTest {
   }
 
   @Test
-  public void testGetJGroupsMyUrlFromListenUrlWhenReverseProxyConfigured() throws Exception {
+  public void testGetJGroupsMyUrlFromListenUrlWhenReverseProxyConfigured() {
     gerritServerConfig.setString(HTTPD, null, LISTEN_URL, "proxy-https://foo");
     exception.expect(ProvisionException.class);
     exception.expectMessage("when configured as reverse-proxy");
@@ -92,7 +92,7 @@ public class MyUrlProviderTest {
   }
 
   @Test
-  public void testGetJGroupsMyUrlFromListenUrlWhenWildcardConfigured() throws Exception {
+  public void testGetJGroupsMyUrlFromListenUrlWhenWildcardConfigured() {
     gerritServerConfig.setString(HTTPD, null, LISTEN_URL, "https://*");
     exception.expect(ProvisionException.class);
     exception.expectMessage("when configured with wildcard");
@@ -100,7 +100,7 @@ public class MyUrlProviderTest {
   }
 
   @Test
-  public void testGetJGroupsMyUrlOverridesListenUrl() throws Exception {
+  public void testGetJGroupsMyUrlOverridesListenUrl() {
     when(configurationMock.peerInfoJGroups().myUrl()).thenReturn("http://somehost");
     assertThat(getMyUrlProvider().get()).isEqualTo("http://somehost");
   }
