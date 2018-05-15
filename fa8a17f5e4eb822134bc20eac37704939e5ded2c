@@ -16,6 +16,24 @@
       "revId": "fa8a17f5e4eb822134bc20eac37704939e5ded2c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8f6e7bf_c052f6d0",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedProjectListUpdateHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-15T01:35:13Z",
+      "side": 0,
+      "message": "Same here. We do not check in any eclise prefs file in this plugin so we get the default warning settings and I guess there is no warning for that by default.",
+      "parentUuid": "6f38a2d6_69a81531",
+      "revId": "fa8a17f5e4eb822134bc20eac37704939e5ded2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
