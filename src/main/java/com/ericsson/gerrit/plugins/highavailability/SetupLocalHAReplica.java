@@ -58,8 +58,8 @@ class SetupLocalHAReplica {
     this.sharedDir = master.site_path.resolve(DEFAULT_SHARED_DIRECTORY);
   }
 
-  void run(SitePaths replica, FileBasedConfig pluginConfig) throws Exception {
-    this.replica = replica;
+  void run(SitePaths sitePaths, FileBasedConfig pluginConfig) throws Exception {
+    this.replica = sitePaths;
 
     FileUtil.mkdirsOrDie(replica.site_path, "cannot create " + replica.site_path);
 
