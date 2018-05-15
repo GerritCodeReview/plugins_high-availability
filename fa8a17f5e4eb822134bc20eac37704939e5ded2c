@@ -34,6 +34,24 @@
       "revId": "fa8a17f5e4eb822134bc20eac37704939e5ded2c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "581f67bd_12adbf72",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedProjectListUpdateHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-15T01:44:58Z",
+      "side": 0,
+      "message": "Yes, I just found the same.  I\u0027m working on fixing that now.",
+      "parentUuid": "e8f6e7bf_c052f6d0",
+      "revId": "fa8a17f5e4eb822134bc20eac37704939e5ded2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
