@@ -16,6 +16,24 @@
       "revId": "b41fe3806a5ce5d8ac5f9055faef90b876b63a68",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829779c8_9c1b8846",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-15T01:37:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a2fa325_8792522c",
+      "revId": "b41fe3806a5ce5d8ac5f9055faef90b876b63a68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
