@@ -231,7 +231,7 @@ public class RestForwarderTest {
     assertThat(forwarder.evict(Constants.PROJECTS, key)).isFalse();
   }
 
-  private String buildCacheEndpoint(String name) {
+  private static String buildCacheEndpoint(String name) {
     return Joiner.on("/").join("/plugins", PLUGIN_NAME, "cache", name);
   }
 
@@ -285,7 +285,7 @@ public class RestForwarderTest {
     assertThat(forwarder.removeFromProjectList(projectName)).isFalse();
   }
 
-  private String buildProjectListCacheEndpoint(String projectName) {
+  private static String buildProjectListCacheEndpoint(String projectName) {
     return Joiner.on("/").join(buildCacheEndpoint(Constants.PROJECT_LIST), projectName);
   }
 
