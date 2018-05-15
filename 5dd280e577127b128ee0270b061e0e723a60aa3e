@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df3c44df_e7e16610",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-15T02:04:22Z",
+      "side": 1,
+      "message": "more precise rather than less precise?\n\nreplicaSitePaths?",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "5dd280e577127b128ee0270b061e0e723a60aa3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
