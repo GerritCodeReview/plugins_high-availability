@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1764cd7_b35fda78",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-15T01:33:59Z",
+      "side": 0,
+      "message": "I think it\u0027s OK to remove this one.",
+      "revId": "0ee8ac1d8d2f016a31ff4b892655d3248f208706",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c46a70_91b1b103",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-15T01:33:59Z",
+      "side": 0,
+      "message": "I think we should keep these, following the convention that we always declare \"throws Exception\" for test methods.",
+      "revId": "0ee8ac1d8d2f016a31ff4b892655d3248f208706",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
