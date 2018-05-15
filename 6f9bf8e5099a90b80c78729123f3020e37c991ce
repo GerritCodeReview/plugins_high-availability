@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "907456df_3025eff9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-05-15T11:34:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb920297_625a8b18",
+      "range": {
+        "startLine": 230,
+        "startChar": 16,
+        "endLine": 230,
+        "endChar": 23
+      },
+      "revId": "6f9bf8e5099a90b80c78729123f3020e37c991ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99531fcd_8d48fa11",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 3
@@ -36,6 +60,54 @@
       "writtenOn": "2018-05-15T01:31:15Z",
       "side": 1,
       "message": "unrelated change",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 396,
+        "endChar": 72
+      },
+      "revId": "6f9bf8e5099a90b80c78729123f3020e37c991ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38772b62_d137fc6e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-05-15T11:34:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99531fcd_8d48fa11",
+      "range": {
+        "startLine": 395,
+        "startChar": 4,
+        "endLine": 396,
+        "endChar": 72
+      },
+      "revId": "6f9bf8e5099a90b80c78729123f3020e37c991ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fff5b3ef_53a4ad9b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1019328
+      },
+      "writtenOn": "2018-05-15T11:34:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99531fcd_8d48fa11",
       "range": {
         "startLine": 395,
         "startChar": 4,
