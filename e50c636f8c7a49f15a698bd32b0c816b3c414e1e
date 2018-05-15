@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc18cca9_c5cfc31e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/SetupLocalHAReplica.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-15T02:15:38Z",
+      "side": 1,
+      "message": "I was suggesting to rename this variable to replicaSitePaths so we know which sitePaths is expected by reading the method signature.\n\nI am ok with the proposed rename for both SitePath member variables but we should still rename this variable to \"replica\" only so caller knows which SitePaths is expected.\n\nWDYT?",
+      "range": {
+        "startLine": 61,
+        "startChar": 21,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "e50c636f8c7a49f15a698bd32b0c816b3c414e1e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
