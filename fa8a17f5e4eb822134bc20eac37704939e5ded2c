@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f38a2d6_69a81531",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedProjectListUpdateHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-05-15T01:32:34Z",
+      "side": 0,
+      "message": "I\u0027m surprised that these were not raised by Eclipse.",
+      "revId": "fa8a17f5e4eb822134bc20eac37704939e5ded2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
