@@ -20,10 +20,16 @@ import com.google.inject.Provider;
 import java.util.concurrent.Executor;
 
 public abstract class ExecutorProvider implements Provider<Executor>, LifecycleListener {
-  private WorkQueue.Executor executor;
+  private final WorkQueue workQueue;
+  private final int threadPoolSize;
+  private final String threadNamePrefix;
+
+  private WorkQueue.Executor executor = null;
 
   protected ExecutorProvider(WorkQueue workQueue, int threadPoolSize, String threadNamePrefix) {
-    executor = workQueue.createQueue(threadPoolSize, threadNamePrefix);
+    this.workQueue = workQueue;
+    this.threadPoolSize = threadPoolSize;
+    this.threadNamePrefix = threadNamePrefix;
   }
 
   @Override
@@ -33,13 +39,22 @@ public abstract class ExecutorProvider implements Provider<Executor>, LifecycleL
 
   @Override
   public void stop() {
-    executor.shutdown();
-    executor.unregisterWorkQueue();
-    executor = null;
+    if (executor != null) {
+      executor.shutdown();
+      executor.unregisterWorkQueue();
+      executor = null;
+    }
   }
 
   @Override
   public Executor get() {
+    if (executor == null) {
+      synchronized (this) {
+        if (executor == null) {
+          executor = workQueue.createQueue(threadPoolSize, threadNamePrefix);
+        }
+      }
+    }
     return executor;
   }
 }
