@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1b676964_da8fdda1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-23T13:18:02Z",
+      "side": 1,
+      "message": "All the plugins we contributed were develop in-house and then open sourced, that is why they have com.ericsson as package name.\n\nIf I start a new plugin strait in the open source, I will use com.googlesource package name.",
+      "parentUuid": "489ee3a4_5ce59ae4",
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c46f12b_b2dee7ca",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -119,6 +137,30 @@
       "side": 1,
       "message": "Do you guys have a company policy saying that any contribution to the Gerrit OpenSource project needs to be made by using \u0027com.ericsson\u0027 as root package name?\n\nWould you then require other plugins to follow the same policy once you become main contributor?\n(e.g. The ITS-Jira is going to have lots of contributions from Ericsson, would you require that to change to com.ericsson.gerrit.plugins.its.jira ?)",
       "parentUuid": "795256be_40498b19",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "088b3207_8704ab64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-23T13:18:02Z",
+      "side": 1,
+      "message": "\u003e Do you guys have a company policy saying that any contribution to\n \u003e the Gerrit OpenSource project needs to be made by using\n \u003e \u0027com.ericsson\u0027 as root package name?\n\nNo\n\n \u003e Would you then require other plugins to follow the same policy once\n \u003e you become main contributor?\n\nNo\n\n \u003e (e.g. The ITS-Jira is going to have lots of contributions from\n \u003e Ericsson, would you require that to change to com.ericsson.gerrit.plugins.its.jira\n \u003e ?)\n\nNo",
+      "parentUuid": "1d3c3fbf_799264f6",
       "range": {
         "startLine": 14,
         "startChar": 0,
