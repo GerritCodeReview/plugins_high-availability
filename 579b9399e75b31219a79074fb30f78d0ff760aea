@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7033134d_182773a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-23T13:19:43Z",
+      "side": 1,
+      "message": "I am fine with that policy, as long as everyone is on the same page and we document and follow it :-)",
+      "parentUuid": "1b676964_da8fdda1",
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c46f12b_b2dee7ca",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
