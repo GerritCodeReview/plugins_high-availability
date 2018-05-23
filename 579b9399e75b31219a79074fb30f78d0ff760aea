@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "489ee3a4_5ce59ae4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-23T12:58:44Z",
+      "side": 1,
+      "message": "If company \"super-duper Inc\" and company \"pico-soft Ltd\" contribute to a plugin, how do you name it?\ncom.superduper.picosoft.gerrit.plugins.mysuperplugin\n\nand then another company \"the-best Spa\" becomes the main contributor ... do you change the package name again?\n\nI believe that is the value of having a more generic com.googlesource.gerrit, so that the plugin package and the companies contributing to it are 100% decoupled.",
+      "parentUuid": "b8eaeceb_94a2df53",
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c46f12b_b2dee7ca",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "7881b138_f9e0736d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-23T12:58:44Z",
+      "side": 1,
+      "message": "Gitiles is a standalone project, which a plugin to integrate as code-viewer into Gerrit.",
+      "parentUuid": "6c46f12b_b2dee7ca",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "795256be_40498b19",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -53,6 +95,30 @@
       "writtenOn": "2018-05-23T12:51:22Z",
       "side": 1,
       "message": "What is not desirable here? You want companies like us to not contribute our plugins to open source?\n\n\nI checked with Shawn before contributing our first plugin and he told me to put the package name I want, he did not care so this is why all plugins contributed by Ericsson have com.ericsson.gerrit.plugins as package name.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d3c3fbf_799264f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-05-23T12:58:44Z",
+      "side": 1,
+      "message": "Do you guys have a company policy saying that any contribution to the Gerrit OpenSource project needs to be made by using \u0027com.ericsson\u0027 as root package name?\n\nWould you then require other plugins to follow the same policy once you become main contributor?\n(e.g. The ITS-Jira is going to have lots of contributions from Ericsson, would you require that to change to com.ericsson.gerrit.plugins.its.jira ?)",
+      "parentUuid": "795256be_40498b19",
       "range": {
         "startLine": 14,
         "startChar": 0,
