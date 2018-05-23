@@ -11,8 +11,8 @@ gerrit_plugin(
     srcs = glob(["src/main/java/**/*.java"]),
     manifest_entries = [
         "Gerrit-PluginName: high-availability",
-        "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
-        "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
+        "Gerrit-Module: com.googlesource.gerrit.plugins.highavailability.Module",
+        "Gerrit-HttpModule: com.googlesource.gerrit.plugins.highavailability.HttpModule",
         "Implementation-Title: high-availability plugin",
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/high-availability",
     ],
