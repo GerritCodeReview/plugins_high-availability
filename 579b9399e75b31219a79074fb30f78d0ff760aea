@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8eaeceb_94a2df53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-23T12:51:22Z",
+      "side": 1,
+      "message": "What is the value of this change? I do not see any (and yes I read you entire commit message but still, I think this change bring no value).",
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c46f12b_b2dee7ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-23T12:51:22Z",
+      "side": 1,
+      "message": "Are you planning to rename gitiles package also from com.google to com.googlesource?",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "795256be_40498b19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-05-23T12:51:22Z",
+      "side": 1,
+      "message": "What is not desirable here? You want companies like us to not contribute our plugins to open source?\n\n\nI checked with Shawn before contributing our first plugin and he told me to put the package name I want, he did not care so this is why all plugins contributed by Ericsson have com.ericsson.gerrit.plugins as package name.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "579b9399e75b31219a79074fb30f78d0ff760aea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
