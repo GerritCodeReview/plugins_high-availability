@@ -15,7 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -119,20 +119,21 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexChangeOK() throws Exception {
-    when(httpSessionMock.post(INDEX_CHANGE_ENDPOINT))
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER)).isTrue();
   }
 
   @Test
   public void testIndexChangeFailed() throws Exception {
-    when(httpSessionMock.post(INDEX_CHANGE_ENDPOINT)).thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
+        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER)).isFalse();
   }
 
   @Test
   public void testIndexChangeThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(INDEX_CHANGE_ENDPOINT);
+    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_CHANGE_ENDPOINT), any());
     assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER)).isFalse();
   }
 
