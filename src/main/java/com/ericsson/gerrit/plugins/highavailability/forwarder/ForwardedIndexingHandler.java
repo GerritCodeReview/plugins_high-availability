@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.google.common.util.concurrent.Striped;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,10 @@ public abstract class ForwardedIndexingHandler<T> {
 
   protected abstract void doIndex(T id) throws IOException, OrmException;
 
+  protected void doIndex(T id, Optional<Object> maybeBody) throws IOException, OrmException {
+    doIndex(id);
+  }
+
   protected abstract void doDelete(T id) throws IOException;
 
   /**
@@ -54,8 +59,8 @@ public abstract class ForwardedIndexingHandler<T> {
    * @throws IOException If an error occur while indexing.
    * @throws OrmException If an error occur while retrieving a change related to the item to index
    */
-  public void index(T id, Operation operation) throws IOException, OrmException {
-    log.debug("{} {}", operation, id);
+  public void index(T id, Operation operation, Optional<Object> maybeBody) throws IOException, OrmException {
+    log.debug("{} {} {}", operation, id, maybeBody);
     try {
       Context.setForwardedEvent(true);
       Lock idLock = idLocks.get(id);
@@ -63,7 +68,7 @@ public abstract class ForwardedIndexingHandler<T> {
       try {
         switch (operation) {
           case INDEX:
-            doIndex(id);
+            doIndex(id, maybeBody);
             break;
           case DELETE:
             doDelete(id);
