@@ -96,7 +96,7 @@ public class HttpSessionTest {
   public void testPostResponseWithContentOK() throws Exception {
     wireMockRule.givenThat(
         post(urlEqualTo(ENDPOINT))
-            .withRequestBody(equalTo(BODY))
+            .withRequestBody(equalTo('"' + BODY + '"'))
             .willReturn(aResponse().withStatus(NO_CONTENT)));
     assertThat(httpSession.post(ENDPOINT, BODY).isSuccessful()).isTrue();
   }
