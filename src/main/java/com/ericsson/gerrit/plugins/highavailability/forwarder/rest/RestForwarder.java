@@ -18,13 +18,11 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeIndexedEvent;
 import com.google.common.base.Joiner;
-import com.google.common.base.Supplier;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.SupplierSerializer;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import java.io.IOException;
 import javax.net.ssl.SSLException;
@@ -57,11 +55,11 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexChange(final String projectName, final int changeId) {
+  public boolean indexChange(String projectName, int changeId, ChangeIndexedEvent event) {
     return new Request("index change", changeId) {
       @Override
       HttpResult send() throws IOException {
-        return httpSession.post(buildIndexEndpoint(projectName, changeId));
+        return httpSession.post(buildIndexEndpoint(projectName, changeId), event);
       }
     }.execute();
   }
@@ -101,12 +99,7 @@ class RestForwarder implements Forwarder {
     return new Request("send event", event.type) {
       @Override
       HttpResult send() throws IOException {
-        String serializedEvent =
-            new GsonBuilder()
-                .registerTypeAdapter(Supplier.class, new SupplierSerializer())
-                .create()
-                .toJson(event);
-        return httpSession.post(Joiner.on("/").join(pluginRelativePath, "event"), serializedEvent);
+        return httpSession.post(Joiner.on("/").join(pluginRelativePath, "event"), event);
       }
     }.execute();
   }
