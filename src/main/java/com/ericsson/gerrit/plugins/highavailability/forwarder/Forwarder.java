@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeIndexedEvent;
 import com.google.gerrit.server.events.Event;
 
 /** Forward indexing, stream events and cache evictions to the other master */
@@ -32,9 +33,10 @@ public interface Forwarder {
    *
    * @param projectName the project of the change to index.
    * @param changeId the change to index.
+   * @param indexEvent the details of the index event
    * @return true if successful, otherwise false.
    */
-  boolean indexChange(String projectName, int changeId);
+  boolean indexChange(String projectName, int changeId, ChangeIndexedEvent indexEvent);
 
   /**
    * Forward a delete change from index event to the other master.

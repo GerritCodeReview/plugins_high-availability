@@ -15,7 +15,9 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,6 +25,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeIndexedEvent;
 import com.google.common.base.Joiner;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
@@ -64,7 +67,6 @@ public class RestForwarderTest {
   // Event
   private static final String EVENT_ENDPOINT = Joiner.on("/").join(PLUGINS, PLUGIN_NAME, "event");
   private static Event event = new Event("test-event") {};
-  private static String eventJson = new GsonBuilder().create().toJson(event);
 
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
@@ -119,21 +121,25 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexChangeOK() throws Exception {
-    when(httpSessionMock.post(INDEX_CHANGE_ENDPOINT))
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
-    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER)).isTrue();
+    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new ChangeIndexedEvent()))
+        .isTrue();
   }
 
   @Test
   public void testIndexChangeFailed() throws Exception {
-    when(httpSessionMock.post(INDEX_CHANGE_ENDPOINT)).thenReturn(new HttpResult(FAILED, EMPTY_MSG));
-    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER)).isFalse();
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
+        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new ChangeIndexedEvent()))
+        .isFalse();
   }
 
   @Test
   public void testIndexChangeThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(INDEX_CHANGE_ENDPOINT);
-    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER)).isFalse();
+    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_CHANGE_ENDPOINT), any());
+    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new ChangeIndexedEvent()))
+        .isFalse();
   }
 
   @Test
@@ -158,21 +164,20 @@ public class RestForwarderTest {
 
   @Test
   public void testEventSentOK() throws Exception {
-    when(httpSessionMock.post(EVENT_ENDPOINT, eventJson))
+    when(httpSessionMock.post(EVENT_ENDPOINT, event))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.send(event)).isTrue();
   }
 
   @Test
   public void testEventSentFailed() throws Exception {
-    when(httpSessionMock.post(EVENT_ENDPOINT, eventJson))
-        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    when(httpSessionMock.post(EVENT_ENDPOINT, event)).thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.send(event)).isFalse();
   }
 
   @Test
   public void testEventSentThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(EVENT_ENDPOINT, eventJson);
+    doThrow(new IOException()).when(httpSessionMock).post(EVENT_ENDPOINT, event);
     assertThat(forwarder.send(event)).isFalse();
   }
 
