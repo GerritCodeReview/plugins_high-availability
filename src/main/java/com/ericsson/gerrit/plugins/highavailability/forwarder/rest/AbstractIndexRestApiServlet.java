@@ -23,6 +23,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
+import java.util.Optional;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -80,7 +82,12 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     String path = req.getRequestURI();
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
     try {
-      forwardedIndexingHandler.index(id, operation);
+      String contentType = req.getContentType();
+      if (contentType != null && contentType.contains("application/json")) {
+        forwardedIndexingHandler.index(id, operation, parseBody(req.getInputStream()));
+      } else {
+        forwardedIndexingHandler.index(id, operation);
+      }
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
@@ -90,5 +97,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
       sendError(rsp, SC_NOT_FOUND, msg);
       log.debug(msg, e);
     }
+  }
+
+  protected Optional<Object> parseBody(@SuppressWarnings("unused") ServletInputStream bodyIn) {
+    return Optional.empty();
   }
 }
