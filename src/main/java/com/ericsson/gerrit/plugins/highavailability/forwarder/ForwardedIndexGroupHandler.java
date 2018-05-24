@@ -20,6 +20,7 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Index a group using {@link GroupIndexer}. This class is meant to be used on the receiving side of
@@ -37,7 +38,8 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   }
 
   @Override
-  protected void doIndex(AccountGroup.UUID uuid) throws IOException, OrmException {
+  protected void doIndex(AccountGroup.UUID uuid, Optional<?> maybeBody)
+      throws IOException, OrmException {
     indexer.index(uuid);
     log.debug("Group {} successfully indexed", uuid);
   }
