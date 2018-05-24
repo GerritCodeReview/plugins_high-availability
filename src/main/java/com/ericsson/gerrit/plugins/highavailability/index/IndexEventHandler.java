@@ -95,11 +95,13 @@ class IndexEventHandler
     private final boolean deleted;
     private final int changeId;
     private final String projectName;
+    private final ChangeIndexedEvent changeIndexedEvent;
 
     IndexChangeTask(String projectName, int changeId, boolean deleted) {
       this.projectName = projectName;
       this.changeId = changeId;
       this.deleted = deleted;
+      this.changeIndexedEvent = new ChangeIndexedEvent();
     }
 
     @Override
@@ -107,7 +109,7 @@ class IndexEventHandler
       if (deleted) {
         forwarder.deleteChangeFromIndex(changeId);
       } else {
-        forwarder.indexChange(projectName, changeId);
+        forwarder.indexChange(projectName, changeId, changeIndexedEvent);
       }
     }
 

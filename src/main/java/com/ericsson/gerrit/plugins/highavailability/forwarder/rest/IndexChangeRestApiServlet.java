@@ -15,13 +15,21 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeIndexedEvent;
+import com.google.common.base.Charsets;
 import com.google.gerrit.extensions.restapi.Url;
+import com.google.gerrit.server.OutputFormat;
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.io.InputStreamReader;
+import java.util.Optional;
+import javax.servlet.ServletInputStream;
 
 @Singleton
 class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<String> {
   private static final long serialVersionUID = -1L;
+  private Gson gson = OutputFormat.JSON.newGson();
 
   @Inject
   IndexChangeRestApiServlet(ForwardedIndexChangeHandler handler) {
@@ -31,5 +39,11 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<String> {
   @Override
   String parse(String id) {
     return Url.decode(id);
+  }
+
+  @Override
+  protected Optional<Object> parseBody(ServletInputStream bodyIn) {
+    return Optional.ofNullable(
+        gson.fromJson(new InputStreamReader(bodyIn, Charsets.UTF_8), ChangeIndexedEvent.class));
   }
 }
