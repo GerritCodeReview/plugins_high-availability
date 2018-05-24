@@ -37,6 +37,16 @@ public interface Forwarder {
   boolean indexChange(String projectName, int changeId);
 
   /**
+   * Forward a change indexing event to the other master.
+   *
+   * @param projectName the project of the change to index.
+   * @param changeId the change to index.
+   * @param eventTs the timestamp of when the index event happened
+   * @return true if successful, otherwise false.
+   */
+  boolean indexChange(String projectName, int changeId, long eventTs);
+
+  /**
    * Forward a delete change from index event to the other master.
    *
    * @param changeId the change to remove from the index.
