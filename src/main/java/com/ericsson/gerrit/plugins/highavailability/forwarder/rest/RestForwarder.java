@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.event.ChangeIndexedEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.google.common.base.Joiner;
@@ -57,11 +58,17 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexChange(final String projectName, final int changeId) {
+  public boolean indexChange(String projectName, int changeId) {
+    return indexChange(projectName, changeId, System.currentTimeMillis());
+  }
+
+  @Override
+  public boolean indexChange(final String projectName, final int changeId, final long eventTs) {
     return new Request("index change", changeId) {
       @Override
       HttpResult send() throws IOException {
-        return httpSession.post(buildIndexEndpoint(projectName, changeId));
+        return httpSession.post(
+            buildIndexEndpoint(projectName, changeId), new ChangeIndexedEvent());
       }
     }.execute();
   }
