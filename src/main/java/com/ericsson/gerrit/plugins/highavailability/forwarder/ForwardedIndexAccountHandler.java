@@ -20,6 +20,7 @@ import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Index an account using {@link AccountIndexer}. This class is meant to be used on the receiving
@@ -37,7 +38,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected void doIndex(Account.Id id) throws IOException, OrmException {
+  protected void doIndex(Account.Id id, Optional<?> body) throws IOException, OrmException {
     indexer.index(id);
     log.debug("Account {} successfully indexed", id);
   }
