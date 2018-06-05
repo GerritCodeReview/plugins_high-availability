@@ -51,6 +51,8 @@ public class Configuration {
 
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
+  static final int DEFAULT_INDEX_MAX_TRIES = 2;
+  static final int DEFAULT_INDEX_RETRY_INTERVAL = 30000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
   static final String NUM_STRIPED_LOCKS = "numStripedLocks";
   static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
@@ -446,8 +448,12 @@ public class Configuration {
 
   public static class Index extends Forwarding {
     static final String INDEX_SECTION = "index";
+    static final String MAX_TRIES_KEY = "maxTries";
+    static final String RETRY_INTERVAL_KEY = "retryInterval";
 
     private final int threadPoolSize;
+    private final int retryInterval;
+    private final int maxTries;
 
     private final int numStripedLocks;
 
@@ -455,6 +461,8 @@ public class Configuration {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
+      retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
+      maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
     }
 
     public int threadPoolSize() {
@@ -463,6 +471,14 @@ public class Configuration {
 
     public int numStripedLocks() {
       return numStripedLocks;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
+    }
+
+    public int maxTries() {
+      return maxTries;
     }
   }
 
