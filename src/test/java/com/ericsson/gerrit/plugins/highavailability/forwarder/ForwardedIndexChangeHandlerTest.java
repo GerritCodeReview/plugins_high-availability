@@ -23,17 +23,21 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.ChangeFinder;
+import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
+import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -62,6 +66,10 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ReviewDb dbMock;
   @Mock private ChangeFinder changeFinderMock;
   @Mock private ChangeNotes changeNotes;
+  @Mock private CommentsUtil commentsUtilMock;
+  @Mock private Configuration configurationMock;
+  @Mock private ScheduledExecutorService indexExecutorMock;
+  @Mock private OneOffRequestContext ctxMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
   private Change change;
@@ -72,7 +80,15 @@ public class ForwardedIndexChangeHandlerTest {
     id = new Change.Id(TEST_CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
-    handler = new ForwardedIndexChangeHandler(indexerMock, schemaFactoryMock, changeFinderMock);
+    handler =
+        new ForwardedIndexChangeHandler(
+            indexerMock,
+            schemaFactoryMock,
+            changeFinderMock,
+            commentsUtilMock,
+            configurationMock,
+            indexExecutorMock,
+            ctxMock);
   }
 
   @Test

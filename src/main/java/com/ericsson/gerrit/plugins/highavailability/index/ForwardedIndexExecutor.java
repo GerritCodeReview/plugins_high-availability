@@ -1,4 +1,5 @@
-// Copyright (C) 2018 The Android Open Source Project
+// Copyright (C) 2018 Ericsson
+// Copyright (C) 2018 GerritForge Ltd
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,20 +15,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-public class ChangeIndexedEvent {
-  public long eventCreatedOn = System.currentTimeMillis() / 1000;
+import com.google.inject.BindingAnnotation;
+import java.lang.annotation.Retention;
 
-  @Override
-  public String toString() {
-    return "change-indexed@" + format(eventCreatedOn);
-  }
-
-  public static String format(long changeTs) {
-    return LocalDateTime.ofEpochSecond(changeTs, 0, ZoneOffset.UTC)
-        .format(DateTimeFormatter.ISO_DATE_TIME);
-  }
-}
+@Retention(RUNTIME)
+@BindingAnnotation
+public @interface ForwardedIndexExecutor {}
