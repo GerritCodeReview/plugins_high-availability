@@ -82,6 +82,9 @@ public class Configuration {
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
 
+  // parameters specific to the index section
+  static final String CHANGE_TS_GRACE_INTERVAL_KEY = "changeTsGraceInterval";
+
   // common parameters to cache, event index and websession sections
   static final String SYNCHRONIZE_KEY = "synchronize";
 
@@ -97,7 +100,10 @@ public class Configuration {
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 360;
   static final int DEFAULT_RETRY_INTERVAL = 10000;
+  static final int DEFAULT_INDEX_MAX_TRIES = 2;
+  static final int DEFAULT_INDEX_RETRY_INTERVAL = 30000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
+  static final int DEFAULT_CHANGE_TS_GRACE_INTERVAL = 10;
   static final String DEFAULT_CLEANUP_INTERVAL = "24 hours";
   static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
   static final boolean DEFAULT_SYNCHRONIZE = true;
@@ -403,14 +409,34 @@ public class Configuration {
 
   public static class Index extends Forwarding {
     private final int threadPoolSize;
+    private final int changeTsGraceInterval;
+    private final int retryInterval;
+    private final int maxTries;
 
     private Index(Config cfg) {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+      changeTsGraceInterval =
+          getInt(
+              cfg, INDEX_SECTION, CHANGE_TS_GRACE_INTERVAL_KEY, DEFAULT_CHANGE_TS_GRACE_INTERVAL);
+      retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
+      maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
     }
 
     public int threadPoolSize() {
       return threadPoolSize;
+    }
+
+    public int changeTsGraceInterval() {
+      return changeTsGraceInterval;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
+    }
+
+    public int maxTries() {
+      return maxTries;
     }
   }
 
