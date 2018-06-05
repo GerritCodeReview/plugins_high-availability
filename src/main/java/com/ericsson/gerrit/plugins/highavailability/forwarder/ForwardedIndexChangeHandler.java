@@ -14,10 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.event.ChangeIndexedEvent;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.reviewdb.client.Comment;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.ChangeFinder;
+import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -26,6 +29,8 @@ import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,26 +41,49 @@ import java.util.Optional;
  */
 @Singleton
 public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
+  private static final long CHANGE_TS_GRACE_PERIOD =
+      10L; // Allow a maximum of 5s skew between nodes
   private final ChangeIndexer indexer;
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
+  private final CommentsUtil commentsUtil;
 
   @Inject
   ForwardedIndexChangeHandler(
-      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, ChangeFinder changeFinder) {
+      ChangeIndexer indexer,
+      SchemaFactory<ReviewDb> schemaFactory,
+      ChangeFinder changeFinder,
+      CommentsUtil commentsUtil) {
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
+    this.commentsUtil = commentsUtil;
   }
 
   @Override
   protected void doIndex(String id, Optional<Object> maybeBody) throws IOException, OrmException {
     ChangeNotes change = null;
+    Optional<ChangeIndexedEvent> indexEvent = maybeBody.map(e -> (ChangeIndexedEvent) e);
     try (ReviewDb db = schemaFactory.open()) {
       change = changeFinder.findOne(id);
       if (change != null) {
+        Timestamp changeTs = computeLastChangeTs(db, change);
+
         indexer.index(db, change.getChange());
-        log.debug("Change {} successfully indexed", id);
+        if (isChangeUpToDate(changeTs, indexEvent)) {
+          log.debug("Change {} successfully indexed", id);
+        } else {
+          log.warn(
+              "Change {} indexed, however it may be inaccurate as it seems too old compared compared to the event timestamp (event-Ts={} >> change-Ts={})",
+              id,
+              indexEvent,
+              changeTs);
+        }
+      } else {
+        log.warn(
+            "Change {} could not be found in the local Git repository (eventTs={})",
+            id,
+            indexEvent);
       }
     } catch (Exception e) {
       if (!isCausedByNoSuchChangeException(e)) {
@@ -65,8 +93,35 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
     if (change == null) {
       indexer.delete(parseChangeId(id));
-      log.debug("Change {} not found, deleted from index", id);
+      log.warn("Change {} not found, deleted from index", id);
     }
+  }
+
+  private boolean isChangeUpToDate(Timestamp changeTs, Optional<ChangeIndexedEvent> indexEvent) {
+    return indexEvent
+        .map(
+            e ->
+                new Boolean(
+                    (changeTs.getTime() / 1000) >= (e.eventCreatedOn - CHANGE_TS_GRACE_PERIOD)))
+        .orElse(true);
+  }
+
+  private Timestamp computeLastChangeTs(ReviewDb db, ChangeNotes change) {
+    Timestamp changeTs = change.getChange().getLastUpdatedOn();
+    List<Comment> comments = null;
+    try {
+      comments = commentsUtil.draftByChange(db, change);
+    } catch (OrmException e) {
+    }
+    if (comments == null) {
+      return changeTs;
+    }
+
+    for (Comment comment : comments) {
+      Timestamp commentTs = comment.writtenOn;
+      changeTs = commentTs.after(changeTs) ? commentTs : changeTs;
+    }
+    return changeTs;
   }
 
   @Override
