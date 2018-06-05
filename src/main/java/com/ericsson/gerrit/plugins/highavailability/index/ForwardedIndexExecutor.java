@@ -14,21 +14,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-public class ChangeIndexedEvent {
-  public long eventCreatedOn;
-  public String targetSha;
+import com.google.inject.BindingAnnotation;
+import java.lang.annotation.Retention;
 
-  @Override
-  public String toString() {
-    return "change-indexed@" + format(eventCreatedOn) + "/" + targetSha;
-  }
-
-  public static String format(long changeTs) {
-    return LocalDateTime.ofEpochSecond(changeTs, 0, ZoneOffset.UTC)
-        .format(DateTimeFormatter.ISO_DATE_TIME);
-  }
-}
+@Retention(RUNTIME)
+@BindingAnnotation
+public @interface ForwardedIndexExecutor {}
