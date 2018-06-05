@@ -20,12 +20,16 @@ import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class IndexModule extends LifecycleModule {
 
   @Override
   protected void configure() {
     bind(Executor.class).annotatedWith(IndexExecutor.class).toProvider(IndexExecutorProvider.class);
+    bind(ScheduledExecutorService.class)
+        .annotatedWith(ForwardedIndexExecutor.class)
+        .toProvider(ForwardedIndexExecutorProvider.class);
     listener().to(IndexExecutorProvider.class);
     DynamicSet.bind(binder(), ChangeIndexedListener.class).to(IndexEventHandler.class);
     DynamicSet.bind(binder(), AccountIndexedListener.class).to(IndexEventHandler.class);
