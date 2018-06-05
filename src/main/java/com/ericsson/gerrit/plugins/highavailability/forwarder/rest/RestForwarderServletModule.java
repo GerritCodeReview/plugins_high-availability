@@ -14,7 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeChecker;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeCheckerImpl;
 import com.google.gerrit.httpd.plugins.HttpPluginModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 public class RestForwarderServletModule extends HttpPluginModule {
   @Override
@@ -25,5 +28,10 @@ public class RestForwarderServletModule extends HttpPluginModule {
     serve("/event").with(EventRestApiServlet.class);
     serve("/cache/project_list/*").with(ProjectListApiServlet.class);
     serve("/cache/*").with(CacheRestApiServlet.class);
+
+    install(
+        new FactoryModuleBuilder()
+            .implement(ChangeChecker.class, ChangeCheckerImpl.class)
+            .build(ChangeCheckerImpl.Factory.class));
   }
 }
