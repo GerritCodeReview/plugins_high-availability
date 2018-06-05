@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.event.ChangeIndexedEvent;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
@@ -36,6 +37,8 @@ import java.util.Optional;
  */
 @Singleton
 public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
+  private static final long CHANGE_TS_GRACE_PERIOD =
+      10L; // Allow a maximum of 5s skew between nodes
   private final ChangeIndexer indexer;
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
@@ -51,11 +54,25 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected void doIndex(String id, Optional<Object> maybeBody) throws IOException, OrmException {
     ChangeNotes change = null;
+    Optional<ChangeIndexedEvent> indexEvent = maybeBody.map(e -> (ChangeIndexedEvent) e);
     try (ReviewDb db = schemaFactory.open()) {
       change = changeFinder.findOne(id);
       if (change != null) {
-        indexer.index(db, change.getChange());
-        log.debug("Change {} successfully indexed", id);
+        if (isExpectedChange(change, indexEvent)) {
+          indexer.index(db, change.getChange());
+          log.debug("Change {} successfully indexed", id);
+        } else {
+          log.warn(
+              "Change {} is not in the expected updated status (eventTs={} <> changeTs={})",
+              id,
+              indexEvent,
+              change.getChange().getLastUpdatedOn());
+        }
+      } else {
+        log.warn(
+            "Change {} could not be found in the local Git repository (eventTs={})",
+            id,
+            indexEvent);
       }
     } catch (Exception e) {
       if (!isCausedByNoSuchChangeException(e)) {
@@ -65,8 +82,18 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
     if (change == null) {
       indexer.delete(parseChangeId(id));
-      log.debug("Change {} not found, deleted from index", id);
+      log.warn("Change {} not found, deleted from index", id);
     }
+  }
+
+  private boolean isExpectedChange(ChangeNotes change, Optional<ChangeIndexedEvent> indexEvent) {
+    return indexEvent
+        .map(
+            e ->
+                new Boolean(
+                    (change.getChange().getLastUpdatedOn().getTime() / 1000)
+                        >= (e.eventCreatedOn - CHANGE_TS_GRACE_PERIOD)))
+        .orElse(true);
   }
 
   @Override
