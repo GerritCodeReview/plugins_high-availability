@@ -14,21 +14,17 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
+import com.google.gerrit.server.git.WorkQueue;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-public class ChangeIndexedEvent {
-  public long eventCreatedOn;
-  public String targetSha;
+@Singleton
+class ForwardedIndexExecutorProvider extends ExecutorProvider {
 
-  @Override
-  public String toString() {
-    return "change-indexed@" + format(eventCreatedOn) + "/" + targetSha;
-  }
-
-  public static String format(long changeTs) {
-    return LocalDateTime.ofEpochSecond(changeTs, 0, ZoneOffset.UTC)
-        .format(DateTimeFormatter.ISO_DATE_TIME);
+  @Inject
+  ForwardedIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
+    super(workQueue, config.index().threadPoolSize(), "Forwarded-Index-Event");
   }
 }
