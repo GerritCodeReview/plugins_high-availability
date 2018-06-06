@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a384f0b7_4f8fc947",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-06T07:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1387885_0af49637",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53e3593f_25fef037",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "561b5288a9436f47f35074255161ea462cd0313c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8af92412_50560ca5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-06T07:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53e3593f_25fef037",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "f4ad94c2_62b3f1b7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-06T07:24:49Z",
+      "side": 1,
+      "message": "Yes, because by default the body is ignored. Added the suppress warning annotation.",
+      "parentUuid": "b0219e72_da6b3c18",
+      "range": {
+        "startLine": 104,
+        "startChar": 39,
+        "endLine": 104,
+        "endChar": 64
+      },
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5749de6_b4eaa443",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 5
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "5849edc8_66af17fa",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-06T07:24:49Z",
+      "side": 1,
+      "message": "Why? This is Mockito where the import static is used rather for adding a new \"DSL\" to the test language, rather than defining dependency from other classes.\n\nThis is really importing only one class, ArgumentMatchers :-)",
+      "parentUuid": "c5749de6_b4eaa443",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1330856b_d4fba77a",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 5
@@ -90,6 +168,24 @@
       "revId": "561b5288a9436f47f35074255161ea462cd0313c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87383ea0_187c0e44",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-06T07:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1330856b_d4fba77a",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
