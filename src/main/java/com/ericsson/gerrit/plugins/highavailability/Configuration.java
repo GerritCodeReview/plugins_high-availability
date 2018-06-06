@@ -99,7 +99,9 @@ public class Configuration {
 
   static final int DEFAULT_TIMEOUT_MS = 5000;
   static final int DEFAULT_MAX_TRIES = 360;
+  static final int DEFAULT_INDEX_MAX_TRIES = 60;
   static final int DEFAULT_RETRY_INTERVAL = 10000;
+  static final int DEFAULT_INDEX_RETRY_INTERVAL = 1000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
   static final int DEFAULT_CHANGE_TS_GRACE_INTERVAL = 10;
   static final String DEFAULT_CLEANUP_INTERVAL = "24 hours";
@@ -408,6 +410,8 @@ public class Configuration {
   public static class Index extends Forwarding {
     private final int threadPoolSize;
     private final int changeTsGraceInterval;
+    private final int retryInterval;
+    private final int maxTries;
 
     private Index(Config cfg) {
       super(cfg, INDEX_SECTION);
@@ -415,6 +419,8 @@ public class Configuration {
       changeTsGraceInterval =
           getInt(
               cfg, INDEX_SECTION, CHANGE_TS_GRACE_INTERVAL_KEY, DEFAULT_CHANGE_TS_GRACE_INTERVAL);
+      retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
+      maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
     }
 
     public int threadPoolSize() {
@@ -423,6 +429,14 @@ public class Configuration {
 
     public int changeTsGraceInterval() {
       return changeTsGraceInterval;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
+    }
+
+    public int maxTries() {
+      return maxTries;
     }
   }
 
