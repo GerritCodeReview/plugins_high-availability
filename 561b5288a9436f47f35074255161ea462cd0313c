@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1387885_0af49637",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-06T06:24:21Z",
+      "side": 1,
+      "message": "Why not to add this option to this methode and duplicate it, and only override it in ForwardedIndexChangeHandler.doIndex()?",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e3593f_25fef037",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-06T06:24:21Z",
+      "side": 1,
+      "message": "I\u0027, getting Eclipse warning on this line:\n\n  The value of the parameter maybeBody is not used",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0219e72_da6b3c18",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-06T06:24:21Z",
+      "side": 1,
+      "message": "I\u0027m getting here Eclipse warning on this line:\n\n  The value of the parameter bodyIn is not used.",
+      "range": {
+        "startLine": 104,
+        "startChar": 39,
+        "endLine": 104,
+        "endChar": 64
+      },
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5749de6_b4eaa443",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-06T06:24:21Z",
+      "side": 1,
+      "message": "No wildcard imports.",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1330856b_d4fba77a",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-06T06:24:21Z",
+      "side": 1,
+      "message": "Not sure, if this is related to this change, but I\u0027m getting warning on this line:\n\n  The value of the field RestForwarderTest.eventJson is not used",
+      "revId": "561b5288a9436f47f35074255161ea462cd0313c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
