@@ -33,9 +33,11 @@ import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
+import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -66,6 +68,8 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ChangeNotes changeNotes;
   @Mock private CommentsUtil commentsUtilMock;
   @Mock private Configuration configurationMock;
+  @Mock private ScheduledExecutorService indexExecutorMock;
+  @Mock private OneOffRequestContext ctxMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
   private Change change;
@@ -78,7 +82,13 @@ public class ForwardedIndexChangeHandlerTest {
     when(changeNotes.getChange()).thenReturn(change);
     handler =
         new ForwardedIndexChangeHandler(
-            indexerMock, schemaFactoryMock, changeFinderMock, commentsUtilMock, configurationMock);
+            indexerMock,
+            schemaFactoryMock,
+            changeFinderMock,
+            commentsUtilMock,
+            configurationMock,
+            indexExecutorMock,
+            ctxMock);
   }
 
   @Test
