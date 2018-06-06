@@ -19,9 +19,10 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Provider;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
 
-public abstract class ExecutorProvider implements Provider<Executor>, LifecycleListener {
-  private ExecutorService executor;
+public abstract class ExecutorProvider implements Provider<ScheduledExecutorService>, LifecycleListener {
+  private ScheduledExecutorService executor;
 
   protected ExecutorProvider(WorkQueue workQueue, int threadPoolSize, String threadNamePrefix) {
     executor = workQueue.createQueue(threadPoolSize, threadNamePrefix);
@@ -39,7 +40,7 @@ public abstract class ExecutorProvider implements Provider<Executor>, LifecycleL
   }
 
   @Override
-  public Executor get() {
+  public ScheduledExecutorService get() {
     return executor;
   }
 }
