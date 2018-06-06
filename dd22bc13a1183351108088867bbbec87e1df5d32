@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c90e4551_fbc8b728",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2018-06-06T07:42:54Z",
+      "side": 1,
+      "message": "looks strange that defaults for http transport and jgroups are so different\n\nhttp: 5 *  1000 \u003d 5 seconds\njgroups: 720 * 10000 \u003d 2 hours",
+      "revId": "dd22bc13a1183351108088867bbbec87e1df5d32",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e7e7d3d_f89ee63f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 3
@@ -48,6 +65,29 @@
     },
     {
       "key": {
+        "uuid": "3e4c2df1_f434ceb6",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2018-06-06T07:42:54Z",
+      "side": 1,
+      "message": "I think it\u0027s one library and not many groups, hence singular\n\ns/the JGroups wait/JGroups waits/",
+      "range": {
+        "startLine": 94,
+        "startChar": 45,
+        "endLine": 94,
+        "endChar": 61
+      },
+      "revId": "dd22bc13a1183351108088867bbbec87e1df5d32",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "067ab25b_d30f14ef",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 3
@@ -59,6 +99,30 @@
       "writtenOn": "2018-04-17T13:39:01Z",
       "side": 1,
       "message": "720 every 10 secondes \u003d 2 hours or my calculation is not right?",
+      "range": {
+        "startLine": 107,
+        "startChar": 57,
+        "endLine": 107,
+        "endChar": 65
+      },
+      "revId": "dd22bc13a1183351108088867bbbec87e1df5d32",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0489c82_93cad842",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2018-06-06T07:42:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "067ab25b_d30f14ef",
       "range": {
         "startLine": 107,
         "startChar": 57,
