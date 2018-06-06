@@ -14,7 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.event.ChangeIndexedEvent;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Comment;
@@ -32,6 +34,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Index a change using {@link ChangeIndexer}. This class is meant to be used on the receiving side
@@ -47,21 +51,32 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
   private final CommentsUtil commentsUtil;
+  private final ScheduledExecutorService indexExecutor;
+  private final Configuration configuration;
 
   @Inject
   ForwardedIndexChangeHandler(
       ChangeIndexer indexer,
       SchemaFactory<ReviewDb> schemaFactory,
       ChangeFinder changeFinder,
-      CommentsUtil commentsUtil) {
+      CommentsUtil commentsUtil,
+      @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
+      Configuration configuration) {
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
     this.commentsUtil = commentsUtil;
+    this.indexExecutor = indexExecutor;
+    this.configuration = configuration;
+  }
+  
+  @Override
+  protected void doIndex(String id, Optional<Object> maybeBody) throws IOException, OrmException
+  {
+    doIndex(id, maybeBody, 0);
   }
 
-  @Override
-  protected void doIndex(String id, Optional<Object> maybeBody) throws IOException, OrmException {
+  private void doIndex(String id, Optional<Object> maybeBody, int retryCount) throws IOException, OrmException {
     ChangeNotes change = null;
     Optional<ChangeIndexedEvent> indexEvent = maybeBody.map(e -> (ChangeIndexedEvent) e);
     try (ReviewDb db = schemaFactory.open()) {
@@ -78,6 +93,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
               id,
               indexEvent,
               changeTs);
+          rescheduleIndex(id, maybeBody, retryCount++);
         }
       } else {
         log.warn(
@@ -95,6 +111,25 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       indexer.delete(parseChangeId(id));
       log.warn("Change {} not found, deleted from index", id);
     }
+  }
+
+  private void rescheduleIndex(final String id, final Optional<Object> maybeBody, int retryCount) {
+    int retryInterval = configuration.index().retryInterval();
+    int maxTries = configuration.index().maxTries();
+    
+    if(retryCount >= maxTries) {
+      log.error("Change {} could not be indexed after {} retries. *CHANGE INDEX IS STALE*");
+      return;
+    }
+    
+    log.warn("Retrying for the #{} time to index Change {} after {} msecs", retryCount, id, retryInterval);
+    indexExecutor.schedule(() -> {
+      try {
+        doIndex(id, maybeBody);
+      } catch (Exception e) {
+        log.warn("Change {} could not be indexed", id, e);
+      }
+    }, retryInterval, TimeUnit.MILLISECONDS);
   }
 
   private boolean isChangeUpToDate(Timestamp changeTs, Optional<ChangeIndexedEvent> indexEvent) {
