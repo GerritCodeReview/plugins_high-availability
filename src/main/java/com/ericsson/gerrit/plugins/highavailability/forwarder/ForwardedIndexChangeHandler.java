@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.event.ChangeIndexedEvent;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Comment;
@@ -25,6 +26,8 @@ import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
+import com.google.gerrit.server.util.ManualRequestContext;
+import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
@@ -33,6 +36,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Index a change using {@link ChangeIndexer}. This class is meant to be used on the receiving side
@@ -46,7 +51,9 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
   private final CommentsUtil commentsUtil;
+  private final ScheduledExecutorService indexExecutor;
   private final Configuration configuration;
+  private final OneOffRequestContext ctx;
 
   @Inject
   ForwardedIndexChangeHandler(
@@ -54,16 +61,25 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       SchemaFactory<ReviewDb> schemaFactory,
       ChangeFinder changeFinder,
       CommentsUtil commentsUtil,
-      Configuration configuration) {
+      Configuration configuration,
+      @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
+      OneOffRequestContext ctx) {
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
     this.commentsUtil = commentsUtil;
+    this.indexExecutor = indexExecutor;
     this.configuration = configuration;
+    this.ctx = ctx;
   }
 
   @Override
   protected void doIndex(String id, Optional<Object> maybeBody) throws IOException, OrmException {
+    doIndex(id, maybeBody, 0);
+  }
+
+  private void doIndex(String id, Optional<Object> maybeBody, int retryCount)
+      throws IOException, OrmException {
     ChangeNotes change = null;
     Optional<ChangeIndexedEvent> indexEvent = maybeBody.map(e -> (ChangeIndexedEvent) e);
     int changeTsGraceInterval =
@@ -73,15 +89,16 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       if (change != null) {
         Timestamp changeTs = computeLastChangeTs(db, change);
 
-        indexer.index(db, change.getChange());
         if (isChangeUpToDate(changeTs, indexEvent, changeTsGraceInterval)) {
+          indexer.index(db, change.getChange());
           log.debug("Change {} successfully indexed", id);
         } else {
           log.warn(
-              "Change {} indexed, however it may be inaccurate as it seems too old compared compared to the event timestamp (event-Ts={} >> change-Ts={})",
+              "Change {} seems too old compared compared to the event timestamp (event-Ts={} >> change-Ts={})",
               id,
               indexEvent,
               changeTs);
+          rescheduleIndex(id, maybeBody, retryCount + 1);
         }
       } else {
         log.warn(
@@ -101,8 +118,38 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
   }
 
+  private void rescheduleIndex(final String id, final Optional<Object> maybeBody, int retryCount) {
+    int retryInterval = configuration.index().retryInterval();
+    int maxTries = configuration.index().maxTries();
+
+    if (retryCount > maxTries) {
+      log.error(
+          "Change {} could not be indexed after {} retries. *CHANGE INDEX IS STALE*",
+          id,
+          retryCount);
+      return;
+    }
+
+    log.warn(
+        "Retrying for the #{} time to index Change {} after {} msecs",
+        retryCount,
+        id,
+        retryInterval);
+    indexExecutor.schedule(
+        () -> {
+          try (ManualRequestContext c = ctx.open()) {
+            doIndex(id, maybeBody, retryCount);
+          } catch (Exception e) {
+            log.warn("Change {} could not be indexed", id, e);
+          }
+        },
+        retryInterval,
+        TimeUnit.MILLISECONDS);
+  }
+
   private boolean isChangeUpToDate(
       Timestamp changeTs, Optional<ChangeIndexedEvent> indexEvent, int changeTsGraceInterval) {
+
     return indexEvent
         .map(e -> (changeTs.getTime() / 1000) >= (e.eventCreatedOn - changeTsGraceInterval))
         .orElse(true);
