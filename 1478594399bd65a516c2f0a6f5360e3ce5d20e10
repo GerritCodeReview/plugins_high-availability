@@ -118,6 +118,30 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ddc5fce_d786994f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T13:50:14Z",
+      "side": 1,
+      "message": "\u003e \u003e Yes, but the \"operation\" to fix JGit on NFS shouldn\u0027t kill the patient either ;-)\n\u003e \n\u003e I know, I am not saying that we need to take Nasser\u0027s change as is, all I want it to fix this in JGit\n\nCool, thanks again for the feedback and will try to apply the hack on the ref snapshot and see if that solves the problem.",
+      "parentUuid": "261f1b95_6f306fe0",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
