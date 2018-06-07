@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "232df467_f02e2447",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:23:04Z",
+      "side": 1,
+      "message": "Sounds like somewhat arbitrary and could be made configurable.",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 54
+      },
+      "revId": "bb5e2de412246d19b36fb315a5dc7c4cf16f0867",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286bb92a_e414ef2b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:23:04Z",
+      "side": 1,
+      "message": "Why Boolean type, just:\n\n  return indexEvent\n    .map(e -\u003e changeTs.getTime() / 1000 \u003e\u003d e.eventCreatedOn - CHANGE_TS_GRACE_PERIOD)\n    .orElse(true);",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "bb5e2de412246d19b36fb315a5dc7c4cf16f0867",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "257eb46f_a62e4f84",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:23:04Z",
+      "side": 1,
+      "message": "The computeLastChangeTs should be probably exist in core gerrit, as it is not high-availability specific. I\u0027m not sure why it is needed, to walk through the published comments and search the latest one to update change.getChange().getLastUpdatedOn()? I would expect that on publish comment, change.getChange().getLastUpdatedOn() was bumped. Is that not the case?",
+      "revId": "bb5e2de412246d19b36fb315a5dc7c4cf16f0867",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
