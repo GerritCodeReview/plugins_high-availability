@@ -70,6 +70,30 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4dcb729_fce34cb1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T13:38:40Z",
+      "side": 1,
+      "message": "\u003e Trust me, the issue you have is just the tip of the iceberg of issue of running Gerrit/JGit on NFS. We have been fighting, investigating issues for a a while now :)\n\u003e \n\u003e Here are 2 examples:\n\u003e \n\u003e 1) replication plugin\n\u003e -Gerrit master update create a new ref refs/heads/test\n\u003e -Gerrit master schedule replication\n\u003e -GC node(JGit gc done from another machine) pack the references\n\u003e -Gerrit master start replication\n\u003e -Gerrit master replicate nothing because:loose ref refs/heads/test was delete and it sees a stale version of packed-refs without refs/heads/test\n\u003e \n\u003e 2) Gerrit submit commit\n\u003e - refs/heads/test exist in repo both, loose is sha1 456 and packed sha1 is 123.\n\u003e - GC node pack the references\n\u003e - Gerrit master submit a change for ref refs/heads/test\n\u003e - Submit strategy think the tip of refs/heads/test is 123 because loose ref was deleted and it sees a stale version of packed-refs with refs/heads/test\u003d123\n\u003e \n\u003e I know those 2 examples are related to read a stale packed-refs but we have other cases where master node failed to read a loose ref because of NFS delay. My point is if we cannot make JGit behave on NFS, we will keep patching gerrit and plugins but we will never see the end of it.\n\nYes, but the \"operation\" to fix JGit on NFS shouldn\u0027t kill the patient either ;-)\nI have proposed more a \"refreshRefs()\" method in JGit, so that the in-memory cache can be cleared out before sensitive operations where the caller \"knows about\" the criticality of reading the \"latest and greatest\" always.\n\nIf we had a refreshRefs(), then this fix would become simpler as well.",
+      "parentUuid": "33e59580_2e065f3e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
