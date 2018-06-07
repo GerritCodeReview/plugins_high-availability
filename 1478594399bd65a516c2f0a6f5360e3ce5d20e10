@@ -46,6 +46,30 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33e59580_2e065f3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-07T13:30:12Z",
+      "side": 1,
+      "message": "Trust me, the issue you have is just the tip of the iceberg of issue of running Gerrit/JGit on NFS. We have been fighting, investigating issues for a a while now :)\n\nHere are 2 examples:\n\n1) replication plugin\n-Gerrit master update create a new ref refs/heads/test\n-Gerrit master schedule replication\n-GC node(JGit gc done from another machine) pack the references\n-Gerrit master start replication\n-Gerrit master replicate nothing because:loose ref refs/heads/test was delete and it sees a stale version of packed-refs without refs/heads/test\n\n2) Gerrit submit commit\n- refs/heads/test exist in repo both, loose is sha1 456 and packed sha1 is 123.\n- GC node pack the references\n- Gerrit master submit a change for ref refs/heads/test\n- Submit strategy think the tip of refs/heads/test is 123 because loose ref was deleted and it sees a stale version of packed-refs with refs/heads/test\u003d123\n\nI know those 2 examples are related to read a stale packed-refs but we have other cases where master node failed to read a loose ref because of NFS delay. My point is if we cannot make JGit behave on NFS, we will keep patching gerrit and plugins but we will never see the end of it.",
+      "parentUuid": "1656aa37_0c9c98d9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
