@@ -22,6 +22,30 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1656aa37_0c9c98d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T12:49:28Z",
+      "side": 1,
+      "message": "@Hugo: I can try your workaround in JGit RefDirectory code. However, I believe your use-case is different: you saw problems all around in JGit with packfiles. Here we see problems ONLY in the alignment where the secondary node doesn\u0027t see in realtime the updated ref.\n\nWe *do not see* any JGit errors, all fine, just there is a lag of visibility of the updated ref, which is perfectly acceptable for a failover node.\n\nWill try the hack you proposed on RefDirectory and will come back to you.",
+      "parentUuid": "e51f1a87_036a6b0f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
