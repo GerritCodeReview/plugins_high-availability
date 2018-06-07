@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e51f1a87_036a6b0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-07T12:45:17Z",
+      "side": 1,
+      "message": "This is not the right way forward. If we fix this here instead\nof in JGit, it means we will need to do a similar fix in all the\nplugins and Gerrit everytime something is read from the repository.\n\nWe had a few issues in Gerrit and replication plugin caused by exactly\nthe same thing, nfs caching. For testing and quick turn around we decided\nto patch Gerrit in a few places as well as replication plugin but we did\nnot push those patches to the open source because they are not the right\nway forward. We cannot protect every part of the code accessing repositories\nwhich could be hosted on NFS. The proper fix in order to not duplicate code\nevery where is to fix it directly in JGit.\n\nAccording to our tests(based on SAP\u0027s testing who found this work around),\nlisting the files of the parent folder containing the file to read somehow\nmake the other machine see the latest revision, without disabling nfs\nattribute caching.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
