@@ -142,6 +142,30 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a17089_6619f5c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T22:29:19Z",
+      "side": 1,
+      "message": "@Hugo: using the hack reduced *massively* the incidence of the problem. However, I still saw some warnings but, thanks to the retry, the consistency was fixed.\n\nI believe this change is then still valid.\n\nAs a side-effect of the hack, the system load went up *A LOT* and the %CPU more than doubled. The hack in the current form won\u0027t be applicable to us, but possibly may still be OK for your use-case.\n\nGerrit v2.14 does not use loose refs a lot, whilst v2.15 uses and reads them *ALL THE TIMES*. \n\nThis fix on the high-availability plugin is then *specifically targeted* to v2.15 and beyond and it would help my production to be back to a stable alignment.\n\nWould you agree to keep on the review and merge it in the current form? Until we will have identified a viable version of the hack that doesn\u0027t overload the server?",
+      "parentUuid": "2ddc5fce_d786994f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
