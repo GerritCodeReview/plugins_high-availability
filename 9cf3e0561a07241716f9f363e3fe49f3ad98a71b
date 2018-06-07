@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bb152d64_d40c90ae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "Oops, I should have forgotten to run GJF.",
+      "parentUuid": "2e4cb0ea_9decf59e",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f63a0714_8cbaaad7",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-07T04:03:17Z",
       "side": 1,
       "message": "We reindex on this line, just to say on line 96: sorry, this was probably in vain, as NoteDb is stale. And we will repeat reindex attempts 60 times. Can\u0027t we be smarter and skip reindexing if we already able detect stale NoteDb state, something like:\n\n  Timestamp changeTs \u003d computeLastChangeTs(db, change);\n  if (isChangeUpToDate(changeTs, indexEvent)) {\n    indexer.index(db, change.getChange());\n    log.debug(\"Change {} successfully indexed\", id);\n  } else {\n    log.debug(\"Change {} appears o be stale, reschedule reindex event\", id);\n    rescheduleIndex(id, maybeBody, retryCount++);\n  }",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2698bbd4_db809ece",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "True, let me move it around.\nReindexing is very expensive and we do not want to do it more than needed.",
+      "parentUuid": "f63a0714_8cbaaad7",
       "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e0745299_c9e28479",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "Will run GJF",
+      "parentUuid": "0f919300_72885892",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e43b08d3_dcdcfc8b",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2018-06-07T04:03:17Z",
       "side": 1,
       "message": "Can yuo run this change through google-java-format?",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "640dabc3_53796725",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "Yeah, was 1 AM last night and I completely forgot to run it :-(",
+      "parentUuid": "e43b08d3_dcdcfc8b",
       "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "a5333060_0cb1b605",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "Yes, will need to pass it around.",
+      "parentUuid": "187228d7_3563041b",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 31
+      },
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0c0a548_33c1703f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
         "patchSetId": 1
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "e7c90a48_d4c86f72",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "Ack, but I am not working for Ericsson. Should I add GerritForge Ltd as well?\nI believe it is getting messy if in any plugins we make it so \"sticky\" to the initial contributor, especially if they are getting shared to gerrit-review :-(",
+      "parentUuid": "f0c0a548_33c1703f",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b04b2e55_efae966e",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
         "patchSetId": 1
@@ -124,6 +238,24 @@
       "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5553ca8_fdd5368f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-07T09:30:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b04b2e55_efae966e",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
