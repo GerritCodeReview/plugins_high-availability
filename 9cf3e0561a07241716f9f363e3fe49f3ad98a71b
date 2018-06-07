@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e4cb0ea_9decf59e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "Nit: trailing blank.",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f63a0714_8cbaaad7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "We reindex on this line, just to say on line 96: sorry, this was probably in vain, as NoteDb is stale. And we will repeat reindex attempts 60 times. Can\u0027t we be smarter and skip reindexing if we already able detect stale NoteDb state, something like:\n\n  Timestamp changeTs \u003d computeLastChangeTs(db, change);\n  if (isChangeUpToDate(changeTs, indexEvent)) {\n    indexer.index(db, change.getChange());\n    log.debug(\"Change {} successfully indexed\", id);\n  } else {\n    log.debug(\"Change {} appears o be stale, reschedule reindex event\", id);\n    rescheduleIndex(id, maybeBody, retryCount++);\n  }",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f919300_72885892",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "Nit: trailing blank.",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e43b08d3_dcdcfc8b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "Can yuo run this change through google-java-format?",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "187228d7_3563041b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "This looks wrong. Shouldn\u0027t you pass in retryInterval here? Otherwise this will re-start counting from zero and you will end up with endless loop, because according to line 76:\n\n  doIndex(id, maybeBody, 0);",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 31
+      },
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c0a548_33c1703f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "2018",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b04b2e55_efae966e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-07T04:03:17Z",
+      "side": 1,
+      "message": "2018",
+      "revId": "9cf3e0561a07241716f9f363e3fe49f3ad98a71b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
