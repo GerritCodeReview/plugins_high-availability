@@ -207,6 +207,24 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2fbb42c_3c1b6f18",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-08T15:51:43Z",
+      "side": 1,
+      "message": "True, let me add to it.",
+      "parentUuid": "c538ecad_9cd998ff",
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
