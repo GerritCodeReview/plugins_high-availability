@@ -166,6 +166,47 @@
       "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e461089e_4596a555",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-08T08:09:14Z",
+      "side": 1,
+      "message": "\u003e Would you agree to keep on the review and merge it in the current form? Until we will have identified a viable version of the hack that doesn\u0027t overload the server?\n\nI also think, that this is a valid approach. And let\u0027s face it: there is not much (working and without perfomance degradation) alternatives for now fore retry/rescheduling approach.",
+      "parentUuid": "07a17089_6619f5c7",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c538ecad_9cd998ff",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-06-08T08:09:14Z",
+      "side": 1,
+      "message": "Out of curiosity: this could also dump the retry count. That way, admins could evaluates how much retry + delay was needed fot a change to get successfully reindexed on the passive node. Moreover, based on this statistic, admins could fine tune the retry interval to avoid to often rescheduling in vane, in case NFS lag is consistenly high.",
+      "revId": "1478594399bd65a516c2f0a6f5360e3ce5d20e10",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
