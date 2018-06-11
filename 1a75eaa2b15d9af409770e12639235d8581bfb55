@@ -247,6 +247,54 @@
     },
     {
       "key": {
+        "uuid": "4d45381c_d0a66b81",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-11T09:21:27Z",
+      "side": 1,
+      "message": "Lambda expressions can only reference final variable but Java 8 has concept of\neffectively final variables.\nRemove these final modifiers and build will still work.",
+      "parentUuid": "8040b822_32ee0f76",
+      "range": {
+        "startLine": 116,
+        "startChar": 31,
+        "endLine": 116,
+        "endChar": 37
+      },
+      "revId": "1a75eaa2b15d9af409770e12639235d8581bfb55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ceef02e_ed1e56a9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-11T09:21:27Z",
+      "side": 1,
+      "message": "No problem, it is just not as elegant as it could be.",
+      "parentUuid": "34731292_03c40fb0",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 96
+      },
+      "revId": "1a75eaa2b15d9af409770e12639235d8581bfb55",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2fb1e209_bf07da93",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 7
