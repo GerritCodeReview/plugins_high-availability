@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2580884f_a2b4e9eb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-11T09:56:41Z",
+      "side": 1,
+      "message": "Just missed it, adding it now.",
+      "parentUuid": "e1c6f900_c6fc81b1",
+      "revId": "6f77bf254b11549426a124d7cdc870aa606aaf31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a4e55a3_a29abe77",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 10
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-11T09:21:27Z",
       "side": 1,
       "message": "Remove, see my reply in the PS-7.",
+      "range": {
+        "startLine": 126,
+        "startChar": 31,
+        "endLine": 126,
+        "endChar": 37
+      },
+      "revId": "6f77bf254b11549426a124d7cdc870aa606aaf31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cea5f02c_d1bd09d1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-11T09:56:41Z",
+      "side": 1,
+      "message": "OK, will do.",
+      "parentUuid": "9a4e55a3_a29abe77",
       "range": {
         "startLine": 126,
         "startChar": 31,
