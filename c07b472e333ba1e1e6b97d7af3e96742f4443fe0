@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01e0d44d_8fdfbb5e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/ChangeIndexedEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-11T19:11:31Z",
+      "side": 1,
+      "message": "Missing license header",
+      "revId": "c07b472e333ba1e1e6b97d7af3e96742f4443fe0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d527f4a1_ec171ae4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/ChangeIndexedEvent.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-11T19:11:31Z",
+      "side": 1,
+      "message": "Why do we need a class extending core Event just to forward a timestamp?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 45
+      },
+      "revId": "c07b472e333ba1e1e6b97d7af3e96742f4443fe0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db062fd5_cc19f4fe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-11T19:11:31Z",
+      "side": 1,
+      "message": "As I commented in RestForwarder class, this variable is never used.\n\nAlso, the RestForwarder arguments should be consistent with the Forwared*Handler classes. I.e. if we pass a timestamp here I expect the handler classes to deal with a timestamp. Currently, we have timestamp here and ChangeIndexedEvent in the handlers.",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 68
+      },
+      "revId": "c07b472e333ba1e1e6b97d7af3e96742f4443fe0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7d9aa6_12a5a743",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-11T19:11:31Z",
+      "side": 1,
+      "message": "This variable is not used",
+      "range": {
+        "startLine": 63,
+        "startChar": 75,
+        "endLine": 63,
+        "endChar": 93
+      },
+      "revId": "c07b472e333ba1e1e6b97d7af3e96742f4443fe0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84ea9b2a_40920457",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-11T19:11:31Z",
+      "side": 1,
+      "message": "remove wildcard import",
+      "range": {
+        "startLine": 18,
+        "startChar": 43,
+        "endLine": 18,
+        "endChar": 44
+      },
+      "revId": "c07b472e333ba1e1e6b97d7af3e96742f4443fe0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
