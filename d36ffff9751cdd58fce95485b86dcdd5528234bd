@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf29b9a4_19571e62",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T12:48:18Z",
+      "side": 1,
+      "message": "I understand the idea, i.e check if change TS is older after indexing than the TS of the forwarded indexing event this means that we got stale info from repo and we need to retry. I know this is not exactly what is implemented(you do this check before indexing) but both ways, this will cause a lot of unneeded retries.\n\nThis idea would work if every cause of indexing in Gerrit would be associated with the change TS being updated but this is not the case. First example is ReindexAfterRefUpdate which will reindex all the open changes on a branch after ref update on that branch. In this case, all the open changes are reindexed to update mergeability flag but the TS of the change is not updated. Another example, if someone manually index change(s) by calling Gerrit REST API to index a change, this will not update the TS.\n\nWhat will happen is retries will be done even if there is no issue. The manual indexing is marginal so we could have accepted the uneeded retries in that case but ReindexAfterRefUpdate will cause massive unneeded retries.",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 1
+      },
+      "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
