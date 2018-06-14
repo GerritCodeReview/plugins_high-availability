@@ -46,6 +46,30 @@
       "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "269c7526_beea2a66",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T14:15:17Z",
+      "side": 1,
+      "message": "\u003e \u003e I understand the idea, i.e check if change TS is older after indexing than the TS of the forwarded indexing event this means that we got stale info from repo and we need to retry. I know this is not exactly what is implemented(you do this check before indexing) but both ways, this will cause a lot of unneeded retries.\n\u003e \n\u003e The idea is to check the \u0027change TS\u0027 *before* doing the indexing. The reindex is *very* intensive in terms of CPU and resources and it is way better to avoid doing it if it is not needed.\n\nI do not agree here to put all this logic in HA plugin. If gerrit indexed the change on one node, I want it to happen on the other node no matter what. If you think indexing should  not have happened in the first place, let\u0027s fix Gerrit instead of implementing work around in HA plugin which will cause other issues.\n\n\n\u003e \u003e This idea would work if every cause of indexing in Gerrit would be associated with the change TS being updated but this is not the case. First example is ReindexAfterRefUpdate which will reindex all the open changes on a branch after ref update on that branch. \n\u003e \n\u003e Good catch. So basically we should get the last update of the target branch as well. Good point, let me add this into the change.\n\nHow will you get the timestamp of the branch, I do not think we store the TS when commit is submitted. Even if you find a way, I think we are going down a path we should not. I just highlighted 2 use cases where change TS is not updated but there are probably more. Will we start to implement all possible use case in HA plugin? The answer is no. HA plugin contract is simple, indexing happens on one node then it is forwarded to the other node. I was somewhat OK with the idea of reindex and retry after but the current proposal of not even indexing based on some non bullet proof logic is a no go for me. We will always be in catch up mode, i.e. of we have a new use case of change TS not being updates, let\u0027s code something in HA plugin to cover that use case so indexing happens on the other node.\n\n\u003e \n\u003e \u003e In this case, all the open changes are reindexed to update mergeability flag but the TS of the change is not updated. \n\u003e \n\u003e Sure, and I believe I can catch that case easily.\n\u003e \n\u003e \u003e Another example, if someone manually index change(s) by calling Gerrit REST API to index a change, this will not update the TS.\n\u003e \n\u003e This is the reindexing scenario: in this case *NO* we don\u0027t want to reindex on the other nodes as well. I have raised a case for that.\n\nI do not agree, as a admin, it happens I need to reindex a change and I do not want to have to do the command on both nodes. I do it on one node and it gets forwarded to the other.",
+      "parentUuid": "de74a00e_dd0cacba",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 1
+      },
+      "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
