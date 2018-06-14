@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15033a06_b0759aa0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/ChangeIndexedEvent.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T00:29:01Z",
+      "side": 1,
+      "message": "If I understand correctly, this class is a POJO to pass to the Forwarder so it can de deserialized on the other side. For now it only contains a timstamp but eventually will contains more info.\n\nThen there is no need to extend the core Event class. Remove the extends and create a field here to hold the timestamp:\npublic long eventCreatedOn \u003d TimeUtil.nowMs() / 1000L;\n\nAlso, move this class in the index package, even if the class is called ChangeIndexedEvent, it has nothing to do with Gerrit stream events which the current package is about.",
+      "range": {
+        "startLine": 20,
+        "startChar": 32,
+        "endLine": 20,
+        "endChar": 45
+      },
+      "revId": "3a58e2ede426727dc11ceb8938319b54fbedf9fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99b174e0_e71a32fe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/ChangeIndexedEvent.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T00:29:01Z",
+      "side": 1,
+      "message": "this will no longer be required fif you apply the comment above.",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 3
+      },
+      "revId": "3a58e2ede426727dc11ceb8938319b54fbedf9fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3f8c303_ebccedd8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandler.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T00:29:01Z",
+      "side": 1,
+      "message": "The Optional already indicate that the variable might be there or not, no need to have \u0027maybe\u0027 in the name.",
+      "range": {
+        "startLine": 41,
+        "startChar": 52,
+        "endLine": 41,
+        "endChar": 61
+      },
+      "revId": "3a58e2ede426727dc11ceb8938319b54fbedf9fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b45f989_17d463ab",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T00:29:01Z",
+      "side": 1,
+      "message": "I am not sure we need to overload the indexChange method. If we will always pass the eventTS (or ChangeIndexedEvent as suggested in another comment), why not adding the 3rd parameter to the original indexChange method, then we do not need 2 methods?",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 68
+      },
+      "revId": "3a58e2ede426727dc11ceb8938319b54fbedf9fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dab98e3_ebb9638b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T00:29:01Z",
+      "side": 1,
+      "message": "There is already a timestamp in ChangeIndexedEvent class, why not accepting the ChangeIndexedEvent here instead of creating another timestamp which is not used?",
+      "range": {
+        "startLine": 63,
+        "startChar": 75,
+        "endLine": 63,
+        "endChar": 93
+      },
+      "revId": "3a58e2ede426727dc11ceb8938319b54fbedf9fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e7de239_6fdc11be",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-14T00:29:01Z",
+      "side": 1,
+      "message": "If I understand, the idea is to pass the timestamp from when the change was indexed at the source.\n\nIf this is the intention, then this is not right. The send method can be delayed based if the forwarding executor has not free thread.\n\nIf change is indexed at 12:00AM for example but it takes 5 minutes before a thread is available to forward it, the timestamp passed to the other side will be 12:05AM. In addition, this send method is called again if there is an error while forwarding so timestamp will be generated again with more delay, depending on the retry interval.",
+      "range": {
+        "startLine": 68,
+        "startChar": 54,
+        "endLine": 68,
+        "endChar": 79
+      },
+      "revId": "3a58e2ede426727dc11ceb8938319b54fbedf9fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
