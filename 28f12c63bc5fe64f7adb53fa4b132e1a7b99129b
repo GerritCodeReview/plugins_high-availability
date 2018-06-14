@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fa727fa_45217efa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-14T11:40:33Z",
+      "side": 1,
+      "message": "Sure, moving it inline.",
+      "parentUuid": "00f0094b_0d9d57d3",
+      "revId": "28f12c63bc5fe64f7adb53fa4b132e1a7b99129b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b839050c_8bfd5dea",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeIndexedEvent.java",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-14T11:36:18Z",
       "side": 1,
       "message": "Why java.sql? Starting from java 8 we have java.time.* API which is\na modern API for dealing with time.",
+      "revId": "28f12c63bc5fe64f7adb53fa4b132e1a7b99129b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "251e48d1_906dc9ce",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeIndexedEvent.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-14T11:40:33Z",
+      "side": 1,
+      "message": "I believe it was coming out of the Gerrit events (see the previous change).\nWhy do we use java.sql.Timestamp in Gerrit events either?\n\nHonestly, it is not needed at all here, because the event is a simple long now. Let me get rid of it in the next PS.",
+      "parentUuid": "b839050c_8bfd5dea",
       "revId": "28f12c63bc5fe64f7adb53fa4b132e1a7b99129b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
