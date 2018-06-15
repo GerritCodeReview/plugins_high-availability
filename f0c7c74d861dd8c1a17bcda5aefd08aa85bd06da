@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a18e64fa_5bd19eb8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ChangeChecker.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T14:37:52Z",
+      "side": 1,
+      "message": "Oh yes, copy \u0026 paste error. Will fix in next PS.",
+      "parentUuid": "261096e8_8ac310fd",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "f0c7c74d861dd8c1a17bcda5aefd08aa85bd06da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "164e3a2a_c71c5fe3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ChangeCheckerImpl.java",
         "patchSetId": 24
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-15T14:16:12Z",
       "side": 1,
       "message": "This does not work, if submit does not create a new commit, then the commitTime will be quite different than the indexing time.\n\nIf commit was done at 12:00 for example, submit is done at 13:00 and is a fast forward, then  the logic will start to retry even if there is no reason to.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 7
+      },
+      "revId": "f0c7c74d861dd8c1a17bcda5aefd08aa85bd06da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5a5961c_c766a482",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ChangeCheckerImpl.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T14:37:52Z",
+      "side": 1,
+      "message": "Yes, I have noticed that. I am changing the logic a little bit: at the end of the day what we *care about* is that the data that is influencing the indexing process (change update TS, comments and target branch) are aligned between the master and the slave.\n\nInstead of taking the \"indexing time\" I am now computing the \"computed change time\" on both nodes and comparing them. If they are the same, we\u0027re good to go with the indexing. If they don\u0027t, we need to retry.\n\nHow does it sound? ;-)",
+      "parentUuid": "164e3a2a_c71c5fe3",
       "range": {
         "startLine": 99,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ebe5f360_7187a8c7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T14:37:52Z",
+      "side": 1,
+      "message": "\u003e I already said that but maybe I was not clear. All this idea of checking the TS is very brittle so I am ok with this retry feature relying on it but I am not ok to rely on it to skip indexing. You are trying to address 2 different problems in the same change. For the NFS delay, this check can be moved after indexing and thus preserving backward compatibility for the one who are not enabling this retry feature.\n\u003e \n\u003e As I commented before, I want the indexing to happen and then we check if we need to reindex to work around the NFS limitation.\n\nFair enough. Will change as you requested.\n\n\u003e Yesterday, I told about the 2 causes of indexing which does not update the TS but I did not check all callers of ChangeIndexer in Gerrit to find them all. For that reason, we cannot rely on TS to skip indexing. Skipping an indexing event will lead to missaligned indices and this is a bigger problem than wasting CPU cycles on a machine which is a warm standby.\n\nSure. Can you think about other corner cases where a change can be reindexed even if:\n- there are no changes to its meta-data\n- there are no comments (drafts or non-drafts)\n- there are no changes in its target branch",
+      "parentUuid": "ad5cf67d_c0ab9cd7",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 93,
+        "endChar": 74
+      },
+      "revId": "f0c7c74d861dd8c1a17bcda5aefd08aa85bd06da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c211945_afcae245",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
         "patchSetId": 24
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "79f8a2bf_8ff6113b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T14:37:52Z",
+      "side": 1,
+      "message": "Sure, will do in the next PS.",
+      "parentUuid": "4c211945_afcae245",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 37
+      },
+      "revId": "f0c7c74d861dd8c1a17bcda5aefd08aa85bd06da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6658b20b_c3c0d710",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
         "patchSetId": 24
@@ -105,6 +201,30 @@
       "writtenOn": "2018-06-15T14:16:12Z",
       "side": 1,
       "message": "change that to:\n// Copyright (C) 2018 The Android Open Source Project",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 37
+      },
+      "revId": "f0c7c74d861dd8c1a17bcda5aefd08aa85bd06da",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19c10002_092e1f71",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T14:37:52Z",
+      "side": 1,
+      "message": "Sure, will do in the next PS.",
+      "parentUuid": "6658b20b_c3c0d710",
       "range": {
         "startLine": 1,
         "startChar": 0,
