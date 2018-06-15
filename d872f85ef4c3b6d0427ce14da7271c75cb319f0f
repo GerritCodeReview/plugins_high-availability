@@ -57,6 +57,24 @@
       "revId": "d872f85ef4c3b6d0427ce14da7271c75cb319f0f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da296bd_85aaffd8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JChannelProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-15T10:57:41Z",
+      "side": 1,
+      "message": "\u003e I considered this option but what made me think about this programmatic approach was the TODO you had in the original change: how to configure the threads. In this case, we just need to read the values from the configuration and pass them here as we do with sharedFolder (line 117). \n\nGood point. I think it justifies programmatic configuration.",
+      "parentUuid": "a9f124a9_dc2cc82b",
+      "revId": "d872f85ef4c3b6d0427ce14da7271c75cb319f0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
