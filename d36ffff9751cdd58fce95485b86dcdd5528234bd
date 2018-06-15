@@ -119,6 +119,30 @@
       "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92a1739d_71680d30",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T22:59:07Z",
+      "side": 1,
+      "message": "@Hugo: with the latest PS, I have preserved the existing behaviour on reindexing, that is the one you prefer. Let\u0027s keep the discussion for the next issue and associated Change however :-)\n\nI believe we will be able to find a common solution and agreement :-)",
+      "parentUuid": "8a6e6ca5_0e71d10a",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 1
+      },
+      "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
