@@ -70,6 +70,30 @@
       "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cf9cd6c_561cae3f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-15T10:37:18Z",
+      "side": 1,
+      "message": "The target branch of a change is now taken into consideration to check the up-to-date status. Thanks for finding that out.\n\nLet me know if you can think out other corner cases.",
+      "parentUuid": "269c7526_beea2a66",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 162,
+        "endChar": 1
+      },
+      "revId": "d36ffff9751cdd58fce95485b86dcdd5528234bd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
