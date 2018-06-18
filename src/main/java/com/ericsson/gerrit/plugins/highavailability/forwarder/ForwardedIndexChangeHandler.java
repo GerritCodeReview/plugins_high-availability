@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.Configuration.Index;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
@@ -29,7 +30,6 @@ import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit;
 @Singleton
 public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
   private final ChangeIndexer indexer;
-  private final SchemaFactory<ReviewDb> schemaFactory;
+  private final ChangeDb changeDb;
   private final ScheduledExecutorService indexExecutor;
   private final OneOffRequestContext oneOffCtx;
   private final int retryInterval;
@@ -56,7 +56,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Inject
   ForwardedIndexChangeHandler(
       ChangeIndexer indexer,
-      SchemaFactory<ReviewDb> schemaFactory,
+      ChangeDb changeDb,
       ChangeFinder changeFinder,
       Configuration config,
       @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
@@ -64,7 +64,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       ChangeCheckerImpl.Factory changeCheckerFactory) {
     super(config.index());
     this.indexer = indexer;
-    this.schemaFactory = schemaFactory;
+    this.changeDb = changeDb;
     this.indexExecutor = indexExecutor;
     this.oneOffCtx = oneOffCtx;
     this.changeCheckerFactory = changeCheckerFactory;
@@ -82,13 +82,12 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
   private void doIndex(String id, Optional<IndexEvent> indexEvent, int retryCount)
       throws IOException, OrmException {
-    try (ReviewDb db = schemaFactory.open()) {
+    try {
       ChangeChecker checker = changeCheckerFactory.create(id);
       Optional<ChangeNotes> changeNotes = checker.getChangeNotes();
       if (changeNotes.isPresent()) {
         ChangeNotes notes = changeNotes.get();
-        notes.reload();
-        indexer.index(db, notes.getChange());
+        reindex(notes);
 
         if (checker.isChangeUpToDate(indexEvent)) {
           if (retryCount > 0) {
@@ -119,6 +118,13 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       }
 
       throw e;
+    }
+  }
+
+  private void reindex(ChangeNotes notes) throws IOException, OrmException {
+    try (ReviewDb db = changeDb.open()) {
+      notes.reload();
+      indexer.index(db, notes.getChange());
     }
   }
 
