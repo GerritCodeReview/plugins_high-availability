@@ -24,7 +24,6 @@ import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
@@ -40,7 +39,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   private static final Logger log = LoggerFactory.getLogger(ChangeCheckerImpl.class);
   private final GitRepositoryManager gitRepoMgr;
   private final CommentsUtil commentsUtil;
-  private final SchemaFactory<ReviewDb> schemaFactory;
+  private final ChangeDb changeDb;
   private final OneOffRequestContext oneOffReqCtx;
   private final String changeId;
   private final ChangeFinder changeFinder;
@@ -55,14 +54,14 @@ public class ChangeCheckerImpl implements ChangeChecker {
   public ChangeCheckerImpl(
       GitRepositoryManager gitRepoMgr,
       CommentsUtil commentsUtil,
-      SchemaFactory<ReviewDb> schemaFactory,
+      ChangeDb changeDb,
       ChangeFinder changeFinder,
       OneOffRequestContext oneOffReqCtx,
       @Assisted String changeId) {
     this.changeFinder = changeFinder;
     this.gitRepoMgr = gitRepoMgr;
     this.commentsUtil = commentsUtil;
-    this.schemaFactory = schemaFactory;
+    this.changeDb = changeDb;
     this.oneOffReqCtx = oneOffReqCtx;
     this.changeId = changeId;
   }
@@ -79,23 +78,6 @@ public class ChangeCheckerImpl implements ChangeChecker {
             });
   }
 
-  private String getBranchTargetSha() {
-    try {
-      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-        String refName = changeNotes.get().getChange().getDest().get();
-        Ref ref = repo.findRef(refName);
-        if (ref == null) {
-          log.warn("Unable to find target ref {} for change {}", refName, changeId);
-          return null;
-        }
-        return ref.getTarget().getObjectId().getName();
-      }
-    } catch (IOException e) {
-      log.warn("Unable to resolve target branch SHA for change {}", changeId, e);
-      return null;
-    }
-  }
-
   @Override
   public Optional<ChangeNotes> getChangeNotes() throws OrmException {
     try (ManualRequestContext ctx = oneOffReqCtx.open()) {
@@ -108,19 +90,21 @@ public class ChangeCheckerImpl implements ChangeChecker {
   public boolean isChangeUpToDate(Optional<ChangeIndexedEvent> indexEvent)
       throws IOException, OrmException {
     getComputedChangeTs();
-    log.info("Checking change {} against index event {}", this, indexEvent);
     if (!computedChangeTs.isPresent()) {
       log.warn("Unable to compute last updated ts for change {}", changeId);
       return true;
     }
 
-    String targetSha = getBranchTargetSha();
+    if (indexEvent.isPresent() && indexEvent.get().targetSha == null) {
+      return indexEvent.map(e -> (computedChangeTs.get() >= e.eventCreatedOn)).orElse(true);
+    }
+
     return indexEvent
         .map(
             e ->
                 (computedChangeTs.get() > e.eventCreatedOn)
                     || (computedChangeTs.get() == e.eventCreatedOn)
-                        && (Objects.equals(targetSha, e.targetSha)))
+                        && (Objects.equals(getBranchTargetSha(), e.targetSha)))
         .orElse(true);
   }
 
@@ -147,8 +131,25 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
   }
 
+  private String getBranchTargetSha() {
+    try {
+      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+        String refName = changeNotes.get().getChange().getDest().get();
+        Ref ref = repo.exactRef(refName);
+        if (ref == null) {
+          log.warn("Unable to find target ref {} for change {}", refName, changeId);
+          return null;
+        }
+        return ref.getTarget().getObjectId().getName();
+      }
+    } catch (IOException e) {
+      log.warn("Unable to resolve target branch SHA for change {}", changeId, e);
+      return null;
+    }
+  }
+
   private Optional<Long> computeLastChangeTs() throws OrmException {
-    try (ReviewDb db = schemaFactory.open()) {
+    try (ReviewDb db = changeDb.open()) {
       return getChangeNotes().map(notes -> getTsFromChangeAndDraftComments(db, notes));
     }
   }

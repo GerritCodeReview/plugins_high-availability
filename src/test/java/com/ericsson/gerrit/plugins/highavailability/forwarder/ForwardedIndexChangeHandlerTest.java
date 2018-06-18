@@ -27,6 +27,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeIndexedEvent;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
@@ -67,7 +68,7 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ChangeIndexer indexerMock;
-  @Mock private SchemaFactory<ReviewDb> schemaFactoryMock;
+  @Mock private ChangeDb changeDbMock;
   @Mock private ReviewDb dbMock;
   @Mock private ChangeNotes changeNotes;
   @Mock private Configuration configurationMock;
@@ -83,7 +84,7 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Before
   public void setUp() throws Exception {
-    when(schemaFactoryMock.open()).thenReturn(dbMock);
+    when(changeDbMock.open()).thenReturn(dbMock);
     id = new Change.Id(TEST_CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
@@ -91,7 +92,7 @@ public class ForwardedIndexChangeHandlerTest {
     handler =
         new ForwardedIndexChangeHandler(
             indexerMock,
-            schemaFactoryMock,
+            changeDbMock,
             configurationMock,
             indexExecutorMock,
             ctxMock,
@@ -130,21 +131,6 @@ public class ForwardedIndexChangeHandlerTest {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_ORM_EXCEPTION, CHANGE_UP_TO_DATE);
     exception.expect(OrmException.class);
     handler.index(TEST_CHANGE_ID, Operation.INDEX);
-  }
-
-  @Test
-  public void indexerThrowsNoSuchChangeExceptionTryingToPostChange() throws Exception {
-    doThrow(new NoSuchChangeException(id)).when(schemaFactoryMock).open();
-    handler.index(TEST_CHANGE_ID, Operation.INDEX);
-    verify(indexerMock, times(1)).delete(id);
-  }
-
-  @Test
-  public void indexerThrowsNestedNoSuchChangeExceptionTryingToPostChange() throws Exception {
-    OrmException e = new OrmException("test", new NoSuchChangeException(id));
-    doThrow(e).when(schemaFactoryMock).open();
-    handler.index(TEST_CHANGE_ID, Operation.INDEX);
-    verify(indexerMock, times(1)).delete(id);
   }
 
   @Test
@@ -213,21 +199,19 @@ public class ForwardedIndexChangeHandlerTest {
         changeExist, ormException, DO_NOT_THROW_IO_EXCEPTION, changeUpToDate);
   }
 
-  private void setupChangeAccessRelatedMocks(
-      boolean changeExists, boolean ormException, boolean ioException, boolean changeIsUpToDate)
-      throws OrmException, IOException {
+  private void setupChangeAccessRelatedMocks(boolean changeExists, boolean ormException, boolean ioException,
+      boolean changeIsUpToDate) throws OrmException, IOException {
     if (ormException) {
-      doThrow(new OrmException("")).when(schemaFactoryMock).open();
+      doThrow(new OrmException("")).when(changeDbMock).open();
     } else {
-      when(schemaFactoryMock.open()).thenReturn(dbMock);
-      if (changeExists) {
-        when(changeCheckerFactoryMock.create(TEST_CHANGE_ID)).thenReturn(changeCheckerPresentMock);
-        when(changeCheckerPresentMock.getChangeNotes()).thenReturn(Optional.of(changeNotes));
-        if (ioException) {
-          doThrow(new IOException("io-error"))
-              .when(indexerMock)
-              .index(any(ReviewDb.class), any(Change.class));
-        }
+      when(changeDbMock.open()).thenReturn(dbMock);
+    }
+
+    if (changeExists) {
+      when(changeCheckerFactoryMock.create(TEST_CHANGE_ID)).thenReturn(changeCheckerPresentMock);
+      when(changeCheckerPresentMock.getChangeNotes()).thenReturn(Optional.of(changeNotes));
+      if (ioException) {
+        doThrow(new IOException("io-error")).when(indexerMock).index(any(ReviewDb.class), any(Change.class));
       }
     }
 
