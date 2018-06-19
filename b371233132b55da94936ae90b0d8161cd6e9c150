@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f03344c_77454533",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-19T00:48:58Z",
+      "side": 1,
+      "message": "ChangeFinder.findOne(id) is using only one cache along the way, ChangeNotesCache. The values from ChangeNotesCache are immutable, see explanation in [1].\n\nSomething that smells funny is ChangeNotes.reload method id not used in the core, not a single call to this method. Is is possible that reloading the change is fixing the issue becauce it is a second reading after a delay(delay being the first reading)?\n\nThat said, if this improves the situation, I am OK with this change.\n\n[1]https://gerrit-review.googlesource.com/c/gerrit/+/78433",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "b371233132b55da94936ae90b0d8161cd6e9c150",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
