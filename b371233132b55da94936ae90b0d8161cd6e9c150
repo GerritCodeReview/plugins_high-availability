@@ -22,6 +22,30 @@
       "revId": "b371233132b55da94936ae90b0d8161cd6e9c150",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "397ee6b8_f4f1df7d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-19T10:20:37Z",
+      "side": 1,
+      "message": "\u003e ChangeFinder.findOne(id) is using only one cache along the way, ChangeNotesCache. The values from ChangeNotesCache are immutable, see explanation in [1].\n\u003e \n\u003e Something that smells funny is ChangeNotes.reload method id not used in the core, not a single call to this method.\n\nYes, and there was an issue in Gerrit with NoteDb enabled which was related to stale change data in memory:\nhttps://bugs.chromium.org/p/gerrit/issues/detail?id\u003d3127\n\nThe method isn\u0027t called anymore in stable-2.15 and, possibly, we have then a problem in the reindexing process. What I see is that I reindex a change, all succeded BUT the result in the index isn\u0027t the *real updated data* but a stale status.\n\nPossibly is this something that we should fix in Gerrit directly?\n\n\u003e Is is possible that reloading the change is fixing the issue becauce it is a second reading after a delay(delay being the first reading)?\n\nNot really, this issue is not related to the retry mechanism. With or without the retry, the in-memory data was stale and the reindex wasn\u0027t effective without the reload.\n\n\u003e That said, if this improves the situation, I am OK with this change.\n\u003e \n\u003e [1]https://gerrit-review.googlesource.com/c/gerrit/+/78433",
+      "parentUuid": "2f03344c_77454533",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 24
+      },
+      "revId": "b371233132b55da94936ae90b0d8161cd6e9c150",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
