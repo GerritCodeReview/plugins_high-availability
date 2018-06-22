@@ -111,6 +111,24 @@
     },
     {
       "key": {
+        "uuid": "1a2334db_53ae4b1f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T21:50:52Z",
+      "side": 1,
+      "message": "Actually, in Gerrit v2.15 / NoteDb I believe this case is not relevant anymore: the change would simply not found. I checked in production and this code path is dead, at least for our configuration. I\u0027ve kept it as-is for the time being but would make more sense to get rid of it altogether because it is misleading.\n\nHowever, when ReviewDb is enabled, the path is still valid.\nI believe I should encapsulate this logic into the ChangeChecker, without having to deal with it in the code here.\n\nWill address in the next PS.",
+      "parentUuid": "bd1421f3_ba2f6962",
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ec4acb9_60393b97",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 29
@@ -134,6 +152,30 @@
     },
     {
       "key": {
+        "uuid": "62301aef_6ac16d84",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T21:50:52Z",
+      "side": 1,
+      "message": "Not really: this is used mainly in Gerrit v2.15 if the check at L87 is false.\nActually the try/catch block for deleted changes is not effective anymore in v2.15.",
+      "parentUuid": "5ec4acb9_60393b97",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0079e368_e658ece0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 29
@@ -145,6 +187,30 @@
       "writtenOn": "2018-06-22T09:17:36Z",
       "side": 1,
       "message": "I understand importance of detection of a stale change index, but writing it with all upper-case\nin the log doesn\u0027t really help :-)  Your log monitoring system will be able to detect\nthis line also when it is written in normal-case.",
+      "range": {
+        "startLine": 127,
+        "startChar": 60,
+        "endLine": 127,
+        "endChar": 83
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23278a59_8c6eebfd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T21:50:52Z",
+      "side": 1,
+      "message": "True, let\u0027s not raise the panic ;-)\nWill address in the next PS.",
+      "parentUuid": "0079e368_e658ece0",
       "range": {
         "startLine": 127,
         "startChar": 60,
