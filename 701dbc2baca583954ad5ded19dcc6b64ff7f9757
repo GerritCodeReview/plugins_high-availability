@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5dc5c92_bf290e77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "646591cf_fdf2e661",
+      "range": {
+        "startLine": 10,
+        "startChar": 32,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56236737_7d32655e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
@@ -45,6 +69,30 @@
       "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a65f035_392d3218",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "Not exactly: the reindex *doesn\u0027t fail* but is not effective, because re-calculate and re-index an outdated state. But there is no failure in the logs, just the index is stale.",
+      "parentUuid": "56236737_7d32655e",
+      "range": {
+        "startLine": 12,
+        "startChar": 54,
+        "endLine": 12,
+        "endChar": 72
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c19b75bc_ef2732db",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74e8cdf5_598666f7",
+      "range": {
+        "startLine": 13,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de445487_051fea0e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 29
@@ -91,6 +163,30 @@
       "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae0e03c8_ecdfbe34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de445487_051fea0e",
+      "range": {
+        "startLine": 19,
+        "startChar": 16,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -126,6 +222,24 @@
       "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86ba08b_ade3946e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "\u003e Actually, in Gerrit v2.15 / NoteDb I believe this case is not relevant anymore: the change would simply not found. I checked in production and this code path is dead, at least for our configuration. I\u0027ve kept it as-is for the time being but would make more sense to get rid of it altogether because it is misleading.\n\nNope, it is still valid as the indexing of a change may fail with a NoSuchChange exception. We do want to warn on this condition reached and trace the associated exception and how it happened.\n\nHaving two log points makes sense:\n1. This log point is to indicate that the change was supposed to exist but suddenly disappeared.\n2. The second log point is to trace the fact that we are about to remove the change from the index, instead of updating it.\n\n\u003e However, when ReviewDb is enabled, the path is still valid.\n\u003e I believe I should encapsulate this logic into the ChangeChecker, without having to deal with it in the code here.\n\u003e \n\u003e Will address in the next PS.\n\nNot possible, because the exception can be raised during the reindex action.",
+      "parentUuid": "1a2334db_53ae4b1f",
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +290,30 @@
     },
     {
       "key": {
+        "uuid": "774798f7_d003632e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "You were actually right, makes more sense to put as an else of the search for a change when it is not found.",
+      "parentUuid": "62301aef_6ac16d84",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0079e368_e658ece0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 29
@@ -220,6 +358,30 @@
       "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cefa6f6_306adf3c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-06-22T22:16:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23278a59_8c6eebfd",
+      "range": {
+        "startLine": 127,
+        "startChar": 60,
+        "endLine": 127,
+        "endChar": 83
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
