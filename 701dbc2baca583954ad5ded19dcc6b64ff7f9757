@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "646591cf_fdf2e661",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "to delays caused by NFS attribute caching",
+      "range": {
+        "startLine": 10,
+        "startChar": 32,
+        "endLine": 10,
+        "endChar": 56
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56236737_7d32655e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "could fail",
+      "range": {
+        "startLine": 12,
+        "startChar": 54,
+        "endLine": 12,
+        "endChar": 72
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e8cdf5_598666f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "may not see",
+      "range": {
+        "startLine": 13,
+        "startChar": 27,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de445487_051fea0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "stale\n\nto be more consistent with the wording in the previous paragraph",
+      "range": {
+        "startLine": 19,
+        "startChar": 16,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1421f3_ba2f6962",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "This log tells that forwarded indexing is aborted, but when changeNotes is empty the indexer will still try to delete (line 119) and another log will appear (line 120).",
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec4acb9_60393b97",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "Based on my previous comment: looks like this belong inside the try-catch block (between 111 and 112). When this block is moved then the scope of the changeNotes variable should be also reduced\nto the try-catch block only.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 5
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0079e368_e658ece0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 29
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-22T09:17:36Z",
+      "side": 1,
+      "message": "I understand importance of detection of a stale change index, but writing it with all upper-case\nin the log doesn\u0027t really help :-)  Your log monitoring system will be able to detect\nthis line also when it is written in normal-case.",
+      "range": {
+        "startLine": 127,
+        "startChar": 60,
+        "endLine": 127,
+        "endChar": 83
+      },
+      "revId": "701dbc2baca583954ad5ded19dcc6b64ff7f9757",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
