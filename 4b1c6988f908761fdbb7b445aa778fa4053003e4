@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e034094c_9d51dadf",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-06-26T14:57:06Z",
+      "side": 1,
+      "message": "I like the idea of passing details about the indexing event. What do you think about adding this to all the other indexing method for consistency and future use?\n\nIf you think this make sense, I will push another patchset myself. I have the change almost done locally, I wanted to validate this with you before.",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 53
+      },
+      "revId": "4b1c6988f908761fdbb7b445aa778fa4053003e4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
