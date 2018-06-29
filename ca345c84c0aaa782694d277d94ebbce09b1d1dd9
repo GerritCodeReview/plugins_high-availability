@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "253a3a7e_57a9e57a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 30
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-06-29T14:49:22Z",
+      "side": 1,
+      "message": "1. unnecessary initialization\n\n2. the scope of this variable can be limited to the try/catch block below. Merge this line into the line 86",
+      "revId": "ca345c84c0aaa782694d277d94ebbce09b1d1dd9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
