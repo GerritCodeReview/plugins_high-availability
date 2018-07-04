@@ -118,6 +118,30 @@
       "revId": "5f1af91c3bce9507bc76a0c2ae668fb7e511f053",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd03c9d4_9caff66f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-07-04T15:38:48Z",
+      "side": 1,
+      "message": "FYI, I changed the defaults in 2.14 and both indexing and cache evictions thread pools default to 4",
+      "parentUuid": "597ff8c5_5ef39999",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "5f1af91c3bce9507bc76a0c2ae668fb7e511f053",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
