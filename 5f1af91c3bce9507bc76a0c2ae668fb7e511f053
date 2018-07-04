@@ -46,6 +46,30 @@
       "revId": "5f1af91c3bce9507bc76a0c2ae668fb7e511f053",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b49a137_d429ecce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-07-04T14:54:08Z",
+      "side": 1,
+      "message": "You are right, this is already done from ReceiveCommits.processCommands.",
+      "parentUuid": "89f74f3d_a07bad65",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "5f1af91c3bce9507bc76a0c2ae668fb7e511f053",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
