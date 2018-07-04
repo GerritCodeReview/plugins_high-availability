@@ -70,6 +70,30 @@
       "revId": "5f1af91c3bce9507bc76a0c2ae668fb7e511f053",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97f64cc7_42c36491",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-07-04T15:35:24Z",
+      "side": 1,
+      "message": "Just to conclude the whole confusion about this change: in 2.13 based code I observed\nthat cache eviction wasn\u0027t received on the other node and I wrongly assumed that this\nwas because the active node didn\u0027t evict from the projects cache. However, I had a NPE\nin the cache eviction processing code at the receiving side due to which the active\nnode kept the sleep/retry logic. Because the thread pool was of size 1, the cache eviction\ntasks got stuck in the queue.",
+      "parentUuid": "5b49a137_d429ecce",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "5f1af91c3bce9507bc76a0c2ae668fb7e511f053",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
