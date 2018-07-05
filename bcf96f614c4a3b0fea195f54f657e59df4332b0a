@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43abf18b_92d3e3d5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/IndexEvent.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-07-05T22:46:04Z",
+      "side": 1,
+      "message": "If we keep the idea that eventCreatedOn is when the IndexEvent object was first created, we need then another time-stamp that says when the change was updated.",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 65
+      },
+      "revId": "bcf96f614c4a3b0fea195f54f657e59df4332b0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6557b1c6_adf5b25c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/IndexEvent.java",
+        "patchSetId": 32
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-07-05T22:46:04Z",
+      "side": 1,
+      "message": "This exists only for Account and Change index events, not for Groups because they are stored on ReviewDb. Shall we then introduce a ChangeIndexEvent and AccountIndexEvent?",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 25
+      },
+      "revId": "bcf96f614c4a3b0fea195f54f657e59df4332b0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
