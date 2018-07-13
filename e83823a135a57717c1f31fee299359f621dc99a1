@@ -22,6 +22,30 @@
       "revId": "e83823a135a57717c1f31fee299359f621dc99a1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271629e5_c6cc1db9",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-07-13T07:17:46Z",
+      "side": 1,
+      "message": "Tagging it wouldn\u0027t bring much benefit.  We often make fixes on bazlets that are not related to the gerrit API version, so we\u0027d still be setting it to sha1 in the projects that use it and need the fixes.",
+      "parentUuid": "eda63f3c_def0eaec",
+      "range": {
+        "startLine": 6,
+        "startChar": 14,
+        "endLine": 6,
+        "endChar": 54
+      },
+      "revId": "e83823a135a57717c1f31fee299359f621dc99a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
