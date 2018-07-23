@@ -71,7 +71,7 @@ abstract class ReindexRunnable<T> implements Runnable {
           long elapsed = System.nanoTime() - startTs;
           if (count > 0) {
             log.info(
-                "{} {}s reindexed in {} msec ({}/sec}, {} failed",
+                "{} {}s reindexed in {} msec ({}/sec), {} failed",
                 count,
                 itemNameString,
                 elapsed / 1000000L,
