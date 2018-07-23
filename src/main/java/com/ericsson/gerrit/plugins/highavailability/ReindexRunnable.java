@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.gerrit.reviewdb.server.ReviewDb;
@@ -52,6 +53,8 @@ abstract class ReindexRunnable<T> implements Runnable {
       newLastIndexTs = maxTimestamp(newLastIndexTs, Timestamp.valueOf(maybeIndexTs.get()));
       log.debug("Scanning for all the {}s after {}", itemNameString, newLastIndexTs);
       try (ManualRequestContext mctx = ctx.open()) {
+        Context.setForwardedEvent(true);
+
         try (ReviewDb db = mctx.getReviewDbProvider().get()) {
           int count = 0;
           int errors = 0;
@@ -86,6 +89,8 @@ abstract class ReindexRunnable<T> implements Runnable {
         }
       } catch (Exception e) {
         log.error("Unable to scan " + itemNameString + "s", e);
+      } finally {
+        Context.setForwardedEvent(false);
       }
     }
   }
