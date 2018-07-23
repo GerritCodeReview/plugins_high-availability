@@ -22,6 +22,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexAccountTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
@@ -46,6 +47,7 @@ public class IndexEventHandlerTest {
 
   private IndexEventHandler indexEventHandler;
   @Mock private Forwarder forwarder;
+  @Mock private IndexTs indexTsMock;
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
@@ -56,7 +58,7 @@ public class IndexEventHandlerTest {
     accountId = new Account.Id(ACCOUNT_ID);
     accountGroupUUID = new AccountGroup.UUID(UUID);
     indexEventHandler =
-        new IndexEventHandler(MoreExecutors.directExecutor(), PLUGIN_NAME, forwarder);
+        new IndexEventHandler(MoreExecutors.directExecutor(), PLUGIN_NAME, forwarder, indexTsMock);
   }
 
   @Test
@@ -113,7 +115,7 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     Executor poolMock = mock(Executor.class);
-    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder);
+    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, indexTsMock);
     indexEventHandler.onChangeIndexed(changeId.get());
     indexEventHandler.onChangeIndexed(changeId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexChangeTask(CHANGE_ID, false));
@@ -122,7 +124,7 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     Executor poolMock = mock(Executor.class);
-    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder);
+    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, indexTsMock);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -131,7 +133,7 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     Executor poolMock = mock(Executor.class);
-    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder);
+    indexEventHandler = new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, indexTsMock);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
