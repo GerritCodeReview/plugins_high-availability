@@ -16,12 +16,15 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.IndexTs;
 import com.google.common.base.Objects;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,13 +36,18 @@ class IndexEventHandler
   private final Forwarder forwarder;
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
+  private final IndexTs indexTs;
 
   @Inject
   IndexEventHandler(
-      @IndexExecutor Executor executor, @PluginName String pluginName, Forwarder forwarder) {
+      @IndexExecutor Executor executor,
+      @PluginName String pluginName,
+      Forwarder forwarder,
+      IndexTs indexTs) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.indexTs = indexTs;
   }
 
   @Override
@@ -48,6 +56,7 @@ class IndexEventHandler
       IndexAccountTask task = new IndexAccountTask(id);
       if (queuedTasks.add(task)) {
         executor.execute(task);
+        indexTs.update(IndexName.ACCOUNT, LocalDateTime.now());
       }
     }
   }
@@ -68,6 +77,7 @@ class IndexEventHandler
       IndexGroupTask task = new IndexGroupTask(groupUUID);
       if (queuedTasks.add(task)) {
         executor.execute(task);
+        indexTs.update(IndexName.GROUP, LocalDateTime.now());
       }
     }
   }
@@ -77,6 +87,7 @@ class IndexEventHandler
       IndexChangeTask task = new IndexChangeTask(id, deleted);
       if (queuedTasks.add(task)) {
         executor.execute(task);
+        indexTs.update(IndexName.CHANGE, LocalDateTime.now());
       }
     }
   }
