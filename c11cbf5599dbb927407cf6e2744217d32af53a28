@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c403ed67_c3a52961",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-08-01T10:12:20Z",
+      "side": 1,
+      "message": "Unintentional change",
+      "revId": "c11cbf5599dbb927407cf6e2744217d32af53a28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
