@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0acc571b_f013000c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "Usage of the default queue, which has thread pool size of just 1 (by default), for all reindexing tasks may not be the best option. At least this fact has to be documented.\nMaybe a better option is to use a dedicated thread pool.",
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04fc5e22_44de0d05",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/GroupReindexRunnable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "This is just natural ordering of Timestamps. Why not use Guava\u0027s Ordering.natural() instead?",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca2d5bb0_7e6db56a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/GroupReindexRunnable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "IIRC, We usually declare such small utility classes as static inner classes.",
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41cea86c_a389ca3a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ReindexRunnable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "use Guava\u0027s Stopwatch instead?",
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7818ba7b_fb1498b1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ReindexRunnable.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "Why use nanos if rounding here to millis and seconds?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31943bf3_a38c1a6c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "Looking at lines 43-45 you already expect that multiple thread will access\nthese fields. However, this is true for the FlusherRunner instance created in line 76.\nTherefore, access to this Map is not thread safe.",
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f0a1ba6_c6af21b3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "This is locale setting specific. Use UTF8 explicitly.",
+      "range": {
+        "startLine": 62,
+        "startChar": 62,
+        "endLine": 62,
+        "endChar": 72
+      },
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cad7ab21_91703b0e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-03T13:25:09Z",
+      "side": 1,
+      "message": "Is this thread safe and atomic? We don\u0027t want to created corrupted files in case of\na crash. What happens if multiple threads try to persist to the same file?\n\nI believe that you should use here a file level locking technique like JGit does for ref updates i.e.: to persist into a file Foo, first create Foo.lock, then persist into Foo.lock and\nfinally atomically rename Foo.lock into Foo.\nIIRC, JGit already provides support for this logic with its LockFile class.",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "d312c6d3262adbd3e3b012f0d0abf3fa14cbf664",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
