@@ -20,6 +20,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -32,8 +33,11 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,11 +155,6 @@ public class Configuration {
     }
   }
 
-  @Nullable
-  private static String trimTrailingSlash(@Nullable String in) {
-    return in == null ? null : CharMatcher.is('/').trimTrailingFrom(in);
-  }
-
   public static class Main {
     static final String MAIN_SECTION = "main";
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
@@ -235,23 +234,27 @@ public class Configuration {
     static final String STATIC_SUBSECTION = PeerInfoStrategy.STATIC.name().toLowerCase();
     static final String URL_KEY = "url";
 
-    private final String url;
+    private final Set<String> urls;
 
     private PeerInfoStatic(Config cfg) {
-      url =
-          trimTrailingSlash(
-              Strings.nullToEmpty(cfg.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)));
-      log.debug("Url: {}", url);
+      urls =
+          Arrays.stream(cfg.getStringList(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY))
+              .filter(Objects::nonNull)
+              .filter(s -> !s.isEmpty())
+              .map(s -> CharMatcher.is('/').trimTrailingFrom(s))
+              .collect(Collectors.toSet());
+      log.debug("Urls: {}", urls);
     }
 
-    public String url() {
-      return url;
+    public Set<String> urls() {
+      return ImmutableSet.copyOf(urls);
     }
   }
 
   public static class PeerInfoJGroups {
     static final String JGROUPS_SUBSECTION = PeerInfoStrategy.JGROUPS.name().toLowerCase();
     static final String MY_URL_KEY = "myUrl";
+    static final String NUMBER_OF_PEERS_KEY = "numberOfPeers";
 
     private final String myUrl;
 
@@ -262,6 +265,11 @@ public class Configuration {
 
     public String myUrl() {
       return myUrl;
+    }
+
+    @Nullable
+    private static String trimTrailingSlash(@Nullable String in) {
+      return in == null ? null : CharMatcher.is('/').trimTrailingFrom(in);
     }
   }
 
