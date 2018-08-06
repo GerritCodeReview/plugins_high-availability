@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -77,7 +78,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       }
       peerAddress = msg.getSrc();
       String url = (String) msg.getObject();
-      peerInfo = Optional.of(new PeerInfo(url));
+      peerInfo = Optional.of(new PeerInfo(ImmutableSet.of(url)));
       log.info("receive(): Set new peerInfo: {}", url);
     }
   }

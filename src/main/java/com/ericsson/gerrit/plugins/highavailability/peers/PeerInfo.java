@@ -14,15 +14,17 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
+import java.util.Set;
+
 public class PeerInfo {
 
-  private final String directUrl;
+  private final Set<String> directUrl;
 
-  public PeerInfo(String directUrl) {
+  public PeerInfo(Set<String> directUrl) {
     this.directUrl = directUrl;
   }
 
-  public String getDirectUrl() {
+  public Set<String> getDirectUrl() {
     return directUrl;
   }
 }

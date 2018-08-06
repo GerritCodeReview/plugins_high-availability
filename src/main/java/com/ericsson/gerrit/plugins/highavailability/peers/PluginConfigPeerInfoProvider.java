@@ -27,7 +27,7 @@ public class PluginConfigPeerInfoProvider implements Provider<Optional<PeerInfo>
 
   @Inject
   PluginConfigPeerInfoProvider(Configuration cfg) {
-    peerInfo = Optional.of(new PeerInfo(cfg.peerInfoStatic().url()));
+    peerInfo = Optional.of(new PeerInfo(cfg.peerInfoStatic().urls()));
   }
 
   @Override
