@@ -43,6 +43,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.NUMBER_OF_PEERS_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PEER_INFO_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.DEFAULT_PEER_INFO_STRATEGY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.STRATEGY_KEY;
@@ -122,12 +123,20 @@ public class ConfigurationTest {
   }
 
   @Test
-  public void testGetUrl() throws Exception {
+  public void testGetUrls() throws Exception {
     assertThat(getConfiguration().peerInfoStatic().urls()).isEmpty();
 
     globalPluginConfig.setStringList(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY, URLS);
     assertThat(getConfiguration().peerInfoStatic().urls())
         .containsAllIn(ImmutableList.of(URL, "http://anotherUrl"));
+  }
+
+  @Test
+  public void testGetNumberOfPeers() throws Exception {
+    assertThat(getConfiguration().main().numberOfPeers()).isEqualTo(2);
+
+    globalPluginConfig.setInt(MAIN_SECTION, null, NUMBER_OF_PEERS_KEY, 3);
+    assertThat(getConfiguration().main().numberOfPeers()).isEqualTo(3);
   }
 
   @Test
