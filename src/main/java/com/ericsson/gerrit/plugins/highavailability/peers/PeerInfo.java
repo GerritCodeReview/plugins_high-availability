@@ -14,15 +14,28 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
+import java.util.UUID;
+
 public class PeerInfo {
 
+  private final UUID peerId;
   private final String directUrl;
 
   public PeerInfo(String directUrl) {
     this.directUrl = directUrl;
+    this.peerId = UUID.nameUUIDFromBytes(directUrl.getBytes());
   }
 
   public String getDirectUrl() {
     return directUrl;
+  }
+
+  public UUID getPeerId() {
+    return peerId;
+  }
+
+  @Override
+  public String toString() {
+    return "[" + this.peerId + " - " + this.directUrl + "]";
   }
 }
