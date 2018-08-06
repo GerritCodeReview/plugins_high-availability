@@ -43,12 +43,12 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.NUMBER_OF_PEERS_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PEER_INFO_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.DEFAULT_PEER_INFO_STRATEGY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.STRATEGY_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoJGroups.JGROUPS_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoJGroups.MY_URL_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoJGroups.NUMBER_OF_PEERS_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStatic.STATIC_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStatic.URL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.THREAD_POOL_SIZE_KEY;
@@ -132,14 +132,6 @@ public class ConfigurationTest {
   }
 
   @Test
-  public void testGetNumberOfPeers() throws Exception {
-    assertThat(getConfiguration().main().numberOfPeers()).isEqualTo(2);
-
-    globalPluginConfig.setInt(MAIN_SECTION, null, NUMBER_OF_PEERS_KEY, 3);
-    assertThat(getConfiguration().main().numberOfPeers()).isEqualTo(3);
-  }
-
-  @Test
   public void testJGroupsPeerInfoNullWhenStaticPeerInfoConfig() throws Exception {
     globalPluginConfig.setString(
         PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.STATIC.name());
@@ -174,6 +166,16 @@ public class ConfigurationTest {
 
     globalPluginConfig.setString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, MY_URL_KEY, URL + "/");
     assertThat(getConfiguration().peerInfoJGroups().myUrl()).isEqualTo(URL);
+  }
+
+  @Test
+  public void testGetNumberOfPeers() throws Exception {
+    globalPluginConfig.setString(
+        PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.JGROUPS.name());
+    assertThat(getConfiguration().peerInfoJGroups().numberOfPeers()).isEqualTo(2);
+
+    globalPluginConfig.setInt(PEER_INFO_SECTION, JGROUPS_SUBSECTION, NUMBER_OF_PEERS_KEY, 3);
+    assertThat(getConfiguration().peerInfoJGroups().numberOfPeers()).isEqualTo(3);
   }
 
   @Test

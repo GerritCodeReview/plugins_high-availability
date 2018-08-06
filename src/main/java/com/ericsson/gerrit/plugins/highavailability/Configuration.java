@@ -161,12 +161,10 @@ public class Configuration {
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
     static final String DEFAULT_SHARED_DIRECTORY = "shared";
     static final String TRANSPORT_KEY = "transport";
-    static final String NUMBER_OF_PEERS_KEY = "numberOfPeers";
     static final TransportProtocol DEFAULT_TRANSPORT = TransportProtocol.HTTP;
 
     private final Path sharedDirectory;
     private final TransportProtocol transport;
-    private final int numberOfPeers;
 
     private Main(SitePaths site, Config cfg) {
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
@@ -180,7 +178,6 @@ public class Configuration {
         sharedDirectory = site.resolve(shared);
       }
       transport = cfg.getEnum(MAIN_SECTION, null, TRANSPORT_KEY, DEFAULT_TRANSPORT);
-      numberOfPeers = cfg.getInt(MAIN_SECTION, NUMBER_OF_PEERS_KEY, 2);
     }
 
     public Path sharedDirectory() {
@@ -189,10 +186,6 @@ public class Configuration {
 
     public TransportProtocol transport() {
       return transport;
-    }
-
-    public int numberOfPeers() {
-      return numberOfPeers;
     }
   }
 
@@ -235,16 +228,23 @@ public class Configuration {
   public static class PeerInfoJGroups {
     static final String JGROUPS_SUBSECTION = PeerInfoStrategy.JGROUPS.name().toLowerCase();
     static final String MY_URL_KEY = "myUrl";
+    static final String NUMBER_OF_PEERS_KEY = "numberOfPeers";
+    private final int numberOfPeers;
 
     private final String myUrl;
 
     private PeerInfoJGroups(Config cfg) {
       myUrl = trimTrailingSlash(cfg.getString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, MY_URL_KEY));
+      numberOfPeers = cfg.getInt(PEER_INFO_SECTION, JGROUPS_SUBSECTION, NUMBER_OF_PEERS_KEY, 2);
       log.debug("My Url: {}", myUrl);
     }
 
     public String myUrl() {
       return myUrl;
+    }
+
+    public int numberOfPeers() {
+      return numberOfPeers;
     }
   }
 

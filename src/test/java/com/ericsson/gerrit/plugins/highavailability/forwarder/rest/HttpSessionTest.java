@@ -34,7 +34,6 @@ import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
-import com.google.common.collect.ImmutableSet;
 import com.google.inject.util.Providers;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -79,7 +78,7 @@ public class HttpSessionTest {
     when(configMock.http().retryInterval()).thenReturn(RETRY_INTERVAL);
 
     PeerInfo peerInfo = mock(PeerInfo.class);
-    when(peerInfo.getDirectUrl()).thenReturn(ImmutableSet.of(url));
+    when(peerInfo.getDirectUrl()).thenReturn(url);
     httpSession =
         new HttpSession(
             new HttpClientProvider(configMock).get(), Providers.of(Optional.of(peerInfo)));

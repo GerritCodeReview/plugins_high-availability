@@ -24,6 +24,7 @@ import com.google.inject.Singleton;
 import java.net.InetAddress;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -44,7 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 @Singleton
 public class JGroupsPeerInfoProvider extends ReceiverAdapter
-    implements Provider<Optional<PeerInfo>>, LifecycleListener {
+    implements Provider<Set<PeerInfo>>, LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(JGroupsPeerInfoProvider.class);
   private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
 
@@ -78,7 +79,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       }
       peerAddress = msg.getSrc();
       String url = (String) msg.getObject();
-      peerInfo = Optional.of(new PeerInfo(ImmutableSet.of(url)));
+      peerInfo = Optional.of(new PeerInfo(url));
       log.info("receive(): Set new peerInfo: {}", url);
     }
   }
@@ -165,8 +166,8 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   }
 
   @Override
-  public Optional<PeerInfo> get() {
-    return peerInfo;
+  public Set<PeerInfo> get() {
+    return peerInfo.isPresent() ? ImmutableSet.of(peerInfo.get()) : ImmutableSet.of();
   }
 
   @Override
