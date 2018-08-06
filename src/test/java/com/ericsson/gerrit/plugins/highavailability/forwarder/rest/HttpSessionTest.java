@@ -34,10 +34,10 @@ import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.util.Providers;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -81,7 +81,7 @@ public class HttpSessionTest {
     when(peerInfo.getDirectUrl()).thenReturn(url);
     httpSession =
         new HttpSession(
-            new HttpClientProvider(configMock).get(), Providers.of(Optional.of(peerInfo)));
+            new HttpClientProvider(configMock).get(), Providers.of(ImmutableSet.of(peerInfo)));
   }
 
   @Test
@@ -89,7 +89,7 @@ public class HttpSessionTest {
     wireMockRule.givenThat(
         post(urlEqualTo(ENDPOINT)).willReturn(aResponse().withStatus(NO_CONTENT)));
 
-    assertThat(httpSession.post(ENDPOINT).isSuccessful()).isTrue();
+    assertThat(httpSession.post(ENDPOINT).iterator().next().isSuccessful()).isTrue();
   }
 
   @Test
@@ -98,7 +98,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .withRequestBody(equalTo(BODY))
             .willReturn(aResponse().withStatus(NO_CONTENT)));
-    assertThat(httpSession.post(ENDPOINT, BODY).isSuccessful()).isTrue();
+    assertThat(httpSession.post(ENDPOINT, BODY).get(0).isSuccessful()).isTrue();
   }
 
   @Test
@@ -106,7 +106,7 @@ public class HttpSessionTest {
     wireMockRule.givenThat(
         delete(urlEqualTo(ENDPOINT)).willReturn(aResponse().withStatus(NO_CONTENT)));
 
-    assertThat(httpSession.delete(ENDPOINT).isSuccessful()).isTrue();
+    assertThat(httpSession.delete(ENDPOINT).get(0).isSuccessful()).isTrue();
   }
 
   @Test
@@ -116,7 +116,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withStatus(UNAUTHORIZED).withBody(expected)));
 
-    HttpResult result = httpSession.post(ENDPOINT);
+    HttpResult result = httpSession.post(ENDPOINT).get(0);
     assertThat(result.isSuccessful()).isFalse();
     assertThat(result.getMessage()).isEqualTo(expected);
   }
@@ -128,7 +128,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withStatus(NOT_FOUND).withBody(expected)));
 
-    HttpResult result = httpSession.post(ENDPOINT);
+    HttpResult result = httpSession.post(ENDPOINT).get(0);
     assertThat(result.isSuccessful()).isFalse();
     assertThat(result.getMessage()).isEqualTo(expected);
   }
@@ -139,7 +139,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withStatus(ERROR).withBody(ERROR_MESSAGE)));
 
-    HttpResult result = httpSession.post(ENDPOINT);
+    HttpResult result = httpSession.post(ENDPOINT).iterator().next();
     assertThat(result.isSuccessful()).isFalse();
     assertThat(result.getMessage()).isEqualTo(ERROR_MESSAGE);
   }
@@ -179,13 +179,13 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withFault(Fault.MALFORMED_RESPONSE_CHUNK)));
 
-    assertThat(httpSession.post(ENDPOINT).isSuccessful()).isFalse();
+    assertThat(httpSession.post(ENDPOINT).get(0).isSuccessful()).isFalse();
   }
 
   @Test
   public void testNoRequestWhenPeerInfoUnknown() throws IOException {
     httpSession =
-        new HttpSession(new HttpClientProvider(configMock).get(), Providers.of(Optional.empty()));
+        new HttpSession(new HttpClientProvider(configMock).get(), Providers.of(ImmutableSet.of()));
     try {
       httpSession.post(ENDPOINT);
       fail("Expected PeerInfoNotAvailableException");

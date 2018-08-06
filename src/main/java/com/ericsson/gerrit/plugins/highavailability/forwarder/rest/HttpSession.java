@@ -22,7 +22,10 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -30,37 +33,58 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 class HttpSession {
   private final CloseableHttpClient httpClient;
-  private final Provider<Optional<PeerInfo>> peerInfo;
+  private final Provider<Set<PeerInfo>> peerInfo;
 
   @Inject
-  HttpSession(CloseableHttpClient httpClient, Provider<Optional<PeerInfo>> peerInfo) {
+  HttpSession(CloseableHttpClient httpClient, Provider<Set<PeerInfo>> peerInfo) {
     this.httpClient = httpClient;
     this.peerInfo = peerInfo;
   }
 
-  HttpResult post(String endpoint) throws IOException {
+  List<HttpResult> post(String endpoint) throws IOException {
     return post(endpoint, null);
   }
 
-  HttpResult post(String endpoint, String content) throws IOException {
-    HttpPost post = new HttpPost(getPeerInfo().getDirectUrl() + endpoint);
+  List<HttpResult> post(String endpoint, String content) throws IOException {
+    List<HttpPost> toPost =
+        peerInfo
+            .get()
+            .stream()
+            .map(peer -> createPost(peer, endpoint, content))
+            .collect(Collectors.toList());
+
+    List<HttpResult> results = new ArrayList<>();
+    for (HttpPost post : toPost) {
+      results.add(httpClient.execute(post, new HttpResponseHandler()));
+    }
+    return results;
+  }
+
+  private static HttpPost createPost(PeerInfo peer, String endpoint, String content) {
+    HttpPost post = new HttpPost(peer.getDirectUrl() + endpoint);
     if (!Strings.isNullOrEmpty(content)) {
       post.addHeader("Content-Type", MediaType.JSON_UTF_8.toString());
       post.setEntity(new StringEntity(content, StandardCharsets.UTF_8));
     }
-    return httpClient.execute(post, new HttpResponseHandler());
+    return post;
   }
 
-  HttpResult delete(String endpoint) throws IOException {
-    return httpClient.execute(
-        new HttpDelete(getPeerInfo().getDirectUrl() + endpoint), new HttpResponseHandler());
-  }
+  List<HttpResult> delete(String endpoint) throws IOException {
+    List<HttpDelete> toDelete =
+        peerInfo
+            .get()
+            .stream()
+            .map(peer -> createDelete(peer, endpoint))
+            .collect(Collectors.toList());
 
-  private PeerInfo getPeerInfo() throws PeerInfoNotAvailableException {
-    PeerInfo info = peerInfo.get().orElse(null);
-    if (info == null) {
-      throw new PeerInfoNotAvailableException();
+    List<HttpResult> results = new ArrayList<>();
+    for (HttpDelete delete : toDelete) {
+      results.add(httpClient.execute(delete, new HttpResponseHandler()));
     }
-    return info;
+    return results;
+  }
+
+  private static HttpDelete createDelete(PeerInfo peer, String endpoint) {
+    return new HttpDelete(peer.getDirectUrl() + endpoint);
   }
 }
