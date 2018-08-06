@@ -23,6 +23,7 @@ import com.google.inject.Provider;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.Set;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -30,10 +31,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 class HttpSession {
   private final CloseableHttpClient httpClient;
-  private final Provider<Optional<PeerInfo>> peerInfo;
+  private final Provider<Set<PeerInfo>> peerInfo;
 
   @Inject
-  HttpSession(CloseableHttpClient httpClient, Provider<Optional<PeerInfo>> peerInfo) {
+  HttpSession(CloseableHttpClient httpClient, Provider<Set<PeerInfo>> peerInfo) {
     this.httpClient = httpClient;
     this.peerInfo = peerInfo;
   }
@@ -57,10 +58,10 @@ class HttpSession {
   }
 
   private PeerInfo getPeerInfo() throws PeerInfoNotAvailableException {
-    PeerInfo info = peerInfo.get().orElse(null);
-    if (info == null) {
-      throw new PeerInfoNotAvailableException();
+    Optional<PeerInfo> info = peerInfo.get().stream().findFirst();
+    if (info.isPresent()) {
+      return info.get();
     }
-    return info;
+    throw new PeerInfoNotAvailableException();
   }
 }
