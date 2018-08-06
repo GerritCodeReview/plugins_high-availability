@@ -20,6 +20,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -32,7 +33,10 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +67,10 @@ public class Configuration {
   public enum PeerInfoStrategy {
     JGROUPS,
     STATIC
+  }
+
+  public enum TransportProtocol {
+    HTTP
   }
 
   @Inject
@@ -144,17 +152,15 @@ public class Configuration {
     }
   }
 
-  @Nullable
-  private static String trimTrailingSlash(@Nullable String in) {
-    return in == null ? null : CharMatcher.is('/').trimTrailingFrom(in);
-  }
-
   public static class Main {
     static final String MAIN_SECTION = "main";
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
     static final String DEFAULT_SHARED_DIRECTORY = "shared";
+    static final String TRANSPORT_KEY = "transport";
+    static final TransportProtocol DEFAULT_TRANSPORT = TransportProtocol.HTTP;
 
     private final Path sharedDirectory;
+    private final TransportProtocol transport;
 
     private Main(SitePaths site, Config cfg) {
       String shared = Strings.emptyToNull(cfg.getString(MAIN_SECTION, null, SHARED_DIRECTORY_KEY));
@@ -167,10 +173,15 @@ public class Configuration {
       } else {
         sharedDirectory = site.resolve(shared);
       }
+      transport = cfg.getEnum(MAIN_SECTION, null, TRANSPORT_KEY, DEFAULT_TRANSPORT);
     }
 
     public Path sharedDirectory() {
       return sharedDirectory;
+    }
+
+    public TransportProtocol transport() {
+      return transport;
     }
   }
 
@@ -196,33 +207,48 @@ public class Configuration {
     static final String STATIC_SUBSECTION = PeerInfoStrategy.STATIC.name().toLowerCase();
     static final String URL_KEY = "url";
 
-    private final String url;
+    private final Set<String> urls;
 
     private PeerInfoStatic(Config cfg) {
-      url =
-          trimTrailingSlash(
-              Strings.nullToEmpty(cfg.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)));
-      log.debug("Url: {}", url);
+      urls =
+          Arrays.stream(cfg.getStringList(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY))
+              .filter(Objects::nonNull)
+              .filter(s -> !s.isEmpty())
+              .map(s -> CharMatcher.is('/').trimTrailingFrom(s))
+              .collect(Collectors.toSet());
+      log.debug("Urls: {}", urls);
     }
 
-    public String url() {
-      return url;
+    public Set<String> urls() {
+      return ImmutableSet.copyOf(urls);
     }
   }
 
   public static class PeerInfoJGroups {
     static final String JGROUPS_SUBSECTION = PeerInfoStrategy.JGROUPS.name().toLowerCase();
     static final String MY_URL_KEY = "myUrl";
+    static final String NUMBER_OF_PEERS_KEY = "numberOfPeers";
+    private final int numberOfPeers;
 
     private final String myUrl;
 
     private PeerInfoJGroups(Config cfg) {
       myUrl = trimTrailingSlash(cfg.getString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, MY_URL_KEY));
+      numberOfPeers = cfg.getInt(PEER_INFO_SECTION, JGROUPS_SUBSECTION, NUMBER_OF_PEERS_KEY, 2);
       log.debug("My Url: {}", myUrl);
     }
 
     public String myUrl() {
       return myUrl;
+    }
+
+    public int numberOfPeers() {
+      return numberOfPeers;
+    }
+
+    @Nullable
+    private static String trimTrailingSlash(@Nullable String in) {
+      return in == null ? null : CharMatcher.is('/').trimTrailingFrom(in);
     }
   }
 

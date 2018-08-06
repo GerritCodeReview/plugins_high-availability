@@ -20,12 +20,17 @@ import com.google.inject.Provider;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import org.apache.http.HttpRequest;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.HttpClientConnectionManager;
@@ -51,11 +56,13 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
 
   private final Configuration cfg;
   private final SSLConnectionSocketFactory sslSocketFactory;
+  private final int maxTries;
 
   @Inject
   HttpClientProvider(Configuration cfg) {
     this.cfg = cfg;
     this.sslSocketFactory = buildSslSocketFactory();
+    this.maxTries = cfg.http().maxTries();
   }
 
   @Override
@@ -65,6 +72,7 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
         .setConnectionManager(customConnectionManager())
         .setDefaultCredentialsProvider(buildCredentials())
         .setDefaultRequestConfig(customRequestConfig())
+        .setRetryHandler(retryHandler())
         .build();
   }
 
@@ -128,5 +136,39 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
     public void checkServerTrusted(X509Certificate[] certs, String authType) {
       // no check
     }
+  }
+
+  private HttpRequestRetryHandler retryHandler() {
+    return (exception, executionCount, context) -> {
+      HttpClientContext clientContext = HttpClientContext.adapt(context);
+      HttpRequest request = clientContext.getRequest();
+      String target =
+          request.getRequestLine().getMethod()
+              + " "
+              + request.getFirstHeader("Host").getValue()
+              + request.getRequestLine().getUri();
+      log.info("Try request: {} Attempt {}/{}", target, executionCount, maxTries);
+      System.out.println(
+          String.format("Try request: %s Attempt %d/%d", target, executionCount, maxTries));
+
+      if (executionCount >= maxTries) {
+        log.error("Failed to execute {} after {} tries; giving up", target, maxTries);
+        System.out.println(
+            String.format("Failed to execute %s after %d tries; giving up", target, maxTries));
+        return false;
+      }
+      if (exception instanceof SSLException) {
+        log.error("Unable to send request {}:", target, exception);
+        return false;
+      }
+      try {
+        TimeUnit.MILLISECONDS.sleep(cfg.http().retryInterval());
+      } catch (InterruptedException ie) {
+        log.error("{} was interrupted; giving up", target, ie);
+        Thread.currentThread().interrupt();
+        return false;
+      }
+      return true;
+    };
   }
 }
