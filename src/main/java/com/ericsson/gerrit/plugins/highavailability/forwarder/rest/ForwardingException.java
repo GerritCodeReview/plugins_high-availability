@@ -14,6 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import org.apache.http.HttpException;
+import org.apache.http.client.ClientProtocolException;
+import javax.net.ssl.SSLException;
+
 class ForwardingException extends Exception {
   private static final long serialVersionUID = 1L;
 
@@ -27,6 +31,14 @@ class ForwardingException extends Exception {
   ForwardingException(boolean isRecoverable, String message, Throwable cause) {
     super(message, cause);
     this.isRecoverable = isRecoverable;
+  }
+
+  ForwardingException(Throwable t) {
+    super(t.getMessage(), t);
+    Throwable cause = t.getCause();
+    this.isRecoverable = !(t instanceof SSLException
+        || cause instanceof HttpException
+        || cause instanceof ClientProtocolException);
   }
 
   boolean isRecoverable() {
