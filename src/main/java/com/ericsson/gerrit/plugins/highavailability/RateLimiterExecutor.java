@@ -1,4 +1,4 @@
-// Copyright (C) 2017 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,34 +14,33 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
-import com.google.gerrit.extensions.events.LifecycleListener;
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.gerrit.server.git.WorkQueue;
-import com.google.inject.Provider;
-import java.util.concurrent.Executor;
+import com.google.gerrit.server.git.WorkQueue.Executor;
+import java.util.Optional;
 
-public abstract class ExecutorProvider implements Provider<Executor>, LifecycleListener {
-  private TaskExecutor executor;
+public class RateLimiterExecutor implements TaskExecutor {
+  private final Executor executor;
+  private final Optional<RateLimiter> rateLimiter;
 
-  protected ExecutorProvider(
-      WorkQueue workQueue, int threadPoolSize, int maxRate, String threadNamePrefix) {
-    executor =
-        new RateLimiterExecutor(workQueue.createQueue(threadPoolSize, threadNamePrefix), maxRate);
+  RateLimiterExecutor(WorkQueue.Executor executor, int maxRate) {
+    this.executor = executor;
+    this.rateLimiter = maxRate > 0 ? Optional.of(RateLimiter.create(maxRate)) : Optional.empty();
   }
 
   @Override
-  public void start() {
-    // do nothing
-  }
-
-  @Override
-  public void stop() {
+  public void shutdown() {
     executor.shutdown();
-    executor.unregisterWorkQueue();
-    executor = null;
   }
 
   @Override
-  public Executor get() {
-    return executor;
+  public void unregisterWorkQueue() {
+    executor.unregisterWorkQueue();
+  }
+
+  @Override
+  public void execute(Runnable command) {
+    rateLimiter.ifPresent(rate -> rate.acquire());
+    executor.execute(command);
   }
 }
