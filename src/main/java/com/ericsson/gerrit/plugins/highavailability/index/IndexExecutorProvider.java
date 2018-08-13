@@ -25,6 +25,6 @@ class IndexExecutorProvider extends ExecutorProvider {
 
   @Inject
   IndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    super(workQueue, config.index().threadPoolSize(), "Forward-Index-Event");
+    super(workQueue, config.index().threadPoolSize(), 0, "Forward-Index-Event");
   }
 }

@@ -88,6 +88,7 @@ public class Configuration {
 
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
+  static final String MAX_RATE_KEY = "maxRate";
 
   // common parameters to cache, event index and websession sections
   static final String SYNCHRONIZE_KEY = "synchronize";
@@ -105,6 +106,7 @@ public class Configuration {
   static final int DEFAULT_MAX_TRIES = 360;
   static final int DEFAULT_RETRY_INTERVAL = 10000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
+  static final int DEFAULT_MAX_RATE = 0;
   static final String DEFAULT_CLEANUP_INTERVAL = "24 hours";
   static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
   static final boolean DEFAULT_SYNCHRONIZE = true;
@@ -419,10 +421,12 @@ public class Configuration {
   public static class Cache extends Forwarding {
     private final int threadPoolSize;
     private final List<String> patterns;
+    private final int maxRate;
 
     private Cache(Config cfg) {
       super(cfg, CACHE_SECTION);
       threadPoolSize = getInt(cfg, CACHE_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+      maxRate = getInt(cfg, CACHE_SECTION, MAX_RATE_KEY, DEFAULT_MAX_RATE);
       patterns = Arrays.asList(cfg.getStringList(CACHE_SECTION, null, PATTERN_KEY));
     }
 
@@ -432,6 +436,10 @@ public class Configuration {
 
     public List<String> patterns() {
       return Collections.unmodifiableList(patterns);
+    }
+
+    public int maxRate() {
+      return maxRate;
     }
   }
 

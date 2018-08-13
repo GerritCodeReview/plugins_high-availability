@@ -1,4 +1,4 @@
-// Copyright (C) 2015 The Android Open Source Project
+// Copyright (C) 2017 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.event;
+package com.ericsson.gerrit.plugins.highavailability;
 
-import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
-import com.google.gerrit.server.git.WorkQueue;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import java.util.concurrent.Executor;
 
-@Singleton
-class EventExecutorProvider extends ExecutorProvider {
+public interface TaskExecutor extends Executor {
 
-  @Inject
-  EventExecutorProvider(WorkQueue workQueue) {
-    super(workQueue, 1, 0, "Forward-Stream-Event");
-  }
+  void shutdown();
+
+  void unregisterWorkQueue();
 }
