@@ -25,6 +25,10 @@ class CacheExecutorProvider extends ExecutorProvider {
 
   @Inject
   CacheExecutorProvider(WorkQueue workQueue, Configuration config) {
-    super(workQueue, config.cache().threadPoolSize(), "Forward-Cache-Eviction-Event");
+    super(
+        workQueue,
+        config.cache().threadPoolSize(),
+        config.cache().maxRate(),
+        "Forward-Cache-Eviction-Event");
   }
 }

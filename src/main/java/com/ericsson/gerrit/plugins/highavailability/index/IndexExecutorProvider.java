@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
+import com.ericsson.gerrit.plugins.highavailability.TaskExecutor;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -25,6 +26,10 @@ class IndexExecutorProvider extends ExecutorProvider {
 
   @Inject
   IndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    super(workQueue, config.index().threadPoolSize(), "Forward-Index-Event");
+    super(
+        workQueue,
+        config.index().threadPoolSize(),
+        TaskExecutor.UNLIMITED_RATE,
+        "Forward-Index-Event");
   }
 }
