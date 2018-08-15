@@ -236,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "1c2403c7_2f7a31ed",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T20:36:46Z",
+      "side": 1,
+      "message": "Let me try to change it as you suggested and let\u0027s see how it looks like.",
+      "parentUuid": "81751ef3_716bbc3c",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04ea87d_5b3801bd",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
         "patchSetId": 5
