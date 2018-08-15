@@ -212,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "81751ef3_716bbc3c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T20:29:47Z",
+      "side": 1,
+      "message": "If we consider the responsibility of this class to keep track of indexing TS, I do not see how listing to indexing events to be able to maintain indexing TS be against SRP.\n\nDoing that would allow the Forwarded*handler and IndexEventHandler to not have a dependency on IndexTS",
+      "parentUuid": "ccfdb44b_d5563210",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04ea87d_5b3801bd",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
         "patchSetId": 5
