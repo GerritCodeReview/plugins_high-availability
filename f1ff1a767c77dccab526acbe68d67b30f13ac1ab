@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e13ae62a_ec831175",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T22:32:42Z",
+      "side": 1,
+      "message": "The passive node is not active and thus it is unlikely to receive traffic.\nIn case of a catastrophic failure on the active node, the passive will start getting traffic but it may have lost some calls, because the active node is queueing anyway and the alignment of the failover node is async/best-effort.\n\nSending 1000 req/sec to invalidate the same cache for the same key, or just 10 req/sec could improve the alignment of the failover node because would ease the congestions of the master-to-failover node, avoiding the redundant calls.\n\nAt the end of the day, do we really care about invalidating the same cache key 1000 times a second on a failover node? What\u0027s the rationale behind it? If a cache entry has been invalidated 1 msec ago, because the node is passive anyway, it will still be empty the msec afterward.\n\nWhat makes you think that reducing the rate of invalidation (1000 req/sec to 10 req/sec for instance) would cause stale caches?",
+      "parentUuid": "69793d48_32f6a58c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fae5303f_00a49005",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-15T19:36:09Z",
       "side": 1,
       "message": "this is a bit strong, cache evictions is limited by size of the thread pool and those HTTP calls are small and quite fast to execute, I do not think this is killing the passive node.",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f65f8ced_17953ec0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T22:32:42Z",
+      "side": 1,
+      "message": "Let me rephrase: kill the failover node or, when you are limiting on the active node, cause congestion on the sending side :-)",
+      "parentUuid": "fae5303f_00a49005",
       "range": {
         "startLine": 9,
         "startChar": 7,
@@ -68,6 +116,30 @@
       "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a74ffb7_965bd911",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T22:32:42Z",
+      "side": 1,
+      "message": "\u003e The problem is the forwarded indexing and stream events are causing the entries to be reloaded in the caches \n\nI did not see the cache reload mechanism: can you point me in the right direction? AFAIK the cache invalidation just removes the entry and doesn\u0027t reload it.\n\n\u003e so I think we should keep every cache evictions, even if we have redundant ones. The goal of HA plugin is maintain passive node up to date to be able to failover without user noticing.\n\nAgreed, but that isn\u0027t working atm. The two nodes are not always aligned and having too much congestion on the active node would slow down the alignment.\n\n\u003e If we go down the path proposed by this change, we will end up with a passive that could be not up to date and this is wrong.\n\nI believe it would be exactly the opposite, based on my tests.",
+      "parentUuid": "ff86bd6d_5d1c2b7f",
+      "range": {
+        "startLine": 13,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 41
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
