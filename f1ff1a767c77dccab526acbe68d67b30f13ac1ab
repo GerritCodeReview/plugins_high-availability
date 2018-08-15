@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69793d48_32f6a58c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:36:09Z",
+      "side": 1,
+      "message": "I am not convinced that this is a good idea.\n\nLimiting the rate can cause to have stale value in the caches of the passive node.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fae5303f_00a49005",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:36:09Z",
+      "side": 1,
+      "message": "this is a bit strong, cache evictions is limited by size of the thread pool and those HTTP calls are small and quite fast to execute, I do not think this is killing the passive node.",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff86bd6d_5d1c2b7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:36:09Z",
+      "side": 1,
+      "message": "The problem is the forwarded indexing and stream events are causing the entries to be reloaded in the caches so I think we should keep every cache evictions, even if we have redundant ones. The goal of HA plugin is maintain passive node up to date to be able to failover without user noticing. If we go down the path proposed by this change, we will end up with a passive that could be not up to date and this is wrong.",
+      "range": {
+        "startLine": 13,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 41
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
