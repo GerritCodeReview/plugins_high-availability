@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96e6d515_952240c0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T19:57:51Z",
+      "side": 1,
+      "message": "Yes, makes sense.\nWill address in the next PS.",
+      "parentUuid": "6273155e_da9c5f3c",
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2efa57ae_d0c5a68c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2018-08-15T19:26:01Z",
       "side": 1,
       "message": "Very subjective but I think something like AutoReindexScheduler is a better name as it represent what the class is doing: scheduling the AutoReindex tasks.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4209ec63_c22035b4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T19:57:51Z",
+      "side": 1,
+      "message": "I believe you are right. It listens to the Gerrit lifecycle events, but its role is to schedule the indexers, it is then a \"scheduler\" more than a \"listener\".",
+      "parentUuid": "2efa57ae_d0c5a68c",
       "range": {
         "startLine": 29,
         "startChar": 13,
@@ -105,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "59cb4ab9_edd8e34d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T19:57:51Z",
+      "side": 1,
+      "message": "Yes, will do.",
+      "parentUuid": "394292f6_0248f978",
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8760e9ff_1cede4c3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
         "patchSetId": 5
@@ -128,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "ccfdb44b_d5563210",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T19:57:51Z",
+      "side": 1,
+      "message": "Yes, it will be more contained. However, it would break the SRP IMHO, there are design reasons to keep them separate.",
+      "parentUuid": "8760e9ff_1cede4c3",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04ea87d_5b3801bd",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
         "patchSetId": 5
@@ -148,6 +232,30 @@
       "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb60c84_65419872",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-15T19:57:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c04ea87d_5b3801bd",
+      "range": {
+        "startLine": 80,
+        "startChar": 14,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
