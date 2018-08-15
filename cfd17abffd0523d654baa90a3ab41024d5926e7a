@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6273155e_da9c5f3c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AccountReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "Move this class and all the auto reindex related ones into their own package (com.ericsson.gerrit.plugins.highavailability.autoreindex)?",
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2efa57ae_d0c5a68c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "Very subjective but I think something like AutoReindexScheduler is a better name as it represent what the class is doing: scheduling the AutoReindex tasks.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960f7462_632e1f0f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "If you apply all my other comments, you will end up will all the auto reindex classes in their own package so I would also create a AutoReindexModule with all the bindings and this if would move in the main module class:\n\nif (config.index().autoReindex().enabled) {\n  install(new AutoReindexModule());\n}",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 24
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9ef01f1_dd72d4c8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/AutoReindexListener.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "We also need to call exec.shutdown and exec.unregisterWorkQueue, see ExecutorProvider class for example",
+      "range": {
+        "startLine": 76,
+        "startChar": 14,
+        "endLine": 76,
+        "endChar": 18
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "394292f6_0248f978",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "If you apply my comment below, this class will be easy to move in the autoreidex package",
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8760e9ff_1cede4c3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "In a following change, you are updating the index TS on the sender node in addition to the receiving node which is in this change.\n\nI suggest in order to make this change smaller to  implement ChangeIndexedListener, AccountIndexedListenera and GroupIndexedListener in this class and update the TS when an indexing event is happening (this will cover both sending and receiving node). This way this class will be more self contained.",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c04ea87d_5b3801bd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-15T19:26:01Z",
+      "side": 1,
+      "message": "this will no longer need to be public if you apply my comment above",
+      "range": {
+        "startLine": 80,
+        "startChar": 14,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
