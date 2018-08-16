@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "962f8163_13a0dc0b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T14:49:17Z",
+      "side": 1,
+      "message": "unused variable",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "93f2f35b_db71d7b2",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
         "patchSetId": 6
