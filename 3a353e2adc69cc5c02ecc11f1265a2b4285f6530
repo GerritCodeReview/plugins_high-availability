@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aedb895_49b2c0d8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/AccountReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:26:46Z",
+      "side": 1,
+      "message": "What about using the ForwardedIndexAccountHandler here, that class purpose is to index an Account and prevent forwarding to other node, see javadoc:\n\n/**\n * Index an account using {@link AccountIndexer}. This class is meant to be used on the receiving\n * side of the {@link Forwarder} since it will prevent indexed account to be forwarded again causing\n * an infinite forwarding loop between the 2 nodes. It will also make sure no concurrent indexing is\n * done for the same account id\n */",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 42
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee9987f6_1e748b35",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ChangeReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:26:46Z",
+      "side": 1,
+      "message": "Use ForwardedIndexChangeHandler instead",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 40
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6f66b8_a490d04a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:26:46Z",
+      "side": 1,
+      "message": "Use ForwardedIndexGroupHandler instead",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93f2f35b_db71d7b2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:26:46Z",
+      "side": 1,
+      "message": "this is creating a warning in eclipse about missing default clause.",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 5
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3836b70_f72c60ae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:26:46Z",
+      "side": 1,
+      "message": "this can be removed because, no longer needed if ForwardedIndex[Account|Change|Group]Handler are used.",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7f87a0_2ec11b1e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-08-16T00:26:46Z",
+      "side": 1,
+      "message": "same here, this can be removed",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 41
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
