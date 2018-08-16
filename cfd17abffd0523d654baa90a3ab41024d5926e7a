@@ -422,6 +422,30 @@
     },
     {
       "key": {
+        "uuid": "ff775ac9_c0fc60f3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-16T17:20:07Z",
+      "side": 1,
+      "message": "\u003e \u003e I believe that I know where you are driving me towards: why can\u0027t this be just a standalone functionality, independent from the high-availability plugin altogether?\n\u003e \n\u003e Nope, I was only pushing you towards an implementation that is more isolated and slightly more simple. I definitely want this change in HA plugin.\n\nSounds good, and thanks again for your thoughful reviews :-)",
+      "parentUuid": "4fccc18e_321d1194",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "cfd17abffd0523d654baa90a3ab41024d5926e7a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04ea87d_5b3801bd",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexTs.java",
         "patchSetId": 5
