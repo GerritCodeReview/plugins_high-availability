@@ -265,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "287d521a_35e1957f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-16T17:41:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3836b70_f72c60ae",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a7f87a0_2ec11b1e",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
         "patchSetId": 6
@@ -285,6 +309,30 @@
       "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "806c2cee_47345e30",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-16T17:41:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a7f87a0_2ec11b1e",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 41
+      },
+      "revId": "3a353e2adc69cc5c02ecc11f1265a2b4285f6530",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
