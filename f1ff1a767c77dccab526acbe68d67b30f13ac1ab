@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6aba6408_ae8b3327",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-17T05:56:38Z",
+      "side": 1,
+      "message": "\u003e \u003e The passive node is not active and thus it is unlikely to receive traffic.\n\u003e \n\u003e Not for us. We toggle traffic between nodes quite often for various reasons(e.g. change gerrit and restart Gerrit, Deploy new version of Gerrit, take active node offline for investigating issues, ...). We even have a whole monitoring system that detect performance degradation and will automatically make passive the active one.\n\nThat\u0027s interesting, can you share some of it?\nI was actually thinking about leveraging the Gerrit Analytics engine to predict decisions on how to use effectively the balancing between nodes, based on traffic trends, either historical or real-time.\n\n\u003e We can almost say that we use both nodes in active/active mode. That is why we absolutely need to \"passive\" node to always be up to date, we do not want a best effort thing.\n\nYes, in that scenario I believe you are right. This change would not make any sense in your use-case.\nWould then make sense to use a shared index (ElasticSearch) and a shared cache (Redis)?\n\nThe current mechanism of aligning cache evictions and reindex has always a latency and is never real-time. The implementation relies on a queue and worker threads.\n\nIn theory, Gerrit should not say \"success\" to an operation if the shared index and cache have not been updated, so that the real-time alignment is guaranteed.\n\n\u003e \u003e What makes you think that reducing the rate of invalidation (1000 req/sec to 10 req/sec for instance) would cause stale caches?\n\u003e \n\u003e I do not see in the current implementation throttle the cache invalidation of the same key, you globally throttle the invalidation.\n\nTrue, this change is, at the current stage, both RFC and WIP. My intention is to throttle on keys and skip multiple invalidations of the same one within the throttle period.\n\n\u003e Reducing the rate of invalidation might cause some entries to never be invalidated if they always happen to not be in the ones going through.\n\nNope if you throttle on the same key. Invalidating the same key 1000 times/sec or 10 times/sec has exactly the same result.",
+      "parentUuid": "73aa2ec6_cc154ebf",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fae5303f_00a49005",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "\u003e \u003e The problem is the forwarded indexing and stream events are causing the entries to be reloaded in the caches \n\u003e \n\u003e I did not see the cache reload mechanism: can you point me in the right direction? AFAIK the cache invalidation just removes the entry and doesn\u0027t reload it.\n\nWhat I meant is passive is loading values in the caches all the time even if it does not receive user facing traffic, it does receive traffic from HA plugin forwarding. For example, projects are loaded in the cache when stream-events is reinjected on the passive node to evaluate visibility.",
       "parentUuid": "9a74ffb7_965bd911",
+      "range": {
+        "startLine": 13,
+        "startChar": 9,
+        "endLine": 14,
+        "endChar": 41
+      },
+      "revId": "f1ff1a767c77dccab526acbe68d67b30f13ac1ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dbcd6bb_046cae26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-08-17T05:56:38Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e The problem is the forwarded indexing and stream events are causing the entries to be reloaded in the caches \n\u003e \u003e \n\u003e \u003e I did not see the cache reload mechanism: can you point me in the right direction? AFAIK the cache invalidation just removes the entry and doesn\u0027t reload it.\n\u003e \n\u003e What I meant is passive is loading values in the caches all the time even if it does not receive user facing traffic, it does receive traffic from HA plugin forwarding. For example, projects are loaded in the cache when stream-events is reinjected on the passive node to evaluate visibility.\n\nGotcha, not directly then but indirectly by other operations.\nHowever, again, I do not see the value of having all the intermediate values in the msecs or microsec intervals if, at the end of the day, the cached entry ends up with the same value after the sequence of intervals.\n\nBear in mind that:\n- Cache invalidation events are sent queued with retries and in parallel\n- Cache, Index and Stream events are not globally synchronized\n\nThat means that you could miss anyway the \"perfect\" synchronization of the cache invalidation and the stream events anyway. If you want them to be perfectly synchronized, then the overall mechanism needs to change and this plugin cease to fulfil that scenario.",
+      "parentUuid": "c9f0e5ed_698d2e24",
       "range": {
         "startLine": 13,
         "startChar": 9,
