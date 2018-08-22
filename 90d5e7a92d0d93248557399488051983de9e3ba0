@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d62ca40_77112cfd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2018-08-22T15:54:15Z",
+      "side": 1,
+      "message": "I didn\u0027t yet look at the code but I think it would be useful if you elaborate\nmore here in the commit message on how the retry logic is affected by this change.\nWith only two nodes, there was always only one peer and the retry logic was simple:\nas soon as a message was sent successfully to the other node it was done.\nNow that there are n remote peers we could have scenarios where a message is sent\nsuccessfully to some of them and failure to send it to the rest of them. How is this\nscenario handled?",
+      "revId": "90d5e7a92d0d93248557399488051983de9e3ba0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
