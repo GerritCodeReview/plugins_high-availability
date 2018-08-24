@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b17f966_a20130d2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/EvictCache.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-08-24T14:26:36Z",
+      "side": 1,
+      "message": "jgroups.command? -If making sense, would indeed move all the hereby Command classes to such a sub-package.",
+      "range": {
+        "startLine": 15,
+        "startChar": 63,
+        "endLine": 15,
+        "endChar": 70
+      },
+      "revId": "8b6c81ae307e67b9912c52a1ff06340afb6a92cb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
