@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7e3c3175_b933622d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-09-12T22:44:00Z",
+      "side": 1,
+      "message": "This is a real use-case and actually happened in production. This fix resolved the problem.",
+      "parentUuid": "9f66238a_a65e6dd1",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fba96b3_ceb5d122",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
         "patchSetId": 8
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "8c95cd0b_fb969e95",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-09-12T22:44:00Z",
+      "side": 1,
+      "message": "\u003e newLastIndexTs \u003d itemTs.get(), rather?\n\u003e \n\u003e AFAIK, we already know that itemTs.get() is \"after\" newLastIndexTs here,\n\nNot necessarily: the indexTs on disk gets updated asynchronously and in case of a flooding of notifications the thread that actually writes it to disk may be delayed.\n\n\u003e given that itemTs.isPresent() and how indexIfNeeded returns that timestamp -based on c\u0027s own timestamp and the sinceTs (newLastIndexTs) passed at line 62.\n\u003e \n\u003e But then, as we keep looping onto the next change to consider for reindex, we will check if it needs reindexing based on a sinceTs set to the last reindexed change\u0027s timestamp. -Rather than a sinceTs based on the last overall reindex timestamp, AFAIK.\n\u003e \n\u003e I think this is wrong, as we may skip reindexing a change if its last timestamp was before the previously reindexed change\u0027s own timestamp. (We\u0027d skip it also assuming that its timestamp does come after the last overall index update time.)\n\nThe use-case that is addressing is when the connectivity between the nodes goes down or is massively delayed. Is then assuming that one of the two nodes is behind. What you say is correct, but it is not this use-case.\n\nIt would make sense then to extend the solution to consider other use-cases, like the one you mentioned (change outdated even if its timestamp is before the newLastIndexTs).\n\n\u003e \n\u003e Also, setting newLastIndexTs to itemTs.get() or so here leads to eventually writing the last reindexed change\u0027s timestamp as the updated indexTs (at line 86). This will be wrong if the last reindexed change happens to not be the most recently updated one. -If my understanding of all this is right, that is.",
+      "parentUuid": "f9c91cf3_9eef04e5",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 73
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "299a3050_539b44be",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
         "patchSetId": 8
@@ -91,6 +139,30 @@
       "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6472fc8d_1d985f52",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-09-12T22:44:00Z",
+      "side": 1,
+      "message": "Yes, exactly.",
+      "parentUuid": "299a3050_539b44be",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
