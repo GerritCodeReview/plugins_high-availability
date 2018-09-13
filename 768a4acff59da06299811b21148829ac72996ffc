@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ace07d8a_15d0c293",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T21:31:01Z",
+      "side": 1,
+      "message": "generates",
+      "range": {
+        "startLine": 9,
+        "startChar": 24,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90912382_3b5c7b0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T21:31:01Z",
+      "side": 1,
+      "message": "a stale",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40e03e30_5fda424c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T21:31:01Z",
+      "side": 1,
+      "message": "I find this change harder to review given its larger size or footprint. Does detecting stale changes require all of these 3 criteria at once? Meaning, does stale mean the logical AND of all 3 items? If not, how about splitting this change into a few ones that incrementally introduce each criteria? (I\u0027m currently planning to review this change tomorrow my time.)",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
