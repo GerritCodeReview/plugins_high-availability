@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bf4a3b7_c9b6d6e2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T18:56:19Z",
+      "side": 1,
+      "message": "private static\n\n(Eclipse warning.)",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 99,
+        "endChar": 9
+      },
+      "revId": "aead0b5cdf9389f79c51ab1b6913fcbcccfee226",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
