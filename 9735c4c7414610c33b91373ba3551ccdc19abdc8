@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f628a34_bb5eb150",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T18:23:10Z",
+      "side": 0,
+      "message": "Before this change, we had an issue with this, as we kept putting a null value over and over again. -Also referring to the hereby removed (replaced) lines 65 and 66. Is this what is meant by \"stale\" in the commit message?\n\nIf so, would consider specifying this constant null case (in the commit message). Maybe also mentioning that before this change, we then kept entering this if block, as currTs was always null, thus rewriting the file despite sometimes latestTs not being after the real currTs.",
+      "range": {
+        "startLine": 73,
+        "startChar": 30,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
