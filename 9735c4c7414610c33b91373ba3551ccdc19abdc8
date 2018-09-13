@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "46ef6b8a_beeb3714",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T14:54:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e3c3175_b933622d",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fba96b3_ceb5d122",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
         "patchSetId": 8
@@ -69,6 +93,30 @@
       "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84918940_266aa1a9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T14:54:19Z",
+      "side": 1,
+      "message": "(Ack)",
+      "parentUuid": "4fba96b3_ceb5d122",
+      "range": {
+        "startLine": 53,
+        "startChar": 23,
+        "endLine": 53,
+        "endChar": 90
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "ee0286eb_66f2d104",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T14:54:19Z",
+      "side": 1,
+      "message": "Went through this whole code again, and my only left comment would be the one about replacing line 65 with this one:\n\nnewLastIndexTs \u003d itemTs.get();\n\nI propose so because we already know that itemTs is after newLastIndexTs, time-wise. Why so? Well, because indexIfNeeded() returned it to us here (going through isPresent). And it did so because its c\u0027s TS (itemTs) was deemed being after its sinceTs (newLastIndexTs).\n\nOne may confirm this by revisiting how indexIfNeeded() is implemented in all three ReindexRunnable implementing classes. That is how I understand why we\u0027d now only need to patch this very line (65) -in this current change.",
+      "parentUuid": "8c95cd0b_fb969e95",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 73
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "299a3050_539b44be",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
         "patchSetId": 8
@@ -154,6 +226,30 @@
       "side": 1,
       "message": "Yes, exactly.",
       "parentUuid": "299a3050_539b44be",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 0
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fe70df2_cde7b646",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-13T14:54:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6472fc8d_1d985f52",
       "range": {
         "startLine": 98,
         "startChar": 4,
