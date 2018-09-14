@@ -92,6 +92,30 @@
       "revId": "768a4acff59da06299811b21148829ac72996ffc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9497685_2cbbb494",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-09-14T20:38:12Z",
+      "side": 1,
+      "message": "\u003e Definitely need feedback on this previous comment of mine, prior to being able to review this change effectively; thx.\n\nI know the change has become big, mainly because there was the push from the high-availability maintainers to have *most of its corner cases* covered before merging it.\n\nAre you now the new maintainer of the high-availability plugin?\nDo you want me to break it down into smaller ones?\nOr simply get rid of this change and restart from scratch with smaller incremental improvements?",
+      "parentUuid": "8494db4a_55dc7224",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
