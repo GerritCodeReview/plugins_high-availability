@@ -140,6 +140,30 @@
       "revId": "768a4acff59da06299811b21148829ac72996ffc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28123444_7725d67c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-09-14T23:13:56Z",
+      "side": 1,
+      "message": "@David, @Saša: are you OK with the new approach?\nThat would mean that we will merge the change as the intermediate steps will progress through reviews. Correct?",
+      "parentUuid": "1b803507_b70964ff",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
