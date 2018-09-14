@@ -116,6 +116,30 @@
       "revId": "768a4acff59da06299811b21148829ac72996ffc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b803507_b70964ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-14T23:04:07Z",
+      "side": 1,
+      "message": "I co-maintain this plugin and the other Ericsson-fostered plugins yes. My previous comment was proposing to replace this change with incremental ones indeed, to enable at least my review of it all. -Maybe based on each staleness criteria listed in the commit message or similar? (My previous comment then for this.)",
+      "parentUuid": "e9497685_2cbbb494",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
