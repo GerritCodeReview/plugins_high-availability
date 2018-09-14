@@ -68,6 +68,30 @@
       "revId": "768a4acff59da06299811b21148829ac72996ffc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8494db4a_55dc7224",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-09-14T20:32:16Z",
+      "side": 1,
+      "message": "Definitely need feedback on this previous comment of mine, prior to being able to review this change effectively; thx.",
+      "parentUuid": "40e03e30_5fda424c",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "768a4acff59da06299811b21148829ac72996ffc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
