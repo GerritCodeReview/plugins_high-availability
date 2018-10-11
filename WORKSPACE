@@ -3,7 +3,7 @@ workspace(name = "high_availability")
 load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
-    commit = "88570121c377a8a94c76915566114bf02113a7d9",
+    commit = "6d3fd710ea4ca44805bb8c858d72b53bd3a500f3",
     #local_path = "/home/ehugare/workspaces/bazlets",
 )
 
