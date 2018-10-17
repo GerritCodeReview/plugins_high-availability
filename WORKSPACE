@@ -4,7 +4,7 @@ load("//:bazlets.bzl", "load_bazlets")
 
 load_bazlets(
     commit = "0cdf281f110834b71ae134afe0a7e3fe346f0078",
-    #local_path = "/home/ehugare/workspaces/bazlets",
+    #local_path = "/home/<user>/projects/bazlets",
 )
 
 #Snapshot Plugin API
