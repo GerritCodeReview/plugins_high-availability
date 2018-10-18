@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "362616f0_df5ca048",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-10-18T23:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de3867b1_b1b03e41",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b4e2842_eda3d4fd",
         "filename": "WORKSPACE",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ef4cb3_22c232e3",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-10-18T23:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4e2842_eda3d4fd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 3
+      },
+      "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -92,6 +140,30 @@
       "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc19d4ae_737cdaad",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-10-18T23:00:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "337c5d17_57963097",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
