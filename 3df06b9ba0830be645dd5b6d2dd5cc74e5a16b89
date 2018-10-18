@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "de3867b1_b1b03e41",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-10-18T20:05:40Z",
+      "side": 1,
+      "message": "# Snapshot\n\nUnrelated but would align this line with the style of similar lines below.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b4e2842_eda3d4fd",
         "filename": "WORKSPACE",
         "patchSetId": 3
