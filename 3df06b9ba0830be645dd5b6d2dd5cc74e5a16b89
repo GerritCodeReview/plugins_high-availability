@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b4e2842_eda3d4fd",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-10-18T15:32:41Z",
+      "side": 1,
+      "message": "Missing a space for this indent and the one below (according to above lines 6 and 7).",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 3
+      },
+      "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8f99bcf_25348336",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-10-18T15:32:41Z",
+      "side": 1,
+      "message": "\u003c\u003e\n\nEclipse warning otherwise, about \"Redundant specification of type arguments\".",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 35
+      },
+      "revId": "3df06b9ba0830be645dd5b6d2dd5cc74e5a16b89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
