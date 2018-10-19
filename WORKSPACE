@@ -7,7 +7,7 @@ load_bazlets(
     #local_path = "/home/<user>/projects/bazlets",
 )
 
-#Snapshot Plugin API
+# Snapshot Plugin API
 #load(
 #    "@com_googlesource_gerrit_bazlets//:gerrit_api_maven_local.bzl",
 #    "gerrit_api_maven_local",
