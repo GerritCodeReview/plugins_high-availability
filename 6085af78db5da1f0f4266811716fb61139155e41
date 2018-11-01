@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "64f58e38_5efd79d3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/AccountReindexRunnable.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-01T21:06:15Z",
+      "side": 1,
+      "message": "This was actually as it was at the beginning of the review of this change. Then it was argued that it wasn\u0027t needed because used only once :-(",
+      "parentUuid": "20aa2bc1_4699cf99",
+      "range": {
+        "startLine": 61,
+        "startChar": 51,
+        "endLine": 61,
+        "endChar": 69
+      },
+      "revId": "6085af78db5da1f0f4266811716fb61139155e41",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e34ed640_39d1b6e3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/IndexEvent.java",
         "patchSetId": 22
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a40fcf8e_460aaa31",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/IndexEvent.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-01T21:06:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f8f8f5fa_d2278c82",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "6085af78db5da1f0f4266811716fb61139155e41",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77e47c12_99fd0efe",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
         "patchSetId": 22
@@ -83,6 +131,30 @@
       "writtenOn": "2018-09-13T20:26:23Z",
       "side": 1,
       "message": "Why do we need to replace StandardCharsets usage with Charsets\u0027?",
+      "range": {
+        "startLine": 79,
+        "startChar": 62,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "6085af78db5da1f0f4266811716fb61139155e41",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a0d0d7_5ede0839",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-01T21:06:15Z",
+      "side": 1,
+      "message": "Fair point, let me use the Java 8 StandardCharts.",
+      "parentUuid": "77e47c12_99fd0efe",
       "range": {
         "startLine": 79,
         "startChar": 62,

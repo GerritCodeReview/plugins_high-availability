@@ -22,6 +22,30 @@
       "revId": "a67efb6f9ac821a22a0b2a92c793524b716becc7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476132a8_ed3afaae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-11-01T21:06:15Z",
+      "side": 0,
+      "message": "Yes, however it was noticed in the previous reviews that final wasn\u0027t needed here (true) and could be removed.",
+      "parentUuid": "23ce8b11_c6c1f9a9",
+      "range": {
+        "startLine": 60,
+        "startChar": 29,
+        "endLine": 60,
+        "endChar": 60
+      },
+      "revId": "a67efb6f9ac821a22a0b2a92c793524b716becc7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
