@@ -46,6 +46,30 @@
       "revId": "a67efb6f9ac821a22a0b2a92c793524b716becc7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e4409ab_7eca111e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-11-02T15:36:49Z",
+      "side": 0,
+      "message": "Fair enough. And since such \u0027final\u0027 usage is also still there elsewhere in this code-base, a follow-up change could consider remove it cleanly, everywhere.",
+      "parentUuid": "476132a8_ed3afaae",
+      "range": {
+        "startLine": 60,
+        "startChar": 29,
+        "endLine": 60,
+        "endChar": 60
+      },
+      "revId": "a67efb6f9ac821a22a0b2a92c793524b716becc7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
