@@ -24,7 +24,6 @@ import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.ChangeFinder;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.notedb.ChangeNotes;
-import com.google.gwtorm.server.OrmException;
 import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -109,7 +108,7 @@ public class IndexTs
           changeNotes == null
               ? LocalDateTime.now()
               : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
-    } catch (OrmException e) {
+    } catch (Exception e) {
       log.warn("Unable to update the latest TS for change {}", e);
     }
   }
