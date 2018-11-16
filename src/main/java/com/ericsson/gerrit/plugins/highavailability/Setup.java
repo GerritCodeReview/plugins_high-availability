@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.AUTO_REINDEX_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.ENABLED;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
@@ -94,6 +96,7 @@ public class Setup implements InitStep {
       Path pluginConfigFile = site.etc_dir.resolve(pluginName + ".config");
       config = new FileBasedConfig(pluginConfigFile.toFile(), FS.DETECTED);
       config.load();
+      configureAutoReindexSection();
       configureHttp();
       configureCacheSection();
       configureIndexSection();
@@ -105,6 +108,13 @@ public class Setup implements InitStep {
       }
       flags.cfg.setBoolean("database", "h2", "autoServer", true);
     }
+  }
+
+  private void configureAutoReindexSection() {
+    ui.header("AutoReindex section");
+    Boolean autoReindex =
+        promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, null, ENABLED, false);
+    config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
   }
 
   private void configureMainSection() {
@@ -176,6 +186,16 @@ public class Setup implements InitStep {
     ui.header("Websession section");
     promptAndSetString(
         "Cleanup interval", WEBSESSION_SECTION, CLEANUP_INTERVAL_KEY, DEFAULT_CLEANUP_INTERVAL);
+  }
+
+  private Boolean promptAndSetBoolean(
+      String title, String section, String subsection, String name, Boolean defaultValue) {
+    Boolean oldValue = config.getBoolean(section, subsection, name, defaultValue);
+    Boolean newValue = Boolean.parseBoolean(ui.readString(String.valueOf(oldValue), title));
+    if (!Objects.equals(oldValue, newValue)) {
+      config.setBoolean(section, subsection, name, newValue);
+    }
+    return newValue;
   }
 
   private String promptAndSetString(
