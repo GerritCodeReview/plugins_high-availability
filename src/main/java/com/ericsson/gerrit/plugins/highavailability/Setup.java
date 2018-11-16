@@ -121,12 +121,17 @@ public class Setup implements InitStep {
     config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
 
     String delay =
-        promptAndSetString("Delay", AUTO_REINDEX_SECTION, null, DELAY, str(DEFAULT_DELAY));
+        promptAndSetString(
+            "Delay", AUTO_REINDEX_SECTION, null, DELAY, numberToString(DEFAULT_DELAY));
     config.setLong(AUTO_REINDEX_SECTION, null, DELAY, Long.valueOf(delay));
 
     String pollInterval =
         promptAndSetString(
-            "Poll interval", AUTO_REINDEX_SECTION, null, POLL_INTERVAL, str(DEFAULT_POLL_INTERVAL));
+            "Poll interval",
+            AUTO_REINDEX_SECTION,
+            null,
+            POLL_INTERVAL,
+            numberToString(DEFAULT_POLL_INTERVAL));
     config.setLong(AUTO_REINDEX_SECTION, null, POLL_INTERVAL, Long.valueOf(pollInterval));
   }
 
@@ -168,13 +173,22 @@ public class Setup implements InitStep {
         "Max number of tries to forward to remote peer",
         HTTP_SECTION,
         MAX_TRIES_KEY,
-        str(DEFAULT_MAX_TRIES));
+        numberToString(DEFAULT_MAX_TRIES));
     promptAndSetString(
-        "Retry interval [ms]", HTTP_SECTION, RETRY_INTERVAL_KEY, str(DEFAULT_RETRY_INTERVAL));
+        "Retry interval [ms]",
+        HTTP_SECTION,
+        RETRY_INTERVAL_KEY,
+        numberToString(DEFAULT_RETRY_INTERVAL));
     promptAndSetString(
-        "Connection timeout [ms]", HTTP_SECTION, CONNECTION_TIMEOUT_KEY, str(DEFAULT_TIMEOUT_MS));
+        "Connection timeout [ms]",
+        HTTP_SECTION,
+        CONNECTION_TIMEOUT_KEY,
+        numberToString(DEFAULT_TIMEOUT_MS));
     promptAndSetString(
-        "Socket timeout [ms]", HTTP_SECTION, SOCKET_TIMEOUT_KEY, str(DEFAULT_TIMEOUT_MS));
+        "Socket timeout [ms]",
+        HTTP_SECTION,
+        SOCKET_TIMEOUT_KEY,
+        numberToString(DEFAULT_TIMEOUT_MS));
   }
 
   private void configureCacheSection() {
@@ -183,7 +197,7 @@ public class Setup implements InitStep {
         "Cache thread pool size",
         CACHE_SECTION,
         THREAD_POOL_SIZE_KEY,
-        str(DEFAULT_THREAD_POOL_SIZE));
+        numberToString(DEFAULT_THREAD_POOL_SIZE));
   }
 
   private void configureIndexSection() {
@@ -192,7 +206,7 @@ public class Setup implements InitStep {
         "Index thread pool size",
         INDEX_SECTION,
         THREAD_POOL_SIZE_KEY,
-        str(DEFAULT_THREAD_POOL_SIZE));
+        numberToString(DEFAULT_THREAD_POOL_SIZE));
   }
 
   private void configureWebsessionsSection() {
@@ -230,12 +244,12 @@ public class Setup implements InitStep {
     return newValue;
   }
 
-  private static String str(int n) {
-    return Integer.toString(n);
+  private static String numberToString(int number) {
+    return Integer.toString(number);
   }
 
-  private static String str(long n) {
-    return Long.toString(n);
+  private static String numberToString(long number) {
+    return Long.toString(number);
   }
 
   private boolean createHAReplicaSite(FileBasedConfig pluginConfig)
