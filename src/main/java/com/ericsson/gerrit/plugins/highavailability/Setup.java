@@ -15,7 +15,11 @@
 package com.ericsson.gerrit.plugins.highavailability;
 
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.AUTO_REINDEX_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_DELAY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_POLL_INTERVAL;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DELAY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.ENABLED;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.POLL_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
@@ -115,6 +119,15 @@ public class Setup implements InitStep {
     Boolean autoReindex =
         promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, null, ENABLED, false);
     config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
+
+    String delay =
+        promptAndSetString("Delay", AUTO_REINDEX_SECTION, null, DELAY, str(DEFAULT_DELAY));
+    config.setLong(AUTO_REINDEX_SECTION, null, DELAY, Long.valueOf(delay));
+
+    String pollInterval =
+        promptAndSetString(
+            "Poll interval", AUTO_REINDEX_SECTION, null, POLL_INTERVAL, str(DEFAULT_POLL_INTERVAL));
+    config.setLong(AUTO_REINDEX_SECTION, null, POLL_INTERVAL, Long.valueOf(pollInterval));
   }
 
   private void configureMainSection() {
@@ -219,6 +232,10 @@ public class Setup implements InitStep {
 
   private static String str(int n) {
     return Integer.toString(n);
+  }
+
+  private static String str(long n) {
+    return Long.toString(n);
   }
 
   private boolean createHAReplicaSite(FileBasedConfig pluginConfig)
