@@ -97,7 +97,7 @@ public class Setup implements InitStep {
       config = new FileBasedConfig(pluginConfigFile.toFile(), FS.DETECTED);
       config.load();
       configureAutoReindexSection();
-      configureHttp();
+      configureHttpSection();
       configureCacheSection();
       configureIndexSection();
       configureWebsessionsSection();
@@ -147,7 +147,7 @@ public class Setup implements InitStep {
     }
   }
 
-  private void configureHttp() {
+  private void configureHttpSection() {
     ui.header("Http section");
     promptAndSetString("User", HTTP_SECTION, USER_KEY, null);
     promptAndSetString("Password", HTTP_SECTION, PASSWORD_KEY, null);
