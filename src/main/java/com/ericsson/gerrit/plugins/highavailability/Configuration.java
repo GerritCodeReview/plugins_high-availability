@@ -186,6 +186,8 @@ public class Configuration {
     static final String ENABLED = "enabled";
     static final String DELAY = "delay";
     static final String POLL_INTERVAL = "pollInterval";
+    static final long DEFAULT_DELAY = 10L;
+    static final long DEFAULT_POLL_INTERVAL = 0L;
 
     private final boolean enabled;
     private final long delaySec;
@@ -194,10 +196,16 @@ public class Configuration {
     public AutoReindex(Config cfg) {
       this.enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, false);
       this.delaySec =
-          ConfigUtil.getTimeUnit(cfg, AUTO_REINDEX_SECTION, null, DELAY, 10L, TimeUnit.SECONDS);
+          ConfigUtil.getTimeUnit(
+              cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, TimeUnit.SECONDS);
       this.pollSec =
           ConfigUtil.getTimeUnit(
-              cfg, AUTO_REINDEX_SECTION, null, POLL_INTERVAL, 0L, TimeUnit.SECONDS);
+              cfg,
+              AUTO_REINDEX_SECTION,
+              null,
+              POLL_INTERVAL,
+              DEFAULT_POLL_INTERVAL,
+              TimeUnit.SECONDS);
     }
 
     public boolean enabled() {

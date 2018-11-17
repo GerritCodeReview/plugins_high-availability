@@ -14,6 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.AUTO_REINDEX_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_DELAY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_POLL_INTERVAL;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DELAY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.ENABLED;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.POLL_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
@@ -94,7 +100,8 @@ public class Setup implements InitStep {
       Path pluginConfigFile = site.etc_dir.resolve(pluginName + ".config");
       config = new FileBasedConfig(pluginConfigFile.toFile(), FS.DETECTED);
       config.load();
-      configureHttp();
+      configureAutoReindexSection();
+      configureHttpSection();
       configureCacheSection();
       configureIndexSection();
       configureWebsessionsSection();
@@ -105,6 +112,27 @@ public class Setup implements InitStep {
       }
       flags.cfg.setBoolean("database", "h2", "autoServer", true);
     }
+  }
+
+  private void configureAutoReindexSection() {
+    ui.header("AutoReindex section");
+    Boolean autoReindex =
+        promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, null, ENABLED, false);
+    config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
+
+    String delay =
+        promptAndSetString(
+            "Delay", AUTO_REINDEX_SECTION, null, DELAY, numberToString(DEFAULT_DELAY));
+    config.setLong(AUTO_REINDEX_SECTION, null, DELAY, Long.valueOf(delay));
+
+    String pollInterval =
+        promptAndSetString(
+            "Poll interval",
+            AUTO_REINDEX_SECTION,
+            null,
+            POLL_INTERVAL,
+            numberToString(DEFAULT_POLL_INTERVAL));
+    config.setLong(AUTO_REINDEX_SECTION, null, POLL_INTERVAL, Long.valueOf(pollInterval));
   }
 
   private void configureMainSection() {
@@ -137,7 +165,7 @@ public class Setup implements InitStep {
     }
   }
 
-  private void configureHttp() {
+  private void configureHttpSection() {
     ui.header("Http section");
     promptAndSetString("User", HTTP_SECTION, USER_KEY, null);
     promptAndSetString("Password", HTTP_SECTION, PASSWORD_KEY, null);
@@ -145,13 +173,22 @@ public class Setup implements InitStep {
         "Max number of tries to forward to remote peer",
         HTTP_SECTION,
         MAX_TRIES_KEY,
-        str(DEFAULT_MAX_TRIES));
+        numberToString(DEFAULT_MAX_TRIES));
     promptAndSetString(
-        "Retry interval [ms]", HTTP_SECTION, RETRY_INTERVAL_KEY, str(DEFAULT_RETRY_INTERVAL));
+        "Retry interval [ms]",
+        HTTP_SECTION,
+        RETRY_INTERVAL_KEY,
+        numberToString(DEFAULT_RETRY_INTERVAL));
     promptAndSetString(
-        "Connection timeout [ms]", HTTP_SECTION, CONNECTION_TIMEOUT_KEY, str(DEFAULT_TIMEOUT_MS));
+        "Connection timeout [ms]",
+        HTTP_SECTION,
+        CONNECTION_TIMEOUT_KEY,
+        numberToString(DEFAULT_TIMEOUT_MS));
     promptAndSetString(
-        "Socket timeout [ms]", HTTP_SECTION, SOCKET_TIMEOUT_KEY, str(DEFAULT_TIMEOUT_MS));
+        "Socket timeout [ms]",
+        HTTP_SECTION,
+        SOCKET_TIMEOUT_KEY,
+        numberToString(DEFAULT_TIMEOUT_MS));
   }
 
   private void configureCacheSection() {
@@ -160,7 +197,7 @@ public class Setup implements InitStep {
         "Cache thread pool size",
         CACHE_SECTION,
         THREAD_POOL_SIZE_KEY,
-        str(DEFAULT_THREAD_POOL_SIZE));
+        numberToString(DEFAULT_THREAD_POOL_SIZE));
   }
 
   private void configureIndexSection() {
@@ -169,13 +206,23 @@ public class Setup implements InitStep {
         "Index thread pool size",
         INDEX_SECTION,
         THREAD_POOL_SIZE_KEY,
-        str(DEFAULT_THREAD_POOL_SIZE));
+        numberToString(DEFAULT_THREAD_POOL_SIZE));
   }
 
   private void configureWebsessionsSection() {
     ui.header("Websession section");
     promptAndSetString(
         "Cleanup interval", WEBSESSION_SECTION, CLEANUP_INTERVAL_KEY, DEFAULT_CLEANUP_INTERVAL);
+  }
+
+  private Boolean promptAndSetBoolean(
+      String title, String section, String subsection, String name, Boolean defaultValue) {
+    Boolean oldValue = config.getBoolean(section, subsection, name, defaultValue);
+    Boolean newValue = Boolean.parseBoolean(ui.readString(String.valueOf(oldValue), title));
+    if (!Objects.equals(oldValue, newValue)) {
+      config.setBoolean(section, subsection, name, newValue);
+    }
+    return newValue;
   }
 
   private String promptAndSetString(
@@ -197,8 +244,12 @@ public class Setup implements InitStep {
     return newValue;
   }
 
-  private static String str(int n) {
-    return Integer.toString(n);
+  private static String numberToString(int number) {
+    return Integer.toString(number);
+  }
+
+  private static String numberToString(long number) {
+    return Long.toString(number);
   }
 
   private boolean createHAReplicaSite(FileBasedConfig pluginConfig)
