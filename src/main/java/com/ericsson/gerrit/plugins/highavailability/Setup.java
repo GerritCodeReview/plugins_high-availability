@@ -26,6 +26,9 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.SYNCHRONIZE_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.HealthCheck.DEFAULT_HEALTH_CHECK_ENABLED;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.HealthCheck.ENABLE_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.HealthCheck.HEALTH_CHECK_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_MAX_TRIES;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_RETRY_INTERVAL;
@@ -110,6 +113,7 @@ public class Setup implements InitStep {
       configureEventSection();
       configureIndexSection();
       configureWebsessionsSection();
+      configureHealthCheckSection();
       if (!createHAReplicaSite(config)) {
         configureMainSection();
         configurePeerInfoSection();
@@ -228,6 +232,14 @@ public class Setup implements InitStep {
     promptAndSetSynchronize("Websession", WEBSESSION_SECTION);
     promptAndSetString(
         "Cleanup interval", WEBSESSION_SECTION, CLEANUP_INTERVAL_KEY, DEFAULT_CLEANUP_INTERVAL);
+  }
+
+  private void configureHealthCheckSection() {
+    ui.header("HealthCheck section");
+    Boolean healthCheck =
+        promptAndSetBoolean(
+            "Health check", HEALTH_CHECK_SECTION, ENABLE_KEY, DEFAULT_HEALTH_CHECK_ENABLED);
+    config.setBoolean(HEALTH_CHECK_SECTION, null, ENABLE_KEY, healthCheck);
   }
 
   private void promptAndSetSynchronize(String sectionTitle, String section) {
