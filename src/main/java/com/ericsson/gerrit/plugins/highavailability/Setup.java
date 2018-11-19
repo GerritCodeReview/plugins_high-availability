@@ -21,6 +21,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoRei
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.ENABLED;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.POLL_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_MAX_TRIES;
@@ -198,6 +199,8 @@ public class Setup implements InitStep {
         CACHE_SECTION,
         THREAD_POOL_SIZE_KEY,
         numberToString(DEFAULT_THREAD_POOL_SIZE));
+    promptAndSetString(
+        "Cache pattern; multiply this line to add more", CACHE_SECTION, PATTERN_KEY, null);
   }
 
   private void configureIndexSection() {
