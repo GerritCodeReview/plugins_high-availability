@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability;
 
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.AUTO_REINDEX_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_AUTO_REINDEX;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_DELAY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_POLL_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DELAY;
@@ -125,7 +126,8 @@ public class Setup implements InitStep {
 
   private void configureAutoReindexSection() {
     ui.header("AutoReindex section");
-    Boolean autoReindex = promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, ENABLED, false);
+    Boolean autoReindex =
+        promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
     config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
 
     String delay =
