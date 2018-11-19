@@ -23,6 +23,8 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoRei
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.SYNCHRONIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_MAX_TRIES;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_RETRY_INTERVAL;
@@ -191,6 +193,7 @@ public class Setup implements InitStep {
 
   private void configureCacheSection() {
     ui.header("Cache section");
+    promptAndSetSynchronize("Cache", CACHE_SECTION);
     promptAndSetString(
         "Cache thread pool size",
         CACHE_SECTION,
@@ -205,6 +208,7 @@ public class Setup implements InitStep {
 
   private void configureIndexSection() {
     ui.header("Index section");
+    promptAndSetSynchronize("Index", INDEX_SECTION);
     promptAndSetString(
         "Index thread pool size",
         INDEX_SECTION,
@@ -214,8 +218,15 @@ public class Setup implements InitStep {
 
   private void configureWebsessionsSection() {
     ui.header("Websession section");
+    promptAndSetSynchronize("Websession", WEBSESSION_SECTION);
     promptAndSetString(
         "Cleanup interval", WEBSESSION_SECTION, CLEANUP_INTERVAL_KEY, DEFAULT_CLEANUP_INTERVAL);
+  }
+
+  private void promptAndSetSynchronize(String sectionTitle, String section) {
+    String titleSuffix = ": synchronize?";
+    String title = sectionTitle + titleSuffix;
+    promptAndSetBoolean(title, section, SYNCHRONIZE_KEY, DEFAULT_SYNCHRONIZE);
   }
 
   private Boolean promptAndSetBoolean(
