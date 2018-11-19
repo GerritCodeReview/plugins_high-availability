@@ -182,10 +182,12 @@ public class Configuration {
   }
 
   public static class AutoReindex {
+
     static final String AUTO_REINDEX_SECTION = "autoReindex";
     static final String ENABLED = "enabled";
     static final String DELAY = "delay";
     static final String POLL_INTERVAL = "pollInterval";
+    static final boolean DEFAULT_AUTO_REINDEX = false;
     static final long DEFAULT_DELAY = 10L;
     static final long DEFAULT_POLL_INTERVAL = 0L;
 
@@ -194,7 +196,7 @@ public class Configuration {
     private final long pollSec;
 
     public AutoReindex(Config cfg) {
-      this.enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, false);
+      this.enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
       this.delaySec =
           ConfigUtil.getTimeUnit(
               cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, TimeUnit.SECONDS);
