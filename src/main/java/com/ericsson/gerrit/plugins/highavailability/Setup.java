@@ -43,6 +43,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.US
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.INDEX_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.CLUSTER_NAME_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_CLUSTER_NAME;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.PROTOCOL_STACK_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
@@ -170,6 +171,12 @@ public class Setup implements InitStep {
           JGROUPS_SUBSECTION,
           CLUSTER_NAME_KEY,
           DEFAULT_CLUSTER_NAME);
+      promptAndSetString(
+          "Protocol stack (optional)",
+          PEER_INFO_SECTION,
+          JGROUPS_SUBSECTION,
+          PROTOCOL_STACK_KEY,
+          null);
     }
   }
 
