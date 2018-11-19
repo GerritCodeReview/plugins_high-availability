@@ -117,8 +117,7 @@ public class Setup implements InitStep {
 
   private void configureAutoReindexSection() {
     ui.header("AutoReindex section");
-    Boolean autoReindex =
-        promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, null, ENABLED, false);
+    Boolean autoReindex = promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, ENABLED, false);
     config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
 
     String delay =
@@ -222,11 +221,11 @@ public class Setup implements InitStep {
   }
 
   private Boolean promptAndSetBoolean(
-      String title, String section, String subsection, String name, Boolean defaultValue) {
-    Boolean oldValue = config.getBoolean(section, subsection, name, defaultValue);
+      String title, String section, String name, Boolean defaultValue) {
+    Boolean oldValue = config.getBoolean(section, null, name, defaultValue);
     Boolean newValue = Boolean.parseBoolean(ui.readString(String.valueOf(oldValue), title));
     if (!Objects.equals(oldValue, newValue)) {
-      config.setBoolean(section, subsection, name, newValue);
+      config.setBoolean(section, null, name, newValue);
     }
     return newValue;
   }
