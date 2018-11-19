@@ -121,15 +121,13 @@ public class Setup implements InitStep {
     config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
 
     String delay =
-        promptAndSetString(
-            "Delay", AUTO_REINDEX_SECTION, null, DELAY, numberToString(DEFAULT_DELAY));
+        promptAndSetString("Delay", AUTO_REINDEX_SECTION, DELAY, numberToString(DEFAULT_DELAY));
     config.setLong(AUTO_REINDEX_SECTION, null, DELAY, Long.valueOf(delay));
 
     String pollInterval =
         promptAndSetString(
             "Poll interval",
             AUTO_REINDEX_SECTION,
-            null,
             POLL_INTERVAL,
             numberToString(DEFAULT_POLL_INTERVAL));
     config.setLong(AUTO_REINDEX_SECTION, null, POLL_INTERVAL, Long.valueOf(pollInterval));
