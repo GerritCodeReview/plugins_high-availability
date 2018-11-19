@@ -23,6 +23,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoRei
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.SYNCHRONIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CONNECTION_TIMEOUT_KEY;
@@ -106,6 +107,7 @@ public class Setup implements InitStep {
       configureAutoReindexSection();
       configureHttpSection();
       configureCacheSection();
+      configureEventSection();
       configureIndexSection();
       configureWebsessionsSection();
       if (!createHAReplicaSite(config)) {
@@ -204,6 +206,11 @@ public class Setup implements InitStep {
         CACHE_SECTION,
         PATTERN_KEY,
         null);
+  }
+
+  private void configureEventSection() {
+    ui.header("Event section");
+    promptAndSetSynchronize("Event", EVENT_SECTION);
   }
 
   private void configureIndexSection() {
