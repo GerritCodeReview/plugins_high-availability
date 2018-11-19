@@ -196,11 +196,11 @@ public class Configuration {
     private final long pollSec;
 
     public AutoReindex(Config cfg) {
-      this.enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
-      this.delaySec =
+      enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
+      delaySec =
           ConfigUtil.getTimeUnit(
               cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, TimeUnit.SECONDS);
-      this.pollSec =
+      pollSec =
           ConfigUtil.getTimeUnit(
               cfg,
               AUTO_REINDEX_SECTION,
@@ -460,7 +460,7 @@ public class Configuration {
 
     private Websession(Config cfg) {
       super(cfg, WEBSESSION_SECTION);
-      this.cleanupInterval =
+      cleanupInterval =
           ConfigUtil.getTimeUnit(
               Strings.nullToEmpty(cfg.getString(WEBSESSION_SECTION, null, CLEANUP_INTERVAL_KEY)),
               DEFAULT_CLEANUP_INTERVAL_MS,
