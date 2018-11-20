@@ -44,6 +44,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.I
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.CLUSTER_NAME_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_CLUSTER_NAME;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.PROTOCOL_STACK_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.SKIP_INTERFACE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
@@ -177,6 +178,12 @@ public class Setup implements InitStep {
           JGROUPS_SUBSECTION,
           PROTOCOL_STACK_KEY,
           null);
+      promptAndSetString(
+          titleForOptionalWithNote("Skip interface", "interfaces"),
+          PEER_INFO_SECTION,
+          JGROUPS_SUBSECTION,
+          SKIP_INTERFACE_KEY,
+          null);
     }
   }
 
@@ -215,10 +222,7 @@ public class Setup implements InitStep {
         THREAD_POOL_SIZE_KEY,
         numberToString(DEFAULT_THREAD_POOL_SIZE));
     promptAndSetString(
-        "Cache pattern (optional); manually multiply this line to configure more patterns",
-        CACHE_SECTION,
-        PATTERN_KEY,
-        null);
+        titleForOptionalWithNote("Cache pattern", "patterns"), CACHE_SECTION, PATTERN_KEY, null);
   }
 
   private void configureEventSection() {
@@ -284,6 +288,10 @@ public class Setup implements InitStep {
       }
     }
     return newValue;
+  }
+
+  private static String titleForOptionalWithNote(String prefix, String suffix) {
+    return prefix + " (optional); manually multiply this line to configure more " + suffix;
   }
 
   private static String numberToString(int number) {
