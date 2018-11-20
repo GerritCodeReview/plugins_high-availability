@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94490b33_5b4a0781",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-20T02:41:27Z",
+      "side": 1,
+      "message": "Same comment as before about potential confusion.",
+      "range": {
+        "startLine": 182,
+        "startChar": 37,
+        "endLine": 182,
+        "endChar": 68
+      },
+      "revId": "621ea2e14459eec18600004fcef5a7fb5289b225",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
