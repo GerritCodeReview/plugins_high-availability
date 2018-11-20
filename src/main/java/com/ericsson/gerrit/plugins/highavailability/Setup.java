@@ -44,6 +44,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.I
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.CLUSTER_NAME_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_CLUSTER_NAME;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.PROTOCOL_STACK_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.SKIP_INTERFACE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
@@ -176,6 +177,12 @@ public class Setup implements InitStep {
           PEER_INFO_SECTION,
           JGROUPS_SUBSECTION,
           PROTOCOL_STACK_KEY,
+          null);
+      promptAndSetString(
+          "Skip interface (optional); multiply this line to add more",
+          PEER_INFO_SECTION,
+          JGROUPS_SUBSECTION,
+          SKIP_INTERFACE_KEY,
           null);
     }
   }
