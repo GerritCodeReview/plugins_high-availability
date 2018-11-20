@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33550a90_8bc9de22",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-11-20T02:27:53Z",
+      "side": 1,
+      "message": "This might be confusing for users, because I don\u0027t think it\u0027s possible to add more during the init step.",
+      "range": {
+        "startLine": 203,
+        "startChar": 35,
+        "endLine": 203,
+        "endChar": 65
+      },
+      "revId": "39eee2fc5f3d001de19e465cd03e72b9a3633322",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
