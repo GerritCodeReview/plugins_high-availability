@@ -291,7 +291,7 @@ public class Setup implements InitStep {
   }
 
   private static String titleForOptionalWithNote(String prefix, String suffix) {
-    return prefix + " (optional); manually multiply this line to configure more " + suffix;
+    return prefix + " (optional); manually repeat this line to configure more " + suffix;
   }
 
   private static String numberToString(int number) {
