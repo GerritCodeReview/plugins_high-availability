@@ -22,6 +22,30 @@
       "revId": "39eee2fc5f3d001de19e465cd03e72b9a3633322",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b9824d_39cfd3c8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Setup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-11-21T00:08:09Z",
+      "side": 1,
+      "message": "No it isn\u0027t, hence this tentative at telling them to manually multiply such lines, at will; but I will revisit this wording -thx.",
+      "parentUuid": "33550a90_8bc9de22",
+      "range": {
+        "startLine": 203,
+        "startChar": 35,
+        "endLine": 203,
+        "endChar": 65
+      },
+      "revId": "39eee2fc5f3d001de19e465cd03e72b9a3633322",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
