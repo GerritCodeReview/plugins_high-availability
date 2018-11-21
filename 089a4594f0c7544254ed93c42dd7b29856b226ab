@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fdcb5e5_7401fb46",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-11-21T20:09:35Z",
+      "side": 1,
+      "message": "Need to add a corresponding Setup init step (in this change), for this new parameter.",
+      "range": {
+        "startLine": 257,
+        "startChar": 47,
+        "endLine": 257,
+        "endChar": 60
+      },
+      "revId": "089a4594f0c7544254ed93c42dd7b29856b226ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d036d0e8_acc0194d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-11-21T20:09:35Z",
+      "side": 1,
+      "message": "in",
+      "range": {
+        "startLine": 272,
+        "startChar": 26,
+        "endLine": 272,
+        "endChar": 30
+      },
+      "revId": "089a4594f0c7544254ed93c42dd7b29856b226ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
