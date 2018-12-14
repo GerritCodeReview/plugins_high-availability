@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "547b6ae9_062b69c6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-14T16:18:41Z",
+      "side": 1,
+      "message": "hardcoded????\nSince we included this change on GerritHub.io we started having deadlocks :-(\n\nFrom the Guava documentation about that number (https://google.github.io/guava/releases/19.0/api/docs/com/google/common/util/concurrent/Striped.html) \" if key1 is not equal to key2, it is not guaranteed that striped.get(key1) !\u003d striped.get(key2); the elements might nevertheless be mapped to the same lock. \"\n\nWhat we see is that a reindex pending on change N can actually block another reindex pending on change M where N \u003c\u003e M.",
+      "range": {
+        "startLine": 59,
+        "startChar": 32,
+        "endLine": 59,
+        "endChar": 34
+      },
+      "revId": "4c3ec0348ef3ed950873e6a407b318129fdb763d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
