@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b61bffb3_0729e969",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-15T11:43:21Z",
+      "side": 1,
+      "message": "Typo: to tune",
+      "range": {
+        "startLine": 12,
+        "startChar": 62,
+        "endLine": 12,
+        "endChar": 70
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a07827f7_c49dcb4c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2018-12-15T08:51:19Z",
       "side": 1,
       "message": "For forward compatibility it would be better to pass the entire Configuration object here, or at least the entire index() part of it.",
+      "range": {
+        "startLine": 49,
+        "startChar": 37,
+        "endLine": 49,
+        "endChar": 52
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad9db6fd_d09bf62d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2018-12-15T11:43:21Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a07827f7_c49dcb4c",
       "range": {
         "startLine": 49,
         "startChar": 37,
