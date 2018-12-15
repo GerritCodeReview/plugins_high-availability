@@ -22,6 +22,30 @@
       "revId": "4c3ec0348ef3ed950873e6a407b318129fdb763d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f574f4cb_d3872c52",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-15T01:00:09Z",
+      "side": 1,
+      "message": "Bug raised: Issue 10181",
+      "parentUuid": "547b6ae9_062b69c6",
+      "range": {
+        "startLine": 59,
+        "startChar": 32,
+        "endLine": 59,
+        "endChar": 34
+      },
+      "revId": "4c3ec0348ef3ed950873e6a407b318129fdb763d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
