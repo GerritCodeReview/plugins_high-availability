@@ -22,6 +22,30 @@
       "revId": "f87cfb97a61ace6ad6e4979213d025de7a87cf77",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a7186b7_ab7ee684",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T23:24:16Z",
+      "side": 1,
+      "message": "I fully agree that is another option which it would work also. I am open to both options.",
+      "parentUuid": "88fb0912_bce348eb",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "f87cfb97a61ace6ad6e4979213d025de7a87cf77",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
