@@ -22,6 +22,30 @@
       "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb6c8fc_52131a5c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T23:01:50Z",
+      "side": 0,
+      "message": "\u003e Before this change, we had an issue with this, as we kept putting a null value over and over again. -Also referring to the hereby removed (replaced) lines 65 and 66.\n\nOh yes, if currTs was null, then we were putting null in the stored Ts which is wrong.\nWith this change, we store a new Ts only if it is later than the current one or it is the first one.\n\n\u003e Is this what is meant by \"stale\" in the commit message?\n\nNot really, it was a different use case.\n\n\u003e If so, would consider specifying this constant null case (in the commit message). Maybe also mentioning that before this change, we then kept entering this if block, as currTs was always null, thus rewriting the file despite sometimes latestTs not being after the real currTs.\n\nMy use case is different: it is when you have a series of updates and you risk to update the Ts file with a value that is older than the current ont.\n\nI believe the null bug-fix is an unintended but useful side-effect fix.",
+      "parentUuid": "0f628a34_bb5eb150",
+      "range": {
+        "startLine": 73,
+        "startChar": 30,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
