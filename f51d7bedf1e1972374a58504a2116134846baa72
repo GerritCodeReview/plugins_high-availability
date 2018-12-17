@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7e1194af_e5d8e276",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T07:42:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ad9db6fd_d09bf62d",
+      "range": {
+        "startLine": 49,
+        "startChar": 37,
+        "endLine": 49,
+        "endChar": 52
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6263a7f9_967f0331",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 2
@@ -92,6 +116,30 @@
       "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab42ac20_40264d8a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T07:42:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6263a7f9_967f0331",
+      "range": {
+        "startLine": 184,
+        "startChar": 35,
+        "endLine": 184,
+        "endChar": 72
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a685aa8c_f7118286",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T07:42:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b0eb2302_9ab60b74",
+      "range": {
+        "startLine": 42,
+        "startChar": 30,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff62c0f8_3b59f730",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 2
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d5f0095a_d11f74f2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T07:42:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff62c0f8_3b59f730",
+      "range": {
+        "startLine": 43,
+        "startChar": 36,
+        "endLine": 43,
+        "endChar": 41
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "609c71c9_ed0c1570",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
         "patchSetId": 2
@@ -152,6 +248,30 @@
       "writtenOn": "2018-12-15T08:51:19Z",
       "side": 1,
       "message": "This is repeated in several places. Factor it out to a utility method?",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9faa2cf_3083320f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T07:42:59Z",
+      "side": 1,
+      "message": "Yes, but that would require a bit of rework on the BUILD file as well. Will leave it as follow-up change to avoid overloading this one.",
+      "parentUuid": "609c71c9_ed0c1570",
       "range": {
         "startLine": 49,
         "startChar": 4,
