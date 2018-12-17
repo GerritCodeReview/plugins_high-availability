@@ -46,6 +46,30 @@
       "revId": "f87cfb97a61ace6ad6e4979213d025de7a87cf77",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b9b645_b539d26a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2018-12-17T23:31:07Z",
+      "side": 1,
+      "message": "I think the change was not just silencing spotbugs, but was fixing a legitimate concern about the implementation, so I would not be in favor of reverting it.\n\nSince we already have the fix in this change, I would prefer to go ahead with this.",
+      "parentUuid": "3a7186b7_ab7ee684",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "f87cfb97a61ace6ad6e4979213d025de7a87cf77",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
