@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88fb0912_bce348eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012987
+      },
+      "writtenOn": "2018-12-17T23:21:09Z",
+      "side": 1,
+      "message": "If you revert to my original implementation which was removed in [1],\nyou won\u0027t need to make this configurable and it will work.\n\nThat change was mostly to make spotbug happy and to simplify the code but I think we you just restore the code and find another way to make spotug happy.\n\n[1]https://gerrit-review.googlesource.com/c/plugins/high-availability/+/145750",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "f87cfb97a61ace6ad6e4979213d025de7a87cf77",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
