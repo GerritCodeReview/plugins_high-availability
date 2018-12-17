@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2e63eb39_6fe89568",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-17T08:04:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b61bffb3_0729e969",
+      "range": {
+        "startLine": 12,
+        "startChar": 62,
+        "endLine": 12,
+        "endChar": 70
+      },
+      "revId": "f51d7bedf1e1972374a58504a2116134846baa72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a07827f7_c49dcb4c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
         "patchSetId": 2
