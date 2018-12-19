@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "9e26f01e_5640e3c2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-19T19:32:14Z",
+      "side": 1,
+      "message": "\u003e Because this is at the beginning, newLastIndexTs is always null, so it can become simply:\n\u003e \n\u003e    newLastIndexTs \u003d maybeIndexTs.get().\n\nnewLastIndexTs is a class object (instance) member, so it gets reused across multiple run() calls -for the same object. So it is null only for the very first time this line gets executed, thus not for all the following executions. This being said, the above code change proposal still applies.",
+      "parentUuid": "785d2803_aa03066f",
+      "range": {
+        "startLine": 53,
+        "startChar": 23,
+        "endLine": 53,
+        "endChar": 90
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9c91cf3_9eef04e5",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
         "patchSetId": 8
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "\u003e Went through this whole code again, and my only left comment would be the one about replacing line 65 with this one:\n\u003e \n\u003e newLastIndexTs \u003d itemTs.get();\n\u003e \n\u003e I propose so because we already know that itemTs is after newLastIndexTs, time-wise. Why so? Well, because indexIfNeeded() returned it to us here (going through isPresent).\n\nindexIfNeeded() is abstract and not defined in this class. We can\u0027t assume anything about its implementation then.\n\n\u003e And it did so because its c\u0027s TS (itemTs) was deemed being after its sinceTs (newLastIndexTs).\n\nNot sure how you can be sure on this class. If you read the other classes, maybe, but then you are working on assumptions of other implementations IMHO, opening the door to future bugs :-(\n\nI would rather prefer a more robust code than perfect but fragile one, but that\u0027s my personal preference here.\n\n\u003e One may confirm this by revisiting how indexIfNeeded() is implemented in all three ReindexRunnable implementing classes. That is how I understand why we\u0027d now only need to patch this very line (65) -in this current change.\n\nA base class should never assume and be based on the implementation of the subclasses IMHO.",
       "parentUuid": "ee0286eb_66f2d104",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 73
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27d5d011_94b602d6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-19T19:32:14Z",
+      "side": 1,
+      "message": "\u003e \u003e Went through this whole code again, and my only left comment would be the one about replacing line 65 with this one:\n\u003e \u003e \n\u003e \u003e newLastIndexTs \u003d itemTs.get();\n\u003e \u003e \n\u003e \u003e I propose so because we already know that itemTs is after newLastIndexTs, time-wise. Why so? Well, because indexIfNeeded() returned it to us here (going through isPresent).\n\u003e \n\u003e indexIfNeeded() is abstract and not defined in this class. We can\u0027t assume anything about its implementation then.\n\u003e \n\u003e \u003e And it did so because its c\u0027s TS (itemTs) was deemed being after its sinceTs (newLastIndexTs).\n\u003e \n\u003e Not sure how you can be sure on this class. If you read the other classes, maybe, but then you are working on assumptions of other implementations IMHO, opening the door to future bugs :-(\n\u003e \n\u003e I would rather prefer a more robust code than perfect but fragile one, but that\u0027s my personal preference here.\n\u003e \n\u003e \u003e One may confirm this by revisiting how indexIfNeeded() is implemented in all three ReindexRunnable implementing classes. That is how I understand why we\u0027d now only need to patch this very line (65) -in this current change.\n\u003e \n\u003e A base class should never assume and be based on the implementation of the subclasses IMHO.\n\nTrue. However, when I look at the reality of all the involved sub-classes here in this specific case, this is how it happens -systematically. This means to me that the above original (change) code is sub-optimal, at least from such a design perspective.",
+      "parentUuid": "646f96a5_0742994c",
       "range": {
         "startLine": 65,
         "startChar": 14,
