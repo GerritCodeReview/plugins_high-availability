@@ -70,6 +70,30 @@
       "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e187c626_bf351fb3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-19T01:49:11Z",
+      "side": 0,
+      "message": "\u003e \u003e \u003e Before this change, we had an issue with this, as we kept putting a null value over and over again. -Also referring to the hereby removed (replaced) lines 65 and 66.\n\u003e \u003e \n\u003e \u003e Oh yes, if currTs was null, then we were putting null in the stored Ts which is wrong.\n\u003e \u003e With this change, we store a new Ts only if it is later than the current one or it is the first one.\n\u003e \u003e \n\u003e \u003e \u003e Is this what is meant by \"stale\" in the commit message?\n\u003e \u003e \n\u003e \u003e Not really, it was a different use case.\n\u003e \n\u003e Then I still don\u0027t understand why we mention staleness in the commit message. Can you clarify this in the latter please?\n\nSure, will put a clarification in the commit message.\n\n\u003e \n\u003e \u003e \u003e If so, would consider specifying this constant null case (in the commit message). Maybe also mentioning that before this change, we then kept entering this if block, as currTs was always null, thus rewriting the file despite sometimes latestTs not being after the real currTs.\n\u003e \u003e \n\u003e \u003e My use case is different: it is when you have a series of updates and you risk to update the Ts file with a value that is older than the current ont.\n\u003e \u003e \n\u003e \u003e I believe the null bug-fix is an unintended but useful side-effect fix.\n\u003e \n\u003e Would then also mention this in the commit message, as a worthy part of this change.\n\nSure, makes sense. Will do.",
+      "parentUuid": "bda97540_e8fcc257",
+      "range": {
+        "startLine": 73,
+        "startChar": 30,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
