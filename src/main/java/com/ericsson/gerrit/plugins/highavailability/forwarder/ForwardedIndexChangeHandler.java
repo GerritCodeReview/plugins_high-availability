@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
@@ -42,7 +43,11 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
   @Inject
   ForwardedIndexChangeHandler(
-      ChangeIndexer indexer, SchemaFactory<ReviewDb> schemaFactory, ChangeFinder changeFinder) {
+      ChangeIndexer indexer,
+      SchemaFactory<ReviewDb> schemaFactory,
+      ChangeFinder changeFinder,
+      Configuration config) {
+    super(config.index());
     this.indexer = indexer;
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;

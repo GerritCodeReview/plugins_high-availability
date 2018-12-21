@@ -23,6 +23,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
@@ -63,6 +64,8 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ReviewDb dbMock;
   @Mock private ChangeFinder changeFinderMock;
   @Mock private ChangeNotes changeNotes;
+  @Mock private Configuration configMock;
+  @Mock private Configuration.Index indexMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
   private Change change;
@@ -73,7 +76,11 @@ public class ForwardedIndexChangeHandlerTest {
     id = new Change.Id(TEST_CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
-    handler = new ForwardedIndexChangeHandler(indexerMock, schemaFactoryMock, changeFinderMock);
+    when(configMock.index()).thenReturn(indexMock);
+    when(indexMock.numStripedLocks()).thenReturn(10);
+    handler =
+        new ForwardedIndexChangeHandler(
+            indexerMock, schemaFactoryMock, changeFinderMock, configMock);
   }
 
   @Test
