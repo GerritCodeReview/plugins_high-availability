@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c319d87_03432f07",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-22T23:46:37Z",
+      "side": 1,
+      "message": "This is inconsistent with the way the other endpoints are used in the other methods.\nL84, L79.\n\nWhy not saying at L117 simply \u0027cache/project_list\u0027?",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 3
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ff2a17e_1277bbf6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-22T23:46:37Z",
+      "side": 1,
+      "message": "The execute() is considered completed with success when *ALL* the endpoints are completed successfully?\n\nWhat if I have 5 nodes in the cluster and one of them is misbehaving, should I then block the synch to everything until the misbehaving node is back?",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 62
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75896139_6b7aa619",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-22T23:46:37Z",
+      "side": 1,
+      "message": "It would be safer and clearer a switch/case, with an exception on the default case.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 42
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97eb50c7_6312829f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-22T23:46:37Z",
+      "side": 1,
+      "message": "Is this change related to the multiple endspoints URLs?",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 19
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd8adb8_8199bc05",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PluginConfigPeerInfoProvider.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-22T23:46:37Z",
+      "side": 1,
+      "message": "Why not just using Java 8 streams and converting a set of URLs to a set of PeerInfo with a map?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318c38d8_e48ba0ee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-22T23:46:37Z",
+      "side": 1,
+      "message": "An Optional would have been equally easy to convert into a Set.\nI do not see the point of starting using again null values with risks of NPEs and cluttering the code if conditional \"!\u003dnull\"",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 169,
+        "endChar": 76
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
