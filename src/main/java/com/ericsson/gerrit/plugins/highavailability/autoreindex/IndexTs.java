@@ -20,12 +20,10 @@ import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -50,7 +48,6 @@ public class IndexTs
   private final Path dataDir;
   private final ScheduledExecutorService exec;
   private final FlusherRunner flusher;
-  private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
 
   private volatile LocalDateTime changeTs;
@@ -82,15 +79,10 @@ public class IndexTs
   }
 
   @Inject
-  public IndexTs(
-      @PluginData Path dataDir,
-      WorkQueue queue,
-      SchemaFactory<ReviewDb> schemaFactory,
-      ChangeFinder changeFinder) {
+  public IndexTs(@PluginData Path dataDir, WorkQueue queue, ChangeFinder changeFinder) {
     this.dataDir = dataDir;
     this.exec = queue.getDefaultQueue();
     this.flusher = new FlusherRunner();
-    this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
   }
 
@@ -106,7 +98,7 @@ public class IndexTs
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
-    try (ReviewDb db = schemaFactory.open()) {
+    try {
       ChangeNotes changeNotes = changeFinder.findOne(projectName + "~" + id);
       update(
           IndexName.CHANGE,

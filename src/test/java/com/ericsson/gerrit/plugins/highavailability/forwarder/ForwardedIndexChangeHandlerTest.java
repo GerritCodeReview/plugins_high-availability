@@ -26,14 +26,11 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
-import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.util.time.TimeUtil;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import java.io.IOException;
 import java.util.Optional;
 import org.junit.Before;
@@ -60,10 +57,8 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ChangeIndexer indexerMock;
-  @Mock private SchemaFactory<ReviewDb> schemaFactoryMock;
-  @Mock private ReviewDb dbMock;
-  @Mock private ChangeFinder changeFinderMock;
   @Mock private ChangeNotes changeNotes;
+  @Mock private ChangeFinder changeFinderMock;
   @Mock private Configuration configMock;
   @Mock private Configuration.Index indexMock;
   private ForwardedIndexChangeHandler handler;
@@ -72,22 +67,19 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Before
   public void setUp() throws Exception {
-    when(schemaFactoryMock.open()).thenReturn(dbMock);
     id = new Change.Id(TEST_CHANGE_NUMBER);
     change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
     when(configMock.index()).thenReturn(indexMock);
     when(indexMock.numStripedLocks()).thenReturn(10);
-    handler =
-        new ForwardedIndexChangeHandler(
-            indexerMock, schemaFactoryMock, changeFinderMock, configMock);
+    handler = new ForwardedIndexChangeHandler(indexerMock, changeFinderMock, configMock);
   }
 
   @Test
   public void changeIsIndexed() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   @Test
@@ -99,28 +91,6 @@ public class ForwardedIndexChangeHandlerTest {
   @Test
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-    verify(indexerMock, times(1)).delete(id);
-  }
-
-  @Test
-  public void schemaThrowsExceptionWhenLookingUpForChange() throws Exception {
-    setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_ORM_EXCEPTION);
-    exception.expect(OrmException.class);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-  }
-
-  @Test
-  public void indexerThrowsNoSuchChangeExceptionTryingToPostChange() throws Exception {
-    doThrow(new NoSuchChangeException(id)).when(schemaFactoryMock).open();
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-    verify(indexerMock, times(1)).delete(id);
-  }
-
-  @Test
-  public void indexerThrowsNestedNoSuchChangeExceptionTryingToPostChange() throws Exception {
-    OrmException e = new OrmException("test", new NoSuchChangeException(id));
-    doThrow(e).when(schemaFactoryMock).open();
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
     verify(indexerMock, times(1)).delete(id);
   }
@@ -144,13 +114,13 @@ public class ForwardedIndexChangeHandlerTest {
                   return null;
                 })
         .when(indexerMock)
-        .index(any(ReviewDb.class), any(Change.class));
+        .index(any(Change.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   @Test
@@ -163,7 +133,7 @@ public class ForwardedIndexChangeHandlerTest {
                   throw new IOException("someMessage");
                 })
         .when(indexerMock)
-        .index(any(ReviewDb.class), any(Change.class));
+        .index(any(Change.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
@@ -174,7 +144,7 @@ public class ForwardedIndexChangeHandlerTest {
     }
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExist) throws Exception {
@@ -190,19 +160,9 @@ public class ForwardedIndexChangeHandlerTest {
   private void setupChangeAccessRelatedMocks(
       boolean changeExists, boolean ormException, boolean ioException)
       throws OrmException, IOException {
-    if (ormException) {
-      doThrow(new OrmException("")).when(schemaFactoryMock).open();
-    } else {
-      when(schemaFactoryMock.open()).thenReturn(dbMock);
-      if (changeExists) {
-        when(changeFinderMock.findOne(TEST_CHANGE_ID)).thenReturn(changeNotes);
-        if (ioException) {
-          doThrow(new IOException("io-error"))
-              .when(indexerMock)
-              .index(any(ReviewDb.class), any(Change.class));
-        }
-      } else {
-        when(changeFinderMock.findOne(TEST_CHANGE_ID)).thenReturn(null);
+    if (changeExists) {
+      if (ioException) {
+        doThrow(new IOException("io-error")).when(indexerMock).index(any(Change.class));
       }
     }
   }
