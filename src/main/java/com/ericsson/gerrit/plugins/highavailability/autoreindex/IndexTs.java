@@ -20,6 +20,7 @@ import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
+import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.WorkQueue;
@@ -40,7 +41,10 @@ import org.slf4j.LoggerFactory;
 
 @Singleton
 public class IndexTs
-    implements ChangeIndexedListener, AccountIndexedListener, GroupIndexedListener {
+    implements ChangeIndexedListener,
+        AccountIndexedListener,
+        GroupIndexedListener,
+        ProjectIndexedListener {
   private static final Logger log = LoggerFactory.getLogger(IndexTs.class);
   private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
@@ -53,6 +57,7 @@ public class IndexTs
   private volatile LocalDateTime changeTs;
   private volatile LocalDateTime accountTs;
   private volatile LocalDateTime groupTs;
+  private volatile LocalDateTime projectTs;
 
   class FlusherRunner implements Runnable {
 
@@ -61,6 +66,7 @@ public class IndexTs
       store(AbstractIndexRestApiServlet.IndexName.CHANGE, changeTs);
       store(AbstractIndexRestApiServlet.IndexName.ACCOUNT, accountTs);
       store(AbstractIndexRestApiServlet.IndexName.GROUP, groupTs);
+      store(AbstractIndexRestApiServlet.IndexName.PROJECT, projectTs);
     }
 
     private void store(AbstractIndexRestApiServlet.IndexName index, LocalDateTime latestTs) {
@@ -87,6 +93,11 @@ public class IndexTs
     this.flusher = new FlusherRunner();
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
+  }
+
+  @Override
+  public void onProjectIndexed(String project) {
+    update(IndexName.PROJECT, LocalDateTime.now());
   }
 
   @Override
@@ -141,6 +152,9 @@ public class IndexTs
         break;
       case GROUP:
         groupTs = dateTime;
+        break;
+      case PROJECT:
+        projectTs = dateTime;
         break;
       default:
         throw new IllegalArgumentException("Unsupported index " + index);
