@@ -17,13 +17,11 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -38,18 +36,13 @@ import java.util.Optional;
 @Singleton
 public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
   private final ChangeIndexer indexer;
-  private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
 
   @Inject
   ForwardedIndexChangeHandler(
-      ChangeIndexer indexer,
-      SchemaFactory<ReviewDb> schemaFactory,
-      ChangeFinder changeFinder,
-      Configuration config) {
+      ChangeIndexer indexer, ChangeFinder changeFinder, Configuration config) {
     super(config.index());
     this.indexer = indexer;
-    this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
   }
 
@@ -57,11 +50,11 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   protected void doIndex(String id, Optional<IndexEvent> indexEvent)
       throws IOException, OrmException {
     ChangeNotes change = null;
-    try (ReviewDb db = schemaFactory.open()) {
+    try {
       change = changeFinder.findOne(id);
       if (change != null) {
         change.reload();
-        indexer.index(db, change.getChange());
+        indexer.index(change.getChange());
         log.debug("Change {} successfully indexed", id);
       }
     } catch (Exception e) {

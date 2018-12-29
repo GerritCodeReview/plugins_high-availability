@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.google.common.base.Stopwatch;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
@@ -50,14 +49,13 @@ abstract class ReindexRunnable<T> implements Runnable {
       Timestamp lastIndexTs = Timestamp.valueOf(maybeIndexTs.get());
       Timestamp newLastIndexTs = lastIndexTs;
       log.debug("Scanning for all the {}s after {}", itemNameString, lastIndexTs);
-      try (ManualRequestContext mctx = ctx.open();
-          ReviewDb db = mctx.getReviewDbProvider().get()) {
+      try (ManualRequestContext mctx = ctx.open()) {
         int count = 0;
         int errors = 0;
         Stopwatch stopwatch = Stopwatch.createStarted();
-        for (T c : fetchItems(db)) {
+        for (T c : fetchItems()) {
           try {
-            Optional<Timestamp> itemTs = indexIfNeeded(db, c, lastIndexTs);
+            Optional<Timestamp> itemTs = indexIfNeeded(c, lastIndexTs);
             if (itemTs.isPresent()) {
               count++;
               if (itemTs.get().after(newLastIndexTs)) {
@@ -90,7 +88,7 @@ abstract class ReindexRunnable<T> implements Runnable {
     }
   }
 
-  protected abstract Iterable<T> fetchItems(ReviewDb db) throws Exception;
+  protected abstract Iterable<T> fetchItems() throws Exception;
 
-  protected abstract Optional<Timestamp> indexIfNeeded(ReviewDb db, T item, Timestamp sinceTs);
+  protected abstract Optional<Timestamp> indexIfNeeded(T item, Timestamp sinceTs);
 }
