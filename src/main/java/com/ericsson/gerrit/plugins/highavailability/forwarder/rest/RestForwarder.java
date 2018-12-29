@@ -97,6 +97,12 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
+  public boolean indexProject(String projectName, IndexEvent event) {
+    return execute(
+        RequestMethod.POST, "index project", "index/project", Url.encode(projectName), event);
+  }
+
+  @Override
   public boolean send(final Event event) {
     return new Request("send event", event.type) {
       @Override
