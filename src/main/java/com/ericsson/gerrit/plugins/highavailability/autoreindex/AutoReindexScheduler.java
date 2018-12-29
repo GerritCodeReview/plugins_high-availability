@@ -34,6 +34,7 @@ public class AutoReindexScheduler implements LifecycleListener {
   private final ChangeReindexRunnable changeReindex;
   private final AccountReindexRunnable accountReindex;
   private final GroupReindexRunnable groupReindex;
+  private final ProjectReindexRunnable projectReindex;
   private final ScheduledExecutorService executor;
   private final List<Future<?>> futureTasks = new ArrayList<>();
 
@@ -43,11 +44,13 @@ public class AutoReindexScheduler implements LifecycleListener {
       WorkQueue workQueue,
       ChangeReindexRunnable changeReindex,
       AccountReindexRunnable accountReindex,
-      GroupReindexRunnable groupReindex) {
+      GroupReindexRunnable groupReindex,
+      ProjectReindexRunnable projectReindex) {
     this.cfg = cfg.autoReindex();
     this.changeReindex = changeReindex;
     this.accountReindex = accountReindex;
     this.groupReindex = groupReindex;
+    this.projectReindex = projectReindex;
     this.executor = workQueue.createQueue(1, "HighAvailability-AutoReindex");
   }
 
@@ -64,11 +67,15 @@ public class AutoReindexScheduler implements LifecycleListener {
       futureTasks.add(
           executor.scheduleAtFixedRate(
               groupReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
+      futureTasks.add(
+          executor.scheduleAtFixedRate(
+              projectReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
     } else {
       log.info("Scheduling auto-reindex after {}s", cfg.delaySec());
       futureTasks.add(executor.schedule(changeReindex, cfg.delaySec(), TimeUnit.SECONDS));
       futureTasks.add(executor.schedule(accountReindex, cfg.delaySec(), TimeUnit.SECONDS));
       futureTasks.add(executor.schedule(groupReindex, cfg.delaySec(), TimeUnit.SECONDS));
+      futureTasks.add(executor.schedule(projectReindex, cfg.delaySec(), TimeUnit.SECONDS));
     }
   }
 
