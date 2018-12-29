@@ -36,7 +36,8 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
   public enum IndexName {
     CHANGE,
     ACCOUNT,
-    GROUP;
+    GROUP,
+    PROJECT;
 
     @Override
     public String toString() {

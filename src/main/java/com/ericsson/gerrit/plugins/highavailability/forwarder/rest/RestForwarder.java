@@ -97,6 +97,17 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
+  public boolean indexProject(String projectName) {
+    return new Request("index project", projectName) {
+      @Override
+      HttpResult send() throws IOException {
+        return httpSession.post(
+            Joiner.on("/").join(pluginRelativePath, "index/project", Url.encode(projectName)));
+      }
+    }.execute();
+  }
+
+  @Override
   public boolean send(final Event event) {
     return new Request("send event", event.type) {
       @Override
