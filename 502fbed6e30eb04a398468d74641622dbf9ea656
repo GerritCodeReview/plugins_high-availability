@@ -34,6 +34,24 @@
       "revId": "502fbed6e30eb04a398468d74641622dbf9ea656",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c46f2a9_694b3d01",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-29T20:14:10Z",
+      "side": 1,
+      "message": "\u003e \u003e You cannot add it here. Because it would transitively pull almost whole gerrit core. Instead if it is really needed then it must be exported in the plugin API. With that change in core you could just remove it here and it should still work.\n\u003e \n\u003e Good point, let me add then to Gerrit in stable-2.16.\n\nDone \u003d\u003e I0c6ecbbdc",
+      "parentUuid": "6a2dc2f6_2de2e7a4",
+      "revId": "502fbed6e30eb04a398468d74641622dbf9ea656",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
