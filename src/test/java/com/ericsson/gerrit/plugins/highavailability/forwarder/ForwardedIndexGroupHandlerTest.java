@@ -18,11 +18,14 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import java.io.IOException;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,18 +40,22 @@ public class ForwardedIndexGroupHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private GroupIndexer indexerMock;
+  @Mock private Configuration configMock;
+  @Mock private Configuration.Index indexMock;
   private ForwardedIndexGroupHandler handler;
   private AccountGroup.UUID uuid;
 
   @Before
   public void setUp() throws Exception {
-    handler = new ForwardedIndexGroupHandler(indexerMock);
+    when(configMock.index()).thenReturn(indexMock);
+    when(indexMock.numStripedLocks()).thenReturn(10);
+    handler = new ForwardedIndexGroupHandler(indexerMock, configMock);
     uuid = new AccountGroup.UUID("123");
   }
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(uuid, Operation.INDEX);
+    handler.index(uuid, Operation.INDEX, Optional.empty());
     verify(indexerMock).index(uuid);
   }
 
@@ -56,7 +63,7 @@ public class ForwardedIndexGroupHandlerTest {
   public void deleteIsNotSupported() throws Exception {
     exception.expect(UnsupportedOperationException.class);
     exception.expectMessage("Delete from group index not supported");
-    handler.index(uuid, Operation.DELETE);
+    handler.index(uuid, Operation.DELETE, Optional.empty());
   }
 
   @Test
@@ -73,7 +80,7 @@ public class ForwardedIndexGroupHandlerTest {
         .index(uuid);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(uuid, Operation.INDEX);
+    handler.index(uuid, Operation.INDEX, Optional.empty());
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(uuid);
@@ -92,7 +99,7 @@ public class ForwardedIndexGroupHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
-      handler.index(uuid, Operation.INDEX);
+      handler.index(uuid, Operation.INDEX, Optional.empty());
       fail("should have thrown an IOException");
     } catch (IOException e) {
       assertThat(e.getMessage()).isEqualTo("someMessage");
