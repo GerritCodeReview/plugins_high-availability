@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "c0535d6a_295d902d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-30T23:29:55Z",
+      "side": 1,
+      "message": "Yes, agreed. Best to separate refactoring from features :-)",
+      "parentUuid": "252bd5a0_edfe5d18",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 3
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ff2a17e_1277bbf6",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 19
@@ -101,6 +125,30 @@
       "side": 1,
       "message": "Likely not. Need to confirm this though.",
       "parentUuid": "6ff2a17e_1277bbf6",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 62
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1643a6_4ab3eaa9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-30T23:29:55Z",
+      "side": 1,
+      "message": "I checked and it works as expected: would retry only the node that failed. Not sure then why do we need to join all futures then.",
+      "parentUuid": "7866793e_38f3347f",
       "range": {
         "startLine": 138,
         "startChar": 0,
