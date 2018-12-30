@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4aeff0db_8a20fc6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T02:27:41Z",
+      "side": 1,
+      "message": "Usually not needed to catch all exceptions including run-time ones \"just in case\". Why is this need felt in this specific change case? -Commit message should at least detail this need; a comment might be needed around the changed code, too.",
+      "revId": "0eabb401728960944adb17412cc8e1aca64f3848",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf4ddf25_3e78c940",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T02:27:41Z",
+      "side": 1,
+      "message": "Unused as per this change.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "0eabb401728960944adb17412cc8e1aca64f3848",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
