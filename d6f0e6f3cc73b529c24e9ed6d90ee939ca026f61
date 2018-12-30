@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0d421dce_ee6e3776",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "Looks like an unrelated method move.",
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6c319d87_03432f07",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 19
@@ -13,6 +30,30 @@
       "writtenOn": "2018-12-22T23:46:37Z",
       "side": 1,
       "message": "This is inconsistent with the way the other endpoints are used in the other methods.\nL84, L79.\n\nWhy not saying at L117 simply \u0027cache/project_list\u0027?",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 3
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "252bd5a0_edfe5d18",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "Agree. In fact, this change looks like including formally unrelated refactorings, to likely apply through separate change(s).",
+      "parentUuid": "6c319d87_03432f07",
       "range": {
         "startLine": 121,
         "startChar": 0,
@@ -48,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "7866793e_38f3347f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "Likely not. Need to confirm this though.",
+      "parentUuid": "6ff2a17e_1277bbf6",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 62
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75896139_6b7aa619",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 19
@@ -59,6 +124,30 @@
       "writtenOn": "2018-12-22T23:46:37Z",
       "side": 1,
       "message": "It would be safer and clearer a switch/case, with an exception on the default case.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 42
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f66ae76_f1abffa0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "Agree; would refactor.",
+      "parentUuid": "75896139_6b7aa619",
       "range": {
         "startLine": 154,
         "startChar": 0,
@@ -94,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "f4d3ca7a_a7eedddc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "Looks like a formally unrelated fix.",
+      "parentUuid": "97eb50c7_6312829f",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 19
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cd8adb8_8199bc05",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PluginConfigPeerInfoProvider.java",
         "patchSetId": 19
@@ -117,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "566da3b2_3e31c1ec",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/PluginConfigPeerInfoProvider.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "To revisit.",
+      "parentUuid": "2cd8adb8_8199bc05",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 5
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "318c38d8_e48ba0ee",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 19
@@ -128,6 +265,30 @@
       "writtenOn": "2018-12-22T23:46:37Z",
       "side": 1,
       "message": "An Optional would have been equally easy to convert into a Set.\nI do not see the point of starting using again null values with risks of NPEs and cluttering the code if conditional \"!\u003dnull\"",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 169,
+        "endChar": 76
+      },
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2760863_fcc67162",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 1,
+      "message": "As per previous comment.",
+      "parentUuid": "318c38d8_e48ba0ee",
       "range": {
         "startLine": 168,
         "startChar": 2,

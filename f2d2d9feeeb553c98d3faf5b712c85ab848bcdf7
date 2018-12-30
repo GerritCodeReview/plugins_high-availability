@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "676fafc3_a5239ac0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 0,
+      "message": "Likely, yes. At least for consistency purposes.",
+      "parentUuid": "9e882416_07d1be44",
+      "range": {
+        "startLine": 46,
+        "startChar": 51,
+        "endLine": 46,
+        "endChar": 52
+      },
+      "revId": "f2d2d9feeeb553c98d3faf5b712c85ab848bcdf7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fd38428_7683a182",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 19
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-22T23:46:37Z",
       "side": 0,
       "message": "What\u0027s the value of not using Optional\u003c\u003e and then across the rest of the code we rely on null values?\n\nOptional\u003c\u003e was designed to avoid using nulls, but here we are going backward with this change.\nAny particular reason?",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 57
+      },
+      "revId": "f2d2d9feeeb553c98d3faf5b712c85ab848bcdf7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b204bb8c_00ee8a2b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-30T23:18:36Z",
+      "side": 0,
+      "message": "To revisit, yes; potentially unrelated change if any.",
+      "parentUuid": "0fd38428_7683a182",
       "range": {
         "startLine": 61,
         "startChar": 10,
