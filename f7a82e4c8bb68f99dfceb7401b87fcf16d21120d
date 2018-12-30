@@ -16,6 +16,24 @@
       "revId": "f7a82e4c8bb68f99dfceb7401b87fcf16d21120d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e1817e_821617d3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2018-12-30T22:57:44Z",
+      "side": 0,
+      "message": "The entire Groups structure with the associated audits is 100% gone in Gerrit v2.16 and thus all the code doesn\u0027t have any equivalent.",
+      "parentUuid": "f0351f4d_5b860180",
+      "revId": "f7a82e4c8bb68f99dfceb7401b87fcf16d21120d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
