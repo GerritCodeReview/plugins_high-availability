@@ -3,33 +3,33 @@ load("//tools/bzl:maven_jar.bzl", "maven_jar")
 def external_plugin_deps():
     maven_jar(
         name = "wiremock",
-        artifact = "com.github.tomakehurst:wiremock-standalone:2.8.0",
-        sha1 = "b4d91aca283a86b447d3906deac6e1509c3a94c5",
+        artifact = "com.github.tomakehurst:wiremock-standalone:2.19.0",
+        sha1 = "1c1439bc822faadd8a7e406325380a4dd5b5ed51",
     )
 
     maven_jar(
         name = "mockito",
-        artifact = "org.mockito:mockito-core:2.15.0",
-        sha1 = "b84bfbbc29cd22c9529409627af6ea2897f4fa85",
+        artifact = "org.mockito:mockito-core:2.23.4",
+        sha1 = "a35b6f8ffcfa786771eac7d7d903429e790fdf3f",
         deps = [
-            "@byte_buddy//jar",
-            "@byte_buddy_agent//jar",
+            "@byte-buddy//jar",
+            "@byte-buddy-agent//jar",
             "@objenesis//jar",
         ],
     )
 
-    BYTE_BUDDY_VER = "1.7.9"
+    BYTE_BUDDY_VERSION = "1.9.3"
 
     maven_jar(
-        name = "byte_buddy",
-        artifact = "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VER,
-        sha1 = "51218a01a882c04d0aba8c028179cce488bbcb58",
+        name = "byte-buddy",
+        artifact = "net.bytebuddy:byte-buddy:" + BYTE_BUDDY_VERSION,
+        sha1 = "f32e510b239620852fc9a2387fac41fd053d6a4d",
     )
 
     maven_jar(
-        name = "byte_buddy_agent",
-        artifact = "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VER,
-        sha1 = "a6c65f9da7f467ee1f02ff2841ffd3155aee2fc9",
+        name = "byte-buddy-agent",
+        artifact = "net.bytebuddy:byte-buddy-agent:" + BYTE_BUDDY_VERSION,
+        sha1 = "f5b78c16cf4060664d80b6ca32d80dca4bd3d264",
     )
 
     maven_jar(
