@@ -34,6 +34,24 @@
       "revId": "f7a82e4c8bb68f99dfceb7401b87fcf16d21120d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b744da9f_93ca0ee5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T21:47:06Z",
+      "side": 0,
+      "message": "\u003e The entire Groups structure with the associated audits is 100% gone in Gerrit v2.16 and thus all the code doesn\u0027t have any equivalent.\n\nAlongside this review, should we then submit a new Monorail issue about potentially broken group reindexing for this plugin?",
+      "parentUuid": "74e1817e_821617d3",
+      "revId": "f7a82e4c8bb68f99dfceb7401b87fcf16d21120d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }

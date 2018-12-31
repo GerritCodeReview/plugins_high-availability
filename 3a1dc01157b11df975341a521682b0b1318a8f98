@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5fd247b4_06452ffe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T21:47:06Z",
+      "side": 1,
+      "message": "\u003e We do not typically do that. Would you instead prefer to have them separate?\n\u003e - Pure merge\n\u003e - Adaptation to stable-2.16\n\nI\u0027ve been involved in changes that did include message comments about adaptations to enable merges. Anyhow, up to you here to decide. I would not split this change, as its adaptations are needed for it to pass verification.",
+      "parentUuid": "fa79f0e0_ea84eaa0",
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26b5c9a7_1574f9e0",
         "filename": "WORKSPACE",
         "patchSetId": 1
@@ -236,6 +254,30 @@
       "writtenOn": "2018-12-30T22:57:44Z",
       "side": 1,
       "message": "This isn\u0027t needed either.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc59811_74c327ef",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T21:47:06Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "71ed92c9_aa194003",
       "range": {
         "startLine": 43,
         "startChar": 4,
