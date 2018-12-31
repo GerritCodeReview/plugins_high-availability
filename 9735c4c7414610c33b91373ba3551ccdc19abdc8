@@ -94,6 +94,30 @@
       "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b9ff1bd_7d92fe7c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T03:16:33Z",
+      "side": 0,
+      "message": "\u003e \u003e \u003e \u003e If so, would consider specifying this constant null case (in the commit message). Maybe also mentioning that before this change, we then kept entering this if block, as currTs was always null, thus rewriting the file despite sometimes latestTs not being after the real currTs.\n\u003e \u003e \u003e \n\u003e \u003e \u003e My use case is different: it is when you have a series of updates and you risk to update the Ts file with a value that is older than the current ont.\n\u003e \u003e \u003e \n\u003e \u003e \u003e I believe the null bug-fix is an unintended but useful side-effect fix.\n\u003e \u003e \n\u003e \u003e Would then also mention this in the commit message, as a worthy part of this change.\n\u003e \n\u003e Sure, makes sense. Will do.\n\nI think this part was omitted in the latest patch set(s).",
+      "parentUuid": "e187c626_bf351fb3",
+      "range": {
+        "startLine": 73,
+        "startChar": 30,
+        "endLine": 73,
+        "endChar": 36
+      },
+      "revId": "9735c4c7414610c33b91373ba3551ccdc19abdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
