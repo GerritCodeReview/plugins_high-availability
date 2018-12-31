@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb275209_82bf84ae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "No longer used; Eclipse warning.",
+      "range": {
+        "startLine": 60,
+        "startChar": 19,
+        "endLine": 60,
+        "endChar": 31
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae1f924d_44276f66",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "Moving this method is (to me) an unrelated refactoring.",
+      "range": {
+        "startLine": 125,
+        "startChar": 25,
+        "endLine": 125,
+        "endChar": 56
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "906c7193_9f4d5dc3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "Unrelated to this change: should have used a local variable instead of a parameter reassignment.",
+      "range": {
+        "startLine": 130,
+        "startChar": 6,
+        "endLine": 130,
+        "endChar": 18
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d0258d_42ec801b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeChecker.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "notes",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bfb9baf_e4dc04ca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "Double try block can become just one.",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 9
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1937c5_3d544630",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "changeNotes",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 103,
+        "endChar": 22
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "452d6126_e1c23ad1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "debug -to make sure not to flood the log.",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 12
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4381719_610aef5c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 37
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2018-12-31T23:32:37Z",
+      "side": 1,
+      "message": "false, rather?",
+      "range": {
+        "startLine": 115,
+        "startChar": 13,
+        "endLine": 115,
+        "endChar": 17
+      },
+      "revId": "8404a71be03f56d9b20578f596c90e300bf5c593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
