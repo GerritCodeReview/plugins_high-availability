@@ -3,8 +3,8 @@ load("//tools/bzl:maven_jar.bzl", "maven_jar")
 def external_plugin_deps():
     maven_jar(
         name = "wiremock",
-        artifact = "com.github.tomakehurst:wiremock-standalone:2.19.0",
-        sha1 = "1c1439bc822faadd8a7e406325380a4dd5b5ed51",
+        artifact = "com.github.tomakehurst:wiremock-standalone:2.20.0",
+        sha1 = "26e5d42ca7af2a9d4b97129595edd0192ad9bd30",
     )
 
     maven_jar(
