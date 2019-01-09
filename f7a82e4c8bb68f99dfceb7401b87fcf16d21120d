@@ -52,6 +52,24 @@
       "revId": "f7a82e4c8bb68f99dfceb7401b87fcf16d21120d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f87d9cb_3abb7de7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T20:05:26Z",
+      "side": 0,
+      "message": "Will do so once this change is merged.",
+      "parentUuid": "b744da9f_93ca0ee5",
+      "revId": "f7a82e4c8bb68f99dfceb7401b87fcf16d21120d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }

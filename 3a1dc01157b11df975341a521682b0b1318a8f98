@@ -102,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "8800a31d_a4086a2d",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T20:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05090096_c08fa094",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caa3719d_d7395fa6",
         "filename": "WORKSPACE",
         "patchSetId": 1
@@ -137,6 +161,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "caa3719d_d7395fa6",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "574bf804_2bca7d89",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T20:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "934e7f57_7b5c68e0",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -196,6 +244,30 @@
     },
     {
       "key": {
+        "uuid": "825838f8_c59eb852",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T20:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b573acf9_773234fb",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f43d468a_73854624",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
         "patchSetId": 1
@@ -231,6 +303,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "f43d468a_73854624",
+      "range": {
+        "startLine": 34,
+        "startChar": 43,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60c70fff_4ccd2079",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T20:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d87380_2588185d",
       "range": {
         "startLine": 34,
         "startChar": 43,
@@ -287,6 +383,30 @@
       "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e0e0366_2e4f01fe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T20:05:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc59811_74c327ef",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "3a1dc01157b11df975341a521682b0b1318a8f98",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
