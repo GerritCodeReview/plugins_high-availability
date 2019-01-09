@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7fd08b65_b0155fb9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T21:16:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t in fact, if willing to only do this upon successful changeDb opening.",
+      "parentUuid": "cbc25a39_9320e9dd",
+      "range": {
+        "startLine": 133,
+        "startChar": 6,
+        "endLine": 133,
+        "endChar": 21
+      },
+      "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6766cea_301f0970",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5233b6c4_b50ee065",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T21:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6766cea_301f0970",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 9
+      },
+      "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "14455e5a_e22a3d17",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T21:16:35Z",
+      "side": 1,
+      "message": "Not if willing to do this only upon successful repo opening.",
+      "parentUuid": "c11baa57_371a95fb",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 71
+      },
+      "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93f5cd7c_6c99f9e7",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/DisabledReviewDb.java",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d492e81f_e1732d76",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/DisabledReviewDb.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T21:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93f5cd7c_6c99f9e7",
+      "range": {
+        "startLine": 17,
+        "startChar": 7,
+        "endLine": 17,
+        "endChar": 55
+      },
+      "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bab874d_de584d04",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/DisabledReviewDb.java",
         "patchSetId": 6
@@ -114,6 +210,30 @@
       "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "984a56d7_dfdc1452",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/DisabledReviewDb.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-09T21:16:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bab874d_de584d04",
+      "range": {
+        "startLine": 79,
+        "startChar": 11,
+        "endLine": 79,
+        "endChar": 46
+      },
+      "revId": "cda56f1eac835ec1849547f9750dbf0a2698a9f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
