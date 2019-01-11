@@ -1,4 +1,4 @@
-// Copyright (C) 2017 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,25 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.index;
+package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
-import com.google.gerrit.extensions.events.ProjectIndexedListener;
+import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.lifecycle.LifecycleModule;
-import java.util.concurrent.Executor;
+import com.google.inject.AbstractModule;
 
-public class IndexModule extends LifecycleModule {
+public class AutoReindexModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(Executor.class).annotatedWith(IndexExecutor.class).toProvider(IndexExecutorProvider.class);
-    listener().to(IndexExecutorProvider.class);
-    DynamicSet.bind(binder(), ChangeIndexedListener.class).to(IndexEventHandler.class);
-    DynamicSet.bind(binder(), AccountIndexedListener.class).to(IndexEventHandler.class);
-    DynamicSet.bind(binder(), GroupIndexedListener.class).to(IndexEventHandler.class);
-    DynamicSet.bind(binder(), ProjectIndexedListener.class).to(IndexEventHandler.class);
+    DynamicSet.bind(binder(), LifecycleListener.class).to(AutoReindexScheduler.class);
+    DynamicSet.bind(binder(), ChangeIndexedListener.class).to(IndexTs.class);
+    DynamicSet.bind(binder(), AccountIndexedListener.class).to(IndexTs.class);
+    DynamicSet.bind(binder(), GroupIndexedListener.class).to(IndexTs.class);
   }
 }

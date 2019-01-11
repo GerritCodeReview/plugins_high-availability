@@ -15,8 +15,8 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.server.index.account.AccountIndexer;
+import com.google.gerrit.index.project.ProjectIndexer;
+import com.google.gerrit.reviewdb.client.Project;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -24,30 +24,30 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Index an account using {@link AccountIndexer}. This class is meant to be used on the receiving
- * side of the {@link Forwarder} since it will prevent indexed account to be forwarded again causing
+ * Index a project using {@link ProjectIndexer}. This class is meant to be used on the receiving
+ * side of the {@link Forwarder} since it will prevent indexed group to be forwarded again causing
  * an infinite forwarding loop between the 2 nodes. It will also make sure no concurrent indexing is
- * done for the same account id
+ * done for the same project name.
  */
 @Singleton
-public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Account.Id> {
-  private final AccountIndexer indexer;
+public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Project.NameKey> {
+  private final ProjectIndexer indexer;
 
   @Inject
-  ForwardedIndexAccountHandler(AccountIndexer indexer, Configuration config) {
+  ForwardedIndexProjectHandler(ProjectIndexer indexer, Configuration config) {
     super(config.index());
     this.indexer = indexer;
   }
 
   @Override
-  protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent)
+  protected void doIndex(Project.NameKey projectName, Optional<IndexEvent> indexEvent)
       throws IOException, OrmException {
-    indexer.index(id);
-    log.debug("Account {} successfully indexed", id);
+    indexer.index(projectName);
+    log.debug("Project {} successfully indexed", projectName);
   }
 
   @Override
-  protected void doDelete(Account.Id id, Optional<IndexEvent> indexEvent) {
-    throw new UnsupportedOperationException("Delete from account index not supported");
+  protected void doDelete(Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
+    throw new UnsupportedOperationException("Delete from project index not supported");
   }
 }
