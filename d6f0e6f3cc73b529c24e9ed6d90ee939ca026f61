@@ -38,6 +38,24 @@
     },
     {
       "key": {
+        "uuid": "ed0a9b9f_671c9d3b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-11T23:28:35Z",
+      "side": 1,
+      "message": "Was in fact the unrelated removal of an unused trimTrailingSlash method (base L157) -elsewhere in this file. Can be done in another change.",
+      "parentUuid": "64bc3fdd_5f8d399b",
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c319d87_03432f07",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 19
