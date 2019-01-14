@@ -56,6 +56,24 @@
     },
     {
       "key": {
+        "uuid": "a9443557_a1e21122",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-01-14T17:02:21Z",
+      "side": 1,
+      "message": "Not even. Sorry for the hassle. -Restored.\n\nReviewing my patches can be done by comparing the latest patch set with #19.",
+      "parentUuid": "ed0a9b9f_671c9d3b",
+      "revId": "d6f0e6f3cc73b529c24e9ed6d90ee939ca026f61",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c319d87_03432f07",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 19
