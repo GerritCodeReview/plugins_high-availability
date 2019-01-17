@@ -133,7 +133,7 @@ class RestForwarder implements Forwarder {
             .get()
             .stream()
             .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
-            .map(request -> CompletableFuture.supplyAsync(() -> request.execute()))
+            .map(request -> CompletableFuture.supplyAsync(request::execute))
             .collect(Collectors.toList());
     CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
     return futures.stream().allMatch(CompletableFuture::join);
