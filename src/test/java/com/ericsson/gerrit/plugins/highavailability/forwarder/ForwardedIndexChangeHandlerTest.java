@@ -31,7 +31,6 @@ import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
@@ -72,7 +71,6 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private Configuration.Index indexMock;
   @Mock private ScheduledExecutorService indexExecutorMock;
   @Mock private OneOffRequestContext ctxMock;
-  @Mock private GitRepositoryManager gitRepoMgrMock;
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerAbsentMock;
   @Mock private ChangeChecker changeCheckerPresentMock;
