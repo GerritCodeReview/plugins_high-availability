@@ -94,9 +94,8 @@ public class IndexTs
 
   @Override
   public void onChangeIndexed(int id) {
-    Change change = null;
     try (ReviewDb db = schemaFactory.open()) {
-      change = db.changes().get(new Change.Id(id));
+      Change change = db.changes().get(new Change.Id(id));
       update(
           IndexName.CHANGE,
           change == null ? LocalDateTime.now() : change.getLastUpdatedOn().toLocalDateTime());
