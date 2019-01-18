@@ -23,7 +23,6 @@ import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.ChangeFinder;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -57,7 +56,6 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   ForwardedIndexChangeHandler(
       ChangeIndexer indexer,
       ChangeDb changeDb,
-      ChangeFinder changeFinder,
       Configuration config,
       @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
       OneOffRequestContext oneOffCtx,

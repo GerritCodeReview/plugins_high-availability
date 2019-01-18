@@ -31,7 +31,6 @@ import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.google.gerrit.common.TimeUtil;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -77,7 +76,6 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerAbsentMock;
   @Mock private ChangeChecker changeCheckerPresentMock;
-  @Mock private ChangeFinder changeFinderMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
   private Change change;
@@ -95,7 +93,6 @@ public class ForwardedIndexChangeHandlerTest {
         new ForwardedIndexChangeHandler(
             indexerMock,
             changeDbMock,
-            changeFinderMock,
             configMock,
             indexExecutorMock,
             ctxMock,
