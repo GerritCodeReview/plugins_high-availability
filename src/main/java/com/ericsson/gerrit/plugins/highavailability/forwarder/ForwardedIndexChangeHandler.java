@@ -160,8 +160,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   private static Change.Id parseChangeId(String id) {
-    Change.Id changeId = new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
-    return changeId;
+    return new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
