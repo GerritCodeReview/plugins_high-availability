@@ -48,7 +48,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   private Optional<ChangeNotes> changeNotes = Optional.empty();
 
   public interface Factory {
-    public ChangeChecker create(String changeId);
+    ChangeChecker create(String changeId);
   }
 
   @Inject

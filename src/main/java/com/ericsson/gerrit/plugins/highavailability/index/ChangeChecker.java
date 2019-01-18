@@ -29,7 +29,7 @@ public interface ChangeChecker {
    * @return notes of the Change
    * @throws OrmException if ReviewDb or NoteDb cannot be opened
    */
-  public Optional<ChangeNotes> getChangeNotes() throws OrmException;
+  Optional<ChangeNotes> getChangeNotes() throws OrmException;
 
   /**
    * Create a new index event POJO associated with the current Change.
@@ -38,7 +38,7 @@ public interface ChangeChecker {
    * @throws IOException if the current Change cannot read
    * @throws OrmException if ReviewDb cannot be opened
    */
-  public Optional<IndexEvent> newIndexEvent() throws IOException, OrmException;
+  Optional<IndexEvent> newIndexEvent() throws IOException, OrmException;
 
   /**
    * Check if the local Change is aligned with the indexEvent received.
@@ -48,7 +48,7 @@ public interface ChangeChecker {
    * @throws IOException if an I/O error occurred while reading the local Change
    * @throws OrmException if the local ReviewDb cannot be opened
    */
-  public boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws IOException, OrmException;
+  boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws IOException, OrmException;
 
   /**
    * Return the last computed up-to-date Change time-stamp.
@@ -59,5 +59,5 @@ public interface ChangeChecker {
    * @throws IOException if an I/O error occurred while reading the local Change
    * @throws OrmException if the local ReviewDb cannot be opened
    */
-  public Optional<Long> getComputedChangeTs() throws IOException, OrmException;
+  Optional<Long> getComputedChangeTs() throws IOException, OrmException;
 }
