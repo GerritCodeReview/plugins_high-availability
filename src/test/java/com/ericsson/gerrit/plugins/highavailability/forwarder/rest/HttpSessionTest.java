@@ -56,14 +56,13 @@ public class HttpSessionTest {
 
   @Rule public WireMockRule wireMockRule = new WireMockRule(0);
 
-  private Configuration configMock;
   private String uri;
 
   @Before
   public void setUp() throws Exception {
     String url = "http://localhost:" + wireMockRule.port();
     uri = url + ENDPOINT;
-    configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
+    Configuration configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
     when(configMock.http().user()).thenReturn("user");
     when(configMock.http().password()).thenReturn("pass");
     when(configMock.http().maxTries()).thenReturn(MAX_TRIES);
