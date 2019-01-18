@@ -76,13 +76,12 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ChangeChecker changeCheckerPresentMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
-  private Change change;
 
   @Before
   public void setUp() throws Exception {
     when(changeDbMock.open()).thenReturn(dbMock);
     id = new Change.Id(TEST_CHANGE_NUMBER);
-    change = new Change(null, id, null, null, TimeUtil.nowTs());
+    Change change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
     when(configMock.index()).thenReturn(indexMock);
     when(indexMock.numStripedLocks()).thenReturn(10);
