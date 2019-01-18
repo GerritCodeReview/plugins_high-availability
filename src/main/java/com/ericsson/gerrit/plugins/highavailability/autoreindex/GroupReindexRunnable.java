@@ -20,6 +20,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndex
 import com.google.common.collect.Streams;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.AccountGroup.Id;
+import com.google.gerrit.reviewdb.client.AccountGroupByIdAud;
 import com.google.gerrit.reviewdb.client.AccountGroupMemberAudit;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.util.OneOffRequestContext;
@@ -62,14 +63,17 @@ public class GroupReindexRunnable extends ReindexRunnable<AccountGroup> {
               .byGroup(g.getId())
               .toList()
               .stream()
-              .map(ga -> ga.getRemovedOn())
+              .map(AccountGroupByIdAud::getRemovedOn)
               .filter(Objects::nonNull);
       List<AccountGroupMemberAudit> groupMembersAud =
           db.accountGroupMembersAudit().byGroup(groupId).toList();
       Stream<Timestamp> groupMemberAudAddedTs =
           groupMembersAud.stream().map(ga -> ga.getKey().getAddedOn()).filter(Objects::nonNull);
       Stream<Timestamp> groupMemberAudRemovedTs =
-          groupMembersAud.stream().map(ga -> ga.getRemovedOn()).filter(Objects::nonNull);
+          groupMembersAud
+              .stream()
+              .map(AccountGroupMemberAudit::getRemovedOn)
+              .filter(Objects::nonNull);
       Optional<Timestamp> groupLastTs =
           Streams.concat(groupIdAudTs, groupMemberAudAddedTs, groupMemberAudRemovedTs)
               .max(Comparator.naturalOrder());

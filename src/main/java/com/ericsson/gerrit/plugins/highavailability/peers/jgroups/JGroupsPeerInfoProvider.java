@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -23,6 +24,7 @@ import com.google.inject.Singleton;
 import java.net.InetAddress;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -43,7 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 @Singleton
 public class JGroupsPeerInfoProvider extends ReceiverAdapter
-    implements Provider<Optional<PeerInfo>>, LifecycleListener {
+    implements Provider<Set<PeerInfo>>, LifecycleListener {
   private static final Logger log = LoggerFactory.getLogger(JGroupsPeerInfoProvider.class);
   private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
 
@@ -85,7 +87,6 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   @Override
   public void viewAccepted(View view) {
     log.info("viewAccepted(view: {}) called", view);
-
     synchronized (this) {
       if (view.getMembers().size() > 2) {
         log.warn(
@@ -164,8 +165,8 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   }
 
   @Override
-  public Optional<PeerInfo> get() {
-    return peerInfo;
+  public Set<PeerInfo> get() {
+    return peerInfo.isPresent() ? ImmutableSet.of(peerInfo.get()) : ImmutableSet.of();
   }
 
   @Override
