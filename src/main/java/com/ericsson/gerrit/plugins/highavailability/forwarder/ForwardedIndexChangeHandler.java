@@ -73,11 +73,12 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<Change
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
-    while (throwable != null) {
-      if (throwable instanceof NoSuchChangeException) {
+    Throwable cause = throwable;
+    while (cause != null) {
+      if (cause instanceof NoSuchChangeException) {
         return true;
       }
-      throwable = throwable.getCause();
+      cause = cause.getCause();
     }
     return false;
   }
