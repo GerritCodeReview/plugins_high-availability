@@ -18,20 +18,21 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Singleton
-public class PluginConfigPeerInfoProvider implements Provider<Optional<PeerInfo>> {
+public class PluginConfigPeerInfoProvider implements Provider<Set<PeerInfo>> {
 
-  private final Optional<PeerInfo> peerInfo;
+  private final Set<PeerInfo> peers;
 
   @Inject
   PluginConfigPeerInfoProvider(Configuration cfg) {
-    peerInfo = Optional.of(new PeerInfo(cfg.peerInfoStatic().url()));
+    peers = cfg.peerInfoStatic().urls().stream().map(PeerInfo::new).collect(Collectors.toSet());
   }
 
   @Override
-  public Optional<PeerInfo> get() {
-    return peerInfo;
+  public Set<PeerInfo> get() {
+    return peers;
   }
 }

@@ -86,10 +86,7 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
         Stream<Change> projectChangesStream =
             notesFactory
                 .scan(repo, db, projectName)
-                .map(
-                    (ChangeNotesResult changeNotes) -> {
-                      return changeNotes.notes().getChange();
-                    });
+                .map((ChangeNotesResult changeNotes) -> changeNotes.notes().getChange());
         allChangesStream = Streams.concat(allChangesStream, projectChangesStream);
       }
     }
