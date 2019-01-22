@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8101c8b_619214a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-22T09:55:14Z",
+      "side": 1,
+      "message": "The latest is now 4.0.16.Final",
+      "revId": "3e8df7fea9f3a26a8ed1584b6174f8bd1f36471e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
