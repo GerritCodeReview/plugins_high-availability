@@ -1,7 +1,8 @@
+
 @PLUGIN@ Configuration
 =========================
 
-The @PLUGIN@ plugin must be installed on both instances and the following fields
+The @PLUGIN@ plugin must be installed on all the instances and the following fields
 should be specified in `$site_path/etc/@PLUGIN@.config` file:
 
 File '@PLUGIN@.config'
@@ -17,7 +18,8 @@ File '@PLUGIN@.config'
 [peerInfo]
   strategy = static
 [peerInfo "static"]
-  url = target_instance_url
+  url = first_target_instance_url
+  url = second_target_instance_url
 [http]
   user = username
   password = password
@@ -93,7 +95,8 @@ over a JGroups multicast message. JGroups takes care to inform each cluster when
 a member joins or leaves the cluster.
 
 ```peerInfo.static.url```
-:   Specify the URL for the peer instance.
+:   Specify the URL for the peer instance. If more than one peer instance is to be
+    configured, add as many url entries as necessary.
 
 ```peerInfo.jgroups.myUrl```
 :   The URL of this instance to be broadcast to other peers. If not specified, the
@@ -191,6 +194,17 @@ the plugin will keep retrying to forward a message for one hour.
 ```index.threadPoolSize```
 :   Maximum number of threads used to send index events to the target instance.
     Defaults to 4.
+
+```index.maxTries```
+:   Maximum number of times the plugin should attempt to reindex changes.
+    Setting this value to 0 will disable retries. After this number of failed tries,
+    an error is logged and the local index should be considered stale and needs
+    to be investigated and manually reindexed.
+    Defaults to 2.
+
+```index.retryInterval```
+:   The interval of time in milliseconds between the subsequent auto-retries.
+    Defaults to 30000 (30 seconds).
 
 ```websession.synchronize```
 :   Whether to synchronize web sessions.

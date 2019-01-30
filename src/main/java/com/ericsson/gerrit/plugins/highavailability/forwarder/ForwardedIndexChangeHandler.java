@@ -15,19 +15,26 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.Index;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
+import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.server.ReviewDb;
-import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
+import com.google.gerrit.server.util.ManualRequestContext;
+import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Index a change using {@link ChangeIndexer}. This class is meant to be used on the receiving side
@@ -38,42 +45,112 @@ import java.util.Optional;
 @Singleton
 public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
   private final ChangeIndexer indexer;
-  private final SchemaFactory<ReviewDb> schemaFactory;
-  private final ChangeFinder changeFinder;
+  private final ChangeDb changeDb;
+  private final ScheduledExecutorService indexExecutor;
+  private final OneOffRequestContext oneOffCtx;
+  private final int retryInterval;
+  private final int maxTries;
+  private final ChangeCheckerImpl.Factory changeCheckerFactory;
 
   @Inject
   ForwardedIndexChangeHandler(
       ChangeIndexer indexer,
-      SchemaFactory<ReviewDb> schemaFactory,
-      ChangeFinder changeFinder,
-      Configuration config) {
+      ChangeDb changeDb,
+      Configuration config,
+      @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
+      OneOffRequestContext oneOffCtx,
+      ChangeCheckerImpl.Factory changeCheckerFactory) {
     super(config.index());
     this.indexer = indexer;
-    this.schemaFactory = schemaFactory;
-    this.changeFinder = changeFinder;
+    this.changeDb = changeDb;
+    this.indexExecutor = indexExecutor;
+    this.oneOffCtx = oneOffCtx;
+    this.changeCheckerFactory = changeCheckerFactory;
+
+    Index indexConfig = config.index();
+    this.retryInterval = indexConfig != null ? indexConfig.retryInterval() : 0;
+    this.maxTries = indexConfig != null ? indexConfig.maxTries() : 0;
   }
 
   @Override
   protected void doIndex(String id, Optional<IndexEvent> indexEvent)
       throws IOException, OrmException {
-    ChangeNotes change = null;
-    try (ReviewDb db = schemaFactory.open()) {
-      change = changeFinder.findOne(id);
-      if (change != null) {
-        change.reload();
-        indexer.index(db, change.getChange());
-        log.debug("Change {} successfully indexed", id);
+    doIndex(id, indexEvent, 0);
+  }
+
+  private void doIndex(String id, Optional<IndexEvent> indexEvent, int retryCount)
+      throws IOException, OrmException {
+    try {
+      ChangeChecker checker = changeCheckerFactory.create(id);
+      Optional<ChangeNotes> changeNotes = checker.getChangeNotes();
+      if (changeNotes.isPresent()) {
+        ChangeNotes notes = changeNotes.get();
+        reindex(notes);
+
+        if (checker.isChangeUpToDate(indexEvent)) {
+          if (retryCount > 0) {
+            log.warn("Change {} has been eventually indexed after {} attempt(s)", id, retryCount);
+          } else {
+            log.debug("Change {} successfully indexed", id);
+          }
+        } else {
+          log.warn(
+              "Change {} seems too old compared to the event timestamp (event-Ts={} >> change-Ts={})",
+              id,
+              indexEvent,
+              checker);
+          rescheduleIndex(id, indexEvent, retryCount + 1);
+        }
+      } else {
+        indexer.delete(parseChangeId(id));
+        log.warn(
+            "Change {} could not be found in the local Git repository (eventTs={}), deleted from index",
+            id,
+            indexEvent);
       }
     } catch (Exception e) {
-      if (!isCausedByNoSuchChangeException(e)) {
-        throw e;
+      if (isCausedByNoSuchChangeException(e)) {
+        indexer.delete(parseChangeId(id));
+        log.warn("Error trying to index Change {}. Deleted from index", id, e);
+        return;
       }
-      log.debug("Change {} was deleted, aborting forwarded indexing the change.", id);
+
+      throw e;
     }
-    if (change == null) {
-      indexer.delete(parseChangeId(id));
-      log.debug("Change {} not found, deleted from index", id);
+  }
+
+  private void reindex(ChangeNotes notes) throws IOException, OrmException {
+    try (ReviewDb db = changeDb.open()) {
+      notes.reload();
+      indexer.index(db, notes.getChange());
     }
+  }
+
+  private void rescheduleIndex(String id, Optional<IndexEvent> indexEvent, int retryCount) {
+    if (retryCount > maxTries) {
+      log.error(
+          "Change {} could not be indexed after {} retries. Change index could be stale.",
+          id,
+          retryCount);
+      return;
+    }
+
+    log.warn(
+        "Retrying for the #{} time to index Change {} after {} msecs",
+        retryCount,
+        id,
+        retryInterval);
+    indexExecutor.schedule(
+        () -> {
+          try (ManualRequestContext ctx = oneOffCtx.open()) {
+            Context.setForwardedEvent(true);
+            doIndex(id, indexEvent, retryCount);
+          } catch (Exception e) {
+            log.warn("Change {} could not be indexed", id, e);
+          }
+        },
+        retryInterval,
+        TimeUnit.MILLISECONDS);
   }
 
   @Override
@@ -83,16 +160,16 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   private static Change.Id parseChangeId(String id) {
-    Change.Id changeId = new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
-    return changeId;
+    return new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
-    while (throwable != null) {
-      if (throwable instanceof NoSuchChangeException) {
+    Throwable cause = throwable;
+    while (cause != null) {
+      if (cause instanceof NoSuchChangeException) {
         return true;
       }
-      throwable = throwable.getCause();
+      cause = cause.getCause();
     }
     return false;
   }

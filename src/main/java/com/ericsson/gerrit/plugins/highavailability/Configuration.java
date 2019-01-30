@@ -20,6 +20,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -32,8 +33,11 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +51,8 @@ public class Configuration {
 
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
+  static final int DEFAULT_INDEX_MAX_TRIES = 2;
+  static final int DEFAULT_INDEX_RETRY_INTERVAL = 30000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
   static final String NUM_STRIPED_LOCKS = "numStripedLocks";
   static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
@@ -153,11 +159,6 @@ public class Configuration {
     }
   }
 
-  @Nullable
-  private static String trimTrailingSlash(@Nullable String in) {
-    return in == null ? null : CharMatcher.is('/').trimTrailingFrom(in);
-  }
-
   public static class Main {
     static final String MAIN_SECTION = "main";
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
@@ -247,17 +248,20 @@ public class Configuration {
     static final String STATIC_SUBSECTION = PeerInfoStrategy.STATIC.name().toLowerCase();
     static final String URL_KEY = "url";
 
-    private final String url;
+    private final Set<String> urls;
 
     private PeerInfoStatic(Config cfg) {
-      url =
-          trimTrailingSlash(
-              Strings.nullToEmpty(cfg.getString(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY)));
-      log.debug("Url: {}", url);
+      urls =
+          Arrays.stream(cfg.getStringList(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY))
+              .filter(Objects::nonNull)
+              .filter(s -> !s.isEmpty())
+              .map(s -> CharMatcher.is('/').trimTrailingFrom(s))
+              .collect(Collectors.toSet());
+      log.debug("Urls: {}", urls);
     }
 
-    public String url() {
-      return url;
+    public Set<String> urls() {
+      return ImmutableSet.copyOf(urls);
     }
   }
 
@@ -274,6 +278,11 @@ public class Configuration {
 
     public String myUrl() {
       return myUrl;
+    }
+
+    @Nullable
+    private static String trimTrailingSlash(@Nullable String in) {
+      return in == null ? in : CharMatcher.is('/').trimTrailingFrom(in);
     }
   }
 
@@ -439,8 +448,12 @@ public class Configuration {
 
   public static class Index extends Forwarding {
     static final String INDEX_SECTION = "index";
+    static final String MAX_TRIES_KEY = "maxTries";
+    static final String RETRY_INTERVAL_KEY = "retryInterval";
 
     private final int threadPoolSize;
+    private final int retryInterval;
+    private final int maxTries;
 
     private final int numStripedLocks;
 
@@ -448,6 +461,8 @@ public class Configuration {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
+      retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
+      maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
     }
 
     public int threadPoolSize() {
@@ -456,6 +471,14 @@ public class Configuration {
 
     public int numStripedLocks() {
       return numStripedLocks;
+    }
+
+    public int retryInterval() {
+      return retryInterval;
+    }
+
+    public int maxTries() {
+      return maxTries;
     }
   }
 
