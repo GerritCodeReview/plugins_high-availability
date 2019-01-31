@@ -27,9 +27,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
-import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
@@ -56,16 +54,12 @@ public class ForwardedIndexChangeHandlerTest {
   private static final boolean CHANGE_EXISTS = true;
   private static final boolean CHANGE_DOES_NOT_EXIST = false;
   private static final boolean DO_NOT_THROW_IO_EXCEPTION = false;
-  private static final boolean DO_NOT_THROW_ORM_EXCEPTION = false;
   private static final boolean THROW_IO_EXCEPTION = true;
-  private static final boolean THROW_ORM_EXCEPTION = true;
   private static final boolean CHANGE_UP_TO_DATE = true;
   private static final boolean CHANGE_OUTDATED = false;
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ChangeIndexer indexerMock;
-  @Mock private ChangeDb changeDbMock;
-  @Mock private ReviewDb dbMock;
   @Mock private ChangeNotes changeNotes;
   @Mock private Configuration configMock;
   @Mock private Configuration.Index indexMock;
@@ -79,7 +73,6 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Before
   public void setUp() throws Exception {
-    when(changeDbMock.open()).thenReturn(dbMock);
     id = new Change.Id(TEST_CHANGE_NUMBER);
     Change change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
@@ -88,26 +81,21 @@ public class ForwardedIndexChangeHandlerTest {
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
     handler =
         new ForwardedIndexChangeHandler(
-            indexerMock,
-            changeDbMock,
-            configMock,
-            indexExecutorMock,
-            ctxMock,
-            changeCheckerFactoryMock);
+            indexerMock, configMock, indexExecutorMock, ctxMock, changeCheckerFactoryMock);
   }
 
   @Test
   public void changeIsIndexedWhenUpToDate() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   @Test
   public void changeIsStillIndexedEvenWhenOutdated() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent()));
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   @Test
@@ -124,16 +112,8 @@ public class ForwardedIndexChangeHandlerTest {
   }
 
   @Test
-  public void schemaThrowsExceptionWhenLookingUpForChange() throws Exception {
-    setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_ORM_EXCEPTION, CHANGE_UP_TO_DATE);
-    exception.expect(OrmException.class);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-  }
-
-  @Test
   public void indexerThrowsIOExceptionTryingToIndexChange() throws Exception {
-    setupChangeAccessRelatedMocks(
-        CHANGE_EXISTS, DO_NOT_THROW_ORM_EXCEPTION, THROW_IO_EXCEPTION, CHANGE_UP_TO_DATE);
+    setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_IO_EXCEPTION, CHANGE_UP_TO_DATE);
     exception.expect(IOException.class);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
   }
@@ -150,13 +130,13 @@ public class ForwardedIndexChangeHandlerTest {
                   return null;
                 })
         .when(indexerMock)
-        .index(any(ReviewDb.class), any(Change.class));
+        .index(any(Change.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   @Test
@@ -169,7 +149,7 @@ public class ForwardedIndexChangeHandlerTest {
                   throw new IOException("someMessage");
                 })
         .when(indexerMock)
-        .index(any(ReviewDb.class), any(Change.class));
+        .index(any(Change.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
@@ -180,38 +160,22 @@ public class ForwardedIndexChangeHandlerTest {
     }
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(ReviewDb.class), any(Change.class));
+    verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExist, boolean changeUpToDate)
       throws Exception {
-    setupChangeAccessRelatedMocks(
-        changeExist, DO_NOT_THROW_ORM_EXCEPTION, DO_NOT_THROW_IO_EXCEPTION, changeUpToDate);
+    setupChangeAccessRelatedMocks(changeExist, DO_NOT_THROW_IO_EXCEPTION, changeUpToDate);
   }
 
   private void setupChangeAccessRelatedMocks(
-      boolean changeExist, boolean ormException, boolean changeUpToDate)
+      boolean changeExists, boolean ioException, boolean changeIsUpToDate)
       throws OrmException, IOException {
-    setupChangeAccessRelatedMocks(
-        changeExist, ormException, DO_NOT_THROW_IO_EXCEPTION, changeUpToDate);
-  }
-
-  private void setupChangeAccessRelatedMocks(
-      boolean changeExists, boolean ormException, boolean ioException, boolean changeIsUpToDate)
-      throws OrmException, IOException {
-    if (ormException) {
-      doThrow(new OrmException("")).when(changeDbMock).open();
-    } else {
-      when(changeDbMock.open()).thenReturn(dbMock);
-    }
-
     if (changeExists) {
       when(changeCheckerFactoryMock.create(TEST_CHANGE_ID)).thenReturn(changeCheckerPresentMock);
       when(changeCheckerPresentMock.getChangeNotes()).thenReturn(Optional.of(changeNotes));
       if (ioException) {
-        doThrow(new IOException("io-error"))
-            .when(indexerMock)
-            .index(any(ReviewDb.class), any(Change.class));
+        doThrow(new IOException("io-error")).when(indexerMock).index(any(Change.class));
       }
     }
 

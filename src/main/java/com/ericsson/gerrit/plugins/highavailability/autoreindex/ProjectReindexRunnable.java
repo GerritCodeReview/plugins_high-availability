@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
@@ -35,12 +34,12 @@ public class ProjectReindexRunnable extends ReindexRunnable<Project.NameKey> {
   }
 
   @Override
-  protected Iterable<Project.NameKey> fetchItems(ReviewDb db) {
+  protected Iterable<Project.NameKey> fetchItems() {
     return projectCache.all();
   }
 
   @Override
-  protected Optional<Timestamp> indexIfNeeded(ReviewDb db, Project.NameKey g, Timestamp sinceTs) {
+  protected Optional<Timestamp> indexIfNeeded(Project.NameKey g, Timestamp sinceTs) {
     return Optional.empty();
   }
 }
