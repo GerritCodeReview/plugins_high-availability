@@ -144,7 +144,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   private Optional<Long> computeLastChangeTs() throws OrmException {
-    return getChangeNotes().map(notes -> getTsFromChangeAndDraftComments(notes));
+    return getChangeNotes().map(this::getTsFromChangeAndDraftComments);
   }
 
   private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
