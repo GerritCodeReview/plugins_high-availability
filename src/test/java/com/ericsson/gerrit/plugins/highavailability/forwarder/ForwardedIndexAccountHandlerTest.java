@@ -18,11 +18,14 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import java.io.IOException;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,18 +40,22 @@ public class ForwardedIndexAccountHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private AccountIndexer indexerMock;
+  @Mock private Configuration configMock;
+  @Mock private Configuration.Index indexMock;
   private ForwardedIndexAccountHandler handler;
   private Account.Id id;
 
   @Before
   public void setUp() throws Exception {
-    handler = new ForwardedIndexAccountHandler(indexerMock);
+    when(configMock.index()).thenReturn(indexMock);
+    when(indexMock.numStripedLocks()).thenReturn(10);
+    handler = new ForwardedIndexAccountHandler(indexerMock, configMock);
     id = new Account.Id(123);
   }
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(id, Operation.INDEX);
+    handler.index(id, Operation.INDEX, Optional.empty());
     verify(indexerMock).index(id);
   }
 
@@ -56,7 +63,7 @@ public class ForwardedIndexAccountHandlerTest {
   public void deleteIsNotSupported() throws Exception {
     exception.expect(UnsupportedOperationException.class);
     exception.expectMessage("Delete from account index not supported");
-    handler.index(id, Operation.DELETE);
+    handler.index(id, Operation.DELETE, Optional.empty());
   }
 
   @Test
@@ -73,7 +80,7 @@ public class ForwardedIndexAccountHandlerTest {
         .index(id);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(id, Operation.INDEX);
+    handler.index(id, Operation.INDEX, Optional.empty());
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(id);
@@ -92,7 +99,7 @@ public class ForwardedIndexAccountHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
-      handler.index(id, Operation.INDEX);
+      handler.index(id, Operation.INDEX, Optional.empty());
       fail("should have thrown an IOException");
     } catch (IOException e) {
       assertThat(e.getMessage()).isEqualTo("someMessage");

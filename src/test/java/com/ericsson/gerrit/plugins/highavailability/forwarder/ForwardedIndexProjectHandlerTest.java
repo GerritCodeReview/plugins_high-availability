@@ -22,8 +22,8 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
-import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.server.index.group.GroupIndexer;
+import com.google.gerrit.index.project.ProjectIndexer;
+import com.google.gerrit.reviewdb.client.Project;
 import java.io.IOException;
 import java.util.Optional;
 import org.junit.Before;
@@ -36,34 +36,34 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ForwardedIndexGroupHandlerTest {
+public class ForwardedIndexProjectHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
-  @Mock private GroupIndexer indexerMock;
+  @Mock private ProjectIndexer indexerMock;
   @Mock private Configuration configMock;
   @Mock private Configuration.Index indexMock;
-  private ForwardedIndexGroupHandler handler;
-  private AccountGroup.UUID uuid;
+  private ForwardedIndexProjectHandler handler;
+  private Project.NameKey nameKey;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     when(configMock.index()).thenReturn(indexMock);
     when(indexMock.numStripedLocks()).thenReturn(10);
-    handler = new ForwardedIndexGroupHandler(indexerMock, configMock);
-    uuid = new AccountGroup.UUID("123");
+    handler = new ForwardedIndexProjectHandler(indexerMock, configMock);
+    nameKey = new Project.NameKey("project/name");
   }
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(uuid, Operation.INDEX, Optional.empty());
-    verify(indexerMock).index(uuid);
+    handler.index(nameKey, Operation.INDEX, Optional.empty());
+    verify(indexerMock).index(nameKey);
   }
 
   @Test
   public void deleteIsNotSupported() throws Exception {
     exception.expect(UnsupportedOperationException.class);
-    exception.expectMessage("Delete from group index not supported");
-    handler.index(uuid, Operation.DELETE, Optional.empty());
+    exception.expectMessage("Delete from project index not supported");
+    handler.index(nameKey, Operation.DELETE, Optional.empty());
   }
 
   @Test
@@ -77,13 +77,13 @@ public class ForwardedIndexGroupHandlerTest {
                   return null;
                 })
         .when(indexerMock)
-        .index(uuid);
+        .index(nameKey);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(uuid, Operation.INDEX, Optional.empty());
+    handler.index(nameKey, Operation.INDEX, Optional.empty());
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock).index(uuid);
+    verify(indexerMock).index(nameKey);
   }
 
   @Test
@@ -95,17 +95,17 @@ public class ForwardedIndexGroupHandlerTest {
                   throw new IOException("someMessage");
                 })
         .when(indexerMock)
-        .index(uuid);
+        .index(nameKey);
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
-      handler.index(uuid, Operation.INDEX, Optional.empty());
+      handler.index(nameKey, Operation.INDEX, Optional.empty());
       fail("should have thrown an IOException");
     } catch (IOException e) {
       assertThat(e.getMessage()).isEqualTo("someMessage");
     }
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock).index(uuid);
+    verify(indexerMock).index(nameKey);
   }
 }

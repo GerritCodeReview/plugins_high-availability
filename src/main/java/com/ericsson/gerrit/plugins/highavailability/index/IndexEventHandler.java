@@ -16,30 +16,43 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Objects;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
+import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.inject.Inject;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class IndexEventHandler
-    implements ChangeIndexedListener, AccountIndexedListener, GroupIndexedListener {
+    implements ChangeIndexedListener,
+        AccountIndexedListener,
+        GroupIndexedListener,
+        ProjectIndexedListener {
+  private static final Logger log = LoggerFactory.getLogger(IndexEventHandler.class);
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
+  private final ChangeCheckerImpl.Factory changeChecker;
 
   @Inject
   IndexEventHandler(
-      @IndexExecutor Executor executor, @PluginName String pluginName, Forwarder forwarder) {
+      @IndexExecutor Executor executor,
+      @PluginName String pluginName,
+      Forwarder forwarder,
+      ChangeCheckerImpl.Factory changeChecker) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.changeChecker = changeChecker;
   }
 
   @Override
@@ -72,16 +85,46 @@ class IndexEventHandler
     }
   }
 
-  private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
+  @Override
+  public void onProjectIndexed(String projectName) {
     if (!Context.isForwardedEvent()) {
-      IndexChangeTask task = new IndexChangeTask(projectName, id, deleted);
+      IndexProjectTask task = new IndexProjectTask(projectName);
       if (queuedTasks.add(task)) {
         executor.execute(task);
       }
     }
   }
 
+  private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
+    if (!Context.isForwardedEvent()) {
+      ChangeChecker checker = changeChecker.create(projectName + "~" + id);
+      try {
+        checker
+            .newIndexEvent()
+            .map(event -> new IndexChangeTask(projectName, id, deleted, event))
+            .ifPresent(
+                task -> {
+                  if (queuedTasks.add(task)) {
+                    executor.execute(task);
+                  }
+                });
+      } catch (Exception e) {
+        log.warn("Unable to create task to handle change {}~{}", projectName, id, e);
+      }
+    }
+  }
+
   abstract class IndexTask implements Runnable {
+    protected final IndexEvent indexEvent;
+
+    IndexTask() {
+      indexEvent = new IndexEvent();
+    }
+
+    IndexTask(IndexEvent indexEvent) {
+      this.indexEvent = indexEvent;
+    }
+
     @Override
     public void run() {
       queuedTasks.remove(this);
@@ -96,7 +139,8 @@ class IndexEventHandler
     private final int changeId;
     private final String projectName;
 
-    IndexChangeTask(String projectName, int changeId, boolean deleted) {
+    IndexChangeTask(String projectName, int changeId, boolean deleted, IndexEvent indexEvent) {
+      super(indexEvent);
       this.projectName = projectName;
       this.changeId = changeId;
       this.deleted = deleted;
@@ -105,9 +149,9 @@ class IndexEventHandler
     @Override
     public void execute() {
       if (deleted) {
-        forwarder.deleteChangeFromIndex(changeId);
+        forwarder.deleteChangeFromIndex(changeId, indexEvent);
       } else {
-        forwarder.indexChange(projectName, changeId);
+        forwarder.indexChange(projectName, changeId, indexEvent);
       }
     }
 
@@ -140,7 +184,7 @@ class IndexEventHandler
 
     @Override
     public void execute() {
-      forwarder.indexAccount(accountId);
+      forwarder.indexAccount(accountId, indexEvent);
     }
 
     @Override
@@ -172,7 +216,7 @@ class IndexEventHandler
 
     @Override
     public void execute() {
-      forwarder.indexGroup(groupUUID);
+      forwarder.indexGroup(groupUUID, indexEvent);
     }
 
     @Override
@@ -192,6 +236,38 @@ class IndexEventHandler
     @Override
     public String toString() {
       return String.format("[%s] Index group %s in target instance", pluginName, groupUUID);
+    }
+  }
+
+  class IndexProjectTask extends IndexTask {
+    private final String projectName;
+
+    IndexProjectTask(String projectName) {
+      this.projectName = projectName;
+    }
+
+    @Override
+    public void execute() {
+      forwarder.indexProject(projectName, indexEvent);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(IndexProjectTask.class, projectName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (!(obj instanceof IndexProjectTask)) {
+        return false;
+      }
+      IndexProjectTask other = (IndexProjectTask) obj;
+      return projectName.equals(other.projectName);
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[%s] Index project %s in target instance", pluginName, projectName);
     }
   }
 }
