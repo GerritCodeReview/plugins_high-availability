@@ -1,4 +1,4 @@
-// Copyright (C) 2017 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,9 +24,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
-import com.google.gerrit.reviewdb.client.Account;
+import com.google.gerrit.extensions.restapi.Url;
+import com.google.gerrit.reviewdb.client.Project;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,48 +38,52 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IndexAccountRestApiServletTest {
-  private static final int ACCOUNT_NUMBER = 1;
+public class IndexProjectRestApiServletTest {
   private static final String IO_ERROR = "io-error";
+  private static final String PROJECT_NAME = "test/project";
 
-  @Mock private ForwardedIndexAccountHandler handlerMock;
+  @Mock private ForwardedIndexProjectHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
 
-  private Account.Id id;
-  private IndexAccountRestApiServlet servlet;
+  private Project.NameKey nameKey;
+  private IndexProjectRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexAccountRestApiServlet(handlerMock);
-    id = new Account.Id(ACCOUNT_NUMBER);
+    servlet = new IndexProjectRestApiServlet(handlerMock);
+    nameKey = new Project.NameKey(PROJECT_NAME);
     when(requestMock.getRequestURI())
-        .thenReturn("http://gerrit.com/index/account/" + ACCOUNT_NUMBER);
+        .thenReturn("http://gerrit.com/index/project/" + Url.encode(nameKey.get()));
   }
 
   @Test
-  public void accountIsIndexed() throws Exception {
+  public void projectIsIndexed() throws Exception {
     servlet.doPost(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(id), eq(Operation.INDEX), any());
+    verify(handlerMock, times(1)).index(eq(nameKey), eq(Operation.INDEX), any());
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
   @Test
-  public void cannotDeleteAccount() throws Exception {
+  public void cannotDeleteProject() throws Exception {
     servlet.doDelete(requestMock, responseMock);
-    verify(responseMock).sendError(SC_METHOD_NOT_ALLOWED, "cannot delete account from index");
+    verify(responseMock).sendError(SC_METHOD_NOT_ALLOWED, "cannot delete project from index");
   }
 
   @Test
-  public void indexerThrowsIOExceptionTryingToIndexAccount() throws Exception {
-    doThrow(new IOException(IO_ERROR)).when(handlerMock).index(eq(id), eq(Operation.INDEX), any());
+  public void indexerThrowsIOExceptionTryingToIndexProject() throws Exception {
+    doThrow(new IOException(IO_ERROR))
+        .when(handlerMock)
+        .index(eq(nameKey), eq(Operation.INDEX), any());
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);
   }
 
   @Test
   public void sendErrorThrowsIOException() throws Exception {
-    doThrow(new IOException(IO_ERROR)).when(handlerMock).index(eq(id), eq(Operation.INDEX), any());
+    doThrow(new IOException(IO_ERROR))
+        .when(handlerMock)
+        .index(eq(nameKey), eq(Operation.INDEX), any());
     doThrow(new IOException("someError")).when(responseMock).sendError(SC_CONFLICT, IO_ERROR);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);

@@ -1,4 +1,4 @@
-// Copyright (C) 2017 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
+package com.ericsson.gerrit.plugins.highavailability.index;
 
-import java.io.IOException;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-public class PeerInfoNotAvailableException extends IOException {
-  private static final long serialVersionUID = 1L;
-}
+import com.google.inject.BindingAnnotation;
+import java.lang.annotation.Retention;
+
+@Retention(RUNTIME)
+@BindingAnnotation
+public @interface ForwardedIndexExecutor {}

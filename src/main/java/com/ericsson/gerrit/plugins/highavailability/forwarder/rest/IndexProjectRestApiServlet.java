@@ -1,4 +1,4 @@
-// Copyright (C) 2017 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,27 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.peers;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
+import com.google.gerrit.extensions.restapi.Url;
+import com.google.gerrit.reviewdb.client.Project;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Singleton
-public class PluginConfigPeerInfoProvider implements Provider<Set<PeerInfo>> {
-
-  private final Set<PeerInfo> peers;
+class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet<Project.NameKey> {
+  private static final long serialVersionUID = -1L;
 
   @Inject
-  PluginConfigPeerInfoProvider(Configuration cfg) {
-    peers = cfg.peerInfoStatic().urls().stream().map(PeerInfo::new).collect(Collectors.toSet());
+  IndexProjectRestApiServlet(ForwardedIndexProjectHandler handler) {
+    super(handler, IndexName.PROJECT);
   }
 
   @Override
-  public Set<PeerInfo> get() {
-    return peers;
+  Project.NameKey parse(String projectName) {
+    return new Project.NameKey(Url.decode(projectName));
   }
 }
