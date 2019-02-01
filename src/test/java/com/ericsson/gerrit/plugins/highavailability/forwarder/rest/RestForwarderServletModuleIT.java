@@ -31,19 +31,28 @@ import org.junit.Test;
 public class RestForwarderServletModuleIT extends LightweightPluginDaemonTest {
 
   private final Event event = new Event("un-deserializable") {};
-  private final String endPoint = "/plugins/high-availability/event";
+  private final String endpointPrefix = "/plugins/high-availability";
+  private final String eventEndpointSuffix = "event";
 
   @Test
   @UseLocalDisk
   public void serveTypedEventEndpoint() throws Exception {
     adminRestSession
-        .post(Joiner.on("/").join(endPoint, event.type), event)
+        .post(Joiner.on("/").join(endpointPrefix, eventEndpointSuffix, event.type), event)
         .assertStatus(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
   }
 
   @Test
   @UseLocalDisk
   public void doNotServeStraightEventEndpoint() throws Exception {
-    adminRestSession.post(endPoint, event).assertMethodNotAllowed();
+    adminRestSession
+        .post(Joiner.on("/").join(endpointPrefix, eventEndpointSuffix), event)
+        .assertMethodNotAllowed();
+  }
+
+  @Test
+  @UseLocalDisk
+  public void doNotServeStraightCacheEndpoint() throws Exception {
+    adminRestSession.post(Joiner.on("/").join(endpointPrefix, "cache")).assertMethodNotAllowed();
   }
 }
