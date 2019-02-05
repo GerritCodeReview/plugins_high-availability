@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.TestEvent;
 import com.google.common.base.Joiner;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
@@ -30,7 +31,7 @@ import org.junit.Test;
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public class RestForwarderServletModuleIT extends LightweightPluginDaemonTest {
 
-  private final Event event = new Event("un-deserializable") {};
+  private final Event event = new TestEvent();
   private final String endpointPrefix = "/plugins/high-availability";
   private final String eventEndpointSuffix = "event";
 
