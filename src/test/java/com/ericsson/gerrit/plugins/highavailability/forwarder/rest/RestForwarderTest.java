@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.TestEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
@@ -75,7 +76,7 @@ public class RestForwarderTest {
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/group", UUID);
 
   // Event
-  private static Event event = new Event("test-event") {};
+  private static Event event = new TestEvent();
   private static final String EVENT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "event", event.type);
 
