@@ -30,7 +30,7 @@ public class ForwardedAwareEventBrokerTest {
 
   private EventListener listenerMock;
   private ForwardedAwareEventBroker broker;
-  private Event event = new Event(null) {};
+  private Event event = new TestEvent();
 
   @Before
   public void setUp() {
