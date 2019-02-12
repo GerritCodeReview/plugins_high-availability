@@ -16,6 +16,24 @@
       "revId": "ddbdc84dc3e2dfb456034dce72ae0001e320fed8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3678c7a_415e7080",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-12T11:21:29Z",
+      "side": 0,
+      "message": "Hard to say. I didn\u0027t know, that gjf 1.7 is already out there.",
+      "parentUuid": "60361bba_45f23039",
+      "revId": "ddbdc84dc3e2dfb456034dce72ae0001e320fed8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
