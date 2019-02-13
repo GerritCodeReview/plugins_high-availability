@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "c2eb6dc8_5607daad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-13T21:48:27Z",
+      "side": 1,
+      "message": "deleted",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c56d5f1_a5bf511d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-13T21:48:27Z",
+      "side": 1,
+      "message": "changes",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "593c636f_f702a6c7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-13T21:48:27Z",
+      "side": 1,
+      "message": "Based on the flag, the method body is completely different, best to split into two more focused methods:\n\n1. deleteChangeFromIndex (always synchronous)\n2. reindexChangeTaskAsync (always asynchronous)",
+      "range": {
+        "startLine": 101,
+        "startChar": 10,
+        "endLine": 101,
+        "endChar": 17
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d5d3ffa_822b4ac6",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
         "patchSetId": 1
@@ -13,6 +82,30 @@
       "writtenOn": "2019-02-13T18:50:26Z",
       "side": 1,
       "message": "Might be worth adding a test for this",
+      "range": {
+        "startLine": 101,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 14
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9cf502_5fbccc75",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-13T21:48:27Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "6d5d3ffa_822b4ac6",
       "range": {
         "startLine": 101,
         "startChar": 5,
