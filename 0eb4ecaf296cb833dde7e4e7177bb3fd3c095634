@@ -48,6 +48,77 @@
     },
     {
       "key": {
+        "uuid": "e82b329a_f19d2963",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-13T22:10:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2eb6dc8_5607daad",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32d2cda8_e031b65f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-13T22:10:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c56d5f1_a5bf511d",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "641e6d3a_7dcac2c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-13T22:10:41Z",
+      "side": 1,
+      "message": "dispatch",
+      "range": {
+        "startLine": 11,
+        "startChar": 59,
+        "endLine": 11,
+        "endChar": 67
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "593c636f_f702a6c7",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
         "patchSetId": 1
@@ -59,6 +130,30 @@
       "writtenOn": "2019-02-13T21:48:27Z",
       "side": 1,
       "message": "Based on the flag, the method body is completely different, best to split into two more focused methods:\n\n1. deleteChangeFromIndex (always synchronous)\n2. reindexChangeTaskAsync (always asynchronous)",
+      "range": {
+        "startLine": 101,
+        "startChar": 10,
+        "endLine": 101,
+        "endChar": 17
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e1fa77e_4f22210c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-13T22:10:41Z",
+      "side": 1,
+      "message": "But we are on the publisher side, so why sent the requests for those different kinds of change index event differently (sync vs. async)?",
+      "parentUuid": "593c636f_f702a6c7",
       "range": {
         "startLine": 101,
         "startChar": 10,
