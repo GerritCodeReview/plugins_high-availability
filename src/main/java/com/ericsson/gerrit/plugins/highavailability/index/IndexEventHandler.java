@@ -83,20 +83,35 @@ class IndexEventHandler
 
   private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
     if (!Context.isForwardedEvent()) {
-      ChangeChecker checker = changeChecker.create(projectName + "~" + id);
-      try {
-        checker
-            .newIndexEvent()
-            .map(event -> new IndexChangeTask(projectName, id, deleted, event))
-            .ifPresent(
-                task -> {
-                  if (queuedTasks.add(task)) {
-                    executor.execute(task);
-                  }
-                });
-      } catch (Exception e) {
-        log.warn("Unable to create task to handle change {}~{}", projectName, id, e);
+      if (deleted) {
+        deleteChangeFromIndex(projectName, id);
+      } else {
+        reindexChange(projectName, id);
       }
+    }
+  }
+
+  private void reindexChange(String projectName, int id) {
+    ChangeChecker checker = changeChecker.create(projectName + "~" + id);
+    try {
+      checker
+          .newIndexEvent()
+          .map(event -> new IndexChangeTask(projectName, id, false, event))
+          .ifPresent(
+              task -> {
+                if (queuedTasks.add(task)) {
+                  executor.execute(task);
+                }
+              });
+    } catch (Exception e) {
+      log.warn("Unable to create task to reindex change {}~{}", projectName, id, e);
+    }
+  }
+
+  private void deleteChangeFromIndex(String projectName, int id) {
+    IndexChangeTask task = new IndexChangeTask(projectName, id, true, new IndexEvent());
+    if (queuedTasks.add(task)) {
+      executor.execute(task);
     }
   }
 
