@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "f47722bd_4c58fbbe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-02-13T22:36:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1602bffa_173b6757",
+      "range": {
+        "startLine": 101,
+        "startChar": 10,
+        "endLine": 101,
+        "endChar": 17
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d5d3ffa_822b4ac6",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
         "patchSetId": 1
