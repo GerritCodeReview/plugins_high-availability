@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1602bffa_173b6757",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-13T22:13:17Z",
+      "side": 1,
+      "message": "Right, remove my sync-vs-async comment: on the sender side we are *always* async for not blocking the Gerrit operation in progress. Point taken.",
+      "parentUuid": "7e1fa77e_4f22210c",
+      "range": {
+        "startLine": 101,
+        "startChar": 10,
+        "endLine": 101,
+        "endChar": 17
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d5d3ffa_822b4ac6",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
         "patchSetId": 1
