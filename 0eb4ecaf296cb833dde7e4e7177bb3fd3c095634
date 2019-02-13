@@ -282,6 +282,30 @@
       "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd851827_179c2bc5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-13T22:57:03Z",
+      "side": 1,
+      "message": "\u003e It is a test for that in the code base. However, the that\u0027s where mocked tests are fail to detect real breakages:\n\u003e \n\u003e   when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));\n\u003e \n\u003e By saying this in set up in IndexEventHandlerTest#setUpMocks() it missed the breakage, because in case of change deletion, ChangeCheckerImpl#newIndexEvent() returning empty Optional, and the whole event is dropped.\n\nSo, we should mock as well a situation where:\n\n   when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.empty())\n\n\u003e Sometimes only the complete integration tests are required.\n\n*Holy words* :-)",
+      "parentUuid": "57c60c68_8d2f79c8",
+      "range": {
+        "startLine": 101,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 14
+      },
+      "revId": "0eb4ecaf296cb833dde7e4e7177bb3fd3c095634",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
