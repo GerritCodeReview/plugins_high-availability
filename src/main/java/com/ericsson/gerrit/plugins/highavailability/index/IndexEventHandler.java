@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
+import org.eclipse.jgit.lib.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,20 +84,37 @@ class IndexEventHandler
 
   private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
     if (!Context.isForwardedEvent()) {
-      ChangeChecker checker = changeChecker.create(projectName + "~" + id);
-      try {
-        checker
-            .newIndexEvent()
-            .map(event -> new IndexChangeTask(projectName, id, deleted, event))
-            .ifPresent(
-                task -> {
-                  if (queuedTasks.add(task)) {
-                    executor.execute(task);
-                  }
-                });
-      } catch (Exception e) {
-        log.warn("Unable to create task to handle change {}~{}", projectName, id, e);
+      if (deleted) {
+        deleteChangeFromIndex(projectName, id);
+      } else {
+        reindexChange(projectName, id);
       }
+    }
+  }
+
+  private void reindexChange(String projectName, int id) {
+    ChangeChecker checker = changeChecker.create(projectName + "~" + id);
+    try {
+      checker
+          .newIndexEvent()
+          .map(event -> new IndexChangeTask(projectName, id, false, event))
+          .ifPresent(
+              task -> {
+                if (queuedTasks.add(task)) {
+                  executor.execute(task);
+                }
+              });
+    } catch (Exception e) {
+      log.warn("Unable to create task to reindex change {}~{}", projectName, id, e);
+    }
+  }
+
+  private void deleteChangeFromIndex(String projectName, int id) {
+    IndexEvent event = new IndexEvent();
+    event.targetSha = ObjectId.zeroId().name();
+    IndexChangeTask task = new IndexChangeTask(projectName, id, true, event);
+    if (queuedTasks.add(task)) {
+      executor.execute(task);
     }
   }
 
