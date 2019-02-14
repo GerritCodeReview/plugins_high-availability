@@ -22,6 +22,30 @@
       "revId": "ad9b19863f61f10b16bf66952fa370a2f6cca497",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8bba485_f817e3e2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-02-14T23:30:34Z",
+      "side": 1,
+      "message": "There is no project name: Gerrit does not tell what was the project but only the change number. Because the change isn\u0027t there anymore, you cannot really do anything to extract that information.\n\nPassing a project parameter would be just a lie: there is no project name.\n\nWhat would be worth instead, is getting rid of the smelly \"new IndexChangeTask(\"\", id, true, new IndexEvent())\" which honestly is NOT readable at all (I believe I wrote it, I must have been too sleepy).\n\nI would propose for a follow-up change to have a dedicated new DeleteChangeTask(id).\n\nWDYT?",
+      "parentUuid": "799622f8_95ef56c8",
+      "range": {
+        "startLine": 112,
+        "startChar": 47,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "ad9b19863f61f10b16bf66952fa370a2f6cca497",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
