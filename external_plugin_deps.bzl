@@ -40,6 +40,6 @@ def external_plugin_deps():
 
     maven_jar(
         name = "jgroups",
-        artifact = "org.jgroups:jgroups:3.6.15.Final",
-        sha1 = "755afcfc6c8a8ea1e15ef0073417c0b6e8c6d6e4",
+        artifact = "org.jgroups:jgroups:4.1.0.Final",
+        sha1 = "d48a3de7fec5c4c3ec39437d09865d7f18bce33b",
     )
