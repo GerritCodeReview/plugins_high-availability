@@ -46,6 +46,30 @@
       "revId": "ad9b19863f61f10b16bf66952fa370a2f6cca497",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eaa1577d_23f07590",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-02-15T15:18:55Z",
+      "side": 1,
+      "message": "I then propose to do this refactoring in that follow-up change (or another) instead. For this very change here and above, I propose to make deleteChangeFromIndex consistent with reindexChange, thus stick to projectName use even if fooled. Then, a follow-up change will be able to consistently proceed with refactoring the use of it all across.",
+      "parentUuid": "d8bba485_f817e3e2",
+      "range": {
+        "startLine": 112,
+        "startChar": 47,
+        "endLine": 112,
+        "endChar": 49
+      },
+      "revId": "ad9b19863f61f10b16bf66952fa370a2f6cca497",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
