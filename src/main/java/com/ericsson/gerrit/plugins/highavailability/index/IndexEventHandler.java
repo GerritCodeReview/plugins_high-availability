@@ -63,12 +63,32 @@ class IndexEventHandler
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
-    executeIndexChangeTask(projectName, id, false);
+    if (!Context.isForwardedEvent()) {
+      try {
+        changeChecker
+            .create(projectName + "~" + id)
+            .newIndexEvent()
+            .map(event -> new IndexChangeTask(projectName, id, event))
+            .ifPresent(
+                task -> {
+                  if (queuedTasks.add(task)) {
+                    executor.execute(task);
+                  }
+                });
+      } catch (Exception e) {
+        log.warn("Unable to create task to reindex change {}~{}", projectName, id, e);
+      }
+    }
   }
 
   @Override
   public void onChangeDeleted(int id) {
-    executeIndexChangeTask("", id, true);
+    if (!Context.isForwardedEvent()) {
+      DeleteChangeTask task = new DeleteChangeTask(id, new IndexEvent());
+      if (queuedTasks.add(task)) {
+        executor.execute(task);
+      }
+    }
   }
 
   @Override
@@ -78,40 +98,6 @@ class IndexEventHandler
       if (queuedTasks.add(task)) {
         executor.execute(task);
       }
-    }
-  }
-
-  private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
-    if (!Context.isForwardedEvent()) {
-      if (deleted) {
-        deleteChangeFromIndex(projectName, id);
-      } else {
-        reindexChange(projectName, id);
-      }
-    }
-  }
-
-  private void reindexChange(String projectName, int id) {
-    ChangeChecker checker = changeChecker.create(projectName + "~" + id);
-    try {
-      checker
-          .newIndexEvent()
-          .map(event -> new IndexChangeTask(projectName, id, false, event))
-          .ifPresent(
-              task -> {
-                if (queuedTasks.add(task)) {
-                  executor.execute(task);
-                }
-              });
-    } catch (Exception e) {
-      log.warn("Unable to create task to reindex change {}~{}", projectName, id, e);
-    }
-  }
-
-  private void deleteChangeFromIndex(String projectName, int id) {
-    IndexChangeTask task = new IndexChangeTask(projectName, id, true, new IndexEvent());
-    if (queuedTasks.add(task)) {
-      executor.execute(task);
     }
   }
 
@@ -136,29 +122,23 @@ class IndexEventHandler
   }
 
   class IndexChangeTask extends IndexTask {
-    private final boolean deleted;
     private final int changeId;
     private final String projectName;
 
-    IndexChangeTask(String projectName, int changeId, boolean deleted, IndexEvent indexEvent) {
+    IndexChangeTask(String projectName, int changeId, IndexEvent indexEvent) {
       super(indexEvent);
       this.projectName = projectName;
       this.changeId = changeId;
-      this.deleted = deleted;
     }
 
     @Override
     public void execute() {
-      if (deleted) {
-        forwarder.deleteChangeFromIndex(changeId, indexEvent);
-      } else {
-        forwarder.indexChange(projectName, changeId, indexEvent);
-      }
+      forwarder.indexChange(projectName, changeId, indexEvent);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hashCode(IndexChangeTask.class, changeId, deleted);
+      return Objects.hashCode(IndexChangeTask.class, changeId);
     }
 
     @Override
@@ -167,12 +147,45 @@ class IndexEventHandler
         return false;
       }
       IndexChangeTask other = (IndexChangeTask) obj;
-      return changeId == other.changeId && deleted == other.deleted;
+      return changeId == other.changeId;
     }
 
     @Override
     public String toString() {
       return String.format("[%s] Index change %s in target instance", pluginName, changeId);
+    }
+  }
+
+  class DeleteChangeTask extends IndexTask {
+    private final int changeId;
+
+    DeleteChangeTask(int changeId, IndexEvent indexEvent) {
+      super(indexEvent);
+      this.changeId = changeId;
+    }
+
+    @Override
+    public void execute() {
+      forwarder.deleteChangeFromIndex(changeId, indexEvent);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(DeleteChangeTask.class, changeId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (!(obj instanceof DeleteChangeTask)) {
+        return false;
+      }
+      DeleteChangeTask other = (DeleteChangeTask) obj;
+      return changeId == other.changeId;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[%s] Delete change %s in target instance", pluginName, changeId);
     }
   }
 
