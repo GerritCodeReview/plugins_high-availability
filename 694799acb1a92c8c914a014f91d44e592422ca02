@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17e014a7_2ec2e512",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-17T23:32:16Z",
+      "side": 1,
+      "message": "Extract to a local variable and use below?",
+      "range": {
+        "startLine": 69,
+        "startChar": 20,
+        "endLine": 69,
+        "endChar": 42
+      },
+      "revId": "694799acb1a92c8c914a014f91d44e592422ca02",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e62a95bc_2525e7b7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-02-17T23:32:16Z",
+      "side": 1,
+      "message": "Use variable from above?",
+      "range": {
+        "startLine": 79,
+        "startChar": 58,
+        "endLine": 79,
+        "endChar": 82
+      },
+      "revId": "694799acb1a92c8c914a014f91d44e592422ca02",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
