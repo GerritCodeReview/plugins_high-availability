@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.DeleteChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexAccountTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
@@ -86,6 +87,8 @@ public class IndexEventHandlerTest {
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
     indexEventHandler.onChangeDeleted(changeId.get());
     verify(forwarder).deleteChangeFromIndex(eq(CHANGE_ID), any());
+    verifyZeroInteractions(
+        changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
 
   @Test
@@ -129,7 +132,7 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(poolMock, times(1))
-        .execute(indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, false, null));
+        .execute(indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null));
   }
 
   @Test
@@ -154,8 +157,7 @@ public class IndexEventHandlerTest {
 
   @Test
   public void testIndexChangeTaskToString() throws Exception {
-    IndexChangeTask task =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, false, null);
+    IndexChangeTask task = indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null);
     assertThat(task.toString())
         .isEqualTo(
             String.format("[%s] Index change %s in target instance", PLUGIN_NAME, CHANGE_ID));
@@ -178,33 +180,48 @@ public class IndexEventHandlerTest {
 
   @Test
   public void testIndexChangeTaskHashCodeAndEquals() {
-    IndexChangeTask task =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, false, null);
+    IndexChangeTask task = indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null);
 
     IndexChangeTask sameTask = task;
     assertThat(task.equals(sameTask)).isTrue();
     assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
 
     IndexChangeTask identicalTask =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, false, null);
+        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null);
     assertThat(task.equals(identicalTask)).isTrue();
     assertThat(task.hashCode()).isEqualTo(identicalTask.hashCode());
 
     assertThat(task.equals(null)).isFalse();
     assertThat(
-            task.equals(
-                indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID + 1, false, null)))
+            task.equals(indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID + 1, null)))
         .isFalse();
     assertThat(task.hashCode()).isNotEqualTo("test".hashCode());
 
     IndexChangeTask differentChangeIdTask =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, 123, false, null);
+        indexEventHandler.new IndexChangeTask(PROJECT_NAME, 123, null);
     assertThat(task.equals(differentChangeIdTask)).isFalse();
     assertThat(task.hashCode()).isNotEqualTo(differentChangeIdTask.hashCode());
+  }
 
-    IndexChangeTask removeTask = indexEventHandler.new IndexChangeTask("", CHANGE_ID, true, null);
-    assertThat(task.equals(removeTask)).isFalse();
-    assertThat(task.hashCode()).isNotEqualTo(removeTask.hashCode());
+  @Test
+  public void testDeleteChangeTaskHashCodeAndEquals() {
+    DeleteChangeTask task = indexEventHandler.new DeleteChangeTask(CHANGE_ID, null);
+
+    DeleteChangeTask sameTask = task;
+    assertThat(task.equals(sameTask)).isTrue();
+    assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
+
+    DeleteChangeTask identicalTask = indexEventHandler.new DeleteChangeTask(CHANGE_ID, null);
+    assertThat(task.equals(identicalTask)).isTrue();
+    assertThat(task.hashCode()).isEqualTo(identicalTask.hashCode());
+
+    assertThat(task.equals(null)).isFalse();
+    assertThat(task.equals(indexEventHandler.new DeleteChangeTask(CHANGE_ID + 1, null))).isFalse();
+    assertThat(task.hashCode()).isNotEqualTo("test".hashCode());
+
+    DeleteChangeTask differentChangeIdTask = indexEventHandler.new DeleteChangeTask(123, null);
+    assertThat(task.equals(differentChangeIdTask)).isFalse();
+    assertThat(task.hashCode()).isNotEqualTo(differentChangeIdTask.hashCode());
   }
 
   @Test
