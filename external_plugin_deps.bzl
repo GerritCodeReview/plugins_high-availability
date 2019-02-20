@@ -9,8 +9,8 @@ def external_plugin_deps():
 
     maven_jar(
         name = "mockito",
-        artifact = "org.mockito:mockito-core:2.24.0",
-        sha1 = "969a7bcb6f16e076904336ebc7ca171d412cc1f9",
+        artifact = "org.mockito:mockito-core:2.24.5",
+        sha1 = "599509fe319bd9e39559b8f987bee5d4b77167e4",
         deps = [
             "@byte-buddy//jar",
             "@byte-buddy-agent//jar",
@@ -40,6 +40,6 @@ def external_plugin_deps():
 
     maven_jar(
         name = "jgroups",
-        artifact = "org.jgroups:jgroups:3.6.15.Final",
-        sha1 = "755afcfc6c8a8ea1e15ef0073417c0b6e8c6d6e4",
+        artifact = "org.jgroups:jgroups:4.0.18.Final",
+        sha1 = "dd47eac93db827b17f07c462ca727a2946b4f8ee",
     )
