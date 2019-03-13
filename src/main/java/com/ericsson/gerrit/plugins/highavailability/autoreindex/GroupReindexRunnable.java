@@ -59,10 +59,7 @@ public class GroupReindexRunnable extends ReindexRunnable<AccountGroup> {
     try {
       Id groupId = g.getId();
       Stream<Timestamp> groupIdAudTs =
-          db.accountGroupByIdAud()
-              .byGroup(g.getId())
-              .toList()
-              .stream()
+          db.accountGroupByIdAud().byGroup(g.getId()).toList().stream()
               .map(AccountGroupByIdAud::getRemovedOn)
               .filter(Objects::nonNull);
       List<AccountGroupMemberAudit> groupMembersAud =
@@ -70,8 +67,7 @@ public class GroupReindexRunnable extends ReindexRunnable<AccountGroup> {
       Stream<Timestamp> groupMemberAudAddedTs =
           groupMembersAud.stream().map(ga -> ga.getKey().getAddedOn()).filter(Objects::nonNull);
       Stream<Timestamp> groupMemberAudRemovedTs =
-          groupMembersAud
-              .stream()
+          groupMembersAud.stream()
               .map(AccountGroupMemberAudit::getRemovedOn)
               .filter(Objects::nonNull);
       Optional<Timestamp> groupLastTs =
