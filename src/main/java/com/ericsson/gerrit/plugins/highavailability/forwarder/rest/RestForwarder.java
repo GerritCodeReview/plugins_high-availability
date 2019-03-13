@@ -129,9 +129,7 @@ class RestForwarder implements Forwarder {
   private boolean execute(
       RequestMethod method, String action, String endpoint, Object id, String payload) {
     List<CompletableFuture<Boolean>> futures =
-        peerInfoProvider
-            .get()
-            .stream()
+        peerInfoProvider.get().stream()
             .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
             .map(request -> CompletableFuture.supplyAsync(request::execute))
             .collect(Collectors.toList());
