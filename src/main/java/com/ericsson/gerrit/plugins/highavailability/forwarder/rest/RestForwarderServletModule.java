@@ -14,9 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
-import com.google.gerrit.httpd.plugins.HttpPluginModule;
+import com.google.inject.servlet.ServletModule;
 
-public class RestForwarderServletModule extends HttpPluginModule {
+public class RestForwarderServletModule extends ServletModule {
   @Override
   protected void configureServlets() {
     serveRegex("/index/account/\\d+$").with(IndexAccountRestApiServlet.class);
