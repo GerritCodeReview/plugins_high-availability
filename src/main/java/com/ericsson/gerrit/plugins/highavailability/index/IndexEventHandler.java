@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Objects;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
@@ -28,15 +29,13 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class IndexEventHandler
     implements ChangeIndexedListener,
         AccountIndexedListener,
         GroupIndexedListener,
         ProjectIndexedListener {
-  private static final Logger log = LoggerFactory.getLogger(IndexEventHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
@@ -81,7 +80,7 @@ class IndexEventHandler
                   }
                 });
       } catch (Exception e) {
-        log.warn("Unable to create task to reindex change {}", changeId, e);
+        log.atWarning().withCause(e).log("Unable to create task to reindex change {}", changeId);
       }
     }
   }

@@ -89,29 +89,27 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
         if (checker.isChangeUpToDate(indexEvent)) {
           if (retryCount > 0) {
-            log.warn("Change {} has been eventually indexed after {} attempt(s)", id, retryCount);
+            log.atWarning().log(
+                "Change %s has been eventually indexed after %d attempt(s)", id, retryCount);
           } else {
-            log.debug("Change {} successfully indexed", id);
+            log.atFine().log("Change %s successfully indexed", id);
           }
         } else {
-          log.warn(
-              "Change {} seems too old compared to the event timestamp (event-Ts={} >> change-Ts={})",
-              id,
-              indexEvent,
-              checker);
+          log.atWarning().log(
+              "Change %s seems too old compared to the event timestamp (event-Ts=%s >> change-Ts=%s)",
+              id, indexEvent, checker);
           rescheduleIndex(id, indexEvent, retryCount + 1);
         }
       } else {
         indexer.delete(parseChangeId(id));
-        log.warn(
-            "Change {} could not be found in the local Git repository (eventTs={}), deleted from index",
-            id,
-            indexEvent);
+        log.atWarning().log(
+            "Change %s could not be found in the local Git repository (eventTs=%s), deleted from index",
+            id, indexEvent);
       }
     } catch (Exception e) {
       if (isCausedByNoSuchChangeException(e)) {
         indexer.delete(parseChangeId(id));
-        log.warn("Error trying to index Change {}. Deleted from index", id, e);
+        log.atWarning().withCause(e).log("Error trying to index Change %s. Deleted from index", id);
         return;
       }
 
@@ -128,25 +126,22 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
   private void rescheduleIndex(String id, Optional<IndexEvent> indexEvent, int retryCount) {
     if (retryCount > maxTries) {
-      log.error(
-          "Change {} could not be indexed after {} retries. Change index could be stale.",
-          id,
-          retryCount);
+      log.atSevere().log(
+          "Change %s could not be indexed after %d retries. Change index could be stale.",
+          id, retryCount);
       return;
     }
 
-    log.warn(
-        "Retrying for the #{} time to index Change {} after {} msecs",
-        retryCount,
-        id,
-        retryInterval);
+    log.atWarning().log(
+        "Retrying for the #%d time to index Change %s after %d msecs",
+        retryCount, id, retryInterval);
     indexExecutor.schedule(
         () -> {
           try (ManualRequestContext ctx = oneOffCtx.open()) {
             Context.setForwardedEvent(true);
             doIndex(id, indexEvent, retryCount);
           } catch (Exception e) {
-            log.warn("Change {} could not be indexed", id, e);
+            log.atWarning().withCause(e).log("Change %s could not be indexed", id);
           }
         },
         retryInterval,
@@ -156,7 +151,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected void doDelete(String id, Optional<IndexEvent> indexEvent) throws IOException {
     indexer.delete(parseChangeId(id));
-    log.debug("Change {} successfully deleted from index", id);
+    log.atFine().log("Change %s successfully deleted from index", id);
   }
 
   private static Change.Id parseChangeId(String id) {

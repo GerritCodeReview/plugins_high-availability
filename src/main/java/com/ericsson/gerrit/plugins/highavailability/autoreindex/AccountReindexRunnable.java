@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.account.AccountState;
@@ -27,11 +28,9 @@ import com.google.inject.Inject;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AccountReindexRunnable extends ReindexRunnable<AccountState> {
-  private static final Logger log = LoggerFactory.getLogger(AccountReindexRunnable.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final ForwardedIndexAccountHandler accountIdx;
 
@@ -59,12 +58,13 @@ public class AccountReindexRunnable extends ReindexRunnable<AccountState> {
       Account a = as.getAccount();
       Timestamp accountTs = a.getRegisteredOn();
       if (accountTs.after(sinceTs)) {
-        log.info("Index {}/{}/{}/{}", a.getId(), a.getFullName(), a.getPreferredEmail(), accountTs);
+        log.atInfo().log(
+            "Index %s/%s/%s/%s", a.getId(), a.getFullName(), a.getPreferredEmail(), accountTs);
         accountIdx.index(a.getId(), Operation.INDEX, Optional.empty());
         return Optional.of(accountTs);
       }
     } catch (IOException | OrmException e) {
-      log.error("Reindex failed", e);
+      log.atSevere().withCause(e).log("Reindex failed");
     }
     return Optional.empty();
   }

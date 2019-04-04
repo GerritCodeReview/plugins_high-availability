@@ -14,13 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Update project list cache. This class is meant to be used on the receiving side of the {@link
@@ -29,8 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 @Singleton
 public class ForwardedProjectListUpdateHandler {
-  private static final Logger log =
-      LoggerFactory.getLogger(ForwardedProjectListUpdateHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final ProjectCache projectCache;
 
@@ -52,10 +50,10 @@ public class ForwardedProjectListUpdateHandler {
       Context.setForwardedEvent(true);
       if (remove) {
         projectCache.remove(projectKey);
-        log.debug("Removed {} from project list", projectName);
+        log.atFine().log("Removed %s from project list", projectName);
       } else {
         projectCache.onCreateProject(projectKey);
-        log.debug("Added {} to project list", projectName);
+        log.atFine().log("Added %s to project list", projectName);
       }
     } finally {
       Context.unsetForwardedEvent();
