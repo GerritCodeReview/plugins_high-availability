@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
@@ -24,12 +25,10 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class AutoReindexScheduler implements LifecycleListener {
-  private static final Logger log = LoggerFactory.getLogger(AutoReindexScheduler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration.AutoReindex cfg;
   private final ChangeReindexRunnable changeReindex;
   private final AccountReindexRunnable accountReindex;
@@ -57,7 +56,8 @@ public class AutoReindexScheduler implements LifecycleListener {
   @Override
   public void start() {
     if (cfg.pollSec() > 0) {
-      log.info("Scheduling auto-reindex after {}s and every {}s", cfg.delaySec(), cfg.pollSec());
+      log.atInfo().log(
+          "Scheduling auto-reindex after %ds and every %ds", cfg.delaySec(), cfg.pollSec());
       futureTasks.add(
           executor.scheduleAtFixedRate(
               changeReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
@@ -71,7 +71,7 @@ public class AutoReindexScheduler implements LifecycleListener {
           executor.scheduleAtFixedRate(
               projectReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
     } else {
-      log.info("Scheduling auto-reindex after {}s", cfg.delaySec());
+      log.atInfo().log("Scheduling auto-reindex after %ds", cfg.delaySec());
       futureTasks.add(executor.schedule(changeReindex, cfg.delaySec(), TimeUnit.SECONDS));
       futureTasks.add(executor.schedule(accountReindex, cfg.delaySec(), TimeUnit.SECONDS));
       futureTasks.add(executor.schedule(groupReindex, cfg.delaySec(), TimeUnit.SECONDS));

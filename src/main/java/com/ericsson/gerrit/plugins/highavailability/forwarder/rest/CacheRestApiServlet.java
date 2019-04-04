@@ -51,10 +51,10 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
           CacheEntry.from(cacheName, GsonParser.fromJson(cacheName, json)));
       rsp.setStatus(SC_NO_CONTENT);
     } catch (CacheNotFoundException e) {
-      log.error("Failed to process eviction request: {}", e.getMessage());
+      log.atSevere().log("Failed to process eviction request: {}", e.getMessage());
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     } catch (IOException e) {
-      log.error("Failed to process eviction request: {}", e.getMessage(), e);
+      log.atSevere().withCause(e).log("Failed to process eviction request");
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }
   }

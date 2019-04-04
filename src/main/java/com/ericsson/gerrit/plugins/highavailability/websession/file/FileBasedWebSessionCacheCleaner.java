@@ -18,6 +18,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.git.WorkQueue;
@@ -25,8 +26,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.util.concurrent.ScheduledFuture;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 class FileBasedWebSessionCacheCleaner implements LifecycleListener {
@@ -66,7 +65,7 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
 }
 
 class CleanupTask implements Runnable {
-  private static final Logger log = LoggerFactory.getLogger(CleanupTask.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final FileBasedWebsessionCache fileBasedWebSessionCache;
   private final String pluginName;
 
@@ -78,9 +77,9 @@ class CleanupTask implements Runnable {
 
   @Override
   public void run() {
-    log.info("Cleaning up expired file based websessions...");
+    log.atInfo().log("Cleaning up expired file based websessions...");
     fileBasedWebSessionCache.cleanUp();
-    log.info("Cleaning up expired file based websessions...Done");
+    log.atInfo().log("Cleaning up expired file based websessions...Done");
   }
 
   @Override
