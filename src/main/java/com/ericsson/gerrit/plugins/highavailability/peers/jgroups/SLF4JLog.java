@@ -125,7 +125,7 @@ public class SLF4JLog implements Log {
 
   @Override
   public void debug(String msg) {
-    logger.info(msg);
+    logger.debug(msg);
   }
 
   @Override
