@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2993445a_8f66531e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "%d",
+      "range": {
+        "startLine": 72,
+        "startChar": 15,
+        "endLine": 72,
+        "endChar": 17
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7ee4124_19404c00",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "%s",
+      "range": {
+        "startLine": 95,
+        "startChar": 37,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd766ee2_069b3fbd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "%s",
+      "range": {
+        "startLine": 54,
+        "startChar": 62,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf075eb0_6eedf76d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "%d",
+      "range": {
+        "startLine": 200,
+        "startChar": 41,
+        "endLine": 200,
+        "endChar": 43
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c26a033_8b7a84dc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "ie",
+      "range": {
+        "startLine": 218,
+        "startChar": 37,
+        "endLine": 218,
+        "endChar": 38
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b94af46_b4ca2468",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "%s",
+      "range": {
+        "startLine": 93,
+        "startChar": 61,
+        "endLine": 93,
+        "endChar": 63
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b20420cf_ae14753f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-04-04T20:55:30Z",
+      "side": 1,
+      "message": "%s",
+      "range": {
+        "startLine": 124,
+        "startChar": 43,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
