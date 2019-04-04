@@ -68,7 +68,7 @@ public class IndexTs
         try {
           Files.write(indexTsFile, latestTs.format(formatter).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-          log.error("Unable to update last timestamp for index " + index, e);
+          log.error("Unable to update last timestamp for index {}", index, e);
         }
       }
     }
@@ -100,7 +100,7 @@ public class IndexTs
           IndexName.CHANGE,
           change == null ? LocalDateTime.now() : change.getLastUpdatedOn().toLocalDateTime());
     } catch (OrmException e) {
-      log.warn("Unable to update the latest TS for change {}", e);
+      log.warn("Unable to update the latest TS for change {}", id, e);
     }
   }
 
