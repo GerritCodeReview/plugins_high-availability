@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.google.common.base.Stopwatch;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
@@ -24,11 +25,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 abstract class ReindexRunnable<T> implements Runnable {
-  private static final Logger log = LoggerFactory.getLogger(ReindexRunnable.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final AbstractIndexRestApiServlet.IndexName itemName;
   private final OneOffRequestContext ctx;
@@ -49,7 +48,7 @@ abstract class ReindexRunnable<T> implements Runnable {
     String itemNameString = itemName.name().toLowerCase();
     if (maybeIndexTs.isPresent()) {
       newLastIndexTs = maxTimestamp(newLastIndexTs, Timestamp.valueOf(maybeIndexTs.get()));
-      log.debug("Scanning for all the {}s after {}", itemNameString, newLastIndexTs);
+      log.atFine().log("Scanning for all the %ss after %s", itemNameString, newLastIndexTs);
       try (ManualRequestContext mctx = ctx.open();
           ReviewDb db = mctx.getReviewDbProvider().get()) {
         int count = 0;
@@ -63,27 +62,27 @@ abstract class ReindexRunnable<T> implements Runnable {
               newLastIndexTs = maxTimestamp(newLastIndexTs, itemTs.get());
             }
           } catch (Exception e) {
-            log.error("Unable to reindex {} {}", itemNameString, c, e);
+            log.atSevere().withCause(e).log("Unable to reindex %s %s", itemNameString, c);
             errors++;
           }
         }
         long elapsedNanos = stopwatch.stop().elapsed(TimeUnit.NANOSECONDS);
         if (count > 0) {
-          log.info(
-              "{} {}s reindexed in {} msec ({}/sec), {} failed",
+          log.atInfo().log(
+              "%s %ss reindexed in %d msec (%d/sec), %d failed",
               count,
               itemNameString,
               elapsedNanos / 1000000L,
               (count * 1000L) / (elapsedNanos / 1000000L),
               errors);
         } else if (errors > 0) {
-          log.info("{} {}s failed to reindex", errors, itemNameString);
+          log.atInfo().log("%d %ss failed to reindex", errors, itemNameString);
         } else {
-          log.debug("Scanning finished");
+          log.atFine().log("Scanning finished");
         }
         indexTs.update(itemName, newLastIndexTs.toLocalDateTime());
       } catch (Exception e) {
-        log.error("Unable to scan " + itemNameString + "s", e);
+        log.atSevere().withCause(e).log("Unable to scan %ss", itemNameString);
       }
     }
   }

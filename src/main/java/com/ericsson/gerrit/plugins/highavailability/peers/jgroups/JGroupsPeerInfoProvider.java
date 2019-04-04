@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -30,8 +31,6 @@ import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Provider which uses JGroups to find the peer gerrit instances. On startup every gerrit instance
@@ -46,7 +45,7 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class JGroupsPeerInfoProvider extends ReceiverAdapter
     implements Provider<Set<PeerInfo>>, LifecycleListener {
-  private static final Logger log = LoggerFactory.getLogger(JGroupsPeerInfoProvider.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
 
   static {
@@ -80,17 +79,17 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       peerAddress = msg.getSrc();
       String url = (String) msg.getObject();
       peerInfo = Optional.of(new PeerInfo(url));
-      log.info("receive(): Set new peerInfo: {}", url);
+      log.atInfo().log("receive(): Set new peerInfo: %s", url);
     }
   }
 
   @Override
   public void viewAccepted(View view) {
-    log.info("viewAccepted(view: {}) called", view);
+    log.atInfo().log("viewAccepted(view: %s) called", view);
     synchronized (this) {
       if (view.getMembers().size() > 2) {
-        log.warn(
-            "{} members joined the jgroups cluster {} ({}). "
+        log.atWarning().log(
+            "%d members joined the jgroups cluster %s (%s). "
                 + " Only two members are supported. Members: {}",
             view.getMembers().size(),
             jgroupsConfig.clusterName(),
@@ -98,7 +97,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
             view.getMembers());
       }
       if (peerAddress != null && !view.getMembers().contains(peerAddress)) {
-        log.info("viewAccepted(): removed peerInfo");
+        log.atInfo().log("viewAccepted(): removed peerInfo");
         peerAddress = null;
         peerInfo = Optional.empty();
       }
@@ -108,11 +107,9 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
         channel.send(new Message(null, myUrl));
       } catch (Exception e) {
         // channel communication caused an error. Can't do much about it.
-        log.error(
-            "Sending a message over channel {} to cluster {} failed",
-            channel.getName(),
-            jgroupsConfig.clusterName(),
-            e);
+        log.atSevere().withCause(e).log(
+            "Sending a message over channel %s to cluster %s failed",
+            channel.getName(), jgroupsConfig.clusterName());
       }
     }
   }
@@ -122,28 +119,25 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       channel = getChannel();
       Optional<InetAddress> address = finder.findAddress();
       if (address.isPresent()) {
-        log.debug("Protocol stack: " + channel.getProtocolStack());
+        log.atFine().log("Protocol stack: %s", channel.getProtocolStack());
         channel.getProtocolStack().getTransport().setBindAddress(address.get());
-        log.debug("Channel bound to {}", address.get());
+        log.atFine().log("Channel bound to {}", address.get());
       } else {
-        log.warn("Channel not bound: address not present");
+        log.atWarning().log("Channel not bound: address not present");
       }
       channel.setReceiver(this);
       channel.setDiscardOwnMessages(true);
       channel.connect(jgroupsConfig.clusterName());
-      log.info(
-          "Channel {} successfully joined jgroups cluster {}",
-          channel.getName(),
-          jgroupsConfig.clusterName());
+      log.atInfo().log(
+          "Channel %s successfully joined jgroups cluster %s",
+          channel.getName(), jgroupsConfig.clusterName());
     } catch (Exception e) {
       if (channel != null) {
-        log.error(
-            "joining cluster {} (channel {}) failed",
-            jgroupsConfig.clusterName(),
-            channel.getName(),
-            e);
+        log.atSevere().withCause(e).log(
+            "joining cluster %s (channel %s) failed",
+            jgroupsConfig.clusterName(), channel.getName());
       } else {
-        log.error("joining cluster {} failed", jgroupsConfig.clusterName(), e);
+        log.atSevere().withCause(e).log("joining cluster %s failed", jgroupsConfig.clusterName());
       }
     }
   }
@@ -156,10 +150,9 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
       }
       return new JChannel();
     } catch (Exception e) {
-      log.error(
-          "Unable to create a channel with protocol stack: {}",
-          protocolStack.isPresent() ? protocolStack : "default",
-          e);
+      log.atSevere().withCause(e).log(
+          "Unable to create a channel with protocol stack: %s",
+          protocolStack.isPresent() ? protocolStack : "default");
       throw e;
     }
   }
@@ -177,10 +170,9 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   @Override
   public void stop() {
     if (channel != null) {
-      log.info(
-          "closing jgroups channel {} (cluster {})",
-          channel.getName(),
-          jgroupsConfig.clusterName());
+      log.atInfo().log(
+          "closing jgroups channel %s (cluster %s)",
+          channel.getName(), jgroupsConfig.clusterName());
       channel.close();
     }
     peerInfo = Optional.empty();

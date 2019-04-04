@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.security.KeyManagementException;
@@ -37,12 +38,10 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** Provides an HTTP client with SSL capabilities. */
 class HttpClientProvider implements Provider<CloseableHttpClient> {
-  private static final Logger log = LoggerFactory.getLogger(HttpClientProvider.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final int CONNECTIONS_PER_ROUTE = 100;
   // Up to 2 target instances with the max number of connections per host:
   private static final int MAX_CONNECTIONS = 2 * CONNECTIONS_PER_ROUTE;
@@ -101,7 +100,7 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
       context.init(null, trustAllCerts, null);
       return context;
     } catch (KeyManagementException | NoSuchAlgorithmException e) {
-      log.warn("Error building SSLContext object", e);
+      log.atWarning().withCause(e).log("Error building SSLContext object");
       return null;
     }
   }

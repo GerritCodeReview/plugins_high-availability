@@ -92,11 +92,11 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
-      log.error("Unable to update {} index", indexName, e);
+      log.atSevere().withCause(e).log("Unable to update %s index", indexName);
     } catch (OrmException e) {
       String msg = String.format("Error trying to find %s", indexName);
       sendError(rsp, SC_NOT_FOUND, msg);
-      log.debug(msg, e);
+      log.atFine().withCause(e).log(msg);
     }
   }
 

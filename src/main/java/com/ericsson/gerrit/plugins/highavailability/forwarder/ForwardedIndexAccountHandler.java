@@ -43,7 +43,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent)
       throws IOException, OrmException {
     indexer.index(id);
-    log.debug("Account {} successfully indexed", id);
+    log.atFine().log("Account %s successfully indexed", id);
   }
 
   @Override

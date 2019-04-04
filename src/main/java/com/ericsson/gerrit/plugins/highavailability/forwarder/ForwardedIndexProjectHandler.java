@@ -42,7 +42,7 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
   protected void doIndex(Project.NameKey projectName, Optional<IndexEvent> indexEvent)
       throws IOException {
     indexer.index(projectName);
-    log.debug("Project {} successfully indexed", projectName);
+    log.atFine().log("Project %s successfully indexed", projectName);
   }
 
   @Override

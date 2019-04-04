@@ -16,11 +16,10 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.cache.Cache;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Evict cache entries. This class is meant to be used on the receiving side of the {@link
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 @Singleton
 public class ForwardedCacheEvictionHandler {
-  private static final Logger log = LoggerFactory.getLogger(ForwardedCacheEvictionHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final DynamicMap<Cache<?, ?>> cacheMap;
 
@@ -55,10 +54,10 @@ public class ForwardedCacheEvictionHandler {
       if (Constants.PROJECT_LIST.equals(entry.getCacheName())) {
         // One key is holding the list of projects
         cache.invalidateAll();
-        log.debug("Invalidated cache {}", entry.getCacheName());
+        log.atFine().log("Invalidated cache %s", entry.getCacheName());
       } else {
         cache.invalidate(entry.getKey());
-        log.debug("Invalidated cache {}[{}]", entry.getCacheName(), entry.getKey());
+        log.atFine().log("Invalidated cache %s[%s]", entry.getCacheName(), entry.getKey());
       }
     } finally {
       Context.unsetForwardedEvent();

@@ -14,14 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventDispatcher;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Dispatch event to the {@link EventDispatcher}. This class is meant to be used on the receiving
@@ -30,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 @Singleton
 public class ForwardedEventHandler {
-  private static final Logger log = LoggerFactory.getLogger(ForwardedEventHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final EventDispatcher dispatcher;
 
@@ -48,7 +47,7 @@ public class ForwardedEventHandler {
   public void dispatch(Event event) throws OrmException, PermissionBackendException {
     try {
       Context.setForwardedEvent(true);
-      log.debug("dispatching event {}", event.getType());
+      log.atFine().log("dispatching event %s", event.getType());
       dispatcher.postEvent(event);
     } finally {
       Context.unsetForwardedEvent();

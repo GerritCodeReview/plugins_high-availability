@@ -21,6 +21,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -39,12 +40,10 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.Config;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class Configuration {
-  private static final Logger log = LoggerFactory.getLogger(Configuration.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -153,8 +152,8 @@ public class Configuration {
     try {
       return cfg.getInt(section, name, defaultValue);
     } catch (IllegalArgumentException e) {
-      log.error("invalid value for {}; using default value {}", name, defaultValue);
-      log.debug("Failed to retrieve integer value: {}", e.getMessage(), e);
+      log.atSevere().log("invalid value for %s; using default value %d", name, defaultValue);
+      log.atFine().withCause(e).log("Failed to retrieve integer value");
       return defaultValue;
     }
   }
@@ -234,9 +233,7 @@ public class Configuration {
 
     private PeerInfo(Config cfg) {
       strategy = cfg.getEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, DEFAULT_PEER_INFO_STRATEGY);
-      if (log.isDebugEnabled()) {
-        log.debug("Strategy: {}", strategy.name());
-      }
+      log.atFine().log("Strategy: %s", strategy.name());
     }
 
     public PeerInfoStrategy strategy() {
@@ -257,7 +254,7 @@ public class Configuration {
               .filter(s -> !s.isEmpty())
               .map(s -> CharMatcher.is('/').trimTrailingFrom(s))
               .collect(Collectors.toSet());
-      log.debug("Urls: {}", urls);
+      log.atFine().log("Urls: %s", urls);
     }
 
     public Set<String> urls() {
@@ -273,7 +270,7 @@ public class Configuration {
 
     private PeerInfoJGroups(Config cfg) {
       myUrl = trimTrailingSlash(cfg.getString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, MY_URL_KEY));
-      log.debug("My Url: {}", myUrl);
+      log.atFine().log("My Url: %s", myUrl);
     }
 
     public String myUrl() {
@@ -302,12 +299,12 @@ public class Configuration {
     private JGroups(SitePaths site, Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
       skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
-      log.debug("Skip interface(s): {}", skipInterface);
+      log.atFine().log("Skip interface(s): %s", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
-      log.debug("Cluster name: {}", clusterName);
+      log.atFine().log("Cluster name: %s", clusterName);
       protocolStack = getProtocolStack(cfg, site);
-      log.debug(
-          "Protocol stack config {}",
+      log.atFine().log(
+          "Protocol stack config %s",
           protocolStack.isPresent() ? protocolStack.get() : "not configured, using default stack.");
     }
 
@@ -405,8 +402,8 @@ public class Configuration {
       try {
         return cfg.getBoolean(section, name, defaultValue);
       } catch (IllegalArgumentException e) {
-        log.error("invalid value for {}; using default value {}", name, defaultValue);
-        log.debug("Failed to retrieve boolean value: {}", e.getMessage(), e);
+        log.atSevere().log("invalid value for %s; using default value %s", name, defaultValue);
+        log.atFine().withCause(e).log("Failed to retrieve boolean value");
         return defaultValue;
       }
     }
