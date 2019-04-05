@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e743036d_b56bb786",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2993445a_8f66531e",
+      "range": {
+        "startLine": 72,
+        "startChar": 15,
+        "endLine": 72,
+        "endChar": 17
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7ee4124_19404c00",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc50d574_014e784c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ee4124_19404c00",
+      "range": {
+        "startLine": 95,
+        "startChar": 37,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4da3c234_fea2a386",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheRestApiServlet.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd766ee2_069b3fbd",
+      "range": {
+        "startLine": 54,
+        "startChar": 62,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf075eb0_6eedf76d",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68f34377_ac4d90ce",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf075eb0_6eedf76d",
+      "range": {
+        "startLine": 200,
+        "startChar": 41,
+        "endLine": 200,
+        "endChar": 43
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "24b82bc8_204f466d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c26a033_8b7a84dc",
+      "range": {
+        "startLine": 218,
+        "startChar": 37,
+        "endLine": 218,
+        "endChar": 38
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b94af46_b4ca2468",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "cbe696c8_b1507670",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b94af46_b4ca2468",
+      "range": {
+        "startLine": 93,
+        "startChar": 61,
+        "endLine": 93,
+        "endChar": 63
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b20420cf_ae14753f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2e20ea_803b3bd8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-05T04:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b20420cf_ae14753f",
+      "range": {
+        "startLine": 124,
+        "startChar": 43,
+        "endLine": 124,
+        "endChar": 45
+      },
+      "revId": "16e151e406b1a63afd09465c15b24339cdb30af0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
