@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Comment;
 import com.google.gerrit.server.CommentsUtil;
@@ -32,11 +33,9 @@ import java.util.Objects;
 import java.util.Optional;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ChangeCheckerImpl implements ChangeChecker {
-  private static final Logger log = LoggerFactory.getLogger(ChangeCheckerImpl.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final GitRepositoryManager gitRepoMgr;
   private final CommentsUtil commentsUtil;
   private final OneOffRequestContext oneOffReqCtx;
@@ -86,9 +85,9 @@ public class ChangeCheckerImpl implements ChangeChecker {
   @Override
   public boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws OrmException {
     getComputedChangeTs();
-    log.debug("Checking change {} against index event {}", this, indexEvent);
+    log.atFine().log("Checking change %s against index event %s", this, indexEvent);
     if (!computedChangeTs.isPresent()) {
-      log.warn("Unable to compute last updated ts for change {}", changeId);
+      log.atWarning().log("Unable to compute last updated ts for change %s", changeId);
       return false;
     }
 
@@ -123,7 +122,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
           + "/"
           + getBranchTargetSha();
     } catch (OrmException e) {
-      log.error("Unable to render change {}", changeId, e);
+      log.atSevere().withCause(e).log("Unable to render change %s", changeId);
       return "change-id=" + changeId;
     }
   }
@@ -133,12 +132,13 @@ public class ChangeCheckerImpl implements ChangeChecker {
       String refName = changeNotes.get().getChange().getDest().get();
       Ref ref = repo.exactRef(refName);
       if (ref == null) {
-        log.warn("Unable to find target ref {} for change {}", refName, changeId);
+        log.atWarning().log("Unable to find target ref %s for change %s", refName, changeId);
         return null;
       }
       return ref.getTarget().getObjectId().getName();
     } catch (IOException e) {
-      log.warn("Unable to resolve target branch SHA for change {}", changeId, e);
+      log.atWarning().withCause(e).log(
+          "Unable to resolve target branch SHA for change %s", changeId);
       return null;
     }
   }
@@ -156,7 +156,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
         changeTs = commentTs.after(changeTs) ? commentTs : changeTs;
       }
     } catch (OrmException e) {
-      log.warn("Unable to access draft comments for change {}", change, e);
+      log.atWarning().withCause(e).log("Unable to access draft comments for change %s", change);
     }
     return changeTs.getTime() / 1000;
   }

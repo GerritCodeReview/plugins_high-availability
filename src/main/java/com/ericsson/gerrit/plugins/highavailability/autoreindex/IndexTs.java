@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
@@ -34,8 +35,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class IndexTs
@@ -43,7 +42,7 @@ public class IndexTs
         AccountIndexedListener,
         GroupIndexedListener,
         ProjectIndexedListener {
-  private static final Logger log = LoggerFactory.getLogger(IndexTs.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
   private final Path dataDir;
@@ -73,7 +72,7 @@ public class IndexTs
         try {
           Files.write(indexTsFile, latestTs.format(formatter).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-          log.error("Unable to update last timestamp for index " + index, e);
+          log.atSevere().withCause(e).log("Unable to update last timestamp for index %s", index);
         }
       }
     }
@@ -112,7 +111,7 @@ public class IndexTs
               ? LocalDateTime.now()
               : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
     } catch (Exception e) {
-      log.warn("Unable to update the latest TS for change {}", e);
+      log.atWarning().withCause(e).log("Unable to update the latest TS for change %d", id);
     }
   }
 
@@ -129,7 +128,7 @@ public class IndexTs
         return Optional.of(LocalDateTime.parse(tsString, formatter));
       }
     } catch (Exception e) {
-      log.warn("Unable to read last timestamp for index {}", index, e);
+      log.atWarning().withCause(e).log("Unable to read last timestamp for index %s", index);
     }
     return Optional.empty();
   }

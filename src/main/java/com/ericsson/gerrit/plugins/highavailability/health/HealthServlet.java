@@ -20,6 +20,7 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.permissions.PermissionBackend;
@@ -34,12 +35,10 @@ import java.nio.file.StandardOpenOption;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class HealthServlet extends HttpServlet {
-  private static final Logger log = LoggerFactory.getLogger(HealthServlet.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final long serialVersionUID = -1L;
 
   private final Provider<CurrentUser> currentUserProvider;
@@ -66,7 +65,7 @@ public class HealthServlet extends HttpServlet {
       setHealthy();
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
-      log.error("Failed to set healthy", e);
+      log.atSevere().withCause(e).log("Failed to set healthy");
       sendError(rsp, SC_INTERNAL_SERVER_ERROR);
     }
   }
@@ -81,7 +80,7 @@ public class HealthServlet extends HttpServlet {
       setUnhealthy();
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
-      log.error("Failed to set unhealthy", e);
+      log.atSevere().withCause(e).log("Failed to set unhealthy");
       sendError(rsp, SC_INTERNAL_SERVER_ERROR);
     }
   }
@@ -100,7 +99,7 @@ public class HealthServlet extends HttpServlet {
       rsp.sendError(statusCode);
     } catch (IOException e) {
       rsp.setStatus(SC_INTERNAL_SERVER_ERROR);
-      log.error("Failed to send error response", e);
+      log.atSevere().withCause(e).log("Failed to send error response");
     }
   }
 

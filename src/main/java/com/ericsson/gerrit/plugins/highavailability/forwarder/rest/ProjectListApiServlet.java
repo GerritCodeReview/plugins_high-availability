@@ -54,7 +54,7 @@ class ProjectListApiServlet extends AbstractRestApiServlet {
       forwardedProjectListUpdateHandler.update(Url.decode(projectName), delete);
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
-      log.error("Unable to update project list", e);
+      log.atSevere().withCause(e).log("Unable to update project list");
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }
   }

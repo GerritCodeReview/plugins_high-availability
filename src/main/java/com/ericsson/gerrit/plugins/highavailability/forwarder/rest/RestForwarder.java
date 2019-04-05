@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
@@ -34,8 +35,6 @@ import java.util.stream.Collectors;
 import javax.net.ssl.SSLException;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class RestForwarder implements Forwarder {
   enum RequestMethod {
@@ -43,7 +42,7 @@ class RestForwarder implements Forwarder {
     DELETE
   }
 
-  private static final Logger log = LoggerFactory.getLogger(RestForwarder.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final HttpSession httpSession;
   private final String pluginRelativePath;
@@ -188,41 +187,36 @@ class RestForwarder implements Forwarder {
     }
 
     boolean execute() {
-      log.debug("Executing {} {} towards {}", action, key, destination);
+      log.atFine().log("Executing %s %s towards %s", action, key, destination);
       for (; ; ) {
         try {
           execCnt++;
           tryOnce();
-          log.debug("{} {} towards {} OK", action, key, destination);
+          log.atFine().log("%s %s towards %s OK", action, key, destination);
           return true;
         } catch (ForwardingException e) {
           int maxTries = cfg.http().maxTries();
-          log.debug(
-              "Failed to {} {} on {} [{}/{}]", action, key, destination, execCnt, maxTries, e);
+          log.atFine().withCause(e).log(
+              "Failed to %s %s on %s [%d/%d]", action, key, destination, execCnt, maxTries);
           if (!e.isRecoverable()) {
-            log.error(
-                "{} {} towards {} failed with unrecoverable error; giving up",
-                action,
-                key,
-                destination,
-                e);
+            log.atSevere().withCause(e).log(
+                "%s %s towards %s failed with unrecoverable error; giving up",
+                action, key, destination);
             return false;
           }
           if (execCnt >= maxTries) {
-            log.error(
-                "Failed to {} {} on {} after {} tries; giving up",
-                action,
-                key,
-                destination,
-                maxTries);
+            log.atSevere().log(
+                "Failed to %s %s on %s after %d tries; giving up",
+                action, key, destination, maxTries);
             return false;
           }
 
-          log.debug("Retrying to {} {} on {}", action, key, destination);
+          log.atFine().log("Retrying to %s %s on %s", action, key, destination);
           try {
             Thread.sleep(cfg.http().retryInterval());
           } catch (InterruptedException ie) {
-            log.error("{} {} towards {} was interrupted; giving up", action, key, destination, ie);
+            log.atSevere().withCause(ie).log(
+                "%s %s towards %s was interrupted; giving up", action, key, destination);
             Thread.currentThread().interrupt();
             return false;
           }
