@@ -112,15 +112,16 @@ public class ConfigurationTest {
 
   @Test
   public void testGetPeerInfoStrategy() {
-    assertThat(getConfiguration().peerInfo().strategy()).isSameAs(DEFAULT_PEER_INFO_STRATEGY);
+    assertThat(getConfiguration().peerInfo().strategy())
+        .isSameInstanceAs(DEFAULT_PEER_INFO_STRATEGY);
 
     globalPluginConfig.setString(
         PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.STATIC.name());
-    assertThat(getConfiguration().peerInfo().strategy()).isSameAs(PeerInfoStrategy.STATIC);
+    assertThat(getConfiguration().peerInfo().strategy()).isSameInstanceAs(PeerInfoStrategy.STATIC);
 
     globalPluginConfig.setString(
         PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.JGROUPS.name());
-    assertThat(getConfiguration().peerInfo().strategy()).isSameAs(PeerInfoStrategy.JGROUPS);
+    assertThat(getConfiguration().peerInfo().strategy()).isSameInstanceAs(PeerInfoStrategy.JGROUPS);
   }
 
   @Test
@@ -129,7 +130,7 @@ public class ConfigurationTest {
 
     globalPluginConfig.setStringList(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY, URLS);
     assertThat(getConfiguration().peerInfoStatic().urls())
-        .containsAllIn(ImmutableList.of(URL, "http://anotherUrl"));
+        .containsAtLeastElementsIn(ImmutableList.of(URL, "http://anotherUrl"));
   }
 
   @Test
@@ -153,7 +154,9 @@ public class ConfigurationTest {
 
     globalPluginConfig.setStringList(
         JGROUPS_SECTION, null, SKIP_INTERFACE_KEY, ImmutableList.of("lo*", "eth0"));
-    assertThat(getConfiguration().jgroups().skipInterface()).containsAllOf("lo*", "eth0").inOrder();
+    assertThat(getConfiguration().jgroups().skipInterface())
+        .containsExactly("lo*", "eth0")
+        .inOrder();
   }
 
   @Test

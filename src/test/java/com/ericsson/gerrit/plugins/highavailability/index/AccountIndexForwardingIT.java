@@ -26,11 +26,11 @@ public class AccountIndexForwardingIT extends AbstractIndexForwardingIT {
 
   @Override
   public String getExpectedRequest() {
-    return "/plugins/high-availability/index/account/" + testAccount.id;
+    return "/plugins/high-availability/index/account/" + testAccount.id();
   }
 
   @Override
   public void doAction() throws Exception {
-    gApi.accounts().id(testAccount.id.get()).setActive(false);
+    gApi.accounts().id(testAccount.id().get()).setActive(false);
   }
 }
