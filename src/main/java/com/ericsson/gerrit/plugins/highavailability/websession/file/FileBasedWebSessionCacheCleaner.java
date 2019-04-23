@@ -35,6 +35,30 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
   private final long cleanupIntervalMillis;
   private ScheduledFuture<?> scheduledCleanupTask;
 
+  static class CleanupTask implements Runnable {
+    private static final FluentLogger log = FluentLogger.forEnclosingClass();
+    private final FileBasedWebsessionCache fileBasedWebSessionCache;
+    private final String pluginName;
+
+    @Inject
+    CleanupTask(FileBasedWebsessionCache fileBasedWebSessionCache, @PluginName String pluginName) {
+      this.fileBasedWebSessionCache = fileBasedWebSessionCache;
+      this.pluginName = pluginName;
+    }
+
+    @Override
+    public void run() {
+      log.atInfo().log("Cleaning up expired file based websessions...");
+      fileBasedWebSessionCache.cleanUp();
+      log.atInfo().log("Cleaning up expired file based websessions...Done");
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[%s] Clean up expired file based websessions", pluginName);
+    }
+  }
+
   @Inject
   FileBasedWebSessionCacheCleaner(
       WorkQueue queue, Provider<CleanupTask> cleanupTaskProvider, Configuration config) {
@@ -61,29 +85,5 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
       scheduledCleanupTask.cancel(true);
       scheduledCleanupTask = null;
     }
-  }
-}
-
-class CleanupTask implements Runnable {
-  private static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private final FileBasedWebsessionCache fileBasedWebSessionCache;
-  private final String pluginName;
-
-  @Inject
-  CleanupTask(FileBasedWebsessionCache fileBasedWebSessionCache, @PluginName String pluginName) {
-    this.fileBasedWebSessionCache = fileBasedWebSessionCache;
-    this.pluginName = pluginName;
-  }
-
-  @Override
-  public void run() {
-    log.atInfo().log("Cleaning up expired file based websessions...");
-    fileBasedWebSessionCache.cleanUp();
-    log.atInfo().log("Cleaning up expired file based websessions...Done");
-  }
-
-  @Override
-  public String toString() {
-    return String.format("[%s] Clean up expired file based websessions", pluginName);
   }
 }
