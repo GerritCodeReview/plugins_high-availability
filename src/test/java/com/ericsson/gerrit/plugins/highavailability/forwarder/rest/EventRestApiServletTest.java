@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.net.MediaType.JSON_UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +28,7 @@ import com.google.common.net.MediaType;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.events.EventTypes;
 import com.google.gerrit.server.events.RefEvent;
-import com.google.gwtorm.server.OrmException;
+import com.google.gerrit.server.permissions.PermissionBackendException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -83,11 +82,11 @@ public class EventRestApiServletTest {
             + "\"refs/changes/76/669676/2\",\"nodesCount\":1,\"type\":"
             + "\"ref-replication-done\",\"eventCreatedOn\":1451415011}";
     when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader(event)));
-    doThrow(new OrmException(ERR_MSG))
+    doThrow(new PermissionBackendException(ERR_MSG))
         .when(forwardedEventHandlerMock)
         .dispatch(any(RefReplicationDoneEvent.class));
     eventRestApiServlet.doPost(requestMock, responseMock);
-    verify(responseMock).sendError(SC_NOT_FOUND, "Change not found\n");
+    verify(responseMock).sendError(SC_BAD_REQUEST, ERR_MSG);
   }
 
   @Test
