@@ -18,7 +18,6 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,7 +31,6 @@ import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.time.TimeUtil;
-import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
@@ -53,8 +51,6 @@ public class ForwardedIndexChangeHandlerTest {
   private static String TEST_CHANGE_ID = TEST_PROJECT + "~" + TEST_CHANGE_NUMBER;
   private static final boolean CHANGE_EXISTS = true;
   private static final boolean CHANGE_DOES_NOT_EXIST = false;
-  private static final boolean DO_NOT_THROW_IO_EXCEPTION = false;
-  private static final boolean THROW_IO_EXCEPTION = true;
   private static final boolean CHANGE_UP_TO_DATE = true;
   private static final boolean CHANGE_OUTDATED = false;
 
@@ -112,13 +108,6 @@ public class ForwardedIndexChangeHandlerTest {
   }
 
   @Test
-  public void indexerThrowsIOExceptionTryingToIndexChange() throws Exception {
-    setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_IO_EXCEPTION, CHANGE_UP_TO_DATE);
-    exception.expect(IOException.class);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-  }
-
-  @Test
   public void shouldSetAndUnsetForwardedContext() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
     // this doAnswer is to allow to assert that context is set to forwarded
@@ -163,20 +152,11 @@ public class ForwardedIndexChangeHandlerTest {
     verify(indexerMock, times(1)).index(any(Change.class));
   }
 
-  private void setupChangeAccessRelatedMocks(boolean changeExist, boolean changeUpToDate)
-      throws Exception {
-    setupChangeAccessRelatedMocks(changeExist, DO_NOT_THROW_IO_EXCEPTION, changeUpToDate);
-  }
-
-  private void setupChangeAccessRelatedMocks(
-      boolean changeExists, boolean ioException, boolean changeIsUpToDate)
-      throws OrmException, IOException {
+  private void setupChangeAccessRelatedMocks(boolean changeExists, boolean changeIsUpToDate)
+      throws IOException {
     if (changeExists) {
       when(changeCheckerFactoryMock.create(TEST_CHANGE_ID)).thenReturn(changeCheckerPresentMock);
       when(changeCheckerPresentMock.getChangeNotes()).thenReturn(Optional.of(changeNotes));
-      if (ioException) {
-        doThrow(new IOException("io-error")).when(indexerMock).index(any(Change.class));
-      }
     }
 
     when(changeCheckerPresentMock.isChangeUpToDate(any())).thenReturn(changeIsUpToDate);

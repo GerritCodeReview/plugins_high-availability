@@ -26,7 +26,6 @@ import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -68,13 +67,12 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   @Override
-  protected void doIndex(String id, Optional<IndexEvent> indexEvent)
-      throws IOException, OrmException {
+  protected void doIndex(String id, Optional<IndexEvent> indexEvent) throws IOException {
     doIndex(id, indexEvent, 0);
   }
 
   private void doIndex(String id, Optional<IndexEvent> indexEvent, int retryCount)
-      throws IOException, OrmException {
+      throws IOException {
     try {
       ChangeChecker checker = changeCheckerFactory.create(id);
       Optional<ChangeNotes> changeNotes = checker.getChangeNotes();
@@ -112,7 +110,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
   }
 
-  private void reindex(ChangeNotes notes) throws IOException, OrmException {
+  private void reindex(ChangeNotes notes) {
     notes.reload();
     indexer.index(notes.getChange());
   }

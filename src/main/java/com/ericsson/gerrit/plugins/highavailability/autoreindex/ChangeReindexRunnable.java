@@ -26,7 +26,6 @@ import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.notedb.ChangeNotes.Factory.ChangeNotesResult;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -101,7 +100,7 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
         changeIdx.index(c.getProject() + "~" + c.getId(), Operation.INDEX, Optional.empty());
         return Optional.of(changeTs);
       }
-    } catch (OrmException | IOException e) {
+    } catch (IOException e) {
       log.atSevere().withCause(e).log("Reindex failed");
     }
     return Optional.empty();

@@ -19,7 +19,6 @@ import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -39,8 +38,7 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   }
 
   @Override
-  protected void doIndex(AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent)
-      throws IOException {
+  protected void doIndex(AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
     indexer.index(uuid);
     log.atFine().log("Group %s successfully indexed", uuid);
   }

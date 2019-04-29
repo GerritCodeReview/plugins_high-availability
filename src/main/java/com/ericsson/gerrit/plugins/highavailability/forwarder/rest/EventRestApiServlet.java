@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.net.MediaType.JSON_UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 
@@ -30,7 +29,6 @@ import com.google.gerrit.server.events.SupplierDeserializer;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -58,9 +56,6 @@ class EventRestApiServlet extends AbstractRestApiServlet {
       }
       forwardedEventHandler.dispatch(getEventFromRequest(req));
       rsp.setStatus(SC_NO_CONTENT);
-    } catch (OrmException e) {
-      log.atFine().withCause(e).log("Error trying to find a change");
-      sendError(rsp, SC_NOT_FOUND, "Change not found\n");
     } catch (IOException | PermissionBackendException e) {
       log.atSevere().withCause(e).log("Unable to re-trigger event");
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());

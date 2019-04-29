@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler;
@@ -25,7 +24,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Charsets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
@@ -93,10 +91,6 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
       log.atSevere().withCause(e).log("Unable to update %s index", indexName);
-    } catch (OrmException e) {
-      String msg = String.format("Error trying to find %s", indexName);
-      sendError(rsp, SC_NOT_FOUND, msg);
-      log.atFine().withCause(e).log(msg);
     }
   }
 

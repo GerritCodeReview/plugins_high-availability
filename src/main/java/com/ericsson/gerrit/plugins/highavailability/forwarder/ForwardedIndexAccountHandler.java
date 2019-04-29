@@ -19,7 +19,6 @@ import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -39,7 +38,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent) throws IOException {
+  protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
     indexer.index(id);
     log.atFine().log("Account %s successfully indexed", id);
   }

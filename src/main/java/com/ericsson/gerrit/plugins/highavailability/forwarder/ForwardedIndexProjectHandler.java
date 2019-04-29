@@ -19,7 +19,6 @@ import com.google.gerrit.index.project.ProjectIndexer;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -39,8 +38,7 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
   }
 
   @Override
-  protected void doIndex(Project.NameKey projectName, Optional<IndexEvent> indexEvent)
-      throws IOException {
+  protected void doIndex(Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
     indexer.index(projectName);
     log.atFine().log("Project %s successfully indexed", projectName);
   }
