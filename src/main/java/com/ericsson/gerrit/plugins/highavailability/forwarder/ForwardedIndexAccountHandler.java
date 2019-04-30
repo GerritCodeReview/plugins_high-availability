@@ -17,7 +17,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected void doIndex(Account.Id id) throws IOException, OrmException {
+  protected void doIndex(Account.Id id) throws IOException {
     indexer.index(id);
     log.debug("Account {} successfully indexed", id);
   }
