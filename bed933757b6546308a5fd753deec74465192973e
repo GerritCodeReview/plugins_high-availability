@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54aa7bf6_38d0febc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-04-30T01:51:53Z",
+      "side": 1,
+      "message": "Is this still thrown?",
+      "range": {
+        "startLine": 42,
+        "startChar": 73,
+        "endLine": 42,
+        "endChar": 92
+      },
+      "revId": "bed933757b6546308a5fd753deec74465192973e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
