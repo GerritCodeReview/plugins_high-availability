@@ -22,6 +22,30 @@
       "revId": "e295292a1fce13db9e86696226f7c9a0db1e1e0e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "344c6aa4_d0b10e8d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-05-01T16:21:46Z",
+      "side": 1,
+      "message": "No, because ForwardedIndexChangeHandler is overriding this method and still needs to potentially throw it. Attempting this removal leads to a compilation failure, in that class, that way.",
+      "parentUuid": "2a386bfe_a7182d5e",
+      "range": {
+        "startLine": 45,
+        "startChar": 73,
+        "endLine": 45,
+        "endChar": 91
+      },
+      "revId": "e295292a1fce13db9e86696226f7c9a0db1e1e0e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
