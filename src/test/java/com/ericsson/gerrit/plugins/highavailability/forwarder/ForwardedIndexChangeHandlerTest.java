@@ -69,7 +69,7 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Before
   public void setUp() throws Exception {
-    id = new Change.Id(TEST_CHANGE_NUMBER);
+    id = Change.id(TEST_CHANGE_NUMBER);
     Change change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
     when(configMock.index()).thenReturn(indexMock);

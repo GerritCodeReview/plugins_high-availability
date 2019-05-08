@@ -52,7 +52,7 @@ public class IndexProjectRestApiServletTest {
   @Before
   public void setUpMocks() {
     servlet = new IndexProjectRestApiServlet(handlerMock);
-    nameKey = new Project.NameKey(PROJECT_NAME);
+    nameKey = Project.nameKey(PROJECT_NAME);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/project/" + Url.encode(nameKey.get()));
   }

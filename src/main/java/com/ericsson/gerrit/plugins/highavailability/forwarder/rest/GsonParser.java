@@ -18,15 +18,15 @@ import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.base.Strings;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 final class GsonParser {
 
   private GsonParser() {}
 
   static Object fromJson(String cacheName, String json) {
-    Gson gson = new GsonBuilder().create();
+    Gson gson = new EventGsonProvider().get();
     Object key;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
@@ -54,7 +54,7 @@ final class GsonParser {
   }
 
   static String toJson(String cacheName, Object key) {
-    Gson gson = new GsonBuilder().create();
+    Gson gson = new EventGsonProvider().get();
     String json;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
