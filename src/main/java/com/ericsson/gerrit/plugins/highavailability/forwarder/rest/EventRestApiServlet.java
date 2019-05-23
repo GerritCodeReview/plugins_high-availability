@@ -21,14 +21,9 @@ import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
-import com.google.common.base.Supplier;
 import com.google.common.io.CharStreams;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventDeserializer;
-import com.google.gerrit.server.events.SupplierDeserializer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -41,10 +36,12 @@ class EventRestApiServlet extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
 
   private final ForwardedEventHandler forwardedEventHandler;
+  private final GsonParser gson;
 
   @Inject
-  EventRestApiServlet(ForwardedEventHandler forwardedEventHandler) {
+  EventRestApiServlet(ForwardedEventHandler forwardedEventHandler, GsonParser gson) {
     this.forwardedEventHandler = forwardedEventHandler;
+    this.gson = gson;
   }
 
   @Override
@@ -66,13 +63,8 @@ class EventRestApiServlet extends AbstractRestApiServlet {
     }
   }
 
-  private static Event getEventFromRequest(HttpServletRequest req) throws IOException {
+  private Event getEventFromRequest(HttpServletRequest req) throws IOException {
     String jsonEvent = CharStreams.toString(req.getReader());
-    Gson gson =
-        new GsonBuilder()
-            .registerTypeAdapter(Event.class, new EventDeserializer())
-            .registerTypeAdapter(Supplier.class, new SupplierDeserializer())
-            .create();
-    return gson.fromJson(jsonEvent, Event.class);
+    return gson.gson().fromJson(jsonEvent, Event.class);
   }
 }

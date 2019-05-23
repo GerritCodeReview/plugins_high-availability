@@ -16,17 +16,29 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.base.Strings;
+import com.google.common.base.Supplier;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.server.events.Event;
+import com.google.gerrit.server.events.EventDeserializer;
+import com.google.gerrit.server.events.SupplierDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.inject.Singleton;
 
+@Singleton
 final class GsonParser {
+  private final Gson gson =
+      new GsonBuilder()
+          .registerTypeAdapter(Event.class, new EventDeserializer())
+          .registerTypeAdapter(Supplier.class, new SupplierDeserializer())
+          .create();
 
-  private GsonParser() {}
+  public Gson gson() {
+    return gson;
+  }
 
-  static Object fromJson(String cacheName, String json) {
-    Gson gson = new GsonBuilder().create();
+  Object fromJson(String cacheName, String json) {
     Object key;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
@@ -53,8 +65,7 @@ final class GsonParser {
     return key;
   }
 
-  static String toJson(String cacheName, Object key) {
-    Gson gson = new GsonBuilder().create();
+  String toJson(String cacheName, Object key) {
     String json;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
