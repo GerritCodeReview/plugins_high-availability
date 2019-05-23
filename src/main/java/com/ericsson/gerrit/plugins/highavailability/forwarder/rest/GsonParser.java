@@ -16,17 +16,94 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.base.Strings;
+import com.google.common.base.Supplier;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.server.events.Event;
+import com.google.gerrit.server.events.EventDeserializer;
+import com.google.gerrit.server.events.SupplierSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import java.lang.reflect.Type;
 
 final class GsonParser {
+  private static final Gson gson =
+      new GsonBuilder()
+          .registerTypeAdapter(Account.Id.class, new AccountIdDeserializer())
+          .registerTypeAdapter(AccountGroup.Id.class, new AccountGroupIdDeserializer())
+          .registerTypeAdapter(AccountGroup.UUID.class, new AccountGroupUuidDeserializer())
+          .registerTypeAdapter(Event.class, new EventDeserializer())
+          .registerTypeAdapter(Supplier.class, new SupplierSerializer())
+          .create();
+
+  private static class AccountIdDeserializer
+      implements JsonDeserializer<Account.Id>, JsonSerializer<Account.Id> {
+    @Override
+    public Account.Id deserialize(JsonElement json, Type type, JsonDeserializationContext context)
+        throws JsonParseException {
+      JsonObject asJsonObject = json.getAsJsonObject();
+      return asJsonObject.has("id") ? Account.id(asJsonObject.get("id").getAsInt()) : null;
+    }
+
+    @Override
+    public JsonElement serialize(Account.Id id, Type type, JsonSerializationContext context) {
+      JsonObject obj = new JsonObject();
+      obj.addProperty("id", id.toString());
+      return obj;
+    }
+  }
+
+  private static class AccountGroupIdDeserializer
+      implements JsonDeserializer<AccountGroup.Id>, JsonSerializer<AccountGroup.Id> {
+    @Override
+    public AccountGroup.Id deserialize(
+        JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+      JsonObject asJsonObject = json.getAsJsonObject();
+      return asJsonObject.has("id") ? AccountGroup.id(asJsonObject.get("id").getAsInt()) : null;
+    }
+
+    @Override
+    public JsonElement serialize(AccountGroup.Id id, Type type, JsonSerializationContext context) {
+      JsonObject obj = new JsonObject();
+      obj.addProperty("id", id.toString());
+      return obj;
+    }
+  }
+
+  private static class AccountGroupUuidDeserializer
+      implements JsonDeserializer<AccountGroup.UUID>, JsonSerializer<AccountGroup.UUID> {
+    @Override
+    public AccountGroup.UUID deserialize(
+        JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+      JsonObject asJsonObject = json.getAsJsonObject();
+      return asJsonObject.has("uuid")
+          ? AccountGroup.uuid(asJsonObject.get("uuid").getAsString())
+          : null;
+    }
+
+    @Override
+    public JsonElement serialize(
+        AccountGroup.UUID uuid, Type type, JsonSerializationContext context) {
+      JsonObject obj = new JsonObject();
+      obj.addProperty("uuid", uuid.toString());
+      return obj;
+    }
+  }
 
   private GsonParser() {}
 
+  public static Gson gson() {
+    return gson;
+  }
+
   static Object fromJson(String cacheName, String json) {
-    Gson gson = new GsonBuilder().create();
     Object key;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
@@ -54,7 +131,6 @@ final class GsonParser {
   }
 
   static String toJson(String cacheName, Object key) {
-    Gson gson = new GsonBuilder().create();
     String json;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {

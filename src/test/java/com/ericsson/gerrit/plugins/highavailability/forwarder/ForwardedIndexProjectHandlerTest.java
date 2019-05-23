@@ -50,7 +50,7 @@ public class ForwardedIndexProjectHandlerTest {
     when(configMock.index()).thenReturn(indexMock);
     when(indexMock.numStripedLocks()).thenReturn(10);
     handler = new ForwardedIndexProjectHandler(indexerMock, configMock);
-    nameKey = new Project.NameKey("project/name");
+    nameKey = Project.nameKey("project/name");
   }
 
   @Test

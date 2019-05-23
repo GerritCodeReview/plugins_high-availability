@@ -30,7 +30,7 @@ import org.junit.Test;
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public class ProjectListRestApiServletIT extends LightweightPluginDaemonTest {
-  private static final Project.NameKey SOME_PROJECT = new Project.NameKey("org-a/some-project");
+  private static final Project.NameKey SOME_PROJECT = Project.nameKey("org-a/some-project");
 
   @Test
   @UseLocalDisk

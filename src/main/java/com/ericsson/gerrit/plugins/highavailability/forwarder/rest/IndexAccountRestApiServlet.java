@@ -30,6 +30,6 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
 
   @Override
   Account.Id parse(String id) {
-    return new Account.Id(Integer.parseInt(id));
+    return Account.id(Integer.parseInt(id));
   }
 }

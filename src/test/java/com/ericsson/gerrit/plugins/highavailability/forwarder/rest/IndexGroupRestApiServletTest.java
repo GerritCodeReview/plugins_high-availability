@@ -51,7 +51,7 @@ public class IndexGroupRestApiServletTest {
   @Before
   public void setUpMocks() {
     servlet = new IndexGroupRestApiServlet(handlerMock);
-    uuid = new AccountGroup.UUID(UUID);
+    uuid = AccountGroup.uuid(UUID);
     when(requestMock.getRequestURI()).thenReturn("http://gerrit.com/index/group/" + UUID);
   }
 
