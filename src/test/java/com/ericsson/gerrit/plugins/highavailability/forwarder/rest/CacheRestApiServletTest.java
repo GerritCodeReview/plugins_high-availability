@@ -44,7 +44,7 @@ public class CacheRestApiServletTest {
 
   @Before
   public void setUp() {
-    servlet = new CacheRestApiServlet(forwardedCacheEvictionHandlerMock);
+    servlet = new CacheRestApiServlet(forwardedCacheEvictionHandlerMock, new GsonParser());
   }
 
   @Test

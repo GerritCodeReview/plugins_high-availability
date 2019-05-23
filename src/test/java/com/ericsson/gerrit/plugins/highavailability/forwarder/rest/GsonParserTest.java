@@ -23,39 +23,41 @@ import org.junit.Test;
 
 public class GsonParserTest {
   private static final Object EMPTY_JSON = "{}";
+  private final GsonParser objectUnderTest = new GsonParser();
 
   @Test
   public void accountIDParse() {
     Account.Id accountId = new Account.Id(1);
-    String json = GsonParser.toJson(Constants.ACCOUNTS, accountId);
-    assertThat(accountId).isEqualTo(GsonParser.fromJson(Constants.ACCOUNTS, json));
+    String json = objectUnderTest.toJson(Constants.ACCOUNTS, accountId);
+    assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.ACCOUNTS, json));
   }
 
   @Test
   public void accountGroupIDParse() {
     AccountGroup.Id accountGroupId = new AccountGroup.Id(1);
-    String json = GsonParser.toJson(Constants.GROUPS, accountGroupId);
-    assertThat(accountGroupId).isEqualTo(GsonParser.fromJson(Constants.GROUPS, json));
+    String json = objectUnderTest.toJson(Constants.GROUPS, accountGroupId);
+    assertThat(accountGroupId).isEqualTo(objectUnderTest.fromJson(Constants.GROUPS, json));
   }
 
   @Test
   public void accountGroupUUIDParse() {
     AccountGroup.UUID accountGroupUuid = new AccountGroup.UUID("abc123");
-    String json = GsonParser.toJson(Constants.GROUPS_BYINCLUDE, accountGroupUuid);
-    assertThat(accountGroupUuid).isEqualTo(GsonParser.fromJson(Constants.GROUPS_BYINCLUDE, json));
+    String json = objectUnderTest.toJson(Constants.GROUPS_BYINCLUDE, accountGroupUuid);
+    assertThat(accountGroupUuid)
+        .isEqualTo(objectUnderTest.fromJson(Constants.GROUPS_BYINCLUDE, json));
   }
 
   @Test
   public void stringParse() {
     String key = "key";
-    String json = GsonParser.toJson(Constants.PROJECTS, key);
-    assertThat(key).isEqualTo(GsonParser.fromJson(Constants.PROJECTS, json));
+    String json = objectUnderTest.toJson(Constants.PROJECTS, key);
+    assertThat(key).isEqualTo(objectUnderTest.fromJson(Constants.PROJECTS, json));
   }
 
   @Test
   public void noKeyParse() {
     Object object = new Object();
-    String json = GsonParser.toJson(Constants.PROJECT_LIST, object);
+    String json = objectUnderTest.toJson(Constants.PROJECT_LIST, object);
     assertThat(json).isEqualTo(EMPTY_JSON);
   }
 }

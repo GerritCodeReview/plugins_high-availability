@@ -58,7 +58,7 @@ public class EventRestApiServletTest {
 
   @Before
   public void createEventsRestApiServlet() throws Exception {
-    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandlerMock);
+    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandlerMock, new GsonParser());
     when(requestMock.getContentType()).thenReturn(MediaType.JSON_UTF_8.toString());
   }
 

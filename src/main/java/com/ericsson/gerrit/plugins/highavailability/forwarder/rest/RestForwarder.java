@@ -20,12 +20,9 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
-import com.google.common.base.Supplier;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.SupplierSerializer;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.io.IOException;
@@ -51,17 +48,20 @@ class RestForwarder implements Forwarder {
   private final String pluginRelativePath;
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
+  private final GsonParser gson;
 
   @Inject
   RestForwarder(
       HttpSession httpClient,
       @PluginName String pluginName,
       Configuration cfg,
-      Provider<Set<PeerInfo>> peerInfoProvider) {
+      Provider<Set<PeerInfo>> peerInfoProvider,
+      GsonParser gson) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
+    this.gson = gson;
   }
 
   @Override
@@ -86,17 +86,13 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean send(final Event event) {
-    String serializedEvent =
-        new GsonBuilder()
-            .registerTypeAdapter(Supplier.class, new SupplierSerializer())
-            .create()
-            .toJson(event);
+    String serializedEvent = gson.gson().toJson(event);
     return execute(RequestMethod.POST, "send event", "event", event.type, serializedEvent);
   }
 
   @Override
   public boolean evict(final String cacheName, final Object key) {
-    String json = GsonParser.toJson(cacheName, key);
+    String json = gson.toJson(cacheName, key);
     return execute(RequestMethod.POST, "invalidate cache " + cacheName, "cache", cacheName, json);
   }
 
