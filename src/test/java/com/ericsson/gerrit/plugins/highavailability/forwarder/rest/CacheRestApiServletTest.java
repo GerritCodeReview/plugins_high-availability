@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundException;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +45,8 @@ public class CacheRestApiServletTest {
 
   @Before
   public void setUp() {
-    servlet = new CacheRestApiServlet(forwardedCacheEvictionHandlerMock);
+    servlet =
+        new CacheRestApiServlet(forwardedCacheEvictionHandlerMock, new GsonParser(new Gson()));
   }
 
   @Test

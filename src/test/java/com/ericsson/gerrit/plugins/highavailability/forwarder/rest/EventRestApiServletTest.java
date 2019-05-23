@@ -29,6 +29,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.events.EventTypes;
 import com.google.gerrit.server.events.RefEvent;
 import com.google.gerrit.server.permissions.PermissionBackendException;
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -57,7 +58,7 @@ public class EventRestApiServletTest {
 
   @Before
   public void createEventsRestApiServlet() throws Exception {
-    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandlerMock);
+    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandlerMock, new Gson());
     when(requestMock.getContentType()).thenReturn(MediaType.JSON_UTF_8.toString());
   }
 
@@ -129,7 +130,7 @@ public class EventRestApiServletTest {
 
     @Override
     public Project.NameKey getProjectNameKey() {
-      return new Project.NameKey(project);
+      return Project.nameKey(project);
     }
 
     @Override

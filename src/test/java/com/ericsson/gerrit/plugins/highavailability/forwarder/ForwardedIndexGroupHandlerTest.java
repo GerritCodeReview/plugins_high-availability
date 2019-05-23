@@ -50,7 +50,7 @@ public class ForwardedIndexGroupHandlerTest {
     when(configMock.index()).thenReturn(indexMock);
     when(indexMock.numStripedLocks()).thenReturn(10);
     handler = new ForwardedIndexGroupHandler(indexerMock, configMock);
-    uuid = new AccountGroup.UUID("123");
+    uuid = AccountGroup.uuid("123");
   }
 
   @Test

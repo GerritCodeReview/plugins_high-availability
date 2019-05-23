@@ -15,11 +15,9 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
-import com.google.common.base.Supplier;
 import com.google.common.net.MediaType;
-import com.google.gerrit.server.events.SupplierSerializer;
+import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.net.URI;
@@ -32,12 +30,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 class HttpSession {
   private final CloseableHttpClient httpClient;
-  private final Gson gson =
-      new GsonBuilder().registerTypeAdapter(Supplier.class, new SupplierSerializer()).create();
+  private final Gson gson;
 
   @Inject
-  HttpSession(CloseableHttpClient httpClient) {
+  HttpSession(CloseableHttpClient httpClient, @EventGson Gson gson) {
     this.httpClient = httpClient;
+    this.gson = gson;
   }
 
   HttpResult post(String uri) throws IOException {

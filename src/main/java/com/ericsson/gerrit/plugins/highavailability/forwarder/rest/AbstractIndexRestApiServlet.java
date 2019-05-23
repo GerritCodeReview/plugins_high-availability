@@ -22,8 +22,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Charsets;
+import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
@@ -32,11 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
-  private static final Gson gson = new GsonBuilder().create();
 
   private final ForwardedIndexingHandler<T> forwardedIndexingHandler;
   private final IndexName indexName;
   private final boolean allowDelete;
+  private final Gson gson;
 
   public enum IndexName {
     CHANGE,
@@ -55,15 +55,17 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
   AbstractIndexRestApiServlet(
       ForwardedIndexingHandler<T> forwardedIndexingHandler,
       IndexName indexName,
-      boolean allowDelete) {
+      boolean allowDelete,
+      @EventGson Gson gson) {
     this.forwardedIndexingHandler = forwardedIndexingHandler;
     this.indexName = indexName;
     this.allowDelete = allowDelete;
+    this.gson = gson;
   }
 
   AbstractIndexRestApiServlet(
       ForwardedIndexingHandler<T> forwardedIndexingHandler, IndexName indexName) {
-    this(forwardedIndexingHandler, indexName, false);
+    this(forwardedIndexingHandler, indexName, false, new Gson());
   }
 
   @Override

@@ -33,7 +33,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.events.Event;
-import com.google.gson.GsonBuilder;
+import com.google.gson.Gson;
 import com.google.inject.Provider;
 import java.io.IOException;
 import java.util.Set;
@@ -82,6 +82,7 @@ public class RestForwarderTest {
 
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
+  private Gson gson = new Gson();
 
   @SuppressWarnings("unchecked")
   @Before
@@ -94,7 +95,7 @@ public class RestForwarderTest {
     when(peersMock.get()).thenReturn(ImmutableSet.of(new PeerInfo(URL)));
     forwarder =
         new RestForwarder(
-            httpSessionMock, PLUGIN_NAME, configMock, peersMock); // TODO: Create provider
+            httpSessionMock, PLUGIN_NAME, configMock, peersMock, gson); // TODO: Create provider
   }
 
   @Test
@@ -199,7 +200,7 @@ public class RestForwarderTest {
   @Test
   public void testEvictProjectOK() throws Exception {
     String key = PROJECT_NAME;
-    String keyJson = new GsonBuilder().create().toJson(key);
+    String keyJson = gson.toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.PROJECTS), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.PROJECTS, key)).isTrue();
@@ -207,8 +208,8 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictAccountsOK() throws Exception {
-    Account.Id key = new Account.Id(123);
-    String keyJson = new GsonBuilder().create().toJson(key);
+    Account.Id key = Account.id(123);
+    String keyJson = gson.toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.ACCOUNTS), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.ACCOUNTS, key)).isTrue();
@@ -216,8 +217,8 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictGroupsOK() throws Exception {
-    AccountGroup.Id key = new AccountGroup.Id(123);
-    String keyJson = new GsonBuilder().create().toJson(key);
+    AccountGroup.Id key = AccountGroup.id(123);
+    String keyJson = gson.toJson(key);
     String endpoint = buildCacheEndpoint(Constants.GROUPS);
     when(httpSessionMock.post(endpoint, keyJson)).thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.GROUPS, key)).isTrue();
@@ -225,8 +226,8 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictGroupsByIncludeOK() throws Exception {
-    AccountGroup.UUID key = new AccountGroup.UUID("90b3042d9094a37985f3f9281391dbbe9a5addad");
-    String keyJson = new GsonBuilder().create().toJson(key);
+    AccountGroup.UUID key = AccountGroup.uuid("90b3042d9094a37985f3f9281391dbbe9a5addad");
+    String keyJson = gson.toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.GROUPS_BYINCLUDE), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.GROUPS_BYINCLUDE, key)).isTrue();
@@ -234,8 +235,8 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictGroupsMembersOK() throws Exception {
-    AccountGroup.UUID key = new AccountGroup.UUID("90b3042d9094a37985f3f9281391dbbe9a5addad");
-    String keyJson = new GsonBuilder().create().toJson(key);
+    AccountGroup.UUID key = AccountGroup.uuid("90b3042d9094a37985f3f9281391dbbe9a5addad");
+    String keyJson = gson.toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.GROUPS_MEMBERS), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.GROUPS_MEMBERS, key)).isTrue();
@@ -244,7 +245,7 @@ public class RestForwarderTest {
   @Test
   public void testEvictCacheFailed() throws Exception {
     String key = PROJECT_NAME;
-    String keyJson = new GsonBuilder().create().toJson(key);
+    String keyJson = gson.toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.PROJECTS), keyJson))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.PROJECTS, key)).isFalse();
@@ -253,7 +254,7 @@ public class RestForwarderTest {
   @Test
   public void testEvictCacheThrowsException() throws Exception {
     String key = PROJECT_NAME;
-    String keyJson = new GsonBuilder().create().toJson(key);
+    String keyJson = gson.toJson(key);
     doThrow(new IOException())
         .when(httpSessionMock)
         .post(buildCacheEndpoint(Constants.PROJECTS), keyJson);

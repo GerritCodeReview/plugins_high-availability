@@ -123,7 +123,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   private String getBranchTargetSha() {
     try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-      String refName = changeNotes.get().getChange().getDest().get();
+      String refName = changeNotes.get().getChange().getDest().branch();
       Ref ref = repo.exactRef(refName);
       if (ref == null) {
         log.atWarning().log("Unable to find target ref %s for change %s", refName, changeId);
