@@ -45,7 +45,7 @@ public class ForwardedProjectListUpdateHandler {
    * @throws IOException
    */
   public void update(String projectName, boolean remove) throws IOException {
-    Project.NameKey projectKey = new Project.NameKey(projectName);
+    Project.NameKey projectKey = Project.nameKey(projectName);
     try {
       Context.setForwardedEvent(true);
       if (remove) {

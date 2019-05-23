@@ -61,9 +61,9 @@ public class IndexEventHandlerTest {
 
   @Before
   public void setUpMocks() throws Exception {
-    changeId = new Change.Id(CHANGE_ID);
-    accountId = new Account.Id(ACCOUNT_ID);
-    accountGroupUUID = new AccountGroup.UUID(UUID);
+    changeId = Change.id(CHANGE_ID);
+    accountId = Account.id(ACCOUNT_ID);
+    accountGroupUUID = AccountGroup.uuid(UUID);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerMock);
     when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
     indexEventHandler =

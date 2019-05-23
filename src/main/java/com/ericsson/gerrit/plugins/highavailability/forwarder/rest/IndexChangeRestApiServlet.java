@@ -16,6 +16,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.google.gerrit.extensions.restapi.Url;
+import com.google.gerrit.server.events.EventGson;
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -24,8 +26,8 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<String> {
   private static final long serialVersionUID = -1L;
 
   @Inject
-  IndexChangeRestApiServlet(ForwardedIndexChangeHandler handler) {
-    super(handler, IndexName.CHANGE, true);
+  IndexChangeRestApiServlet(ForwardedIndexChangeHandler handler, @EventGson Gson gson) {
+    super(handler, IndexName.CHANGE, true, gson);
   }
 
   @Override
