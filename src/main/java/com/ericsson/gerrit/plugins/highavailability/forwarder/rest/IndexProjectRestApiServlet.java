@@ -31,6 +31,6 @@ class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet<Project.Nam
 
   @Override
   Project.NameKey parse(String projectName) {
-    return new Project.NameKey(Url.decode(projectName));
+    return Project.nameKey(Url.decode(projectName));
   }
 }

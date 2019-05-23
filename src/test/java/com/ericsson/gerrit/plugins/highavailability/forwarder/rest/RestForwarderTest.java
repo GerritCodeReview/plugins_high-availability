@@ -207,7 +207,7 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictAccountsOK() throws Exception {
-    Account.Id key = new Account.Id(123);
+    Account.Id key = Account.id(123);
     String keyJson = new GsonBuilder().create().toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.ACCOUNTS), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
@@ -216,7 +216,7 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictGroupsOK() throws Exception {
-    AccountGroup.Id key = new AccountGroup.Id(123);
+    AccountGroup.Id key = AccountGroup.id(123);
     String keyJson = new GsonBuilder().create().toJson(key);
     String endpoint = buildCacheEndpoint(Constants.GROUPS);
     when(httpSessionMock.post(endpoint, keyJson)).thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
@@ -225,7 +225,7 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictGroupsByIncludeOK() throws Exception {
-    AccountGroup.UUID key = new AccountGroup.UUID("90b3042d9094a37985f3f9281391dbbe9a5addad");
+    AccountGroup.UUID key = AccountGroup.uuid("90b3042d9094a37985f3f9281391dbbe9a5addad");
     String keyJson = new GsonBuilder().create().toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.GROUPS_BYINCLUDE), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
@@ -234,7 +234,7 @@ public class RestForwarderTest {
 
   @Test
   public void testEvictGroupsMembersOK() throws Exception {
-    AccountGroup.UUID key = new AccountGroup.UUID("90b3042d9094a37985f3f9281391dbbe9a5addad");
+    AccountGroup.UUID key = AccountGroup.uuid("90b3042d9094a37985f3f9281391dbbe9a5addad");
     String keyJson = new GsonBuilder().create().toJson(key);
     when(httpSessionMock.post(buildCacheEndpoint(Constants.GROUPS_MEMBERS), keyJson))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
