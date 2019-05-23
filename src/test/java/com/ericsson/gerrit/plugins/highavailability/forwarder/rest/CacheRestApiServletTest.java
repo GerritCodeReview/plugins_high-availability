@@ -40,11 +40,12 @@ public class CacheRestApiServletTest {
   @Mock private HttpServletResponse responseMock;
   @Mock private BufferedReader readerMock;
   @Mock private ForwardedCacheEvictionHandler forwardedCacheEvictionHandlerMock;
+  private GsonParser gson = new GsonParser();
   private CacheRestApiServlet servlet;
 
   @Before
   public void setUp() {
-    servlet = new CacheRestApiServlet(forwardedCacheEvictionHandlerMock);
+    servlet = new CacheRestApiServlet(forwardedCacheEvictionHandlerMock, gson);
   }
 
   @Test
