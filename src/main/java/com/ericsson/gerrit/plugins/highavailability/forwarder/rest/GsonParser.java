@@ -19,14 +19,19 @@ import com.google.common.base.Strings;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-final class GsonParser {
+@Singleton
+class GsonParser {
+  private final Gson gson;
 
-  private GsonParser() {}
+  @Inject
+  GsonParser(GsonProvider gson) {
+    this.gson = gson.get();
+  }
 
-  static Object fromJson(String cacheName, String json) {
-    Gson gson = new GsonBuilder().create();
+  public Object fromJson(String cacheName, String json) {
     Object key;
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
@@ -51,27 +56,5 @@ final class GsonParser {
         }
     }
     return key;
-  }
-
-  static String toJson(String cacheName, Object key) {
-    Gson gson = new GsonBuilder().create();
-    String json;
-    // Need to add a case for 'adv_bases'
-    switch (cacheName) {
-      case Constants.ACCOUNTS:
-        json = gson.toJson(key, Account.Id.class);
-        break;
-      case Constants.GROUPS:
-        json = gson.toJson(key, AccountGroup.Id.class);
-        break;
-      case Constants.GROUPS_BYINCLUDE:
-      case Constants.GROUPS_MEMBERS:
-        json = gson.toJson(key, AccountGroup.UUID.class);
-        break;
-      case Constants.PROJECT_LIST:
-      default:
-        json = gson.toJson(key);
-    }
-    return json;
   }
 }
