@@ -22,6 +22,30 @@
       "revId": "da85700b910174095127a73637d1caf130ac283b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4892ab68_a37c4a64",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-05-24T14:26:58Z",
+      "side": 1,
+      "message": "I\u0027m not actually sure what this comment refers to, but I don\u0027t think it\u0027s anything to do with the gson provider added here.",
+      "parentUuid": "59361c69_b58d9202",
+      "range": {
+        "startLine": 104,
+        "startChar": 26,
+        "endLine": 104,
+        "endChar": 51
+      },
+      "revId": "da85700b910174095127a73637d1caf130ac283b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
