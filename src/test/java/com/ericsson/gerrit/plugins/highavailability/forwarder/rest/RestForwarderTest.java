@@ -75,6 +75,9 @@ public class RestForwarderTest {
   private static final String INDEX_GROUP_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/group", UUID);
 
+  private GsonProvider gsonProvider = new GsonProvider();
+  private Gson gson = gsonProvider.get();
+
   // Event
   private static Event event = new TestEvent();
   private static final String EVENT_ENDPOINT =
@@ -82,7 +85,6 @@ public class RestForwarderTest {
 
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
-  private Gson gson = new Gson();
 
   @SuppressWarnings("unchecked")
   @Before
@@ -95,7 +97,11 @@ public class RestForwarderTest {
     when(peersMock.get()).thenReturn(ImmutableSet.of(new PeerInfo(URL)));
     forwarder =
         new RestForwarder(
-            httpSessionMock, PLUGIN_NAME, configMock, peersMock, gson); // TODO: Create provider
+            httpSessionMock,
+            PLUGIN_NAME,
+            configMock,
+            peersMock,
+            gsonProvider); // TODO: Create provider
   }
 
   @Test

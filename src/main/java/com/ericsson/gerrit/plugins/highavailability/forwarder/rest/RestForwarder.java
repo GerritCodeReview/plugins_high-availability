@@ -25,8 +25,6 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventGson;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.io.IOException;
@@ -50,7 +48,7 @@ class RestForwarder implements Forwarder {
   private final String pluginRelativePath;
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
-  private final Gson gson;
+  private final GsonProvider gson;
 
   @Inject
   RestForwarder(
@@ -58,7 +56,7 @@ class RestForwarder implements Forwarder {
       @PluginName String pluginName,
       Configuration cfg,
       Provider<Set<PeerInfo>> peerInfoProvider,
-      @EventGson Gson gson) {
+      GsonProvider gson) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
@@ -114,7 +112,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean evict(final String cacheName, final Object key) {
-    String json = gson.toJson(key);
+    String json = gson.get().toJson(key);
     return execute(RequestMethod.POST, "invalidate cache " + cacheName, "cache", cacheName, json);
   }
 

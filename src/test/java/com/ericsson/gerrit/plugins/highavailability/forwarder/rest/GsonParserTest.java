@@ -19,14 +19,13 @@ import static com.google.common.truth.Truth.assertThat;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
 import org.junit.Test;
 
 public class GsonParserTest {
   private static final Object EMPTY_JSON = "{}";
-  private final Gson gson = new EventGsonProvider().get();
-  private final GsonParser objectUnderTest = new GsonParser(gson);
+  private final Gson gson = new Gson();
+  private final GsonParser objectUnderTest = new GsonParser(new GsonProvider());
 
   @Test
   public void accountIDParse() {
