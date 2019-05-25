@@ -48,17 +48,20 @@ class RestForwarder implements Forwarder {
   private final String pluginRelativePath;
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
+  private final GsonProvider gson;
 
   @Inject
   RestForwarder(
       HttpSession httpClient,
       @PluginName String pluginName,
       Configuration cfg,
-      Provider<Set<PeerInfo>> peerInfoProvider) {
+      Provider<Set<PeerInfo>> peerInfoProvider,
+      GsonProvider gson) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
+    this.gson = gson;
   }
 
   @Override
@@ -109,7 +112,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean evict(final String cacheName, final Object key) {
-    String json = GsonParser.toJson(cacheName, key);
+    String json = gson.get().toJson(key);
     return execute(RequestMethod.POST, "invalidate cache " + cacheName, "cache", cacheName, json);
   }
 
