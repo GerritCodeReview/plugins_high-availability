@@ -75,6 +75,8 @@ public class RestForwarderTest {
   private static final String INDEX_GROUP_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/group", UUID);
 
+  private Gson gson = new Gson();
+
   // Event
   private static Event event = new TestEvent();
   private static final String EVENT_ENDPOINT =
@@ -82,7 +84,6 @@ public class RestForwarderTest {
 
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
-  private Gson gson = new Gson();
 
   @SuppressWarnings("unchecked")
   @Before
