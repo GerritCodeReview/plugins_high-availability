@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a91712aa_6531ac40",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-05-26T06:14:47Z",
+      "side": -1,
+      "message": "This should be preserved. This was done in: [1] and should stay as is. On stable branches it was done differently, because GsonEventDeserializer was only added in gerrit core on master in: [2] and renamed to EventGson in: [3].\n\n* [1] https://gerrit-review.googlesource.com/c/plugins/high-availability/+/225264\n* [2] https://gerrit-review.googlesource.com/c/gerrit/+/222306\n* [3] https://gerrit-review.googlesource.com/c/gerrit/+/222713",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "bea0c24d3f04892d0518ed3ebc46ab4b40a3b826",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
