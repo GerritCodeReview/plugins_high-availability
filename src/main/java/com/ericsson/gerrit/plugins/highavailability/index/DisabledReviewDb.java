@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.google.common.util.concurrent.CheckedFuture;
 import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.client.Change.Id;
 import com.google.gerrit.reviewdb.server.ChangeAccess;
 import com.google.gerrit.reviewdb.server.ChangeMessageAccess;
 import com.google.gerrit.reviewdb.server.PatchLineCommentAccess;
@@ -60,22 +59,22 @@ public class DisabledReviewDb implements ReviewDb {
     }
 
     @Override
-    public Id primaryKey(Change entity) {
+    public Change.Id primaryKey(Change entity) {
       throw new Disabled();
     }
 
     @Override
-    public Map<Id, Change> toMap(Iterable<Change> c) {
+    public Map<Change.Id, Change> toMap(Iterable<Change> c) {
       throw new Disabled();
     }
 
     @Override
-    public CheckedFuture<Change, OrmException> getAsync(Id key) {
+    public CheckedFuture<Change, OrmException> getAsync(Change.Id key) {
       throw new Disabled();
     }
 
     @Override
-    public ResultSet<Change> get(Iterable<Id> keys) throws OrmException {
+    public ResultSet<Change> get(Iterable<Change.Id> keys) throws OrmException {
       throw new Disabled();
     }
 
@@ -95,7 +94,7 @@ public class DisabledReviewDb implements ReviewDb {
     }
 
     @Override
-    public void deleteKeys(Iterable<Id> keys) throws OrmException {
+    public void deleteKeys(Iterable<Change.Id> keys) throws OrmException {
       throw new Disabled();
     }
 
@@ -105,17 +104,17 @@ public class DisabledReviewDb implements ReviewDb {
     }
 
     @Override
-    public void beginTransaction(Id key) throws OrmException {
+    public void beginTransaction(Change.Id key) throws OrmException {
       throw new Disabled();
     }
 
     @Override
-    public Change atomicUpdate(Id key, AtomicUpdate<Change> update) throws OrmException {
+    public Change atomicUpdate(Change.Id key, AtomicUpdate<Change> update) throws OrmException {
       throw new Disabled();
     }
 
     @Override
-    public Change get(Id id) throws OrmException {
+    public Change get(Change.Id id) throws OrmException {
       return null;
     }
 
