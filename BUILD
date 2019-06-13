@@ -22,7 +22,7 @@ gerrit_plugin(
 )
 
 junit_tests(
-    name = "high_availability_tests",
+    name = "high-availability_tests",
     srcs = glob(["src/test/java/**/*.java"]),
     resources = glob(["src/test/resources/**/*"]),
     tags = [
