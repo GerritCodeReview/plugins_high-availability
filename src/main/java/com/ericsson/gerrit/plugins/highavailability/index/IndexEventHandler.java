@@ -42,57 +42,69 @@ class IndexEventHandler
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
   private final ChangeCheckerImpl.Factory changeChecker;
+  private final CurrentRequestContext currCtx;
 
   @Inject
   IndexEventHandler(
       @IndexExecutor Executor executor,
       @PluginName String pluginName,
       Forwarder forwarder,
-      ChangeCheckerImpl.Factory changeChecker) {
+      ChangeCheckerImpl.Factory changeChecker,
+      CurrentRequestContext currCtx) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
+    this.currCtx = currCtx;
   }
 
   @Override
   public void onAccountIndexed(int id) {
-    if (!Context.isForwardedEvent()) {
-      IndexAccountTask task = new IndexAccountTask(id);
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
-    }
+    currCtx.onlyWithContext(
+        (ctx) -> {
+          if (!Context.isForwardedEvent()) {
+            IndexAccountTask task = new IndexAccountTask(id);
+            if (queuedTasks.add(task)) {
+              executor.execute(task);
+            }
+          }
+        });
   }
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
-    executeIndexChangeTask(projectName, id, false);
+    currCtx.onlyWithContext((ctx) -> executeIndexChangeTask(projectName, id, false));
   }
 
   @Override
   public void onChangeDeleted(int id) {
-    executeIndexChangeTask("", id, true);
+    currCtx.onlyWithContext((ctx) -> executeIndexChangeTask("", id, true));
   }
 
   @Override
   public void onGroupIndexed(String groupUUID) {
-    if (!Context.isForwardedEvent()) {
-      IndexGroupTask task = new IndexGroupTask(groupUUID);
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
-    }
+    currCtx.onlyWithContext(
+        (ctx) -> {
+          if (!Context.isForwardedEvent()) {
+            IndexGroupTask task = new IndexGroupTask(groupUUID);
+            if (queuedTasks.add(task)) {
+              executor.execute(task);
+            }
+          }
+        });
   }
 
   @Override
   public void onProjectIndexed(String projectName) {
-    if (!Context.isForwardedEvent()) {
-      IndexProjectTask task = new IndexProjectTask(projectName);
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
-    }
+    currCtx.onlyWithContext(
+        (ctx) -> {
+          if (!Context.isForwardedEvent()) {
+            IndexProjectTask task = new IndexProjectTask(projectName);
+            if (queuedTasks.add(task)) {
+              executor.execute(task);
+            }
+          }
+        });
   }
 
   private void executeIndexChangeTask(String projectName, int id, boolean deleted) {

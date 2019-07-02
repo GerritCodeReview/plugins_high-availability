@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.index.CurrentRequestContext;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
@@ -49,6 +50,7 @@ public class IndexTs
   private final FlusherRunner flusher;
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
+  private final CurrentRequestContext currCtx;
 
   private volatile LocalDateTime changeTs;
   private volatile LocalDateTime accountTs;
@@ -81,41 +83,46 @@ public class IndexTs
       @PluginData Path dataDir,
       WorkQueue queue,
       SchemaFactory<ReviewDb> schemaFactory,
-      ChangeFinder changeFinder) {
+      ChangeFinder changeFinder,
+      CurrentRequestContext currCtx) {
     this.dataDir = dataDir;
     this.exec = queue.getDefaultQueue();
     this.flusher = new FlusherRunner();
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
+    this.currCtx = currCtx;
   }
 
   @Override
   public void onGroupIndexed(String uuid) {
-    update(IndexName.GROUP, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.GROUP, LocalDateTime.now()));
   }
 
   @Override
   public void onAccountIndexed(int id) {
-    update(IndexName.ACCOUNT, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.ACCOUNT, LocalDateTime.now()));
   }
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
-    try (ReviewDb db = schemaFactory.open()) {
-      ChangeNotes changeNotes = changeFinder.findOne(projectName + "~" + id);
-      update(
-          IndexName.CHANGE,
-          changeNotes == null
-              ? LocalDateTime.now()
-              : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
-    } catch (Exception e) {
-      log.warn("Unable to update the latest TS for change {}", e);
-    }
+    currCtx.onlyWithContext(
+        (ctx) -> {
+          try (ReviewDb db = schemaFactory.open()) {
+            ChangeNotes changeNotes = changeFinder.findOne(projectName + "~" + id);
+            update(
+                IndexName.CHANGE,
+                changeNotes == null
+                    ? LocalDateTime.now()
+                    : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
+          } catch (Exception e) {
+            log.warn("Unable to update the latest TS for change {}", e);
+          }
+        });
   }
 
   @Override
   public void onChangeDeleted(int id) {
-    update(IndexName.CHANGE, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.CHANGE, LocalDateTime.now()));
   }
 
   public Optional<LocalDateTime> getUpdateTs(AbstractIndexRestApiServlet.IndexName index) {
