@@ -25,12 +25,20 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import static com.google.common.truth.Truth.assertThat;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.google.common.cache.LoadingCache;
+import com.google.gerrit.acceptance.GerritConfig;
 import com.google.gerrit.acceptance.GlobalPluginConfig;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
+import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.reviewdb.client.AccountGroup.UUID;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import java.util.Collections;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
@@ -46,8 +54,15 @@ import org.junit.Test;
 public class CacheEvictionIT extends LightweightPluginDaemonTest {
   private static final int PORT = 18888;
   private static final String URL = "http://localhost:" + PORT;
+  private static final String GROUP_CACHE = "ldap_groups";
 
   @Rule public WireMockRule wireMockRule = new WireMockRule(options().port(PORT));
+
+  @Inject
+  @Named(GROUP_CACHE)
+  LoadingCache<String, Set<AccountGroup.UUID>> membershipCache;
+
+  final CountDownLatch expectedRequestLatch = new CountDownLatch(1);
 
   @Override
   public void setUp() throws Exception {
@@ -59,18 +74,49 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
   @UseLocalDisk
   @GlobalPluginConfig(pluginName = "high-availability", name = "peerInfo.static.url", value = URL)
   @GlobalPluginConfig(pluginName = "high-availability", name = "http.retryInterval", value = "100")
+  @GerritConfig(name = "auth.type", value = "ldap")
   public void flushProjectsCacheShouldSendPostForEvictingRemoteCache() throws Exception {
     final String flushRequest = "/plugins/high-availability/cache/" + Constants.PROJECTS;
-    final CountDownLatch expectedRequestLatch = new CountDownLatch(1);
+
+    expectRestApiCall(flushRequest);
+
+    adminSshSession.exec("gerrit flush-caches --cache " + Constants.PROJECTS);
+    assertThat(waitForEvictionEvents()).isTrue();
+    verify(postRequestedFor(urlEqualTo(flushRequest)));
+  }
+
+  @Test
+  @UseLocalDisk
+  @GlobalPluginConfig(pluginName = "high-availability", name = "peerInfo.static.url", value = URL)
+  @GlobalPluginConfig(pluginName = "high-availability", name = "http.retryInterval", value = "100")
+  @GerritConfig(name = "auth.type", value = "ldap")
+  public void ldapCacheLoadShouldNotSendAnyPostEvictionForLdapGroups() throws Exception {
+    final String flushRequest = "/plugins/high-availability/cache/ldap_groups";
+    String fooGroup = "fooGroup";
+    Set<UUID> fooGroupMembers = Collections.emptySet();
+
+    expectRestApiCall(flushRequest);
+
+    loadLdapGroupMembers(fooGroup, fooGroupMembers);
+    loadLdapGroupMembers(fooGroup, fooGroupMembers); // For triggering an eviction
+    waitForEvictionEvents();
+    verify(0, postRequestedFor(urlEqualTo(flushRequest)));
+  }
+
+  private void expectRestApiCall(final String flushRequest) {
     wireMockRule.addMockServiceRequestListener(
         (request, response) -> {
           if (request.getAbsoluteUrl().contains(flushRequest)) {
             expectedRequestLatch.countDown();
           }
         });
+  }
 
-    adminSshSession.exec("gerrit flush-caches --cache " + Constants.PROJECTS);
-    assertThat(expectedRequestLatch.await(5, TimeUnit.SECONDS)).isTrue();
-    verify(postRequestedFor(urlEqualTo(flushRequest)));
+  private boolean waitForEvictionEvents() throws InterruptedException {
+    return expectedRequestLatch.await(5, TimeUnit.SECONDS);
+  }
+
+  private void loadLdapGroupMembers(String fooGroup, Set<UUID> fooGroupMembers) {
+    membershipCache.put(fooGroup, fooGroupMembers);
   }
 }
