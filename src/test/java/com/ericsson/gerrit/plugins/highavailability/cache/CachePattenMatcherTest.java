@@ -46,7 +46,6 @@ public class CachePattenMatcherTest {
             "groups_byuuid",
             "groups_external",
             "groups_members",
-            "ldap_groups",
             "ldap_usernames",
             "projects",
             "sshkeys",
