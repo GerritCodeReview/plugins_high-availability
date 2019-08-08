@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3752db6a_3e157c40",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-08-08T08:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c50197ea_f15fcdb3",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "9ea50e6155bb95aded152f1f2ca9002f851a533f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28904e9b_11460414",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9ea50e6155bb95aded152f1f2ca9002f851a533f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d32531c9_f258dbc1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-08-08T08:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28904e9b_11460414",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 12
+      },
+      "revId": "9ea50e6155bb95aded152f1f2ca9002f851a533f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
