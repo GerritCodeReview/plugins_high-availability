@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69c0b69f_f9e32a4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-09-05T22:21:59Z",
+      "side": 1,
+      "message": "Plugin\u0027s doc does not state this as a supported use case. It is rather mentioning the sole case of active/passive(s). I\u0027d then reconsider this whole paragraph, including the below hypothetical parts.",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 70
+      },
+      "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7d6bc09_45401edc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-09-05T22:21:59Z",
+      "side": 1,
+      "message": "not always useful and potentially risky",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b52bf83_890fe7ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-09-05T22:21:59Z",
+      "side": 1,
+      "message": "Hence the need to make that specific one configurable this way, instead of completely removing it.",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
