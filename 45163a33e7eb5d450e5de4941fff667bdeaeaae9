@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0c3d37a_5c5bbbc6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-09-05T22:30:11Z",
+      "side": 1,
+      "message": "\u003e Plugin\u0027s doc does not state this as a supported use case. It is rather mentioning the sole case of active/passive(s). I\u0027d then reconsider this whole paragraph, including the below hypothetical parts.\n\nTrue, however, even with active/passive, you could have a \"flipping\" scenario where active and passive nodes are exchanging their roles in a short period, causing the same issue. Will clarify more on the commit message that isn\u0027t *really* a round-robin but rather a flipping.",
+      "parentUuid": "69c0b69f_f9e32a4f",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 70
+      },
+      "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7d6bc09_45401edc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b8055a76_0bf353a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-09-05T22:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7d6bc09_45401edc",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 61
+      },
+      "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b52bf83_890fe7ea",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75da45b4_113dbf66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-09-05T22:30:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b52bf83_890fe7ea",
+      "range": {
+        "startLine": 29,
+        "startChar": 58,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "45163a33e7eb5d450e5de4941fff667bdeaeaae9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
