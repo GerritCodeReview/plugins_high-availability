@@ -26,7 +26,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CachePattenMatcherTest {
+public class CachePatternMatcherTest {
 
   @Mock(answer = RETURNS_DEEP_STUBS)
   private Configuration configurationMock;
