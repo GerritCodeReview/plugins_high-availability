@@ -84,7 +84,7 @@ File '@PLUGIN@.config'
 
 ```peerInfo.strategy```
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
-    Defaults to `static`.
+    Defaults to `jgroups`.
 * The `static` strategy allows to staticly configure the peer gerrit instance using
 the configuration parameter `peerInfo.static.url`.
 * The `jgroups` strategy allows that a gerrit instance discovers the peer
