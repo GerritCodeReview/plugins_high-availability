@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4b4c2dc_02724839",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-09-17T20:31:13Z",
+      "side": 1,
+      "message": "I believe it would be best to clarify that you are referring to the plugin\u0027s part of the gerrit init process.",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 14
+      },
+      "revId": "db683eaae9ac05b0c2132c5908e999c89c6c2724",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00717301_49ff2e75",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-09-17T20:31:13Z",
+      "side": 1,
+      "message": "This was in context when it was in the init step. However, as part of the documentation, I believe it is less clear.",
+      "range": {
+        "startLine": 102,
+        "startChar": 49,
+        "endLine": 102,
+        "endChar": 70
+      },
+      "revId": "db683eaae9ac05b0c2132c5908e999c89c6c2724",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
