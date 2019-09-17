@@ -91,5 +91,15 @@ Backup master
   password = password
 ```
 
+### HA replica site
+
+It is possible to create a copy of the master site and configure both sites to run
+in HA mode as peers. This is possible when the directory where the copy will be
+created is accessible from this machine.
+
+This init step is optional but defaults to creating the replica. If you want to
+create the other site manually, or if the other site needs to be created in a
+directory not accessible from this machine, then please skip this step.
+
 For further information and supported options, refer to [config](config.md)
 documentation.
