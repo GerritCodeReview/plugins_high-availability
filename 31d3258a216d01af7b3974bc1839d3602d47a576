@@ -46,6 +46,30 @@
       "revId": "31d3258a216d01af7b3974bc1839d3602d47a576",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1037f66f_205d9198",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-09-18T19:21:28Z",
+      "side": 1,
+      "message": "4.1.5.Final by now (and counting).\n\nThis change needs either manual or automated verification, the latter still being preferred. -Plugin lacks unit or IT test coverage for the jgroups case, as opposed to the covered static one. So this is still part of our backlog, albeit not started or being worked on yet.",
+      "parentUuid": "8d5a5532_5efda6ea",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "31d3258a216d01af7b3974bc1839d3602d47a576",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
