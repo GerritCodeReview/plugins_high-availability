@@ -310,14 +310,6 @@ public class Setup implements InitStep {
   private boolean createHAReplicaSite(FileBasedConfig pluginConfig)
       throws ConfigInvalidException, IOException {
     ui.header("HA replica site setup");
-    ui.message(
-        "It is possible to create a copy of the master site and configure both sites to run\n"
-            + "in HA mode as peers. This is possible when the directory where the copy will be\n"
-            + "created is accessible from this machine\n"
-            + "\n"
-            + "NOTE: This step is optional. If you want to create the other site manually, or\n"
-            + "if the other site needs to be created in a directory not accessible from this\n"
-            + "machine then please skip this step.\n");
     if (ui.yesno(true, "Create a HA replica site")) {
       String replicaPath = ui.readString("ha/1", "Location of the HA replica");
       Path replica = site.site_path.resolve(Paths.get(replicaPath));
