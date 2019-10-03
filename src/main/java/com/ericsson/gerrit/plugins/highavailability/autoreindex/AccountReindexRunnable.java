@@ -53,7 +53,7 @@ public class AccountReindexRunnable extends ReindexRunnable<AccountState> {
   @Override
   protected Optional<Timestamp> indexIfNeeded(AccountState as, Timestamp sinceTs) {
     try {
-      Account a = as.getAccount();
+      Account a = as.account();
       Timestamp accountTs = a.registeredOn();
       if (accountTs.after(sinceTs)) {
         log.atInfo().log("Index %s/%s/%s/%s", a.id(), a.fullName(), a.preferredEmail(), accountTs);
