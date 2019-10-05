@@ -33,8 +33,10 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.server.util.RequestContext;
 import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,6 +59,15 @@ public class IndexEventHandlerTest {
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
+  @Mock private RequestContext mockCtx;
+
+  private CurrentRequestContext currCtx =
+      new CurrentRequestContext(null) {
+        @Override
+        public void onlyWithContext(Consumer<RequestContext> body) {
+          body.accept(mockCtx);
+        }
+      };
 
   @Before
   public void setUpMocks() throws Exception {
@@ -67,7 +78,11 @@ public class IndexEventHandlerTest {
     when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
     indexEventHandler =
         new IndexEventHandler(
-            MoreExecutors.directExecutor(), PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+            MoreExecutors.directExecutor(),
+            PLUGIN_NAME,
+            forwarder,
+            changeCheckerFactoryMock,
+            currCtx);
   }
 
   @Test
@@ -125,7 +140,7 @@ public class IndexEventHandlerTest {
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(poolMock, times(1))
@@ -136,7 +151,7 @@ public class IndexEventHandlerTest {
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -146,7 +161,7 @@ public class IndexEventHandlerTest {
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
