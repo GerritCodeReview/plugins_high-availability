@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChan
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.google.common.collect.Streams;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -25,7 +26,6 @@ import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.notedb.ChangeNotes.Factory.ChangeNotesResult;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -33,11 +33,9 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.eclipse.jgit.lib.Repository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ChangeReindexRunnable extends ReindexRunnable<Change> {
-  private static final Logger log = LoggerFactory.getLogger(ChangeReindexRunnable.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final ForwardedIndexChangeHandler changeIdx;
 
@@ -85,10 +83,7 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
         Stream<Change> projectChangesStream =
             notesFactory
                 .scan(repo, projectName)
-                .map(
-                    (ChangeNotesResult changeNotes) -> {
-                      return changeNotes.notes().getChange();
-                    });
+                .map((ChangeNotesResult changeNotes) -> changeNotes.notes().getChange());
         allChangesStream = Streams.concat(allChangesStream, projectChangesStream);
       }
     }
@@ -100,13 +95,13 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
     try {
       Timestamp changeTs = c.getLastUpdatedOn();
       if (changeTs.after(sinceTs)) {
-        log.info(
-            "Index {}/{}/{} was updated after {}", c.getProject(), c.getId(), changeTs, sinceTs);
+        log.atInfo().log(
+            "Index %s/%s/%s was updated after %s", c.getProject(), c.getId(), changeTs, sinceTs);
         changeIdx.index(c.getProject() + "~" + c.getId(), Operation.INDEX, Optional.empty());
         return Optional.of(changeTs);
       }
-    } catch (OrmException | IOException e) {
-      log.error("Reindex failed", e);
+    } catch (IOException e) {
+      log.atSevere().withCause(e).log("Reindex failed");
     }
     return Optional.empty();
   }

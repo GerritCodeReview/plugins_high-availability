@@ -16,15 +16,14 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractRestApiServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  protected final Logger log = LoggerFactory.getLogger(getClass());
+  protected static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   protected static void setHeaders(HttpServletResponse rsp) {
     rsp.setContentType("text/plain");
@@ -35,7 +34,7 @@ public abstract class AbstractRestApiServlet extends HttpServlet {
     try {
       rsp.sendError(statusCode, message);
     } catch (IOException e) {
-      log.error("Failed to send error messsage: {}", e.getMessage(), e);
+      log.atSevere().withCause(e).log("Failed to send error messsage");
     }
   }
 }

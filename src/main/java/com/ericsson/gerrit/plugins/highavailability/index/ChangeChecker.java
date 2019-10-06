@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.server.notedb.ChangeNotes;
-import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -24,21 +23,19 @@ import java.util.Optional;
 public interface ChangeChecker {
 
   /**
-   * Return the Change nodes read from ReviewDb or NoteDb.
+   * Return the Change notes read from ReviewDb or NoteDb.
    *
    * @return notes of the Change
-   * @throws OrmException if ReviewDb or NoteDb cannot be opened
    */
-  public Optional<ChangeNotes> getChangeNotes() throws OrmException;
+  Optional<ChangeNotes> getChangeNotes();
 
   /**
    * Create a new index event POJO associated with the current Change.
    *
    * @return new IndexEvent
    * @throws IOException if the current Change cannot read
-   * @throws OrmException if ReviewDb cannot be opened
    */
-  public Optional<IndexEvent> newIndexEvent() throws IOException, OrmException;
+  Optional<IndexEvent> newIndexEvent() throws IOException;
 
   /**
    * Check if the local Change is aligned with the indexEvent received.
@@ -46,9 +43,8 @@ public interface ChangeChecker {
    * @param indexEvent indexing event
    * @return true if the local Change is up-to-date, false otherwise.
    * @throws IOException if an I/O error occurred while reading the local Change
-   * @throws OrmException if the local ReviewDb cannot be opened
    */
-  public boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws IOException, OrmException;
+  boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws IOException;
 
   /**
    * Return the last computed up-to-date Change time-stamp.
@@ -57,7 +53,6 @@ public interface ChangeChecker {
    *
    * @return the Change timestamp epoch in seconds
    * @throws IOException if an I/O error occurred while reading the local Change
-   * @throws OrmException if the local ReviewDb cannot be opened
    */
-  public Optional<Long> getComputedChangeTs() throws IOException, OrmException;
+  Optional<Long> getComputedChangeTs() throws IOException;
 }

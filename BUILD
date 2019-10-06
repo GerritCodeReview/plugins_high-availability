@@ -1,3 +1,4 @@
+load("@rules_java//java:defs.bzl", "java_library")
 load("//tools/bzl:junit.bzl", "junit_tests")
 load(
     "//tools/bzl:plugin.bzl",
@@ -13,6 +14,7 @@ gerrit_plugin(
         "Gerrit-PluginName: high-availability",
         "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
         "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
+        "Gerrit-InitStep: com.ericsson.gerrit.plugins.highavailability.Setup",
         "Implementation-Title: high-availability plugin",
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/high-availability",
     ],
@@ -23,7 +25,7 @@ gerrit_plugin(
 )
 
 junit_tests(
-    name = "high_availability_tests",
+    name = "high-availability_tests",
     srcs = glob(["src/test/java/**/*.java"]),
     resources = glob(["src/test/resources/**/*"]),
     tags = [
@@ -41,7 +43,6 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":high-availability__plugin",
-        "@mockito//jar",
         "@wiremock//jar",
     ],
 )

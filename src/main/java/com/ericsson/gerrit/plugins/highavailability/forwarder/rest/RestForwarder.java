@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
@@ -34,8 +35,6 @@ import java.util.stream.Collectors;
 import javax.net.ssl.SSLException;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class RestForwarder implements Forwarder {
   enum RequestMethod {
@@ -43,23 +42,26 @@ class RestForwarder implements Forwarder {
     DELETE
   }
 
-  private static final Logger log = LoggerFactory.getLogger(RestForwarder.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final HttpSession httpSession;
   private final String pluginRelativePath;
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
+  private final GsonProvider gson;
 
   @Inject
   RestForwarder(
       HttpSession httpClient,
       @PluginName String pluginName,
       Configuration cfg,
-      Provider<Set<PeerInfo>> peerInfoProvider) {
+      Provider<Set<PeerInfo>> peerInfoProvider,
+      GsonProvider gson) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
+    this.gson = gson;
   }
 
   @Override
@@ -68,23 +70,33 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexChange(String projectName, final int changeId, IndexEvent event) {
+  public boolean indexChange(String projectName, int changeId, IndexEvent event) {
     return execute(
         RequestMethod.POST,
         "index change",
         "index/change",
-        Url.encode(projectName) + "~" + changeId,
+        buildIndexEndpoint(projectName, changeId),
         event);
   }
 
   @Override
   public boolean deleteChangeFromIndex(final int changeId, IndexEvent event) {
-    return execute(RequestMethod.DELETE, "delete change", "index/change", "~" + changeId, event);
+    return execute(
+        RequestMethod.DELETE, "delete change", "index/change", buildIndexEndpoint(changeId), event);
   }
 
   @Override
-  public boolean indexGroup(String uuid, IndexEvent event) {
+  public boolean indexGroup(final String uuid, IndexEvent event) {
     return execute(RequestMethod.POST, "index group", "index/group", uuid, event);
+  }
+
+  private String buildIndexEndpoint(int changeId) {
+    return buildIndexEndpoint("", changeId);
+  }
+
+  private String buildIndexEndpoint(String projectName, int changeId) {
+    String escapedProjectName = Url.encode(projectName);
+    return escapedProjectName + '~' + changeId;
   }
 
   @Override
@@ -100,7 +112,7 @@ class RestForwarder implements Forwarder {
 
   @Override
   public boolean evict(final String cacheName, final Object key) {
-    String json = GsonParser.toJson(cacheName, key);
+    String json = gson.get().toJson(key);
     return execute(RequestMethod.POST, "invalidate cache " + cacheName, "cache", cacheName, json);
   }
 
@@ -135,7 +147,7 @@ class RestForwarder implements Forwarder {
     List<CompletableFuture<Boolean>> futures =
         peerInfoProvider.get().stream()
             .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
-            .map(request -> CompletableFuture.supplyAsync(() -> request.execute()))
+            .map(request -> CompletableFuture.supplyAsync(request::execute))
             .collect(Collectors.toList());
     CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
     return futures.stream().allMatch(CompletableFuture::join);
@@ -153,10 +165,13 @@ class RestForwarder implements Forwarder {
       @Override
       HttpResult send() throws IOException {
         String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, id);
-        if (RequestMethod.POST == method) {
-          return httpSession.post(request, payload);
+        switch (method) {
+          case POST:
+            return httpSession.post(request, payload);
+          case DELETE:
+          default:
+            return httpSession.delete(request);
         }
-        return httpSession.delete(request, payload);
       }
     };
   }
@@ -175,41 +190,36 @@ class RestForwarder implements Forwarder {
     }
 
     boolean execute() {
-      log.debug("Executing {} {} towards {}", action, key, destination);
+      log.atFine().log("Executing %s %s towards %s", action, key, destination);
       for (; ; ) {
         try {
           execCnt++;
           tryOnce();
-          log.debug("{} {} towards {} OK", action, key, destination);
+          log.atFine().log("%s %s towards %s OK", action, key, destination);
           return true;
         } catch (ForwardingException e) {
           int maxTries = cfg.http().maxTries();
-          log.debug(
-              "Failed to {} {} on {} [{}/{}]", action, key, destination, execCnt, maxTries, e);
+          log.atFine().withCause(e).log(
+              "Failed to %s %s on %s [%d/%d]", action, key, destination, execCnt, maxTries);
           if (!e.isRecoverable()) {
-            log.error(
-                "{} {} towards {} failed with unrecoverable error; giving up",
-                action,
-                key,
-                destination,
-                e);
+            log.atSevere().withCause(e).log(
+                "%s %s towards %s failed with unrecoverable error; giving up",
+                action, key, destination);
             return false;
           }
           if (execCnt >= maxTries) {
-            log.error(
-                "Failed to {} {} on {} after {} tries; giving up",
-                action,
-                key,
-                destination,
-                maxTries);
+            log.atSevere().log(
+                "Failed to %s %s on %s after %d tries; giving up",
+                action, key, destination, maxTries);
             return false;
           }
 
-          log.debug("Retrying to {} {} on {}", action, key, destination);
+          log.atFine().log("Retrying to %s %s on %s", action, key, destination);
           try {
             Thread.sleep(cfg.http().retryInterval());
           } catch (InterruptedException ie) {
-            log.error("{} {} towards {} was interrupted; giving up", action, key, destination, ie);
+            log.atSevere().withCause(ie).log(
+                "%s %s towards %s was interrupted; giving up", action, key, destination);
             Thread.currentThread().interrupt();
             return false;
           }

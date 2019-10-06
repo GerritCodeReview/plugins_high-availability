@@ -15,7 +15,6 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
-import com.google.common.base.Charsets;
 import com.google.common.base.Supplier;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.SupplierSerializer;
@@ -24,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpPost;
@@ -40,8 +40,8 @@ class HttpSession {
     this.httpClient = httpClient;
   }
 
-  HttpResult post(String endpoint) throws IOException {
-    return post(endpoint, null);
+  HttpResult post(String uri) throws IOException {
+    return post(uri, null);
   }
 
   HttpResult post(String uri, Object content) throws IOException {
@@ -51,7 +51,7 @@ class HttpSession {
   }
 
   HttpResult delete(String uri) throws IOException {
-    return httpClient.execute(new HttpDelete(uri), new HttpResponseHandler());
+    return delete(uri, null);
   }
 
   HttpResult delete(String uri, Object content) throws IOException {
@@ -63,7 +63,7 @@ class HttpSession {
   private void setContent(HttpEntityEnclosingRequestBase request, Object content) {
     if (content != null) {
       request.addHeader("Content-Type", MediaType.JSON_UTF_8.toString());
-      request.setEntity(new StringEntity(jsonEncode(content), Charsets.UTF_8));
+      request.setEntity(new StringEntity(jsonEncode(content), StandardCharsets.UTF_8));
     }
   }
 

@@ -25,6 +25,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.websession.file.FileBasedWebSessionCacheCleaner.CleanupTask;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Provider;
 import java.util.concurrent.ScheduledFuture;

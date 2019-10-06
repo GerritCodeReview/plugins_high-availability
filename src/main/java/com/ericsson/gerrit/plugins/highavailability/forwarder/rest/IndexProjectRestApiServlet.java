@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
+import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -30,6 +31,6 @@ class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet<Project.Nam
 
   @Override
   Project.NameKey parse(String projectName) {
-    return new Project.NameKey(projectName);
+    return new Project.NameKey(Url.decode(projectName));
   }
 }

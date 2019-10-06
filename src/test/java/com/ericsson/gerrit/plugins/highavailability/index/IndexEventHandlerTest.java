@@ -101,6 +101,8 @@ public class IndexEventHandlerTest {
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
     indexEventHandler.onChangeDeleted(changeId.get());
     verify(forwarder).deleteChangeFromIndex(eq(CHANGE_ID), any());
+    verifyZeroInteractions(
+        changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
 
   @Test

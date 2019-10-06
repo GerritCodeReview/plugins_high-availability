@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Objects;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
@@ -28,15 +29,13 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class IndexEventHandler
     implements ChangeIndexedListener,
         AccountIndexedListener,
         GroupIndexedListener,
         ProjectIndexedListener {
-  private static final Logger log = LoggerFactory.getLogger(IndexEventHandler.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
@@ -73,12 +72,12 @@ class IndexEventHandler
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
-    currCtx.onlyWithContext((ctx) -> executeIndexChangeTask(projectName, id, false));
+    currCtx.onlyWithContext((ctx) -> executeIndexChangeTask(projectName, id));
   }
 
   @Override
   public void onChangeDeleted(int id) {
-    currCtx.onlyWithContext((ctx) -> executeIndexChangeTask("", id, true));
+    currCtx.onlyWithContext((ctx) -> executeDeleteChangeTask(id));
   }
 
   @Override
@@ -107,13 +106,13 @@ class IndexEventHandler
         });
   }
 
-  private void executeIndexChangeTask(String projectName, int id, boolean deleted) {
+  private void executeIndexChangeTask(String projectName, int id) {
     if (!Context.isForwardedEvent()) {
       ChangeChecker checker = changeChecker.create(projectName + "~" + id);
       try {
         checker
             .newIndexEvent()
-            .map(event -> new IndexChangeTask(projectName, id, deleted, event))
+            .map(event -> new IndexChangeTask(projectName, id, false, event))
             .ifPresent(
                 task -> {
                   if (queuedTasks.add(task)) {
@@ -121,7 +120,21 @@ class IndexEventHandler
                   }
                 });
       } catch (Exception e) {
-        log.warn("Unable to create task to handle change {}~{}", projectName, id, e);
+        log.atWarning().withCause(e).log(
+            "Unable to create task to handle change %s~%s", projectName, id);
+      }
+    }
+  }
+
+  private void executeDeleteChangeTask(int id) {
+    if (!Context.isForwardedEvent()) {
+      try {
+        IndexChangeTask deleteTask = new IndexChangeTask("", id, true, null);
+        if (queuedTasks.add(deleteTask)) {
+          executor.execute(deleteTask);
+        }
+      } catch (Exception e) {
+        log.atWarning().withCause(e).log("Unable to create task to handle deleted change %s", id);
       }
     }
   }
@@ -147,9 +160,9 @@ class IndexEventHandler
   }
 
   class IndexChangeTask extends IndexTask {
-    private final boolean deleted;
     private final int changeId;
     private final String projectName;
+    private boolean deleted;
 
     IndexChangeTask(String projectName, int changeId, boolean deleted, IndexEvent indexEvent) {
       super(indexEvent);
@@ -169,7 +182,7 @@ class IndexEventHandler
 
     @Override
     public int hashCode() {
-      return Objects.hashCode(IndexChangeTask.class, changeId, deleted);
+      return Objects.hashCode(IndexChangeTask.class, changeId, projectName, deleted);
     }
 
     @Override

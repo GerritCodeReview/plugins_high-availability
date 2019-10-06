@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability;
 
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_NUM_STRIPED_LOCKS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
@@ -43,6 +44,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.NUM_STRIPED_LOCKS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PEER_INFO_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.DEFAULT_PEER_INFO_STRATEGY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.STRATEGY_KEY;
@@ -67,7 +69,6 @@ import com.google.gerrit.server.config.SitePaths;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -83,7 +84,7 @@ public class ConfigurationTest {
   private static final String PASS = "fakePass";
   private static final String USER = "fakeUser";
   private static final String URL = "http://fakeUrl";
-  private static final List<String> URLS = ImmutableList.of(URL, "http://anotherUrl/");
+  private static final ImmutableList<String> URLS = ImmutableList.of(URL, "http://anotherUrl");
   private static final int TIMEOUT = 5000;
   private static final int MAX_TRIES = 5;
   private static final int RETRY_INTERVAL = 1000;
@@ -110,15 +111,16 @@ public class ConfigurationTest {
 
   @Test
   public void testGetPeerInfoStrategy() {
-    assertThat(getConfiguration().peerInfo().strategy()).isSameAs(DEFAULT_PEER_INFO_STRATEGY);
+    assertThat(getConfiguration().peerInfo().strategy())
+        .isSameInstanceAs(DEFAULT_PEER_INFO_STRATEGY);
 
     globalPluginConfig.setString(
         PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.STATIC.name());
-    assertThat(getConfiguration().peerInfo().strategy()).isSameAs(PeerInfoStrategy.STATIC);
+    assertThat(getConfiguration().peerInfo().strategy()).isSameInstanceAs(PeerInfoStrategy.STATIC);
 
     globalPluginConfig.setString(
         PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.JGROUPS.name());
-    assertThat(getConfiguration().peerInfo().strategy()).isSameAs(PeerInfoStrategy.JGROUPS);
+    assertThat(getConfiguration().peerInfo().strategy()).isSameInstanceAs(PeerInfoStrategy.JGROUPS);
   }
 
   @Test
@@ -127,7 +129,7 @@ public class ConfigurationTest {
 
     globalPluginConfig.setStringList(PEER_INFO_SECTION, STATIC_SUBSECTION, URL_KEY, URLS);
     assertThat(getConfiguration().peerInfoStatic().urls())
-        .containsAllIn(ImmutableList.of(URL, "http://anotherUrl"));
+        .containsAtLeastElementsIn(ImmutableList.of(URL, "http://anotherUrl"));
   }
 
   @Test
@@ -151,7 +153,9 @@ public class ConfigurationTest {
 
     globalPluginConfig.setStringList(
         JGROUPS_SECTION, null, SKIP_INTERFACE_KEY, ImmutableList.of("lo*", "eth0"));
-    assertThat(getConfiguration().jgroups().skipInterface()).containsAllOf("lo*", "eth0").inOrder();
+    assertThat(getConfiguration().jgroups().skipInterface())
+        .containsExactly("lo*", "eth0")
+        .inOrder();
   }
 
   @Test
@@ -373,5 +377,13 @@ public class ConfigurationTest {
 
     globalPluginConfig.setBoolean(HEALTH_CHECK_SECTION, null, ENABLE_KEY, true);
     assertThat(getConfiguration().healthCheck().enabled()).isTrue();
+  }
+
+  @Test
+  public void testGetIndexNumStripedLocks() throws Exception {
+    assertThat(getConfiguration().index().numStripedLocks()).isEqualTo(DEFAULT_NUM_STRIPED_LOCKS);
+
+    globalPluginConfig.setInt(INDEX_SECTION, null, NUM_STRIPED_LOCKS, 100);
+    assertThat(getConfiguration().index().numStripedLocks()).isEqualTo(100);
   }
 }

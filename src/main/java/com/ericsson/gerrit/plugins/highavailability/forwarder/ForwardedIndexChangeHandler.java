@@ -26,7 +26,6 @@ import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -52,29 +51,28 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Inject
   ForwardedIndexChangeHandler(
       ChangeIndexer indexer,
-      Configuration configuration,
+      Configuration config,
       @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
       OneOffRequestContext oneOffCtx,
       ChangeCheckerImpl.Factory changeCheckerFactory) {
-    super(configuration.index().numStripedLocks());
+    super(config.index());
     this.indexer = indexer;
     this.indexExecutor = indexExecutor;
     this.oneOffCtx = oneOffCtx;
     this.changeCheckerFactory = changeCheckerFactory;
 
-    Index indexConfig = configuration.index();
+    Index indexConfig = config.index();
     this.retryInterval = indexConfig != null ? indexConfig.retryInterval() : 0;
     this.maxTries = indexConfig != null ? indexConfig.maxTries() : 0;
   }
 
   @Override
-  protected void doIndex(String id, Optional<IndexEvent> indexEvent)
-      throws IOException, OrmException {
+  protected void doIndex(String id, Optional<IndexEvent> indexEvent) throws IOException {
     doIndex(id, indexEvent, 0);
   }
 
   private void doIndex(String id, Optional<IndexEvent> indexEvent, int retryCount)
-      throws IOException, OrmException {
+      throws IOException {
     try {
       ChangeChecker checker = changeCheckerFactory.create(id);
       Optional<ChangeNotes> changeNotes = checker.getChangeNotes();
@@ -84,35 +82,31 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
         if (checker.isChangeUpToDate(indexEvent)) {
           if (retryCount > 0) {
-            log.warn("Change {} has been eventually indexed after {} attempt(s)", id, retryCount);
+            log.atWarning().log(
+                "Change %s has been eventually indexed after %d attempt(s)", id, retryCount);
           } else {
-            log.debug("Change {} successfully indexed", id);
+            log.atFine().log("Change %s successfully indexed", id);
           }
         } else {
-          log.warn(
-              "Change {} seems too old compared to the event timestamp (event={} >> change-Ts={})",
-              id,
-              indexEvent,
-              checker);
+          log.atWarning().log(
+              "Change %s seems too old compared to the event timestamp (event-Ts=%s >> change-Ts=%s)",
+              id, indexEvent, checker);
           rescheduleIndex(id, indexEvent, retryCount + 1);
         }
       } else {
-        log.warn(
-            "Change {} not present yet in local Git repository (event={}) after {} attempt(s)",
-            id,
-            indexEvent,
-            retryCount);
+        log.atWarning().log(
+            "Change %s not present yet in local Git repository (event=%s) after %d attempt(s)",
+            id, indexEvent, retryCount);
         if (!rescheduleIndex(id, indexEvent, retryCount + 1)) {
-          log.error(
-              "Change {} could not be found in the local Git repository (event={})",
-              id,
-              indexEvent);
+          log.atSevere().log(
+              "Change %s could not be found in the local Git repository (event=%s)",
+              id, indexEvent);
         }
       }
     } catch (Exception e) {
       if (isCausedByNoSuchChangeException(e)) {
         indexer.delete(parseChangeId(id));
-        log.warn("Error trying to index Change {}. Deleted from index", id, e);
+        log.atWarning().withCause(e).log("Error trying to index Change %d. Deleted from index", id);
         return;
       }
 
@@ -120,42 +114,29 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
   }
 
-  private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
-    while (throwable != null) {
-      if (throwable instanceof NoSuchChangeException) {
-        return true;
-      }
-      throwable = throwable.getCause();
-    }
-    return false;
-  }
-
-  private void reindex(ChangeNotes notes) throws IOException, OrmException {
+  private void reindex(ChangeNotes notes) {
     notes.reload();
     indexer.index(notes.getChange());
   }
 
   private boolean rescheduleIndex(String id, Optional<IndexEvent> indexEvent, int retryCount) {
     if (retryCount > maxTries) {
-      log.error(
-          "Change {} could not be indexed after {} retries. Change index could be stale.",
-          id,
-          retryCount);
+      log.atSevere().log(
+          "Change %s could not be indexed after %d retries. Change index could be stale.",
+          id, retryCount);
       return false;
     }
 
-    log.warn(
-        "Retrying for the #{} time to index Change {} after {} msecs",
-        retryCount,
-        id,
-        retryInterval);
+    log.atWarning().log(
+        "Retrying for the #%d time to index Change %s after %d msecs",
+        retryCount, id, retryInterval);
     indexExecutor.schedule(
         () -> {
           try (ManualRequestContext ctx = oneOffCtx.open()) {
             Context.setForwardedEvent(true);
             doIndex(id, indexEvent, retryCount);
           } catch (Exception e) {
-            log.warn("Change {} could not be indexed", id, e);
+            log.atWarning().withCause(e).log("Change %s could not be indexed", id);
           }
         },
         retryInterval,
@@ -166,11 +147,21 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected void doDelete(String id, Optional<IndexEvent> indexEvent) throws IOException {
     indexer.delete(parseChangeId(id));
-    log.debug("Change {} successfully deleted from index", id);
+    log.atFine().log("Change %s successfully deleted from index", id);
   }
 
   private static Change.Id parseChangeId(String id) {
-    Change.Id changeId = new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
-    return changeId;
+    return new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
+  }
+
+  private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
+    Throwable cause = throwable;
+    while (cause != null) {
+      if (cause instanceof NoSuchChangeException) {
+        return true;
+      }
+      cause = cause.getCause();
+    }
+    return false;
   }
 }

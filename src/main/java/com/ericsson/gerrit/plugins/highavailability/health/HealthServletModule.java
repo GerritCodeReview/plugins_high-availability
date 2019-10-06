@@ -14,9 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.health;
 
-import com.google.gerrit.httpd.plugins.HttpPluginModule;
+import com.google.inject.servlet.ServletModule;
 
-public class HealthServletModule extends HttpPluginModule {
+public class HealthServletModule extends ServletModule {
   @Override
   protected void configureServlets() {
     serve("/health").with(HealthServlet.class);

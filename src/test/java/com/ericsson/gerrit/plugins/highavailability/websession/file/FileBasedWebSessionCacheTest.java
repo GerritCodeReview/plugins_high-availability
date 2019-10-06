@@ -128,7 +128,7 @@ public class FileBasedWebSessionCacheTest {
   public void getIfPresentInvalidKeyTest() throws Exception {
     loadKeyToCacheDir(INVALID_KEY);
     Path path = websessionDir.resolve(INVALID_KEY);
-    assertThat(cache.getIfPresent((Object) path)).isNull();
+    assertThat(cache.getIfPresent(path.toString())).isNull();
   }
 
   @Test

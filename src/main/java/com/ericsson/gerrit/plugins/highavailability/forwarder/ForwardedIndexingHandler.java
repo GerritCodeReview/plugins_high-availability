@@ -14,13 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Striped;
-import com.google.gwtorm.server.OrmException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Base class to handle forwarded indexing. This class is meant to be extended by classes used on
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * indexing is done for the same id.
  */
 public abstract class ForwardedIndexingHandler<T> {
-  protected final Logger log = LoggerFactory.getLogger(getClass());
+  protected static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   public enum Operation {
     INDEX,
@@ -43,13 +42,12 @@ public abstract class ForwardedIndexingHandler<T> {
 
   private final Striped<Lock> idLocks;
 
-  protected abstract void doIndex(T id, Optional<IndexEvent> indexEvent)
-      throws IOException, OrmException;
+  protected abstract void doIndex(T id, Optional<IndexEvent> indexEvent) throws IOException;
 
   protected abstract void doDelete(T id, Optional<IndexEvent> indexEvent) throws IOException;
 
-  protected ForwardedIndexingHandler(int lockStripes) {
-    idLocks = Striped.lock(lockStripes);
+  protected ForwardedIndexingHandler(Configuration.Index indexConfig) {
+    idLocks = Striped.lock(indexConfig.numStripedLocks());
   }
 
   /**
@@ -57,13 +55,10 @@ public abstract class ForwardedIndexingHandler<T> {
    *
    * @param id The id to index.
    * @param operation The operation to do; index or delete
-   * @param indexEvent The index event details.
    * @throws IOException If an error occur while indexing.
-   * @throws OrmException If an error occur while retrieving a change related to the item to index
    */
-  public void index(T id, Operation operation, Optional<IndexEvent> indexEvent)
-      throws IOException, OrmException {
-    log.debug("{} {} {}", operation, id, indexEvent);
+  public void index(T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
+    log.atFine().log("%s %s %s", operation, id, indexEvent);
     try {
       Context.setForwardedEvent(true);
       Lock idLock = idLocks.get(id);
@@ -77,7 +72,7 @@ public abstract class ForwardedIndexingHandler<T> {
             doDelete(id, indexEvent);
             break;
           default:
-            log.error("unexpected operation: {}", operation);
+            log.atSevere().log("unexpected operation: %s", operation);
             break;
         }
       } finally {

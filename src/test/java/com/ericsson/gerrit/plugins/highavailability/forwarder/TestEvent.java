@@ -1,4 +1,4 @@
-// Copyright (C) 2017 The Android Open Source Project
+// Copyright (C) 2019 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,10 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
+package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import java.io.IOException;
+import static com.google.common.truth.Truth.assertThat;
 
-public class PeerInfoNotAvailableException extends IOException {
-  private static final long serialVersionUID = 1L;
+import com.google.gerrit.server.events.Event;
+import org.junit.Test;
+
+public class TestEvent extends Event {
+  private static final String TYPE = "test-event";
+
+  public TestEvent() {
+    super(TYPE);
+  }
+
+  @Test
+  public void typeSet() {
+    assertThat(getType()).isEqualTo(TYPE);
+  }
 }

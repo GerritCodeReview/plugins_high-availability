@@ -17,10 +17,10 @@ package com.ericsson.gerrit.plugins.highavailability;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderServletModule;
 import com.ericsson.gerrit.plugins.highavailability.health.HealthServletModule;
 import com.ericsson.gerrit.plugins.highavailability.websession.file.FileBasedWebsessionModule;
-import com.google.gerrit.httpd.plugins.HttpPluginModule;
 import com.google.inject.Inject;
+import com.google.inject.servlet.ServletModule;
 
-class HttpModule extends HttpPluginModule {
+class HttpModule extends ServletModule {
   private final Configuration config;
 
   @Inject

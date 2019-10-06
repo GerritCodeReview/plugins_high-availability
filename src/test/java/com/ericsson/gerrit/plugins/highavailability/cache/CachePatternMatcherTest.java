@@ -26,7 +26,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CachePattenMatcherTest {
+public class CachePatternMatcherTest {
 
   @Mock(answer = RETURNS_DEEP_STUBS)
   private Configuration configurationMock;
@@ -66,6 +66,7 @@ public class CachePattenMatcherTest {
             "diff_summary",
             "git_tags",
             "ldap_group_existence",
+            "ldap_groups",
             "ldap_groups_byinclude",
             "mergeability",
             "oauth_tokens",

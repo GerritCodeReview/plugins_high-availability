@@ -16,21 +16,14 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.net.MediaType.JSON_UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
-import com.google.common.base.Supplier;
 import com.google.common.io.CharStreams;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventDeserializer;
-import com.google.gerrit.server.events.SupplierDeserializer;
 import com.google.gerrit.server.permissions.PermissionBackendException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
@@ -42,10 +35,12 @@ class EventRestApiServlet extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
 
   private final ForwardedEventHandler forwardedEventHandler;
+  private final GsonProvider gson;
 
   @Inject
-  EventRestApiServlet(ForwardedEventHandler forwardedEventHandler) {
+  EventRestApiServlet(ForwardedEventHandler forwardedEventHandler, GsonProvider gson) {
     this.forwardedEventHandler = forwardedEventHandler;
+    this.gson = gson;
   }
 
   @Override
@@ -58,22 +53,14 @@ class EventRestApiServlet extends AbstractRestApiServlet {
       }
       forwardedEventHandler.dispatch(getEventFromRequest(req));
       rsp.setStatus(SC_NO_CONTENT);
-    } catch (OrmException e) {
-      log.debug("Error trying to find a change ", e);
-      sendError(rsp, SC_NOT_FOUND, "Change not found\n");
     } catch (IOException | PermissionBackendException e) {
-      log.error("Unable to re-trigger event", e);
+      log.atSevere().withCause(e).log("Unable to re-trigger event");
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }
   }
 
-  private static Event getEventFromRequest(HttpServletRequest req) throws IOException {
+  private Event getEventFromRequest(HttpServletRequest req) throws IOException {
     String jsonEvent = CharStreams.toString(req.getReader());
-    Gson gson =
-        new GsonBuilder()
-            .registerTypeAdapter(Event.class, new EventDeserializer())
-            .registerTypeAdapter(Supplier.class, new SupplierDeserializer())
-            .create();
-    return gson.fromJson(jsonEvent, Event.class);
+    return gson.get().fromJson(jsonEvent, Event.class);
   }
 }

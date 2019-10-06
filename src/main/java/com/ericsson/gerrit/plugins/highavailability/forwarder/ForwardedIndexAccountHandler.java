@@ -17,10 +17,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -35,15 +33,14 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
 
   @Inject
   ForwardedIndexAccountHandler(AccountIndexer indexer, Configuration config) {
-    super(config.index().numStripedLocks());
+    super(config.index());
     this.indexer = indexer;
   }
 
   @Override
-  protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent)
-      throws IOException, OrmException {
+  protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
     indexer.index(id);
-    log.debug("Account {} successfully indexed", id);
+    log.atFine().log("Account %s successfully indexed", id);
   }
 
   @Override

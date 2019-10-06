@@ -18,6 +18,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.git.WorkQueue;
@@ -25,8 +26,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.util.concurrent.ScheduledFuture;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 class FileBasedWebSessionCacheCleaner implements LifecycleListener {
@@ -35,6 +34,30 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
   private final Provider<CleanupTask> cleanupTaskProvider;
   private final long cleanupIntervalMillis;
   private ScheduledFuture<?> scheduledCleanupTask;
+
+  static class CleanupTask implements Runnable {
+    private static final FluentLogger log = FluentLogger.forEnclosingClass();
+    private final FileBasedWebsessionCache fileBasedWebSessionCache;
+    private final String pluginName;
+
+    @Inject
+    CleanupTask(FileBasedWebsessionCache fileBasedWebSessionCache, @PluginName String pluginName) {
+      this.fileBasedWebSessionCache = fileBasedWebSessionCache;
+      this.pluginName = pluginName;
+    }
+
+    @Override
+    public void run() {
+      log.atInfo().log("Cleaning up expired file based websessions...");
+      fileBasedWebSessionCache.cleanUp();
+      log.atInfo().log("Cleaning up expired file based websessions...Done");
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[%s] Clean up expired file based websessions", pluginName);
+    }
+  }
 
   @Inject
   FileBasedWebSessionCacheCleaner(
@@ -62,29 +85,5 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
       scheduledCleanupTask.cancel(true);
       scheduledCleanupTask = null;
     }
-  }
-}
-
-class CleanupTask implements Runnable {
-  private static final Logger log = LoggerFactory.getLogger(CleanupTask.class);
-  private final FileBasedWebsessionCache fileBasedWebSessionCache;
-  private final String pluginName;
-
-  @Inject
-  CleanupTask(FileBasedWebsessionCache fileBasedWebSessionCache, @PluginName String pluginName) {
-    this.fileBasedWebSessionCache = fileBasedWebSessionCache;
-    this.pluginName = pluginName;
-  }
-
-  @Override
-  public void run() {
-    log.info("Cleaning up expired file based websessions...");
-    fileBasedWebSessionCache.cleanUp();
-    log.info("Cleaning up expired file based websessions...Done");
-  }
-
-  @Override
-  public String toString() {
-    return String.format("[%s] Clean up expired file based websessions", pluginName);
   }
 }

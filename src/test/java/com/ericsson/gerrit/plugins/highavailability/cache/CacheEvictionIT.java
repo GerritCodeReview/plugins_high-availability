@@ -34,7 +34,6 @@ import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
 import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.reviewdb.client.AccountGroup.UUID;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import java.util.Collections;
@@ -60,9 +59,9 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
 
   @Inject
   @Named(GROUP_CACHE)
-  LoadingCache<String, Set<AccountGroup.UUID>> membershipCache;
+  private LoadingCache<String, Set<AccountGroup.UUID>> membershipCache;
 
-  final CountDownLatch expectedRequestLatch = new CountDownLatch(1);
+  private final CountDownLatch expectedRequestLatch = new CountDownLatch(1);
 
   @Override
   public void setUpTestPlugin() throws Exception {
@@ -91,15 +90,15 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
   @GlobalPluginConfig(pluginName = "high-availability", name = "http.retryInterval", value = "100")
   @GerritConfig(name = "auth.type", value = "ldap")
   public void ldapCacheLoadShouldNotSendAnyPostEvictionForLdapGroups() throws Exception {
-    final String flushRequest = "/plugins/high-availability/cache/ldap_groups";
-    String fooGroup = "fooGroup";
-    Set<UUID> fooGroupMembers = Collections.emptySet();
+    final String flushRequest = "/plugins/high-availability/cache/" + GROUP_CACHE;
+    String username = "username";
+    Set<AccountGroup.UUID> groups = Collections.emptySet();
 
     expectRestApiCall(flushRequest);
 
-    loadLdapGroupMembers(fooGroup, fooGroupMembers);
-    loadLdapGroupMembers(fooGroup, fooGroupMembers); // For triggering an eviction
-    waitForEvictionEvents();
+    loadLdapGroupMembers(username, groups);
+    loadLdapGroupMembers(username, groups); // For triggering an eviction
+    assertThat(waitForEvictionEvents()).isFalse();
     verify(0, postRequestedFor(urlEqualTo(flushRequest)));
   }
 
@@ -116,7 +115,7 @@ public class CacheEvictionIT extends LightweightPluginDaemonTest {
     return expectedRequestLatch.await(5, TimeUnit.SECONDS);
   }
 
-  private void loadLdapGroupMembers(String fooGroup, Set<UUID> fooGroupMembers) {
-    membershipCache.put(fooGroup, fooGroupMembers);
+  private void loadLdapGroupMembers(String username, Set<AccountGroup.UUID> groups) {
+    membershipCache.put(username, groups);
   }
 }

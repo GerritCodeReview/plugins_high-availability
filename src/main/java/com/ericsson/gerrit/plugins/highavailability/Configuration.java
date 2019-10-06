@@ -21,6 +21,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -39,34 +40,16 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.eclipse.jgit.lib.Config;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class Configuration {
-  private static final Logger log = LoggerFactory.getLogger(Configuration.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
 
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
-
-  // common parameters to cache, event index and websession sections
-  static final String SYNCHRONIZE_KEY = "synchronize";
-
-  // health check section
-  static final String HEALTH_CHECK_SECTION = "healthCheck";
-  static final String ENABLE_KEY = "enable";
-  static final boolean DEFAULT_HEALTH_CHECK_ENABLED = true;
-
-  // websession section
-  static final String WEBSESSION_SECTION = "websession";
-  static final String CLEANUP_INTERVAL_KEY = "cleanupInterval";
-
-  static final int DEFAULT_TIMEOUT_MS = 5000;
-  static final int DEFAULT_MAX_TRIES = 360;
-  static final int DEFAULT_RETRY_INTERVAL = 10000;
   static final int DEFAULT_INDEX_MAX_TRIES = 2;
   static final int DEFAULT_INDEX_RETRY_INTERVAL = 30000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
@@ -169,8 +152,8 @@ public class Configuration {
     try {
       return cfg.getInt(section, name, defaultValue);
     } catch (IllegalArgumentException e) {
-      log.error("invalid value for {}; using default value {}", name, defaultValue);
-      log.debug("Failed to retrieve integer value: {}", e.getMessage(), e);
+      log.atSevere().log("invalid value for %s; using default value %d", name, defaultValue);
+      log.atFine().withCause(e).log("Failed to retrieve integer value");
       return defaultValue;
     }
   }
@@ -201,22 +184,32 @@ public class Configuration {
   }
 
   public static class AutoReindex {
+
     static final String AUTO_REINDEX_SECTION = "autoReindex";
     static final String ENABLED = "enabled";
     static final String DELAY = "delay";
     static final String POLL_INTERVAL = "pollInterval";
+    static final boolean DEFAULT_AUTO_REINDEX = false;
+    static final long DEFAULT_DELAY = 10L;
+    static final long DEFAULT_POLL_INTERVAL = 0L;
 
     private final boolean enabled;
     private final long delaySec;
     private final long pollSec;
 
     public AutoReindex(Config cfg) {
-      this.enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, false);
-      this.delaySec =
-          ConfigUtil.getTimeUnit(cfg, AUTO_REINDEX_SECTION, null, DELAY, 10L, TimeUnit.SECONDS);
-      this.pollSec =
+      enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
+      delaySec =
           ConfigUtil.getTimeUnit(
-              cfg, AUTO_REINDEX_SECTION, null, POLL_INTERVAL, 0L, TimeUnit.SECONDS);
+              cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, TimeUnit.SECONDS);
+      pollSec =
+          ConfigUtil.getTimeUnit(
+              cfg,
+              AUTO_REINDEX_SECTION,
+              null,
+              POLL_INTERVAL,
+              DEFAULT_POLL_INTERVAL,
+              TimeUnit.SECONDS);
     }
 
     public boolean enabled() {
@@ -240,9 +233,7 @@ public class Configuration {
 
     private PeerInfo(Config cfg) {
       strategy = cfg.getEnum(PEER_INFO_SECTION, null, STRATEGY_KEY, DEFAULT_PEER_INFO_STRATEGY);
-      if (log.isDebugEnabled()) {
-        log.debug("Strategy: {}", strategy.name());
-      }
+      log.atFine().log("Strategy: %s", strategy.name());
     }
 
     public PeerInfoStrategy strategy() {
@@ -263,7 +254,7 @@ public class Configuration {
               .filter(s -> !s.isEmpty())
               .map(s -> CharMatcher.is('/').trimTrailingFrom(s))
               .collect(Collectors.toSet());
-      log.debug("Urls: {}", urls);
+      log.atFine().log("Urls: %s", urls);
     }
 
     public Set<String> urls() {
@@ -279,7 +270,7 @@ public class Configuration {
 
     private PeerInfoJGroups(Config cfg) {
       myUrl = trimTrailingSlash(cfg.getString(PEER_INFO_SECTION, JGROUPS_SUBSECTION, MY_URL_KEY));
-      log.debug("My Url: {}", myUrl);
+      log.atFine().log("My Url: %s", myUrl);
     }
 
     public String myUrl() {
@@ -308,12 +299,12 @@ public class Configuration {
     private JGroups(SitePaths site, Config cfg) {
       String[] skip = cfg.getStringList(JGROUPS_SECTION, null, SKIP_INTERFACE_KEY);
       skipInterface = skip.length == 0 ? DEFAULT_SKIP_INTERFACE_LIST : ImmutableList.copyOf(skip);
-      log.debug("Skip interface(s): {}", skipInterface);
+      log.atFine().log("Skip interface(s): %s", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
-      log.debug("Cluster name: {}", clusterName);
+      log.atFine().log("Cluster name: %s", clusterName);
       protocolStack = getProtocolStack(cfg, site);
-      log.debug(
-          "Protocol stack config {}",
+      log.atFine().log(
+          "Protocol stack config %s",
           protocolStack.isPresent() ? protocolStack.get() : "not configured, using default stack.");
     }
 
@@ -411,8 +402,8 @@ public class Configuration {
       try {
         return cfg.getBoolean(section, name, defaultValue);
       } catch (IllegalArgumentException e) {
-        log.error("invalid value for {}; using default value {}", name, defaultValue);
-        log.debug("Failed to retrieve boolean value: {}", e.getMessage(), e);
+        log.atSevere().log("invalid value for %s; using default value %s", name, defaultValue);
+        log.atFine().withCause(e).log("Failed to retrieve boolean value");
         return defaultValue;
       }
     }
@@ -466,13 +457,17 @@ public class Configuration {
     private Index(Config cfg) {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+      numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
       retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
-      numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
     }
 
     public int threadPoolSize() {
       return threadPoolSize;
+    }
+
+    public int numStripedLocks() {
+      return numStripedLocks;
     }
 
     public int retryInterval() {
@@ -481,10 +476,6 @@ public class Configuration {
 
     public int maxTries() {
       return maxTries;
-    }
-
-    public int numStripedLocks() {
-      return numStripedLocks;
     }
   }
 
@@ -498,7 +489,7 @@ public class Configuration {
 
     private Websession(Config cfg) {
       super(cfg, WEBSESSION_SECTION);
-      this.cleanupInterval =
+      cleanupInterval =
           ConfigUtil.getTimeUnit(
               Strings.nullToEmpty(cfg.getString(WEBSESSION_SECTION, null, CLEANUP_INTERVAL_KEY)),
               DEFAULT_CLEANUP_INTERVAL_MS,

@@ -40,16 +40,16 @@ public class ForwardedIndexAccountHandlerTest {
 
   @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private AccountIndexer indexerMock;
-  @Mock private Configuration config;
-  @Mock private Configuration.Index index;
+  @Mock private Configuration configMock;
+  @Mock private Configuration.Index indexMock;
   private ForwardedIndexAccountHandler handler;
   private Account.Id id;
 
   @Before
   public void setUp() throws Exception {
-    when(config.index()).thenReturn(index);
-    when(index.numStripedLocks()).thenReturn(10);
-    handler = new ForwardedIndexAccountHandler(indexerMock, config);
+    when(configMock.index()).thenReturn(indexMock);
+    when(indexMock.numStripedLocks()).thenReturn(10);
+    handler = new ForwardedIndexAccountHandler(indexerMock, configMock);
     id = new Account.Id(123);
   }
 

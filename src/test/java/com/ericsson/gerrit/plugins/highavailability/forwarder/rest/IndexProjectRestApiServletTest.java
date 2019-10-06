@@ -1,4 +1,4 @@
-// Copyright (C) 2016 The Android Open Source Project
+// Copyright (C) 2018 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
+import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -23,8 +24,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.google.gerrit.extensions.restapi.Url;
+import com.google.gerrit.reviewdb.client.Project;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,45 +38,43 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IndexChangeRestApiServletTest {
-  private static final int CHANGE_NUMBER = 1;
-  private static final String PROJECT_NAME = "test/project";
-  private static final String PROJECT_NAME_URL_ENC = "test%2Fproject";
-  private static final String CHANGE_ID = PROJECT_NAME + "~" + CHANGE_NUMBER;
+public class IndexProjectRestApiServletTest {
   private static final String IO_ERROR = "io-error";
+  private static final String PROJECT_NAME = "test/project";
 
-  @Mock private ForwardedIndexChangeHandler handlerMock;
+  @Mock private ForwardedIndexProjectHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
 
-  private IndexChangeRestApiServlet servlet;
+  private Project.NameKey nameKey;
+  private IndexProjectRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexChangeRestApiServlet(handlerMock);
+    servlet = new IndexProjectRestApiServlet(handlerMock);
+    nameKey = new Project.NameKey(PROJECT_NAME);
     when(requestMock.getRequestURI())
-        .thenReturn("http://gerrit.com/index/change/" + PROJECT_NAME_URL_ENC + "~" + CHANGE_NUMBER);
+        .thenReturn("http://gerrit.com/index/project/" + Url.encode(nameKey.get()));
   }
 
   @Test
-  public void changeIsIndexed() throws Exception {
+  public void projectIsIndexed() throws Exception {
     servlet.doPost(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(CHANGE_ID), eq(Operation.INDEX), any());
+    verify(handlerMock, times(1)).index(eq(nameKey), eq(Operation.INDEX), any());
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
   @Test
-  public void changeIsDeletedFromIndex() throws Exception {
+  public void cannotDeleteProject() throws Exception {
     servlet.doDelete(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(CHANGE_ID), eq(Operation.DELETE), any());
-    verify(responseMock).setStatus(SC_NO_CONTENT);
+    verify(responseMock).sendError(SC_METHOD_NOT_ALLOWED, "cannot delete project from index");
   }
 
   @Test
-  public void indexerThrowsIOExceptionTryingToIndexChange() throws Exception {
+  public void indexerThrowsIOExceptionTryingToIndexProject() throws Exception {
     doThrow(new IOException(IO_ERROR))
         .when(handlerMock)
-        .index(eq(CHANGE_ID), eq(Operation.INDEX), any());
+        .index(eq(nameKey), eq(Operation.INDEX), any());
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);
   }
@@ -82,7 +83,7 @@ public class IndexChangeRestApiServletTest {
   public void sendErrorThrowsIOException() throws Exception {
     doThrow(new IOException(IO_ERROR))
         .when(handlerMock)
-        .index(eq(CHANGE_ID), eq(Operation.INDEX), any());
+        .index(eq(nameKey), eq(Operation.INDEX), any());
     doThrow(new IOException("someError")).when(responseMock).sendError(SC_CONFLICT, IO_ERROR);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);

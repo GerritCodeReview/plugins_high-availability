@@ -14,23 +14,23 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import com.google.gerrit.acceptance.TestAccount;
+import com.google.gerrit.extensions.restapi.Url;
 
-public class AccountIndexForwardingIT extends AbstractIndexForwardingIT {
-  private TestAccount testAccount;
+public class ProjectIndexForwardingIT extends AbstractIndexForwardingIT {
+  private String someProjectName;
 
   @Override
   public void beforeAction() throws Exception {
-    testAccount = accountCreator.create("someUser");
+    someProjectName = gApi.projects().create("someProject").get().name;
   }
 
   @Override
   public String getExpectedRequest() {
-    return "/plugins/high-availability/index/account/" + testAccount.id();
+    return "/plugins/high-availability/index/project/" + Url.encode(someProjectName);
   }
 
   @Override
   public void doAction() throws Exception {
-    gApi.accounts().id(testAccount.id().get()).setActive(false);
+    gApi.projects().name(someProjectName).index(false);
   }
 }

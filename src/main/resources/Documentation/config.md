@@ -84,7 +84,7 @@ File '@PLUGIN@.config'
 
 ```peerInfo.strategy```
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
-    Defaults to `static`.
+    Defaults to `jgroups`.
 * The `static` strategy allows to staticly configure the peer gerrit instance using
 the configuration parameter `peerInfo.static.url`.
 * The `jgroups` strategy allows that a gerrit instance discovers the peer
@@ -184,8 +184,8 @@ the plugin will keep retrying to forward a message for one hour.
     Defaults to true.
 
 ```index.numStripedLocks```
-:   Number of striped locks to use for during secondary indexes reindex.
-    Defaults to 10
+:   Number of striped locks to use during reindexing.
+    Defaults to 10.
 
 ```index.synchronize```
 :   Whether to synchronize secondary indexes.
