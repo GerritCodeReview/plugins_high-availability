@@ -70,6 +70,30 @@
       "revId": "31d3258a216d01af7b3974bc1839d3602d47a576",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa3eb37f_cf44b0c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-07T19:30:45Z",
+      "side": 1,
+      "message": "\u003e 4.1.5.Final by now (and counting).\n\u003e \n\u003e This change needs either manual or automated verification, the latter still being preferred. -Plugin lacks unit or IT test coverage for the jgroups case, as opposed to the covered static one. So this is still part of our backlog, albeit not started or being worked on yet.\n\n4.1.6.Final today.",
+      "parentUuid": "1037f66f_205d9198",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "31d3258a216d01af7b3974bc1839d3602d47a576",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
