@@ -15,7 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
-import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;

@@ -17,8 +17,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
-import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
 import org.junit.Test;

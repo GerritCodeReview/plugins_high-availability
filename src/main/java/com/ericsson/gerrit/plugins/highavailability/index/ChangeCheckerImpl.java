@@ -16,8 +16,8 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.client.Comment;
+import com.google.gerrit.entities.Change;
+import com.google.gerrit.entities.Comment;
 import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;

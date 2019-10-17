@@ -30,8 +30,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseH
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
-import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Provider;

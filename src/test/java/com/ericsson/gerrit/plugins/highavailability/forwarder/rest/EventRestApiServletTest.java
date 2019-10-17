@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.google.common.net.MediaType;
-import com.google.gerrit.reviewdb.client.Project;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.EventTypes;
 import com.google.gerrit.server.events.RefEvent;

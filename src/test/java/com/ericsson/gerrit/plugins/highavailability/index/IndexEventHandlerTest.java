@@ -31,9 +31,9 @@ import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.Inde
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.AccountGroup;
-import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.Change;
 import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import org.junit.Before;

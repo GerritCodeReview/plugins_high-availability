@@ -21,8 +21,8 @@ import static org.mockito.Mockito.verify;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.cache.Cache;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.registration.DynamicMap;
-import com.google.gerrit.reviewdb.client.Account;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

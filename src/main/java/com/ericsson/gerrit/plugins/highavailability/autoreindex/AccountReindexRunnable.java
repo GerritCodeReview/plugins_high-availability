@@ -18,7 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAcco
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.reviewdb.client.Account;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Accounts;
 import com.google.gerrit.server.util.OneOffRequestContext;
