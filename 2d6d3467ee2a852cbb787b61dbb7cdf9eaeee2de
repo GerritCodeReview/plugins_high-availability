@@ -74,6 +74,30 @@
     },
     {
       "key": {
+        "uuid": "ff6768fc_fee427d3",
+        "filename": "src/test/docker/etc/gerrit.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-18T22:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "541c99fa_a85e0b9b",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "2d6d3467ee2a852cbb787b61dbb7cdf9eaeee2de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6e1c87d_3965a8ea",
         "filename": "src/test/docker/etc/gerrit.config",
         "patchSetId": 1
