@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ee38c54_14e918da",
+        "filename": "src/test/docker/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2019-10-18T23:41:20Z",
+      "side": 1,
+      "message": "mention that haproxy is listening on http://localhost:80 ?",
+      "revId": "d2e561d6d82d654bff454533eb8397e510b9e90e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ef79e3f_6c1a3da8",
+        "filename": "src/test/docker/gerrit/wait-for-it.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2019-10-18T23:41:20Z",
+      "side": 1,
+      "message": "mention license and copyright ?\n\nThe MIT License (MIT)\nCopyright (c) 2016 Giles Hall",
+      "revId": "d2e561d6d82d654bff454533eb8397e510b9e90e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
