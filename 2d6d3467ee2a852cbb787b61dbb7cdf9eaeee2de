@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "a6e1c87d_3965a8ea",
+        "filename": "src/test/docker/etc/gerrit.config",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2019-10-18T22:44:57Z",
+      "side": 1,
+      "message": "also increase the default packedGitLimit to something larger than the default 10MiB ?",
+      "revId": "2d6d3467ee2a852cbb787b61dbb7cdf9eaeee2de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0b58274_b169abc9",
         "filename": "src/test/docker/gerrit/Dockerfile",
         "patchSetId": 1
