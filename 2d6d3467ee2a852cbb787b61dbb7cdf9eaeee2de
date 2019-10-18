@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a253313c_b6421496",
+        "filename": "src/test/docker/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-10-18T11:55:20Z",
+      "side": 1,
+      "message": "down",
+      "range": {
+        "startLine": 31,
+        "startChar": 65,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "2d6d3467ee2a852cbb787b61dbb7cdf9eaeee2de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b58274_b169abc9",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-10-18T11:55:20Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to use the jar that is built locally?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 199
+      },
+      "revId": "2d6d3467ee2a852cbb787b61dbb7cdf9eaeee2de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efbd693e_4cfd1082",
+        "filename": "src/test/docker/gerrit/wait-for-it.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-10-18T11:55:20Z",
+      "side": 1,
+      "message": "Include the original source location of this script?",
+      "revId": "2d6d3467ee2a852cbb787b61dbb7cdf9eaeee2de",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
