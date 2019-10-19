@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7bd0335_373141d8",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-19T19:11:55Z",
+      "side": 1,
+      "message": "These need to be updated. Addressing this in the follow-up commit.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "adab2116a3b95b8040bc7baafec40d2ce849d2cc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
