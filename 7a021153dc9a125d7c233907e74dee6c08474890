@@ -22,6 +22,30 @@
       "revId": "7a021153dc9a125d7c233907e74dee6c08474890",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f36976f_7bf4ae40",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-10-19T20:49:04Z",
+      "side": 1,
+      "message": "Looks like it was working fine previously, so this change is needed only in v2.16",
+      "parentUuid": "91277386_3bf69858",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "7a021153dc9a125d7c233907e74dee6c08474890",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
