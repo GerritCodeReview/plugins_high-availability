@@ -46,6 +46,30 @@
       "revId": "7a021153dc9a125d7c233907e74dee6c08474890",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96526120_77487c70",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-19T20:59:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7f36976f_7bf4ae40",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "7a021153dc9a125d7c233907e74dee6c08474890",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
