@@ -1,18 +1,18 @@
-FROM gerritcodereview/gerrit:2.15.17
+FROM gerritcodereview/gerrit:2.16.12
 
-ENV GERRIT_BRANCH=stable-2.15
+ENV GERRIT_BRANCH=stable-2.16
 
 ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
 
 USER root
 
-RUN yum install -y iputils-ping netcat postgresql curl lsof gettext moreutils net-tools netcat inetutils-ping
+RUN yum install -y iputils-ping netcat postgresql curl lsof gettext moreutils net-tools netcat inetutils-ping sudo
 
 USER gerrit
 
-ADD $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
-ADD $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody-deps_deploy.jar /var/gerrit/lib/javamelody-deps_deploy.jar
-ADD $GERRIT_CI_URL/plugin-high-availability-gerritforge-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
+ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
+ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody-deps_deploy.jar /var/gerrit/lib/javamelody-deps_deploy.jar
+ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-high-availability-gerritforge-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
 
 USER root
 

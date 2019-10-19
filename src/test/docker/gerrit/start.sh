@@ -22,4 +22,4 @@ sudo -u gerrit git config -f /var/gerrit/etc/gerrit.config gerrit.canonicalWebUr
 touch /var/gerrit/logs/{gc_log,error_log,httpd_log,sshd_log,replication_log} && chown -R gerrit: /var/gerrit && tail -f /var/gerrit/logs/* | grep --line-buffered -v 'HEAD /' &
 
 echo "Running Gerrit ..."
-sudo -u gerrit /etc/init.d/gerrit run
+sudo -u gerrit /var/gerrit/bin/gerrit.sh run
