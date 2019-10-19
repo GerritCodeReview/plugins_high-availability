@@ -105,9 +105,11 @@ public class Setup implements InitStep {
     ui.message("\n");
     ui.header("%s Plugin", pluginName);
 
-    if (ui.yesno(true, "Configure %s", pluginName)) {
+    Path pluginConfigFile = site.etc_dir.resolve(pluginName + ".config");
+    boolean autoConfigure = !pluginConfigFile.toFile().exists();
+
+    if (ui.yesno(autoConfigure, "Configure %s", pluginName)) {
       ui.header("Configuring %s", pluginName);
-      Path pluginConfigFile = site.etc_dir.resolve(pluginName + ".config");
       config = new FileBasedConfig(pluginConfigFile.toFile(), FS.DETECTED);
       config.load();
       configureAutoReindexSection();
