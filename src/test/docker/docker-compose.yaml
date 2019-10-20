@@ -1,0 +1,74 @@
+version: '2'
+
+services:
+
+  postgres:
+    image: postgres:9.5.4
+    environment:
+      - POSTGRES_USER=gerrit
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=reviewdb
+    networks:
+      - gerrit-net
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  gerrit-01:
+    build: gerrit
+    ports:
+      - "8081:8080"
+      - "29411:29418"
+    networks:
+      - gerrit-net
+    depends_on:
+      - postgres
+    volumes:
+      - /dev/urandom:/dev/random
+      - ./gitvolume:/var/gerrit/git
+      - ./shareddir:/var/gerrit/shared/dir
+      - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
+      - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config
+    environment:
+      - HOSTNAME=localhost
+
+  gerrit-02:
+    build: gerrit
+    ports:
+      - "8082:8080"
+      - "29412:29418"
+    networks:
+      - gerrit-net
+    depends_on:
+      - postgres
+      - gerrit-01
+    volumes:
+      - /dev/urandom:/dev/random
+      - ./gitvolume:/var/gerrit/git
+      - ./shareddir:/var/gerrit/shared/dir
+      - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
+      - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config
+    environment:
+      - HOSTNAME=localhost
+      - WAIT_FOR=gerrit-01:8080
+
+  haproxy:
+    build: haproxy
+    ports:
+      - "80:80"
+      - "29418:29418"
+    networks:
+      - gerrit-net
+    volumes_from:
+      - syslog-sidecar
+    depends_on:
+      - gerrit-01
+      - gerrit-02
+
+  syslog-sidecar:
+    build: docker-syslog-ng-stdout
+    networks:
+      - gerrit-net
+
+networks:
+  gerrit-net:
+    driver: bridge
