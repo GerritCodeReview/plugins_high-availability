@@ -12,7 +12,7 @@ USER gerrit
 
 ADD $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
 ADD $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody-deps_deploy.jar /var/gerrit/lib/javamelody-deps_deploy.jar
-ADD $GERRIT_CI_URL/plugin-high-availability-gerritforge-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
+ADD $GERRIT_CI_URL/plugin-high-availability-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
 
 USER root
 
