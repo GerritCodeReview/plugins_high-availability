@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aad5e86_3936e3a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-10-29T19:49:35Z",
+      "side": 1,
+      "message": "Its siblings were also added to .gitignore in the original commit, but that message didn\u0027t convey that. Just a remark though, too late and not that important by now.",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "0f6cdd67309f96f39ed41e4925ab932fdbe693d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
