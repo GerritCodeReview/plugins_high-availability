@@ -9,3 +9,6 @@
 /bazel-testlogs
 /bazel-high-availability
 /eclipse-out/
+/src/test/docker/pgdata
+/src/test/docker/shareddir
+/src/test/docker/gitvolume
