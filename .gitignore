@@ -1,12 +1,15 @@
+# LC_COLLATE=C sort
 /.apt_generated/
 /.classpath
+/.primary_build_tool
 /.project
 /.settings/
-/.primary_build_tool
 /bazel-bin
+/bazel-high-availability
 /bazel-out
 /bazel-reviewers
 /bazel-testlogs
-/bazel-high-availability
 /eclipse-out/
-/.apt_generated/
+/src/test/docker/gitvolume
+/src/test/docker/pgdata
+/src/test/docker/shareddir
