@@ -34,7 +34,9 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.PA
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.RETRY_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.SOCKET_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.USER_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.DEFAULT_SYNCHRONIZE_FORCED;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.INDEX_SECTION;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.SYNCHRONIZE_FORCED;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.CLUSTER_NAME_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_CLUSTER_NAME;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_SKIP_INTERFACE_LIST;
@@ -386,5 +388,14 @@ public class ConfigurationTest {
 
     globalPluginConfig.setInt(INDEX_SECTION, null, NUM_STRIPED_LOCKS, 100);
     assertThat(getConfiguration().index().numStripedLocks()).isEqualTo(100);
+  }
+
+  @Test
+  public void testGetIndexSynchronizeForced() throws Exception {
+    assertThat(getConfiguration().index().synchronizeForced())
+        .isEqualTo(DEFAULT_SYNCHRONIZE_FORCED);
+
+    globalPluginConfig.setBoolean(INDEX_SECTION, null, SYNCHRONIZE_FORCED, false);
+    assertThat(getConfiguration().index().synchronizeForced()).isFalse();
   }
 }
