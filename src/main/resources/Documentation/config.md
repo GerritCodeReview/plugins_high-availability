@@ -191,6 +191,11 @@ the plugin will keep retrying to forward a message for one hour.
 :   Whether to synchronize secondary indexes.
     Defaults to true.
 
+```index.synchronizeForced```
+:   Whether to synchronize forced index events. E.g. on-line reindex
+    automatically triggered upon version upgrades.
+    Defaults to true.
+
 ```index.threadPoolSize```
 :   Maximum number of threads used to send index events to the target instance.
     Defaults to 4.
