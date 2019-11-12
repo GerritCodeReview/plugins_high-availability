@@ -41,31 +41,42 @@ class IndexEventHandler
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
   private final ChangeCheckerImpl.Factory changeChecker;
+  private final CurrentRequestContext currCtx;
 
   @Inject
   IndexEventHandler(
       @IndexExecutor Executor executor,
       @PluginName String pluginName,
       Forwarder forwarder,
-      ChangeCheckerImpl.Factory changeChecker) {
+      ChangeCheckerImpl.Factory changeChecker,
+      CurrentRequestContext currCtx) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
+    this.currCtx = currCtx;
   }
 
   @Override
   public void onAccountIndexed(int id) {
-    if (!Context.isForwardedEvent()) {
-      IndexAccountTask task = new IndexAccountTask(id);
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
-    }
+    currCtx.onlyWithContext(
+        (ctx) -> {
+          if (!Context.isForwardedEvent()) {
+            IndexAccountTask task = new IndexAccountTask(id);
+            if (queuedTasks.add(task)) {
+              executor.execute(task);
+            }
+          }
+        });
   }
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
+    currCtx.onlyWithContext((ctx) -> executeIndexChangeTask(projectName, id));
+  }
+
+  private void executeIndexChangeTask(String projectName, int id) {
+
     if (!Context.isForwardedEvent()) {
       String changeId = projectName + "~" + id;
       try {
