@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet.IndexName;
+import com.ericsson.gerrit.plugins.highavailability.index.CurrentRequestContext;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
@@ -49,6 +50,7 @@ public class IndexTs
   private final ScheduledExecutorService exec;
   private final FlusherRunner flusher;
   private final ChangeFinder changeFinder;
+  private final CurrentRequestContext currCtx;
 
   private volatile LocalDateTime changeTs;
   private volatile LocalDateTime accountTs;
@@ -79,45 +81,53 @@ public class IndexTs
   }
 
   @Inject
-  public IndexTs(@PluginData Path dataDir, WorkQueue queue, ChangeFinder changeFinder) {
+  public IndexTs(
+      @PluginData Path dataDir,
+      WorkQueue queue,
+      ChangeFinder changeFinder,
+      CurrentRequestContext currCtx) {
     this.dataDir = dataDir;
     this.exec = queue.getDefaultQueue();
     this.flusher = new FlusherRunner();
     this.changeFinder = changeFinder;
+    this.currCtx = currCtx;
   }
 
   @Override
   public void onProjectIndexed(String project) {
-    update(IndexName.PROJECT, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.PROJECT, LocalDateTime.now()));
   }
 
   @Override
   public void onGroupIndexed(String uuid) {
-    update(IndexName.GROUP, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.GROUP, LocalDateTime.now()));
   }
 
   @Override
   public void onAccountIndexed(int id) {
-    update(IndexName.ACCOUNT, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.ACCOUNT, LocalDateTime.now()));
   }
 
   @Override
   public void onChangeIndexed(String projectName, int id) {
-    try {
-      ChangeNotes changeNotes = changeFinder.findOne(projectName + "~" + id);
-      update(
-          IndexName.CHANGE,
-          changeNotes == null
-              ? LocalDateTime.now()
-              : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
-    } catch (Exception e) {
-      log.atWarning().withCause(e).log("Unable to update the latest TS for change %d", id);
-    }
+    currCtx.onlyWithContext(
+        (ctx) -> {
+          try {
+            ChangeNotes changeNotes = changeFinder.findOne(projectName + "~" + id);
+            update(
+                IndexName.CHANGE,
+                changeNotes == null
+                    ? LocalDateTime.now()
+                    : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
+          } catch (Exception e) {
+            log.atWarning().withCause(e).log("Unable to update the latest TS for change %d", id);
+          }
+        });
   }
 
   @Override
   public void onChangeDeleted(int id) {
-    update(IndexName.CHANGE, LocalDateTime.now());
+    currCtx.onlyWithContext((ctx) -> update(IndexName.CHANGE, LocalDateTime.now()));
   }
 
   public Optional<LocalDateTime> getUpdateTs(AbstractIndexRestApiServlet.IndexName index) {

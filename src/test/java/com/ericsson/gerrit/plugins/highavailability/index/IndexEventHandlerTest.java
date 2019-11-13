@@ -18,11 +18,13 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
@@ -34,8 +36,12 @@ import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.server.util.OneOffRequestContext;
+import com.google.gerrit.server.util.RequestContext;
+import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +64,15 @@ public class IndexEventHandlerTest {
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
+  @Mock private RequestContext mockCtx;
+
+  private CurrentRequestContext currCtx =
+      new CurrentRequestContext(null, null, null) {
+        @Override
+        public void onlyWithContext(Consumer<RequestContext> body) {
+          body.accept(mockCtx);
+        }
+      };
 
   @Before
   public void setUpMocks() throws Exception {
@@ -66,13 +81,49 @@ public class IndexEventHandlerTest {
     accountGroupUUID = new AccountGroup.UUID(UUID);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerMock);
     when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
+
+    setUpIndexEventHandler(currCtx);
+  }
+
+  public void setUpIndexEventHandler(CurrentRequestContext currCtx) throws Exception {
     indexEventHandler =
         new IndexEventHandler(
-            MoreExecutors.directExecutor(), PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+            MoreExecutors.directExecutor(),
+            PLUGIN_NAME,
+            forwarder,
+            changeCheckerFactoryMock,
+            currCtx);
   }
 
   @Test
   public void shouldIndexInRemoteOnChangeIndexedEvent() throws Exception {
+    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
+    verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+  }
+
+  @Test
+  public void shouldNotIndexInRemoteWhenContextIsMissing() throws Exception {
+    ThreadLocalRequestContext threadLocalCtxMock = mock(ThreadLocalRequestContext.class);
+    OneOffRequestContext oneOffCtxMock = mock(OneOffRequestContext.class);
+    Configuration cfgMock = mock(Configuration.class);
+    Configuration.Index cfgIndex = mock(Configuration.Index.class);
+    when(cfgMock.index()).thenReturn(cfgIndex);
+
+    setUpIndexEventHandler(new CurrentRequestContext(threadLocalCtxMock, cfgMock, oneOffCtxMock));
+    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
+    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+  }
+
+  @Test
+  public void shouldReindexInRemoteWhenContextIsMissingButForcedIndexingEnabled() throws Exception {
+    ThreadLocalRequestContext threadLocalCtxMock = mock(ThreadLocalRequestContext.class);
+    OneOffRequestContext oneOffCtxMock = mock(OneOffRequestContext.class);
+    Configuration cfgMock = mock(Configuration.class);
+    Configuration.Index cfgIndex = mock(Configuration.Index.class);
+    when(cfgMock.index()).thenReturn(cfgIndex);
+    when(cfgIndex.synchronizeForced()).thenReturn(true);
+
+    setUpIndexEventHandler(new CurrentRequestContext(threadLocalCtxMock, cfgMock, oneOffCtxMock));
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
@@ -128,7 +179,7 @@ public class IndexEventHandlerTest {
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(poolMock, times(1))
@@ -139,7 +190,7 @@ public class IndexEventHandlerTest {
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -149,7 +200,7 @@ public class IndexEventHandlerTest {
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock);
+        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
