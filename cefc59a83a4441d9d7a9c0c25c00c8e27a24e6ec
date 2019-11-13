@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da1f0136_1afd5269",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T00:48:21Z",
+      "side": 1,
+      "message": "It is unusual to let default true. May be we can agree on setting default to false? @Marco?",
+      "range": {
+        "startLine": 451,
+        "startChar": 25,
+        "endLine": 451,
+        "endChar": 51
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e5837c1_f66644b6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/CurrentRequestContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T00:48:21Z",
+      "side": 1,
+      "message": "Optional: may be add logging statement with debug level, that this operation is skipped, e.g.:\n\n  log.debug(\"No context, skipping event (index.synchronizeForced is false)\");",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d94e2f6d_30504551",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-13T00:48:21Z",
+      "side": 1,
+      "message": "One use case is still missing:\n\n  shouldReindexInRemoteWhenContextIsAvailable()\n  shouldReindexInRemoteWhenContextIsAvailableAndForcedIndexingEnabled()\n\nHow feasible would it be to create such a test? Or are those tests already covered by existing tests?",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 79
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
