@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd74d794_968d991b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-13T01:28:49Z",
+      "side": 1,
+      "message": "We are in a stable branch, so I believe we should be conservative and keep the existing behaviour.\n\nFrom v3.1, we could declare the change and flip the switch.",
+      "parentUuid": "da1f0136_1afd5269",
+      "range": {
+        "startLine": 451,
+        "startChar": 25,
+        "endLine": 451,
+        "endChar": 51
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e5837c1_f66644b6",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/CurrentRequestContext.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9fd93c32_92d4a720",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/CurrentRequestContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-13T01:28:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e5837c1_f66644b6",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 13
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d94e2f6d_30504551",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aae87f4d_a6798010",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2019-11-13T01:28:49Z",
+      "side": 1,
+      "message": "\u003e One use case is still missing:\n\u003e \n\u003e   shouldReindexInRemoteWhenContextIsAvailable()\n\nThat is the normal use-case, tested at L99\n\n\u003e   shouldReindexInRemoteWhenContextIsAvailableAndForcedIndexingEnabled()\n\nThat is  again the normal use-case, tested at L99\n\n\u003e How feasible would it be to create such a test? Or are those tests already covered by existing tests?\n\nYes, they are covered already.",
+      "parentUuid": "d94e2f6d_30504551",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 79
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
