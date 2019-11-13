@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57166726_68584d36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T09:29:09Z",
+      "side": 1,
+      "message": "synchronizeForced",
+      "range": {
+        "startLine": 13,
+        "startChar": 45,
+        "endLine": 13,
+        "endChar": 63
+      },
+      "revId": "3523448f4efd1bcf58b8c9c6f72ef7c30a2a2d65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "837bb245_b3bacf9b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T09:29:09Z",
+      "side": 1,
+      "message": "SYNCHRONIZE_FORCED_KEY",
+      "range": {
+        "startLine": 450,
+        "startChar": 24,
+        "endLine": 450,
+        "endChar": 43
+      },
+      "revId": "3523448f4efd1bcf58b8c9c6f72ef7c30a2a2d65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "023d54aa_8f869de4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T09:29:09Z",
+      "side": 1,
+      "message": "Move to below line 457?",
+      "range": {
+        "startLine": 456,
+        "startChar": 4,
+        "endLine": 456,
+        "endChar": 44
+      },
+      "revId": "3523448f4efd1bcf58b8c9c6f72ef7c30a2a2d65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f9a667_4b0b6a87",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-13T09:29:09Z",
+      "side": 1,
+      "message": "currCtx.onlyWithContext((ctx) -\u003e update",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 10
+      },
+      "revId": "3523448f4efd1bcf58b8c9c6f72ef7c30a2a2d65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
