@@ -120,7 +120,7 @@ public class ForwardedIndexChangeHandlerTest {
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-    verify(indexerMock, times(1)).delete(id);
+    verify(indexerMock, times(0)).delete(id);
   }
 
   @Test
