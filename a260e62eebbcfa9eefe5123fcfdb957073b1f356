@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50b4f26a_7fd3a3e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-15T03:23:29Z",
+      "side": 1,
+      "message": "instead of deleting it",
+      "range": {
+        "startLine": 7,
+        "startChar": 27,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "a260e62eebbcfa9eefe5123fcfdb957073b1f356",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa109f1e_1d1536c0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2019-11-15T03:23:29Z",
+      "side": 1,
+      "message": "%s was right before (id being a String).",
+      "range": {
+        "startLine": 116,
+        "startChar": 71,
+        "endLine": 116,
+        "endChar": 73
+      },
+      "revId": "a260e62eebbcfa9eefe5123fcfdb957073b1f356",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
