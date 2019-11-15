@@ -101,15 +101,19 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
           rescheduleIndex(id, indexEvent, retryCount + 1);
         }
       } else {
-        indexer.delete(parseChangeId(id));
         log.atWarning().log(
-            "Change %s could not be found in the local Git repository (eventTs=%s), deleted from index",
-            id, indexEvent);
+            "Change %s not present yet in local Git repository (event=%s) after %d attempt(s)",
+            id, indexEvent, retryCount);
+        if (!rescheduleIndex(id, indexEvent, retryCount + 1)) {
+          log.atSevere().log(
+              "Change %s could not be found in the local Git repository (event=%s)",
+              id, indexEvent);
+        }
       }
     } catch (Exception e) {
       if (isCausedByNoSuchChangeException(e)) {
         indexer.delete(parseChangeId(id));
-        log.atWarning().withCause(e).log("Error trying to index Change %s. Deleted from index", id);
+        log.atWarning().withCause(e).log("Error trying to index Change %d. Deleted from index", id);
         return;
       }
 
@@ -124,12 +128,12 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
   }
 
-  private void rescheduleIndex(String id, Optional<IndexEvent> indexEvent, int retryCount) {
+  private boolean rescheduleIndex(String id, Optional<IndexEvent> indexEvent, int retryCount) {
     if (retryCount > maxTries) {
       log.atSevere().log(
           "Change %s could not be indexed after %d retries. Change index could be stale.",
           id, retryCount);
-      return;
+      return false;
     }
 
     log.atWarning().log(
@@ -146,6 +150,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         },
         retryInterval,
         TimeUnit.MILLISECONDS);
+    return true;
   }
 
   @Override
