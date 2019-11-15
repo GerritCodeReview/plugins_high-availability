@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58d6d8e7_8627ccfb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-11-15T13:52:27Z",
+      "side": 0,
+      "message": "The existing test is now failing:\n\n  ForwardedIndexChangeHandlerTest.changeToIndexDoesNotExist(ForwardedIndexChangeHandlerTest.java:123)\n\nwith this feailure:\n\n  1) changeToIndexDoesNotExist(com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandlerTest)\nWanted but not invoked:\nindexerMock.delete(123);",
+      "range": {
+        "startLine": 104,
+        "startChar": 8,
+        "endLine": 104,
+        "endChar": 42
+      },
+      "revId": "6e6ccb0e37dd8d85ba623d49a267462f2378b6e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
