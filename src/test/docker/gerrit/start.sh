@@ -7,7 +7,7 @@ then
   wait-for-it.sh $WAIT_FOR -t 600 -- echo "$WAIT_FOR is up"
 fi
 
-sudo -u gerrit cp /var/gerrit/etc/gerrit.config.orig /var/gerrit/etc/gerrit.config
+chown -R gerrit: /var/gerrit && sudo -u gerrit cp /var/gerrit/etc/gerrit.config.orig /var/gerrit/etc/gerrit.config
 
 if [[ ! -f /var/gerrit/git/All-Projects.git/config ]]
 then
@@ -19,7 +19,7 @@ echo "Reindexing Gerrit ..."
 sudo -u gerrit java -jar /var/gerrit/bin/gerrit.war reindex -d /var/gerrit
 sudo -u gerrit git config -f /var/gerrit/etc/gerrit.config gerrit.canonicalWebUrl http://$HOSTNAME/
 
-touch /var/gerrit/logs/{gc_log,error_log,httpd_log,sshd_log,replication_log} && chown -R gerrit: /var/gerrit && tail -f /var/gerrit/logs/* | grep --line-buffered -v 'HEAD /' &
+touch /var/gerrit/logs/{gc_log,error_log,httpd_log,sshd_log,replication_log} && tail -f /var/gerrit/logs/* | grep --line-buffered -v 'HEAD /' &
 
 echo "Running Gerrit ..."
 sudo -u gerrit /etc/init.d/gerrit run
