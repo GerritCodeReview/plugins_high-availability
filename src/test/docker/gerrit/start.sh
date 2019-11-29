@@ -22,7 +22,7 @@ echo "Reindexing Gerrit ..."
 sudo -u gerrit java -jar /var/gerrit/bin/gerrit.war reindex -d /var/gerrit
 sudo -u gerrit git config -f /var/gerrit/etc/gerrit.config gerrit.canonicalWebUrl http://$HOSTNAME/
 
-touch /var/gerrit/logs/{gc_log,error_log,httpd_log,sshd_log,replication_log} && tail -f /var/gerrit/logs/* | grep --line-buffered -v 'HEAD /' &
+sudo -u gerrit touch /var/gerrit/logs/{gc_log,error_log,httpd_log,sshd_log,replication_log} && tail -f /var/gerrit/logs/* | grep --line-buffered -v 'HEAD /' &
 
 echo "Running Gerrit ..."
 sudo -u gerrit /etc/init.d/gerrit run
