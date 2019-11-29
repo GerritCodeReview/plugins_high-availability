@@ -2,7 +2,7 @@ FROM gerritcodereview/gerrit:2.15.17
 
 ENV GERRIT_BRANCH=stable-2.15
 
-ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
+ENV GERRIT_CI_URL=https://archive-ci.gerritforge.com/job
 
 USER root
 
@@ -21,4 +21,6 @@ ADD wait-for-it.sh /bin/
 
 RUN rm -Rf /var/gerrit/{git,index,cache}/*
 
+ARG GERRIT_UID=1000
+RUN usermod -u ${GERRIT_UID} gerrit &> /dev/null
 CMD /bin/start.sh
