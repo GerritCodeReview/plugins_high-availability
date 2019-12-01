@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
 
@@ -27,7 +27,7 @@ services:
       - ./gitvolume:/var/gerrit/git
       - ./shareddir:/var/gerrit/shared/dir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
-      - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config
+      - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
     environment:
       - HOSTNAME=localhost
 
@@ -46,7 +46,7 @@ services:
       - ./gitvolume:/var/gerrit/git
       - ./shareddir:/var/gerrit/shared/dir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
-      - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config
+      - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
     environment:
       - HOSTNAME=localhost
       - WAIT_FOR=gerrit-01:8080
@@ -58,7 +58,7 @@ services:
       - "29418:29418"
     networks:
       - gerrit-net
-    volumes_from:
+    volumes:
       - syslog-sidecar
     depends_on:
       - gerrit-01
@@ -72,3 +72,6 @@ services:
 networks:
   gerrit-net:
     driver: bridge
+
+volumes:
+  syslog-sidecar:
