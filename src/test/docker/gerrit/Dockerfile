@@ -1,4 +1,4 @@
-FROM gerritcodereview/gerrit:3.0.3
+FROM gerritcodereview/gerrit:3.0.4
 
 ENV GERRIT_BRANCH=stable-3.0
 
@@ -6,7 +6,7 @@ ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
 
 USER root
 
-RUN yum install -y iputils-ping netcat postgresql curl lsof gettext moreutils net-tools netcat inetutils-ping sudo
+RUN yum install -y iputils-ping netcat curl lsof gettext moreutils net-tools netcat inetutils-ping sudo
 
 USER gerrit
 
@@ -20,4 +20,8 @@ ADD wait-for-it.sh /bin/
 
 RUN rm -Rf /var/gerrit/{git,index,cache}/*
 
+ARG GERRIT_UID=1000
+RUN usermod -u ${GERRIT_UID} gerrit &> /dev/null
+
+ENTRYPOINT ["/usr/bin/env"]
 CMD /bin/start.sh
