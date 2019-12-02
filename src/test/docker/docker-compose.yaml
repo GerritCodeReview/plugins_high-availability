@@ -2,17 +2,6 @@ version: '3'
 
 services:
 
-  postgres:
-    image: postgres:9.5.4
-    environment:
-      - POSTGRES_USER=gerrit
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=reviewdb
-    networks:
-      - gerrit-net
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-
   gerrit-01:
     build: gerrit
     ports:
@@ -20,8 +9,6 @@ services:
       - "29411:29418"
     networks:
       - gerrit-net
-    depends_on:
-      - postgres
     volumes:
       - /dev/urandom:/dev/random
       - ./gitvolume:/var/gerrit/git
@@ -39,7 +26,6 @@ services:
     networks:
       - gerrit-net
     depends_on:
-      - postgres
       - gerrit-01
     volumes:
       - /dev/urandom:/dev/random

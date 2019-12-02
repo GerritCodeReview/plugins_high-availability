@@ -6,7 +6,7 @@ ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
 
 USER root
 
-RUN yum install -y iputils-ping netcat postgresql curl lsof gettext moreutils net-tools netcat inetutils-ping sudo
+RUN yum install -y iputils-ping netcat curl lsof gettext moreutils net-tools netcat inetutils-ping sudo
 
 USER gerrit
 

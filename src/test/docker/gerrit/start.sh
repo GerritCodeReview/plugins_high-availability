@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-wait-for-it.sh postgres:5432 -t 600 -- echo "Postgres is up"
-
 if [[ ! -z "$WAIT_FOR" ]]
 then
   wait-for-it.sh $WAIT_FOR -t 600 -- echo "$WAIT_FOR is up"
