@@ -1,4 +1,4 @@
-FROM gerritcodereview/gerrit:2.16.12
+FROM gerritcodereview/gerrit:2.16.15
 
 ENV GERRIT_BRANCH=stable-2.16
 
