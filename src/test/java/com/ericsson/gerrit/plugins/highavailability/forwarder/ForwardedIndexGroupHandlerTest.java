@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
@@ -27,9 +28,7 @@ import com.google.gerrit.server.index.group.GroupIndexer;
 import java.io.IOException;
 import java.util.Optional;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -38,7 +37,6 @@ import org.mockito.stubbing.Answer;
 @RunWith(MockitoJUnitRunner.class)
 public class ForwardedIndexGroupHandlerTest {
 
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private GroupIndexer indexerMock;
   @Mock private Configuration configMock;
   @Mock private Configuration.Index indexMock;
@@ -61,9 +59,11 @@ public class ForwardedIndexGroupHandlerTest {
 
   @Test
   public void deleteIsNotSupported() throws Exception {
-    exception.expect(UnsupportedOperationException.class);
-    exception.expectMessage("Delete from group index not supported");
-    handler.index(uuid, Operation.DELETE, Optional.empty());
+    UnsupportedOperationException thrown =
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> handler.index(uuid, Operation.DELETE, Optional.empty()));
+    assertThat(thrown).hasMessageThat().contains("Delete from group index not supported");
   }
 
   @Test

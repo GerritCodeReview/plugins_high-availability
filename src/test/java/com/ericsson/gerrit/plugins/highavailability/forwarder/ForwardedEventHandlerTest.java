@@ -24,9 +24,7 @@ import com.google.gerrit.server.events.EventDispatcher;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -35,7 +33,6 @@ import org.mockito.stubbing.Answer;
 @RunWith(MockitoJUnitRunner.class)
 public class ForwardedEventHandlerTest {
 
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private EventDispatcher dispatcherMock;
   private ForwardedEventHandler handler;
 
