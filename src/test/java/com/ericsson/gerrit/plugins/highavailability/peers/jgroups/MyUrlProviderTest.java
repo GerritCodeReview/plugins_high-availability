@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.net.InetAddress.getLocalHost;
 import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.when;
@@ -23,9 +24,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.inject.ProvisionException;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -37,8 +36,6 @@ public class MyUrlProviderTest {
   private static final String HTTPD = "httpd";
   private static final String HTTPS = "https://";
   private static final String LISTEN_URL = "listenUrl";
-
-  @Rule public ExpectedException exception = ExpectedException.none();
 
   @Mock(answer = RETURNS_DEEP_STUBS)
   private Configuration configurationMock;
@@ -70,33 +67,29 @@ public class MyUrlProviderTest {
 
   @Test
   public void testGetJGroupsMyUrlFromListenUrlWhenNoListenUrlSpecified() throws Exception {
-    exception.expect(ProvisionException.class);
-    exception.expectMessage("exactly 1 value configured; found 0");
-    getMyUrlProvider();
+    ProvisionException thrown = assertThrows(ProvisionException.class, () -> getMyUrlProvider());
+    assertThat(thrown).hasMessageThat().contains("exactly 1 value configured; found 0");
   }
 
   @Test
   public void testGetJGroupsMyUrlFromListenUrlWhenMultipleListenUrlsSpecified() throws Exception {
     gerritServerConfig.setStringList(HTTPD, null, LISTEN_URL, Lists.newArrayList("a", "b"));
-    exception.expect(ProvisionException.class);
-    exception.expectMessage("exactly 1 value configured; found 2");
-    getMyUrlProvider();
+    ProvisionException thrown = assertThrows(ProvisionException.class, () -> getMyUrlProvider());
+    assertThat(thrown).hasMessageThat().contains("exactly 1 value configured; found 2");
   }
 
   @Test
   public void testGetJGroupsMyUrlFromListenUrlWhenReverseProxyConfigured() throws Exception {
     gerritServerConfig.setString(HTTPD, null, LISTEN_URL, "proxy-https://foo");
-    exception.expect(ProvisionException.class);
-    exception.expectMessage("when configured as reverse-proxy");
-    getMyUrlProvider();
+    ProvisionException thrown = assertThrows(ProvisionException.class, () -> getMyUrlProvider());
+    assertThat(thrown).hasMessageThat().contains("when configured as reverse-proxy");
   }
 
   @Test
   public void testGetJGroupsMyUrlFromListenUrlWhenWildcardConfigured() throws Exception {
     gerritServerConfig.setString(HTTPD, null, LISTEN_URL, "https://*");
-    exception.expect(ProvisionException.class);
-    exception.expectMessage("when configured with wildcard");
-    getMyUrlProvider();
+    ProvisionException thrown = assertThrows(ProvisionException.class, () -> getMyUrlProvider());
+    assertThat(thrown).hasMessageThat().contains("when configured with wildcard");
   }
 
   @Test
