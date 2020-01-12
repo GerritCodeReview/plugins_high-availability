@@ -15,7 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.fail;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
@@ -24,9 +24,7 @@ import com.google.gerrit.server.events.EventDispatcher;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import com.google.gwtorm.server.OrmException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -35,7 +33,6 @@ import org.mockito.stubbing.Answer;
 @RunWith(MockitoJUnitRunner.class)
 public class ForwardedEventHandlerTest {
 
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private EventDispatcher dispatcherMock;
   private ForwardedEventHandler handler;
 
@@ -85,12 +82,8 @@ public class ForwardedEventHandlerTest {
         .postEvent(event);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    try {
-      handler.dispatch(event);
-      fail("should have throw an OrmException");
-    } catch (OrmException e) {
-      assertThat(e.getMessage()).isEqualTo("someMessage");
-    }
+    OrmException thrown = assertThrows(OrmException.class, () -> handler.dispatch(event));
+    assertThat(thrown).hasMessageThat().contains("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(dispatcherMock).postEvent(event);

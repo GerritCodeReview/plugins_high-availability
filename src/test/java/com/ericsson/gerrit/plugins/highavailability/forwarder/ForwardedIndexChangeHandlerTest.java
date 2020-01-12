@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
@@ -39,9 +40,7 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -62,7 +61,6 @@ public class ForwardedIndexChangeHandlerTest {
   private static final boolean CHANGE_UP_TO_DATE = true;
   private static final boolean CHANGE_OUTDATED = false;
 
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ChangeIndexer indexerMock;
   @Mock private ChangeDb changeDbMock;
   @Mock private ReviewDb dbMock;
@@ -126,16 +124,16 @@ public class ForwardedIndexChangeHandlerTest {
   @Test
   public void schemaThrowsExceptionWhenLookingUpForChange() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, THROW_ORM_EXCEPTION, CHANGE_UP_TO_DATE);
-    exception.expect(OrmException.class);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    assertThrows(
+        OrmException.class, () -> handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()));
   }
 
   @Test
   public void indexerThrowsIOExceptionTryingToIndexChange() throws Exception {
     setupChangeAccessRelatedMocks(
         CHANGE_EXISTS, DO_NOT_THROW_ORM_EXCEPTION, THROW_IO_EXCEPTION, CHANGE_UP_TO_DATE);
-    exception.expect(IOException.class);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    assertThrows(
+        IOException.class, () -> handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()));
   }
 
   @Test
