@@ -27,9 +27,7 @@ import com.google.gerrit.index.project.ProjectIndexer;
 import java.io.IOException;
 import java.util.Optional;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -38,7 +36,6 @@ import org.mockito.stubbing.Answer;
 @RunWith(MockitoJUnitRunner.class)
 public class ForwardedIndexProjectHandlerTest {
 
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ProjectIndexer indexerMock;
   @Mock private Configuration configMock;
   @Mock private Configuration.Index indexMock;
@@ -61,9 +58,11 @@ public class ForwardedIndexProjectHandlerTest {
 
   @Test
   public void deleteIsNotSupported() throws Exception {
-    exception.expect(UnsupportedOperationException.class);
-    exception.expectMessage("Delete from project index not supported");
-    handler.index(nameKey, Operation.DELETE, Optional.empty());
+    UnsupportedOperationException thrown =
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> handler.index(nameKey, Operation.DELETE, Optional.empty()));
+    assertThat(thrown).hasMessageThat().contains("Delete from project index not supported");
   }
 
   @Test
