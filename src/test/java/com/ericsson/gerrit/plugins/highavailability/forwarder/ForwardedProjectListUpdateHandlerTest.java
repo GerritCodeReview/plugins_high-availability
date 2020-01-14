@@ -22,9 +22,7 @@ import static org.mockito.Mockito.verify;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.project.ProjectCache;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -36,7 +34,6 @@ public class ForwardedProjectListUpdateHandlerTest {
   private static final String PROJECT_NAME = "someProject";
   private static final String SOME_MESSAGE = "someMessage";
   private static final Project.NameKey PROJECT_KEY = Project.nameKey(PROJECT_NAME);
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private ProjectCache projectCacheMock;
   private ForwardedProjectListUpdateHandler handler;
 

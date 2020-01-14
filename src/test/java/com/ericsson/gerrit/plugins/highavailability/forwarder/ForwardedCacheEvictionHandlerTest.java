@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
+import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -24,9 +25,7 @@ import com.google.common.cache.Cache;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -35,7 +34,6 @@ import org.mockito.stubbing.Answer;
 @RunWith(MockitoJUnitRunner.class)
 public class ForwardedCacheEvictionHandlerTest {
 
-  @Rule public ExpectedException exception = ExpectedException.none();
   @Mock private DynamicMap<Cache<?, ?>> cacheMapMock;
   @Mock private Cache<?, ?> cacheMock;
   private ForwardedCacheEvictionHandler handler;
@@ -48,11 +46,11 @@ public class ForwardedCacheEvictionHandlerTest {
   @Test
   public void shouldThrowAnExceptionWhenCacheNotFound() throws Exception {
     CacheEntry entry = new CacheEntry("somePlugin", "unexistingCache", null);
-
-    exception.expect(CacheNotFoundException.class);
-    exception.expectMessage(
-        String.format("cache %s.%s not found", entry.getPluginName(), entry.getCacheName()));
-    handler.evict(entry);
+    String expectedMessage =
+        String.format("cache %s.%s not found", entry.getPluginName(), entry.getCacheName());
+    CacheNotFoundException thrown =
+        assertThrows(CacheNotFoundException.class, () -> handler.evict(entry));
+    assertThat(thrown).hasMessageThat().contains(expectedMessage);
   }
 
   @Test
