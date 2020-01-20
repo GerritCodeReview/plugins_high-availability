@@ -1,6 +1,6 @@
-FROM gerritcodereview/gerrit:3.0.6
+FROM gerritcodereview/gerrit:3.1.2
 
-ENV GERRIT_BRANCH=stable-3.0
+ENV GERRIT_BRANCH=stable-3.1
 
 ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
 
@@ -10,7 +10,7 @@ RUN yum install -y iputils-ping netcat curl lsof gettext moreutils net-tools net
 
 USER gerrit
 
-ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
+ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
 ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-high-availability-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
 
 USER root
