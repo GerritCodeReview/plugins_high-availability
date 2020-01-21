@@ -80,10 +80,11 @@ Add the plugin name to the `CUSTOM_PLUGINS` and to the
   ./tools/eclipse/project.py
 ```
 
-To execute the tests run:
+To execute the tests run either one of:
 
 ```
   bazel test --test_tag_filters=@PLUGIN@ //...
+  bazel test plugins/@PLUGIN@:@PLUGIN@_tests
 ```
 
 How to build the Gerrit Plugin API is described in the [Gerrit
