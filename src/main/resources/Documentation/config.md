@@ -183,6 +183,10 @@ the plugin will keep retrying to forward a message for one hour.
 :   Whether to synchronize stream events.
     Defaults to true.
 
+```replication.synchronize```
+:   Whether to synchronize replications.
+    Defaults to false.
+
 ```index.numStripedLocks```
 :   Number of striped locks to use during reindexing.
     Defaults to 10.

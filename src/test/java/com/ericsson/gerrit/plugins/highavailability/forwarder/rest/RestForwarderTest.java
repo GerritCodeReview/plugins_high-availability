@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -25,8 +26,10 @@ import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.TestEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.ericsson.gerrit.plugins.highavailability.replication.events.ForwardedProjectDeletedEvent;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
+import com.google.gerrit.extensions.events.ProjectEvent;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.events.Event;
@@ -68,6 +71,19 @@ public class RestForwarderTest {
   private static final String EVENT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "event", event.type);
   private static String eventJson = new GsonBuilder().create().toJson(event);
+
+  // Replication
+  private static ProjectEvent replicationEvent = new ForwardedProjectDeletedEvent("myproject");
+  private static final String REPLICATION_ENDPOINT =
+      Joiner.on("/")
+          .join(
+              URL,
+              PLUGINS,
+              PLUGIN_NAME,
+              "replication",
+              "com.ericsson.gerrit.plugins.highavailability.replication.events.ForwardedProjectDeletedEvent");
+  private static String replicationJson =
+      "{\"class\":\"com.ericsson.gerrit.plugins.highavailability.replication.events.ForwardedProjectDeletedEvent\"}";
 
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
@@ -184,6 +200,32 @@ public class RestForwarderTest {
   public void testEventSentThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).post(EVENT_ENDPOINT, eventJson);
     assertThat(forwarder.send(event)).isFalse();
+  }
+
+  @Test
+  public void testReplicationSentOK() throws Exception {
+    when(httpSessionMock.post(eq(REPLICATION_ENDPOINT), anyString()))
+        .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
+    assertThat(
+            forwarder.replicate(replicationEvent, replicationEvent.getClass().getCanonicalName()))
+        .isTrue();
+  }
+
+  @Test
+  public void testReplicationSentFailed() throws Exception {
+    when(httpSessionMock.post(eq(REPLICATION_ENDPOINT), anyString()))
+        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    assertThat(
+            forwarder.replicate(replicationEvent, replicationEvent.getClass().getCanonicalName()))
+        .isFalse();
+  }
+
+  @Test
+  public void testReplicationSentThrowsException() throws Exception {
+    doThrow(new IOException()).when(httpSessionMock).post(eq(REPLICATION_ENDPOINT), anyString());
+    assertThat(
+            forwarder.replicate(replicationEvent, replicationEvent.getClass().getCanonicalName()))
+        .isFalse();
   }
 
   @Test

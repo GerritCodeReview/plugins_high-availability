@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.extensions.events.ProjectEvent;
 import com.google.gerrit.server.events.Event;
 
 /** Forward indexing, stream events and cache evictions to the other master */
@@ -58,6 +59,15 @@ public interface Forwarder {
    * @return true if successful, otherwise false.
    */
   boolean send(Event event);
+
+  /**
+   * Forward a replication to the other master.
+   *
+   * @param event the event to forward.
+   * @param cls the type of event for deserialization
+   * @return true if successful, otherwise false.
+   */
+  boolean replicate(ProjectEvent event, String cls);
 
   /**
    * Forward a cache eviction event to the other master.

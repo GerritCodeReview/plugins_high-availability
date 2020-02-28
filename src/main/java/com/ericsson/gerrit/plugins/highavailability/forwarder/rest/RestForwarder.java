@@ -22,10 +22,13 @@ import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.events.ProjectEvent;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.SupplierSerializer;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.io.IOException;
@@ -92,6 +95,25 @@ class RestForwarder implements Forwarder {
             .create()
             .toJson(event);
     return execute(RequestMethod.POST, "send event", "event", event.type, serializedEvent);
+  }
+
+  @Override
+  public boolean replicate(final ProjectEvent event, final String cls) {
+    Gson gson = new Gson();
+    JsonElement jsonElement = null;
+    try {
+      jsonElement = gson.toJsonTree(event);
+    } catch (Exception e) {
+      log.error("ReplicationTrigger failed to convert event: " + e.getMessage());
+    }
+    jsonElement.getAsJsonObject().addProperty("class", cls);
+    String serializedEvent = gson.toJson(jsonElement);
+    return execute(
+        RequestMethod.POST,
+        "replicate project " + event.getProjectName(),
+        "replication",
+        cls,
+        serializedEvent);
   }
 
   @Override

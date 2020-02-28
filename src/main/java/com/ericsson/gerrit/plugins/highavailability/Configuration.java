@@ -64,6 +64,7 @@ public class Configuration {
   private final Event event;
   private final Index index;
   private final Websession websession;
+  private final Replication replication;
   private PeerInfoStatic peerInfoStatic;
   private PeerInfoJGroups peerInfoJGroups;
   private HealthCheck healthCheck;
@@ -97,6 +98,7 @@ public class Configuration {
     index = new Index(cfg);
     websession = new Websession(cfg);
     healthCheck = new HealthCheck(cfg);
+    replication = new Replication(cfg);
   }
 
   public Main main() {
@@ -137,6 +139,10 @@ public class Configuration {
 
   public Index index() {
     return index;
+  }
+
+  public Replication replication() {
+    return replication;
   }
 
   public Websession websession() {
@@ -441,6 +447,25 @@ public class Configuration {
 
     private Event(Config cfg) {
       super(cfg, EVENT_SECTION);
+    }
+  }
+
+  public static class Replication extends Forwarding {
+    static final String REPLICATION_SECTION = "replication";
+
+    static final boolean REPLICATION_DEFAULT_SYNCHRONIZE = false;
+    private final boolean synchronize;
+
+    private Replication(Config cfg) {
+      super(cfg, REPLICATION_SECTION);
+      synchronize =
+          cfg.getBoolean(REPLICATION_SECTION, SYNCHRONIZE_KEY, REPLICATION_DEFAULT_SYNCHRONIZE);
+      log.info("OFFLOADING--- sync" + synchronize);
+    }
+
+    @Override
+    public boolean synchronize() {
+      return synchronize;
     }
   }
 
