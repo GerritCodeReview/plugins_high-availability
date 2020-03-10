@@ -113,12 +113,12 @@ public class IndexTs
     currCtx.onlyWithContext(
         (ctx) -> {
           try {
-            ChangeNotes changeNotes = changeFinder.findOne(projectName + "~" + id);
+            Optional<ChangeNotes> changeNotes = changeFinder.findOne(projectName + "~" + id);
             update(
                 IndexName.CHANGE,
-                changeNotes == null
+                !changeNotes.isPresent()
                     ? LocalDateTime.now()
-                    : changeNotes.getChange().getLastUpdatedOn().toLocalDateTime());
+                    : changeNotes.get().getChange().getLastUpdatedOn().toLocalDateTime());
           } catch (Exception e) {
             log.atWarning().withCause(e).log("Unable to update the latest TS for change %d", id);
           }

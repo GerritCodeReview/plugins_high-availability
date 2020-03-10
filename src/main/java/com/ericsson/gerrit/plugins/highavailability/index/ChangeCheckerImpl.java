@@ -76,7 +76,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   @Override
   public Optional<ChangeNotes> getChangeNotes() {
     try (ManualRequestContext ctx = oneOffReqCtx.open()) {
-      changeNotes = Optional.ofNullable(changeFinder.findOne(changeId));
+      changeNotes = changeFinder.findOne(changeId);
       return changeNotes;
     }
   }
