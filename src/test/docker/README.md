@@ -39,6 +39,30 @@ Use the 'up' target to startup the Docker Compose VMs.
   $ docker-compose up
 ```
 
+## How to test
+
+Consider the
+[instructions](https://gerrit-review.googlesource.com/Documentation/dev-e2e-tests.html)
+on how to use Gerrit core's Gatling framework, to run non-core test
+scenarios such as this plugin one below:
+
+```
+  $ sbt "gatling:testOnly com.ericsson.gerrit.plugins.highavailability.scenarios.CloneUsingHAGerrit2"
+```
+
+This is a scenario that can server as an example for how to start
+testing an HA Gerrit system. That scenario tries to clone a project
+created on gerrit 1 (port 8081) -but from gerrit 2 (on 8082). The
+scenario therefore expects Gerrit HA to have properly synchronized
+the new project from 1 to 2. That project gets deleted after, here
+using HA Gerrit straight (no specific port).
+
+Scenario scala source files and their companion json resource ones are
+stored under the usual src/test directories. That structure follows the
+scala package one from the scenario classes. The core framework expects
+such a directory structure for both the scala and resources (json data)
+files.
+
 ## How to stop
 
 Simply type CTRL+C on the window that started the environment
@@ -53,4 +77,3 @@ target.
 ```
   $ docker-compose down
 ```
-
