@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06e1ee1a_6afab112",
+        "filename": "src/test/docker/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-03-21T01:17:50Z",
+      "side": 1,
+      "message": "serve",
+      "range": {
+        "startLine": 53,
+        "startChar": 28,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "bde7825f55991f09cabdb99eb5aed47b12e8e0b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1494ff_2dd32410",
+        "filename": "src/test/docker/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2020-03-21T01:17:50Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 55,
+        "startChar": 32,
+        "endLine": 55,
+        "endChar": 33
+      },
+      "revId": "bde7825f55991f09cabdb99eb5aed47b12e8e0b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
