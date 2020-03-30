@@ -19,6 +19,7 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedReplicationHandler;
 import com.ericsson.gerrit.plugins.highavailability.replication.events.Deserializer;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.CharStreams;
@@ -38,8 +39,12 @@ class ReplicationRestApiServlet extends AbstractRestApiServlet {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final long serialVersionUID = -1L;
 
+  private final ForwardedReplicationHandler forwardedReplicationHandler;
+
   @Inject
-  ReplicationRestApiServlet() {}
+  ReplicationRestApiServlet(ForwardedReplicationHandler forwardedReplicationHandler) {
+    this.forwardedReplicationHandler = forwardedReplicationHandler;
+  }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
@@ -56,6 +61,7 @@ class ReplicationRestApiServlet extends AbstractRestApiServlet {
               + receivedEvent.getClass().getSimpleName()
               + " for project "
               + receivedEvent.getProjectName());
+      forwardedReplicationHandler.replicate(receivedEvent);
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
       logger.atSevere().log("Unable decode ProjectEvent", e);
