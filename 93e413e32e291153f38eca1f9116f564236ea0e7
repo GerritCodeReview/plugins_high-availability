@@ -22,6 +22,30 @@
       "revId": "93e413e32e291153f38eca1f9116f564236ea0e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "504ca4e4_7cb5a282",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-03-30T20:52:10Z",
+      "side": 0,
+      "message": "No, as per the commit message footnote. This (HA) plugin runs Gerrit v3 in its stable-3.x dockerization, which then has delete-project as core.\n\nUnrelated: multi-site\u0027s own dockerization still runs 2.16 across its branches. We could consider changing that.",
+      "parentUuid": "9eec39ee_aafc1ca3",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 203
+      },
+      "revId": "93e413e32e291153f38eca1f9116f564236ea0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
