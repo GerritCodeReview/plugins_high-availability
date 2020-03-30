@@ -23,6 +23,7 @@ import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.base.Joiner;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.extensions.events.ProjectEvent;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
@@ -108,6 +109,16 @@ class RestForwarder implements Forwarder {
   @Override
   public boolean send(final Event event) {
     return execute(RequestMethod.POST, "send event", "event", event.type, event);
+  }
+
+  @Override
+  public boolean replicate(ProjectEvent projectEvent, String type) {
+    return execute(
+        RequestMethod.POST,
+        "replicate project " + projectEvent.getProjectName(),
+        "replication",
+        Url.encode(type),
+        projectEvent);
   }
 
   @Override

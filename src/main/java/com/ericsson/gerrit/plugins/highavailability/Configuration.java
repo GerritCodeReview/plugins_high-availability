@@ -65,6 +65,7 @@ public class Configuration {
   private final Event event;
   private final Index index;
   private final Websession websession;
+  private final Replication replication;
   private PeerInfoStatic peerInfoStatic;
   private PeerInfoJGroups peerInfoJGroups;
   private HealthCheck healthCheck;
@@ -98,6 +99,7 @@ public class Configuration {
     index = new Index(cfg);
     websession = new Websession(cfg);
     healthCheck = new HealthCheck(cfg);
+    replication = new Replication(cfg);
   }
 
   public Main main() {
@@ -142,6 +144,10 @@ public class Configuration {
 
   public Websession websession() {
     return websession;
+  }
+
+  public Replication replication() {
+    return replication;
   }
 
   public HealthCheck healthCheck() {
@@ -506,6 +512,24 @@ public class Configuration {
 
     public long cleanupInterval() {
       return cleanupInterval;
+    }
+  }
+
+  public static class Replication extends Forwarding {
+    static final String REPLICATION_SECTION = "replication";
+    static final boolean REPLICATION_DEFAULT_SYNCHRONIZE = false;
+
+    private final boolean synchronize;
+
+    private Replication(Config cfg) {
+      super(cfg, REPLICATION_SECTION);
+      synchronize =
+          cfg.getBoolean(REPLICATION_SECTION, SYNCHRONIZE_KEY, REPLICATION_DEFAULT_SYNCHRONIZE);
+    }
+
+    @Override
+    public boolean synchronize() {
+      return synchronize;
     }
   }
 
