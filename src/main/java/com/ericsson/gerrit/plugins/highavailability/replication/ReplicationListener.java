@@ -28,6 +28,8 @@ import com.google.gerrit.extensions.events.ProjectEvent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.concurrent.Executor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class ReplicationListener
@@ -39,6 +41,7 @@ public class ReplicationListener
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
+  private static final Logger log = LoggerFactory.getLogger(ReplicationListener.class);
 
   @Inject
   ReplicationListener(
@@ -46,11 +49,17 @@ public class ReplicationListener
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    log.error("OFFLOADING:  " + "listener");
+    log.info("OFFLOADING:  " + "listener");
   }
 
   @Override
   public void onGitReferenceUpdated(GitReferenceUpdatedListener.Event event) {
+    log.error("OFFLOADING:  " + event.getProjectName());
+    log.info("OFFLOADING:  " + event.getProjectName());
     if (!(event instanceof ForwardedGitReferenceUpdatedEvent)) {
+      log.error("OFFLOADING:  " + event.getProjectName());
+      log.info("OFFLOADING:  " + event.getProjectName());
       executor.execute(
           new ReplicationTask<>(event, ForwardedGitReferenceUpdatedEvent.class.getName()));
     }
@@ -59,6 +68,7 @@ public class ReplicationListener
   @Override
   public void onNewProjectCreated(NewProjectCreatedListener.Event event) {
     if (!(event instanceof ForwardedNewProjectCreatedEvent)) {
+      log.error("REPLICATIONOFFLOADING: " + event.getProjectName());
       executor.execute(
           new ReplicationTask<>(event, ForwardedNewProjectCreatedEvent.class.getName()));
     }
@@ -67,6 +77,7 @@ public class ReplicationListener
   @Override
   public void onProjectDeleted(ProjectDeletedListener.Event event) {
     if (!(event instanceof ForwardedProjectDeletedEvent)) {
+      log.error("REPLICATIONOFFLOADING: " + event.getProjectName());
       executor.execute(
           new ReplicationTask<>(
               new ForwardedProjectDeletedEvent(event.getProjectName()),
@@ -77,6 +88,7 @@ public class ReplicationListener
   @Override
   public void onHeadUpdated(HeadUpdatedListener.Event event) {
     if (!(event instanceof ForwardedHeadUpdatedEvent)) {
+      log.error("REPLICATIONOFFLOADING: " + event.getProjectName());
       executor.execute(new ReplicationTask<>(event, ForwardedHeadUpdatedEvent.class.getName()));
     }
   }

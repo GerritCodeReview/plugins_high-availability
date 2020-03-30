@@ -18,10 +18,12 @@ import static com.google.common.net.MediaType.JSON_UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedReplicationHandler;
 import com.ericsson.gerrit.plugins.highavailability.replication.events.ForwardedGitReferenceUpdatedEvent;
 import com.google.common.net.MediaType;
 import com.google.gerrit.extensions.restapi.Url;
@@ -40,6 +42,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class ReplicationRestApiServletTest {
   private static final String ERR_MSG = "someError";
 
+  @Mock private ForwardedReplicationHandler forwardedReplicationHandler;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
 
@@ -47,7 +50,7 @@ public class ReplicationRestApiServletTest {
 
   @Before
   public void createEventsRestApiServlet() throws Exception {
-    replicationtRestApiServlet = new ReplicationRestApiServlet();
+    replicationtRestApiServlet = new ReplicationRestApiServlet(forwardedReplicationHandler);
     when(requestMock.getContentType()).thenReturn(MediaType.JSON_UTF_8.toString());
   }
 
@@ -62,6 +65,7 @@ public class ReplicationRestApiServletTest {
     when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader(event)));
 
     replicationtRestApiServlet.doPost(requestMock, responseMock);
+    verify(forwardedReplicationHandler).replicate(any(ForwardedGitReferenceUpdatedEvent.class));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 

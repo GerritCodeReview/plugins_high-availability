@@ -42,6 +42,7 @@ public class Deserializer implements JsonDeserializer<ProjectEvent> {
     } catch (ClassNotFoundException e) {
       String errorMsg = "Unknown replication event: " + classname;
       log.debug(errorMsg);
+      log.error("OFFLOADING: {}", errorMsg);
       throw new JsonParseException(errorMsg);
     }
   }

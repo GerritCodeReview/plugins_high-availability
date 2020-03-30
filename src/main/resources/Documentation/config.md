@@ -182,6 +182,10 @@ the plugin will keep retrying to forward a message for one hour.
 ```event.synchronize```
 :   Whether to synchronize stream events.
     Defaults to true.
+    
+```replication.synchronize```
+:   Whether to synchronize project events for replication.
+    Defaults to false.
 
 ```index.numStripedLocks```
 :   Number of striped locks to use during reindexing.

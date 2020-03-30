@@ -496,7 +496,7 @@ public class Configuration {
 
   public static class Replication extends Forwarding {
     static final String REPLICATION_SECTION = "replication";
-    static final boolean REPLICATION_DEFAULT_SYNCHRONIZE = false;
+    static final boolean REPLICATION_DEFAULT_SYNCHRONIZE = true;
 
     private final boolean synchronize;
 
@@ -504,6 +504,9 @@ public class Configuration {
       super(cfg, REPLICATION_SECTION);
       synchronize =
           cfg.getBoolean(REPLICATION_SECTION, SYNCHRONIZE_KEY, REPLICATION_DEFAULT_SYNCHRONIZE);
+
+      log.error("OFFLOADING: " + synchronize);
+      log.info("OFFLOADING: " + synchronize);
     }
 
     @Override

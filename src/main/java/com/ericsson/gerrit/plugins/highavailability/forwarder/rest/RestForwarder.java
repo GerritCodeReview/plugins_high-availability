@@ -102,6 +102,8 @@ class RestForwarder implements Forwarder {
     Gson gson = new Gson();
     JsonElement jsonElement = gson.toJsonTree(projectEvent);
     String serializedEvent = gson.toJson(jsonElement);
+    log.error("OFFLOADING:  " + projectEvent.getProjectName());
+    log.info("OFFLOADING:  " + projectEvent.getProjectName());
     return execute(
         RequestMethod.POST,
         "replicate project " + projectEvent.getProjectName(),
