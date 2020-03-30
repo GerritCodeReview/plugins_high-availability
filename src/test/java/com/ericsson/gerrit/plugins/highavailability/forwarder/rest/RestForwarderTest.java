@@ -28,8 +28,11 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.TestEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.ericsson.gerrit.plugins.highavailability.replication.events.ForwardedProjectDeletedEvent;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
+import com.google.gerrit.extensions.events.ProjectEvent;
+import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.server.events.Event;
@@ -82,6 +85,17 @@ public class RestForwarderTest {
   private static Event event = new TestEvent();
   private static final String EVENT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "event", event.type);
+
+  // Replication
+  private static ProjectEvent replicationEvent = new ForwardedProjectDeletedEvent("my-project");
+  private static final String REPLICATION_ENDPOINT =
+      Joiner.on("/")
+          .join(
+              URL,
+              PLUGINS,
+              PLUGIN_NAME,
+              "replication",
+              Url.encode(ForwardedProjectDeletedEvent.class.getCanonicalName()));
 
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
@@ -201,6 +215,31 @@ public class RestForwarderTest {
   public void testEventSentThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).post(EVENT_ENDPOINT, event);
     assertThat(forwarder.send(event)).isFalse();
+  }
+
+  @Test
+  public void testReplicationSentOK() throws Exception {
+    when(httpSessionMock.post(eq(REPLICATION_ENDPOINT), any()))
+        .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
+    assertThat(
+            forwarder.replicate(replicationEvent, replicationEvent.getClass().getCanonicalName()))
+        .isTrue();
+  }
+
+  @Test
+  public void testReplicationSentFailed() throws Exception {
+    when(httpSessionMock.post(anyString(), any())).thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    assertThat(
+            forwarder.replicate(replicationEvent, replicationEvent.getClass().getCanonicalName()))
+        .isFalse();
+  }
+
+  @Test
+  public void testReplicationSentThrowsException() throws Exception {
+    doThrow(new IOException()).when(httpSessionMock).post(eq(REPLICATION_ENDPOINT), any());
+    assertThat(
+            forwarder.replicate(replicationEvent, replicationEvent.getClass().getCanonicalName()))
+        .isFalse();
   }
 
   @Test
