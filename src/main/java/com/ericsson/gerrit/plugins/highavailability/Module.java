@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
+import com.ericsson.gerrit.plugins.highavailability.replication.ReplicationModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
@@ -50,6 +51,9 @@ class Module extends AbstractModule {
     }
     if (config.index().synchronize()) {
       install(new IndexModule());
+    }
+    if (config.replication().synchronize()) {
+      install(new ReplicationModule());
     }
     if (config.autoReindex().enabled()) {
       install(new AutoReindexModule());

@@ -105,3 +105,27 @@ directory not accessible from this machine, then please skip that init step.
 
 For further information and supported options, refer to [config](config.md)
 documentation.
+
+### Replication offloading
+
+HA plugin can also be used to offload replication tasks from the active master to
+the passive master by synchronizing project events between active and passive
+instances. To enable project events synchronization, @PLUGIN@.config should have
+the following block added:
+
+  ```
+  [replication]
+    synchronize = true
+  ```
+
+Now that project events are synchronized, the active master can have its
+replication plugin disabled to free resources that would be allocated to
+perform replication. It can be done through the usage of deployment or
+operations scripts due to the high-availability plugin being agnostic to
+active/passive master states. Upon receiving forwarded project events
+from the active master, the passive instance will perform replication.
+
+In the end, actual replication is performed by the replication plugin
+itself. High-availability plugin only 1. synchronizes events (including
+project events) between masters and 2. triggers replication (if it is a
+passive master).
