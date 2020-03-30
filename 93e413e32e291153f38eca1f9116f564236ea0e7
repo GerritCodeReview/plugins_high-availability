@@ -46,6 +46,30 @@
       "revId": "93e413e32e291153f38eca1f9116f564236ea0e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc885f9_f10453b4",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-03-30T20:58:47Z",
+      "side": 0,
+      "message": "Ah, right. I forgot it became a core plugin.",
+      "parentUuid": "504ca4e4_7cb5a282",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 203
+      },
+      "revId": "93e413e32e291153f38eca1f9116f564236ea0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
