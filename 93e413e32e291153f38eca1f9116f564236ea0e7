@@ -70,6 +70,30 @@
       "revId": "93e413e32e291153f38eca1f9116f564236ea0e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee9fd723_7b26fa39",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-03-30T21:42:09Z",
+      "side": 0,
+      "message": "\u003e Ah, right. I forgot it became a core plugin.\n\nAck.\n\n\u003e Unrelated: multi-site\u0027s own dockerization still runs 2.16 across its branches. We could consider changing that.\n\n\u003d\u003e new Issue 12514.",
+      "parentUuid": "3bc885f9_f10453b4",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 203
+      },
+      "revId": "93e413e32e291153f38eca1f9116f564236ea0e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
