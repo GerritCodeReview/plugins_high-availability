@@ -14,16 +14,22 @@
 
 package com.ericsson.gerrit.plugins.highavailability.scenarios
 
-import com.google.gerrit.scenarios.GerritSimulation
+import com.google.gerrit.scenarios.ProjectSimulation
 import io.gatling.core.Predef._
 import io.gatling.core.feeder.FileBasedFeederBuilder
 import io.gatling.core.structure.ScenarioBuilder
 
-class CreateProjectUsingHAGerrit1 extends GerritSimulation {
+class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
   private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(url).queue
 
+  def this(default: String) {
+    this()
+    this.default = default
+  }
+
   override def replaceOverride(in: String): String = {
-    replaceProperty("http_port1", 8081, in)
+    val next = replaceProperty("http_port1", 8081, in)
+    super.replaceOverride(next)
   }
 
   val test: ScenarioBuilder = scenario(name)
