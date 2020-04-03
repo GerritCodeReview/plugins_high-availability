@@ -20,7 +20,11 @@ import io.gatling.core.feeder.FileBasedFeederBuilder
 import io.gatling.core.structure.ScenarioBuilder
 
 class CreateProjectUsingHAGerrit1 extends GerritSimulation {
-  private val data: FileBasedFeederBuilder[Any]#F = jsonFile(resource).queue
+  private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(url).queue
+
+  override def replaceOverride(in: String): String = {
+    replaceProperty("http_port1", 8081, in)
+  }
 
   val test: ScenarioBuilder = scenario(name)
     .feed(data)
