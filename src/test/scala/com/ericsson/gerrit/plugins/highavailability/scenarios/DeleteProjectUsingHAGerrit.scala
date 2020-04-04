@@ -14,13 +14,18 @@
 
 package com.ericsson.gerrit.plugins.highavailability.scenarios
 
-import com.google.gerrit.scenarios.GerritSimulation
+import com.google.gerrit.scenarios.ProjectSimulation
 import io.gatling.core.Predef._
 import io.gatling.core.feeder.FileBasedFeederBuilder
 import io.gatling.core.structure.ScenarioBuilder
 
-class DeleteProjectUsingHAGerrit extends GerritSimulation {
-  private val data: FileBasedFeederBuilder[Any]#F = jsonFile(resource).queue
+class DeleteProjectUsingHAGerrit extends ProjectSimulation {
+  private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(url).queue
+
+  def this(default: String) {
+    this()
+    this.default = default
+  }
 
   val test: ScenarioBuilder = scenario(name)
     .feed(data)
