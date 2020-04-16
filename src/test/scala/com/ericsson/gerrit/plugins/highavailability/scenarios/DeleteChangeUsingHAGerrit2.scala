@@ -14,45 +14,34 @@
 
 package com.ericsson.gerrit.plugins.highavailability.scenarios
 
-import com.google.gerrit.scenarios.GitSimulation
+import com.google.gerrit.scenarios.GerritSimulation
 import io.gatling.core.Predef.{atOnceUsers, _}
 import io.gatling.core.feeder.FileBasedFeederBuilder
 import io.gatling.core.structure.ScenarioBuilder
+import io.gatling.http.Predef.http
 
-import scala.concurrent.duration._
-
-class CloneUsingHAGerrit2 extends GitSimulation {
+class DeleteChangeUsingHAGerrit2 extends GerritSimulation {
   private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(keys).queue
-  private var default: String = name
-
-  def this(default: String) {
-    this()
-    this.default = default
-  }
+  var number: Option[Int] = None
 
   override def replaceOverride(in: String): String = {
-    val next = replaceProperty("http_port2", 8082, in)
-    replaceKeyWith("_project", default, next)
+    replaceProperty("http_port2", 8082, in)
   }
 
   val test: ScenarioBuilder = scenario(unique)
     .feed(data)
-    .exec(gitRequest)
-
-  private val createProject = new CreateProjectUsingHAGerrit1(default)
-  private val deleteProject = new DeleteProjectUsingHAGerrit(default)
+    .exec(session => {
+      if (number.nonEmpty) {
+        session.set("number", number.get)
+      } else {
+        session
+      }
+    })
+    .exec(http(unique).delete("${url}${number}"))
 
   setUp(
-    createProject.test.inject(
-      atOnceUsers(1)
-    ),
     test.inject(
-      nothingFor(2 seconds),
       atOnceUsers(1)
     ),
-    deleteProject.test.inject(
-      nothingFor(4 seconds),
-      atOnceUsers(1)
-    ),
-  ).protocols(gitProtocol, httpProtocol)
+  ).protocols(httpProtocol)
 }
