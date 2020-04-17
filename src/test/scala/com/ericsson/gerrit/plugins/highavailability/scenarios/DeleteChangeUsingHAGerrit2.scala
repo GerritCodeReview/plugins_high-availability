@@ -24,6 +24,10 @@ class DeleteChangeUsingHAGerrit2 extends GerritSimulation {
   private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(keys).queue
   var number: Option[Int] = None
 
+  override def weight: Int = {
+    10
+  }
+
   override def replaceOverride(in: String): String = {
     replaceProperty("http_port2", 8082, in)
   }

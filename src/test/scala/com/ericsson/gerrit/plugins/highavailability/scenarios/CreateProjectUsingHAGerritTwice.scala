@@ -33,19 +33,19 @@ class CreateProjectUsingHAGerritTwice extends GitSimulation {
       atOnceUsers(1)
     ),
     deleteProject.test.inject(
-      nothingFor(2 seconds),
+      nothingFor(createProject.max seconds),
       atOnceUsers(1)
     ),
     createItAgain.test.inject(
-      nothingFor(4 seconds),
+      nothingFor(createProject.max + deleteProject.max seconds),
       atOnceUsers(1)
     ),
     verifyProject.test.inject(
-      nothingFor(6 seconds),
+      nothingFor(createProject.max + deleteProject.max + createItAgain.max seconds),
       atOnceUsers(1)
     ),
     deleteItAfter.test.inject(
-      nothingFor(8 seconds),
+      nothingFor(createProject.max + deleteProject.max + createItAgain.max + verifyProject.max seconds),
       atOnceUsers(1)
     ),
   ).protocols(gitProtocol, httpProtocol)
