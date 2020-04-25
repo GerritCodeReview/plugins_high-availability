@@ -20,14 +20,14 @@ import io.gatling.core.feeder.FileBasedFeederBuilder
 import io.gatling.core.structure.ScenarioBuilder
 
 class DeleteProjectUsingHAGerrit extends ProjectSimulation {
-  private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(url).queue
+  private val data: FileBasedFeederBuilder[Any]#F#F = jsonFile(resource).convert(keys).queue
 
   def this(default: String) {
     this()
     this.default = default
   }
 
-  val test: ScenarioBuilder = scenario(name)
+  val test: ScenarioBuilder = scenario(unique)
     .feed(data)
     .exec(httpRequest)
 
