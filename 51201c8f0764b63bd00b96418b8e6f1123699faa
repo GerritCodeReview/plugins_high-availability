@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb3b6bcc_400e3626",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002666
+      },
+      "writtenOn": "2020-04-30T18:39:50Z",
+      "side": 1,
+      "message": "Have you considered the approach outlined in https://www.gerritcodereview.com/design-docs/scaling-multi-master-replication-solution-distribute-replication-tasks-via-shared-FS.html ?\n\nThat feature is expected to be stable on 3.2, but if you really wanted, you could backport it to 2.16 (or take the stable-3.2 replication branch and adapt it to 2.16 core).",
+      "revId": "51201c8f0764b63bd00b96418b8e6f1123699faa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
