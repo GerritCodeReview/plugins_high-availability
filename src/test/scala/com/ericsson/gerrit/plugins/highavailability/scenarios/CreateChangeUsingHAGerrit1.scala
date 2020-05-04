@@ -27,6 +27,8 @@ class CreateChangeUsingHAGerrit1 extends GerritSimulation {
   private val default: String = name
   private val numberKey = "_number"
 
+  override def relativeRuntimeWeight = 10
+
   override def replaceOverride(in: String): String = {
     replaceProperty("http_port1", 8081, in)
   }
@@ -47,18 +49,19 @@ class CreateChangeUsingHAGerrit1 extends GerritSimulation {
 
   setUp(
     createProject.test.inject(
+      nothingFor(stepWaitTime(createProject) seconds),
       atOnceUsers(1)
     ),
     test.inject(
-      nothingFor(2 seconds),
+      nothingFor(stepWaitTime(this) seconds),
       atOnceUsers(1)
     ),
     deleteChange.test.inject(
-      nothingFor(20 seconds),
+      nothingFor(stepWaitTime(deleteChange) seconds),
       atOnceUsers(1)
     ),
     deleteProject.test.inject(
-      nothingFor(40 seconds),
+      nothingFor(stepWaitTime(deleteProject) seconds),
       atOnceUsers(1)
     ),
   ).protocols(httpProtocol)
