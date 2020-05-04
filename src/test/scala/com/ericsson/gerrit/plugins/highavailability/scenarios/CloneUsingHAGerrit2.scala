@@ -44,14 +44,15 @@ class CloneUsingHAGerrit2 extends GitSimulation {
 
   setUp(
     createProject.test.inject(
+      nothingFor(stepWaitTime(createProject) seconds),
       atOnceUsers(1)
     ),
     test.inject(
-      nothingFor(2 seconds),
+      nothingFor(stepWaitTime(this) seconds),
       atOnceUsers(1)
     ),
     deleteProject.test.inject(
-      nothingFor(4 seconds),
+      nothingFor(stepWaitTime(deleteProject) seconds),
       atOnceUsers(1)
     ),
   ).protocols(gitProtocol, httpProtocol)
