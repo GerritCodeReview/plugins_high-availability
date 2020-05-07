@@ -57,9 +57,10 @@ Prerequisites:
 
 For the masters:
 
-* Configure database section in gerrit.config to use the shared database
+* Configure the database section in gerrit.config to use the shared database
 * Configure gerrit.basePath in gerrit.config to the shared repositories location
-* Install and configure @PLUGIN@ plugin
+* Configure gerrit.serverId in gerrit.config based on [config](config.md)'s introduction
+* Install and configure this @PLUGIN@ plugin [further](config.md) or based on below.
 
 Here is an example of the minimal @PLUGIN@.config:
 

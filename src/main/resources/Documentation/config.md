@@ -2,8 +2,14 @@
 @PLUGIN@ Configuration
 =========================
 
-The @PLUGIN@ plugin must be installed on all the instances and the following fields
-should be specified in `$site_path/etc/@PLUGIN@.config` file:
+The @PLUGIN@ plugin must be installed on all the instances. Each instance should
+be configured with the same [gerrit.serverId](https://gerrit-review.googlesource.com/Documentation/config-gerrit.html#gerrit.serverId).
+If there are existing changes in [NoteDb](https://gerrit-review.googlesource.com/Documentation/note-db.html)
+made with another `serverId`, then this plugin might not be able to access them.
+Likewise, if the HA gerrit.serverIds differ, then changes conveyed by one
+instance will not be accessible by the other.
+
+The following fields should be specified in `$site_path/etc/@PLUGIN@.config` files:
 
 File '@PLUGIN@.config'
 --------------------
