@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d68c5ab1_5501fa92",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-08T15:26:02Z",
+      "side": 1,
+      "message": "Done. I used the https link as when browsing from https://www.gerritcodereview.com/3.0.html",
+      "parentUuid": "96206342_b43e702e",
+      "range": {
+        "startLine": 6,
+        "startChar": 46,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "701b215a5c1898c390248ff92bdfe2d10b5e5ebc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07ac5449_83e3ccf6",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "701b215a5c1898c390248ff92bdfe2d10b5e5ebc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac66645a_5a3a4099",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-08T15:26:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07ac5449_83e3ccf6",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 83
+      },
+      "revId": "701b215a5c1898c390248ff92bdfe2d10b5e5ebc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
