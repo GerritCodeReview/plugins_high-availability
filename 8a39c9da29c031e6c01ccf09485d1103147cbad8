@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6aecb3fb_8d190f72",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/CheckProjectsCacheFlushEntriesUsingHAGerrit1.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-12T18:23:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17383249_07670828",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b268fa55_68812aff",
         "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/FlushProjectsCacheUsingHAGerrit2.scala",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c9487e_33b3b3f4",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/FlushProjectsCacheUsingHAGerrit2.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-12T18:23:23Z",
+      "side": 1,
+      "message": "Answered in https://gerrit-review.googlesource.com/c/gerrit/+/266712/1/e2e-tests/src/test/scala/com/google/gerrit/scenarios/FlushProjectsCache.scala",
+      "parentUuid": "b268fa55_68812aff",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "51e44688_041999fb",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-12T18:23:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "342ee8d0_76b3e190",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea367449_093960a1",
         "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c25781d1_f5675ded",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-12T18:23:23Z",
+      "side": 1,
+      "message": "Answered in https://gerrit-review.googlesource.com/c/gerrit/+/266712/1/e2e-tests/src/test/scala/com/google/gerrit/scenarios/CheckProjectsCacheFlushEntries.scala",
+      "parentUuid": "ea367449_093960a1",
+      "range": {
+        "startLine": 34,
+        "startChar": 19,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dd03c70_0a0011db",
         "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fce98059_40759f80",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-05-12T18:23:23Z",
+      "side": 1,
+      "message": "Ack (a potential follow-up).",
+      "parentUuid": "0dd03c70_0a0011db",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
