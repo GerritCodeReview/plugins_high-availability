@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17383249_07670828",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/CheckProjectsCacheFlushEntriesUsingHAGerrit1.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-05-12T13:22:09Z",
+      "side": 1,
+      "message": "Same comment as in: https://gerrit-review.googlesource.com/c/gerrit/+/266712/1/e2e-tests/src/test/scala/com/google/gerrit/scenarios/CacheFlushSimulation.scala\n\nI think this can be more functional style, but it will require a bit of rework. Can be done later or to keep in mind for next similar code.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 0
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b268fa55_68812aff",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/FlushProjectsCacheUsingHAGerrit2.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-05-12T13:22:09Z",
+      "side": 1,
+      "message": "What is the purpose of this variable?  We are not doing nay computation on it. Can we just use \"name\" instead?",
+      "range": {
+        "startLine": 26,
+        "startChar": 14,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "342ee8d0_76b3e190",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-05-12T13:22:09Z",
+      "side": 1,
+      "message": "nit: This is probably a simpler `FeederBuilder`",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea367449_093960a1",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-05-12T13:22:09Z",
+      "side": 1,
+      "message": "This could be concatenated this way:\n`s\"\\\"memKey\\\": (\\\\d+)\"`",
+      "range": {
+        "startLine": 34,
+        "startChar": 19,
+        "endLine": 34,
+        "endChar": 47
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd03c70_0a0011db",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-05-12T13:22:09Z",
+      "side": 1,
+      "message": "A more functional style would be:\n\n`consumer.foreach(_.get.entriesBeforeFlush(session(entriesKey).as[String]))`",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "8a39c9da29c031e6c01ccf09485d1103147cbad8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
