@@ -14,6 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import javax.annotation.Nullable;
+
+import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventBroker;
 import com.google.gerrit.server.events.EventListener;
@@ -32,8 +35,9 @@ class ForwardedAwareEventBroker extends EventBroker {
       PluginSetContext<EventListener> unrestrictedListeners,
       PermissionBackend permissionBackend,
       ProjectCache projectCache,
-      Factory notesFactory) {
-    super(listeners, unrestrictedListeners, permissionBackend, projectCache, notesFactory);
+      Factory notesFactory,
+      @Nullable @GerritInstanceId String gerritInstanceId) {
+    super(listeners, unrestrictedListeners, permissionBackend, projectCache, notesFactory, gerritInstanceId);
   }
 
   @Override
