@@ -19,6 +19,7 @@ import com.google.gerrit.httpd.CacheBasedWebSession;
 import com.google.gerrit.httpd.WebSessionManagerFactory;
 import com.google.gerrit.server.AnonymousUser;
 import com.google.gerrit.server.IdentifiedUser.RequestFactory;
+import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.config.AuthConfig;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -37,13 +38,15 @@ public class FileBasedWebSession extends CacheBasedWebSession {
       FileBasedWebsessionCache cache,
       AuthConfig authConfig,
       Provider<AnonymousUser> anonymousProvider,
-      RequestFactory identified) {
+      RequestFactory identified,
+      AccountCache accountCache) {
     super(
         request.get(),
         response.get(),
         managerFactory.create(cache),
         authConfig,
         anonymousProvider,
-        identified);
+        identified,
+        accountCache);
   }
 }
