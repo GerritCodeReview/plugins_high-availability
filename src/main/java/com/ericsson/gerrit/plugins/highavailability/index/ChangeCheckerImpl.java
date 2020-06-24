@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Change;
-import com.google.gerrit.entities.Comment;
+import com.google.gerrit.entities.HumanComment;
 import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -144,7 +144,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
     Change change = notes.getChange();
     Timestamp changeTs = change.getLastUpdatedOn();
-    for (Comment comment : commentsUtil.draftByChange(changeNotes.get())) {
+    for (HumanComment comment : commentsUtil.draftByChange(changeNotes.get())) {
       Timestamp commentTs = comment.writtenOn;
       changeTs = commentTs.after(changeTs) ? commentTs : changeTs;
     }
