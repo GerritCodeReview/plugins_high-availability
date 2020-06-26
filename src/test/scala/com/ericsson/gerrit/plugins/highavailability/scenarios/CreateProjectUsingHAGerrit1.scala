@@ -38,6 +38,6 @@ class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
 
   setUp(
     test.inject(
-      atOnceUsers(1)
+      atOnceUsers(single)
     )).protocols(httpProtocol)
 }
