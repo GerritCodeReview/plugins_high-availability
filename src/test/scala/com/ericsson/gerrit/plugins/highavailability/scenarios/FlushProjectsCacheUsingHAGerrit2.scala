@@ -43,23 +43,23 @@ class FlushProjectsCacheUsingHAGerrit2 extends CacheFlushSimulation {
   setUp(
     createProject.test.inject(
       nothingFor(stepWaitTime(createProject) seconds),
-      atOnceUsers(1)
+      atOnceUsers(single)
     ),
     getCacheEntriesAfterProject.test.inject(
       nothingFor(stepWaitTime(getCacheEntriesAfterProject) seconds),
-      atOnceUsers(1)
+      atOnceUsers(single)
     ),
     flushCache.inject(
       nothingFor(stepWaitTime(this) seconds),
-      atOnceUsers(1)
+      atOnceUsers(single)
     ),
     checkCacheEntriesAfterFlush.test.inject(
       nothingFor(stepWaitTime(checkCacheEntriesAfterFlush) seconds),
-      atOnceUsers(1)
+      atOnceUsers(single)
     ),
     deleteProject.test.inject(
       nothingFor(stepWaitTime(deleteProject) seconds),
-      atOnceUsers(1)
+      atOnceUsers(single)
     ),
   ).protocols(httpProtocol)
 }
