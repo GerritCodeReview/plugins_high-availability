@@ -33,6 +33,23 @@
       "revId": "e4507cc9fc9624f76b23308d34cad5feb2c48cb4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e9b05eb_0a047de9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1087826
+      },
+      "writtenOn": "2020-07-01T18:12:14Z",
+      "side": 1,
+      "message": "Zuul isn\u0027t running the plugin build job on this branch because we didn\u0027t add support for it in the Gerrit project for 2.15.\n\nThe job inherits from gerrit-base which is first defined[1] on 2.16.\n\n[1] https://gerrit.googlesource.com/gerrit/+/refs/heads/stable-2.16/.zuul.yaml",
+      "revId": "e4507cc9fc9624f76b23308d34cad5feb2c48cb4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
