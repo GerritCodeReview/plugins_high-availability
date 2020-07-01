@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9971a8c0_9bc95805",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-01T19:01:45Z",
+      "side": 1,
+      "message": "Now, that the fix was merged on stable-2.15 branch should we re-do this merge and include the cherry-pick from stable-2.15 branch?",
+      "revId": "c24379275605cc21b7df8bf6ba4205a5c1905b5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
