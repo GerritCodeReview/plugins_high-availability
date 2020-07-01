@@ -16,6 +16,23 @@
       "revId": "e4507cc9fc9624f76b23308d34cad5feb2c48cb4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9e83ebe_269a55bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-01T12:14:58Z",
+      "side": 1,
+      "message": "I\u0027m getting this mail from Zuul:\n\n  The combined check state has been updated to NOT_RELEVANT for patch set 1.",
+      "revId": "e4507cc9fc9624f76b23308d34cad5feb2c48cb4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
