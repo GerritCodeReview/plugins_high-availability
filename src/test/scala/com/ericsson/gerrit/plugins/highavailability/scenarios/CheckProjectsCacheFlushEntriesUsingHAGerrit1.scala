@@ -47,6 +47,6 @@ class CheckProjectsCacheFlushEntriesUsingHAGerrit1 extends CacheFlushSimulation 
 
   setUp(
     test.inject(
-      atOnceUsers(1)
+      atOnceUsers(single)
     )).protocols(httpProtocol)
 }
