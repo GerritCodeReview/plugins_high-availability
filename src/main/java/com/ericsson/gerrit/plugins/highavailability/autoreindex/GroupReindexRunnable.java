@@ -15,7 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
-import com.google.gerrit.common.data.GroupReference;
+import com.google.gerrit.entities.GroupReference;
 import com.google.gerrit.server.group.db.Groups;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
