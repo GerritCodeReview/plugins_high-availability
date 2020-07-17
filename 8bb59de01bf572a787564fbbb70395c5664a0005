@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75374c2d_de5d26ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-17T21:53:39Z",
+      "side": 1,
+      "message": "Here, the Zuul check failure is genuine, and about what I wrote in the commit message. Comments welcome.",
+      "revId": "8bb59de01bf572a787564fbbb70395c5664a0005",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
