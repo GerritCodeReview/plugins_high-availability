@@ -1,2 +1,3 @@
 build --workspace_status_command="python ./tools/workspace_status.py"
+build --java_toolchain //tools:error_prone_warnings_toolchain
 test --build_tests_only
