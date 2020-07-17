@@ -16,6 +16,24 @@
       "revId": "af5a1cc35eb08036d376b7e02eaa19df739ecec8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d622496_90881520",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-17T17:35:13Z",
+      "side": 1,
+      "message": "I think so yes. I\u0027m working on fixing those, likely latest-master (api) missing adaptations.",
+      "parentUuid": "00c270a6_b984f972",
+      "revId": "af5a1cc35eb08036d376b7e02eaa19df739ecec8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
