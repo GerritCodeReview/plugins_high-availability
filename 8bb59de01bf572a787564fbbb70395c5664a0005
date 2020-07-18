@@ -33,6 +33,23 @@
       "revId": "8bb59de01bf572a787564fbbb70395c5664a0005",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12cf7532_112475be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-18T16:39:02Z",
+      "side": 1,
+      "message": "It can be done less intrusive and also have effect on in tree build: add the javacopts to the junit_tests rule. Will upload a fix in a moment.",
+      "revId": "8bb59de01bf572a787564fbbb70395c5664a0005",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
