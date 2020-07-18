@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c034fda0_2a8eb4e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-18T22:17:38Z",
+      "side": 1,
+      "message": "Will rebase this change on Idac4d2562.",
+      "revId": "437ab53933945ba8c69575dc3e2fe71cc097cecb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df250795_d65a0018",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-18T22:17:38Z",
+      "side": 1,
+      "message": "WARN, so we keep track this debt?",
+      "range": {
+        "startLine": 28,
+        "startChar": 33,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "437ab53933945ba8c69575dc3e2fe71cc097cecb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
