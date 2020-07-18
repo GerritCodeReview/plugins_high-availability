@@ -39,6 +39,30 @@
       "revId": "437ab53933945ba8c69575dc3e2fe71cc097cecb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2b88af1_0a20cc80",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-18T22:22:54Z",
+      "side": 1,
+      "message": "\u003e WARN, so we keep track this debt?\n\n*track of*, rather (above).",
+      "parentUuid": "df250795_d65a0018",
+      "range": {
+        "startLine": 28,
+        "startChar": 33,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "437ab53933945ba8c69575dc3e2fe71cc097cecb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
