@@ -16,6 +16,23 @@
       "revId": "8d1863a3749d433c2ebf9c3b465fc3b3228b60ac",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4b6678b_a41e01ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-18T17:00:12Z",
+      "side": 1,
+      "message": "stable-3.2 branch should be created, before merging this. I just did it.",
+      "revId": "8d1863a3749d433c2ebf9c3b465fc3b3228b60ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
