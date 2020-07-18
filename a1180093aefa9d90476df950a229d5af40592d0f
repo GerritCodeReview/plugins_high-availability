@@ -16,6 +16,23 @@
       "revId": "a1180093aefa9d90476df950a229d5af40592d0f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c3b0c85_dd34f67b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-18T17:01:09Z",
+      "side": 1,
+      "message": "Now that stable-3.2 was created, this should be merged into stabe-3.2 branch.",
+      "revId": "a1180093aefa9d90476df950a229d5af40592d0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
