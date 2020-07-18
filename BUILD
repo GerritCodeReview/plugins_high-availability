@@ -33,6 +33,7 @@ junit_tests(
     deps = [
         ":high-availability__plugin_test_deps",
     ],
+    javacopts = ["-Xep:DoNotMock:OFF"],
 )
 
 java_library(
