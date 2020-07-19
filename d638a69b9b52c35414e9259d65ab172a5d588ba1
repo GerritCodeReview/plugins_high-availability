@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c18c1b1_2d26b0ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-19T12:02:17Z",
+      "side": 1,
+      "message": "This is not accurate, as the same Bazel version 3.4.1 can successfully build this plugin on stable-3.1 branch. It\u0027s the combination of two things: recent Bazel \u0026 recent guava release, where Cache class was annotated with @DoNotMock Error Prone annotation.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "d638a69b9b52c35414e9259d65ab172a5d588ba1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
