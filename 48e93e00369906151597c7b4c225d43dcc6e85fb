@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "801cabbd_7f506f33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-19T07:06:11Z",
+      "side": 1,
+      "message": "stable-3.2 branch was created from wrong commit. This should be fixed first.",
+      "revId": "48e93e00369906151597c7b4c225d43dcc6e85fb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
