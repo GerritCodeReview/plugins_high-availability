@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "517c394d_d2174276",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-07-20T15:03:47Z",
+      "side": 1,
+      "message": "Failure seems to be justified? The code should be adjusted to latest master:\n\n  GroupReindexRunnable.java:18: error: cannot find symbol\n  import com.google.gerrit.common.data.GroupReference;",
+      "revId": "e36102f86595cb911d4944d0075f09014ebe59f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
