@@ -1,5 +1,5 @@
 [
   {
-    "url": "http://HOSTNAME/a/config/server/caches/projects"
+    "url": "HTTP_SCHEME://HOSTNAME/a/config/server/caches/projects"
   }
 ]
