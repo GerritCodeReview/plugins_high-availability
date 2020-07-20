@@ -1,6 +1,6 @@
 [
   {
-    "url": "http://HOSTNAME:HTTP_PORT2/_PROJECT",
+    "url": "HTTP_SCHEME://HOSTNAME:HTTP_PORT2/_PROJECT",
     "cmd": "clone"
   }
 ]
