@@ -25,6 +25,7 @@ gerrit_plugin(
 junit_tests(
     name = "high-availability_tests",
     srcs = glob(["src/test/java/**/*.java"]),
+    javacopts = ["-Xep:DoNotMock:OFF"],
     resources = glob(["src/test/resources/**/*"]),
     tags = [
         "high-availability",
