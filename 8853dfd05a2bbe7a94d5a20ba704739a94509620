@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3da4074b_8bf4b325",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-27T20:43:23Z",
+      "side": 1,
+      "message": "high-availability/src/test/docker $ docker-compose build [--build-arg GERRIT_UID] (optional here) \u003d\u003e\nBuilding gerrit-01\nStep 1/16 : FROM gerritcodereview/gerrit:3.0.12\nERROR: Service \u0027gerrit-01\u0027 failed to build: manifest for gerritcodereview/gerrit:3.0.12 not found: manifest unknown: manifest unknown\n\n-When I try to build that (usual) service locally.\nThe tag is missing from docker hub [1] indeed, as opposed to 2.16.22\u0027s [2]:\n\n[1] https://hub.docker.com/r/gerritcodereview/gerrit/tags?page\u003d1\u0026name\u003d3.0.12\n[2] https://hub.docker.com/r/gerritcodereview/gerrit/tags?page\u003d1\u0026name\u003d2.16.22",
+      "revId": "8853dfd05a2bbe7a94d5a20ba704739a94509620",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
