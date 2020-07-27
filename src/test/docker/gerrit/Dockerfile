@@ -1,4 +1,4 @@
-FROM gerritcodereview/gerrit:3.0.11
+FROM gerritcodereview/gerrit:3.0.12
 
 ENV GERRIT_BRANCH=stable-3.0
 
