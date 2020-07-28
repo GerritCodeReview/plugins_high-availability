@@ -16,6 +16,23 @@
       "revId": "0d43df6e8cdf508545760ce4e0d5331be61347d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "605d891d_18c3b201",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-07-28T21:24:29Z",
+      "side": 1,
+      "message": "Please wait for the v3.1.8 Docker release: I\u0027ve done 3.0.12 today, I am planning to do v3.1.8 tomorrow. Apologies for being late, I was off last week when the 2.16.x, 3.0.x and 3.1.x happened.",
+      "revId": "0d43df6e8cdf508545760ce4e0d5331be61347d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
