@@ -33,6 +33,24 @@
       "revId": "0d43df6e8cdf508545760ce4e0d5331be61347d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34ff1dee_1dd058a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-07-28T21:26:48Z",
+      "side": 1,
+      "message": "Thanks Luca. Sure, no rush intended. Take your time. This change can wait.",
+      "parentUuid": "605d891d_18c3b201",
+      "revId": "0d43df6e8cdf508545760ce4e0d5331be61347d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
