@@ -51,6 +51,23 @@
       "revId": "0d43df6e8cdf508545760ce4e0d5331be61347d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acea83dc_eef0bf43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-07-29T06:58:48Z",
+      "side": 1,
+      "message": "Gerrit v3.1.8 (Docker) is now published.",
+      "revId": "0d43df6e8cdf508545760ce4e0d5331be61347d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
