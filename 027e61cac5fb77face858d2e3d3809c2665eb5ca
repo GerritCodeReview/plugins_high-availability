@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b739356_5705855f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2020-07-30T18:18:09Z",
+      "side": 1,
+      "message": "Should we create a follow-up that uses 3.2.3 image?",
+      "revId": "027e61cac5fb77face858d2e3d3809c2665eb5ca",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
