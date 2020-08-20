@@ -45,8 +45,19 @@ class ForwardedAwareEventBroker extends EventBroker {
         gerritInstanceId);
   }
 
+  private boolean isProducedByDifferentInstance(Event event) {
+    return event.instanceId != null && !event.instanceId.equals(gerritInstanceId);
+  }
+
   @Override
   protected void fireEventForUnrestrictedListeners(Event event) {
+    // An event should not be dispatched when it is "forwarded".
+    // meaning, it was either produced produced somewhere else
+    if (isProducedByDifferentInstance(event)) {
+      Context.setForwardedEvent(true);
+    }
+    // or it was consumed by the high-availability rest endpoint and
+    // thus the context of its consumption has already been set to "forwarded"
     if (!Context.isForwardedEvent()) {
       super.fireEventForUnrestrictedListeners(event);
     }
