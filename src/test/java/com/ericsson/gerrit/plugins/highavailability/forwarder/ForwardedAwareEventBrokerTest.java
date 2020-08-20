@@ -58,4 +58,15 @@ public class ForwardedAwareEventBrokerTest {
     }
     verifyZeroInteractions(listenerMock);
   }
+
+  @Test
+  public void shouldNotDispatchEventsProducedByDifferentGerritInstance() {
+    event.instanceId = "gerrit-test-instance";
+    try {
+      broker.fireEventForUnrestrictedListeners(event);
+    } finally {
+      Context.unsetForwardedEvent();
+    }
+    verifyZeroInteractions(listenerMock);
+  }
 }
