@@ -30,7 +30,9 @@ public class ForwardedAwareEventBrokerTest {
 
   private EventListener listenerMock;
   private ForwardedAwareEventBroker broker;
-  private Event event = new TestEvent();
+  private ForwardedAwareEventBroker brokerWithGerritInstanceId;
+  private Event event;
+  private String gerritInstanceId = "gerrit-instance-id";
 
   @Before
   public void setUp() {
@@ -38,8 +40,11 @@ public class ForwardedAwareEventBrokerTest {
     listenerMock = mock(EventListener.class);
     DynamicSet<EventListener> set = DynamicSet.emptySet();
     set.add("high-availability", listenerMock);
+    event = new TestEvent();
     PluginSetContext<EventListener> listeners = new PluginSetContext<>(set, mockMetrics);
     broker = new ForwardedAwareEventBroker(null, listeners, null, null, null, null);
+    brokerWithGerritInstanceId =
+        new ForwardedAwareEventBroker(null, listeners, null, null, null, gerritInstanceId);
   }
 
   @Test
@@ -57,5 +62,44 @@ public class ForwardedAwareEventBrokerTest {
       Context.unsetForwardedEvent();
     }
     verifyZeroInteractions(listenerMock);
+  }
+
+  @Test
+  public void shouldNotDispatchEventWhenEventInstanceIdIsDefinedButGerritInstanceIdIsNot() {
+    event.instanceId = "some-gerrit-instance-id";
+    try {
+      broker.fireEventForUnrestrictedListeners(event);
+    } finally {
+      Context.unsetForwardedEvent();
+    }
+    verifyZeroInteractions(listenerMock);
+  }
+
+  @Test
+  public void shouldNotDispatchEventWhenGerritInstanceIdIsDefinedButEventInstanceIdIsNot() {
+    try {
+      brokerWithGerritInstanceId.fireEventForUnrestrictedListeners(event);
+    } finally {
+      Context.unsetForwardedEvent();
+    }
+    verifyZeroInteractions(listenerMock);
+  }
+
+  @Test
+  public void shouldNotDispatchEventWhenInstanceIdsAreDifferent() {
+    event.instanceId = "some-other-gerrit-instance-id";
+    try {
+      brokerWithGerritInstanceId.fireEventForUnrestrictedListeners(event);
+    } finally {
+      Context.unsetForwardedEvent();
+    }
+    verifyZeroInteractions(listenerMock);
+  }
+
+  @Test
+  public void shouldDispatchEventWhenInstanceIdsAreEquals() {
+    event.instanceId = gerritInstanceId;
+    brokerWithGerritInstanceId.fireEventForUnrestrictedListeners(event);
+    verify(listenerMock).onEvent(event);
   }
 }
