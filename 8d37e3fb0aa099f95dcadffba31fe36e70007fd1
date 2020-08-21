@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9486947b_35cc0dbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T10:11:51Z",
+      "side": 1,
+      "message": "LGTM, just one nit on the test.\nWe should also amend the high-availability plugin documentation and include the instanceId in the list of configuration settings to look at.\n\nLet\u0027s wait also for Monday when Marco is back to get its point of view on this fix.",
+      "revId": "8d37e3fb0aa099f95dcadffba31fe36e70007fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ea1086_a2841431",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T10:11:51Z",
+      "side": 1,
+      "message": "Why not using the gerritInstanceId variable?",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "8d37e3fb0aa099f95dcadffba31fe36e70007fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
