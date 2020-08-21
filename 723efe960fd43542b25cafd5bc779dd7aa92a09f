@@ -333,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "c050ebdf_0d01d435",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T09:02:12Z",
+      "side": 1,
+      "message": "And obviously there\u0027s one missing:\n\nevent.instanceId: A    - gerrit.instanceId: A    -\u003e false  (they are the same)",
+      "parentUuid": "e463d70a_6dd89c16",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
