@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "cd87c347_f1553e57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:26:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "10861ca3_8125e007",
+      "range": {
+        "startLine": 10,
+        "startChar": 64,
+        "endLine": 10,
+        "endChar": 78
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be4b140c_cebf7c0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:26:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d869be7_4f703571",
+      "range": {
+        "startLine": 10,
+        "startChar": 57,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a071bc24_e58b57b6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2f969a2_fae5a40c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:26:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a071bc24_e58b57b6",
+      "range": {
+        "startLine": 15,
+        "startChar": 64,
+        "endLine": 16,
+        "endChar": 30
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3be0de67_cda9fda5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:26:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c42499c_09427711",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 4
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56ad6199_c1b0e06a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a0e405ce_eb8477dd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:26:23Z",
+      "side": 1,
+      "message": "If an event carries information about what GerritInstanceId produced it (say, \"GerritA\") and we know that *this* Gerrit is not *that* instance (because its GerritInstanceId is null and not \"GerritA\"), can we not infer that the message was produced somewhere else?",
+      "parentUuid": "56ad6199_c1b0e06a",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2020-08-20T22:00:32Z",
       "side": 1,
       "message": "This comment is more appropriate before L49 as it describes the rationale behind the instanceId logic.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 74
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6acd41f_4121af7a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:26:23Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment describes the rationale behind the instanceId logic. At least that wasn\u0027t the intent.\nTo me this comment describes the meaning of \"forwarded\" and how the \"forwarded\" context is affected *by* checking instanceId.\n\nL49\u0027s purpose is to check whether the event is produced by a different Gerrit instance, but it makes no assumptions on how that information will be used.\nFor these reasons I think this comment belongs here.\n\nHope it makes sense, WDYT?",
+      "parentUuid": "a958081d_2939be45",
       "range": {
         "startLine": 54,
         "startChar": 0,
