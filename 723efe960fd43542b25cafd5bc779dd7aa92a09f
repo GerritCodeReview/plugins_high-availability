@@ -357,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "f5a81178_affdbec5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T09:17:24Z",
+      "side": 1,
+      "message": "Correct. So basically, you could change the method name to \u0027isProducedByLocalInstance\u0027 and do:\n   return Objects.equals(event.instanceId, gerritInstanceId)\n\nSee the behaviour of Objects.equals:\nhttps://docs.oracle.com/javase/7/docs/api/java/util/Objects.html",
+      "parentUuid": "c050ebdf_0d01d435",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
