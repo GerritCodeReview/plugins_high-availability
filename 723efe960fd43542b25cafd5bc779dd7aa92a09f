@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "e463d70a_6dd89c16",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:59:20Z",
+      "side": 1,
+      "message": "Thinking again over this, we should always be able to say whether the event was produced by this Gerrit, unless both event.instanceId and gerrit.instanceId are null.\nI think the truth table should be as follows:\n\n* event.instanceId: null - gerrit.instanceId: null -\u003e false (we don\u0027t know, it could have been produced by *any* gerrit not having gerrit.instanceId).\n* event.instanceId: A    - gerrit.instanceId: null -\u003e true  (if gerrit had produced that event, event.instanceId would have been null)\n* event.instanceId: null - gerrit.instanceId: B    -\u003e true  (if gerrit had produced that event, event.instanceId would have been B)\n* event.instanceId: A    - gerrit.instanceId: B    -\u003e true  (they differ)\n\nIf you agree I\u0027ll change this logic accordingly, WDYT?",
+      "parentUuid": "0903e889_dcb752b4",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
@@ -356,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "625f2f11_bc0e1ed9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:59:20Z",
+      "side": 1,
+      "message": "I see what you mean, makes sense.\n\nLet me fix that.",
+      "parentUuid": "5f7d24b9_dda73ee6",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 74
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7e55baf_ec402253",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
         "patchSetId": 1
@@ -370,6 +418,24 @@
       "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d9c026_33ceaec7",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-21T08:59:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7e55baf_ec402253",
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
