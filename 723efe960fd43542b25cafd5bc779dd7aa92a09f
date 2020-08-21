@@ -453,6 +453,30 @@
     },
     {
       "key": {
+        "uuid": "4104e242_debade5e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T09:31:00Z",
+      "side": 1,
+      "message": "Exactly, so you cannot tell if that was yours or not and, for compatibility, we have to assume that it was ours.\n\nIf we assume it is not ours, then we break existing setups because if you don\u0027t set instanceId in gerrit.config then we won\u0027t forward any event to anyone anymore.",
+      "parentUuid": "73ce2082_9e4f0c8c",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
