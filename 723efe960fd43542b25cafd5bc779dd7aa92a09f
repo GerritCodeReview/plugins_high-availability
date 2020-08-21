@@ -405,6 +405,30 @@
     },
     {
       "key": {
+        "uuid": "c337cd7f_dab33fd3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T09:24:13Z",
+      "side": 1,
+      "message": "\u003e We cannot use Objects.equals because:\n\u003e \n\u003e \u003e if both arguments are null, true is returned\n\u003e \n\u003e In that case, we want false instead.\n\nWhy? If I do not set the instanceId in gerrit.config *AND* I receive an event with a null instanceId *THEN* I can say that I have produced that event.\n\nAm I missing something?",
+      "parentUuid": "d520fd31_a0862ed3",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
