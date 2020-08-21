@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d44bef5f_93297b3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T08:36:41Z",
+      "side": 1,
+      "message": "Forgot to amend the text? It was just a nit anyway, it\u0027s up to you.",
+      "parentUuid": "c2f969a2_fae5a40c",
+      "range": {
+        "startLine": 15,
+        "startChar": 64,
+        "endLine": 16,
+        "endChar": 30
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c42499c_09427711",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "0903e889_dcb752b4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T08:36:41Z",
+      "side": 1,
+      "message": "You are right: if the instanceId wasn\u0027t set in the gerrit.config then the event would have not have had that field filled in. Makes sense.",
+      "parentUuid": "a0e405ce_eb8477dd",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a958081d_2939be45",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 1
@@ -278,6 +326,47 @@
         "endLine": 58,
         "endChar": 74
       },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f7d24b9_dda73ee6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T08:36:41Z",
+      "side": 1,
+      "message": "The first two lines, yes. The other three lines, no, they explain how instanceId is related to the forwarding logic, which is exactly the name of the method \u0027isProducedByDifferentInstazce\u0027.\n\nFrom the caller\u0027s perspective, he doesn\u0027t care HOW the producer detection is calculated, so it is irrelevant to document here those implementation details.\n\nRemember that comments are THE ONLY piece of code that aren\u0027t tested and they don\u0027t break tests if they are wrong. So it is best to minimise the chance of getting them stale.",
+      "parentUuid": "b6acd41f_4121af7a",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 74
+      },
+      "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e55baf_ec402253",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-21T08:36:41Z",
+      "side": 1,
+      "message": "Nit: unrelated change",
       "revId": "723efe960fd43542b25cafd5bc779dd7aa92a09f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
