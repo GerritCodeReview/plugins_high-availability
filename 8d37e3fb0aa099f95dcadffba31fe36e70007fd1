@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e79da07c_42ee76af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-08-24T21:40:02Z",
+      "side": 1,
+      "message": "\u003e Let\u0027s wait also for Monday when Marco is back to get its point of view on this fix.\n\nI came back today but was unable to focus on this review; too many things awaiting internally. I\u0027m not forgetting and will come back to this asap for me, likely tomorrow...",
+      "parentUuid": "ad8d3b50_6114c093",
+      "revId": "8d37e3fb0aa099f95dcadffba31fe36e70007fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ea1086_a2841431",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
         "patchSetId": 6
