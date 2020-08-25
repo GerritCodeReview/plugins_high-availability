@@ -42,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "0d72742b_9e63e353",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-08-25T21:56:36Z",
+      "side": 1,
+      "message": "Adding colleagues in cc, as co-plugin maintainers according to [1,2]. If no more reviews, I think we may approve once all comments can be addressed.\n\n[1] https://www.gerritcodereview.com/plugins.html#active\n[2] https://bugs.chromium.org/p/gerrit/adminComponents",
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30ddb6db_0dc579ac",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 7
