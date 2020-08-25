@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "94bd1c29_5f53f337",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-25T21:34:15Z",
+      "side": 1,
+      "message": "Thanks, Marco.",
+      "parentUuid": "e79da07c_42ee76af",
+      "revId": "8d37e3fb0aa099f95dcadffba31fe36e70007fd1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ea1086_a2841431",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
         "patchSetId": 6
