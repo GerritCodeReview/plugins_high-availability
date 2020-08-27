@@ -377,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e5282590_9e2278b8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-08-27T22:19:31Z",
+      "side": 1,
+      "message": "My original comment (further above) was in line with Luca\u0027s above. Can we amend this doc part accordingly, and maybe add some of that info (Tony\u0027s above) to the commit message?",
+      "parentUuid": "9dbb1451_5826d452",
+      "range": {
+        "startLine": 257,
+        "startChar": 29,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "794498df_6ca0b0b7",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 7
