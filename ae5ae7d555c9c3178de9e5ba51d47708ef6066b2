@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "61910abd_8fe3e393",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b00a7dd_f0ae24af",
+      "range": {
+        "startLine": 7,
+        "startChar": 50,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1912078_7e22a474",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -77,6 +101,23 @@
     },
     {
       "key": {
+        "uuid": "73259219_83f296df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Thanks for your review @Marco, hopefully I have addressed the majority of your comments.\nPlease do let us know if you have other concerns.\n\n\nIn the meanwhile, I am still testing this change in correlation with the dual change in multi-site, which will prevent the eternal produce/consume loop from happening.\n\nI will then Verify+1, once I can prove this is behaving as it should.",
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30ddb6db_0dc579ac",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
         "patchSetId": 7
@@ -97,6 +138,30 @@
       "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30e1094_bfe618f1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30ddb6db_0dc579ac",
+      "range": {
+        "startLine": 56,
+        "startChar": 7,
+        "endLine": 56,
+        "endChar": 14
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -123,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "7e7e3a41_6aab8b32",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBroker.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad1ba80a_36f512a6",
+      "range": {
+        "startLine": 61,
+        "startChar": 67,
+        "endLine": 61,
+        "endChar": 78
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7b8f21b_b2490b15",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 7
@@ -143,6 +232,30 @@
       "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7db7121_dfc5c411",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7b8f21b_b2490b15",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 10
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -169,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "bca4d137_644fd023",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8348fbd4_b2150a30",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 3
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ce40955_2fd8b63a",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 7
@@ -180,6 +317,30 @@
       "writtenOn": "2020-08-25T21:50:06Z",
       "side": 1,
       "message": "Is this truly an applicable example in this HA plugin case? -To me, the latter should independently decide on consuming events or not that way, no matter if other consumer plugins co-habit with it.",
+      "range": {
+        "startLine": 257,
+        "startChar": 29,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9942300_9fd18eba",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "The decision on whether to produce/consume events *is* independent from any other plugins and it is solely driven by checking the event itself (specifically, the instanceId and how it correlates to the gerritInstanceId).\n\nIf events were solely landing in Gerrit through the HA plugin, then the context would already be set to \"forwarded\" by the receiving side of the latter.\nIn that case, this change would not be necessary, as the event would not be re-forwarded.\n\nThe need of this change arises from the possibility of events landing in Gerrit through *other* means, which, before this change, was not causing the *forwarded* context to be set and thus those events would be re-forwarded even though they shouldn\u0027t.\n\nThe multi-site example was meant to highlight *how* the above scenario can happen, it was not meant to suggest there\u0027s inter-tangled logic between HA and multi-site.\n\nHope it makes more sense.",
+      "parentUuid": "8ce40955_2fd8b63a",
       "range": {
         "startLine": 257,
         "startChar": 29,
@@ -215,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "fed46520_aed62ef0",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "794498df_6ca0b0b7",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 3
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1732a627_f0b1767e",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
         "patchSetId": 7
@@ -235,6 +420,30 @@
       "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddde2f01_8c2dbb8b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedAwareEventBrokerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-27T15:07:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1732a627_f0b1767e",
+      "range": {
+        "startLine": 100,
+        "startChar": 14,
+        "endLine": 100,
+        "endChar": 57
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
