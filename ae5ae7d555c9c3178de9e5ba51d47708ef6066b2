@@ -425,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "6387efdd_46fa7006",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-08-28T12:45:36Z",
+      "side": 1,
+      "message": "I (still) agree with your detailed explanations; SGTM too. I was proposing to add some more of that information (your explanation) to both this doc part and the commit message.\n\nSo, some of it in the doc and the rest (which is not doc material per se) in the commit message. -At will, based on your good judgment and understanding of this fix\u0027s motivation which makes sense (it does, to me too).\n\nFor this doc part to amend, I (and Luca I think) was thinking of adding a few clarifying words to it, without removing its meaning -which you did capture already yes. I will definitely rely on your last patch and say, for it all.",
+      "parentUuid": "a978e0f0_8c2c37d2",
+      "range": {
+        "startLine": 257,
+        "startChar": 29,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "794498df_6ca0b0b7",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 7
