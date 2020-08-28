@@ -401,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "a978e0f0_8c2c37d2",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-08-28T07:46:21Z",
+      "side": 1,
+      "message": "Sure thing, I can change this if you think it is misleading.\nHowever I still believe that comment is indeed useful, I will try one more time to convince you otherwise 😊 \n\nIf we were just to write \"do not forward events that were not originating from this instance of Gerrit.\" (or a similar sentence), a natural follow-up question from the reader might be: \"well, how can an event that didn\u0027t originate in Gerrit end-up here?\".\n\nAs today, the answer to that question is one: \"via the multi-site plugin\" (I cannot think of any other mean, for which this scenario would arise).\n\nBy mentioning \"multi-site\" I believe we achieve the opposite of misleading the reader, we provide the right context in which she can understand the forwarding logic applied to the \u0027instanceId\u0027 field.\n\nWDYT?",
+      "parentUuid": "e5282590_9e2278b8",
+      "range": {
+        "startLine": 257,
+        "startChar": 29,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "ae5ae7d555c9c3178de9e5ba51d47708ef6066b2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "794498df_6ca0b0b7",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 7
