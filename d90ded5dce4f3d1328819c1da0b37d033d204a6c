@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87662ffa_f6bb73c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-08-28T23:24:24Z",
+      "side": 1,
+      "message": "Works E2E but *only* after having applied Change-Id: I324a48a6 to Gerrit core.\nThe foreign instanceId values were overwritten by Gerrit and therefore this fix was ineffective.",
+      "revId": "d90ded5dce4f3d1328819c1da0b37d033d204a6c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
