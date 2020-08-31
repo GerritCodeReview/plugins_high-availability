@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5ba21c8_6b38ec97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-08-31T20:04:24Z",
+      "side": 1,
+      "message": "This I think depended on Ib2bdb2979 which is not merged yet; checks in progress.",
+      "revId": "7c53dd9ce15dfaa05abc279b7e01b28c4f2951c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
