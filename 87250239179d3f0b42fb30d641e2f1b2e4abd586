@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3a88519_93adb878",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-09-02T12:25:05Z",
+      "side": 1,
+      "message": "from",
+      "range": {
+        "startLine": 13,
+        "startChar": 29,
+        "endLine": 13,
+        "endChar": 33
+      },
+      "revId": "87250239179d3f0b42fb30d641e2f1b2e4abd586",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887787f4_32c0b0c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-09-02T12:25:05Z",
+      "side": 1,
+      "message": "with",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "87250239179d3f0b42fb30d641e2f1b2e4abd586",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9060350_6662d7df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-09-02T12:25:05Z",
+      "side": 1,
+      "message": "I would break the two sentences in two. Here I would just start with: \"It is a bug when ...\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 7
+      },
+      "revId": "87250239179d3f0b42fb30d641e2f1b2e4abd586",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01c97f68_65aad9b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-09-02T12:25:05Z",
+      "side": 1,
+      "message": "because it triggers",
+      "range": {
+        "startLine": 19,
+        "startChar": 31,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "87250239179d3f0b42fb30d641e2f1b2e4abd586",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829cd552_08b0b856",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-09-02T12:25:05Z",
+      "side": 1,
+      "message": "Thanks, @Tony, the description of the WHY is clear enough to me.\nJust some nits on the English form to make it more accessible for the reader, everything else looks good to me.",
+      "revId": "87250239179d3f0b42fb30d641e2f1b2e4abd586",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
