@@ -26,14 +26,18 @@ import java.util.regex.Pattern;
 @Singleton
 class CachePatternMatcher {
   private static final List<String> DEFAULT_PATTERNS =
-      ImmutableList.of(
-          "^accounts.*", "^groups.*", "ldap_usernames", "projects", "sshkeys", "web_sessions");
+      ImmutableList.of("^accounts.*", "^groups.*", "ldap_usernames", "projects", "sshkeys");
 
   private final Pattern pattern;
 
   @Inject
   CachePatternMatcher(Configuration cfg) {
     List<String> patterns = new ArrayList<>(DEFAULT_PATTERNS);
+
+    if (cfg.websession().synchronize()) {
+      patterns.add("web_sessions");
+    }
+
     patterns.addAll(cfg.cache().patterns());
     this.pattern = Pattern.compile(Joiner.on("|").join(patterns));
   }

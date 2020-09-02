@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.collect.ImmutableList;
+import java.util.Collections;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -77,5 +78,29 @@ public class CachePatternMatcherTest {
             "foo")) {
       assertWithMessage(cache + " should not match").that(matcher.matches(cache)).isFalse();
     }
+  }
+
+  @Test
+  public void testShouldNotMatchWebSessionsWhenNotSynchronized() {
+    String cache = "web_sessions";
+    when(configurationMock.cache().patterns()).thenReturn(Collections.emptyList());
+    when(configurationMock.websession().synchronize()).thenReturn(false);
+    CachePatternMatcher matcher = new CachePatternMatcher(configurationMock);
+
+    assertWithMessage(cache + " should NOT match when websession.synchronize is false")
+        .that(matcher.matches(cache))
+        .isFalse();
+  }
+
+  @Test
+  public void testShouldMatchWebSessionsWhenSynchronized() {
+    String cache = "web_sessions";
+    when(configurationMock.cache().patterns()).thenReturn(Collections.emptyList());
+    when(configurationMock.websession().synchronize()).thenReturn(true);
+    CachePatternMatcher matcher = new CachePatternMatcher(configurationMock);
+
+    assertWithMessage(cache + " should match when websession.synchronize is true")
+        .that(matcher.matches(cache))
+        .isTrue();
   }
 }
