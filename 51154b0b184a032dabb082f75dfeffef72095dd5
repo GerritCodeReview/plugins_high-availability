@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09b83212_d8d38dad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-09-02T12:45:38Z",
+      "side": 1,
+      "message": "Thanks @Luca,\nLet me verify this on a 3.0.\n\nHopefully, I will Verified+1 shortly.",
+      "revId": "51154b0b184a032dabb082f75dfeffef72095dd5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
