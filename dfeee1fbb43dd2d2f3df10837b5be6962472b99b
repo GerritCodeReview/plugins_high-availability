@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6166a70_01c5a752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-16T14:06:13Z",
+      "side": 1,
+      "message": "Thanks @Jacek for your CR. So I think I can now (self-)approve this (trivial) merge-up series.",
+      "revId": "dfeee1fbb43dd2d2f3df10837b5be6962472b99b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
