@@ -33,7 +33,7 @@ class CreateChangeUsingHAGerrit1 extends GerritSimulation {
     replaceProperty("http_port1", 8081, in)
   }
 
-  private val test: ScenarioBuilder = scenario(unique)
+  private val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest
       .body(ElFileBody(body)).asJson
