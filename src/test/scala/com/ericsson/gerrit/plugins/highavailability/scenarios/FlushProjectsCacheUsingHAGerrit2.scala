@@ -31,7 +31,7 @@ class FlushProjectsCacheUsingHAGerrit2 extends CacheFlushSimulation {
     replaceProperty("http_port2", 8082, in)
   }
 
-  private val flushCache: ScenarioBuilder = scenario(unique)
+  private val flushCache: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest)
 

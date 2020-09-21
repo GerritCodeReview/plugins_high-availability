@@ -32,7 +32,7 @@ class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
     super.replaceOverride(next)
   }
 
-  val test: ScenarioBuilder = scenario(unique)
+  val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest.body(RawFileBody(body)).asJson)
 
