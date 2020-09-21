@@ -20,7 +20,7 @@ import io.gatling.core.Predef.{atOnceUsers, _}
 import scala.concurrent.duration._
 
 class CreateProjectUsingHAGerritTwice extends GitSimulation {
-  private val default = name
+  private val default = className
 
   private val createProject = new CreateProjectUsingHAGerrit1(default)
   private val deleteProject = new DeleteProjectUsingHAGerrit(default)
