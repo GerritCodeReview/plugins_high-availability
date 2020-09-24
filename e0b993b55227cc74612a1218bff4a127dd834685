@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "491d2d9f_ff2744bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-24T22:15:36Z",
+      "side": 1,
+      "message": "Thanks @Khang for the CR. Co-topic changes approved by now.",
+      "revId": "e0b993b55227cc74612a1218bff4a127dd834685",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
