@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "056c36fe_76a6622f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-24T12:53:32Z",
+      "side": 1,
+      "message": "The co-tagged and identical core change I94c84583 has been approved and merged.",
+      "revId": "0bae41afe91b662de28cfdd8a6a0d7cbedf4aa30",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
