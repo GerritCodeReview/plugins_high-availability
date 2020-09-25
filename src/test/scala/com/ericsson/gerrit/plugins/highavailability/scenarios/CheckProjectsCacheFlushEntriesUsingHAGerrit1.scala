@@ -32,7 +32,7 @@ class CheckProjectsCacheFlushEntriesUsingHAGerrit1 extends CacheFlushSimulation 
     this.producer = Some(producer)
   }
 
-  val test: ScenarioBuilder = scenario(unique)
+  val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(session => {
       if (producer.nonEmpty) {
@@ -41,7 +41,7 @@ class CheckProjectsCacheFlushEntriesUsingHAGerrit1 extends CacheFlushSimulation 
         session
       }
     })
-    .exec(http(unique).get("${url}")
+    .exec(http(uniqueName).get("${url}")
       .check(regex("\"" + memKey + "\": (\\d+)")
         .is(session => session(entriesKey).as[String])))
 

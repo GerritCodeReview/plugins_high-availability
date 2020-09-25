@@ -22,12 +22,12 @@ import io.gatling.core.structure.ScenarioBuilder
 class DeleteProjectUsingHAGerrit extends ProjectSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
 
-  def this(default: String) {
+  def this(projectName: String) {
     this()
-    this.default = default
+    this.projectName = projectName
   }
 
-  val test: ScenarioBuilder = scenario(unique)
+  val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest)
 

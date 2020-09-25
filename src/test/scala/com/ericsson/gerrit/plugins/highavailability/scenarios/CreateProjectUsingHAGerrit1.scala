@@ -22,9 +22,9 @@ import io.gatling.core.structure.ScenarioBuilder
 class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
 
-  def this(default: String) {
+  def this(projectName: String) {
     this()
-    this.default = default
+    this.projectName = projectName
   }
 
   override def replaceOverride(in: String): String = {
@@ -32,7 +32,7 @@ class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
     super.replaceOverride(next)
   }
 
-  val test: ScenarioBuilder = scenario(unique)
+  val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest.body(RawFileBody(body)).asJson)
 
