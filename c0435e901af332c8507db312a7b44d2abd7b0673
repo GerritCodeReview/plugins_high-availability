@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b63fe7b0_2dd17670",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-25T19:30:31Z",
+      "side": 1,
+      "message": "Thanks @Khang for the CR. Running out of timely approvals. Trivial change(s), also +1\u0027ed in core.",
+      "revId": "c0435e901af332c8507db312a7b44d2abd7b0673",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
