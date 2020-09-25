@@ -30,7 +30,7 @@ class DeleteChangeUsingHAGerrit2 extends GerritSimulation {
     replaceProperty("http_port2", 8082, in)
   }
 
-  val test: ScenarioBuilder = scenario(unique)
+  val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(session => {
       if (number.nonEmpty) {
@@ -39,7 +39,7 @@ class DeleteChangeUsingHAGerrit2 extends GerritSimulation {
         session
       }
     })
-    .exec(http(unique).delete("${url}${number}"))
+    .exec(http(uniqueName).delete("${url}${number}"))
 
   setUp(
     test.inject(

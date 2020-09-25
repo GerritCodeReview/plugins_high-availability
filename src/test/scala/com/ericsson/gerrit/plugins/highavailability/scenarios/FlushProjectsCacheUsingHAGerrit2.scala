@@ -23,7 +23,7 @@ import scala.concurrent.duration._
 
 class FlushProjectsCacheUsingHAGerrit2 extends CacheFlushSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
-  private val default: String = name
+  private val projectName = className
 
   override def relativeRuntimeWeight = 2
 
@@ -31,14 +31,14 @@ class FlushProjectsCacheUsingHAGerrit2 extends CacheFlushSimulation {
     replaceProperty("http_port2", 8082, in)
   }
 
-  private val flushCache: ScenarioBuilder = scenario(unique)
+  private val flushCache: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest)
 
-  private val createProject = new CreateProjectUsingHAGerrit1(default)
+  private val createProject = new CreateProjectUsingHAGerrit1(projectName)
   private val getCacheEntriesAfterProject = new GetProjectsCacheEntries(this)
   private val checkCacheEntriesAfterFlush = new CheckProjectsCacheFlushEntriesUsingHAGerrit1(this)
-  private val deleteProject = new DeleteProjectUsingHAGerrit(default)
+  private val deleteProject = new DeleteProjectUsingHAGerrit(projectName)
 
   setUp(
     createProject.test.inject(
