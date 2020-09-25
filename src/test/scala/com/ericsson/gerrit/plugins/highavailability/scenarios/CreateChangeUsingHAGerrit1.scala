@@ -24,7 +24,7 @@ import scala.concurrent.duration._
 
 class CreateChangeUsingHAGerrit1 extends GerritSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
-  private val default: String = name
+  private val projectName = className
   private val numberKey = "_number"
 
   override def relativeRuntimeWeight = 10
@@ -33,7 +33,7 @@ class CreateChangeUsingHAGerrit1 extends GerritSimulation {
     replaceProperty("http_port1", 8081, in)
   }
 
-  private val test: ScenarioBuilder = scenario(unique)
+  private val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest
       .body(ElFileBody(body)).asJson
@@ -43,8 +43,8 @@ class CreateChangeUsingHAGerrit1 extends GerritSimulation {
       session
     })
 
-  private val createProject = new CreateProjectUsingHAGerrit1(default)
-  private val deleteProject = new DeleteProjectUsingHAGerrit(default)
+  private val createProject = new CreateProjectUsingHAGerrit1(projectName)
+  private val deleteProject = new DeleteProjectUsingHAGerrit(projectName)
   private val deleteChange = new DeleteChangeUsingHAGerrit2
 
   setUp(
