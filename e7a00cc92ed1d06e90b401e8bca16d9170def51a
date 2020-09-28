@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fb97d66_4bd2b07c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-09-28T15:09:12Z",
+      "side": 1,
+      "message": "Can somebody please CR this simple maintenance series? -Thanks again.",
+      "revId": "e7a00cc92ed1d06e90b401e8bca16d9170def51a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
