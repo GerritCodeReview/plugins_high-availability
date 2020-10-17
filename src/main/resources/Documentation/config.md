@@ -237,6 +237,34 @@ Defaults to 24 hours.
 ```healthcheck.enable```
 :   Whether to enable the health check endpoint. Defaults to 'true'.
 
+```ref-database.enabled```
+:   Enable the use of a shared ref-database
+    Defaults: false
+
+```ref-database.enforcementRules.<policy>```
+:   Level of consistency enforcement across sites on a project:refs basis.
+    Supports two values for enforcing the policy on multiple projects or refs.
+    If the project or ref is omitted, apply the policy to all projects or all refs.
+
+    The <policy> can be one of the following values:
+
+    1. REQUIRED - Throw an exception if a git ref-update is processed again
+    a local ref not yet in sync with the shared ref-database.
+    The user transaction is cancelled. The Gerrit GUI (or the Git client)
+    receives an HTTP 500 - Internal Server Error.
+
+    2. IGNORED - Ignore any validation against the shared ref-database.
+
+    *Example:*
+    ```
+    [ref-database "enforcementRules"]
+       IGNORED = AProject:/refs/heads/feature
+    ```
+
+    Ignore the alignment with the shared ref-database for AProject on refs/heads/feature.
+
+    Defaults: No rules = All projects are REQUIRED to be consistent on all refs.
+
 File 'gerrit.config'
 --------------------
 
