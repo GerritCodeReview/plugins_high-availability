@@ -7,10 +7,10 @@ The Gerrit instances must be:
 * sharing the git repositories using a shared file system (e.g. NFS)
 * behind a load balancer (e.g. HAProxy)
 
-Currently, the mode supported is one active instance and multiple backup
-(passive) instances but eventually the plan is to support `n` active instances.
-In the active/passive mode, the active instance is handling all traffic while
-the passives are kept updated to be always ready to take over.
+Default mode is one active instance and multiple backup (passive) instances
+but `n` active instances can be configured. In the active/passive mode, the active
+instance is handling all traffic while the passives are kept updated to be always
+ready to take over.
 
 Even if git repositories are shared by the instances, there are a few areas
 of concern in order to be able to switch traffic between instances in a
@@ -46,7 +46,7 @@ connected to.
 The built-in Gerrit H2 based web session cache is replaced with a file based
 implementation that is shared amongst the instances.
 
-## Setup
+## Active/passive setup
 
 Prerequisites:
 
@@ -103,3 +103,73 @@ directory not accessible from this machine, then please skip that init step.
 
 For further information and supported options, refer to [config](config.md)
 documentation.
+
+## Active/active setup
+
+Prerequisites:
+
+* Unique database server must be accessible from all the masters
+* Git repositories must be located on a shared file system
+* A directory on a shared file system must be available for @PLUGIN@ to use
+* An implementation of global-refdb (e.g. Zookeeper) must be accessible from all the masters
+
+For the masters:
+
+* Configure the database section in gerrit.config to use the shared database
+* Configure gerrit.basePath in gerrit.config to the shared repositories location
+* Configure gerrit.serverId in gerrit.config based on [config](config.md)'s introduction
+* Install and configure this @PLUGIN@ plugin [further](config.md) or based on example
+configuration
+* Install @PLUGIN@ plugin as a database module in $GERRIT_SITE/lib(please note that
+@PLUGIN plugin must be installed as a plugin and as a database module) and add
+`installDbModule = com.ericsson.gerrit.plugins.highavailability.ValidationModule`
+to the gerrit section in gerrit.config
+* Install [global-refdb library](https://mvnrepository.com/artifact/com.gerritforge/global-refdb) as a library module in $GERRIT_SITE/lib and add
+`installModule = com.gerritforge.gerrit.globalrefdb.validation.LibModule` to the gerrit
+section in gerrit.config
+* Install and configure [zookeeper-refdb plugin](https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-zookeeper-refdb-bazel-master) based on [config.md](https://gerrit.googlesource.com/plugins/zookeeper-refdb/+/refs/heads/master/src/main/resources/Documentation/config.md)
+* Configure ref-database.enabled = true in @PLUGIN@.config to enable validation with
+global-refdb.
+
+Here is an example of the minimal @PLUGIN@.config:
+
+Active node one
+
+```
+[main]
+  sharedDirectory = /directory/accessible/from/both/masters
+
+[peerInfo "static"]
+  url = http://backupNodeHost1:8081/
+
+[http]
+  user = username
+  password = password
+
+[ref-database]
+  enabled = true
+```
+
+Active node two
+
+```
+[main]
+  sharedDirectory = /directory/accessible/from/both/masters
+
+[peerInfo "static"]
+  url = http://primaryNodeHost:8080/
+
+[http]
+  user = username
+  password = password
+
+[ref-database]
+  enabled = true
+```
+
+Minimal zookeeper-refdb.config for both active nodes:
+
+```
+[ref-database "zookeeper"]
+  connectString = zookeeperhost:2181
+```

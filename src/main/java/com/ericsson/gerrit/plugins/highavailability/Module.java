@@ -21,7 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
-import com.google.inject.AbstractModule;
+import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-class Module extends AbstractModule {
+class Module extends LifecycleModule {
   private final Configuration config;
 
   @Inject
@@ -55,6 +55,10 @@ class Module extends AbstractModule {
       install(new AutoReindexModule());
     }
     install(new PeerInfoModule(config.peerInfo().strategy()));
+
+    if (config.sharedRefDb().getSharedRefDb().isEnabled()) {
+      listener().to(PluginStartup.class);
+    }
   }
 
   @Provides
