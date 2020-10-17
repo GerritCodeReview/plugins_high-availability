@@ -26,13 +26,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.common.cache.LoadingCache;
-import com.google.gerrit.acceptance.config.GerritConfig;
-import com.google.gerrit.acceptance.config.GlobalPluginConfig;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.UseSsh;
+import com.google.gerrit.acceptance.config.GerritConfig;
+import com.google.gerrit.acceptance.config.GlobalPluginConfig;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;

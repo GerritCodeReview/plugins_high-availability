@@ -25,11 +25,11 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import static com.google.common.truth.Truth.assertThat;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.google.gerrit.acceptance.config.GlobalPluginConfig;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
+import com.google.gerrit.acceptance.config.GlobalPluginConfig;
 import com.google.gerrit.extensions.restapi.Url;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
