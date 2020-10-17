@@ -62,7 +62,6 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
 import com.google.common.collect.ImmutableList;
@@ -104,12 +103,11 @@ public class ConfigurationTest {
   @Before
   public void setUp() throws IOException {
     globalPluginConfig = new Config();
-    when(pluginConfigFactoryMock.getGlobalPluginConfig(PLUGIN_NAME)).thenReturn(globalPluginConfig);
     sitePaths = new SitePaths(SITE_PATH);
   }
 
   private Configuration getConfiguration() {
-    return new Configuration(pluginConfigFactoryMock, PLUGIN_NAME, sitePaths);
+    return new Configuration(globalPluginConfig, sitePaths);
   }
 
   @Test
