@@ -25,15 +25,19 @@ import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static com.google.common.truth.Truth.assertThat;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.google.gerrit.acceptance.config.GlobalPluginConfig;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
+import com.google.gerrit.server.config.SitePaths;
+import com.google.inject.Inject;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
+import org.eclipse.jgit.storage.file.FileBasedConfig;
+import org.eclipse.jgit.util.FS;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,17 +54,23 @@ public abstract class AbstractIndexForwardingIT extends LightweightPluginDaemonT
 
   @Rule public WireMockRule wireMockRule = new WireMockRule(options().port(PORT));
 
+  @Inject SitePaths sitePaths;
+
   @Override
   public void setUpTestPlugin() throws Exception {
     givenThat(any(anyUrl()).willReturn(aResponse().withStatus(HttpStatus.SC_NO_CONTENT)));
+    FileBasedConfig fileBasedConfig =
+        new FileBasedConfig(
+            sitePaths.etc_dir.resolve(Configuration.PLUGIN_CONFIG_FILE).toFile(), FS.DETECTED);
+    fileBasedConfig.setString("peerInfo", "static", "url", URL);
+    fileBasedConfig.setInt("http", null, "retryInterval", 100);
+    fileBasedConfig.save();
     beforeAction();
     super.setUpTestPlugin();
   }
 
   @Test
   @UseLocalDisk
-  @GlobalPluginConfig(pluginName = "high-availability", name = "peerInfo.static.url", value = URL)
-  @GlobalPluginConfig(pluginName = "high-availability", name = "http.retryInterval", value = "100")
   public void testIndexForwarding() throws Exception {
     String expectedRequest = getExpectedRequest();
     CountDownLatch expectedRequestLatch = new CountDownLatch(1);

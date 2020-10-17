@@ -19,7 +19,10 @@ gerrit_plugin(
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/high-availability",
     ],
     resources = glob(["src/main/resources/**/*"]),
-    deps = ["@jgroups//jar"],
+    deps = [
+      "@jgroups//jar",
+      "@global-refdb//jar",
+    ],
 )
 
 junit_tests(
@@ -42,6 +45,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":high-availability__plugin",
+        "@global-refdb//jar",
         "@wiremock//jar",
     ],
 )
