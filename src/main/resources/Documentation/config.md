@@ -230,6 +230,32 @@ Defaults to 24 hours.
 ```healthcheck.enable```
 :   Whether to enable the health check endpoint. Defaults to 'true'.
 
+```ref-database.enabled```
+:   Enable the use of a global ref-database. Defaults to 'false'.
+
+```ref-database.enforcementRules.<policy>```
+:   Level of consistency enforcement across sites on a project:refs basis.
+    Supports two values for enforcing the policy on multiple projects or refs.
+    If the project or ref is omitted, apply the policy to all projects or all refs.
+
+    The <policy> can be one of the following values:
+
+    1. REQUIRED - Throw an exception if a git ref-update is processed against
+    a local ref not yet in sync with the global ref-database.
+    The user transaction is cancelled. LOCK_FAILURE is reported upstream.
+
+    2. IGNORED - Do not validate against the global ref-database.
+
+    *Example:*
+    ```
+    [ref-database "enforcementRules"]
+       IGNORED = AProject:/refs/heads/feature
+    ```
+
+    Ignore the alignment with the global ref-db for AProject on refs/heads/feature.
+
+    Defaults to no rule. All projects are REQUIRED to be consistent on all refs.
+
 File 'gerrit.config'
 --------------------
 
