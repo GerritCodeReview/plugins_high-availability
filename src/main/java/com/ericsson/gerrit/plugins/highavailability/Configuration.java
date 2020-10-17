@@ -17,18 +17,19 @@ package com.ericsson.gerrit.plugins.highavailability;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
+import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.common.Nullable;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
-import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -39,7 +40,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
+import org.eclipse.jgit.storage.file.FileBasedConfig;
+import org.eclipse.jgit.util.FS;
 
 @Singleton
 public class Configuration {
@@ -47,6 +51,7 @@ public class Configuration {
 
   public static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
   public static final int DEFAULT_TIMEOUT_MS = 5000;
+  public static final String PLUGIN_CONFIG_FILE = "high-availability.config";
 
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -70,6 +75,7 @@ public class Configuration {
   private PeerInfoStatic peerInfoStatic;
   private PeerInfoJGroups peerInfoJGroups;
   private HealthCheck healthCheck;
+  private final SharedRefDbConfiguration sharedRefDb;
 
   public enum PeerInfoStrategy {
     JGROUPS,
@@ -77,9 +83,12 @@ public class Configuration {
   }
 
   @Inject
-  Configuration(
-      PluginConfigFactory pluginConfigFactory, @PluginName String pluginName, SitePaths site) {
-    Config cfg = pluginConfigFactory.getGlobalPluginConfig(pluginName);
+  Configuration(SitePaths sitePaths) {
+    this(getConfigFile(sitePaths, PLUGIN_CONFIG_FILE), sitePaths);
+  }
+
+  @VisibleForTesting
+  Configuration(Config cfg, SitePaths site) {
     main = new Main(site, cfg);
     autoReindex = new AutoReindex(cfg);
     peerInfo = new PeerInfo(cfg);
@@ -100,6 +109,20 @@ public class Configuration {
     index = new Index(cfg);
     websession = new Websession(cfg);
     healthCheck = new HealthCheck(cfg);
+    sharedRefDb = new SharedRefDbConfiguration(cfg);
+  }
+
+  private static FileBasedConfig getConfigFile(SitePaths sitePaths, String configFileName) {
+    FileBasedConfig cfg =
+        new FileBasedConfig(sitePaths.etc_dir.resolve(configFileName).toFile(), FS.DETECTED);
+    String fileConfigFileName = cfg.getFile().getPath();
+    try {
+      log.atInfo().log("Loading configuration from {}", fileConfigFileName);
+      cfg.load();
+    } catch (IOException | ConfigInvalidException e) {
+      log.atSevere().withCause(e).log("Unable to load configuration from " + fileConfigFileName);
+    }
+    return cfg;
   }
 
   public Main main() {
@@ -148,6 +171,10 @@ public class Configuration {
 
   public HealthCheck healthCheck() {
     return healthCheck;
+  }
+
+  public SharedRefDbConfiguration sharedRefDb() {
+    return sharedRefDb;
   }
 
   private static int getInt(Config cfg, String section, String name, int defaultValue) {
