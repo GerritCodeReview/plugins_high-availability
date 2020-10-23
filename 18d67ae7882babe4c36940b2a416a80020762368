@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee857cd0_8d63156d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-23T07:31:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9a4c8db_347fa65d",
+      "range": {
+        "startLine": 14,
+        "startChar": 28,
+        "endLine": 14,
+        "endChar": 58
+      },
+      "revId": "18d67ae7882babe4c36940b2a416a80020762368",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e697830b_58c87164",
@@ -37,6 +61,24 @@
       "writtenOn": "2020-10-20T23:47:22Z",
       "side": 1,
       "message": "We should also mention the switch to Java 11, as the global ref-db isn\u0027t available for Java 8.",
+      "revId": "18d67ae7882babe4c36940b2a416a80020762368",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41fc4448_62f7ec1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-23T07:31:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e697830b_58c87164",
       "revId": "18d67ae7882babe4c36940b2a416a80020762368",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
