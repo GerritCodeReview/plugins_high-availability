@@ -14,12 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.flogger.FluentLogger;
-import com.google.common.util.concurrent.Striped;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.concurrent.locks.Lock;
 
 /**
  * Base class to handle forwarded indexing. This class is meant to be extended by classes used on
@@ -40,15 +37,9 @@ public abstract class ForwardedIndexingHandler<T> {
     }
   }
 
-  private final Striped<Lock> idLocks;
-
   protected abstract void doIndex(T id, Optional<IndexEvent> indexEvent) throws IOException;
 
   protected abstract void doDelete(T id, Optional<IndexEvent> indexEvent) throws IOException;
-
-  protected ForwardedIndexingHandler(Configuration.Index indexConfig) {
-    idLocks = Striped.lock(indexConfig.numStripedLocks());
-  }
 
   /**
    * Index an item in the local node, indexing will not be forwarded to the other node.
@@ -62,22 +53,16 @@ public abstract class ForwardedIndexingHandler<T> {
     log.atFine().log("%s %s %s", operation, id, indexEvent);
     try {
       Context.setForwardedEvent(true);
-      Lock idLock = idLocks.get(id);
-      idLock.lock();
-      try {
-        switch (operation) {
-          case INDEX:
-            doIndex(id, indexEvent);
-            break;
-          case DELETE:
-            doDelete(id, indexEvent);
-            break;
-          default:
-            log.atSevere().log("unexpected operation: %s", operation);
-            break;
-        }
-      } finally {
-        idLock.unlock();
+      switch (operation) {
+        case INDEX:
+          doIndex(id, indexEvent);
+          break;
+        case DELETE:
+          doDelete(id, indexEvent);
+          break;
+        default:
+          log.atSevere().log("unexpected operation: %s", operation);
+          break;
       }
     } finally {
       Context.unsetForwardedEvent();
