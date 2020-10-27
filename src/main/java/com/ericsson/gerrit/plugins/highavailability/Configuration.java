@@ -54,7 +54,8 @@ public class Configuration {
   static final int DEFAULT_INDEX_RETRY_INTERVAL = 30000;
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
   static final String NUM_STRIPED_LOCKS = "numStripedLocks";
-  static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
+
+  public static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
 
   private final Main main;
   private final AutoReindex autoReindex;
@@ -341,9 +342,9 @@ public class Configuration {
     static final String MAX_TRIES_KEY = "maxTries";
     static final String RETRY_INTERVAL_KEY = "retryInterval";
 
-    static final int DEFAULT_TIMEOUT_MS = 5000;
-    static final int DEFAULT_MAX_TRIES = 360;
-    static final int DEFAULT_RETRY_INTERVAL = 10000;
+    public static final int DEFAULT_TIMEOUT_MS = 5000;
+    public static final int DEFAULT_MAX_TRIES = 360;
+    public static final int DEFAULT_RETRY_INTERVAL = 10000;
 
     private final String user;
     private final String password;
@@ -446,13 +447,17 @@ public class Configuration {
   public static class Index extends Forwarding {
     static final String INDEX_SECTION = "index";
     static final String MAX_TRIES_KEY = "maxTries";
+    static final String WAIT_TIMEOUT_KEY = "waitTimeout";
     static final String RETRY_INTERVAL_KEY = "retryInterval";
     static final String SYNCHRONIZE_FORCED_KEY = "synchronizeForced";
+
     static final boolean DEFAULT_SYNCHRONIZE_FORCED = true;
+    public static final int DEFAULT_WAIT_TIMEOUT_MS = 5000;
 
     private final int threadPoolSize;
     private final int retryInterval;
     private final int maxTries;
+    private final int waitTimeout;
     private final int numStripedLocks;
     private final boolean synchronizeForced;
 
@@ -462,6 +467,7 @@ public class Configuration {
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
       retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
+      waitTimeout = getInt(cfg, INDEX_SECTION, WAIT_TIMEOUT_KEY, DEFAULT_WAIT_TIMEOUT_MS);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
     }
@@ -480,6 +486,10 @@ public class Configuration {
 
     public int maxTries() {
       return maxTries;
+    }
+
+    public int waitTimeout() {
+      return waitTimeout;
     }
 
     public boolean synchronizeForced() {
