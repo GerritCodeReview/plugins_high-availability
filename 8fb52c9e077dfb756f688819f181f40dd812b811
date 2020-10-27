@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3aac5ec_919072de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-27T22:32:34Z",
+      "side": 1,
+      "message": "Still WIP because I want to add some tests. As a follow up change I want to add timeout on acquiring the lock on receiver site.",
+      "revId": "8fb52c9e077dfb756f688819f181f40dd812b811",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
