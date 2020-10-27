@@ -25,6 +25,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.Configuration.Http;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
@@ -32,15 +33,23 @@ import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.Dele
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexAccountTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +73,11 @@ public class IndexEventHandlerTest {
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
+  private ScheduledExecutorService executor = new CurrentThreadScheduledExecutorService();
   @Mock private RequestContext mockCtx;
+  @Mock private Configuration configuration;
+  @Mock Http http;
+  private IndexEventLocks idLocks;
 
   private CurrentRequestContext currCtx =
       new CurrentRequestContext(null, null, null) {
@@ -81,18 +94,28 @@ public class IndexEventHandlerTest {
     accountGroupUUID = new AccountGroup.UUID(UUID);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerMock);
     when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
+    when(configuration.http()).thenReturn(http);
+    Configuration.Index cfgIndex = mock(Configuration.Index.class);
+    when(configuration.index()).thenReturn(cfgIndex);
+    when(cfgIndex.numStripedLocks()).thenReturn(10);
+    when(http.lockAcquireTimeout()).thenReturn(5000);
+    when(http.maxTries()).thenReturn(360);
+    when(http.retryInterval()).thenReturn(10000);
 
+    idLocks = new IndexEventLocks(configuration);
     setUpIndexEventHandler(currCtx);
   }
 
   public void setUpIndexEventHandler(CurrentRequestContext currCtx) throws Exception {
     indexEventHandler =
         new IndexEventHandler(
-            MoreExecutors.directExecutor(),
+            executor,
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
-            currCtx);
+            currCtx,
+            configuration,
+            idLocks);
   }
 
   @Test
@@ -179,7 +202,14 @@ public class IndexEventHandlerTest {
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
+        new IndexEventHandler(
+            poolMock,
+            PLUGIN_NAME,
+            forwarder,
+            changeCheckerFactoryMock,
+            currCtx,
+            configuration,
+            idLocks);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(poolMock, times(1))
@@ -190,7 +220,14 @@ public class IndexEventHandlerTest {
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
+        new IndexEventHandler(
+            poolMock,
+            PLUGIN_NAME,
+            forwarder,
+            changeCheckerFactoryMock,
+            currCtx,
+            configuration,
+            idLocks);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -200,7 +237,14 @@ public class IndexEventHandlerTest {
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
+        new IndexEventHandler(
+            poolMock,
+            PLUGIN_NAME,
+            forwarder,
+            changeCheckerFactoryMock,
+            currCtx,
+            configuration,
+            idLocks);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
@@ -315,5 +359,98 @@ public class IndexEventHandlerTest {
     IndexGroupTask differentGroupIdTask = indexEventHandler.new IndexGroupTask("123");
     assertThat(task.equals(differentGroupIdTask)).isFalse();
     assertThat(task.hashCode()).isNotEqualTo(differentGroupIdTask.hashCode());
+  }
+
+  private class CurrentThreadScheduledExecutorService implements ScheduledExecutorService {
+
+    @Override
+    public void shutdown() {}
+
+    @Override
+    public List<Runnable> shutdownNow() {
+      return null;
+    }
+
+    @Override
+    public boolean isShutdown() {
+      return false;
+    }
+
+    @Override
+    public boolean isTerminated() {
+      return false;
+    }
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+      return false;
+    }
+
+    @Override
+    public <T> Future<T> submit(Callable<T> task) {
+      return null;
+    }
+
+    @Override
+    public <T> Future<T> submit(Runnable task, T result) {
+      return null;
+    }
+
+    @Override
+    public Future<?> submit(Runnable task) {
+      return null;
+    }
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+        throws InterruptedException {
+      return null;
+    }
+
+    @Override
+    public <T> List<Future<T>> invokeAll(
+        Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+        throws InterruptedException {
+      return null;
+    }
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+        throws InterruptedException, ExecutionException {
+      return null;
+    }
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException {
+      return null;
+    }
+
+    @Override
+    public void execute(Runnable command) {
+      command.run();
+    }
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+      return null;
+    }
+
+    @Override
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+      return null;
+    }
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(
+        Runnable command, long initialDelay, long period, TimeUnit unit) {
+      return null;
+    }
+
+    @Override
+    public ScheduledFuture<?> scheduleWithFixedDelay(
+        Runnable command, long initialDelay, long delay, TimeUnit unit) {
+      return null;
+    }
   }
 }
