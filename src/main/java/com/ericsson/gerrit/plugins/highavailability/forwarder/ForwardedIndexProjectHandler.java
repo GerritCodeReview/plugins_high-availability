@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.index.project.ProjectIndexer;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.inject.Inject;
@@ -32,8 +31,7 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
   private final ProjectIndexer indexer;
 
   @Inject
-  ForwardedIndexProjectHandler(ProjectIndexer indexer, Configuration config) {
-    super(config.index());
+  ForwardedIndexProjectHandler(ProjectIndexer indexer) {
     this.indexer = indexer;
   }
 
