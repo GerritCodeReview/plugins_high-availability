@@ -167,8 +167,12 @@ calls by specifying the following fields:
 :   The interval of time in milliseconds between the subsequent auto-retries.
     When not specified, the default value is set to 10000ms.
 
-NOTE: the default settings for `http.timeout` and `http.maxTries` ensure that
-the plugin will keep retrying to forward a message for one hour.
+```index.waitTimeout```
+:   Maximum interval of time in milliseconds the plugin waits to acquire the lock for
+    an indexing call. When not specified, the default value is set to 5000ms.
+
+NOTE: the default settings for `http.timeout`, `http.maxTries` and `http.lockAcquireTimeout`
+ensure that the plugin will keep retrying to forward a message for one hour.
 
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.
@@ -216,6 +220,11 @@ the plugin will keep retrying to forward a message for one hour.
 ```index.retryInterval```
 :   The interval of time in milliseconds between the subsequent auto-retries.
     Defaults to 30000 (30 seconds).
+
+```index.waitTimeout```
+:   Maximum interval of time in milliseconds the plugin waits to acquire
+    the lock for an indexing call. When not specified, the default value
+    is set to 5000ms.
 
 ```websession.synchronize```
 :   Whether to synchronize web sessions.
