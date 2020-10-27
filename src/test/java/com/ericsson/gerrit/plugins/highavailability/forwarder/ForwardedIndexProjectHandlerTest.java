@@ -19,9 +19,7 @@ import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.index.project.ProjectIndexer;
 import com.google.gerrit.reviewdb.client.Project;
@@ -38,16 +36,12 @@ import org.mockito.stubbing.Answer;
 public class ForwardedIndexProjectHandlerTest {
 
   @Mock private ProjectIndexer indexerMock;
-  @Mock private Configuration configMock;
-  @Mock private Configuration.Index indexMock;
   private ForwardedIndexProjectHandler handler;
   private Project.NameKey nameKey;
 
   @Before
   public void setUp() {
-    when(configMock.index()).thenReturn(indexMock);
-    when(indexMock.numStripedLocks()).thenReturn(10);
-    handler = new ForwardedIndexProjectHandler(indexerMock, configMock);
+    handler = new ForwardedIndexProjectHandler(indexerMock);
     nameKey = new Project.NameKey("project/name");
   }
 
