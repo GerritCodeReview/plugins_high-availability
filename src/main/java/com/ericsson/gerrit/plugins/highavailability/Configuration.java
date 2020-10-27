@@ -340,6 +340,7 @@ public class Configuration {
     static final String SOCKET_TIMEOUT_KEY = "socketTimeout";
     static final String MAX_TRIES_KEY = "maxTries";
     static final String RETRY_INTERVAL_KEY = "retryInterval";
+    static final String LOCK_ACQUIRE_KEY = "lockAcquireTimeout";
 
     static final int DEFAULT_TIMEOUT_MS = 5000;
     static final int DEFAULT_MAX_TRIES = 360;
@@ -349,6 +350,7 @@ public class Configuration {
     private final String password;
     private final int connectionTimeout;
     private final int socketTimeout;
+    private final int lockAcquireTimeout;
     private final int maxTries;
     private final int retryInterval;
 
@@ -357,6 +359,7 @@ public class Configuration {
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
       connectionTimeout = getInt(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       socketTimeout = getInt(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      lockAcquireTimeout = getInt(cfg, HTTP_SECTION, LOCK_ACQUIRE_KEY, DEFAULT_TIMEOUT_MS);
       maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       retryInterval = getInt(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
     }
@@ -371,6 +374,10 @@ public class Configuration {
 
     public int connectionTimeout() {
       return connectionTimeout;
+    }
+
+    public int lockAcquireTimeout() {
+      return lockAcquireTimeout;
     }
 
     public int socketTimeout() {
