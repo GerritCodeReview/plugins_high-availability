@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a825168_4a01ce46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-28T21:30:48Z",
+      "side": 1,
+      "message": "Before this change, locking was happening ...",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "982e4edb_d81bdd1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-28T21:30:48Z",
+      "side": 1,
+      "message": "I don\u0027t believe this is really the issue, but rather the deadlocking caused by the occupation of the thread pools while waiting for the lock, isn\u0027t it?",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83a4461_1356a74b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-28T21:30:48Z",
+      "side": 1,
+      "message": "It\u0027s more a deadlock rather than starvation",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78015347_1a27a3b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-28T21:30:48Z",
+      "side": 1,
+      "message": "Can you explain how?",
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c11dde_1b80d2ad",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-28T21:30:48Z",
+      "side": 1,
+      "message": "Then you should implement the toString() and display something meaningful, otherwise the message won\u0027t make so much sense to the reader.",
+      "range": {
+        "startLine": 168,
+        "startChar": 69,
+        "endLine": 168,
+        "endChar": 73
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
