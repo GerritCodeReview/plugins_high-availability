@@ -1,12 +1,13 @@
 {
   "checks": {
     "zuul-check:plugins_high-availability": {
-      "state": "RUNNING",
-      "message": "Jobs have started running",
-      "url": "https://ci.gerritcodereview.com/t/gerrit/status/change/286187,1",
+      "state": "NOT_RELEVANT",
+      "message": "Project has no jobs configured",
+      "url": "https://ci.gerritcodereview.com/t/gerrit/buildset/3f6a3e2e7c114469b0ab78a69fe73aa3",
       "started": "2020-10-29T16:00:40Z",
+      "finished": "2020-10-29T16:20:17Z",
       "created": "2020-10-29T16:00:41Z",
-      "updated": "2020-10-29T16:00:53Z"
+      "updated": "2020-10-29T16:20:18Z"
     }
   }
 }
