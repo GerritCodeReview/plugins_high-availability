@@ -6,11 +6,12 @@
       "updated": "2020-10-29T13:20:51Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "RUNNING",
+      "state": "FAILED",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/99%252F284999%252F3/1/console",
       "started": "2020-10-29T13:27:42Z",
+      "finished": "2020-10-29T13:27:51Z",
       "created": "2020-10-29T13:20:50Z",
-      "updated": "2020-10-29T13:27:42Z"
+      "updated": "2020-10-29T13:27:51Z"
     },
     "zuul-check:plugins_high-availability": {
       "state": "FAILED",
