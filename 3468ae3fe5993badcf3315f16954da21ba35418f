@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d20479c_24bba943",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-30T23:16:08Z",
+      "side": 1,
+      "message": "I believe in v3.3 we are locking anyway on concurrent modifications of the single change, isn\u0027t it? That is done through the global ref-db.\n\nI believe we are then safe in removing the receiver side of the locks, because the sender would guarantee that there are no concurrent reindexing for the same change.",
+      "parentUuid": "ae0f1841_ea7ec2a5",
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf97f559_765adfc2",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 3
@@ -191,6 +209,30 @@
       "side": 1,
       "message": "All the IndexTask sub-classes have implemented equals and hashcode, we are using that to add/remove from the queue so it must guarantee uniqueness. All this code will go away if I will use single locks object",
       "parentUuid": "789610eb_ff010d4d",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 80
+      },
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60096678_31f293f8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-10-30T23:16:08Z",
+      "side": 1,
+      "message": "Good :-)",
+      "parentUuid": "1a71fc63_6484dbb6",
       "range": {
         "startLine": 68,
         "startChar": 0,
