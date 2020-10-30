@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae0f1841_ea7ec2a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:43:36Z",
+      "side": 1,
+      "message": "Removing locking on the receiver side makes perfect sense for active/passive mode. But in stable-3.3 we are introducing ability to have multiple RW masters. I\u0027m afraid that for those setups we still need some kind of protection for multiple masters triggering indexing for the same change on a single receiver.\n\nWe can remove locking here and introduce something similar on stable-3.3\n\nWDYT?",
+      "parentUuid": "7442655a_de582bd9",
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf97f559_765adfc2",
