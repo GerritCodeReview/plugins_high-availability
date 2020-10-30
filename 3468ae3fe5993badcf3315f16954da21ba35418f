@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de452957_b9074897",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf97f559_765adfc2",
+      "range": {
+        "startLine": 343,
+        "startChar": 44,
+        "endLine": 343,
+        "endChar": 62
+      },
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba091316_82ee6435",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0801226c_882b2ccc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "I wanted to mimic what we have on the receiver side and there we have different locks per task type. I was a bit afraid about collisions:\nFrom the Stripped java-doc:\nThe guarantee provided by this class is that equal keys lead to the same lock (or semaphore), i.e. if (key1.equals(key2)) then striped.get(key1) \u003d\u003d striped.get(key2) (assuming Object.hashCode() is correctly implemented for the keys). Note that if key1 is not equal to key2, it is not guaranteed that striped.get(key1) !\u003d striped.get(key2); the elements might nevertheless be mapped to the same lock. The lower the number of stripes, the higher the probability of this happening.\n\n\nBut you are right I can have just one locks object with 4 * cfg.index().numStripedLocks()",
+      "parentUuid": "ba091316_82ee6435",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 68
+      },
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "789610eb_ff010d4d",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
         "patchSetId": 3
@@ -77,6 +125,30 @@
       "writtenOn": "2020-10-28T22:01:33Z",
       "side": 1,
       "message": "You could just get the index name and combine it with the task index id.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 80
+      },
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a71fc63_6484dbb6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "All the IndexTask sub-classes have implemented equals and hashcode, we are using that to add/remove from the queue so it must guarantee uniqueness. All this code will go away if I will use single locks object",
+      "parentUuid": "789610eb_ff010d4d",
       "range": {
         "startLine": 68,
         "startChar": 0,
@@ -123,6 +195,54 @@
       "writtenOn": "2020-10-28T22:01:33Z",
       "side": 1,
       "message": "waitTimeout? WDYT?",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 26
+      },
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "358872d9_c891c204",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "Yep I wasn\u0027t sure where to put it. I was asking about that in the comment.",
+      "parentUuid": "c36a3fe8_7b005d82",
+      "range": {
+        "startLine": 170,
+        "startChar": 3,
+        "endLine": 170,
+        "endChar": 7
+      },
+      "revId": "3468ae3fe5993badcf3315f16954da21ba35418f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb0f42d9_46d4265a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e87f6d40_7b3d01c3",
       "range": {
         "startLine": 170,
         "startChar": 8,

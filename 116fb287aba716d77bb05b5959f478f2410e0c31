@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f72c526_2e0a9cdd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a825168_4a01ce46",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "982e4edb_d81bdd1d",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-10-28T21:30:48Z",
       "side": 1,
       "message": "I don\u0027t believe this is really the issue, but rather the deadlocking caused by the occupation of the thread pools while waiting for the lock, isn\u0027t it?",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec659cb_7793c316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "That\u0027s how I\u0027ve manage to reproduce the issue:\n1. On the receiver side I\u0027ve put a break point in com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.index just after acquiring the lock\n2. I\u0027ve generated the change on the UI.\n\nWhat happened:\n1. Forwarded creates a thread and send the REST call to the receiver.\n2. Receiver creates a thread, acquired the lock and stopped on a breakpoint\n3. Forwarder got a socket timeout after 5 sec\n4. Forwarder retry the REST call\n5. Receiver creates a thread and waits to acquire the lock, so now we have two receiver threads for a single forwarder task(one indexing and second waiting for a lock)\n6. GOTO 3 😊\n\nIf we do another change on the UI for that change id forwarder will create another thread and send REST and call basically go to the point three.\n\nSo we have two forwarder threads spinning up more and more receiver threads. And this will escalate if we have more operations for the same id.",
+      "parentUuid": "982e4edb_d81bdd1d",
       "range": {
         "startLine": 10,
         "startChar": 23,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbeef7cc_3f7d2371",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "hmm not sure but I\u0027ve explained above how I manage to reproduce the situation",
+      "parentUuid": "a83a4461_1356a74b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78015347_1a27a3b6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -83,6 +155,24 @@
       "writtenOn": "2020-10-28T21:30:48Z",
       "side": 1,
       "message": "Can you explain how?",
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "373efb63_27aa83bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78015347_1a27a3b6",
       "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -100,6 +190,30 @@
       "writtenOn": "2020-10-28T21:30:48Z",
       "side": 1,
       "message": "Then you should implement the toString() and display something meaningful, otherwise the message won\u0027t make so much sense to the reader.",
+      "range": {
+        "startLine": 168,
+        "startChar": 69,
+        "endLine": 168,
+        "endChar": 73
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca48d25c_7678b3f7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-30T17:02:20Z",
+      "side": 1,
+      "message": "I believe it\u0027s already implemented, for example:\n    com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask.toString() {\n      return String.format(\"[%s] Index change %s in target instance\", pluginName, changeId);\n    }\n\ncom.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask.toString(){\n      return String.format(\"[%s] Index group %s in target instance\", pluginName, groupUUID);\n    }",
+      "parentUuid": "a5c11dde_1b80d2ad",
       "range": {
         "startLine": 168,
         "startChar": 69,
