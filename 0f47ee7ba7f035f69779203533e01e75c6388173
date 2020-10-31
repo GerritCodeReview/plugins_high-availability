@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e8fcda30_b582a6e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-31T14:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e9389ea_54377217",
+      "range": {
+        "startLine": 16,
+        "startChar": 71,
+        "endLine": 16,
+        "endChar": 75
+      },
+      "revId": "0f47ee7ba7f035f69779203533e01e75c6388173",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b23de529_73c996fd",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -64,6 +88,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7351e2a_c156dacd",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-31T14:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58b5f821_bc9cfa98",
+      "range": {
+        "startLine": 225,
+        "startChar": 77,
+        "endLine": 225,
+        "endChar": 85
+      },
+      "revId": "0f47ee7ba7f035f69779203533e01e75c6388173",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f2860cc_8bf2447e",
@@ -77,6 +125,30 @@
       "writtenOn": "2020-10-30T23:16:08Z",
       "side": 1,
       "message": "Avoid magic values: best to have a constant value with a meaningful name.",
+      "range": {
+        "startLine": 102,
+        "startChar": 44,
+        "endLine": 102,
+        "endChar": 48
+      },
+      "revId": "0f47ee7ba7f035f69779203533e01e75c6388173",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af12226f_50933709",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-10-31T14:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f2860cc_8bf2447e",
       "range": {
         "startLine": 102,
         "startChar": 44,
