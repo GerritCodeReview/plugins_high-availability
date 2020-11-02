@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "516a44a1_a6e9a631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-02T22:20:27Z",
+      "side": 1,
+      "message": "LGTM, just a few nits.\n\n@Marco would you like to have a look as well?",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e856402_5e6f6f18",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-02T22:20:27Z",
+      "side": 1,
+      "message": "We typically put all the public static at the beginning of the class declaration.",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81b545e_2403ac2d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-02T22:20:27Z",
+      "side": 1,
+      "message": "All public static are typically at the beginning of the class declaration.",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 59
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59d9038f_b7b06893",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-02T22:20:27Z",
+      "side": 1,
+      "message": "nit: unrelated change",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7390b6a_afed78b3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-02T22:20:27Z",
+      "side": 1,
+      "message": "Public static are typically at the beginning of the class declaration.",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
