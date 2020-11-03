@@ -52,6 +52,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfc37be4_c23962af",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e856402_5e6f6f18",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c81b545e_2403ac2d",
@@ -75,6 +93,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1edd77a6_1741c21c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c81b545e_2403ac2d",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 59
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59d9038f_b7b06893",
@@ -88,6 +130,24 @@
       "writtenOn": "2020-11-02T22:20:27Z",
       "side": 1,
       "message": "nit: unrelated change",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "470f9268_e13230f8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d9038f_b7b06893",
       "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -132,6 +192,48 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7b87055_7d01441b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7390b6a_afed78b3",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10fd89d7_155c92e9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab08a59c_94be3333",
+      "range": {
+        "startLine": 455,
+        "startChar": 54,
+        "endLine": 455,
+        "endChar": 58
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af3ffdda_10457f8b",
@@ -155,6 +257,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ab7e96b_bb75552f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af3ffdda_10457f8b",
+      "range": {
+        "startLine": 142,
+        "startChar": 4,
+        "endLine": 142,
+        "endChar": 13
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6eed8008_cc0b7706",
@@ -168,6 +294,30 @@
       "writtenOn": "2020-11-03T18:26:54Z",
       "side": 1,
       "message": "Would surround with back-ticks, too.",
+      "range": {
+        "startLine": 174,
+        "startChar": 67,
+        "endLine": 174,
+        "endChar": 90
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd39bc27_404695de",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-03T21:14:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6eed8008_cc0b7706",
       "range": {
         "startLine": 174,
         "startChar": 67,
