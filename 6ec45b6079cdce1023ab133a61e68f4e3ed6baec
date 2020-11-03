@@ -18,6 +18,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "130a8eba_8f0aca34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T18:26:54Z",
+      "side": 1,
+      "message": "Some more nits or so.",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e856402_5e6f6f18",
@@ -88,6 +105,75 @@
       "writtenOn": "2020-11-02T22:20:27Z",
       "side": 1,
       "message": "Public static are typically at the beginning of the class declaration.",
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab08a59c_94be3333",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T18:26:54Z",
+      "side": 1,
+      "message": "DEFAULT_TIMEOUT_MS, rather? -Seems like both constants are about the same value. Refactor them to remove duplication, and reuse? (The refactored constant needs to be accessible from both classes.)",
+      "range": {
+        "startLine": 455,
+        "startChar": 54,
+        "endLine": 455,
+        "endChar": 58
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af3ffdda_10457f8b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T18:26:54Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 142,
+        "startChar": 4,
+        "endLine": 142,
+        "endChar": 13
+      },
+      "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eed8008_cc0b7706",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T18:26:54Z",
+      "side": 1,
+      "message": "Would surround with back-ticks, too.",
+      "range": {
+        "startLine": 174,
+        "startChar": 67,
+        "endLine": 174,
+        "endChar": 90
+      },
       "revId": "6ec45b6079cdce1023ab133a61e68f4e3ed6baec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
