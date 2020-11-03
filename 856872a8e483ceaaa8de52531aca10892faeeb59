@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4445d226_6e807fca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Do we really need to load the config here? In Java, it isn\u0027t a good thing to have too much executable logic inside the constructor.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 36
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b375e10_a689676c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "By leaving this variable named as \u0027cfg\u0027 we would minimise the changes and, in case of upstream fixes, minimise also the potential conflicts.",
+      "range": {
+        "startLine": 92,
+        "startChar": 26,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0b7a588_f513a0fa",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 5
@@ -36,6 +82,29 @@
         "startChar": 17,
         "endLine": 119,
         "endChar": 21
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb371df9_a9ff59aa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "This is code smell: why do we need to check if the config is a FileBasedConfig? For loading it? Then it is problematic for two reasons:\n1. The method is creating side effects, as it actually modifies its parameter, which isn\u0027t obvious from the method signature\n2. The method name is not telling 100% the truth, because if the config passed isn\u0027t a FileBasedConfig, then it doesn\u0027t actually load anything, which is a second more subtle side effect.\n\nWhy don\u0027t you leave the responsibility to load the config *outside* this class?",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 41
       },
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
@@ -60,6 +129,46 @@
         "endLine": 63,
         "endChar": 12
       },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95c74ff_c36b31f7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "What about making the Module a subclass of LifecycleModule instead?\n\nThese two lines would become:\n  listener().to(PluginStartup.class)",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 78
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54b7a8e1_ace2c7cc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/PluginStartup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "I believe this deserves a comment about *why* you are doing this :-)",
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -106,6 +215,23 @@
         "endLine": 38,
         "endChar": 29
       },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1313db68_1d7315ce",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ValidationModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "nit: empty line",
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -181,6 +307,207 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9882ee67_8c9ceb34",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "What is the \"Unique database server\" ?",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1268a400_b179002f",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Those are already existing pre-requisites: how are they specific to the active/active RW scenario?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31cb8e71_7062403c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "An implementation of global-refdb (e.g. Zookeeper)",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08a81c92_ab34cbe0",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "What database are you referring to?",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 76
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0db34b5c_a454a92d",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Those two requirements aren\u0027t specific to the active/active RW config",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 88
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2184195f_d11f7da3",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Can you specify where to download this library?",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 30
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "879132e0_491cb640",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "nit: blank at end of the line",
+      "range": {
+        "startLine": 130,
+        "startChar": 78,
+        "endLine": 130,
+        "endChar": 79
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ee4bc1_aea1e046",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "This is for the zookeeper-refdb implementation. Can you specify where to download the plugin?",
+      "range": {
+        "startLine": 133,
+        "startChar": 24,
+        "endLine": 133,
+        "endChar": 46
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d99391b3_06b0a248",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "The example should be complete, showing also the other configuration files.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "278e0c49_133117e7",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 5
@@ -220,6 +547,69 @@
         "startChar": 70,
         "endLine": 251,
         "endChar": 75
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9227bd9d_c941d184",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Do not validate",
+      "range": {
+        "startLine": 256,
+        "startChar": 17,
+        "endLine": 256,
+        "endChar": 38
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "998cba26_f18b7831",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "It would be useful to explain why you may want to avoid some validations against the global ref-db.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88b5b050_5c763593",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "global ref-db",
+      "range": {
+        "startLine": 264,
+        "startChar": 34,
+        "endLine": 264,
+        "endChar": 53
       },
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
@@ -267,6 +657,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fffc6a3f_a6c9cd22",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Unrelated change?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 62
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8053ec71_88289bb8",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
         "patchSetId": 5
@@ -278,6 +691,29 @@
       "writtenOn": "2020-11-03T20:09:43Z",
       "side": 1,
       "message": "Ok to keep but unrelated, as this file was not touched otherwise by this change.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c43f80_7450cd07",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-03T20:37:02Z",
+      "side": 1,
+      "message": "Unrelated change?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 62
+      },
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
