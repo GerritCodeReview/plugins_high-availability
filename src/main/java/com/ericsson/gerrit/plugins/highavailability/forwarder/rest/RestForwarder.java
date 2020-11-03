@@ -32,9 +32,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import javax.net.ssl.SSLException;
-import org.apache.http.HttpException;
-import org.apache.http.client.ClientProtocolException;
 
 class RestForwarder implements Forwarder {
   enum RequestMethod {
@@ -65,13 +62,14 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexAccount(final int accountId, IndexEvent event) {
-    return execute(RequestMethod.POST, "index account", "index/account", accountId, event);
+  public List<Request> createIndexAccountRequests(final int accountId, IndexEvent event) {
+    return createRequests(RequestMethod.POST, "index account", "index/account", accountId, event);
   }
 
   @Override
-  public boolean indexChange(String projectName, int changeId, IndexEvent event) {
-    return execute(
+  public List<Request> createIndexChangeRequests(
+      String projectName, int changeId, IndexEvent event) {
+    return createRequests(
         RequestMethod.POST,
         "index change",
         "index/change",
@@ -80,14 +78,14 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean deleteChangeFromIndex(final int changeId, IndexEvent event) {
-    return execute(
+  public List<Request> createDeleteChangeFromIndexRequests(final int changeId, IndexEvent event) {
+    return createRequests(
         RequestMethod.DELETE, "delete change", "index/change", buildIndexEndpoint(changeId), event);
   }
 
   @Override
-  public boolean indexGroup(final String uuid, IndexEvent event) {
-    return execute(RequestMethod.POST, "index group", "index/group", uuid, event);
+  public List<Request> createIndexGroupRequests(final String uuid, IndexEvent event) {
+    return createRequests(RequestMethod.POST, "index group", "index/group", uuid, event);
   }
 
   private String buildIndexEndpoint(int changeId) {
@@ -100,8 +98,8 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
-  public boolean indexProject(String projectName, IndexEvent event) {
-    return execute(
+  public List<Request> createIndexProjectRequest(String projectName, IndexEvent event) {
+    return createRequests(
         RequestMethod.POST, "index project", "index/project", Url.encode(projectName), event);
   }
 
@@ -144,16 +142,86 @@ class RestForwarder implements Forwarder {
 
   private boolean execute(
       RequestMethod method, String action, String endpoint, Object id, Object payload) {
-    List<CompletableFuture<Boolean>> futures =
-        peerInfoProvider.get().stream()
-            .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
+    List<Request> requests = createRequests(method, action, endpoint, id, payload);
+    return execute(requests);
+  }
+
+  @Override
+  public Results executeOnce(List<Request> requests) {
+    List<CompletableFuture<Result>> futures =
+        requests.stream()
             .map(request -> CompletableFuture.supplyAsync(request::execute))
             .collect(Collectors.toList());
     CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-    return futures.stream().allMatch(CompletableFuture::join);
+    return Results.create(
+        futures.stream().map(CompletableFuture::join).collect(Collectors.toList()));
   }
 
-  private Request createRequest(
+  private List<Request> createRequests(
+      RequestMethod method, String action, String endpoint, Object id, Object payload) {
+    return peerInfoProvider.get().stream()
+        .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
+        .collect(Collectors.toList());
+  }
+
+  private boolean execute(List<Request> requests) {
+    int retries = 0;
+    Results result = executeOnce(requests);
+
+    while (result.containsRetry()) {
+      Results partialResults = retry(result.retryRequests(), retries++);
+      result =
+          result
+              .appendSuccessfull(partialResults)
+              .appendFailures(partialResults)
+              .setRetries(partialResults);
+    }
+
+    return result.isSucessfull();
+  }
+
+  private Results retry(List<Request> requests, int retryNumber) {
+    int maxTries = cfg.http().maxTries();
+    if (retryNumber >= maxTries) {
+
+      return Results.create(
+          requests.stream()
+              .map(
+                  r -> {
+                    log.atSevere().log(
+                        "Failed to %s %s on %s after %d tries; giving up",
+                        r.action, r.key, r.destination, maxTries);
+                    return Result.create(r, RequestStatus.FAILURE);
+                  })
+              .collect(Collectors.toList()));
+    }
+
+    List<CompletableFuture<Result>> futures =
+        requests.stream()
+            .map(
+                request ->
+                    CompletableFuture.supplyAsync(
+                        () -> {
+                          try {
+                            // TODO: In Java 9+ replace with CompletableFuture.delayedExecutor
+                            Thread.sleep(cfg.http().retryInterval());
+                            return request.execute();
+
+                          } catch (InterruptedException ie) {
+                            log.atSevere().withCause(ie).log(
+                                "%s %s towards %s was interrupted; giving up",
+                                request.action, request.key, request.destination);
+                            Thread.currentThread().interrupt();
+                            return Result.create(request, RequestStatus.FAILURE);
+                          }
+                        }))
+            .collect(Collectors.toList());
+    CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+    return Results.create(
+        futures.stream().map(CompletableFuture::join).collect(Collectors.toList()));
+  }
+
+  Request createRequest(
       RequestMethod method,
       PeerInfo peer,
       String action,
@@ -174,78 +242,5 @@ class RestForwarder implements Forwarder {
         }
       }
     };
-  }
-
-  private abstract class Request {
-    private final String action;
-    private final Object key;
-    private final String destination;
-
-    private int execCnt;
-
-    Request(String action, Object key, String destination) {
-      this.action = action;
-      this.key = key;
-      this.destination = destination;
-    }
-
-    boolean execute() {
-      log.atFine().log("Executing %s %s towards %s", action, key, destination);
-      for (; ; ) {
-        try {
-          execCnt++;
-          tryOnce();
-          log.atFine().log("%s %s towards %s OK", action, key, destination);
-          return true;
-        } catch (ForwardingException e) {
-          int maxTries = cfg.http().maxTries();
-          log.atFine().withCause(e).log(
-              "Failed to %s %s on %s [%d/%d]", action, key, destination, execCnt, maxTries);
-          if (!e.isRecoverable()) {
-            log.atSevere().withCause(e).log(
-                "%s %s towards %s failed with unrecoverable error; giving up",
-                action, key, destination);
-            return false;
-          }
-          if (execCnt >= maxTries) {
-            log.atSevere().log(
-                "Failed to %s %s on %s after %d tries; giving up",
-                action, key, destination, maxTries);
-            return false;
-          }
-
-          log.atFine().log("Retrying to %s %s on %s", action, key, destination);
-          try {
-            Thread.sleep(cfg.http().retryInterval());
-          } catch (InterruptedException ie) {
-            log.atSevere().withCause(ie).log(
-                "%s %s towards %s was interrupted; giving up", action, key, destination);
-            Thread.currentThread().interrupt();
-            return false;
-          }
-        }
-      }
-    }
-
-    void tryOnce() throws ForwardingException {
-      try {
-        HttpResult result = send();
-        if (!result.isSuccessful()) {
-          throw new ForwardingException(
-              true, String.format("Unable to %s %s : %s", action, key, result.getMessage()));
-        }
-      } catch (IOException e) {
-        throw new ForwardingException(isRecoverable(e), e.getMessage(), e);
-      }
-    }
-
-    abstract HttpResult send() throws IOException;
-
-    boolean isRecoverable(IOException e) {
-      Throwable cause = e.getCause();
-      return !(e instanceof SSLException
-          || cause instanceof HttpException
-          || cause instanceof ClientProtocolException);
-    }
   }
 }
