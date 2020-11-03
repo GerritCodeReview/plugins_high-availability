@@ -14,56 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.Request;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.Results;
 import com.google.gerrit.server.events.Event;
+import java.util.List;
 
 /** Forward indexing, stream events and cache evictions to the other master */
 public interface Forwarder {
-
-  /**
-   * Forward a account indexing event to the other master.
-   *
-   * @param accountId the account to index.
-   * @param indexEvent the details of the index event.
-   * @return true if successful, otherwise false.
-   */
-  boolean indexAccount(int accountId, IndexEvent indexEvent);
-
-  /**
-   * Forward a change indexing event to the other master.
-   *
-   * @param projectName the project of the change to index.
-   * @param changeId the change to index.
-   * @param indexEvent the details of the index event.
-   * @return true if successful, otherwise false.
-   */
-  boolean indexChange(String projectName, int changeId, IndexEvent indexEvent);
-
-  /**
-   * Forward a delete change from index event to the other master.
-   *
-   * @param changeId the change to remove from the index.
-   * @param indexEvent the details of the index event.
-   * @return rue if successful, otherwise false.
-   */
-  boolean deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
-
-  /**
-   * Forward a group indexing event to the other master.
-   *
-   * @param uuid the group to index.
-   * @param indexEvent the details of the index event.
-   * @return true if successful, otherwise false.
-   */
-  boolean indexGroup(String uuid, IndexEvent indexEvent);
-
-  /**
-   * Forward a project indexing event to the other master.
-   *
-   * @param projectName the project to index.
-   * @param indexEvent the details of the index event.
-   * @return true if successful, otherwise false.
-   */
-  boolean indexProject(String projectName, IndexEvent indexEvent);
 
   /**
    * Forward a stream event to the other master.
@@ -97,4 +54,58 @@ public interface Forwarder {
    * @return true if successful, otherwise false.
    */
   boolean removeFromProjectList(String projectName);
+
+  /**
+   * Create requests to forward a account indexing event to the other master.
+   *
+   * @param accountId the account to index.
+   * @param indexEvent the details of the index event.
+   * @return true if successful, otherwise false.
+   */
+  List<Request> createIndexAccountRequests(int accountId, IndexEvent indexEvent);
+
+  /**
+   * Create requests to forward a change indexing event to the other master.
+   *
+   * @param projectName the project of the change to index.
+   * @param changeId the change to index.
+   * @param indexEvent the details of the index event.
+   * @return true if successful, otherwise false.
+   */
+  List<Request> createIndexChangeRequests(String projectName, int changeId, IndexEvent indexEvent);
+
+  /**
+   * Create requests to forward a delete change from index event to the other master.
+   *
+   * @param changeId the change to remove from the index.
+   * @param indexEvent the details of the index event.
+   * @return rue if successful, otherwise false.
+   */
+  List<Request> createDeleteChangeFromIndexRequests(int changeId, IndexEvent indexEvent);
+
+  /**
+   * Create requests to forward a group indexing event to the other master.
+   *
+   * @param uuid the group to index.
+   * @param indexEvent the details of the index event.
+   * @return true if successful, otherwise false.
+   */
+  List<Request> createIndexGroupRequests(String uuid, IndexEvent indexEvent);
+
+  /**
+   * Create requests to forward a project indexing event to the other master.
+   *
+   * @param projectName the project to index.
+   * @param indexEvent the details of the index event.
+   * @return true if successful, otherwise false.
+   */
+  List<Request> createIndexProjectRequest(String projectName, IndexEvent indexEvent);
+
+  /**
+   * Execute provided requests without any retry
+   *
+   * @param requests
+   * @return status of request processing
+   */
+  Results executeOnce(List<Request> requests);
 }
