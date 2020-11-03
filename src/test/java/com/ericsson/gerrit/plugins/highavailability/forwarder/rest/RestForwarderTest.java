@@ -36,6 +36,7 @@ import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Provider;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import javax.net.ssl.SSLException;
 import org.junit.Before;
@@ -108,80 +109,98 @@ public class RestForwarderTest {
   public void testIndexAccountOK() throws Exception {
     when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
-    assertThat(forwarder.indexAccount(ACCOUNT_NUMBER, new IndexEvent())).isTrue();
+    List<Request> requests = forwarder.createIndexAccountRequests(ACCOUNT_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isTrue();
   }
 
   @Test
   public void testIndexAccountFailed() throws Exception {
     when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
-    assertThat(forwarder.indexAccount(ACCOUNT_NUMBER, new IndexEvent())).isFalse();
+    List<Request> requests = forwarder.createIndexAccountRequests(ACCOUNT_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testIndexAccountThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_ACCOUNT_ENDPOINT), any());
-    assertThat(forwarder.indexAccount(ACCOUNT_NUMBER, new IndexEvent())).isFalse();
+    List<Request> requests = forwarder.createIndexAccountRequests(ACCOUNT_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testIndexGroupOK() throws Exception {
     when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
-    assertThat(forwarder.indexGroup(UUID, new IndexEvent())).isTrue();
+    List<Request> requests = forwarder.createIndexGroupRequests(UUID, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isTrue();
   }
 
   @Test
   public void testIndexGroupFailed() throws Exception {
     when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
-    assertThat(forwarder.indexGroup(UUID, new IndexEvent())).isFalse();
+    List<Request> requests = forwarder.createIndexGroupRequests(UUID, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testIndexGroupThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_GROUP_ENDPOINT), any());
-    assertThat(forwarder.indexGroup(UUID, new IndexEvent())).isFalse();
+    List<Request> requests = forwarder.createIndexGroupRequests(UUID, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testIndexChangeOK() throws Exception {
     when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
-    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isTrue();
+    List<Request> requests =
+        forwarder.createIndexChangeRequests(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isTrue();
   }
 
   @Test
   public void testIndexChangeFailed() throws Exception {
     when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
-    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isFalse();
+    List<Request> requests =
+        forwarder.createIndexChangeRequests(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testIndexChangeThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_CHANGE_ENDPOINT), any());
-    assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isFalse();
+    List<Request> requests =
+        forwarder.createIndexChangeRequests(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testChangeDeletedFromIndexOK() throws Exception {
     when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT)))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
-    assertThat(forwarder.deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())).isTrue();
+    List<Request> requests =
+        forwarder.createDeleteChangeFromIndexRequests(CHANGE_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isTrue();
   }
 
   @Test
   public void testChangeDeletedFromIndexFailed() throws Exception {
     when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT)))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
-    assertThat(forwarder.deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())).isFalse();
+    List<Request> requests =
+        forwarder.createDeleteChangeFromIndexRequests(CHANGE_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test
   public void testChangeDeletedFromThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).delete(eq(DELETE_CHANGE_ENDPOINT));
-    assertThat(forwarder.deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())).isFalse();
+    List<Request> requests =
+        forwarder.createDeleteChangeFromIndexRequests(CHANGE_NUMBER, new IndexEvent());
+    assertThat(forwarder.executeOnce(requests).isSucessfull()).isFalse();
   }
 
   @Test

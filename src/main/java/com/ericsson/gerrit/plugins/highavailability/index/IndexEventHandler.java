@@ -18,6 +18,8 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.Request;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.Results;
 import com.google.common.base.Objects;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
@@ -27,6 +29,7 @@ import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.inject.Inject;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
@@ -140,13 +143,16 @@ class IndexEventHandler
   abstract class IndexTask implements Runnable {
     protected final IndexEvent indexEvent;
     private int retryCount = 0;
+    private List<Request> requests;
 
-    IndexTask() {
+    IndexTask(List<Request> requests) {
+      this.requests = requests;
       indexEvent = new IndexEvent();
     }
 
-    IndexTask(IndexEvent indexEvent) {
+    IndexTask(IndexEvent indexEvent, List<Request> requests) {
       this.indexEvent = indexEvent;
+      this.requests = requests;
     }
 
     @Override
@@ -160,7 +166,17 @@ class IndexEventHandler
           this::reschedule);
     }
 
-    private void reschedule() {
+    public void execute() {
+      Results result = forwarder.executeOnce(requests);
+      if (result.containsRetry()) {
+        requests = result.retryRequests();
+        if (queuedTasks.add(this)) {
+          reschedule();
+        }
+      }
+    }
+
+    protected void reschedule() {
       if (++retryCount <= maxTries) {
         log.atFine().log("Retrying %d times to %s", retryCount, this);
         executor.schedule(this, retryInterval, TimeUnit.MILLISECONDS);
@@ -168,23 +184,14 @@ class IndexEventHandler
         log.atSevere().log("Failed to %s after %d tries; giving up", this, maxTries);
       }
     }
-
-    abstract void execute();
   }
 
   class IndexChangeTask extends IndexTask {
     private final int changeId;
-    private final String projectName;
 
     IndexChangeTask(String projectName, int changeId, IndexEvent indexEvent) {
-      super(indexEvent);
-      this.projectName = projectName;
+      super(indexEvent, forwarder.createIndexChangeRequests(projectName, changeId, indexEvent));
       this.changeId = changeId;
-    }
-
-    @Override
-    public void execute() {
-      forwarder.indexChange(projectName, changeId, indexEvent);
     }
 
     @Override
@@ -211,13 +218,8 @@ class IndexEventHandler
     private final int changeId;
 
     DeleteChangeTask(int changeId, IndexEvent indexEvent) {
-      super(indexEvent);
+      super(indexEvent, forwarder.createDeleteChangeFromIndexRequests(changeId, indexEvent));
       this.changeId = changeId;
-    }
-
-    @Override
-    public void execute() {
-      forwarder.deleteChangeFromIndex(changeId, indexEvent);
     }
 
     @Override
@@ -244,12 +246,8 @@ class IndexEventHandler
     private final int accountId;
 
     IndexAccountTask(int accountId) {
+      super(forwarder.createIndexAccountRequests(accountId, new IndexEvent()));
       this.accountId = accountId;
-    }
-
-    @Override
-    public void execute() {
-      forwarder.indexAccount(accountId, indexEvent);
     }
 
     @Override
@@ -276,12 +274,8 @@ class IndexEventHandler
     private final String groupUUID;
 
     IndexGroupTask(String groupUUID) {
+      super(forwarder.createIndexGroupRequests(groupUUID, new IndexEvent()));
       this.groupUUID = groupUUID;
-    }
-
-    @Override
-    public void execute() {
-      forwarder.indexGroup(groupUUID, indexEvent);
     }
 
     @Override
@@ -308,12 +302,8 @@ class IndexEventHandler
     private final String projectName;
 
     IndexProjectTask(String projectName) {
+      super(forwarder.createIndexProjectRequest(projectName, new IndexEvent()));
       this.projectName = projectName;
-    }
-
-    @Override
-    public void execute() {
-      forwarder.indexProject(projectName, indexEvent);
     }
 
     @Override
