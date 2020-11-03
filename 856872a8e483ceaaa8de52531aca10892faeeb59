@@ -1,6 +1,115 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5eaebd9_8f70b025",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Nothing major I think; thanks for this.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0b7a588_f513a0fa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "loadIfFileBased\n\nOtherwise I think that \u0027load\u0027 is misleading for the case when nothing gets really loaded but rather returned as is.",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa638af_44c88e74",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Would remove. See [1] https://gerrit-review.googlesource.com/Documentation/dev-crafting-changes.html#style",
+      "range": {
+        "startLine": 63,
+        "startChar": 6,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f35836_cdb23ff8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/PluginStartup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "From sonar-lint in Eclipse: \"Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.\" -Hence add a comment saying so?",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30696ab_1e73a19f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ValidationModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Should be final?",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "665f4e77_d71da7d4",
@@ -43,6 +152,149 @@
         "endLine": 110,
         "endChar": 26
       },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54101b1b_f804ce93",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Would move to its own line below, rather than part of this title.",
+      "range": {
+        "startLine": 110,
+        "startChar": 32,
+        "endLine": 110,
+        "endChar": 76
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278e0c49_133117e7",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "ref-database. Defaults to \u0027false\u0027.\n\n(Consistent with above line 238.)",
+      "range": {
+        "startLine": 241,
+        "startChar": 31,
+        "endLine": 242,
+        "endChar": 19
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42cc5474_17f31d8f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "against",
+      "range": {
+        "startLine": 251,
+        "startChar": 70,
+        "endLine": 251,
+        "endChar": 75
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3741e1dd_ab228c8f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Defaults to no rule or all\n\n(Would consider making this consistent as well, thus slightly rewritten.)",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 28
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a6cc07b_c033295e",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Ok to keep but unrelated, as this file was not touched otherwise by this change.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8053ec71_88289bb8",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Ok to keep but unrelated, as this file was not touched otherwise by this change.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0aba011_54f7511c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/AbstractIndexForwardingIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-03T20:09:43Z",
+      "side": 1,
+      "message": "Unrelated blank line insertion.",
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
