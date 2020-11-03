@@ -28,11 +28,13 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.Results;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.DeleteChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexAccountTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexProjectTask;
+import com.google.common.collect.Lists;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Change;
@@ -105,7 +107,16 @@ public class IndexEventHandlerTest {
     when(configuration.http()).thenReturn(http);
     when(http.maxTries()).thenReturn(Configuration.Http.DEFAULT_MAX_TRIES);
     when(http.retryInterval()).thenReturn(Configuration.Http.DEFAULT_RETRY_INTERVAL);
-
+    when(forwarder.createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any()))
+        .thenReturn(Lists.newArrayList());
+    when(forwarder.createIndexAccountRequests(eq(ACCOUNT_ID), any()))
+        .thenReturn(Lists.newArrayList());
+    when(forwarder.createIndexGroupRequests(eq(UUID), any())).thenReturn(Lists.newArrayList());
+    when(forwarder.createIndexProjectRequest(eq(PROJECT_NAME), any()))
+        .thenReturn(Lists.newArrayList());
+    when(forwarder.createDeleteChangeFromIndexRequests(eq(CHANGE_ID), any()))
+        .thenReturn(Lists.newArrayList());
+    when(forwarder.executeOnce(any())).thenReturn(Results.create(Lists.newArrayList()));
     idLocks = new IndexEventLocks(configuration);
     setUpIndexEventHandler(currCtx);
   }
@@ -136,7 +147,8 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldIndexInRemoteOnChangeIndexedEvent() throws Exception {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder).executeOnce(any());
   }
 
   @Test
@@ -149,7 +161,9 @@ public class IndexEventHandlerTest {
 
     setUpIndexEventHandler(new CurrentRequestContext(threadLocalCtxMock, cfgMock, oneOffCtxMock));
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+
+    verify(forwarder, never()).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -163,7 +177,8 @@ public class IndexEventHandlerTest {
 
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
 
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -177,7 +192,8 @@ public class IndexEventHandlerTest {
 
     indexEventHandler.onAccountIndexed(accountId.get());
 
-    verify(forwarder, never()).indexAccount(eq(ACCOUNT_ID), any());
+    verify(forwarder, times(1)).createIndexAccountRequests(eq(ACCOUNT_ID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -191,7 +207,8 @@ public class IndexEventHandlerTest {
 
     indexEventHandler.onChangeDeleted(changeId.get());
 
-    verify(forwarder, never()).deleteChangeFromIndex(eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).createDeleteChangeFromIndexRequests(eq(CHANGE_ID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -205,7 +222,8 @@ public class IndexEventHandlerTest {
 
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
 
-    verify(forwarder, never()).indexGroup(eq(UUID), any());
+    verify(forwarder, times(1)).createIndexGroupRequests(eq(UUID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -219,7 +237,8 @@ public class IndexEventHandlerTest {
 
     indexEventHandler.onProjectIndexed(PROJECT_NAME);
 
-    verify(forwarder, never()).indexProject(eq(PROJECT_NAME), any());
+    verify(forwarder, times(1)).createIndexProjectRequest(eq(PROJECT_NAME), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -235,7 +254,8 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
 
     verify(locks, times(2)).withLock(any(), any(), any());
-    verify(forwarder, times(1)).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).executeOnce(any());
   }
 
   @Test
@@ -255,7 +275,8 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
 
     verify(locks, times(11)).withLock(any(), any(), any());
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -275,7 +296,8 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
 
     verify(locks, times(1)).withLock(any(), any(), any());
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, never()).executeOnce(any());
   }
 
   @Test
@@ -295,8 +317,9 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
 
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-    verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
+    verify(forwarder, times(1)).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder, times(1)).createIndexAccountRequests(eq(ACCOUNT_ID), any());
+    verify(forwarder, times(1)).executeOnce(any());
   }
 
   @Test
@@ -310,19 +333,22 @@ public class IndexEventHandlerTest {
 
     setUpIndexEventHandler(new CurrentRequestContext(threadLocalCtxMock, cfgMock, oneOffCtxMock));
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder).createIndexChangeRequests(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder).executeOnce(any());
   }
 
   @Test
   public void shouldIndexInRemoteOnAccountIndexedEvent() throws Exception {
     indexEventHandler.onAccountIndexed(accountId.get());
-    verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
+    verify(forwarder).createIndexAccountRequests(eq(ACCOUNT_ID), any());
+    verify(forwarder).executeOnce(any());
   }
 
   @Test
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
     indexEventHandler.onChangeDeleted(changeId.get());
-    verify(forwarder).deleteChangeFromIndex(eq(CHANGE_ID), any());
+    verify(forwarder).createDeleteChangeFromIndexRequests(eq(CHANGE_ID), any());
+    verify(forwarder).executeOnce(any());
     verifyZeroInteractions(
         changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
@@ -330,7 +356,8 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldIndexInRemoteOnGroupIndexedEvent() throws Exception {
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
-    verify(forwarder).indexGroup(eq(UUID), any());
+    verify(forwarder).createIndexGroupRequests(eq(UUID), any());
+    verify(forwarder).executeOnce(any());
   }
 
   @Test
