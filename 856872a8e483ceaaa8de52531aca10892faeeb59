@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e27b853_c78f60f8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Well I copied this code from multi-site plugin 😞 see: com.googlesource.gerrit.plugins.multisite.Configuration\nI will move it from constructor to getConfigFile",
+      "parentUuid": "4445d226_6e807fca",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 36
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b375e10_a689676c",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "By leaving this variable named as \u0027cfg\u0027 we would minimise the changes and, in case of upstream fixes, minimise also the potential conflicts.",
+      "range": {
+        "startLine": 92,
+        "startChar": 26,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18ee27a4_3c5c1eb9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b375e10_a689676c",
       "range": {
         "startLine": 92,
         "startChar": 26,
@@ -87,6 +135,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90418a98_988f42c1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0b7a588_f513a0fa",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb371df9_a9ff59aa",
@@ -100,6 +172,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "This is code smell: why do we need to check if the config is a FileBasedConfig? For loading it? Then it is problematic for two reasons:\n1. The method is creating side effects, as it actually modifies its parameter, which isn\u0027t obvious from the method signature\n2. The method name is not telling 100% the truth, because if the config passed isn\u0027t a FileBasedConfig, then it doesn\u0027t actually load anything, which is a second more subtle side effect.\n\nWhy don\u0027t you leave the responsibility to load the config *outside* this class?",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a5a9959_cf8729ea",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Again copied one to one from multi-site plugin see: com.googlesource.gerrit.plugins.multisite.Configuration.lazyLoad(Config). I will move loading to getConfigFile",
+      "parentUuid": "fb371df9_a9ff59aa",
       "range": {
         "startLine": 120,
         "startChar": 8,
@@ -133,6 +229,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f2055b9_710e5239",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faa638af_44c88e74",
+      "range": {
+        "startLine": 63,
+        "startChar": 6,
+        "endLine": 63,
+        "endChar": 12
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c95c74ff_c36b31f7",
@@ -146,6 +266,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "What about making the Module a subclass of LifecycleModule instead?\n\nThese two lines would become:\n  listener().to(PluginStartup.class)",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 78
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cac04a2_e8e0cb4a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c95c74ff_c36b31f7",
       "range": {
         "startLine": 63,
         "startChar": 0,
@@ -173,6 +317,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c389f35a_8d31f520",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/PluginStartup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54b7a8e1_ace2c7cc",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8f35836_cdb23ff8",
@@ -186,6 +348,30 @@
       "writtenOn": "2020-11-03T20:09:43Z",
       "side": 1,
       "message": "From sonar-lint in Eclipse: \"Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.\" -Hence add a comment saying so?",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0eb466fb_27706ab0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/PluginStartup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8f35836_cdb23ff8",
       "range": {
         "startLine": 38,
         "startChar": 21,
@@ -219,6 +405,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f7f6215_37e864d1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ValidationModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e30696ab_1e73a19f",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1313db68_1d7315ce",
@@ -236,6 +446,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf3983fe_f8d17e58",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ValidationModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1313db68_1d7315ce",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "665f4e77_d71da7d4",
@@ -249,6 +477,30 @@
       "writtenOn": "2020-11-03T08:40:22Z",
       "side": 1,
       "message": "Active/passive",
+      "range": {
+        "startLine": 50,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81def80a_c4818feb",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "665f4e77_d71da7d4",
       "range": {
         "startLine": 50,
         "startChar": 3,
@@ -305,6 +557,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a72232f_7760942f",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1503f3e6_65cba59e",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 26
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd3c2d04_4d71f837",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54101b1b_f804ce93",
+      "range": {
+        "startLine": 110,
+        "startChar": 32,
+        "endLine": 110,
+        "endChar": 76
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9882ee67_8c9ceb34",
@@ -318,6 +618,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "What is the \"Unique database server\" ?",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8dcd31b_e1d806d2",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Maybe it\u0027s not relevant anymore I\u0027ve just copied the Active/passive setup and added the global-refdb steps. Should we cleanup documentation for both active/passive and active/active as a follow up change or should I do this in this one?",
+      "parentUuid": "9882ee67_8c9ceb34",
       "range": {
         "startLine": 114,
         "startChar": 2,
@@ -353,6 +677,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7b1d385_872c31ef",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "I wanted to have full example here, so I\u0027ve copied steps from Active/passive and I\u0027ve added global-refdb steps",
+      "parentUuid": "1268a400_b179002f",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31cb8e71_7062403c",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 5
@@ -364,6 +712,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "An implementation of global-refdb (e.g. Zookeeper)",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 19
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1f41a7e_d5e01996",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31cb8e71_7062403c",
       "range": {
         "startLine": 117,
         "startChar": 2,
@@ -399,6 +771,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2299f790_58a7ef95",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Same as above, copied from Active/passive",
+      "parentUuid": "08a81c92_ab34cbe0",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 76
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0db34b5c_a454a92d",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 5
@@ -410,6 +806,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "Those two requirements aren\u0027t specific to the active/active RW config",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 88
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ff89ea_6c6a242d",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Same as above I wanted to have all steps in a single place",
+      "parentUuid": "0db34b5c_a454a92d",
       "range": {
         "startLine": 122,
         "startChar": 0,
@@ -466,6 +886,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee375eb8_e23ca6e4",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "879132e0_491cb640",
+      "range": {
+        "startLine": 130,
+        "startChar": 78,
+        "endLine": 130,
+        "endChar": 79
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9f922de_6ba60d42",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2184195f_d11f7da3",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 30
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7ee4bc1_aea1e046",
@@ -479,6 +947,30 @@
       "writtenOn": "2020-11-03T20:37:02Z",
       "side": 1,
       "message": "This is for the zookeeper-refdb implementation. Can you specify where to download the plugin?",
+      "range": {
+        "startLine": 133,
+        "startChar": 24,
+        "endLine": 133,
+        "endChar": 46
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20cd23e4_73e22d3b",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7ee4bc1_aea1e046",
       "range": {
         "startLine": 133,
         "startChar": 24,
@@ -506,6 +998,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54fedff1_725525c5",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d99391b3_06b0a248",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "278e0c49_133117e7",
@@ -529,6 +1039,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dbc8be2_b734f46f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "278e0c49_133117e7",
+      "range": {
+        "startLine": 241,
+        "startChar": 31,
+        "endLine": 242,
+        "endChar": 19
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42cc5474_17f31d8f",
@@ -542,6 +1076,30 @@
       "writtenOn": "2020-11-03T20:09:43Z",
       "side": 1,
       "message": "against",
+      "range": {
+        "startLine": 251,
+        "startChar": 70,
+        "endLine": 251,
+        "endChar": 75
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a67b0c26_4533c297",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42cc5474_17f31d8f",
       "range": {
         "startLine": 251,
         "startChar": 70,
@@ -592,6 +1150,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c11a281_0c016266",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9227bd9d_c941d184",
+      "range": {
+        "startLine": 256,
+        "startChar": 17,
+        "endLine": 256,
+        "endChar": 38
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88b5b050_5c763593",
@@ -615,6 +1197,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a7a5131_4e4a8da8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88b5b050_5c763593",
+      "range": {
+        "startLine": 264,
+        "startChar": 34,
+        "endLine": 264,
+        "endChar": 53
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3741e1dd_ab228c8f",
@@ -628,6 +1234,30 @@
       "writtenOn": "2020-11-03T20:09:43Z",
       "side": 1,
       "message": "Defaults to no rule or all\n\n(Would consider making this consistent as well, thus slightly rewritten.)",
+      "range": {
+        "startLine": 266,
+        "startChar": 4,
+        "endLine": 266,
+        "endChar": 28
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "869b5fd7_b3c24181",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3741e1dd_ab228c8f",
       "range": {
         "startLine": 266,
         "startChar": 4,
@@ -678,6 +1308,48 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be7ac51_78d5c7c1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fffc6a3f_a6c9cd22",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 62
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62ae6437_c8384a2f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "I see, I will rebase my chnage on GJF formatting change",
+      "parentUuid": "2a6cc07b_c033295e",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8053ec71_88289bb8",
@@ -718,6 +1390,48 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22516022_f85a8e04",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8053ec71_88289bb8",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3b56ef6_d308367e",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42c43f80_7450cd07",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0aba011_54f7511c",
@@ -731,6 +1445,24 @@
       "writtenOn": "2020-11-03T20:09:43Z",
       "side": 1,
       "message": "Unrelated blank line insertion.",
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80183b5_fa5f5201",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/AbstractIndexForwardingIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-04T14:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0aba011_54f7511c",
       "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
