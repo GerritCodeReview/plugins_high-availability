@@ -33,6 +33,24 @@
       "message": "Letting someone from your team submit this change if ready.",
       "revId": "695ad898d887637be4eca501b018fd5a97db34b9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87da84e3_20d184b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-04T13:59:18Z",
+      "side": 1,
+      "message": "\u003e Letting someone from your team submit this change if ready.\n\nWhile scoring (or fixing?) the Verified.",
+      "parentUuid": "6b47d762_2f85143f",
+      "revId": "695ad898d887637be4eca501b018fd5a97db34b9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
