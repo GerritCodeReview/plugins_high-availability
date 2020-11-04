@@ -6,9 +6,11 @@
       "updated": "2020-11-04T22:09:09Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "SCHEDULED",
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/40%252F286840%252F1/1/console",
+      "started": "2020-11-04T22:12:53Z",
       "created": "2020-11-04T22:09:08Z",
-      "updated": "2020-11-04T22:09:08Z"
+      "updated": "2020-11-04T22:12:53Z"
     }
   }
 }
