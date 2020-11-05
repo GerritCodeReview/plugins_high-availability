@@ -654,6 +654,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7938466_776a79df",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:47:49Z",
+      "side": 1,
+      "message": "True, I would recommend to:\n- change the documentation in stable-3.0\n- merge the documentation change and then upstream up to master\n- rebase this change on top of the new master\n\nWDYT?",
+      "parentUuid": "b8dcd31b_e1d806d2",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1268a400_b179002f",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 5
@@ -689,6 +713,30 @@
       "side": 1,
       "message": "I wanted to have full example here, so I\u0027ve copied steps from Active/passive and I\u0027ve added global-refdb steps",
       "parentUuid": "1268a400_b179002f",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 75
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed28705_5dc6677e",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:47:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e7b1d385_872c31ef",
       "range": {
         "startLine": 115,
         "startChar": 0,
@@ -793,6 +841,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27396728_86facd67",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:47:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2299f790_58a7ef95",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 76
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0db34b5c_a454a92d",
@@ -830,6 +902,30 @@
       "side": 1,
       "message": "Same as above I wanted to have all steps in a single place",
       "parentUuid": "0db34b5c_a454a92d",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 88
+      },
+      "revId": "856872a8e483ceaaa8de52531aca10892faeeb59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f0d6e84_1ffe3d5f",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:47:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "26ff89ea_6c6a242d",
       "range": {
         "startLine": 122,
         "startChar": 0,
