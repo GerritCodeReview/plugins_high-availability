@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c8e3e43_03c00c2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T19:54:20Z",
+      "side": 1,
+      "message": "Your steps are correct and make perfect sense. What I found misleading is that the \"socket timeout\" on the forwarder side is the *final effect* of what happened before:\n- Deadlock on the striped locks for the pending change under reindex\n- Retry on the sender side collapse the incoming thread pool of the receiver\n\n... as a consequence the receiver side is in deadlock and out of thread pool resources.\n\nThe fact that the receiver under that condition does not respond, is rather a consequence.",
+      "parentUuid": "fec659cb_7793c316",
+      "range": {
+        "startLine": 10,
+        "startChar": 23,
+        "endLine": 10,
+        "endChar": 66
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a83a4461_1356a74b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "hmm not sure but I\u0027ve explained above how I manage to reproduce the situation",
       "parentUuid": "a83a4461_1356a74b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "116fb287aba716d77bb05b5959f478f2410e0c31",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4089def1_c18b5411",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T19:54:20Z",
+      "side": 1,
+      "message": "Starvation: blocked waiting for a resource that would never become available.\nDeadlock: the members are waiting for each other, which is the case here.\n\nThe change N is being reindexed, but the other calls to change N are waiting for change N to be reindexed, over and over again ... until it kills all the available resources on the receiver side.",
+      "parentUuid": "bbeef7cc_3f7d2371",
       "range": {
         "startLine": 15,
         "startChar": 0,
