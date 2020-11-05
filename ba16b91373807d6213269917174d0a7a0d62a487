@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e171caef_6f8dcdf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:43:53Z",
+      "side": 1,
+      "message": "could potentially",
+      "range": {
+        "startLine": 12,
+        "startChar": 52,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "ba16b91373807d6213269917174d0a7a0d62a487",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc176af_a7872793",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:43:53Z",
+      "side": 1,
+      "message": "Can you explain why? I supposed you mean because of the ever increasing queueing of incoming events in the Forwarding side, which would eventually crash the heap.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "ba16b91373807d6213269917174d0a7a0d62a487",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820e3d24_4d526cda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-05T22:43:53Z",
+      "side": 1,
+      "message": "The change looks quite invasive, I am a bit worried of the potential conflicts upstream.\nDo you foresee a way to achieve a similar result but without this substantial refactoring?",
+      "revId": "ba16b91373807d6213269917174d0a7a0d62a487",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
