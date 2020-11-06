@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f00fd4cc_3cabef61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-06T21:18:18Z",
+      "side": 1,
+      "message": "\u0027primary\u0027 is misleading, \u0027master\u0027 is offensive ... can we find a better term?",
+      "revId": "3cfef07d01a1824837dbcdddaaae246757cf2dd5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a912ec3_06b0a331",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-06T21:18:18Z",
+      "side": 1,
+      "message": "primary is misleading here: with the HA plugin you have a primary and a secondary node.\n\nWhy don\u0027t you just:\n- Add a glossary at the beginning\n- Use a consistent non-offensive word for the Gerrit server\n\nSome ideas:\n- source node\n- server\n- instance\n\nWDYT?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "3cfef07d01a1824837dbcdddaaae246757cf2dd5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
