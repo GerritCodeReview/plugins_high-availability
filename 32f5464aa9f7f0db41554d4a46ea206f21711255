@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67d877b2_118ce497",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-06T21:51:36Z",
+      "side": 1,
+      "message": "I am not 100% convinced that is going to work.\n\nImagine that the repository as some very complex Prolog rules (e.g. using the owners plugin and looping through all the files in the patch-set) and it takes several seconds to compute them.\n\nThe change C1/PS1 receives at T1 a new patch-set and therefore triggers a IDX1 event.\nIDX1 is getting forwarded and therefore C1 is added to the inFlightIndexing set.\nThe processing of IDX1 will take 60s to complete. That time will be spent as follows:\n- T1 \u003d C1/PS1 is read from the receiver side\n- T1 to T1+59s \u003d C1/PS1 Prolog rules are getting executed and the result stored in Lucene\n- T1+60s the IDX1 finishes and C1 is removed from inFlightIndexing\n\nNow, if at T1+30s a new PS2 is uploaded to C1, a new IDX2 event is created, still associated with the C1 change. Because of L58, this results in an exception thrown at L78 and the *legitimate* reindexing of PS2 is not propagated to the receiver side.\n\nDoes that scenario makes sense to you?\nIf yes, then this change introduces a regression.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 95
+      },
+      "revId": "32f5464aa9f7f0db41554d4a46ea206f21711255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
