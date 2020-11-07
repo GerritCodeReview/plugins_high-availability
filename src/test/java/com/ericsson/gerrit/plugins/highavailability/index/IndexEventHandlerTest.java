@@ -43,6 +43,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -105,6 +106,10 @@ public class IndexEventHandlerTest {
     when(configuration.http()).thenReturn(http);
     when(http.maxTries()).thenReturn(Configuration.Http.DEFAULT_MAX_TRIES);
     when(http.retryInterval()).thenReturn(Configuration.Http.DEFAULT_RETRY_INTERVAL);
+    when(forwarder.indexAccount(eq(ACCOUNT_ID), any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(forwarder.deleteChangeFromIndex(eq(CHANGE_ID), any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(forwarder.indexGroup(eq(UUID), any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(forwarder.indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any())).thenReturn(CompletableFuture.completedFuture(true));
 
     idLocks = new IndexEventLocks(configuration);
     setUpIndexEventHandler(currCtx);
