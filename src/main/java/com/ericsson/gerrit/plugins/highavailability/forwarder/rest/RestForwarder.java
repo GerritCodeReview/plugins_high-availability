@@ -28,10 +28,7 @@ import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 import javax.net.ssl.SSLException;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
@@ -49,6 +46,7 @@ class RestForwarder implements Forwarder {
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
   private final GsonProvider gson;
+  private final RestForwarderScheduler scheduler;
 
   @Inject
   RestForwarder(
@@ -56,12 +54,14 @@ class RestForwarder implements Forwarder {
       @PluginName String pluginName,
       Configuration cfg,
       Provider<Set<PeerInfo>> peerInfoProvider,
-      GsonProvider gson) {
+      GsonProvider gson,
+      RestForwarderScheduler scheduler) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
     this.gson = gson;
+    this.scheduler = scheduler;
   }
 
   @Override
@@ -144,13 +144,10 @@ class RestForwarder implements Forwarder {
 
   private boolean execute(
       RequestMethod method, String action, String endpoint, Object id, Object payload) {
-    List<CompletableFuture<Boolean>> futures =
-        peerInfoProvider.get().stream()
-            .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
-            .map(request -> CompletableFuture.supplyAsync(request::execute))
-            .collect(Collectors.toList());
-    CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-    return futures.stream().allMatch(CompletableFuture::join);
+    peerInfoProvider.get().stream()
+        .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
+        .forEach(request -> scheduler.execute(request));
+    return true;
   }
 
   private Request createRequest(
@@ -176,7 +173,7 @@ class RestForwarder implements Forwarder {
     };
   }
 
-  private abstract class Request {
+  public abstract class Request {
     private final String action;
     private final Object key;
     private final String destination;
@@ -189,42 +186,35 @@ class RestForwarder implements Forwarder {
       this.destination = destination;
     }
 
-    boolean execute() {
+    boolean execute() throws ForwardingException {
       log.atFine().log("Executing %s %s towards %s", action, key, destination);
-      for (; ; ) {
-        try {
-          execCnt++;
-          tryOnce();
-          log.atFine().log("%s %s towards %s OK", action, key, destination);
-          return true;
-        } catch (ForwardingException e) {
-          int maxTries = cfg.http().maxTries();
-          log.atFine().withCause(e).log(
-              "Failed to %s %s on %s [%d/%d]", action, key, destination, execCnt, maxTries);
-          if (!e.isRecoverable()) {
-            log.atSevere().withCause(e).log(
-                "%s %s towards %s failed with unrecoverable error; giving up",
-                action, key, destination);
-            return false;
-          }
-          if (execCnt >= maxTries) {
-            log.atSevere().log(
-                "Failed to %s %s on %s after %d tries; giving up",
-                action, key, destination, maxTries);
-            return false;
-          }
-
-          log.atFine().log("Retrying to %s %s on %s", action, key, destination);
-          try {
-            Thread.sleep(cfg.http().retryInterval());
-          } catch (InterruptedException ie) {
-            log.atSevere().withCause(ie).log(
-                "%s %s towards %s was interrupted; giving up", action, key, destination);
-            Thread.currentThread().interrupt();
-            return false;
-          }
+      try {
+        execCnt++;
+        tryOnce();
+        log.atFine().log("%s %s towards %s OK", action, key, destination);
+        return true;
+      } catch (ForwardingException e) {
+        int maxTries = cfg.http().maxTries();
+        log.atFine().withCause(e).log(
+            "Failed to %s %s on %s [%d/%d]", action, key, destination, execCnt, maxTries);
+        if (!e.isRecoverable()) {
+          log.atSevere().withCause(e).log(
+              "%s %s towards %s failed with unrecoverable error; giving up",
+              action, key, destination);
+          throw e;
+        }
+        if (execCnt >= maxTries) {
+          log.atSevere().log(
+              "Failed to %s %s on %s after %d tries; giving up",
+              action, key, destination, maxTries);
+          throw e;
         }
       }
+      return false;
+    }
+
+    public int getExecCnt() {
+      return execCnt;
     }
 
     void tryOnce() throws ForwardingException {
