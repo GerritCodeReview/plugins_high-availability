@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.gerrit.server.events.Event;
+import java.util.concurrent.CompletableFuture;
 
 /** Forward indexing, stream events and cache evictions to the other master */
 public interface Forwarder {
@@ -26,7 +27,7 @@ public interface Forwarder {
    * @param indexEvent the details of the index event.
    * @return true if successful, otherwise false.
    */
-  boolean indexAccount(int accountId, IndexEvent indexEvent);
+  CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent);
 
   /**
    * Forward a change indexing event to the other master.
@@ -36,7 +37,7 @@ public interface Forwarder {
    * @param indexEvent the details of the index event.
    * @return true if successful, otherwise false.
    */
-  boolean indexChange(String projectName, int changeId, IndexEvent indexEvent);
+  CompletableFuture<Boolean> indexChange(String projectName, int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a delete change from index event to the other master.
@@ -45,7 +46,7 @@ public interface Forwarder {
    * @param indexEvent the details of the index event.
    * @return rue if successful, otherwise false.
    */
-  boolean deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
+  CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a group indexing event to the other master.
@@ -54,7 +55,7 @@ public interface Forwarder {
    * @param indexEvent the details of the index event.
    * @return true if successful, otherwise false.
    */
-  boolean indexGroup(String uuid, IndexEvent indexEvent);
+  CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent);
 
   /**
    * Forward a project indexing event to the other master.
@@ -63,7 +64,7 @@ public interface Forwarder {
    * @param indexEvent the details of the index event.
    * @return true if successful, otherwise false.
    */
-  boolean indexProject(String projectName, IndexEvent indexEvent);
+  CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent);
 
   /**
    * Forward a stream event to the other master.
@@ -71,7 +72,7 @@ public interface Forwarder {
    * @param event the event to forward.
    * @return true if successful, otherwise false.
    */
-  boolean send(Event event);
+  CompletableFuture<Boolean> send(Event event);
 
   /**
    * Forward a cache eviction event to the other master.
@@ -80,7 +81,7 @@ public interface Forwarder {
    * @param key the key identifying the entry to evict from the cache.
    * @return true if successful, otherwise false.
    */
-  boolean evict(String cacheName, Object key);
+  CompletableFuture<Boolean> evict(String cacheName, Object key);
 
   /**
    * Forward an addition to the project list cache to the other master.
@@ -88,7 +89,7 @@ public interface Forwarder {
    * @param projectName the name of the project to add to the project list cache
    * @return true if successful, otherwise false.
    */
-  boolean addToProjectList(String projectName);
+  CompletableFuture<Boolean> addToProjectList(String projectName);
 
   /**
    * Forward a removal from the project list cache to the other master.
@@ -96,5 +97,5 @@ public interface Forwarder {
    * @param projectName the name of the project to remove from the project list cache
    * @return true if successful, otherwise false.
    */
-  boolean removeFromProjectList(String projectName);
+  CompletableFuture<Boolean> removeFromProjectList(String projectName);
 }
