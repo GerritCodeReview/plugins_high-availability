@@ -26,6 +26,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "84fff255_c5536ddb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20460bfc_d1d76b2f",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 10
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eafcd91_2096d2d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20460bfc_d1d76b2f",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 10
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8606e97f_8e70c0c9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -64,6 +112,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de1638f1_42fc30b1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adba5cc8_6ee36bc0",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 56
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cd176d3_41847c38",
@@ -77,6 +149,30 @@
       "writtenOn": "2020-11-09T17:03:19Z",
       "side": 1,
       "message": "nit: could be protected, this is only accessed within the same package.",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 8
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc432df3_5759e4e9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cd176d3_41847c38",
       "range": {
         "startLine": 176,
         "startChar": 2,
@@ -110,6 +206,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89068f28_4f7c0336",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b905d564_b20b50b5",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5623e2f9_57e75148",
@@ -123,6 +243,54 @@
       "writtenOn": "2020-11-09T17:03:19Z",
       "side": 1,
       "message": "NORM_PRIORITY is the default, this is equivalent to:\n\nworkQueue.createQueue(executorSize, \"RestForwarderScheduler\", false)",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 99
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dd0c6f9_4ba425bc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5623e2f9_57e75148",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 99
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b58e2824_0e9593a8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5623e2f9_57e75148",
       "range": {
         "startLine": 42,
         "startChar": 8,
@@ -158,6 +326,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7528205_b4b788b0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "It would actually make sense to log this, instead of printing.",
+      "parentUuid": "270fac8d_ad0a404e",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b9d7254_1c32029d",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 1
@@ -169,6 +361,30 @@
       "writtenOn": "2020-11-09T17:03:19Z",
       "side": 1,
       "message": "This TODO was related to the gsonProvider (and also perhaps obsolete).\nConsider moving it to line 102.",
+      "range": {
+        "startLine": 103,
+        "startChar": 42,
+        "endLine": 103,
+        "endChar": 67
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9450d1_12e8a69c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-09T22:20:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b9d7254_1c32029d",
       "range": {
         "startLine": 103,
         "startChar": 42,
