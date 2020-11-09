@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "20460bfc_d1d76b2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "causes",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 10
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8606e97f_8e70c0c9",
@@ -14,6 +37,144 @@
       "writtenOn": "2020-11-09T14:29:27Z",
       "side": 1,
       "message": "I can come back to this review once your team is done (or so) with it; thanks.",
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adba5cc8_6ee36bc0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "nit: consider using method reference\n.forEach(scheduler::execute)",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 56
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cd176d3_41847c38",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "nit: could be protected, this is only accessed within the same package.",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 8
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b905d564_b20b50b5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5623e2f9_57e75148",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "NORM_PRIORITY is the default, this is equivalent to:\n\nworkQueue.createQueue(executorSize, \"RestForwarderScheduler\", false)",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 99
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "270fac8d_ad0a404e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "What\u0027s the point of printing here the stackTrace to stderr?\nThis would have been logged by the request.execute already",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b9d7254_1c32029d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 1,
+      "message": "This TODO was related to the gsonProvider (and also perhaps obsolete).\nConsider moving it to line 102.",
+      "range": {
+        "startLine": 103,
+        "startChar": 42,
+        "endLine": 103,
+        "endChar": 67
+      },
       "revId": "a7985d6583ca0d005115d3910544740e37e6d7cf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
