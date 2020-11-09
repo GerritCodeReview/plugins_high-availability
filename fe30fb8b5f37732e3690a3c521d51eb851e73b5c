@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecba0bd7_f17a6ec9",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 0,
+      "message": "indexAccount() method is always going to return true, whether the indexing was successful or not (that\u0027s why testIndexAccountFailed() test was removed, because a failure is not captured in the return value anymore).\n\nI am thinking about the value of these test that are only checking the hardcoded return value now.\nShould we not replace them with tests that check the _actual_ result of the execution instead?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 3
+      },
+      "revId": "fe30fb8b5f37732e3690a3c521d51eb851e73b5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db67affa_23b475d1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-09T17:03:19Z",
+      "side": 0,
+      "message": "See above: any way we can replace these with tests that verify the interaction with the scheduler and the actual result of that execution?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 3
+      },
+      "revId": "fe30fb8b5f37732e3690a3c521d51eb851e73b5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
