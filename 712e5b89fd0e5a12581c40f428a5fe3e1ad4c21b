@@ -83,6 +83,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dcbcf66_7e485eae",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-10T14:06:05Z",
+      "side": 1,
+      "message": "I was trying with similar approach, I was even looking at Retrier which we are already using in the Gerrit Core.\nI can see few point to discuss with this approach:\n1. This is basically recursion, each failing thread creates a new thread. If one of the remotes is not responding and we have a lot of changes happening we can run out of threads. Original code was taking a single thread per change and it was retrying without consuming any additional resources. I\u0027ve manage to reproduce it by adding a breakpoint on receiver site\n2. nit: We are creating additional work queue for RestForwarderScheduler\n3. nit: change 285925 introduce locking on the forwarder side, this approach is not release a lock between retry which is a code smell\n\nChange https://gerrit-review.googlesource.com/c/plugins/high-availability/+/286700 is so invasive because it is closing all thread and releasing all locks",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 3
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9451fec_3e5c7b0c",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 5
