@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c7ad2b3_e318c147",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-10T14:01:12Z",
+      "side": 1,
+      "message": "Documentation does not match method signature anymore",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75cee439_d2849868",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-10T14:01:12Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "332db74f_c58655ed",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-10T14:01:12Z",
+      "side": 1,
+      "message": "This is going to execute tryToComplete() over and over again until the future is complete, correct?\nWhat are the termination guarantees? is this guaranteed to stop executing indefinitely because the REST request eventually will timeout?",
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ad4766_da360525",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-10T14:01:12Z",
+      "side": 1,
+      "message": "The retryExecutor is initialised in the constructor.\nIt can\u0027t ever be null, can it?",
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9451fec_3e5c7b0c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-11-10T14:01:12Z",
+      "side": 1,
+      "message": "Suggestion: What do you think about having a (set of) tests where more that one peer is provided.\nThis way we could test the reduce logic introduced at src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.javaL153\n\nWDYT?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 73
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
