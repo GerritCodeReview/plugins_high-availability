@@ -22,6 +22,30 @@
       },
       "revId": "32f5464aa9f7f0db41554d4a46ea206f21711255",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8870c867_369b0619",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-10T11:12:29Z",
+      "side": 1,
+      "message": "Actually this was my intention. Before this change we have following scenario:\nWe have forwarder and receiver side:\nT1 \u003d C1/PS1 is read from the receiver side\nT1 to T1+59s \u003d C1/PS1 Prolog rules are getting executed and the result stored in Lucene\nForwarder has socket timeout. Because indexing of C1/PS1 takes 60 sec forwarder got SocketTimeoutException\nForwarder has retry mechanism so it will call receiver again.\nWe ended up with two indexing operations for the same change(for every socket timeout we will get a new indexing operation)\n\nWith this change:\nT1 \u003d C1/PS1 is read from the receiver side\nT1 to T1+59s \u003d C1/PS1 Prolog rules are getting executed and the result stored in Lucene\nC1 is added to in-flight\nForwarder has socket timeout. Because indexing of C1/PS1 takes 60 sec forwarder got SocketTimeoutException\nForwarder has retry mechanism so it will call receiver again. If indexing for C1 is still in in-flight. Forwarder will get exception and will retry with delay.\n\nIt\u0027s the same if at T1+30s a new PS2 is uploaded to C1. With previous code we just starts second indexing. With in-flight we throw exception and forwarder will retry until the first indexing is finished(removed from in-flights)\n\nBecause of the in-flight we do not start multiple indexing operation for the same C1 and we do not occupy threads.",
+      "parentUuid": "67d877b2_118ce497",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 95
+      },
+      "revId": "32f5464aa9f7f0db41554d4a46ea206f21711255",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
