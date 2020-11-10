@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93438b55_e3bbcab3",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-10T00:24:57Z",
+      "side": 0,
+      "message": "I\u0027ve opted for CompletableFuture\u003cBoolean\u003e, so that we can still retrieve the overall result of the async computation.",
+      "parentUuid": "e61c355e_2fdf3928",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 3
+      },
+      "revId": "fe30fb8b5f37732e3690a3c521d51eb851e73b5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "db67affa_23b475d1",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 1
@@ -85,6 +109,30 @@
       "side": 0,
       "message": "Sure, let me see if there is an easy and meaningful way to do it.",
       "parentUuid": "db67affa_23b475d1",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 3
+      },
+      "revId": "fe30fb8b5f37732e3690a3c521d51eb851e73b5c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e7781f6_8863cf15",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-10T00:24:57Z",
+      "side": 0,
+      "message": "Done, with CompletableFuture\u003cBoolean\u003e",
+      "parentUuid": "23b96299_45aeb818",
       "range": {
         "startLine": 115,
         "startChar": 0,
