@@ -106,6 +106,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb151fbe_2c02e2a4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-10T14:18:23Z",
+      "side": 1,
+      "message": "Plus I see weird behaviour now I have 39 forwarder thread for a single change(I reproduced the issue from above) If I add new event(vote on a change) I see three events so three threads but only one is retrying and it\u0027s retrying just once.",
+      "parentUuid": "5dcbcf66_7e485eae",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 3
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9451fec_3e5c7b0c",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 5
