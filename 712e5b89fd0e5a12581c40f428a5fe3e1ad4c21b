@@ -130,6 +130,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae305a0f_48374c4b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-10T14:34:52Z",
+      "side": 1,
+      "message": "1. Not really: it reschedules the task asynchronously and goes back in the executor\u0027s queue. Also, the number of retries is bound.\n2. Yes, I know.\n3. Each try should lock and then unlock. Between retries we should not lock.\n\nWith regards to the threads, because the executor is a thread pool with fixed number of executors, there isn\u0027t a 1:1 change/thread association. How did you manage to get 39 threads?",
+      "parentUuid": "bb151fbe_2c02e2a4",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 3
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9451fec_3e5c7b0c",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 5
