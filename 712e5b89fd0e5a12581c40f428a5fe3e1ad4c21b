@@ -202,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "63403ee0_c716d86a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-11T00:35:10Z",
+      "side": 1,
+      "message": "\u003e \u003e \u003e With regards to the threads, because the executor is a thread pool with fixed number of executors, there isn\u0027t a 1:1 change/thread association. How did you manage to get 39 threads?\n\u003e \u003e I have local setup with two instances. I\u0027ve put a break point in com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.index(receiver side) and I\u0027ve started voting on the UI\n\u003e \n\u003e Cool, let me try that.\n\nThat was actually a simple bug: I forgot to add the @Singleton annotation, and then it works.\n\n\u003e \u003e \u003e 3. Each try should lock and then unlock. Between retries we should not lock.\n\u003e \u003e But lock is done in com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexTask.run so in this case it will not release the lock. To allow that we have to move locking to RestForwarderScheduler but in IndexEventHandler we also have queueTasks set which should be modified after we acquire the lock 😞 That was one of the reasons I decided to not reschedule in RestForwarder\n\u003e \n\u003e Good catch, let me see.\n\nThe completable future has a whenComplete() where the unlocking can be done.\nThe question is: does it make sense to keep a lock active for so long? If a change fails to be reindexed and is already in retry, should we accept other reindexing operations on it? Possibly not, and we should go automatically in reschedule.\n\nWDYT?",
+      "parentUuid": "4525ef85_6b098f7b",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 3
+      },
+      "revId": "712e5b89fd0e5a12581c40f428a5fe3e1ad4c21b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e9451fec_3e5c7b0c",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
         "patchSetId": 5
