@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66e36581_81cc02a9",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:43:08Z",
+      "side": 1,
+      "message": "Ah sorry we commented almost at the same time 😊 If we decided to move it let\u0027s do it as a separate change",
+      "parentUuid": "65347ed6_e0197313",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5ad9455_8b25774e",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
