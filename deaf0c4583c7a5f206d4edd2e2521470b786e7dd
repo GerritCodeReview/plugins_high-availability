@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd60d281_fc4de949",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T13:35:07Z",
+      "side": 1,
+      "message": "In your example JGit cache of master 1 is a write through cache, but master 2 needs to see an updated timestamp of the objects/pack directory (if core.trustfolderstat is set to true) in order to rescan the pack folder and recognise that there is a new packfile which arrived in the shared filesystem via the other host and update its transient list of known packfiles before it can access objects in the new pack. On the first access to an object in the new pack it will load and cache the pack index and then load the page of the packfile containing that object into the JGit cache. This could lead to MissingObjectExceptions if the new pack isn\u0027t yet visible to JGit on master 2 due to NFS caching. How does global-refdb help to avoid this situation ?",
+      "parentUuid": "5bd5e207_9f0d4dd7",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3db20425_d473af75",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 9
@@ -145,6 +169,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6983b0ec_f7828f2b",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T13:35:07Z",
+      "side": 1,
+      "message": "ok, we can also discuss integrating that API in JGit, then also other applications using JGit may benefit from it",
+      "parentUuid": "66e36581_81cc02a9",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5ad9455_8b25774e",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
@@ -192,6 +234,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2a8a5719_9f5462ba",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T13:35:07Z",
+      "side": 1,
+      "message": "then this other change should be a predecessor of this change and you can skip this bullet point here",
+      "parentUuid": "929e41fd_84db1c0c",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12264cff_09f2f191",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
@@ -221,6 +287,24 @@
       "side": 1,
       "message": "Yes we still need to share the git repositories",
       "parentUuid": "12264cff_09f2f191",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "191b0259_2c5ae463",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T13:35:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4d68f47c_afc3bff6",
       "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
