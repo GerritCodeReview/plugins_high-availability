@@ -388,6 +388,30 @@
       },
       "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "082ab820_1ff86e74",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-12T12:46:37Z",
+      "side": 1,
+      "message": "\u003e Yes you are right but this requires changes in global-refdb library which is shared across ha plugin and multisite plugin. \n\nWhere? Can you provide a link?",
+      "parentUuid": "a5205409_1b7068ad",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
