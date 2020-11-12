@@ -258,6 +258,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33c44fec_4589b5f2",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T14:15:08Z",
+      "side": 1,
+      "message": "Yes that\u0027s the plan but the change is for stable-3.0 so we have to merge it up to master first",
+      "parentUuid": "2a8a5719_9f5462ba",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12264cff_09f2f191",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
@@ -488,6 +512,30 @@
       "side": 1,
       "message": "\u003e Yes you are right but this requires changes in global-refdb library which is shared across ha plugin and multisite plugin. \n\nWhere? Can you provide a link?",
       "parentUuid": "a5205409_1b7068ad",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cee02894_7e97c2b5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T14:15:08Z",
+      "side": 1,
+      "message": "If I\u0027m correct when we have a failure in global ref-db we are returning LOCK_FAILURE\nhttps://review.gerrithub.io/plugins/gitiles/GerritForge/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java#117\n\nThan we are converting LOCK_FAILURE to LockFailureException\nhttps://gerrit.googlesource.com/gerrit/+/refs/heads/stable-3.3/java/com/google/gerrit/git/RefUpdateUtil.java#100\n\nAnd then we are converting LockFailureException to generic UpdateException\nhttps://gerrit.googlesource.com/gerrit/+/refs/heads/stable-3.3/java/com/google/gerrit/server/update/BatchUpdate.java#229",
+      "parentUuid": "082ab820_1ff86e74",
       "range": {
         "startLine": 246,
         "startChar": 16,
