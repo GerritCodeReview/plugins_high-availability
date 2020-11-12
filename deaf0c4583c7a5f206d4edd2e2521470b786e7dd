@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "151e4f01_41e76b8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-12T12:30:14Z",
+      "side": 1,
+      "message": "This is related to when core.trustfolderstat is set to true, hence the JGit cache is out of sync with the underlying filesystem when the files/dirs stats are cached.\n\n@Marcin can you clarify and add more background information?",
+      "parentUuid": "7280e5c7_522131f5",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3db20425_d473af75",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 9
@@ -37,6 +61,24 @@
       "writtenOn": "2020-11-12T09:49:38Z",
       "side": 1,
       "message": "can we please move this repo to gerrit-review ?",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f970213_544546c8",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-12T12:30:14Z",
+      "side": 1,
+      "message": "I believe it was proposed but suggested that could be a feature closer to JGit rather than Gerrit.",
+      "parentUuid": "3db20425_d473af75",
       "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -140,6 +182,30 @@
       "writtenOn": "2020-11-12T09:49:38Z",
       "side": 1,
       "message": "I think \"409 - Conflict\" would be a better fit, it\u0027s not an unexpected internal server error but the current state (ref not yet in sync) doesn\u0027t allow processing this request.\n\nIn addition a Retry-After header could give an ETA when this request could be retried\nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba8bc1f_08186c9a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-12T12:30:14Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "109fbcee_98df8296",
       "range": {
         "startLine": 246,
         "startChar": 16,
