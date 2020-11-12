@@ -63,6 +63,30 @@
       },
       "revId": "3cfef07d01a1824837dbcdddaaae246757cf2dd5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a8c5f64_febd79c2",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T18:40:18Z",
+      "side": 1,
+      "message": "I think \"instance\" should be good enough. We do not mention slaves so we can just skip master. What about active and passive instead of read-write?",
+      "parentUuid": "e81b309c_34644e82",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "3cfef07d01a1824837dbcdddaaae246757cf2dd5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
