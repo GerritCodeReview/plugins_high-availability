@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7280e5c7_522131f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "why is the JGit cache an issue ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3db20425_d473af75",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "can we please move this repo to gerrit-review ?",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5ad9455_8b25774e",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "which database server ? I thought master is using notedb ...",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12264cff_09f2f191",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "so still NFS ?",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bd46d09_c0c8008c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "what is this ?",
+      "range": {
+        "startLine": 127,
+        "startChar": 54,
+        "endLine": 127,
+        "endChar": 69
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6c03bf8_a2544f61",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "for which service are these credentials used ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 21
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "109fbcee_98df8296",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T09:49:38Z",
+      "side": 1,
+      "message": "I think \"409 - Conflict\" would be a better fit, it\u0027s not an unexpected internal server error but the current state (ref not yet in sync) doesn\u0027t allow processing this request.\n\nIn addition a Retry-After header could give an ETA when this request could be retried\nhttps://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
