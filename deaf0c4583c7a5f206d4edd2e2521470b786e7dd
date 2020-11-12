@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd1daa26_c0648695",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T14:33:34Z",
+      "side": 1,
+      "message": "It\u0027s really similar to split-brain described in the multi-site documentation[1].\nWhen we have push on top of the reference. This could be a new commit in a branch or the change of an existing commit. Master 1 checks if local HEAD is equal to the sha1 stored in global ref-db. If yes Master 1 apply the change and update the global ref-db. Next we have another push for that reference but this time on Master 2, Master 2 checks if local HEAD is equal sha1 stored in global ref-db. If Master 2 jgit cache is not up to date because of NFS caching it will see old sha1 so it will not match with global ref-db. Ref update will be rejected on Master 2.\n\n1. https://gerrit.googlesource.com/plugins/multi-site/+/refs/heads/master/DESIGN.md#avoid-split-brain",
+      "parentUuid": "bd60d281_fc4de949",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3db20425_d473af75",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 9
