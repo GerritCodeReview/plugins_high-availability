@@ -39,6 +39,30 @@
       },
       "revId": "3cfef07d01a1824837dbcdddaaae246757cf2dd5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e81b309c_34644e82",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-12T13:33:33Z",
+      "side": 1,
+      "message": "I\u0027d replace \"primary instance\" by \"read-write instance\"\n\nI think the important property of these instances is that they are read-write instances.\nIf the HA setup has 2 or more read-write instances using global-refdb is necessary\nto avoid races leading to conflicting ref updates. On the other hand a read-only instance\nmay lag behind but wouldn\u0027t lead to conflicting ref updates.",
+      "parentUuid": "7a912ec3_06b0a331",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "3cfef07d01a1824837dbcdddaaae246757cf2dd5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
