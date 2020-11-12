@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc420077_2ff2561e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-12T20:56:46Z",
+      "side": 1,
+      "message": "\u003e I understood this. My question was when the ref update becomes visible on the second instance if we can be sure that also the corresponding packfile is visible simultaneously.\n\nNo, we won\u0027t be 100% sure. However, not having access to the packfile would trigger a \"missing unknown\" as it happens today, but it will not cause corruption.\n\nThe global ref-db is really for enabling multiple writes without risk to  create corruption in the underlying repository, which, unfortunately, may and has happened for who tried to use it (I recall Hugo mentioning it, and we also experienced it on v3.0.x).",
+      "parentUuid": "37315a64_d71b9276",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3db20425_d473af75",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 9
