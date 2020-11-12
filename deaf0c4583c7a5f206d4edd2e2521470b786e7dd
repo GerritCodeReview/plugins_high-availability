@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bd5e207_9f0d4dd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "JGit cache is a write through cache so if we have two masters which are sharing the same repo and we have change which is going through master 1 we are sure that mastar 1 has an up to date cache. But we cannot guarantee that for master 2. That\u0027s why we are using global-refdb to check if we have consistent view of the repo across masters",
+      "parentUuid": "7280e5c7_522131f5",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3db20425_d473af75",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 9
@@ -85,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65347ed6_e0197313",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "we can discuss that with @Luca but this should be a followup change",
+      "parentUuid": "3db20425_d473af75",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5ad9455_8b25774e",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
@@ -96,6 +138,30 @@
       "writtenOn": "2020-11-12T09:49:38Z",
       "side": 1,
       "message": "which database server ? I thought master is using notedb ...",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 24
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929e41fd_84db1c0c",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "We already discussed that. Documentation is outdated I\u0027ve just copied the Active/passive section and added steps to enable global ref-db. I\u0027ve prepared separate change for the documentation update(https://gerrit-review.googlesource.com/c/plugins/high-availability/+/287028)",
+      "parentUuid": "b5ad9455_8b25774e",
       "range": {
         "startLine": 114,
         "startChar": 2,
@@ -125,6 +191,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d68f47c_afc3bff6",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "Yes we still need to share the git repositories",
+      "parentUuid": "12264cff_09f2f191",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bd46d09_c0c8008c",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
@@ -148,6 +232,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "547f63a8_7af62b2d",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "Same as above. Documentation is outdated for Active/passive as well. There is a separate change for the documentation update",
+      "parentUuid": "3bd46d09_c0c8008c",
+      "range": {
+        "startLine": 127,
+        "startChar": 54,
+        "endLine": 127,
+        "endChar": 69
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6c03bf8_a2544f61",
         "filename": "src/main/resources/Documentation/about.md",
         "patchSetId": 9
@@ -159,6 +267,30 @@
       "writtenOn": "2020-11-12T09:49:38Z",
       "side": 1,
       "message": "for which service are these credentials used ?",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 21
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e835069f_1508b5b8",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "Same as above. Copied from original documentation. Here is the parameters description(from the documentation):\nhttp.user : Username to connect to the peer instance.\nhttp.password : Password to connect to the peer instance.",
+      "parentUuid": "a6c03bf8_a2544f61",
       "range": {
         "startLine": 148,
         "startChar": 0,
@@ -205,6 +337,30 @@
       "writtenOn": "2020-11-12T12:30:14Z",
       "side": 1,
       "message": "+1",
+      "parentUuid": "109fbcee_98df8296",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5205409_1b7068ad",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-12T12:41:17Z",
+      "side": 1,
+      "message": "Yes you are right but this requires changes in global-refdb library which is shared across ha plugin and multisite plugin. Current change is about adopting global-refdb as it is now. Could we do that refactoring as a follow up change?",
       "parentUuid": "109fbcee_98df8296",
       "range": {
         "startLine": 246,
