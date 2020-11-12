@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "125c5b6b_4af5157c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-12T00:21:15Z",
+      "side": 1,
+      "message": "Did you forget to apply the changes? I still see \u0027shared\u0027 instead of \u0027global\u0027.",
+      "parentUuid": "f3b7d662_d384fbcd",
+      "range": {
+        "startLine": 234,
+        "startChar": 24,
+        "endLine": 234,
+        "endChar": 30
+      },
+      "revId": "6e6b1bc4b9539b8887cb1280de7a0a2afed89dc5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "375d6a2b_a1618ec0",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 8
