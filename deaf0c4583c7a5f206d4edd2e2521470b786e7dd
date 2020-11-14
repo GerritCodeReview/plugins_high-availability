@@ -281,6 +281,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dae063e_3886b30a",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-14T01:07:51Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "6983b0ec_f7828f2b",
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5ad9455_8b25774e",
@@ -500,6 +518,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3aa7ad8_b1c8f858",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-14T01:07:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "547f63a8_7af62b2d",
+      "range": {
+        "startLine": 127,
+        "startChar": 54,
+        "endLine": 127,
+        "endChar": 69
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6c03bf8_a2544f61",
@@ -537,6 +579,30 @@
       "side": 1,
       "message": "Same as above. Copied from original documentation. Here is the parameters description(from the documentation):\nhttp.user : Username to connect to the peer instance.\nhttp.password : Password to connect to the peer instance.",
       "parentUuid": "a6c03bf8_a2544f61",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 21
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a34244a4_69a7fd32",
+        "filename": "src/main/resources/Documentation/about.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-14T01:07:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e835069f_1508b5b8",
       "range": {
         "startLine": 148,
         "startChar": 0,
@@ -656,6 +722,30 @@
       "side": 1,
       "message": "If I\u0027m correct when we have a failure in global ref-db we are returning LOCK_FAILURE\nhttps://review.gerrithub.io/plugins/gitiles/GerritForge/global-refdb/+/refs/heads/master/src/main/java/com/gerritforge/gerrit/globalrefdb/validation/BatchRefUpdateValidator.java#117\n\nThan we are converting LOCK_FAILURE to LockFailureException\nhttps://gerrit.googlesource.com/gerrit/+/refs/heads/stable-3.3/java/com/google/gerrit/git/RefUpdateUtil.java#100\n\nAnd then we are converting LockFailureException to generic UpdateException\nhttps://gerrit.googlesource.com/gerrit/+/refs/heads/stable-3.3/java/com/google/gerrit/server/update/BatchUpdate.java#229",
       "parentUuid": "082ab820_1ff86e74",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a1ec38e_900f9821",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-14T01:07:51Z",
+      "side": 1,
+      "message": "The behaviour isn\u0027t defined by the high-availability plugin but rather by Gerrit code.\nI believe it is better to just say that a LOCK_FAILURE is reported upstream, and then Gerrit will behave accorindgly.\n\nSaying that returns a 500 isn\u0027t really accurate: if you are pushing over Git/SSH, how can you say that you get a 500? It is best to leave that to Gerrit.",
+      "parentUuid": "cee02894_7e97c2b5",
       "range": {
         "startLine": 246,
         "startChar": 16,
