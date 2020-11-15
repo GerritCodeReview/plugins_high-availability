@@ -778,6 +778,30 @@
       },
       "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bc10dac_4c6be580",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-15T12:47:04Z",
+      "side": 1,
+      "message": "\u003e ok, how does Gerrit report LOCK_FAILURE to the client ? Does the client have a chance to understand that it should retry a little later ?\n\nI believe that\u0027s exactly the same error that you get when you can\u0027t update a ref because of a lock failure: I don\u0027t believe the Git client implements the logic to retry a little later but simply display the reason to the client.\n\nIt is up to the human behind the keyboard to retry, not the Git client.",
+      "parentUuid": "600f3935_d6eedcbd",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
