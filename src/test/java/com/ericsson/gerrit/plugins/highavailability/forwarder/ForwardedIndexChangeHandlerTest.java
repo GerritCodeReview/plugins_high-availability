@@ -70,7 +70,6 @@ public class ForwardedIndexChangeHandlerTest {
     Change change = new Change(null, id, null, null, TimeUtil.nowTs());
     when(changeNotes.getChange()).thenReturn(change);
     when(configMock.index()).thenReturn(indexMock);
-    when(indexMock.numStripedLocks()).thenReturn(10);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
     handler =
         new ForwardedIndexChangeHandler(
