@@ -55,7 +55,6 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
       OneOffRequestContext oneOffCtx,
       ChangeCheckerImpl.Factory changeCheckerFactory) {
-    super(config.index());
     this.indexer = indexer;
     this.indexExecutor = indexExecutor;
     this.oneOffCtx = oneOffCtx;
