@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48d3497_961960b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-18T19:10:00Z",
+      "side": 1,
+      "message": "That one should be abandon because this feature was already implemented with different change",
+      "revId": "9c241a4d8b8eb87643b10733d4c134174bdee28b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
