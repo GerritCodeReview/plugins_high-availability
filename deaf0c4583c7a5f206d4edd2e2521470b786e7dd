@@ -802,6 +802,30 @@
       },
       "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a49ea46f_634147b2",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-11-19T20:41:08Z",
+      "side": 1,
+      "message": "Marking this as resolved. @Matthias feel free to re-open the issue if you believe it needs more discussion.",
+      "parentUuid": "1bc10dac_4c6be580",
+      "range": {
+        "startLine": 246,
+        "startChar": 16,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "deaf0c4583c7a5f206d4edd2e2521470b786e7dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
