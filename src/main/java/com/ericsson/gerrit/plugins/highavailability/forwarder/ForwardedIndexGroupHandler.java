@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
@@ -32,8 +31,7 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   private final GroupIndexer indexer;
 
   @Inject
-  ForwardedIndexGroupHandler(GroupIndexer indexer, Configuration config) {
-    super(config.index());
+  ForwardedIndexGroupHandler(GroupIndexer indexer) {
     this.indexer = indexer;
   }
 
