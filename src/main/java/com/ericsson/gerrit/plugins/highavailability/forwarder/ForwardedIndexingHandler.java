@@ -14,12 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.flogger.FluentLogger;
-import com.google.common.util.concurrent.Striped;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Optional;
-import java.util.concurrent.locks.Lock;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Base class to handle forwarded indexing. This class is meant to be extended by classes used on
@@ -29,6 +29,7 @@ import java.util.concurrent.locks.Lock;
  */
 public abstract class ForwardedIndexingHandler<T> {
   protected static final FluentLogger log = FluentLogger.forEnclosingClass();
+  private final Set<T> inFlightIndexing = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
   public enum Operation {
     INDEX,
@@ -40,15 +41,9 @@ public abstract class ForwardedIndexingHandler<T> {
     }
   }
 
-  private final Striped<Lock> idLocks;
-
   protected abstract void doIndex(T id, Optional<IndexEvent> indexEvent) throws IOException;
 
   protected abstract void doDelete(T id, Optional<IndexEvent> indexEvent) throws IOException;
-
-  protected ForwardedIndexingHandler(Configuration.Index indexConfig) {
-    idLocks = Striped.lock(indexConfig.numStripedLocks());
-  }
 
   /**
    * Index an item in the local node, indexing will not be forwarded to the other node.
@@ -60,11 +55,9 @@ public abstract class ForwardedIndexingHandler<T> {
    */
   public void index(T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
     log.atFine().log("%s %s %s", operation, id, indexEvent);
-    try {
-      Context.setForwardedEvent(true);
-      Lock idLock = idLocks.get(id);
-      idLock.lock();
+    if (inFlightIndexing.add(id)) {
       try {
+        Context.setForwardedEvent(true);
         switch (operation) {
           case INDEX:
             doIndex(id, indexEvent);
@@ -77,10 +70,12 @@ public abstract class ForwardedIndexingHandler<T> {
             break;
         }
       } finally {
-        idLock.unlock();
+        Context.unsetForwardedEvent();
+        inFlightIndexing.remove(id);
       }
-    } finally {
-      Context.unsetForwardedEvent();
+    } else {
+      throw new InFlightIndexedException(
+          String.format("Indexing for %s %s %s already in flight", operation, id, indexEvent));
     }
   }
 }
