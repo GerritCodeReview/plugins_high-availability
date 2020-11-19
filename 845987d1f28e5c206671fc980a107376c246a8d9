@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2416541_d3c7fa7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-11-19T13:46:35Z",
+      "side": 1,
+      "message": "Verified with gatling tests pointing to active master and pointing to haproxy with both masters active",
+      "revId": "845987d1f28e5c206671fc980a107376c246a8d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
