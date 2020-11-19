@@ -16,6 +16,24 @@
       "message": "That one should be abandon because this feature was already implemented with different change",
       "revId": "9c241a4d8b8eb87643b10733d4c134174bdee28b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca9a182_716c9080",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-19T20:50:33Z",
+      "side": 1,
+      "message": "\u003e That one should be abandon because this feature was already implemented with different change\n\nThis one AFAIK, merged: [1] https://gerrit-review.googlesource.com/c/plugins/high-availability/+/288102",
+      "parentUuid": "f48d3497_961960b7",
+      "revId": "9c241a4d8b8eb87643b10733d4c134174bdee28b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
