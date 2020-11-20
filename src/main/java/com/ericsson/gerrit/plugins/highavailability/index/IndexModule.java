@@ -36,7 +36,9 @@ public class IndexModule extends LifecycleModule {
         .toProvider(ForwardedIndexExecutorProvider.class);
     bind(IndexEventLocks.class).in(Scopes.SINGLETON);
     listener().to(IndexExecutorProvider.class);
-    DynamicSet.bind(binder(), ChangeIndexedListener.class).to(IndexEventHandler.class);
+    DynamicSet.bind(binder(), ChangeIndexedListener.class)
+        .to(IndexEventHandler.class)
+        .in(Scopes.SINGLETON);
     DynamicSet.bind(binder(), AccountIndexedListener.class).to(IndexEventHandler.class);
     DynamicSet.bind(binder(), GroupIndexedListener.class).to(IndexEventHandler.class);
     DynamicSet.bind(binder(), ProjectIndexedListener.class).to(IndexEventHandler.class);
