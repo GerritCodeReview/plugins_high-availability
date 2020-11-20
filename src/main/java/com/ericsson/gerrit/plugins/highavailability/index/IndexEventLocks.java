@@ -20,6 +20,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Striped;
 import com.google.inject.Inject;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 
@@ -38,15 +39,16 @@ public class IndexEventLocks {
   }
 
   public void withLock(
-      IndexTask id, VoidFunction function, VoidFunction lockAcquireTimeoutCallback) {
+      IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
     Lock idLock = getLock(id);
     try {
       if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
-        try {
-          function.invoke();
-        } finally {
-          idLock.unlock();
-        }
+        function
+            .invoke()
+            .whenComplete(
+                (result, error) -> {
+                  idLock.unlock();
+                });
       } else {
         lockAcquireTimeoutCallback.invoke();
       }
@@ -63,5 +65,10 @@ public class IndexEventLocks {
   @FunctionalInterface
   public interface VoidFunction {
     void invoke();
+  }
+
+  @FunctionalInterface
+  public interface IndexCallFunction {
+    CompletableFuture<?> invoke();
   }
 }
