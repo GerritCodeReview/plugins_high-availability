@@ -16,6 +16,23 @@
       "message": "@marco would you like to have a final view?",
       "revId": "f9dd2590def9b60a3a0daa751cfb64f4fde480cf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e78e3a_17008d7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-22T22:11:52Z",
+      "side": 1,
+      "message": "Thanks again.",
+      "revId": "f9dd2590def9b60a3a0daa751cfb64f4fde480cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
