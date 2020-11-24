@@ -16,6 +16,24 @@
       "message": "Can you remove the specific duplication that was introduced recently by that latest commit instead? The commit message should also point to that commit, explaining the origin of this current removal.\n\nI would also add the related reviewer(s) here to this very change.\nThanks.",
       "revId": "ed965a9d03182667d455af2b3eb0e20c91b0c83a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebba67be_cd737163",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2020-11-24T16:55:25Z",
+      "side": 1,
+      "message": "The duplicate was introduced in 1 commit. That commit introduced both new config and the duplicate. I also noticed some errors in documentation, and tried to address them myself.",
+      "parentUuid": "179b8d70_b3c0a7ac",
+      "revId": "ed965a9d03182667d455af2b3eb0e20c91b0c83a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
