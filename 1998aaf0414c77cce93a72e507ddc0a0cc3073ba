@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e18dc9_58431f50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-24T20:25:25Z",
+      "side": 1,
+      "message": "documentation after 8fb718b\n\nOr similar. (Would expand the slogan just a bit.)",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d52d20_edb27d44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-24T20:25:25Z",
+      "side": 1,
+      "message": "errors were",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e7d8a0_be4cbc3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-24T20:25:25Z",
+      "side": 1,
+      "message": "Thanks @Khang. Feedback herein.",
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662466f6_0a05038b",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-24T20:25:25Z",
+      "side": 1,
+      "message": "Extra blank line now; would remove it.",
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b70920_16351412",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-11-24T20:25:25Z",
+      "side": 1,
+      "message": "Since this note was introduced above line 164 in [1], I\u0027d not move it here but instead leave it up there, along with the index.waitTimeout introduced up there as well.\n\n[1] https://gerrit-review.googlesource.com/c/plugins/high-availability/+/285925/11/src/main/resources/Documentation/config.md\n\nThis way, this change would focus on removing the *second* introduction of index.waitTimeout, i.e., removing it from lines 211-215 right above.",
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
