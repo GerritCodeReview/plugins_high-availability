@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42d1ff78_e0e32cb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2020-11-24T21:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41e18dc9_58431f50",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64d52d20_edb27d44",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-11-24T20:25:25Z",
       "side": 1,
       "message": "errors were",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de268b99_5b4f31d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2020-11-24T21:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d52d20_edb27d44",
       "range": {
         "startLine": 9,
         "startChar": 14,
@@ -81,6 +129,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f0cb1ab_331be30f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2020-11-24T21:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662466f6_0a05038b",
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7b70920_16351412",
@@ -94,6 +160,24 @@
       "writtenOn": "2020-11-24T20:25:25Z",
       "side": 1,
       "message": "Since this note was introduced above line 164 in [1], I\u0027d not move it here but instead leave it up there, along with the index.waitTimeout introduced up there as well.\n\n[1] https://gerrit-review.googlesource.com/c/plugins/high-availability/+/285925/11/src/main/resources/Documentation/config.md\n\nThis way, this change would focus on removing the *second* introduction of index.waitTimeout, i.e., removing it from lines 211-215 right above.",
+      "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c20a913_919a339b",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2020-11-24T21:36:51Z",
+      "side": 1,
+      "message": "But wont it make index.waitTimeout be outside of index section? Right now it is placed next to its siblings like other config parameters, moving it out will make it not consistent with others instead. Since this config belongs to index section, I believe it is better to leave it here.",
+      "parentUuid": "c7b70920_16351412",
       "revId": "1998aaf0414c77cce93a72e507ddc0a0cc3073ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
