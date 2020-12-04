@@ -70,6 +70,30 @@
       },
       "revId": "ec5b9c389cee63519f3d610b91604f51d905875e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501cfe28_abe2286c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-04T13:46:40Z",
+      "side": 1,
+      "message": "Should we then get rid of it altogether instead?\nIf it is 5 msec and you shouldn\u0027t change it, let\u0027s NOT make it configurable, isn\u0027t it?",
+      "parentUuid": "b8f47292_fb9271e4",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "ec5b9c389cee63519f3d610b91604f51d905875e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
