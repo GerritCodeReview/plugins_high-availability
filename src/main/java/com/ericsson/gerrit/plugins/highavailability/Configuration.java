@@ -455,7 +455,6 @@ public class Configuration {
     private final int threadPoolSize;
     private final int retryInterval;
     private final int maxTries;
-    private final int waitTimeout;
     private final int numStripedLocks;
     private final boolean synchronizeForced;
 
@@ -465,7 +464,6 @@ public class Configuration {
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
       retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
-      waitTimeout = getInt(cfg, INDEX_SECTION, WAIT_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
     }
@@ -484,10 +482,6 @@ public class Configuration {
 
     public int maxTries() {
       return maxTries;
-    }
-
-    public int waitTimeout() {
-      return waitTimeout;
     }
 
     public boolean synchronizeForced() {
