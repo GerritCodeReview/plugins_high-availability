@@ -28,15 +28,14 @@ public class IndexEventLocks {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private static final int NUMBER_OF_INDEX_TASK_TYPES = 4;
+  private static final int WAIT_TIMEOUT_MS = 5;
 
   private final Striped<Semaphore> semaphores;
-  private final long waitTimeout;
 
   @Inject
   public IndexEventLocks(Configuration cfg) {
     this.semaphores =
         Striped.semaphore(NUMBER_OF_INDEX_TASK_TYPES * cfg.index().numStripedLocks(), 1);
-    this.waitTimeout = cfg.index().waitTimeout();
   }
 
   public void withLock(
@@ -44,7 +43,7 @@ public class IndexEventLocks {
     Semaphore idSemaphore = getSemaphore(id);
     try {
       log.atFine().log("Trying to acquire %s", id);
-      if (idSemaphore.tryAcquire(waitTimeout, TimeUnit.MILLISECONDS)) {
+      if (idSemaphore.tryAcquire(WAIT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
         log.atFine().log("Acquired %s", id);
         function
             .invoke()
