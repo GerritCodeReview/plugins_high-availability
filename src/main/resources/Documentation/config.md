@@ -210,10 +210,14 @@ calls by specifying the following fields:
 ```index.waitTimeout```
 :   Maximum interval of time in milliseconds the plugin waits to acquire
     the lock for an indexing call. When not specified, the default value
-    is set to 5000ms.
+    is set to 5ms.
 
-NOTE: the default settings for `http.socketTimeout`, `http.maxTries` and `index.waitTimeout`
-ensure that the plugin will keep retrying to forward a message for one hour.
+NOTE: the default settings for `http.socketTimeout`, `http.maxTries` ensure
+that the plugin will keep retrying to forward a message for one hour.
+
+NOTE: the default settings for `http.retryInterval`, `http.maxTries` and
+`index.waitTimeout` ensure that the plugin will keep retrying to acquire the lock
+for one hour.
 
 ```websession.synchronize```
 :   Whether to synchronize web sessions.
