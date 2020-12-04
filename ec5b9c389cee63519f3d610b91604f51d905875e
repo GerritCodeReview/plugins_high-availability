@@ -22,6 +22,30 @@
       },
       "revId": "ec5b9c389cee63519f3d610b91604f51d905875e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8542292a_7d5cf1b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2020-12-04T13:23:04Z",
+      "side": 1,
+      "message": "I don\u0027t think so seconds or minutes make any sense. I have a follow up question: if changing the default can cause issues and there is real point of increasing it maybe we shouldn\u0027t make it configurable. We can drive the behaviour using `http.retryInterval`and `http.maxTries`. WDYT?",
+      "parentUuid": "45ea591a_614cdc99",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "ec5b9c389cee63519f3d610b91604f51d905875e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
