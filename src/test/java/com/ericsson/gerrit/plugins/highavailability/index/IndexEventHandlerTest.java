@@ -100,7 +100,6 @@ public class IndexEventHandlerTest {
     Configuration.Index cfgIndex = mock(Configuration.Index.class);
     when(configuration.index()).thenReturn(cfgIndex);
     when(cfgIndex.numStripedLocks()).thenReturn(Configuration.DEFAULT_NUM_STRIPED_LOCKS);
-    when(cfgIndex.waitTimeout()).thenReturn(Configuration.DEFAULT_TIMEOUT_MS);
 
     Configuration.Http http = mock(Configuration.Http.class);
     when(configuration.http()).thenReturn(http);

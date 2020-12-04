@@ -28,21 +28,20 @@ public class IndexEventLocks {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private static final int NUMBER_OF_INDEX_TASK_TYPES = 4;
+  private static final int WAIT_TIMEOUT_MS = 5;
 
   private final Striped<Lock> locks;
-  private final long waitTimeout;
 
   @Inject
   public IndexEventLocks(Configuration cfg) {
     this.locks = Striped.lock(NUMBER_OF_INDEX_TASK_TYPES * cfg.index().numStripedLocks());
-    this.waitTimeout = cfg.index().waitTimeout();
   }
 
   public void withLock(
       IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
     Lock idLock = getLock(id);
     try {
-      if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
+      if (idLock.tryLock(WAIT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
         function
             .invoke()
             .whenComplete(
