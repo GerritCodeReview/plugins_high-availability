@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45ea591a_614cdc99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-04T13:10:14Z",
+      "side": 1,
+      "message": "Can you explain a bit more of what is the situation, why deadlocks can appear, what are the consequences?\n\nI believe the documentation needs also updating with some recommendation on the allowed values.\n\nOut of curiosity: do \"seconds\" or \"minutes\" make sense in any situation? If not, should we provide a warning or even fail to start when the plugin is configured with an unrealistic or dangerous waitTimeout?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "ec5b9c389cee63519f3d610b91604f51d905875e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
