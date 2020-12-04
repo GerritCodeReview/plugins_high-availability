@@ -47,6 +47,7 @@ public class Configuration {
 
   public static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
   public static final int DEFAULT_TIMEOUT_MS = 5000;
+  public static final int DEFAULT_WAIT_TIMEOUT_MS = 5;
 
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -465,7 +466,7 @@ public class Configuration {
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
       retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_INDEX_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_INDEX_MAX_TRIES);
-      waitTimeout = getInt(cfg, INDEX_SECTION, WAIT_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      waitTimeout = getInt(cfg, INDEX_SECTION, WAIT_TIMEOUT_KEY, DEFAULT_WAIT_TIMEOUT_MS);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
     }
