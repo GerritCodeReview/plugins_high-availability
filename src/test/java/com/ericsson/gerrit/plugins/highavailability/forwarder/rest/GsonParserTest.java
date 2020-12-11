@@ -19,8 +19,10 @@ import static com.google.common.truth.Truth.assertThat;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.server.account.CachedAccountDetails;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
+import org.eclipse.jgit.lib.ObjectId;
 import org.junit.Test;
 
 public class GsonParserTest {
@@ -33,6 +35,13 @@ public class GsonParserTest {
     Account.Id accountId = Account.id(1);
     String json = gson.toJson(accountId);
     assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.ACCOUNTS, json));
+  }
+
+  @Test
+  public void cachedAccountDetailsKeyRoundTrip() {
+    objectUnderTest.fromJson(
+        Constants.ACCOUNTS,
+        gson.toJson(CachedAccountDetails.Key.create(Account.id(42), ObjectId.zeroId())));
   }
 
   @Test
