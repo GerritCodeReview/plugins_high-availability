@@ -28,7 +28,6 @@ import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.inject.Inject;
 import java.util.Collections;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -156,7 +155,7 @@ class IndexEventHandler
           this,
           () -> {
             queuedTasks.remove(this);
-            return execute();
+            execute();
           },
           this::reschedule);
     }
@@ -170,7 +169,7 @@ class IndexEventHandler
       }
     }
 
-    abstract CompletableFuture<Boolean> execute();
+    abstract void execute();
   }
 
   class IndexChangeTask extends IndexTask {
@@ -184,8 +183,8 @@ class IndexEventHandler
     }
 
     @Override
-    public CompletableFuture<Boolean> execute() {
-      return forwarder.indexChange(projectName, changeId, indexEvent);
+    public void execute() {
+      forwarder.indexChange(projectName, changeId, indexEvent);
     }
 
     @Override
@@ -217,8 +216,8 @@ class IndexEventHandler
     }
 
     @Override
-    public CompletableFuture<Boolean> execute() {
-      return forwarder.deleteChangeFromIndex(changeId, indexEvent);
+    public void execute() {
+      forwarder.deleteChangeFromIndex(changeId, indexEvent);
     }
 
     @Override
@@ -249,8 +248,8 @@ class IndexEventHandler
     }
 
     @Override
-    public CompletableFuture<Boolean> execute() {
-      return forwarder.indexAccount(accountId, indexEvent);
+    public void execute() {
+      forwarder.indexAccount(accountId, indexEvent);
     }
 
     @Override
@@ -281,8 +280,8 @@ class IndexEventHandler
     }
 
     @Override
-    public CompletableFuture<Boolean> execute() {
-      return forwarder.indexGroup(groupUUID, indexEvent);
+    public void execute() {
+      forwarder.indexGroup(groupUUID, indexEvent);
     }
 
     @Override
@@ -313,8 +312,8 @@ class IndexEventHandler
     }
 
     @Override
-    public CompletableFuture<Boolean> execute() {
-      return forwarder.indexProject(projectName, indexEvent);
+    public void execute() {
+      forwarder.indexProject(projectName, indexEvent);
     }
 
     @Override
