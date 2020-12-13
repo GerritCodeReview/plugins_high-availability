@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4179505c_68086346",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-13T15:50:03Z",
+      "side": 1,
+      "message": "Apologies, I have missed a critical point: let me revert this change for now.",
+      "revId": "d6448b5092aa2231ca5f4894a37a7821f7e8423b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4c8bc0e_a8e335df",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-13T15:50:03Z",
+      "side": 1,
+      "message": "The Locks.unlock() documentation says:\n\"A {@code Lock} implementation will usually impose\n     * restrictions on which thread can release a lock (typically only the\n     * holder of the lock can release it)\"\n\nBecause the completion of the future may happen on a different thread, the lock is effectively leaked and the reindexing operation leaves the lock stuck forever.",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "d6448b5092aa2231ca5f4894a37a7821f7e8423b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
