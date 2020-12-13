@@ -15,7 +15,6 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.gerrit.server.events.Event;
-import java.util.concurrent.CompletableFuture;
 
 /** Forward indexing, stream events and cache evictions to the other master */
 public interface Forwarder {
@@ -25,10 +24,9 @@ public interface Forwarder {
    *
    * @param accountId the account to index.
    * @param indexEvent the details of the index event.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent);
+  boolean indexAccount(int accountId, IndexEvent indexEvent);
 
   /**
    * Forward a change indexing event to the other master.
@@ -36,75 +34,67 @@ public interface Forwarder {
    * @param projectName the project of the change to index.
    * @param changeId the change to index.
    * @param indexEvent the details of the index event.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> indexChange(String projectName, int changeId, IndexEvent indexEvent);
+  boolean indexChange(String projectName, int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a delete change from index event to the other master.
    *
    * @param changeId the change to remove from the index.
    * @param indexEvent the details of the index event.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return rue if successful, otherwise false.
    */
-  CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
+  boolean deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a group indexing event to the other master.
    *
    * @param uuid the group to index.
    * @param indexEvent the details of the index event.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent);
+  boolean indexGroup(String uuid, IndexEvent indexEvent);
 
   /**
    * Forward a project indexing event to the other master.
    *
    * @param projectName the project to index.
    * @param indexEvent the details of the index event.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent);
+  boolean indexProject(String projectName, IndexEvent indexEvent);
 
   /**
    * Forward a stream event to the other master.
    *
    * @param event the event to forward.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> send(Event event);
+  boolean send(Event event);
 
   /**
    * Forward a cache eviction event to the other master.
    *
    * @param cacheName the name of the cache to evict an entry from.
    * @param key the key identifying the entry to evict from the cache.
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> evict(String cacheName, Object key);
+  boolean evict(String cacheName, Object key);
 
   /**
    * Forward an addition to the project list cache to the other master.
    *
    * @param projectName the name of the project to add to the project list cache
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> addToProjectList(String projectName);
+  boolean addToProjectList(String projectName);
 
   /**
    * Forward a removal from the project list cache to the other master.
    *
    * @param projectName the name of the project to remove from the project list cache
-   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
-   *     false.
+   * @return true if successful, otherwise false.
    */
-  CompletableFuture<Boolean> removeFromProjectList(String projectName);
+  boolean removeFromProjectList(String projectName);
 }
