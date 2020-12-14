@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b2685cc_61d29663",
+        "filename": "src/test/docker/gerrit/start.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-14T21:00:02Z",
+      "side": 0,
+      "message": "unrelated change",
+      "revId": "6968e6257e259ced9707e6957bf46559af8b47d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
