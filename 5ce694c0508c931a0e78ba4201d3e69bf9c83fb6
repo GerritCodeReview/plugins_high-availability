@@ -16,6 +16,24 @@
       "message": "The change LGTM. Since we didn\u0027t catch the issue previously with the current set of tests, I was thinking that it could be worthy adding a test to catch the issue.\n\nSeems like we just change the tests implementation, hence I am not sure if the current coverage is enough.",
       "revId": "5ce694c0508c931a0e78ba4201d3e69bf9c83fb6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2bea4a0_874d1a46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-14T21:11:55Z",
+      "side": 1,
+      "message": "\u003e The change LGTM. Since we didn\u0027t catch the issue previously with the current set of tests, I was thinking that it could be worthy adding a test to catch the issue.\n\nThis is a very good point: the problem with the current set of tests is that we mock everything, including how the Lock behaves, which is wrong.\n\nI am thinking about refactoring those tests and use real locks rather than mocks.\n\n\u003e Seems like we just change the tests implementation, hence I am not sure if the current coverage is enough.\n\nThat\u0027s the thing: the test coverage *is there* but we created a different environment with a different behaviour that was making things work.\n\nLet me do that in a separate change, as it would be a much bigger refactoring :-(",
+      "parentUuid": "3b26ec9e_3623e365",
+      "revId": "5ce694c0508c931a0e78ba4201d3e69bf9c83fb6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
