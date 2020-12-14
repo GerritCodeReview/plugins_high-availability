@@ -53,10 +53,10 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.junit.Before;
@@ -173,10 +173,10 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldNotIndexChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexChangeTask.class))).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     setUpIndexEventHandler(currCtx, locks);
 
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
@@ -187,9 +187,9 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldNotIndexAccountWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexAccountTask.class))).thenReturn(lock);
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexAccountTask.class))).thenReturn(lock);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
 
@@ -201,9 +201,9 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldNotDeleteChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(DeleteChangeTask.class))).thenReturn(lock);
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(DeleteChangeTask.class))).thenReturn(lock);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
 
@@ -215,9 +215,9 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldNotIndexGroupWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexGroupTask.class))).thenReturn(lock);
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexGroupTask.class))).thenReturn(lock);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
 
@@ -229,9 +229,9 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldNotIndexProjectWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexProjectTask.class))).thenReturn(lock);
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexProjectTask.class))).thenReturn(lock);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
 
@@ -243,10 +243,10 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldRetryIndexChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexChangeTask.class))).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
         .thenReturn(false, true);
     setUpIndexEventHandler(currCtx, locks);
 
@@ -259,10 +259,10 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldRetryUpToMaxTriesWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexChangeTask.class))).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
 
     Configuration cfg = mock(Configuration.class);
     Configuration.Http httpCfg = mock(Configuration.Http.class);
@@ -279,10 +279,10 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldNotRetryWhenMaxTriesLowerThanOne() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    Semaphore lock = mock(Semaphore.class);
+    when(locks.getSemaphore(any(IndexChangeTask.class))).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
+    when(lock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
 
     Configuration cfg = mock(Configuration.class);
     Configuration.Http httpCfg = mock(Configuration.Http.class);
@@ -299,14 +299,14 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldLockPerIndexEventType() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
-    Lock indexChangeLock = mock(Lock.class);
-    when(indexChangeLock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
+    Semaphore indexChangeLock = mock(Semaphore.class);
+    when(indexChangeLock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
         .thenReturn(false);
-    Lock accountChangeLock = mock(Lock.class);
-    when(accountChangeLock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
+    Semaphore accountChangeLock = mock(Semaphore.class);
+    when(accountChangeLock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
         .thenReturn(true);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(indexChangeLock);
-    when(locks.getLock(any(IndexAccountTask.class))).thenReturn(accountChangeLock);
+    when(locks.getSemaphore(any(IndexChangeTask.class))).thenReturn(indexChangeLock);
+    when(locks.getSemaphore(any(IndexAccountTask.class))).thenReturn(accountChangeLock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
 
