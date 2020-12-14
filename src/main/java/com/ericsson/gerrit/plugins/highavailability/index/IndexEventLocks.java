@@ -42,12 +42,20 @@ public class IndexEventLocks {
       IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
     Lock idLock = getLock(id);
     try {
+      log.atInfo().log("Trying to lock %s", id);
       if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
+        log.atInfo().log("Locked %s", id);
         function
             .invoke()
             .whenComplete(
                 (result, error) -> {
-                  idLock.unlock();
+                  try {
+                    log.atInfo().log("Trying to unlock %s", id);
+                    idLock.unlock();
+                    log.atInfo().log("Unlocked %s", id);
+                  } catch (Throwable t) {
+                    log.atSevere().withCause(t).log("Unable to unlock %s", id);
+                  }
                 });
       } else {
         lockAcquireTimeoutCallback.invoke();
