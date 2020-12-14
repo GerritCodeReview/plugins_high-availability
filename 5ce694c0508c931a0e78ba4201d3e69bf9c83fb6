@@ -34,6 +34,23 @@
       "parentUuid": "3b26ec9e_3623e365",
       "revId": "5ce694c0508c931a0e78ba4201d3e69bf9c83fb6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eea2b992_cfbd714a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-14T22:35:58Z",
+      "side": 1,
+      "message": "Verified E2E (see [1]) and before the fix the indexing events do not get through, after the fix the indexing events are getting through the second node.\n\n[1] https://i.imgur.com/4kS7qBK.png",
+      "revId": "5ce694c0508c931a0e78ba4201d3e69bf9c83fb6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
