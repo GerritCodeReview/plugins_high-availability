@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b26ec9e_3623e365",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-12-14T21:09:39Z",
+      "side": 1,
+      "message": "The change LGTM. Since we didn\u0027t catch the issue previously with the current set of tests, I was thinking that it could be worthy adding a test to catch the issue.\n\nSeems like we just change the tests implementation, hence I am not sure if the current coverage is enough.",
+      "revId": "5ce694c0508c931a0e78ba4201d3e69bf9c83fb6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
