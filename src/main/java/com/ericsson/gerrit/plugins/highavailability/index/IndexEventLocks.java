@@ -21,20 +21,21 @@ import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Striped;
 import com.google.inject.Inject;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 
 public class IndexEventLocks {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private static final int NUMBER_OF_INDEX_TASK_TYPES = 4;
 
-  private final Striped<Lock> locks;
+  private final Striped<Semaphore> semaphores;
   private final long waitTimeout;
 
   @Inject
   public IndexEventLocks(Configuration cfg) {
-    this.locks = Striped.lock(NUMBER_OF_INDEX_TASK_TYPES * cfg.index().numStripedLocks());
+    this.semaphores =
+        Striped.semaphore(NUMBER_OF_INDEX_TASK_TYPES * cfg.index().numStripedLocks(), 1);
     this.waitTimeout = cfg.index().waitTimeout();
   }
 
@@ -42,14 +43,23 @@ public class IndexEventLocks {
       IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
     String indexId = id.indexId();
     CompletableFuture<?> failureFuture = new CompletableFuture<>();
-    Lock idLock = getLock(indexId);
+    Semaphore idSemaphore = getSemaphore(indexId);
     try {
-      if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
+      log.atFine().log("Trying to acquire %s", id);
+      if (idSemaphore.tryAcquire(waitTimeout, TimeUnit.MILLISECONDS)) {
+        log.atFine().log("Acquired %s", id);
         return function
             .invoke()
             .whenComplete(
                 (result, error) -> {
-                  idLock.unlock();
+                  try {
+                    log.atFine().log("Trying to release %s", id);
+                    idSemaphore.release();
+                    log.atFine().log("Released %s", id);
+                  } catch (Throwable t) {
+                    log.atSevere().withCause(t).log("Unable to release %s", id);
+                    throw t;
+                  }
                 });
       }
 
@@ -67,8 +77,8 @@ public class IndexEventLocks {
   }
 
   @VisibleForTesting
-  protected Lock getLock(String indexId) {
-    return locks.get(indexId);
+  protected Semaphore getSemaphore(String indexId) {
+    return semaphores.get(indexId);
   }
 
   @FunctionalInterface
