@@ -46,6 +46,30 @@
       },
       "revId": "3cff477dc021d27724e21bbd9b3cda6e295987e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "038b5eba_8c93baca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2020-12-15T19:51:35Z",
+      "side": 1,
+      "message": "No worries, I can rebase everything 😊. I didn\u0027t start rebasing yet, I was awaiting your review.",
+      "parentUuid": "662470c3_907ee409",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 63
+      },
+      "revId": "3cff477dc021d27724e21bbd9b3cda6e295987e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
