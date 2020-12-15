@@ -22,6 +22,30 @@
       },
       "revId": "3cff477dc021d27724e21bbd9b3cda6e295987e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662470c3_907ee409",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-12-15T19:01:11Z",
+      "side": 1,
+      "message": "Sorry about the hassle, I shouldn\u0027t have commented about that in the first place. I originally misinterpreted the resolution. If you still want to keep this note, then my previous comment would apply. Sorry about the follow-up rebases you have to do because of this mishap of mine. This also triggers unnecessary emails :(",
+      "parentUuid": "fd183788_028a4119",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 63
+      },
+      "revId": "3cff477dc021d27724e21bbd9b3cda6e295987e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
