@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af782bae_5f0370b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2020-12-15T17:03:10Z",
+      "side": 1,
+      "message": "Missing blank line above.",
+      "revId": "4b2c0a7bca770c54a213a62c3b581c45ead5fd17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
