@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
@@ -76,8 +77,9 @@ public class Configuration {
     STATIC
   }
 
+  @VisibleForTesting
   @Inject
-  Configuration(
+  public Configuration(
       PluginConfigFactory pluginConfigFactory, @PluginName String pluginName, SitePaths site) {
     Config cfg = pluginConfigFactory.getGlobalPluginConfig(pluginName);
     main = new Main(site, cfg);
