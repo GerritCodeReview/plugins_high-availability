@@ -38,8 +38,6 @@ public class CachePatternMatcherTest {
     for (String cache :
         ImmutableList.of(
             "accounts",
-            "accounts_byemail",
-            "accounts_byname",
             "groups",
             "groups_byinclude",
             "groups_byname",
