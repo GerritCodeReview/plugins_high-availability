@@ -16,6 +16,24 @@
       "message": "Missing blank line above.",
       "revId": "4b2c0a7bca770c54a213a62c3b581c45ead5fd17",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcd5319e_2342a58a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T16:22:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af782bae_5f0370b0",
+      "revId": "4b2c0a7bca770c54a213a62c3b581c45ead5fd17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
