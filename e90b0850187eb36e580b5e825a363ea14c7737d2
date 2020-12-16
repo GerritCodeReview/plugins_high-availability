@@ -120,6 +120,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "04a0eb2e_580ff10a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T23:10:42Z",
+      "side": 1,
+      "message": "\u003e I was checking that as well, this code is copy and paste from the original locking on the receiver side. I agree delete and index change have separate locking but that\u0027s how it was implemented in the original code and I didn\u0027t want to change that logic(to many moving parts in the locking on forwarder side change).\n\nYes, it was a problem also before.\n\n\u003e Are we sure that it wasn\u0027t done on purpose? Do we have any ticket reporting that issue?\n\nNo, I need to create one.",
+      "parentUuid": "adc48310_fe66f6f7",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "534cafbc_d5009043",
