@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18bd69a0_b3cb5509",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T10:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62a0f9d6_a8a63c84",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 37
+      },
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c721148a_7ef30bea",
@@ -37,6 +61,24 @@
       "writtenOn": "2020-12-16T09:47:45Z",
       "side": 1,
       "message": "could be inlined at line: 51",
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4e39f84_4c12eb02",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T10:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c721148a_7ef30bea",
       "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -58,6 +100,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfbe4e89_c098c0ec",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T10:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9879f768_00962e09",
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1055adcd_d5eb1acd",
@@ -71,6 +131,24 @@
       "writtenOn": "2020-12-16T09:47:45Z",
       "side": 1,
       "message": "nit: consider adding \"accounts\" explicitly here to signal that it is explicitly ignored.",
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f819ecc4_45c26266",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CachePatternMatcherTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T10:41:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1055adcd_d5eb1acd",
       "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
