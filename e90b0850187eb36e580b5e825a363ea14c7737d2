@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb2bba0_5287ff19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T21:44:39Z",
+      "side": 1,
+      "message": "Good catch, that is actually *wrong* as we should NOT lock on the task id but on the index id (index type + key).\n\nLet me address that in a separate commit.",
+      "parentUuid": "f9209e25_4738113b",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "534cafbc_d5009043",
@@ -64,6 +88,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ccb4cb2_93de71d2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T21:44:39Z",
+      "side": 1,
+      "message": "I believe they should stay, otherwise it would be impossible to troubleshoot potential other problems.",
+      "parentUuid": "e82adecf_05242009",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "776b2f02_58720a42",
@@ -87,6 +135,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e2cf8b_08fe08ff",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T21:44:39Z",
+      "side": 1,
+      "message": "Nope, because displaying the thread name is done already by the log formatter.",
+      "parentUuid": "776b2f02_58720a42",
+      "range": {
+        "startLine": 48,
+        "startChar": 25,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93f42ce0_df7387e2",
@@ -100,6 +172,30 @@
       "writtenOn": "2020-12-16T19:38:50Z",
       "side": 1,
       "message": "Am I understanding correctly, that thread mismatch, as reported in the stack trace on the linked issue:\n\n  java.lang.IllegalMonitorStateException\n    at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:151)\n\nand the corresponding code in ReentrantLock.java code is:\n\n  if (Thread.currentThread() !\u003d getExclusiveOwnerThread())\n    throw new IllegalMonitorStateException(); \u003c\u003d\u003d line 151\n\ncould happen independently, of rescheduling in REST forwarder or not?\n\nIf we have acquired the lock, then the potential rescheduling would happen in IndexTask itself, in REST forwarder, if it detects that the git ref wasn\u0027t replicated yet to another side. But even if the re-scheduling wouldn\u0027t happen (re-indexing on the remote side would succeed in first attempt) the forwarding is done asynchronously, and the releasing of the lock would take place in another thread and thus wouldn\u0027t work with Lock backend of Striped class. So that I wonder, why this problem wasn\u0027t detected earlier?",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8581d98a_eb537fed",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T21:44:39Z",
+      "side": 1,
+      "message": "\u003e Am I understanding correctly, that thread mismatch, as reported in the stack trace on the linked issue:\n\u003e \n\u003e   java.lang.IllegalMonitorStateException\n\u003e     at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:151)\n\u003e \n\u003e and the corresponding code in ReentrantLock.java code is:\n\u003e \n\u003e   if (Thread.currentThread() !\u003d getExclusiveOwnerThread())\n\u003e     throw new IllegalMonitorStateException(); \u003c\u003d\u003d line 151\n\u003e \n\u003e could happen independently, of rescheduling in REST forwarder or not?\n\nIt *will* always happen, because the REST forwarder uses an async executor and completes the future from a different thread.\n\n\u003e If we have acquired the lock, then the potential rescheduling would happen in IndexTask itself, in REST forwarder, if it detects that the git ref wasn\u0027t replicated yet to another side. But even if the re-scheduling wouldn\u0027t happen (re-indexing on the remote side would succeed in first attempt) the forwarding is done asynchronously, and the releasing of the lock would take place in another thread and thus wouldn\u0027t work with Lock backend of Striped class. So that I wonder, why this problem wasn\u0027t detected earlier?\n\nTwo reasons:\n\n1. The tests are mocking everything, including the Lock. We should refactor the tests and remove as many mocks as possible.\n\n2. Because the lock is reentrant, the problem was not evident because another lock attempt from the same thread would succeed. And actually that is what happens if you try to test the HA configuration without a load and without comparing the exact metrics.",
+      "parentUuid": "93f42ce0_df7387e2",
       "range": {
         "startLine": 55,
         "startChar": 20,
