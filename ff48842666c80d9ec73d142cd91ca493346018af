@@ -16,6 +16,24 @@
       "message": "Fixed commit message to point to the correct fix on multi-site",
       "revId": "ff48842666c80d9ec73d142cd91ca493346018af",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e679adc4_68f53c9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T13:48:09Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "c76e6308_dd578495",
+      "revId": "ff48842666c80d9ec73d142cd91ca493346018af",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
