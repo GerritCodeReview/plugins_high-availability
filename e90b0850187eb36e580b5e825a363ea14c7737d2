@@ -251,6 +251,30 @@
       },
       "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9021ca0_b8bbd9fe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T22:45:36Z",
+      "side": 1,
+      "message": "\u003e 2. Because the lock is reentrant, the problem was not evident because another lock attempt from the same thread would succeed. And actually that is what happens if you try to test the HA configuration without a load and without comparing the exact metrics.\n\nThanks for clarifying. It would help to understand the context, so may be add this important detail to the commit message?",
+      "parentUuid": "8581d98a_eb537fed",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
