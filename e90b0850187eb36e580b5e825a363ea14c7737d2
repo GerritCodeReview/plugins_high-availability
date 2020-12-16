@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e949b9a6_df862edb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T22:52:23Z",
+      "side": 1,
+      "message": "\u003e \u003e Good catch, that is actually *wrong* as we should NOT lock on the task id but on the index id (index type + key).\n\u003e \n\u003e That was my first thought too, but, as specified in Striped contract:\n\u003e \n\u003e   The guarantee provided by this class is that equal keys lead\n\u003e   to the same lock (or semaphore), i.e. if (key1.equals(key2))\n\u003e   then striped.get(key1) \u003d\u003d striped.get(key2)\n\u003e   (assuming Object.hashCode() is correctly implemented for the keys).\n\u003e \n\u003e account, project and group index tasks should work.\n\u003e \n\u003e Also for change index and delete change tasks:\n\u003e \n\u003e   public int hashCode() {\n\u003e       return Objects.hashCode(DeleteChangeTask.class, changeId);\n\u003e   }\n\u003e   public int hashCode() {\n\u003e     return Objects.hashCode(IndexChangeTask.class, changeId);\n\u003e   }\n\nExactly that\u0027s the situation where it won\u0027t work: the concurrent indexing of change 123 by two tasks, one IndexChangeTask and another DeleteChangeTask, should block each other ... but they won\u0027t because they belong to different classes.\n\nI am addressing this problem in a separate change.",
+      "parentUuid": "ca30f5ce_f67a45cb",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "534cafbc_d5009043",
@@ -102,6 +126,30 @@
       "writtenOn": "2020-12-16T22:42:44Z",
       "side": 1,
       "message": "Unrelated to this change, but should this be rather 5? We have 4 index types, but for change index we have two index task types: index change and delete change.",
+      "range": {
+        "startLine": 30,
+        "startChar": 27,
+        "endLine": 30,
+        "endChar": 57
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cbf4937_e8c6773c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-16T22:52:23Z",
+      "side": 1,
+      "message": "That\u0027s the bug: delete and index of the same change should block each other.",
+      "parentUuid": "b0337ab5_f3a6eb9a",
       "range": {
         "startLine": 30,
         "startChar": 27,
