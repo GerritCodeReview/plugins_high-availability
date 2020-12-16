@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a0f9d6_a8a63c84",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-12-16T09:47:45Z",
+      "side": 1,
+      "message": "multi-site rather than multi-master",
+      "range": {
+        "startLine": 9,
+        "startChar": 31,
+        "endLine": 9,
+        "endChar": 37
+      },
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c721148a_7ef30bea",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-12-16T09:47:45Z",
+      "side": 1,
+      "message": "could be inlined at line: 51",
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9879f768_00962e09",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-12-16T09:47:45Z",
+      "side": 1,
+      "message": "nit, CacheEvictionHandler should be used as a parameterized class:\n\n    CacheEvictionHandler\u003cString,String\u003e handler \u003d\n        new CacheEvictionHandler\u003c\u003e(forwarder, executorMock, PLUGIN_NAME, defaultCacheMatcher);",
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1055adcd_d5eb1acd",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/cache/CachePatternMatcherTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2020-12-16T09:47:45Z",
+      "side": 1,
+      "message": "nit: consider adding \"accounts\" explicitly here to signal that it is explicitly ignored.",
+      "revId": "4f34d5f9a4dde0612fa0302bdc0d88618e1fa854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
