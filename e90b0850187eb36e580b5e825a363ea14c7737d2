@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9209e25_4738113b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T19:38:50Z",
+      "side": 1,
+      "message": "More accurate: index task id.",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "534cafbc_d5009043",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T19:38:50Z",
+      "side": 1,
+      "message": "Thanks for the detailed commit message.",
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e82adecf_05242009",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T19:38:50Z",
+      "side": 1,
+      "message": "Should all those verbose log statements be preserved or removed?",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "776b2f02_58720a42",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T19:38:50Z",
+      "side": 1,
+      "message": "May be extend the instrumentation with thread id, e.g:\n\n  log.atFine().log(\"Trying to acquire index task %s in thread %s\",\n      id,\n      Thread.currentThread().getId());",
+      "range": {
+        "startLine": 48,
+        "startChar": 25,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f42ce0_df7387e2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-16T19:38:50Z",
+      "side": 1,
+      "message": "Am I understanding correctly, that thread mismatch, as reported in the stack trace on the linked issue:\n\n  java.lang.IllegalMonitorStateException\n    at java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:151)\n\nand the corresponding code in ReentrantLock.java code is:\n\n  if (Thread.currentThread() !\u003d getExclusiveOwnerThread())\n    throw new IllegalMonitorStateException(); \u003c\u003d\u003d line 151\n\ncould happen independently, of rescheduling in REST forwarder or not?\n\nIf we have acquired the lock, then the potential rescheduling would happen in IndexTask itself, in REST forwarder, if it detects that the git ref wasn\u0027t replicated yet to another side. But even if the re-scheduling wouldn\u0027t happen (re-indexing on the remote side would succeed in first attempt) the forwarding is done asynchronously, and the releasing of the lock would take place in another thread and thus wouldn\u0027t work with Lock backend of Striped class. So that I wonder, why this problem wasn\u0027t detected earlier?",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
