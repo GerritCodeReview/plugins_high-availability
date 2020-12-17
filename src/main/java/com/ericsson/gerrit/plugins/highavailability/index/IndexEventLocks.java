@@ -38,28 +38,33 @@ public class IndexEventLocks {
     this.waitTimeout = cfg.index().waitTimeout();
   }
 
-  public void withLock(
+  public CompletableFuture<?> withLock(
       IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
+    CompletableFuture<?> failureFuture = new CompletableFuture<>();
     Lock idLock = getLock(id);
     try {
       if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
-        function
+        return function
             .invoke()
             .whenComplete(
                 (result, error) -> {
                   idLock.unlock();
                 });
-      } else {
-        lockAcquireTimeoutCallback.invoke();
       }
+
+      lockAcquireTimeoutCallback.invoke();
+      failureFuture.completeExceptionally(
+          new InterruptedException("Lock timeout of " + waitTimeout + " msec"));
     } catch (InterruptedException e) {
+      failureFuture.completeExceptionally(e);
       log.atSevere().withCause(e).log("%s was interrupted; giving up", id);
     }
+    return failureFuture;
   }
 
   @VisibleForTesting
   protected Lock getLock(IndexTask id) {
-    return locks.get(id);
+    return locks.get(id.indexId());
   }
 
   @FunctionalInterface
