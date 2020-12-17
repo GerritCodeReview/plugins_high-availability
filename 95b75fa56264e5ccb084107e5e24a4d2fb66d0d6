@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4107dc9_14994eb9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "True, the IndexEventLocks is inappropriate, as it isn\u0027t a lock anymore.\nI would suggest to keep this change to a minimum and do a better refactoring on master.\n\nBut true, I can reduce the test code by just passing the String. Let me do that.",
+      "parentUuid": "70d9e694_7a428eba",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "356d8527_fd9b98c6",
