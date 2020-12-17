@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f0ce676_c10dd069",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "Why are we changing the return value here, only for tests? Actually it shouldn\u0027t be needed to signal whether we acquired the lock or not, because we would either call success function or failure function, right? It\u0027s strange to see that the production code is made more complex to satisfy the test setup.",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b19f8fd0_ca64f4e0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "Leave it non initialized and move the instance creation to lines 61 and 63 where it is actually used.",
+      "range": {
+        "startLine": 44,
+        "startChar": 41,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4075f78a_d808067a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be too verbose? If I push batch of 1000 changes at the same time, and the events are forwarded the secondary node, then it\u0027s normal operation, that locks wouldn\u0027t be acquired and we would see tons of log warnings? Change it to lower severity?",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ead4c134_20792c4f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "This test setup is quite complicate the affairs in this already not small test class. Why not to move the whole IndexEventLocks-related unit test stuff to its own class: IndexEventLocksTest and focus there on this concurrency testing issues, with successful and not successful locking?",
+      "range": {
+        "startLine": 544,
+        "startChar": 2,
+        "endLine": 544,
+        "endChar": 41
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a45705_0d4fd492",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "This nesting could be avoided. I tried both just remove one call to:\n\n  runLater(\n                        INDEX_WAIT_TIMEOUT_MS * 2,\n\nor even replace it with:\n\n  INDEX_WAIT_TIMEOUT_MS * 4\n\nif you need longer wait timeout?",
+      "range": {
+        "startLine": 572,
+        "startChar": 20,
+        "endLine": 576,
+        "endChar": 58
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ceee77_bee716de",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "Not used and should be removed.",
+      "range": {
+        "startLine": 593,
+        "startChar": 4,
+        "endLine": 595,
+        "endChar": 5
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3bfe1e_181ebfa3",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "Test setup would be extremely simplified, if we de-couple IndexEventLocks from IndexEventHandler.IndexTask complexity, and just pass in a index id string, right?",
+      "range": {
+        "startLine": 632,
+        "startChar": 8,
+        "endLine": 632,
+        "endChar": 89
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "289e8172_2254e3d1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "New instance shouldn\u0027t be needed, you could just pass in indexTask1 as well, as both instances would produce the same index id.",
+      "range": {
+        "startLine": 633,
+        "startChar": 4,
+        "endLine": 634,
+        "endChar": 89
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1214d283_e2ca3f34",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "May be add a comment to clarify, that the order doesn\u0027t matter here, so that we don\u0027t know, whether the first or the second task will succeed or fail? The reason is the usage of CyclicBarrier, if you wouldn\u0027t use it, then the test would succeed  too, but the first task would probably always succeed.",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 672,
+        "endChar": 52
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
