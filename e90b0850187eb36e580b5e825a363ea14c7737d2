@@ -395,6 +395,30 @@
       },
       "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5efbee1c_a8ed3a11",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T11:02:08Z",
+      "side": 1,
+      "message": "Done: I\u0027ve added a more detailed explanation of that condition as well.\n\nThanks for the detailed review, it was really useful indeed.",
+      "parentUuid": "d9021ca0_b8bbd9fe",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
