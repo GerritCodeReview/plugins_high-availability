@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c963e08_158ad6b9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T10:53:06Z",
+      "side": 1,
+      "message": "IndexTask isn\u0027t actually used here, only id.indexId(), so that the signatire could be change to just pass String indexId?",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f4e8485_87fb2915",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T10:53:06Z",
+      "side": 1,
+      "message": "id.indexId(), or indexId, if you change the signature of this method.",
+      "range": {
+        "startLine": 60,
+        "startChar": 71,
+        "endLine": 60,
+        "endChar": 73
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
