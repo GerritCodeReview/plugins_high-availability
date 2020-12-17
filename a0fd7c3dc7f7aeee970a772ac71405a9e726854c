@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad7115d_ff1036ec",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T21:47:07Z",
+      "side": 1,
+      "message": "Initialization could be moved below where it\u0027s actually needed, to avoid unnecessary object creation, if lock is acquired and the method returns on line 48.",
+      "range": {
+        "startLine": 44,
+        "startChar": 41,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "a0fd7c3dc7f7aeee970a772ac71405a9e726854c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a04b6fe_bd9b6fd6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T21:47:07Z",
+      "side": 1,
+      "message": "Low the severity to atFine, to not spam the logs?",
+      "range": {
+        "startLine": 59,
+        "startChar": 10,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "a0fd7c3dc7f7aeee970a772ac71405a9e726854c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af9e8063_146a67fe",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T21:47:07Z",
+      "side": 1,
+      "message": "order",
+      "range": {
+        "startLine": 664,
+        "startChar": 45,
+        "endLine": 664,
+        "endChar": 50
+      },
+      "revId": "a0fd7c3dc7f7aeee970a772ac71405a9e726854c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
