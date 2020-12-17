@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d16c448a_a60313e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2020-12-17T21:58:02Z",
+      "side": 1,
+      "message": "Amazing explanation of the issue!",
+      "revId": "427be1da451fc7407962e6d6adc3e3684ef64739",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8f55fc6_90894c8d",
