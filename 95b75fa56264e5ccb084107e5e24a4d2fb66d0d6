@@ -113,6 +113,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b922f89_c28735f5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T22:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "356d8527_fd9b98c6",
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f4e8485_87fb2915",
@@ -150,6 +168,30 @@
       "side": 1,
       "message": "Good point, let me change that.",
       "parentUuid": "6f4e8485_87fb2915",
+      "range": {
+        "startLine": 60,
+        "startChar": 71,
+        "endLine": 60,
+        "endChar": 73
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "910b944b_afda081d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T22:10:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9acf180f_726c5564",
       "range": {
         "startLine": 60,
         "startChar": 71,
