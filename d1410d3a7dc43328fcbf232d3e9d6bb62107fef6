@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54ff6b3_69bd4014",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/event/EventDeserializerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T21:40:42Z",
+      "side": 1,
+      "message": "This is actually the part we need in the test: we have a type adapter for the project name key and NOT for the whole patch_set created event.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "d1410d3a7dc43328fcbf232d3e9d6bb62107fef6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c442f6_7004b70a",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/event/EventDeserializerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T21:40:42Z",
+      "side": 1,
+      "message": "Same as above: this is the only fragment we need.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 44
+      },
+      "revId": "d1410d3a7dc43328fcbf232d3e9d6bb62107fef6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
