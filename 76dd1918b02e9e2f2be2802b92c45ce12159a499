@@ -95,6 +95,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19f00c76_ae4a8b04",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "I know, this TestTask is complex because needs to simulate a delayed execution.\nI don\u0027t see any other ways to do it anyway, unless I start again doing massive mocking.\n\nP.S. The whole IndexEventHandlerTest has a lot of complicated mocks that are never tested anyway. I may just give up testing this because the test code is a lot more complicated than the solution?",
+      "parentUuid": "ead4c134_20792c4f",
+      "range": {
+        "startLine": 544,
+        "startChar": 2,
+        "endLine": 544,
+        "endChar": 41
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7a45705_0d4fd492",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 4
@@ -118,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b50366d_6e7c7247",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "Not really, the two runLater achieve two different things:\n\n1. Allow having a locking issue between threads\n2. Allow having a delayed release of the lock happening in another thread\n\nDo you see any simpler way to achieve it?",
+      "parentUuid": "e7a45705_0d4fd492",
+      "range": {
+        "startLine": 572,
+        "startChar": 20,
+        "endLine": 576,
+        "endChar": 58
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38ceee77_bee716de",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 4
@@ -129,6 +177,30 @@
       "writtenOn": "2020-12-17T14:56:07Z",
       "side": 1,
       "message": "Not used and should be removed.",
+      "range": {
+        "startLine": 593,
+        "startChar": 4,
+        "endLine": 595,
+        "endChar": 5
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72247afd_6edbee60",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38ceee77_bee716de",
       "range": {
         "startLine": 593,
         "startChar": 4,
@@ -164,6 +236,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a1b09b1_9ccfc6ed",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "If we do that, then there isn\u0027t any difference between the test at L630 and the one at L639, isn\u0027t it?\n\nBecause this change is all about checking that a IndexChangeTask and IndexDeleteTask do block each other, we won\u0027t actually test it.",
+      "parentUuid": "6e3bfe1e_181ebfa3",
+      "range": {
+        "startLine": 632,
+        "startChar": 8,
+        "endLine": 632,
+        "endChar": 89
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "289e8172_2254e3d1",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 4
@@ -187,6 +283,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa0da9a7_77f91e69",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "Ack, but that isn\u0027t what it will actually happen in reality, as there will be different tasks objects created.\n\nI know this isn\u0027t a proper black-box testing, but we should aim to be as much as possible closer to the real execution. But I got your point, and we could simplify it.",
+      "parentUuid": "289e8172_2254e3d1",
+      "range": {
+        "startLine": 633,
+        "startChar": 4,
+        "endLine": 634,
+        "endChar": 89
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1214d283_e2ca3f34",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 4
@@ -198,6 +318,30 @@
       "writtenOn": "2020-12-17T14:56:07Z",
       "side": 1,
       "message": "May be add a comment to clarify, that the order doesn\u0027t matter here, so that we don\u0027t know, whether the first or the second task will succeed or fail? The reason is the usage of CyclicBarrier, if you wouldn\u0027t use it, then the test would succeed  too, but the first task would probably always succeed.",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 672,
+        "endChar": 52
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5898435b_022a9a30",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:46:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1214d283_e2ca3f34",
       "range": {
         "startLine": 671,
         "startChar": 4,
