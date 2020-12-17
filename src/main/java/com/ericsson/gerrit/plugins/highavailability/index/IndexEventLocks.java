@@ -38,28 +38,40 @@ public class IndexEventLocks {
     this.waitTimeout = cfg.index().waitTimeout();
   }
 
-  public void withLock(
+  public CompletableFuture<?> withLock(
       IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
-    Lock idLock = getLock(id);
+    String indexId = id.indexId();
+    Lock idLock = getLock(indexId);
     try {
       if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
-        function
+        return function
             .invoke()
             .whenComplete(
                 (result, error) -> {
                   idLock.unlock();
                 });
-      } else {
-        lockAcquireTimeoutCallback.invoke();
       }
+
+      String timeoutMessage =
+          String.format(
+              "Acquisition of the locking of %s timed out after %d msec: consider increasing the number of shards",
+              indexId, waitTimeout);
+      log.atWarning().log(timeoutMessage);
+      lockAcquireTimeoutCallback.invoke();
+      CompletableFuture<?> failureFuture = new CompletableFuture<>();
+      failureFuture.completeExceptionally(new InterruptedException(timeoutMessage));
+      return failureFuture;
     } catch (InterruptedException e) {
-      log.atSevere().withCause(e).log("%s was interrupted; giving up", id);
+      CompletableFuture<?> failureFuture = new CompletableFuture<>();
+      failureFuture.completeExceptionally(e);
+      log.atSevere().withCause(e).log("Locking of %s was interrupted; giving up", indexId);
+      return failureFuture;
     }
   }
 
   @VisibleForTesting
-  protected Lock getLock(IndexTask id) {
-    return locks.get(id);
+  protected Lock getLock(String indexId) {
+    return locks.get(indexId);
   }
 
   @FunctionalInterface
