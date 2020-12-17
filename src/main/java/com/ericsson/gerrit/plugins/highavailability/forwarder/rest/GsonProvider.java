@@ -14,7 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.event.ProjectNameKeyAdapter;
 import com.google.common.base.Supplier;
+import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventDeserializer;
 import com.google.gerrit.server.events.SupplierDeserializer;
@@ -28,6 +30,7 @@ public class GsonProvider implements Provider<Gson> {
   public Gson get() {
     return new GsonBuilder()
         .registerTypeAdapter(Event.class, new EventDeserializer())
+        .registerTypeAdapter(Project.NameKey.class, new ProjectNameKeyAdapter())
         .registerTypeAdapter(Supplier.class, new SupplierDeserializer())
         .create();
   }
