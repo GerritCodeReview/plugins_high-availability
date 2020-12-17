@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70d9e694_7a428eba",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-17T14:56:07Z",
+      "side": 1,
+      "message": "According to the principle of least knowledge: [1], we should generally try design components in loosely coupled system. If we have a chance to de-couple IndexEventLocks from IndexEventHandler.IndexTask, we should probably do it, now that we added this asbtraction: String IndexTask.indexId().\n\nThat way also the setup code could be significantly simplified:\n\n  @Test\n  public void indexLocksShouldBlockConcurrentIndexChange() throws Exception {\n    IndexChangeTask indexTask1 \u003d\n        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());\n    IndexChangeTask indexTask2 \u003d\n        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());\n    testIsolationOfCuncurrentIndexTasks(indexTask1.indexId(), indexTask2.indexId());\n  }\n\nYou would just say:\n\n  String id \u003d\"changes/1\";\n  testIsolationOfCuncurrentIndexTasks(id, id);\n\nWe could even rename IndexEventLocks to StripedSemaphoreUtil and even extract it to util package and re-use it in other places. The only relation is:\n\n  NUMBER_OF_INDEX_TASK_TYPES \u003d 4;\n\nbut we could later externalize it \n\n[1] https://en.wikipedia.org/wiki/Law_of_Demeter",
+      "parentUuid": "95e47e34_a7e96e0d",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "356d8527_fd9b98c6",
