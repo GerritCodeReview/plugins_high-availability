@@ -164,6 +164,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d34d6f24_b29ec514",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T15:56:17Z",
+      "side": 1,
+      "message": "I believe you\u0027re right: the second runLater() isn\u0027t needed.",
+      "parentUuid": "8b50366d_6e7c7247",
+      "range": {
+        "startLine": 572,
+        "startChar": 20,
+        "endLine": 576,
+        "endChar": 58
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38ceee77_bee716de",
