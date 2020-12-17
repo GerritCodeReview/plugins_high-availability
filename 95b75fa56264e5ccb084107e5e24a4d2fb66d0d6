@@ -24,6 +24,47 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e47e34_a7e96e0d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T11:33:41Z",
+      "side": 1,
+      "message": "Yes, however this is a public method and I typically prefer strongly typed parameters (IndexTask) rather than generic types (String).\nIt is semantically the same, so if you don\u0027t mind I would keep it as-is.\n\nWDYT?",
+      "parentUuid": "0c963e08_158ad6b9",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356d8527_fd9b98c6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T11:33:41Z",
+      "side": 1,
+      "message": "We should have a warning here, otherwise this timeout doesn\u0027t get traced in logs and goes undetected.",
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f4e8485_87fb2915",
@@ -37,6 +78,30 @@
       "writtenOn": "2020-12-17T10:53:06Z",
       "side": 1,
       "message": "id.indexId(), or indexId, if you change the signature of this method.",
+      "range": {
+        "startLine": 60,
+        "startChar": 71,
+        "endLine": 60,
+        "endChar": 73
+      },
+      "revId": "95b75fa56264e5ccb084107e5e24a4d2fb66d0d6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9acf180f_726c5564",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T11:33:41Z",
+      "side": 1,
+      "message": "Good point, let me change that.",
+      "parentUuid": "6f4e8485_87fb2915",
       "range": {
         "startLine": 60,
         "startChar": 71,
