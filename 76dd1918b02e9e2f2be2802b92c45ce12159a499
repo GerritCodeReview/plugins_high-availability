@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9dee9736_77d5a112",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T22:10:13Z",
+      "side": 1,
+      "message": "We do need to know if the withLock failed or not: that information was previously swallowed and not accessible.\n\nMaking the code more testable and predictable is definitely a positive goal.",
+      "parentUuid": "7f0ce676_c10dd069",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b19f8fd0_ca64f4e0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2020-12-17T14:56:07Z",
       "side": 1,
       "message": "Leave it non initialized and move the instance creation to lines 61 and 63 where it is actually used.",
+      "range": {
+        "startLine": 44,
+        "startChar": 41,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21be7405_ea83fb9a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T22:10:13Z",
+      "side": 1,
+      "message": "I\u0027ll just move it down when it is actually used.",
+      "parentUuid": "b19f8fd0_ca64f4e0",
       "range": {
         "startLine": 44,
         "startChar": 41,
@@ -60,6 +108,30 @@
       "writtenOn": "2020-12-17T14:56:07Z",
       "side": 1,
       "message": "Wouldn\u0027t this be too verbose? If I push batch of 1000 changes at the same time, and the events are forwarded the secondary node, then it\u0027s normal operation, that locks wouldn\u0027t be acquired and we would see tons of log warnings? Change it to lower severity?",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfd50c2a_57cf6810",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T22:10:13Z",
+      "side": 1,
+      "message": "If you push 1000 changes (different ones) you should not get any lock failures and no warnings at all. However, if you push 1000 changes and you have not adjusted the shards, HA plugin won\u0027t work as you\u0027ve expected because you have just 10 shards.\n\nYou *need* to be warned about the misconfiguration sooner rather than later. Logging at fine won\u0027t really help the Gerrit admin to be aware of the problem.",
+      "parentUuid": "4075f78a_d808067a",
       "range": {
         "startLine": 59,
         "startChar": 6,
