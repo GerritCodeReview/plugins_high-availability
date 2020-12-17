@@ -88,7 +88,7 @@ public class Configuration {
   }
 
   @VisibleForTesting
-  Configuration(Config cfg, SitePaths site) {
+  public Configuration(Config cfg, SitePaths site) {
     main = new Main(site, cfg);
     autoReindex = new AutoReindex(cfg);
     peerInfo = new PeerInfo(cfg);
