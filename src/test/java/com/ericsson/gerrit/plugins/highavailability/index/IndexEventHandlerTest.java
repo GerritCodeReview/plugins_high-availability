@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -32,7 +33,8 @@ import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.Dele
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexAccountTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
-import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexProjectTask;
+import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexTask;
+import com.ericsson.gerrit.plugins.highavailability.index.IndexEventLocks.VoidFunction;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.AccountGroup;
 import com.google.gerrit.reviewdb.client.Change;
@@ -44,15 +46,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,6 +74,8 @@ public class IndexEventHandlerTest {
   private static final int ACCOUNT_ID = 2;
   private static final String UUID = "3";
   private static final String OTHER_UUID = "4";
+  private static final Integer INDEX_WAIT_TIMEOUT_MS = 5;
+  private static final int MAX_TEST_PARALLELISM = 4;
 
   private IndexEventHandler indexEventHandler;
   @Mock private Forwarder forwarder;
@@ -77,6 +85,8 @@ public class IndexEventHandlerTest {
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
   private ScheduledExecutorService executor = new CurrentThreadScheduledExecutorService();
+  private ScheduledExecutorService testExecutor =
+      Executors.newScheduledThreadPool(MAX_TEST_PARALLELISM);
   @Mock private RequestContext mockCtx;
   @Mock private Configuration configuration;
   private IndexEventLocks idLocks;
@@ -100,7 +110,7 @@ public class IndexEventHandlerTest {
     Configuration.Index cfgIndex = mock(Configuration.Index.class);
     when(configuration.index()).thenReturn(cfgIndex);
     when(cfgIndex.numStripedLocks()).thenReturn(Configuration.DEFAULT_NUM_STRIPED_LOCKS);
-    when(cfgIndex.waitTimeout()).thenReturn(Configuration.DEFAULT_TIMEOUT_MS);
+    when(cfgIndex.waitTimeout()).thenReturn(INDEX_WAIT_TIMEOUT_MS);
 
     Configuration.Http http = mock(Configuration.Http.class);
     when(configuration.http()).thenReturn(http);
@@ -164,7 +174,7 @@ public class IndexEventHandlerTest {
   public void shouldNotIndexChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     setUpIndexEventHandler(currCtx, locks);
@@ -178,7 +188,7 @@ public class IndexEventHandlerTest {
   public void shouldNotIndexAccountWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexAccountTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
@@ -192,7 +202,7 @@ public class IndexEventHandlerTest {
   public void shouldNotDeleteChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(DeleteChangeTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
@@ -206,7 +216,7 @@ public class IndexEventHandlerTest {
   public void shouldNotIndexGroupWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexGroupTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
@@ -220,7 +230,7 @@ public class IndexEventHandlerTest {
   public void shouldNotIndexProjectWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexProjectTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
@@ -234,7 +244,7 @@ public class IndexEventHandlerTest {
   public void shouldRetryIndexChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
         .thenReturn(false, true);
@@ -250,7 +260,7 @@ public class IndexEventHandlerTest {
   public void shouldRetryUpToMaxTriesWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
 
@@ -270,7 +280,7 @@ public class IndexEventHandlerTest {
   public void shouldNotRetryWhenMaxTriesLowerThanOne() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Lock lock = mock(Lock.class);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(lock);
+    when(locks.getLock(anyString())).thenReturn(lock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     when(lock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS))).thenReturn(false);
 
@@ -295,8 +305,8 @@ public class IndexEventHandlerTest {
     Lock accountChangeLock = mock(Lock.class);
     when(accountChangeLock.tryLock(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
         .thenReturn(true);
-    when(locks.getLock(any(IndexChangeTask.class))).thenReturn(indexChangeLock);
-    when(locks.getLock(any(IndexAccountTask.class))).thenReturn(accountChangeLock);
+    when(locks.getLock(eq("change/" + CHANGE_ID))).thenReturn(indexChangeLock);
+    when(locks.getLock(eq("account/" + ACCOUNT_ID))).thenReturn(accountChangeLock);
     Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
     setUpIndexEventHandler(currCtx, locks);
 
@@ -529,6 +539,137 @@ public class IndexEventHandlerTest {
     IndexGroupTask differentGroupIdTask = indexEventHandler.new IndexGroupTask("123");
     assertThat(task.equals(differentGroupIdTask)).isFalse();
     assertThat(task.hashCode()).isNotEqualTo(differentGroupIdTask.hashCode());
+  }
+
+  class TestTask<T> implements Runnable {
+    private IndexTask task;
+    private CyclicBarrier testBarrier;
+    private Supplier<T> successFunc;
+    private VoidFunction failureFunc;
+    private CompletableFuture<T> future;
+
+    public TestTask(
+        IndexTask task,
+        CyclicBarrier testBarrier,
+        Supplier<T> successFunc,
+        VoidFunction failureFunc) {
+      this.task = task;
+      this.testBarrier = testBarrier;
+      this.successFunc = successFunc;
+      this.failureFunc = failureFunc;
+      this.future = new CompletableFuture<>();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void run() {
+      try {
+        testBarrier.await();
+        idLocks
+            .withLock(
+                task,
+                () ->
+                    runLater(
+                        INDEX_WAIT_TIMEOUT_MS * 2,
+                        () ->
+                            runLater(
+                                INDEX_WAIT_TIMEOUT_MS * 2,
+                                () -> CompletableFuture.completedFuture(successFunc.get()))),
+                failureFunc)
+            .whenComplete(
+                (v, t) -> {
+                  if (t == null) {
+                    future.complete((T) v);
+                  } else {
+                    future.completeExceptionally(t);
+                  }
+                });
+      } catch (Throwable t) {
+        future = new CompletableFuture<>();
+        future.completeExceptionally(t);
+      }
+    }
+
+    public CompletableFuture<?> getFuture() {
+      return future;
+    }
+
+    public void join() {
+      try {
+        future.join();
+      } catch (Exception e) {
+      }
+    }
+
+    private CompletableFuture<T> runLater(
+        long scheduledTimeMsec, Supplier<CompletableFuture<T>> supplier) {
+      CompletableFuture<T> resFuture = new CompletableFuture<>();
+      testExecutor.schedule(
+          () -> {
+            try {
+              return supplier
+                  .get()
+                  .whenComplete(
+                      (v, t) -> {
+                        if (t == null) {
+                          resFuture.complete(v);
+                        }
+                        resFuture.completeExceptionally(t);
+                      });
+            } catch (Throwable t) {
+              return resFuture.completeExceptionally(t);
+            }
+          },
+          scheduledTimeMsec,
+          TimeUnit.MILLISECONDS);
+      return resFuture;
+    }
+  }
+
+  @Test
+  public void indexLocksShouldBlockConcurrentIndexChange() throws Exception {
+    IndexChangeTask indexTask1 =
+        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
+    IndexChangeTask indexTask2 =
+        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
+    testIsolationOfCuncurrentIndexTasks(indexTask1, indexTask2);
+  }
+
+  @Test
+  public void indexLocksShouldBlockConcurrentIndexAndDeleteChange() throws Exception {
+    IndexChangeTask indexTask =
+        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
+    DeleteChangeTask deleteTask =
+        indexEventHandler.new DeleteChangeTask(CHANGE_ID, new IndexEvent());
+    testIsolationOfCuncurrentIndexTasks(indexTask, deleteTask);
+  }
+
+  private void testIsolationOfCuncurrentIndexTasks(IndexTask indexTask1, IndexTask indexTask2)
+      throws Exception {
+    AtomicInteger changeIndexedCount = new AtomicInteger();
+    AtomicInteger lockFailedCounts = new AtomicInteger();
+    CyclicBarrier changeThreadsSync = new CyclicBarrier(2);
+
+    TestTask<Integer> task1 =
+        new TestTask<>(
+            indexTask1,
+            changeThreadsSync,
+            () -> changeIndexedCount.incrementAndGet(),
+            () -> lockFailedCounts.incrementAndGet());
+    TestTask<Integer> task2 =
+        new TestTask<>(
+            indexTask2,
+            changeThreadsSync,
+            () -> changeIndexedCount.incrementAndGet(),
+            () -> lockFailedCounts.incrementAndGet());
+
+    new Thread(task1).start();
+    new Thread(task2).start();
+    task1.join();
+    task2.join();
+
+    assertThat(changeIndexedCount.get()).isEqualTo(1);
+    assertThat(lockFailedCounts.get()).isEqualTo(1);
   }
 
   private class CurrentThreadScheduledExecutorService implements ScheduledExecutorService {
