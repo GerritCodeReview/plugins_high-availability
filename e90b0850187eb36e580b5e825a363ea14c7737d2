@@ -146,6 +146,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5b638dec_a04635b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-17T01:04:45Z",
+      "side": 1,
+      "message": "Fixed with Change-Id: Ic6d7d1ad",
+      "parentUuid": "04a0eb2e_580ff10a",
+      "range": {
+        "startLine": 10,
+        "startChar": 43,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "e90b0850187eb36e580b5e825a363ea14c7737d2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "534cafbc_d5009043",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
