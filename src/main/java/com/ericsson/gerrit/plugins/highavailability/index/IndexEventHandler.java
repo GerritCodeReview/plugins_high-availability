@@ -171,6 +171,8 @@ class IndexEventHandler
     }
 
     abstract CompletableFuture<Boolean> execute();
+
+    abstract String indexId();
   }
 
   class IndexChangeTask extends IndexTask {
@@ -206,6 +208,11 @@ class IndexEventHandler
     public String toString() {
       return String.format("[%s] Index change %s in target instance", pluginName, changeId);
     }
+
+    @Override
+    String indexId() {
+      return "change/" + changeId;
+    }
   }
 
   class DeleteChangeTask extends IndexTask {
@@ -239,6 +246,11 @@ class IndexEventHandler
     public String toString() {
       return String.format("[%s] Delete change %s in target instance", pluginName, changeId);
     }
+
+    @Override
+    String indexId() {
+      return "change/" + changeId;
+    }
   }
 
   class IndexAccountTask extends IndexTask {
@@ -270,6 +282,11 @@ class IndexEventHandler
     @Override
     public String toString() {
       return String.format("[%s] Index account %s in target instance", pluginName, accountId);
+    }
+
+    @Override
+    String indexId() {
+      return "account/" + accountId;
     }
   }
 
@@ -303,6 +320,11 @@ class IndexEventHandler
     public String toString() {
       return String.format("[%s] Index group %s in target instance", pluginName, groupUUID);
     }
+
+    @Override
+    String indexId() {
+      return "group/" + groupUUID;
+    }
   }
 
   class IndexProjectTask extends IndexTask {
@@ -334,6 +356,11 @@ class IndexEventHandler
     @Override
     public String toString() {
       return String.format("[%s] Index project %s in target instance", pluginName, projectName);
+    }
+
+    @Override
+    String indexId() {
+      return "project/" + projectName;
     }
   }
 }
