@@ -33,6 +33,24 @@
       "message": "Optional: we could have mentioned in the commit message, as it was the plan, that the ProjectNameKeyAdapter is consumed from gerrit core now and that\u0027s why the changes from commit I73bd4df898d8b978f67e9ab27fe5bb5461a951fd got reverted. But then you would need to re-do the merges.",
       "revId": "180a2c08ceb74c36419f43c4ea1ec4e42db3328a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8565d9e0_e197aeb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-18T10:16:48Z",
+      "side": 1,
+      "message": "True, I would keep it as-is so that I don\u0027t have to re-merge everything.\nThanks for your comment, so that we can have a track record in the change. I \u003c3 NoteDb for that :-)",
+      "parentUuid": "436b3620_f1b29ccc",
+      "revId": "180a2c08ceb74c36419f43c4ea1ec4e42db3328a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
