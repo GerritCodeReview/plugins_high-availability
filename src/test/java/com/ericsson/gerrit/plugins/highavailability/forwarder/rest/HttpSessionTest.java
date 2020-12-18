@@ -28,6 +28,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseH
 import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
+import com.google.gerrit.reviewdb.client.Project;
 import java.net.SocketTimeoutException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -70,7 +71,7 @@ public class HttpSessionTest {
     when(configMock.http().socketTimeout()).thenReturn(TIMEOUT);
     when(configMock.http().retryInterval()).thenReturn(RETRY_INTERVAL);
 
-    httpSession = new HttpSession(new HttpClientProvider(configMock).get());
+    httpSession = new HttpSession(new HttpClientProvider(configMock).get(), new GsonProvider());
   }
 
   @Test
@@ -169,5 +170,13 @@ public class HttpSessionTest {
             .willReturn(aResponse().withFault(Fault.MALFORMED_RESPONSE_CHUNK)));
 
     assertThat(httpSession.post(uri).isSuccessful()).isFalse();
+  }
+
+  @Test
+  public void encodeProjectName() {
+    String projectStr = "project";
+    Project.NameKey project = Project.nameKey(projectStr);
+    String json = httpSession.jsonEncode(project);
+    assertThat(json).isEqualTo("\"" + projectStr + "\"");
   }
 }

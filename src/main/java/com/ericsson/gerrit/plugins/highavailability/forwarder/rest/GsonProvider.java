@@ -20,6 +20,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventDeserializer;
 import com.google.gerrit.server.events.SupplierDeserializer;
+import com.google.gerrit.server.events.SupplierSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Provider;
@@ -31,6 +32,7 @@ public class GsonProvider implements Provider<Gson> {
     return new GsonBuilder()
         .registerTypeAdapter(Event.class, new EventDeserializer())
         .registerTypeAdapter(Project.NameKey.class, new ProjectNameKeyAdapter())
+        .registerTypeAdapter(Supplier.class, new SupplierSerializer())
         .registerTypeAdapter(Supplier.class, new SupplierDeserializer())
         .create();
   }
