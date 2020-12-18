@@ -5,8 +5,6 @@ then
   wait-for-it.sh $WAIT_FOR -t 600 -- echo "$WAIT_FOR is up"
 fi
 
-chown -R gerrit: /var/gerrit
-
 sudo -u gerrit cp /var/gerrit/etc/gerrit.config.orig /var/gerrit/etc/gerrit.config
 sudo -u gerrit cp /var/gerrit/etc/high-availability.config.orig /var/gerrit/etc/high-availability.config
 
