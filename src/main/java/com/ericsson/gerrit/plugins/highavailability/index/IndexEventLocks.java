@@ -21,45 +21,66 @@ import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.Striped;
 import com.google.inject.Inject;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 
 public class IndexEventLocks {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private static final int NUMBER_OF_INDEX_TASK_TYPES = 4;
+  private static final int WAIT_TIMEOUT_MS = 5;
 
-  private final Striped<Lock> locks;
-  private final long waitTimeout;
+  private final Striped<Semaphore> semaphores;
 
   @Inject
   public IndexEventLocks(Configuration cfg) {
-    this.locks = Striped.lock(NUMBER_OF_INDEX_TASK_TYPES * cfg.index().numStripedLocks());
-    this.waitTimeout = cfg.index().waitTimeout();
+    this.semaphores =
+        Striped.semaphore(NUMBER_OF_INDEX_TASK_TYPES * cfg.index().numStripedLocks(), 1);
   }
 
-  public void withLock(
+  public CompletableFuture<?> withLock(
       IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
-    Lock idLock = getLock(id);
+    String indexId = id.indexId();
+    Semaphore idSemaphore = getSemaphore(indexId);
     try {
-      if (idLock.tryLock(waitTimeout, TimeUnit.MILLISECONDS)) {
-        function
+      log.atFine().log("Trying to acquire %s", id);
+      if (idSemaphore.tryAcquire(WAIT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+        log.atFine().log("Acquired %s", id);
+        return function
             .invoke()
             .whenComplete(
                 (result, error) -> {
-                  idLock.unlock();
+                  try {
+                    log.atFine().log("Trying to release %s", id);
+                    idSemaphore.release();
+                    log.atFine().log("Released %s", id);
+                  } catch (Throwable t) {
+                    log.atSevere().withCause(t).log("Unable to release %s", id);
+                    throw t;
+                  }
                 });
-      } else {
-        lockAcquireTimeoutCallback.invoke();
       }
+
+      String timeoutMessage =
+          String.format(
+              "Acquisition of the locking of %s timed out after %d msec: consider increasing the number of shards",
+              indexId, WAIT_TIMEOUT_MS);
+      log.atWarning().log(timeoutMessage);
+      lockAcquireTimeoutCallback.invoke();
+      CompletableFuture<?> failureFuture = new CompletableFuture<>();
+      failureFuture.completeExceptionally(new InterruptedException(timeoutMessage));
+      return failureFuture;
     } catch (InterruptedException e) {
-      log.atSevere().withCause(e).log("%s was interrupted; giving up", id);
+      CompletableFuture<?> failureFuture = new CompletableFuture<>();
+      failureFuture.completeExceptionally(e);
+      log.atSevere().withCause(e).log("Locking of %s was interrupted; giving up", indexId);
+      return failureFuture;
     }
   }
 
   @VisibleForTesting
-  protected Lock getLock(IndexTask id) {
-    return locks.get(id);
+  protected Semaphore getSemaphore(String indexId) {
+    return semaphores.get(indexId);
   }
 
   @FunctionalInterface
