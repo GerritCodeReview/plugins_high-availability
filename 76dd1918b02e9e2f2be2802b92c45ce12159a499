@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9115681a_5b16bd42",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-18T00:36:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9dee9736_77d5a112",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b19f8fd0_ca64f4e0",
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "I know, this TestTask is complex because needs to simulate a delayed execution.\nI don\u0027t see any other ways to do it anyway, unless I start again doing massive mocking.\n\nP.S. The whole IndexEventHandlerTest has a lot of complicated mocks that are never tested anyway. I may just give up testing this because the test code is a lot more complicated than the solution?",
       "parentUuid": "ead4c134_20792c4f",
+      "range": {
+        "startLine": 544,
+        "startChar": 2,
+        "endLine": 544,
+        "endChar": 41
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db25ec6b_6255bf5b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-18T00:36:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "19f00c76_ae4a8b04",
       "range": {
         "startLine": 544,
         "startChar": 2,
@@ -354,6 +402,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b790294_94a35176",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-18T00:36:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a1b09b1_9ccfc6ed",
+      "range": {
+        "startLine": 632,
+        "startChar": 8,
+        "endLine": 632,
+        "endChar": 89
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "289e8172_2254e3d1",
@@ -391,6 +463,30 @@
       "side": 1,
       "message": "Ack, but that isn\u0027t what it will actually happen in reality, as there will be different tasks objects created.\n\nI know this isn\u0027t a proper black-box testing, but we should aim to be as much as possible closer to the real execution. But I got your point, and we could simplify it.",
       "parentUuid": "289e8172_2254e3d1",
+      "range": {
+        "startLine": 633,
+        "startChar": 4,
+        "endLine": 634,
+        "endChar": 89
+      },
+      "revId": "76dd1918b02e9e2f2be2802b92c45ce12159a499",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff3b5579_ca6a51d6",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-18T00:36:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa0da9a7_77f91e69",
       "range": {
         "startLine": 633,
         "startChar": 4,
