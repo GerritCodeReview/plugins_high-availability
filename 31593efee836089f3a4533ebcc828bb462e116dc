@@ -39,6 +39,29 @@
       "message": "I believe the problem is much bigger than we thought initially: after this change, it fails for other payloads.\n\nExample:\n  [2020-12-19 01:17:23,753] [HTTP-144] WARN  org.eclipse.jetty.server.HttpChannel : /plugins/high-availability/event/comment-added\ncom.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at path $\n\tat com.google.gson.Gson.fromJson(Gson.java:939)\n\tat com.google.gson.Gson.fromJson(Gson.java:994)\n\tat com.google.gson.internal.bind.TreeTypeAdapter$GsonContextImpl.deserialize(TreeTypeAdapter.java:162)\n\tat com.google.gerrit.server.events.SupplierDeserializer.deserialize(SupplierDeserializer.java:38)\n\tat com.google.gerrit.server.events.SupplierDeserializer.deserialize(SupplierDeserializer.java:27)\n\tat com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:69)\n\tat com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1.read(ReflectiveTypeAdapterFactory.java:131)\n\tat com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:222)\n\tat com.google.gson.Gson.fromJson(Gson.java:927)",
       "revId": "31593efee836089f3a4533ebcc828bb462e116dc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50be6acb_b8c7ad6c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-19T01:24:03Z",
+      "side": 1,
+      "message": "We are changing the Json serialiser in one way (REST-Client to Server): are we 100% sure we are using the same on the other way as well?",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "31593efee836089f3a4533ebcc828bb462e116dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
