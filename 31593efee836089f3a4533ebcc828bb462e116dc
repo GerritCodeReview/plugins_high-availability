@@ -62,6 +62,30 @@
       },
       "revId": "31593efee836089f3a4533ebcc828bb462e116dc",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3940b799_8c179d29",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-19T18:32:32Z",
+      "side": 1,
+      "message": "Yes it was wrong replacement on line 35:\n\n  private final Gson gson \u003d\n      new GsonBuilder().registerTypeAdapter(Supplier.class, new SupplierSerializer()).create();\n\nis not equivalent to:\n\n  this.gson \u003d gsonProvider.get();\n\nbecause now we are missing the supplier serializer registration and all suppliers are not correctly serialized and effectively empty. There are two possible fixes:\n\n* 1. Add supplier serializer in GsonProvider\n* 2. Don\u0027t use GsonProvider, but just extend the builder with now required ProjectNameKeyAdapter serieliazer\n\n  private final Gson gson \u003d\n      new GsonBuilder()\n          .registerTypeAdapter(Project.NameKey.class, new ProjectNameKeyAdapter())\n          .registerTypeAdapter(Supplier.class, new SupplierSerializer())\n          .create();\n\nI went with the first approach. Done.",
+      "parentUuid": "50be6acb_b8c7ad6c",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "31593efee836089f3a4533ebcc828bb462e116dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
