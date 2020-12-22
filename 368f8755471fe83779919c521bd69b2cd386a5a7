@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3dd38ce_67fd4a7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-22T00:36:32Z",
+      "side": 1,
+      "message": "@Davido can you also do a manual E2E verification and add Verified +1?\n\nLGTM, thanks Davido for the fix.",
+      "revId": "368f8755471fe83779919c521bd69b2cd386a5a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
