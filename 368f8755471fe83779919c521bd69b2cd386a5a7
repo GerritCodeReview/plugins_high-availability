@@ -33,6 +33,23 @@
       "message": "Thanks.",
       "revId": "368f8755471fe83779919c521bd69b2cd386a5a7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f442511_569e3778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2020-12-22T22:39:04Z",
+      "side": 1,
+      "message": "I did E2E test.",
+      "revId": "368f8755471fe83779919c521bd69b2cd386a5a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
