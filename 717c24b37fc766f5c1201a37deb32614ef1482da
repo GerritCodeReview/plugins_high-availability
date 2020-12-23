@@ -1,5 +1,10 @@
 {
   "checks": {
+    "gerritforge:plugins-high-availability-build-test": {
+      "state": "SCHEDULED",
+      "created": "2020-12-23T01:03:08Z",
+      "updated": "2020-12-23T01:03:08Z"
+    },
     "gerritforge:plugins-high-availability-code-style": {
       "state": "SCHEDULED",
       "created": "2020-12-23T01:03:06Z",
