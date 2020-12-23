@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f55717b_a675d864",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-12-23T17:50:05Z",
+      "side": 1,
+      "message": "We need to wait for the Gerrit merge of stable-3.1 to stable-3.2 to be completed, because this failed with:\nerror: cannot access NotThreadSafe\n",
+      "revId": "f8b514be574a7eafcd660cc33d129549d384b5b3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
