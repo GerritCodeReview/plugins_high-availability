@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6f0a9a7_3dd57c43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-01-15T18:41:29Z",
+      "side": 1,
+      "message": "I pushed a related proposal in I8ec9515a\u0027s own review.",
+      "revId": "95e9d962ffadbe1ed588f4e55627f3916d2dba6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
