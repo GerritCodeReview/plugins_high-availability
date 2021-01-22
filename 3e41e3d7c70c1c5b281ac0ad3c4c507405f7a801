@@ -46,6 +46,30 @@
       },
       "revId": "3e41e3d7c70c1c5b281ac0ad3c4c507405f7a801",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d125fef7_306ab6a3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-22T21:07:23Z",
+      "side": 1,
+      "message": "\u003e Yes but it\u0027s similar to multi-site. HA for RW must be installed as a libModule and in that case @PluginName cannot be used\n\nPoint taken, you are indeed right.",
+      "parentUuid": "6b538a4f_b3584120",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 63
+      },
+      "revId": "3e41e3d7c70c1c5b281ac0ad3c4c507405f7a801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
