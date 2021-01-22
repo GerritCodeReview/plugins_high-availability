@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84129fd9_922f421a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-01-22T10:49:25Z",
+      "side": 1,
+      "message": "We should wait for global-refdb release",
+      "revId": "3c774ca8abc2bb933d0a84f8fa751be31cd1ddf1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
