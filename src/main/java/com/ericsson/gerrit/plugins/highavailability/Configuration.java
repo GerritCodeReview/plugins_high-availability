@@ -51,7 +51,8 @@ public class Configuration {
 
   public static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
   public static final int DEFAULT_TIMEOUT_MS = 5000;
-  public static final String PLUGIN_CONFIG_FILE = "high-availability.config";
+  public static final String PLUGIN_NAME = "high-availability";
+  public static final String PLUGIN_CONFIG_FILE = PLUGIN_NAME + ".config";
 
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -109,7 +110,7 @@ public class Configuration {
     index = new Index(cfg);
     websession = new Websession(cfg);
     healthCheck = new HealthCheck(cfg);
-    sharedRefDb = new SharedRefDbConfiguration(cfg);
+    sharedRefDb = new SharedRefDbConfiguration(cfg, PLUGIN_NAME);
   }
 
   private static FileBasedConfig getConfigFile(SitePaths sitePaths, String configFileName) {
