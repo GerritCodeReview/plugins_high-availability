@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cbc3b25_8df5a223",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-01-22T21:07:40Z",
+      "side": 1,
+      "message": "Let\u0027s wait for the CI validation to merge.",
+      "revId": "3e41e3d7c70c1c5b281ac0ad3c4c507405f7a801",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed2e470b_2dae96d1",
