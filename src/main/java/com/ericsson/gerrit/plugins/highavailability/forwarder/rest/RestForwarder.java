@@ -74,7 +74,17 @@ class RestForwarder implements Forwarder {
     return execute(
         RequestMethod.POST,
         "index change",
-        "index/change",
+        "index/change/interactive",
+        buildIndexEndpoint(projectName, changeId),
+        event);
+  }
+
+  @Override
+  public boolean batchIndexChange(String projectName, int changeId, IndexEvent event) {
+    return execute(
+        RequestMethod.POST,
+        "index change",
+        "index/change/batch",
         buildIndexEndpoint(projectName, changeId),
         event);
   }
@@ -82,7 +92,11 @@ class RestForwarder implements Forwarder {
   @Override
   public boolean deleteChangeFromIndex(final int changeId, IndexEvent event) {
     return execute(
-        RequestMethod.DELETE, "delete change", "index/change", buildIndexEndpoint(changeId), event);
+        RequestMethod.DELETE,
+        "delete change",
+        "index/change/interactive",
+        buildIndexEndpoint(changeId),
+        event);
   }
 
   @Override
