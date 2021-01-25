@@ -20,6 +20,7 @@ public class RestForwarderServletModule extends ServletModule {
   @Override
   protected void configureServlets() {
     serveRegex("/index/account/\\d+$").with(IndexAccountRestApiServlet.class);
+    serveRegex("/index/change/batch/.*$").with(IndexBatchChangeRestApiServlet.class);
     serveRegex("/index/change/.*$").with(IndexChangeRestApiServlet.class);
     serveRegex("/index/group/\\w+$").with(IndexGroupRestApiServlet.class);
     serveRegex("/index/project/.*$").with(IndexProjectRestApiServlet.class);
