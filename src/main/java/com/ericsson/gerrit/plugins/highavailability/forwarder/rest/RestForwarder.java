@@ -80,6 +80,16 @@ class RestForwarder implements Forwarder {
   }
 
   @Override
+  public boolean batchIndexChange(String projectName, int changeId, IndexEvent event) {
+    return execute(
+        RequestMethod.POST,
+        "index change",
+        "index/batchchange",
+        buildIndexEndpoint(projectName, changeId),
+        event);
+  }
+
+  @Override
   public boolean deleteChangeFromIndex(final int changeId, IndexEvent event) {
     return execute(
         RequestMethod.DELETE, "delete change", "index/change", buildIndexEndpoint(changeId), event);
