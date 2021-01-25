@@ -64,27 +64,41 @@ public class RestForwarderTest {
               URL,
               PLUGINS,
               PLUGIN_NAME,
-              "index/change",
+              "index/change/interactive",
+              PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
+  private static final String INDEX_BATCH_CHANGE_ENDPOINT =
+      Joiner.on("/")
+          .join(
+              URL,
+              PLUGINS,
+              PLUGIN_NAME,
+              "index/change/batch",
               PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
   private static final String DELETE_CHANGE_ENDPOINT =
-      Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/change", "~" + CHANGE_NUMBER);
+      Joiner.on("/")
+          .join(URL, PLUGINS, PLUGIN_NAME, "index/change/interactive", "~" + CHANGE_NUMBER);
   private static final int ACCOUNT_NUMBER = 2;
   private static final String INDEX_ACCOUNT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/account", ACCOUNT_NUMBER);
   private static final String UUID = "we235jdf92nfj2351";
   private static final String INDEX_GROUP_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/group", UUID);
-
-  private GsonProvider gsonProvider = new GsonProvider();
-  private Gson gson = gsonProvider.get();
-
   // Event
   private static Event event = new TestEvent();
   private static final String EVENT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "event", event.type);
-
+  private GsonProvider gsonProvider = new GsonProvider();
+  private Gson gson = gsonProvider.get();
   private RestForwarder forwarder;
   private HttpSession httpSessionMock;
+
+  private static String buildCacheEndpoint(String name) {
+    return Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "cache", name);
+  }
+
+  private static String buildProjectListCacheEndpoint(String projectName) {
+    return Joiner.on("/").join(buildCacheEndpoint(Constants.PROJECT_LIST), projectName);
+  }
 
   @SuppressWarnings("unchecked")
   @Before
@@ -162,6 +176,26 @@ public class RestForwarderTest {
   public void testIndexChangeThrowsException() throws Exception {
     doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_CHANGE_ENDPOINT), any());
     assertThat(forwarder.indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isFalse();
+  }
+
+  @Test
+  public void testIndexBatchChangeOK() throws Exception {
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any()))
+        .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
+    assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isTrue();
+  }
+
+  @Test
+  public void testIndexBatchChangeFailed() throws Exception {
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any()))
+        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isFalse();
+  }
+
+  @Test
+  public void testIndexBatchChangeThrowsException() throws Exception {
+    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any());
+    assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())).isFalse();
   }
 
   @Test
@@ -267,10 +301,6 @@ public class RestForwarderTest {
     assertThat(forwarder.evict(Constants.PROJECTS, key)).isFalse();
   }
 
-  private static String buildCacheEndpoint(String name) {
-    return Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "cache", name);
-  }
-
   @Test
   public void testAddToProjectListOK() throws Exception {
     String projectName = PROJECT_TO_ADD;
@@ -319,10 +349,6 @@ public class RestForwarderTest {
         .when(httpSessionMock)
         .delete((buildProjectListCacheEndpoint(projectName)));
     assertThat(forwarder.removeFromProjectList(projectName)).isFalse();
-  }
-
-  private static String buildProjectListCacheEndpoint(String projectName) {
-    return Joiner.on("/").join(buildCacheEndpoint(Constants.PROJECT_LIST), projectName);
   }
 
   @Test
