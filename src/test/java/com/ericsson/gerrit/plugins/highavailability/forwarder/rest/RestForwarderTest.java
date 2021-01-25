@@ -64,10 +64,10 @@ public class RestForwarderTest {
               URL,
               PLUGINS,
               PLUGIN_NAME,
-              "index/change",
+              "index/change/interactive",
               PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
   private static final String DELETE_CHANGE_ENDPOINT =
-      Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/change", "~" + CHANGE_NUMBER);
+      Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/change/interactive", "~" + CHANGE_NUMBER);
   private static final int ACCOUNT_NUMBER = 2;
   private static final String INDEX_ACCOUNT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/account", ACCOUNT_NUMBER);
