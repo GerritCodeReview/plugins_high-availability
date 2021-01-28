@@ -87,6 +87,24 @@
       "parentUuid": "e210a9ef_11bfe3ad",
       "revId": "3ca2bec94940a88c85b77b84dd6b67acbc933901",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9d9f44b_0df80c65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-01-28T18:58:39Z",
+      "side": 1,
+      "message": "Owner can\u0027t change owner, so this is good enough 😊. Marking as resolved",
+      "parentUuid": "3e239b11_db399727",
+      "revId": "3ca2bec94940a88c85b77b84dd6b67acbc933901",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
