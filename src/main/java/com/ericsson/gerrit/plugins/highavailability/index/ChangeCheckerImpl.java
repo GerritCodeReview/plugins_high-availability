@@ -18,11 +18,13 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Comment;
+import com.google.gerrit.reviewdb.client.RefNames;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.notedb.ChangeNotes;
+import com.google.gerrit.server.notedb.NoteDbChangeState.PrimaryStorage;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -74,6 +76,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
               IndexEvent event = new IndexEvent();
               event.eventCreatedOn = ts;
               event.targetSha = getBranchTargetSha();
+              event.metaSha = getMetaSha();
               return event;
             });
   }
@@ -96,16 +99,14 @@ public class ChangeCheckerImpl implements ChangeChecker {
       return false;
     }
 
-    if (indexEvent.isPresent() && indexEvent.get().targetSha == null) {
-      return indexEvent.map(e -> (computedChangeTs.get() >= e.eventCreatedOn)).orElse(true);
-    }
-
     return indexEvent
         .map(
             e ->
                 (computedChangeTs.get() > e.eventCreatedOn)
                     || (computedChangeTs.get() == e.eventCreatedOn)
-                        && (Objects.equals(getBranchTargetSha(), e.targetSha)))
+                        && (Objects.isNull(e.targetSha)
+                            || Objects.equals(getBranchTargetSha(), e.targetSha))
+                        && (Objects.isNull(e.metaSha) || Objects.equals(getMetaSha(), e.metaSha)))
         .orElse(true);
   }
 
@@ -124,8 +125,10 @@ public class ChangeCheckerImpl implements ChangeChecker {
           + changeId
           + "@"
           + getComputedChangeTs().map(IndexEvent::format)
-          + "/"
-          + getBranchTargetSha();
+          + "/target:"
+          + getBranchTargetSha()
+          + "/meta:"
+          + getMetaSha();
     } catch (IOException | OrmException e) {
       log.atSevere().withCause(e).log("Unable to render change %s", changeId);
       return "change-id=" + changeId;
@@ -146,6 +149,24 @@ public class ChangeCheckerImpl implements ChangeChecker {
           "Unable to resolve target branch SHA for change %s", changeId);
       return null;
     }
+  }
+
+  private String getMetaSha() {
+    if (PrimaryStorage.NOTE_DB.equals(PrimaryStorage.of(changeNotes.get().getChange()))) {
+      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+        String refName = RefNames.changeMetaRef(changeNotes.get().getChange().getId());
+        Ref ref = repo.exactRef(refName);
+        if (ref == null) {
+          log.atWarning().log("Unable to find meta ref %s for change %s", refName, changeId);
+          return null;
+        }
+        return ref.getTarget().getObjectId().getName();
+      } catch (IOException e) {
+        log.atWarning().withCause(e).log("Unable to resolve meta SHA for change %s", changeId);
+      }
+    }
+
+    return null;
   }
 
   private Optional<Long> computeLastChangeTs() throws OrmException {
