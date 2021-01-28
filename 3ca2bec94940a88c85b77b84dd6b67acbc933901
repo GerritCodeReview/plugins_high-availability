@@ -51,6 +51,24 @@
       "parentUuid": "a0c7fc74_e54da563",
       "revId": "3ca2bec94940a88c85b77b84dd6b67acbc933901",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e210a9ef_11bfe3ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2021-01-28T16:57:10Z",
+      "side": 1,
+      "message": "Did you try this command git commit --author\u003d\"John Doe \u003cjohn@doe.org\u003e\" I think it worked in my first change on GS",
+      "parentUuid": "633f50ca_204fac3e",
+      "revId": "3ca2bec94940a88c85b77b84dd6b67acbc933901",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
