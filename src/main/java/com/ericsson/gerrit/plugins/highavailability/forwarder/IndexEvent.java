@@ -21,10 +21,14 @@ import java.time.format.DateTimeFormatter;
 public class IndexEvent {
   public long eventCreatedOn = System.currentTimeMillis() / 1000;
   public String targetSha;
+  public String metaSha;
 
   @Override
   public String toString() {
-    return "IndexEvent@" + format(eventCreatedOn) + ((targetSha != null) ? "/" + targetSha : "");
+    return "IndexEvent@"
+        + format(eventCreatedOn)
+        + ((targetSha != null) ? "/" + targetSha : "")
+        + ((metaSha != null) ? "/" + metaSha : "");
   }
 
   public static String format(long eventTs) {
