@@ -47,6 +47,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed1c184c_e11932a8",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-01-29T21:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2ab7237_f28feff3",
+      "range": {
+        "startLine": 184,
+        "startChar": 47,
+        "endLine": 184,
+        "endChar": 55
+      },
+      "revId": "5fbc3ae747f2d5fb475495ab1b83ca95e16f1a40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a169ff4_a327b333",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-01-29T21:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d2c87b8_88338b36",
+      "range": {
+        "startLine": 184,
+        "startChar": 70,
+        "endLine": 184,
+        "endChar": 78
+      },
+      "revId": "5fbc3ae747f2d5fb475495ab1b83ca95e16f1a40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee8d069_320ec968",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-01-29T21:40:27Z",
       "side": 1,
       "message": "Checking the... ...warnings should help.\n\n(As proposed.)",
+      "range": {
+        "startLine": 186,
+        "startChar": 65,
+        "endLine": 187,
+        "endChar": 60
+      },
+      "revId": "5fbc3ae747f2d5fb475495ab1b83ca95e16f1a40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f4f1627_ca9a74b5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-01-29T21:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ee8d069_320ec968",
       "range": {
         "startLine": 186,
         "startChar": 65,
