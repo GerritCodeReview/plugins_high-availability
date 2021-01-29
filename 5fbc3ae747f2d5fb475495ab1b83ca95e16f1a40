@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d2c87b8_88338b36",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-01-29T21:40:27Z",
+      "side": 1,
+      "message": "one might want\n\n(As proposed.)",
+      "range": {
+        "startLine": 184,
+        "startChar": 70,
+        "endLine": 184,
+        "endChar": 78
+      },
+      "revId": "5fbc3ae747f2d5fb475495ab1b83ca95e16f1a40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2ab7237_f28feff3",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-01-29T21:40:27Z",
+      "side": 1,
+      "message": "one has\n\n(Would favour an impersonal address.)",
+      "range": {
+        "startLine": 184,
+        "startChar": 47,
+        "endLine": 184,
+        "endChar": 55
+      },
+      "revId": "5fbc3ae747f2d5fb475495ab1b83ca95e16f1a40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee8d069_320ec968",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-01-29T21:40:27Z",
+      "side": 1,
+      "message": "Checking the... ...warnings should help.\n\n(As proposed.)",
+      "range": {
+        "startLine": 186,
+        "startChar": 65,
+        "endLine": 187,
+        "endChar": 60
+      },
+      "revId": "5fbc3ae747f2d5fb475495ab1b83ca95e16f1a40",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
