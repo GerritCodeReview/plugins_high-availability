@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd743259_98a1402a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-01-29T12:18:10Z",
+      "side": 1,
+      "message": "Tested with two nodes, one with current code and second without this change. Both are able to send and receive events from each other.",
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e66c8698_8e249581",
