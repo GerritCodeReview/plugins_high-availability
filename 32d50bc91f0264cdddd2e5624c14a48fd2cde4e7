@@ -96,6 +96,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd916b8_ed5b211e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-01T22:09:19Z",
+      "side": 1,
+      "message": "\u003e Ok right now I have 2 Gerrit accounts:\n\u003e 1. ID 1127770 Email pwaliszewski@gmail.com \u003cprivate opensource\u003e\n\u003e 2. ID 1127980 Email przemyslaw.waliszewski@tieto.com \u003ccorporate\u003e\n\u003e The ticket was rise to solve this issue for now it must be enough.\n\nAck; yes it is, I think.\n-Ticket being [1] https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d14026",
+      "parentUuid": "18890a1b_66695729",
+      "range": {
+        "startLine": 2,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 58
+      },
+      "revId": "32d50bc91f0264cdddd2e5624c14a48fd2cde4e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06f494c5_ffc71cbc",
