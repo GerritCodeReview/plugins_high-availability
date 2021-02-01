@@ -70,7 +70,7 @@ File '@PLUGIN@.config'
     and indexing at start.
 
 ```autoReindex.delay```
-:   When autoReindex is enabled, indicates the delay aftere the plugin startup,
+:   When autoReindex is enabled, indicates the delay in seconds after the plugin startup,
     before triggering the conditional reindexing of all changes, accounts and groups.
     Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, the default is "10 seconds".
