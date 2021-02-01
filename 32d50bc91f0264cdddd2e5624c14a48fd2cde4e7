@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dad6fdf9_04a585e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-01T16:25:57Z",
+      "side": 1,
+      "message": "No. It is ok to use your gmail for your gerrit-review and Monorail user accounts. However, for your actual git commits, they need to reflect your legal or corporate contributions ownership.",
+      "parentUuid": "d723e9d1_2e953853",
+      "range": {
+        "startLine": 2,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 58
+      },
+      "revId": "32d50bc91f0264cdddd2e5624c14a48fd2cde4e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06f494c5_ffc71cbc",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -178,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2be1f513_39c11301",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-01T16:25:57Z",
+      "side": 1,
+      "message": "I didn\u0027t propose to break this index/* convention, but rather expand it some more, from a RESTful (REST resources) perspective. How was this endpoint implemented in multi-site? We could keep it as is if close enough to how multi-site did it.\n\nAs for the naming convention, REST should already prescribe one.",
+      "parentUuid": "d5e70c5f_08b785e5",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 26
+      },
+      "revId": "32d50bc91f0264cdddd2e5624c14a48fd2cde4e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11878d42_be9f43a2",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
         "patchSetId": 3
@@ -270,6 +318,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7beb6d1_235faa1d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-01T16:25:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5fdb2920_fa42ec0c",
+      "range": {
+        "startLine": 88,
+        "startChar": 55,
+        "endLine": 88,
+        "endChar": 72
+      },
+      "revId": "32d50bc91f0264cdddd2e5624c14a48fd2cde4e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6b008f4_26f4622f",
@@ -307,6 +379,30 @@
       "side": 1,
       "message": "Yes I was also wondering why it was not done in mutli-site fix.\nhttps://gerrit-review.googlesource.com/c/plugins/multi-site/+/253226.\nThen I realize that in same class, classes IndexProjectTask,IndexGroupTask...  have a same duplication. This duplication is actually overriding equals and hashCode. I suspect that it is required by task executor. So overriding IndexChangeTask will also require override equals and hash (class name was used)so only duplication we will remove will be 1 line with toSting method.",
       "parentUuid": "a6b008f4_26f4622f",
+      "range": {
+        "startLine": 190,
+        "startChar": 37,
+        "endLine": 190,
+        "endChar": 46
+      },
+      "revId": "32d50bc91f0264cdddd2e5624c14a48fd2cde4e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dae0ddd0_bba9ed0e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-01T16:25:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb5c61bc_97e1303c",
       "range": {
         "startLine": 190,
         "startChar": 37,
