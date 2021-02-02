@@ -71,15 +71,23 @@ public class ChangeCheckerImpl implements ChangeChecker {
   @Override
   public Optional<IndexEvent> newIndexEvent() throws IOException, OrmException {
     Optional<Long> changeTs = getComputedChangeTs();
-    if (changeTs.isPresent()) {
-      IndexEvent event = new IndexEvent();
-      event.eventCreatedOn = changeTs.get();
-      event.targetSha = getBranchTargetSha();
-      event.metaSha = getMetaSha();
-      return Optional.of(event);
+    if (!changeTs.isPresent()) {
+      return Optional.empty();
     }
 
-    return Optional.empty();
+    long ts = changeTs.get();
+
+    IndexEvent event = new IndexEvent();
+    event.eventCreatedOn = ts;
+    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+      event.targetSha = getBranchTargetSha(repo);
+      event.metaSha = getMetaSha(repo);
+      return Optional.of(event);
+    } catch (IOException e) {
+      log.atSevere().withCause(e).log(
+          "Unable to create index event for project %s", changeNotes.get().getProjectName());
+      throw e;
+    }
   }
 
   @Override
@@ -101,13 +109,15 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
     try {
       if (indexEventOption.isPresent()) {
-        IndexEvent indexEvent = indexEventOption.get();
-        return (computedChangeTs.get() > indexEvent.eventCreatedOn)
-            || (computedChangeTs.get() == indexEvent.eventCreatedOn)
-                && (Objects.isNull(indexEvent.targetSha)
-                    || Objects.equals(getBranchTargetSha(), indexEvent.targetSha))
-                && (Objects.isNull(indexEvent.metaSha)
-                    || Objects.equals(getMetaSha(), indexEvent.metaSha));
+        try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+          IndexEvent indexEvent = indexEventOption.get();
+          return (computedChangeTs.get() > indexEvent.eventCreatedOn)
+              || (computedChangeTs.get() == indexEvent.eventCreatedOn)
+                  && (Objects.isNull(indexEvent.targetSha)
+                      || Objects.equals(getBranchTargetSha(repo), indexEvent.targetSha))
+                  && (Objects.isNull(indexEvent.metaSha)
+                      || Objects.equals(getMetaSha(repo), indexEvent.metaSha));
+        }
       }
       return true;
 
@@ -127,23 +137,23 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   @Override
   public String toString() {
-    try {
+    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
       return "change-id="
           + changeId
           + "@"
           + getComputedChangeTs().map(IndexEvent::format)
           + "/target:"
-          + getBranchTargetSha()
+          + getBranchTargetSha(repo)
           + "/meta:"
-          + getMetaSha();
+          + getMetaSha(repo);
     } catch (IOException | OrmException e) {
       log.atSevere().withCause(e).log("Unable to render change %s", changeId);
       return "change-id=" + changeId;
     }
   }
 
-  private String getBranchTargetSha() {
-    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+  private String getBranchTargetSha(Repository repo) {
+    try {
       String refName = changeNotes.get().getChange().getDest().get();
       Ref ref = repo.exactRef(refName);
       if (ref == null) {
@@ -158,17 +168,15 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
   }
 
-  private String getMetaSha() throws IOException {
+  private String getMetaSha(Repository repo) throws IOException {
     if (PrimaryStorage.NOTE_DB.equals(PrimaryStorage.of(changeNotes.get().getChange()))) {
-      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-        String refName = RefNames.changeMetaRef(changeNotes.get().getChange().getId());
-        Ref ref = repo.exactRef(refName);
-        if (ref == null) {
-          throw new IOException(
-              String.format("Unable to find meta ref %s for change %s", refName, changeId));
-        }
-        return ref.getTarget().getObjectId().getName();
+      String refName = RefNames.changeMetaRef(changeNotes.get().getChange().getId());
+      Ref ref = repo.exactRef(refName);
+      if (ref == null) {
+        throw new IOException(
+            String.format("Unable to find meta ref %s for change %s", refName, changeId));
       }
+      return ref.getTarget().getObjectId().getName();
     }
 
     return null;
