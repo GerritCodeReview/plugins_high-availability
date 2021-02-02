@@ -75,8 +75,14 @@ public class ChangeCheckerImpl implements ChangeChecker {
             ts -> {
               IndexEvent event = new IndexEvent();
               event.eventCreatedOn = ts;
-              event.targetSha = getBranchTargetSha();
-              event.metaSha = getMetaSha();
+              try (Repository repo =
+                  gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+                event.targetSha = getBranchTargetSha(repo);
+                event.metaSha = getMetaSha(repo);
+              } catch (IOException e) {
+                log.atWarning().withCause(e).log(
+                    "Unable to open repository %s", changeNotes.get().getProjectName());
+              }
               return event;
             });
   }
@@ -101,12 +107,21 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
     return indexEvent
         .map(
-            e ->
-                (computedChangeTs.get() > e.eventCreatedOn)
+            e -> {
+              try (Repository repo =
+                  gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+                return (computedChangeTs.get() > e.eventCreatedOn)
                     || (computedChangeTs.get() == e.eventCreatedOn)
                         && (Objects.isNull(e.targetSha)
-                            || Objects.equals(getBranchTargetSha(), e.targetSha))
-                        && (Objects.isNull(e.metaSha) || Objects.equals(getMetaSha(), e.metaSha)))
+                            || Objects.equals(getBranchTargetSha(repo), e.targetSha))
+                        && (Objects.isNull(e.metaSha)
+                            || Objects.equals(getMetaSha(repo), e.metaSha));
+              } catch (IOException ex) {
+                log.atWarning().withCause(ex).log(
+                    "Unable to open repository %s", changeNotes.get().getProjectName());
+                return false;
+              }
+            })
         .orElse(true);
   }
 
@@ -120,23 +135,23 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   @Override
   public String toString() {
-    try {
+    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
       return "change-id="
           + changeId
           + "@"
           + getComputedChangeTs().map(IndexEvent::format)
           + "/target:"
-          + getBranchTargetSha()
+          + getBranchTargetSha(repo)
           + "/meta:"
-          + getMetaSha();
+          + getMetaSha(repo);
     } catch (IOException | OrmException e) {
       log.atSevere().withCause(e).log("Unable to render change %s", changeId);
       return "change-id=" + changeId;
     }
   }
 
-  private String getBranchTargetSha() {
-    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+  private String getBranchTargetSha(Repository repo) {
+    try {
       String refName = changeNotes.get().getChange().getDest().get();
       Ref ref = repo.exactRef(refName);
       if (ref == null) {
@@ -151,9 +166,9 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
   }
 
-  private String getMetaSha() {
+  private String getMetaSha(Repository repo) {
     if (PrimaryStorage.NOTE_DB.equals(PrimaryStorage.of(changeNotes.get().getChange()))) {
-      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+      try {
         String refName = RefNames.changeMetaRef(changeNotes.get().getChange().getId());
         Ref ref = repo.exactRef(refName);
         if (ref == null) {
