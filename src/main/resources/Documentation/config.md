@@ -180,7 +180,11 @@ calls by specifying the following fields:
     Defaults to true.
 
 ```index.numStripedLocks```
-:   Number of striped locks to use during reindexing.
+:   Number of striped locks to use during reindexing. Should be of the same order
+    of magnitude of the open changes. I.e.: if one has 5000 changes, one might want
+    to have at least 1000 striped locks. The value has to be tuned empirically
+    by checking the number of failures in acquiring the locking. Checking the
+    `consider increasing the number of shards` warnings should help.
     Defaults to 10.
 
 ```index.synchronize```
