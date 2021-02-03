@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4e5c8c80_82b3494d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-03T14:37:10Z",
+      "side": 1,
+      "message": "Test updated GJF run on commit.",
+      "parentUuid": "a3d2249d_1689b25f",
+      "revId": "9ed94bb291744b011ca38a9016d1d0ec1aabf854",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f9fc4860_239d9c79",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 5
