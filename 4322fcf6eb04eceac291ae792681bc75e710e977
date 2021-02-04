@@ -196,6 +196,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8bd7909_530db119",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T17:35:44Z",
+      "side": 1,
+      "message": "+1 \n\nCan you also put both changes in the same topic? So we are sure that we don\u0027t release this without having addressed this concern.\n\nThe index propagation can be called tens of thousands of times in a minute, and optimising it is a paramount.",
+      "parentUuid": "de96b5cf_ed6079cb",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 98
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26ed4825_fcbafaee",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
         "patchSetId": 1
