@@ -50,7 +50,10 @@ public class IndexTs
 
   private final Path dataDir;
   private final ScheduledExecutorService exec;
-  private final FlusherRunner flusher;
+  private final FlusherRunner changeFlusher;
+  private final FlusherRunner accountFlusher;
+  private final FlusherRunner groupFlusher;
+  private final FlusherRunner projectFlusher;
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final ChangeFinder changeFinder;
   private final CurrentRequestContext currCtx;
@@ -61,16 +64,11 @@ public class IndexTs
   private volatile LocalDateTime projectTs;
 
   class FlusherRunner implements Runnable {
+    AbstractIndexRestApiServlet.IndexName index;
 
     @Override
     public void run() {
-      store(AbstractIndexRestApiServlet.IndexName.CHANGE, changeTs);
-      store(AbstractIndexRestApiServlet.IndexName.ACCOUNT, accountTs);
-      store(AbstractIndexRestApiServlet.IndexName.GROUP, groupTs);
-      store(AbstractIndexRestApiServlet.IndexName.PROJECT, projectTs);
-    }
-
-    private void store(AbstractIndexRestApiServlet.IndexName index, LocalDateTime latestTs) {
+      LocalDateTime latestTs = getIndexTimeStamp();
       Optional<LocalDateTime> currTs = getUpdateTs(index);
       if (!currTs.isPresent() || latestTs.isAfter(currTs.get())) {
         Path indexTsFile = dataDir.resolve(index.name().toLowerCase());
@@ -80,6 +78,24 @@ public class IndexTs
           log.atSevere().withCause(e).log("Unable to update last timestamp for index %s", index);
         }
       }
+    }
+
+    public FlusherRunner(AbstractIndexRestApiServlet.IndexName index) {
+      this.index = index;
+    }
+
+    private LocalDateTime getIndexTimeStamp() {
+      switch (index) {
+        case CHANGE:
+          return changeTs;
+        case GROUP:
+          return groupTs;
+        case ACCOUNT:
+          return accountTs;
+        case PROJECT:
+          return projectTs;
+      }
+      return LocalDateTime.now();
     }
   }
 
@@ -92,7 +108,10 @@ public class IndexTs
       CurrentRequestContext currCtx) {
     this.dataDir = dataDir;
     this.exec = queue.getDefaultQueue();
-    this.flusher = new FlusherRunner();
+    this.changeFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.CHANGE);
+    this.accountFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.ACCOUNT);
+    this.groupFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.GROUP);
+    this.projectFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.PROJECT);
     this.schemaFactory = schemaFactory;
     this.changeFinder = changeFinder;
     this.currCtx = currCtx;
@@ -152,19 +171,22 @@ public class IndexTs
     switch (index) {
       case CHANGE:
         changeTs = dateTime;
+        exec.execute(changeFlusher);
         break;
       case ACCOUNT:
         accountTs = dateTime;
+        exec.execute(accountFlusher);
         break;
       case GROUP:
         groupTs = dateTime;
+        exec.execute(groupFlusher);
         break;
       case PROJECT:
         projectTs = dateTime;
+        exec.execute(projectFlusher);
         break;
       default:
         throw new IllegalArgumentException("Unsupported index " + index);
     }
-    exec.execute(flusher);
   }
 }
