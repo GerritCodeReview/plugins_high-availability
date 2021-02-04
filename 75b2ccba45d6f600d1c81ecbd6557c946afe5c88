@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a5af1b_6fe3ba06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "This was reported as a bug, it should be in the form of:\nBug: Issue 12500",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa6a25a_6b40dc80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "I like the change, but I am concerned that is breaking compatibility with existing legacy API calls.\nLook at the suggestions inside my review on how to resolve the problem.\n\nTo test the interoperability, you should have a Gerrit v2.15 in HA with a Gerrit v2.16 *AND* a Gerrit v2.16 in HA with Gerrit v3.0, and they should work by propagating the indexing as normal.\n\nThat would allow people on Gerrit v2.15 to migrate to v2.16 with zero-downtime and then to migrate to Gerrit v3.0 with zero-downtime again.",
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9439859_bae60640",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "This would be a breaking change, as the API interface is changing.\nBear in mind that HA needs to be tolerant across different releases, to allow rolling upgrades.",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc95f932_3b9e72fa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "This would be a breaking change, as the API interface is changing.\nBear in mind that HA needs to be tolerant across different releases, to allow rolling upgrades.",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 27
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84694415_2a8ff019",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "This would be a breaking change, as the API interface is changing.\nBear in mind that HA needs to be tolerant across different releases, to allow rolling upgrades.",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88bf42df_a89cc0fb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "I would actually change this by inserting this logic in the servlet itself:\n- If receives the URL path with \u0027/batch\u0027 or \u0027/interactive\u0027, it will use the specific execution pool (interactive vs. batch)\n- If receives the URL path without any suffix, it will use the interactive execution pool.",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51f9ed65_109ad4cd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T21:24:11Z",
+      "side": 1,
+      "message": "This is a hack, but I guess we cannot do anything different, isn\u0027t it?\nI believe you got inspired by the same change in multi-site ;-)",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 72
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
