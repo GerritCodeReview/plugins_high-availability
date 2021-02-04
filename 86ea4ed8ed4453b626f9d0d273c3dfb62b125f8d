@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8606b545_6b96a8fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-04T18:55:29Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "e28d2dfd_98a6fd36",
+      "revId": "86ea4ed8ed4453b626f9d0d273c3dfb62b125f8d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73e756e5_c9e73627",
@@ -41,6 +59,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64888283_0b49216b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-04T18:55:29Z",
+      "side": 1,
+      "message": "Original formatting restored",
+      "parentUuid": "73e756e5_c9e73627",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 41
+      },
+      "revId": "86ea4ed8ed4453b626f9d0d273c3dfb62b125f8d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6485bf89_4ff142ac",
@@ -54,6 +96,30 @@
       "writtenOn": "2021-02-03T22:20:57Z",
       "side": 1,
       "message": "Same for this other move. This diff should eventually only show the truly changed lines and no other diffs.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 3
+      },
+      "revId": "86ea4ed8ed4453b626f9d0d273c3dfb62b125f8d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "782e7262_af95cd7d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-04T18:55:29Z",
+      "side": 1,
+      "message": "Original formatting restored",
+      "parentUuid": "6485bf89_4ff142ac",
       "range": {
         "startLine": 95,
         "startChar": 2,
