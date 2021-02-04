@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75aeeaf9_d31aab65",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-04T23:00:34Z",
+      "side": 1,
+      "message": "This should be re-thrown, because the method has IOException on its signature. Instead, in this case, the exception is logged and it is returned an empty IndexEvent() which would generate potentially side-effects.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 88
+      },
+      "revId": "ac2584ce4785a941195b92f3c8a6ceeb832816d7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
