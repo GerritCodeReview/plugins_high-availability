@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8267514b_aff410a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-05T20:19:41Z",
+      "side": 1,
+      "message": "Thx for notice it will be change in next patchset",
+      "parentUuid": "d9a5af1b_6fe3ba06",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0fa6a25a_6b40dc80",
@@ -37,6 +61,23 @@
       "writtenOn": "2021-02-04T21:24:11Z",
       "side": 1,
       "message": "I like the change, but I am concerned that is breaking compatibility with existing legacy API calls.\nLook at the suggestions inside my review on how to resolve the problem.\n\nTo test the interoperability, you should have a Gerrit v2.15 in HA with a Gerrit v2.16 *AND* a Gerrit v2.16 in HA with Gerrit v3.0, and they should work by propagating the indexing as normal.\n\nThat would allow people on Gerrit v2.15 to migrate to v2.16 with zero-downtime and then to migrate to Gerrit v3.0 with zero-downtime again.",
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e77432e6_f9e4b162",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-05T20:19:41Z",
+      "side": 1,
+      "message": "Thank You for your review. I know that job is not yet done please replay on my comments.",
       "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -133,6 +174,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "405bb98d_3bfa5922",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-05T20:19:41Z",
+      "side": 1,
+      "message": "This solution is based on:\nhttps://gerrit-review.googlesource.com/c/plugins/multi-site/+/253226\nThe difference is that instead of Kafka with new topic and subscriber new endpoint is used. So I think both solutions assume that customer will use new plugin version (this change should be deliver in all newest gerrit branches).\nCurrently in Servlet logic or consumer site (in multi site and HA) I didn\u0027t find separate execution pools on separate events. I think whole solution is based on idea that separate consumer or servlet will use separate thread.\nI can Try to change serveRegex to be more back compatible but I don\u0027t see here golden simple solution",
+      "parentUuid": "88bf42df_a89cc0fb",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
@@ -146,6 +211,30 @@
       "writtenOn": "2021-02-04T21:24:11Z",
       "side": 1,
       "message": "This is a hack, but I guess we cannot do anything different, isn\u0027t it?\nI believe you got inspired by the same change in multi-site ;-)",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 72
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0b3faaa_7b1b1d8f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-05T20:19:41Z",
+      "side": 1,
+      "message": "Yes the idea was to port multi-site fix to HA plugin (this is also mention in commit msg). I stick as close as possible to original solution to reduce maintenance cost and risk of regression.",
+      "parentUuid": "51f9ed65_109ad4cd",
       "range": {
         "startLine": 88,
         "startChar": 22,
