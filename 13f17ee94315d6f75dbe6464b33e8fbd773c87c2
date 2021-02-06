@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4414d223_3a766d39",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-06T15:40:51Z",
+      "side": 1,
+      "message": "This is done in the follow-up change. Good.",
+      "parentUuid": "e8b13713_cb530fc8",
+      "range": {
+        "startLine": 156,
+        "startChar": 11,
+        "endLine": 156,
+        "endChar": 90
+      },
+      "revId": "13f17ee94315d6f75dbe6464b33e8fbd773c87c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5e010b8_7889ed7e",
@@ -60,6 +84,30 @@
       "writtenOn": "2021-02-04T17:35:44Z",
       "side": 1,
       "message": "Are we sure to return null in this case?",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 16
+      },
+      "revId": "13f17ee94315d6f75dbe6464b33e8fbd773c87c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fd5454e_389ab878",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-06T15:40:51Z",
+      "side": 1,
+      "message": "Yeah, this is the ReviewDb use-case right?",
+      "parentUuid": "74328413_2622d31e",
       "range": {
         "startLine": 169,
         "startChar": 4,
