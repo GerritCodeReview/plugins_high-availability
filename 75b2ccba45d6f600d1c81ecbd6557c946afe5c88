@@ -82,6 +82,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df8644b_88fb377e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-06T00:29:49Z",
+      "side": 1,
+      "message": "Thanks for the replies, see some suggested approach to address the compatibility issues.",
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9439859_bae60640",
@@ -198,6 +215,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2209432b_149b3784",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-06T00:29:49Z",
+      "side": 1,
+      "message": "Why don\u0027t you then follow the same approach like in Change-Id: I0d10cd9cde and you just add an extra endpoint, instead of renaming both of them? The approach to reuse the existing as the interactive one and just adding a new one for batch was exactly for this purpose: any existing old version were still sharing the interactive topic whilst the new version was pointing to the new batch endpoint.\n\nThat is simple enough and would address this concern. WDYT?",
+      "parentUuid": "405bb98d_3bfa5922",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
@@ -240,6 +281,53 @@
         "startChar": 22,
         "endLine": 88,
         "endChar": 72
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16e1276_5ffc1f5f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-06T00:29:49Z",
+      "side": 1,
+      "message": "Yep, SGTM.",
+      "parentUuid": "c0b3faaa_7b1b1d8f",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 72
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcc39111_9578b3cc",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeIndexForwardingIT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-06T00:29:49Z",
+      "side": 1,
+      "message": "Keep the current interactive endpoint to \u0027/change/\u0027 so that we don\u0027t break backward compatibility.",
+      "range": {
+        "startLine": 27,
+        "startChar": 52,
+        "endLine": 27,
+        "endChar": 64
       },
       "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
