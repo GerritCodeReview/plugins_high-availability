@@ -218,6 +218,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ac8a25f_25a39abd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-08T16:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8bd7909_530db119",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 98
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26ed4825_fcbafaee",
