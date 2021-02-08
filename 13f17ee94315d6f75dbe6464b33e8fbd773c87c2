@@ -71,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e06a88_d29f4f3e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-08T16:32:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e010b8_7889ed7e",
+      "range": {
+        "startLine": 161,
+        "startChar": 10,
+        "endLine": 161,
+        "endChar": 21
+      },
+      "revId": "13f17ee94315d6f75dbe6464b33e8fbd773c87c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74328413_2622d31e",
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Yeah, this is the ReviewDb use-case right?",
       "parentUuid": "74328413_2622d31e",
+      "range": {
+        "startLine": 169,
+        "startChar": 4,
+        "endLine": 169,
+        "endChar": 16
+      },
+      "revId": "13f17ee94315d6f75dbe6464b33e8fbd773c87c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f62b2bb9_a888c389",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-08T16:32:00Z",
+      "side": 1,
+      "message": "Yes for ReviewDb meta ref will always be null. I was thinking about Optional but target sha1 is already implemented with null so we should refactor that in a follow up change",
+      "parentUuid": "8fd5454e_389ab878",
       "range": {
         "startLine": 169,
         "startChar": 4,
