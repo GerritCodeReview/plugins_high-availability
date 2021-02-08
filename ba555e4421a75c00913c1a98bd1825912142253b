@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465cbd4d_0f05a442",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-08T16:37:35Z",
+      "side": 1,
+      "message": "I think we the latest patch set we are changing getTargetBranchSha method behaviour. Let\u0027s discuss that",
+      "revId": "ba555e4421a75c00913c1a98bd1825912142253b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
