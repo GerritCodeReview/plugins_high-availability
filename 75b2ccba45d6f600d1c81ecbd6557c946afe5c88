@@ -239,6 +239,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2230c7a5_1c1a26f7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-08T22:33:20Z",
+      "side": 1,
+      "message": "Approach from Change-Id: I0d10cd9cde was abandoned after @Marco Miller review. Check current approach. Now is forward and back compatible. I check that older plugins that uses: serveRegex(\"/index/change/.*) endpoint can catch end process successfully request (index/change/batch). I also check that new plugin version can process both batch requests from older and new plugin. serveRegex(\"/index/change/(?!batch/.*).*$\") is a guard that this endpoint will not process /index/change/batch/ request.",
+      "parentUuid": "2209432b_149b3784",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
@@ -323,6 +347,30 @@
       "writtenOn": "2021-02-06T00:29:49Z",
       "side": 1,
       "message": "Keep the current interactive endpoint to \u0027/change/\u0027 so that we don\u0027t break backward compatibility.",
+      "range": {
+        "startLine": 27,
+        "startChar": 52,
+        "endLine": 27,
+        "endChar": 64
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40bb9800_2ce09cc6",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeIndexForwardingIT.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-08T22:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcc39111_9578b3cc",
       "range": {
         "startLine": 27,
         "startChar": 52,
