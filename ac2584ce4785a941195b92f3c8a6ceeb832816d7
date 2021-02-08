@@ -46,6 +46,30 @@
       },
       "revId": "ac2584ce4785a941195b92f3c8a6ceeb832816d7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f6f0d6_3cbb06be",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-08T16:37:35Z",
+      "side": 1,
+      "message": "I wanted to keep the original behaviour. If you check getBranchTargetSha from base  you will see that it returns null when repository cannot be open and the event is sent anyway.",
+      "parentUuid": "9553136d_b20265b2",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 88
+      },
+      "revId": "ac2584ce4785a941195b92f3c8a6ceeb832816d7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
