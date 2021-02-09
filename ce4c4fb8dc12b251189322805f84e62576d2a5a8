@@ -1,6 +1,115 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e332e69a_5d563024",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "NullPointerExceptions\n\n(Nit; we usually don\u0027t put a dot for slogans.)",
+      "range": {
+        "startLine": 7,
+        "startChar": 34,
+        "endLine": 7,
+        "endChar": 56
+      },
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f381f5cd_d65ca8ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "writes\n\n(Nit.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106be1eb_7fb059d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "This fix",
+      "range": {
+        "startLine": 10,
+        "startChar": 33,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4df7b19_6d31ec9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "This change decreases the amount of file operations and fixes",
+      "range": {
+        "startLine": 11,
+        "startChar": 12,
+        "endLine": 11,
+        "endChar": 61
+      },
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6219b6f2_37575a20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "Not sure why this change does these two things, though. Maybe explain a bit more here?",
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6a455fc2_5399b877",
@@ -14,6 +123,69 @@
       "writtenOn": "2021-02-05T19:18:41Z",
       "side": 1,
       "message": "Please review",
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef9d318_686c5aee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "private final",
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b1fcb1a_78e2baa0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "Would make either private or default (no access modifier), to not make this constructor explicitly public.",
+      "range": {
+        "startLine": 83,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 10
+      },
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72436ac7_fcc0ec5c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-09T20:13:14Z",
+      "side": 1,
+      "message": "Would not require this last dummy value line, if replacing that last case with a \u0027default\u0027 one (being project\u0027s). Or throw some RuntimeException if index not being either one of these supported cases, which would be a program error. See line 189\u0027s way of doing just this.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 33
+      },
       "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
