@@ -526,6 +526,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cca55506_6abf05a1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-09T23:47:20Z",
+      "side": 1,
+      "message": "True, but Gerrit would be running in NoteDb mode, which is a very unusual situation.\nActually, in NoteDb mode, metaSha \u003d null is a fatal error, isn\u0027t it?",
+      "parentUuid": "5db1ec37_977ce3f8",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5c8351f2_80f664c7",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
         "patchSetId": 1
@@ -714,6 +738,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec9f177c_54acca70",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-09T23:47:20Z",
+      "side": 1,
+      "message": "That\u0027s a strange use-case though: you are running Gerrit in NoteDb mode *BUT* metaSha1 is null, which is an inconsistent state.",
+      "parentUuid": "058d20b0_d4e32162",
+      "range": {
+        "startLine": 84,
+        "startChar": 1,
+        "endLine": 91,
+        "endChar": 19
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb3bdbd7_802906ed",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
         "patchSetId": 1
@@ -749,6 +797,30 @@
       "side": 1,
       "message": "I cannot imagine that situation but this check was a part of the original code. I had to change that part so I wanted to cover my refactoring with the unit test to make sure that still works as expected. There was no tests for ChangeChecker",
       "parentUuid": "cb3bdbd7_802906ed",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 19
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e39ca46_54927a70",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-09T23:47:20Z",
+      "side": 1,
+      "message": "There is actually a case with a null target SHA1: during migration. The target SHA1 was an optional field in the earlier versions of the HA plugin.",
+      "parentUuid": "676f6dde_57db216e",
       "range": {
         "startLine": 100,
         "startChar": 0,
