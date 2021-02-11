@@ -146,6 +146,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c887343_ee8cfcd9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-11T00:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9439859_bae60640",
+      "range": {
+        "startLine": 77,
+        "startChar": 21,
+        "endLine": 77,
+        "endChar": 33
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc95f932_3b9e72fa",
@@ -169,6 +193,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba350d9_f55ee747",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-11T00:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc95f932_3b9e72fa",
+      "range": {
+        "startLine": 87,
+        "startChar": 21,
+        "endLine": 87,
+        "endChar": 27
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84694415_2a8ff019",
@@ -182,6 +230,30 @@
       "writtenOn": "2021-02-04T21:24:11Z",
       "side": 1,
       "message": "This would be a breaking change, as the API interface is changing.\nBear in mind that HA needs to be tolerant across different releases, to allow rolling upgrades.",
+      "range": {
+        "startLine": 97,
+        "startChar": 21,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb6639c_69d59bd0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-11T00:34:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84694415_2a8ff019",
       "range": {
         "startLine": 97,
         "startChar": 21,
@@ -277,6 +349,30 @@
       "side": 1,
       "message": "Approach from Change-Id: I0d10cd9cde was abandoned after @Marco Miller review. Check current approach. Now is forward and back compatible. I check that older plugins that uses: serveRegex(\"/index/change/.*) endpoint can catch end process successfully request (index/change/batch). I also check that new plugin version can process both batch requests from older and new plugin. serveRegex(\"/index/change/(?!batch/.*).*$\") is a guard that this endpoint will not process /index/change/batch/ request.",
       "parentUuid": "2209432b_149b3784",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f7ab75e_e58904ca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-11T00:34:54Z",
+      "side": 1,
+      "message": "Negative regex are very slow in Java though. Why not just catch everything after \u0027/index/change/\u0027 and delegate the check in the Servlet?",
+      "parentUuid": "2230c7a5_1c1a26f7",
       "range": {
         "startLine": 23,
         "startChar": 4,
