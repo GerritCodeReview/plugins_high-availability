@@ -430,6 +430,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08578f0e_1c5b0651",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-11T12:56:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f58c4d6d_73bc0312",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 29
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e71a2c9d_14e446c7",
@@ -562,6 +586,30 @@
       "side": 1,
       "message": "Sure I will split tests into two separate classes one for ReviewDb and one for NoteDb",
       "parentUuid": "cca55506_6abf05a1",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 3
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8663c0e_824e8587",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-11T12:56:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da2626e9_385f3b43",
       "range": {
         "startLine": 49,
         "startChar": 0,
@@ -798,6 +846,30 @@
       "side": 1,
       "message": "Same as above I will split the test classes",
       "parentUuid": "ec9f177c_54acca70",
+      "range": {
+        "startLine": 84,
+        "startChar": 1,
+        "endLine": 91,
+        "endChar": 19
+      },
+      "revId": "4322fcf6eb04eceac291ae792681bc75e710e977",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d7fe33_65b51bf5",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-02-11T12:56:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5be326aa_28352f1d",
       "range": {
         "startLine": 84,
         "startChar": 1,
