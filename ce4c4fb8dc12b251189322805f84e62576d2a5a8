@@ -226,6 +226,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "307f7029_a2ef2826",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-12T21:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a602d2b1_a764bd50",
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6a455fc2_5399b877",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -360,6 +378,30 @@
       "side": 1,
       "message": "I choose runtime exception, it says more about allowed parameters.",
       "parentUuid": "72436ac7_fcc0ec5c",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 98,
+        "endChar": 33
+      },
+      "revId": "ce4c4fb8dc12b251189322805f84e62576d2a5a8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0563678e_3f65a090",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-12T21:52:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8c5882d_e6777855",
       "range": {
         "startLine": 95,
         "startChar": 8,
