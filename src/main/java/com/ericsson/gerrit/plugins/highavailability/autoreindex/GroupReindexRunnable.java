@@ -15,13 +15,29 @@
 package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
+import com.google.common.collect.Streams;
 import com.google.gerrit.common.data.GroupReference;
 import com.google.gerrit.reviewdb.server.ReviewDb;
+import com.google.gerrit.server.git.GitRepositoryManager;
+import com.google.gerrit.server.group.InternalGroup;
 import com.google.gerrit.server.group.db.Groups;
 import com.google.gerrit.server.util.OneOffRequestContext;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
+import com.sun.tools.javac.util.List;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.Optional;
+
+import com.google.gerrit.reviewdb.client.AccountGroup;
+import com.google.gerrit.reviewdb.client.AccountGroup.Id;
+import com.google.gerrit.reviewdb.client.AccountGroupMemberAudit;
+import com.google.gerrit.reviewdb.server.ReviewDb;
+import java.util.stream.Stream;
+import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.eclipse.jgit.lib.Repository;
 
 public class GroupReindexRunnable extends ReindexRunnable<GroupReference> {
 
@@ -40,6 +56,47 @@ public class GroupReindexRunnable extends ReindexRunnable<GroupReference> {
 
   @Override
   protected Optional<Timestamp> indexIfNeeded(ReviewDb db, GroupReference g, Timestamp sinceTs) {
+    try {
+      //Id groupId = g.getId();
+      Id groupId = g.getUUID();
+      g.getUUID();
+      ///
+      groups.getMembersAudit()
+
+      //private final GitRepositoryManager repoManager;
+      //try (Repository allUsersRepo = repoManager.openRepository(allUsers))
+      //
+      Optional<InternalGroup> gg=groups.getGroup(g.getUUID());
+      if (gg.isPresent())
+      {
+        Ts = gg.get().getCreatedOn();
+      }
+
+      Stream<Timestamp> groupIdAudTs =
+          db.accountGroupByIdAud()
+              .byGroup(g.getId())
+              .toList()
+              .stream()
+              .map(ga -> ga.getRemovedOn())
+              .filter(Objects::nonNull);
+      List<AccountGroupMemberAudit> groupMembersAud =
+          db.accountGroupMembersAudit().byGroup(groupId).toList();
+      Stream<Timestamp> groupMemberAudAddedTs =
+          groupMembersAud.stream().map(ga -> ga.getKey().getAddedOn()).filter(Objects::nonNull);
+      Stream<Timestamp> groupMemberAudRemovedTs =
+          groupMembersAud.stream().map(ga -> ga.getRemovedOn()).filter(Objects::nonNull);
+      Optional<Timestamp> groupLastTs =
+          Streams.concat(groupIdAudTs, groupMemberAudAddedTs, groupMemberAudRemovedTs)
+              .max(Comparator.naturalOrder());
+
+      if (groupLastTs.isPresent() && groupLastTs.get().after(sinceTs)) {
+        log.info("Index {}/{}/{}", g.getGroupUUID(), g.getName(), groupLastTs.get());
+        indexer.index(g.getGroupUUID(), Operation.INDEX, Optional.empty());
+        return groupLastTs;
+      }
+    } catch (OrmException | IOException | ConfigInvalidException e) {
+      log.error("Reindex failed", e);
+    }
     return Optional.empty();
   }
 }

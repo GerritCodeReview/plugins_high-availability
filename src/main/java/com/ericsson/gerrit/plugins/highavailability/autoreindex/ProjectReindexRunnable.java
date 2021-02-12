@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndex
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import java.sql.Timestamp;
@@ -41,6 +42,9 @@ public class ProjectReindexRunnable extends ReindexRunnable<Project.NameKey> {
 
   @Override
   protected Optional<Timestamp> indexIfNeeded(ReviewDb db, Project.NameKey g, Timestamp sinceTs) {
+    ProjectState projectState = projectCache.get(g);
+    projectState.getProject()
+    projectState.getAllSections().stream().max((sectionMatcher, t1) -> sectionMatcher.getProject())
     return Optional.empty();
   }
 }
