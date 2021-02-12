@@ -383,6 +383,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac08b14_e965329c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-12T16:54:28Z",
+      "side": 1,
+      "message": "Hi I explain this before. The idea is that 1 end point can be overflow by batch requests and then second endpoint can serve interactive request. To serve this inside 1 servlet I must introduce thread pools and multithreading inside servlet logic which is overcomplicated and it is against multi-site approach. \nI remove negative regex witch I put just incase and to have better code readability.\nWithout it everything works same. Developers just must keep in mind that order of serveRegex invocation must be the same. The batch request is serve by the 1st one that match witch is IndexBatchChangeRestApiServlet.class .",
+      "parentUuid": "2f7ab75e_e58904ca",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
