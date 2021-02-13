@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ba28e6_43ae4e8f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerReviewDbIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-13T00:06:54Z",
+      "side": 1,
+      "message": "This is not a reviewdb test-case",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "203c47065eaf1cf8ef0598108166808a24e6c1aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
