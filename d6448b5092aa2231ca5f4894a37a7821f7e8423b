@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9faff514_8dab12d7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-15T15:52:53Z",
+      "side": 1,
+      "message": "I understand the intention of this change (to not block the calling thread) but I also don\u0027t find\nany caller of this method which actually handles the return value. Am I missing something? What\u0027s the\nuse of the return value? Could we just make this void?",
+      "revId": "d6448b5092aa2231ca5f4894a37a7821f7e8423b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4c8bc0e_a8e335df",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventLocks.java",
         "patchSetId": 6
