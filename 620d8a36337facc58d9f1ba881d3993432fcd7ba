@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb53878c_4cb64e57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "Rephrase?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d1dc037_98523121",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "groups (no dot).",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c34c968_613943b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "a new indexIfNeeded implementation",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4255e3b8_83b3db90",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "Blank line missing above?",
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d358d99a_eac9777d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "NoteDb, the old",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36526d67_70d6fa3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "I don\u0027t understand this part of the sentences; would rephrase.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a01ba12_ce58f5b1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-16T22:05:16Z",
+      "side": 1,
+      "message": "I think the commit message should explain some more about where this implementation comes from. If written from scratch, then maybe explain briefly how it came up (based on which principles)? -Just so we may understand the context from which this specifically added code came.\n\nSpecifically, I find it hard to understand how the plugin has been surviving so far without this new code. -Because it fairly did, or so it seemed to us. Once this gets further clarified, per these comments, then we may add Luca \u0026co as more reviewers (plugin maintainers).",
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
