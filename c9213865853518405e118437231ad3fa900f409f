@@ -16,6 +16,24 @@
       "message": "I believe the minimum change to fix the problem was:\n\n   if (latestTs \u003d\u003d null) {\n     return;\n   }\n\nCan you elaborate on why do we really need 4 threads and this parallelism?\nBear in mind that 99% of the times, it is just the changeTs that is getting updated, so it looks like a waste of threads to me having dedicated threads for the others.",
       "revId": "c9213865853518405e118437231ad3fa900f409f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a15afaa_3d186819",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-16T23:33:24Z",
+      "side": 0,
+      "message": "Thx for review. Like You wrote, in most cases only changeTs is updated and it\u0027s updated often. Before this change we always updated 4 files on storage and file operations can be expensive (pefrormance nad ssd/hdd degradation). The only price we pay is 4 POJO objects created in constructor and reused during lifecycle. They are not using 4 threads but 1 threadexecutor and only when there is a update. Before and also after change FlusherRunner doesn\u0027t have synchronized methods. So thread useage is a same.",
+      "parentUuid": "0949307a_17d08143",
+      "revId": "c9213865853518405e118437231ad3fa900f409f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
