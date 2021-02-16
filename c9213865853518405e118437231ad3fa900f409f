@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0949307a_17d08143",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-16T22:07:02Z",
+      "side": 0,
+      "message": "I believe the minimum change to fix the problem was:\n\n   if (latestTs \u003d\u003d null) {\n     return;\n   }\n\nCan you elaborate on why do we really need 4 threads and this parallelism?\nBear in mind that 99% of the times, it is just the changeTs that is getting updated, so it looks like a waste of threads to me having dedicated threads for the others.",
+      "revId": "c9213865853518405e118437231ad3fa900f409f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
