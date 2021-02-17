@@ -34,6 +34,24 @@
       "parentUuid": "0949307a_17d08143",
       "revId": "c9213865853518405e118437231ad3fa900f409f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29ccb67d_4686c5a3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-17T00:50:37Z",
+      "side": 0,
+      "message": "\u003e Thx for review. Like You wrote, in most cases only changeTs is updated and it\u0027s updated often. Before this change we always updated 4 files on storage and file operations can be expensive (pefrormance nad ssd/hdd degradation).\n\nIt was conditional though, so we were just updating the ones that have changed.\n\n\u003e The only price we pay is 4 POJO objects created in constructor and reused during lifecycle. They are not using 4 threads but 1 threadexecutor and only when there is a update.\n\nTrue, makes sense.",
+      "parentUuid": "6a15afaa_3d186819",
+      "revId": "c9213865853518405e118437231ad3fa900f409f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
