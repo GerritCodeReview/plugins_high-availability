@@ -16,6 +16,24 @@
       "message": "Maybe @Luca would like to approve, or review otherwise; thanks.",
       "revId": "c5e584b702633806df89b7460ae7d6b5f320c808",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8574ab79_0da2944e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-17T22:11:52Z",
+      "side": 1,
+      "message": "Sure, +2 from my side. Thanks @Przemyslaw for fixing this.",
+      "parentUuid": "0cfa0af5_7eaeab68",
+      "revId": "c5e584b702633806df89b7460ae7d6b5f320c808",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
