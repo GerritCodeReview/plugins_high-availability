@@ -46,6 +46,30 @@
       },
       "revId": "92d2da9a23eaa447f2165298c26f1f222573773d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3585503b_cd08a3d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-17T23:53:43Z",
+      "side": 1,
+      "message": "Yeah, a separate change would be best. However, you should link them with the same topic, so that we can review and merge them all at once.",
+      "parentUuid": "b9d84639_d4274fd1",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "92d2da9a23eaa447f2165298c26f1f222573773d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
