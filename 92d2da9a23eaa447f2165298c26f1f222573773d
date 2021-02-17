@@ -22,6 +22,30 @@
       },
       "revId": "92d2da9a23eaa447f2165298c26f1f222573773d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d84639_d4274fd1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-17T21:27:28Z",
+      "side": 1,
+      "message": "ok I am not sure that I understand this code properly.\nYou mean creating new ForwardedIndexChangeHandler with new ForwardedIndexExecutor provided by new ForwardedIndexExecutorProvider, new config entry or reuse (decrease Forwarded-Index-Event pool size)?\nIf this must be done I suggest to deal this in separate change, because of risk of regression.",
+      "parentUuid": "a0ffe3d3_aa572ed1",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "92d2da9a23eaa447f2165298c26f1f222573773d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
