@@ -52,6 +52,24 @@
       "parentUuid": "6a15afaa_3d186819",
       "revId": "c9213865853518405e118437231ad3fa900f409f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1650ce4c_a0d6b8f8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-17T00:51:05Z",
+      "side": 0,
+      "message": "Marking this as resolved.",
+      "parentUuid": "29ccb67d_4686c5a3",
+      "revId": "c9213865853518405e118437231ad3fa900f409f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
