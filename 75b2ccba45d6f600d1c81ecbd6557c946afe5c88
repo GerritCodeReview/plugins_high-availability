@@ -455,6 +455,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9813b8c_ae60e089",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-17T20:26:03Z",
+      "side": 1,
+      "message": "Thx for review and analysis. I share most of your concerns. I did some additional tests and put analysis inside https://bugs.chromium.org/p/gerrit/issues/detail?id\u003d12500.\nHere are some arguments to defend this fix:\n1. Test prove that IndexChange task is finished before batch indexing task are done.\n2. This is port of https://gerrit-review.googlesource.com/c/plugins/multi-site/+/253226. Multi-site also didn\u0027t add new Executor. (both should have same problem)\n\nRegarding Your concerns ScheduledExecutorService annotated with @ForwardedIndexExecutor. Yes ForwardedIndexChangeHandler can be a problem. I don\u0027t know this code and used solution that good. When I add pause to batch execution (not schedule) it proved that interactive task can be process before all batch where ended. I believe that in multiserver and multilocation setup using 1 endpoint can be a root cause of problem.",
+      "parentUuid": "ded825b4_686121c9",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
