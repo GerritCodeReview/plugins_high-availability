@@ -37,6 +37,7 @@ class IndexEventHandler
         ProjectIndexedListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Executor executor;
+  private final Executor batchExecutor;
   private final Forwarder forwarder;
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -46,12 +47,14 @@ class IndexEventHandler
   @Inject
   IndexEventHandler(
       @IndexExecutor Executor executor,
+      @BatchIndexExecutor Executor batchExecutor,
       @PluginName String pluginName,
       Forwarder forwarder,
       ChangeCheckerImpl.Factory changeChecker,
       CurrentRequestContext currCtx) {
     this.forwarder = forwarder;
     this.executor = executor;
+    this.batchExecutor = batchExecutor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
     this.currCtx = currCtx;
@@ -93,7 +96,11 @@ class IndexEventHandler
             .ifPresent(
                 task -> {
                   if (queuedTasks.add(task)) {
-                    executor.execute(task);
+                    if (task instanceof BatchIndexChangeTask) {
+                      batchExecutor.execute(task);
+                    } else {
+                      executor.execute(task);
+                    }
                   }
                 });
       } catch (Exception e) {

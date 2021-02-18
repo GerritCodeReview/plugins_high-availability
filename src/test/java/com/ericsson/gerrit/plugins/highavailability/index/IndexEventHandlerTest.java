@@ -89,6 +89,7 @@ public class IndexEventHandlerTest {
     indexEventHandler =
         new IndexEventHandler(
             MoreExecutors.directExecutor(),
+            MoreExecutors.directExecutor(),
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
@@ -178,8 +179,10 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
+    ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
+        new IndexEventHandler(
+            poolMock, poolBatchMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(poolMock, times(1))
@@ -189,8 +192,10 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
+    ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
+        new IndexEventHandler(
+            poolMock, poolBatchMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -199,8 +204,10 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
+    ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
-        new IndexEventHandler(poolMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
+        new IndexEventHandler(
+            poolMock, poolBatchMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
