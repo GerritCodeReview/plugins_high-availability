@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fc2c87a_cf830c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-19T18:42:27Z",
+      "side": 1,
+      "message": "Maybe @Khang could work on approving this one. Depends on the base change and upcoming CI check, too.\n\nAnother possibility could be to rebase the base change so it includes this merged commit. This would lead to abandoning this very change, as then no longer necessary.",
+      "revId": "1ba333515e0c068e0dee7fae18a39d912d7f0218",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
