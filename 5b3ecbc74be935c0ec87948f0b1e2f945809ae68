@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d1c8454_1ed154af",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-19T01:16:36Z",
+      "side": 1,
+      "message": "Optional: instead of copy\u0026pasting IndexChangeTask, you could simply subclass it, because all the fields are basically identical.\n\nYou can also address this concern in a follow-up change.",
+      "range": {
+        "startLine": 190,
+        "startChar": 37,
+        "endLine": 190,
+        "endChar": 46
+      },
+      "revId": "5b3ecbc74be935c0ec87948f0b1e2f945809ae68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
