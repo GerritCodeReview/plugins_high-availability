@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a676c59_44c1934c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-19T20:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4137a152_53a31656",
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "152a003f_563212f2",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79202334_0a7fc975",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedBatchIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-19T20:09:07Z",
+      "side": 1,
+      "message": "Agree, there is TODO: \n1. Should I put config and documentation update in same change?\n2. Should we put a same value as for interactive if not define? (What should be a default)?~\n3. IndexExecutorProvider and ForwardedIndexExecutorProvider use same config value config.index().threadPoolSize(), how this should be done for batch indexing (same?)",
+      "parentUuid": "152a003f_563212f2",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "249f9dd8_abb5fafa",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
         "patchSetId": 1
@@ -54,6 +96,30 @@
       "writtenOn": "2021-02-19T01:30:25Z",
       "side": 1,
       "message": "Also this needs to be split between batch and interactive.",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 59
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229c6caa_0d249eda",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-19T20:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249f9dd8_abb5fafa",
       "range": {
         "startLine": 31,
         "startChar": 25,
