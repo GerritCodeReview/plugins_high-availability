@@ -527,6 +527,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc3ac58_c20de8e9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-19T01:16:36Z",
+      "side": 1,
+      "message": "\u003e @Luca Thx for review and all suggestions.\n\u003e I create separate change with separate task executors. I analyze code again and I agree that in special cases this can help. I also stand with opinion that in most cases fix from this change should be enough. \n\u003e Please check ForwardedIndexChangeHandler L:101 \u0026 142. The only place when thread executor is used is when 1st try of reindex fails. So on 1st try thread from servlet is used to initiate reindex. \n\nIn real-life production environments, the reindex is never successful at the first try, because of the underlying NFS caching which makes the ref not immediately visible on the second node.\n\nAdditionally, you have the same problem on the sender side, where the fording executor has a unique queue.\n\n\u003e can You approve this fix?\n\nSure, I\u0027ve added the topic so that we are sure to merge the whole topic in one go, once the bug is adressed.",
+      "parentUuid": "25480bbb_acc3b7a5",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
