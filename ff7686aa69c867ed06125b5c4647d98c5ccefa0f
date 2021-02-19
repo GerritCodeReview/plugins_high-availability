@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4137a152_53a31656",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-19T01:30:25Z",
+      "side": 1,
+      "message": "A git commit message should explain *WHY* you are doing this: what you are doing is already encoded in the diff, but the rationale behind it needs to be expressed in here.",
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "152a003f_563212f2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedBatchIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-19T01:30:25Z",
+      "side": 1,
+      "message": "Batch vs. interactive indexing should have different thread pool sizes, as they need to fulfil a completely different type of load.",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "249f9dd8_abb5fafa",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-19T01:30:25Z",
+      "side": 1,
+      "message": "Also this needs to be split between batch and interactive.",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 59
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
