@@ -22,6 +22,30 @@
       },
       "revId": "5b3ecbc74be935c0ec87948f0b1e2f945809ae68",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a70de0cd_9c487dce",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandler.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-19T14:39:35Z",
+      "side": 1,
+      "message": "Hi @Marco already notice that. They was 2 reason why it stays like this:\n1. This class is inline with multi-site implementation\n2. Classes are using class name in hashCode and equals method. I think equals will work but I am not sure about hashCode. If you take a look more close into the class You will see that IndexProjectTask, IndexGroupTask, IndexAccountTask, IndexChangeTask all share same implementation. And all these classes extends IndexTask so why implementation was not put there. I decided to stick with [1] but I agree that refactoring is possible.",
+      "parentUuid": "2d1c8454_1ed154af",
+      "range": {
+        "startLine": 190,
+        "startChar": 37,
+        "endLine": 190,
+        "endChar": 46
+      },
+      "revId": "5b3ecbc74be935c0ec87948f0b1e2f945809ae68",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
