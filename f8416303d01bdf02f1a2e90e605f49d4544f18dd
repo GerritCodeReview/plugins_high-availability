@@ -39,6 +39,23 @@
       "message": "Also, if @Marcin could review the manual conflict resolutions, that would be great I think.",
       "revId": "f8416303d01bdf02f1a2e90e605f49d4544f18dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9bba482_802a880d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:09:04Z",
+      "side": 1,
+      "message": "Need re-merge",
+      "revId": "f8416303d01bdf02f1a2e90e605f49d4544f18dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
