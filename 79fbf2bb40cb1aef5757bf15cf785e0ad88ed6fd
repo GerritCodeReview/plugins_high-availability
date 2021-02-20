@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b06b61e4_b89b5d48",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "node or server.",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d3e680b_5c8b855a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "This isn\u0027t accurate: the speed of change propagation won\u0027t change, but there will be a reduction of the latency of propagation of the interactive indexing events.",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 72
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c852acb3_40b7f05b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "passive node (or server)",
+      "range": {
+        "startLine": 15,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f8f4c6_a0983142",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "an new interactive indexing event will reach the",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a8fd632_79625541",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "backlog queue is empty.",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c07b825_fc530e5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "SGTM, just some nits on the commit message.\n\nThere is the need of a follow-up change with the separation of the config values for the two thread pools sizes (batch, interactive).",
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
