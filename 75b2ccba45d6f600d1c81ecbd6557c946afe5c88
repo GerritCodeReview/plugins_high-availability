@@ -575,6 +575,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6809eb3d_5f1a01e2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:04:33Z",
+      "side": 1,
+      "message": "\u003e Additionally, you have the same problem on the sender side, where the fording executor has a unique queue. Agree can You rise this topic in second review.\n\nYep.\n\n\u003e Maybe its better to submit this separately. To be in sync with multi-site and give users possibility to test it. Its not like 1 will not work without another?\n\nAgreed: every change provides an improvement, builds and works.\nYou could start merging this change, indeed. Just remove the reference to Bug: Issue 12500 because it would be misleading, as this change alone won\u0027t solve that problem.",
+      "parentUuid": "594ac237_3a8ff591",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
