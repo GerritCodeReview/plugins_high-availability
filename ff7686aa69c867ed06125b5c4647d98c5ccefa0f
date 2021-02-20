@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "802a6a90_6e231aca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedBatchIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-20T02:18:05Z",
+      "side": 1,
+      "message": "\u003e Agree, there is TODO: \n\u003e 1. Should I put config and documentation update in same change?\n\nYou are right, it would make sense to have a separate change where we add the extra config and documentation change.\n\n\u003e 2. Should we put a same value as for interactive if not define? (What should be a default)?\n\nThis is a fix on a stable branch: the default should be something similar to the existing behaviour, that is one number for both.\n\n\u003e 3. IndexExecutorProvider and ForwardedIndexExecutorProvider use same config value config.index().threadPoolSize(), how this should be done for batch indexing (same?)\n\nIf there is only one value, you use it for both. If you have two values (batch and interactive) then you can use them.\n\nAs mentioned, you could address this concern in a separate follow-up change.",
+      "parentUuid": "79202334_0a7fc975",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "249f9dd8_abb5fafa",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
         "patchSetId": 1
