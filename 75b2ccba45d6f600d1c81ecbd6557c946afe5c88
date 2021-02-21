@@ -599,6 +599,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "23f1a519_3b5d7270",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderServletModule.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-21T16:56:15Z",
+      "side": 1,
+      "message": "I removed  Bug: Issue 12500  and topic to be able to submit.",
+      "parentUuid": "6809eb3d_5f1a01e2",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 86
+      },
+      "revId": "75b2ccba45d6f600d1c81ecbd6557c946afe5c88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "51f9ed65_109ad4cd",
