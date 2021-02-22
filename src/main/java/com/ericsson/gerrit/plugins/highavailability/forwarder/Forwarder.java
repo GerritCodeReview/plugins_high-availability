@@ -42,6 +42,16 @@ public interface Forwarder {
   CompletableFuture<Boolean> indexChange(String projectName, int changeId, IndexEvent indexEvent);
 
   /**
+   * Forward a change indexing event to the other master using batch index endpoint.
+   *
+   * @param projectName the project of the change to index.
+   * @param changeId the change to index.
+   * @param indexEvent the details of the index event.
+   * @return true if successful, otherwise false.
+   */
+  boolean batchIndexChange(String projectName, int changeId, IndexEvent indexEvent);
+
+  /**
    * Forward a delete change from index event to the other master.
    *
    * @param changeId the change to remove from the index.
