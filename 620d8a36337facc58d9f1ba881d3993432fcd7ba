@@ -304,6 +304,24 @@
       "parentUuid": "9a01ba12_ce58f5b1",
       "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ead5c38_312899b0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-22T20:34:00Z",
+      "side": 1,
+      "message": "\u003e I rephrase commit msg to add more understanding about implementation. Implementation was done to match corresponding stable 2.15 with usage of new interfaces. Old ReviewDB was changed and didn\u0027t have required methods to prepare direct port.\n\nI still don\u0027t understand that commit message enough, per my related comment.\n\n\u003e New implementation was added in line 77 and 85. This was done after test and it covers corresponding scenarios:\n\u003e [1]Create new group while passive node is down. \n\u003e [2]Adding to subgroup new user while passive node is down. \n\nMaybe this change is missing such automated (coded) tests, then. I wonder if this change shouldn\u0027t also be split into (maybe) a few iterations or so.\n\n\u003e Regarding second paragraph:\n\u003e Its really hard to answer this question for someone that new in this feature and project. For sure Groups and Projects are not reindexed after startup by autoreindex feature. \n\nThen adding test(s) could prove this, failing before this change -and passing with it.\n\n\u003e Below are only my speculations:\n\u003e 1. Auto-reindex for groups and projects look more like nice to have features. 99% index changes are for changes.\n\u003e 2. Admins can have scripts that runs reindexing after each node startup.  \n\u003e 3. Passive node will get in sync with active when there is any new change in group. So system will heal itself.\n\nI\u0027d validate these (or this change\u0027s hypothesis) using some more coded test cases. Without such tests, we can only speculate and it gets riskier to introduce changes in the code.",
+      "parentUuid": "fa846400_8eb59de5",
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
