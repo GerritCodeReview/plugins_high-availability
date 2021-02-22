@@ -68,6 +68,14 @@ public class RestForwarderTest {
               PLUGIN_NAME,
               "index/change",
               PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
+  private static final String INDEX_BATCH_CHANGE_ENDPOINT =
+      Joiner.on("/")
+          .join(
+              URL,
+              PLUGINS,
+              PLUGIN_NAME,
+              "index/change/batch",
+              PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
   private static final String DELETE_CHANGE_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/change", "~" + CHANGE_NUMBER);
   private static final int ACCOUNT_NUMBER = 2;
@@ -196,6 +204,29 @@ public class RestForwarderTest {
             forwarder
                 .indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
+        .isFalse();
+  }
+
+  @Test
+  public void testIndexBatchChangeOK() throws Exception {
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any()))
+        .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
+    assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent()).get())
+        .isTrue();
+  }
+
+  @Test
+  public void testIndexBatchChangeFailed() throws Exception {
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any()))
+        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent()).get())
+        .isFalse();
+  }
+
+  @Test
+  public void testIndexBatchChangeThrowsException() throws Exception {
+    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any());
+    assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent()).get())
         .isFalse();
   }
 
