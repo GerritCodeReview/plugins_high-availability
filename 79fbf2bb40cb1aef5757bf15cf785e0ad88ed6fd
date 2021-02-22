@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0638cd8_c5b34d9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T20:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b06b61e4_b89b5d48",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 12
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d3e680b_5c8b855a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-20T02:18:05Z",
       "side": 1,
       "message": "This isn\u0027t accurate: the speed of change propagation won\u0027t change, but there will be a reduction of the latency of propagation of the interactive indexing events.",
+      "range": {
+        "startLine": 13,
+        "startChar": 49,
+        "endLine": 13,
+        "endChar": 72
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e51506a_673f8f28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T20:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d3e680b_5c8b855a",
       "range": {
         "startLine": 13,
         "startChar": 49,
@@ -93,6 +141,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a31cceb7_cfac3009",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T20:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c852acb3_40b7f05b",
+      "range": {
+        "startLine": 15,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a4fa94_b05d62a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T20:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f8f4c6_a0983142",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a8fd632_79625541",
@@ -106,6 +202,30 @@
       "writtenOn": "2021-02-20T02:18:05Z",
       "side": 1,
       "message": "backlog queue is empty.",
+      "range": {
+        "startLine": 16,
+        "startChar": 6,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "79fbf2bb40cb1aef5757bf15cf785e0ad88ed6fd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6278ca33_904fc6d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T20:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a8fd632_79625541",
       "range": {
         "startLine": 16,
         "startChar": 6,
