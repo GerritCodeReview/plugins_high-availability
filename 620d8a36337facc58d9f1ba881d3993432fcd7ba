@@ -47,6 +47,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b05716_316d32c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d1dc037_98523121",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "053d6566_d5594237",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb53878c_4cb64e57",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c34c968_613943b5",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-02-16T22:05:16Z",
       "side": 1,
       "message": "a new indexIfNeeded implementation",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2019bf58_2852579d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c34c968_613943b5",
       "range": {
         "startLine": 9,
         "startChar": 10,
@@ -110,6 +182,48 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b4ccdd7_79c4ad65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d358d99a_eac9777d",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "718b0bf2_a061e65a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4255e3b8_83b3db90",
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36526d67_70d6fa3e",
@@ -133,6 +247,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8a4d73_20dd5f1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36526d67_70d6fa3e",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a01ba12_ce58f5b1",
@@ -146,6 +284,24 @@
       "writtenOn": "2021-02-16T22:05:16Z",
       "side": 1,
       "message": "I think the commit message should explain some more about where this implementation comes from. If written from scratch, then maybe explain briefly how it came up (based on which principles)? -Just so we may understand the context from which this specifically added code came.\n\nSpecifically, I find it hard to understand how the plugin has been surviving so far without this new code. -Because it fairly did, or so it seemed to us. Once this gets further clarified, per these comments, then we may add Luca \u0026co as more reviewers (plugin maintainers).",
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa846400_8eb59de5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-22T19:32:02Z",
+      "side": 1,
+      "message": "I rephrase commit msg to add more understanding about implementation. Implementation was done to match corresponding stable 2.15 with usage of new interfaces. Old ReviewDB was changed and didn\u0027t have required methods to prepare direct port.\n\nNew implementation was added in line 77 and 85. This was done after test and it covers corresponding scenarios:\n[1]Create new group while passive node is down. \n[2]Adding to subgroup new user while passive node is down. \n\nRegarding second paragraph:\nIts really hard to answer this question for someone that new in this feature and project. For sure Groups and Projects are not reindexed after startup by autoreindex feature. \n\nBelow are only my speculations:\n1. Auto-reindex for groups and projects look more like nice to have features. 99% index changes are for changes.\n2. Admins can have scripts that runs reindexing after each node startup.  \n3. Passive node will get in sync with active when there is any new change in group. So system will heal itself.",
+      "parentUuid": "9a01ba12_ce58f5b1",
       "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
