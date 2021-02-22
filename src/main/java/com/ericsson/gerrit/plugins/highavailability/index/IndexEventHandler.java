@@ -95,7 +95,13 @@ class IndexEventHandler
         changeChecker
             .create(changeId)
             .newIndexEvent()
-            .map(event -> new IndexChangeTask(projectName, id, event))
+            .map(
+                event -> {
+                  if (Thread.currentThread().getName().contains("Batch")) {
+                    return new BatchIndexChangeTask(projectName, id, event);
+                  }
+                  return new IndexChangeTask(projectName, id, event);
+                })
             .ifPresent(
                 task -> {
                   if (queuedTasks.add(task)) {
@@ -212,6 +218,41 @@ class IndexEventHandler
     @Override
     String indexId() {
       return "change/" + changeId;
+    }
+  }
+
+  class BatchIndexChangeTask extends IndexTask {
+    private final int changeId;
+    private final String projectName;
+
+    BatchIndexChangeTask(String projectName, int changeId, IndexEvent indexEvent) {
+      super(indexEvent);
+      this.projectName = projectName;
+      this.changeId = changeId;
+    }
+
+    @Override
+    public void execute() {
+      forwarder.batchIndexChange(projectName, changeId, indexEvent);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(IndexEventHandler.BatchIndexChangeTask.class, changeId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (!(obj instanceof IndexEventHandler.BatchIndexChangeTask)) {
+        return false;
+      }
+      IndexEventHandler.BatchIndexChangeTask other = (IndexEventHandler.BatchIndexChangeTask) obj;
+      return changeId == other.changeId;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[%s] Index change %s in target instance", pluginName, changeId);
     }
   }
 
