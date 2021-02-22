@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b203a81b_5253cfde",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-22T20:34:00Z",
+      "side": 1,
+      "message": "Something missing? As I don\u0027t understand this coupling of the two words. Maybe just a colon (is missing).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "648daf30_8b7e08b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-22T20:34:00Z",
+      "side": 1,
+      "message": "Why didn\u0027t we have these downstream already (in 2.15)?",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916493f3_de0858ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-22T20:34:00Z",
+      "side": 1,
+      "message": "I still don\u0027t understand this part. Would consider rewriting it. More words are allowed, in fact encouraged in commit messages.",
+      "range": {
+        "startLine": 13,
+        "startChar": 66,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb33ef9_fae6eb4a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-22T20:34:00Z",
+      "side": 1,
+      "message": "Would insert a blank line above.",
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
