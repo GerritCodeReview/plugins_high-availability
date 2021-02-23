@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46420ec7_868468e8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedBatchIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-23T23:56:59Z",
+      "side": 1,
+      "message": "It\u0027s all good from my side: are you planning to upload a follow-up change associated with this topic?",
+      "parentUuid": "802a6a90_6e231aca",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "249f9dd8_abb5fafa",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
         "patchSetId": 1
