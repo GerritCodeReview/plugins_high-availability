@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e223382_5b4c79c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-23T21:36:13Z",
+      "side": 1,
+      "message": "Auto-reindex is a name of module and separate feature. I wanted to point out that change is regrading this functionality. Change is not affecting rest of the plugin. I added : as You suggested.",
+      "parentUuid": "b203a81b_5253cfde",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "648daf30_8b7e08b7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-22T20:34:00Z",
       "side": 1,
       "message": "Why didn\u0027t we have these downstream already (in 2.15)?",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2627c5c2_f500fd06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-23T21:36:13Z",
+      "side": 1,
+      "message": "No. 2.15 checks. Only removal form subgroup.\nStreams.concat(groupIdAudTs, groupMemberAudAddedTs, groupMemberAudRemovedTs)\n2.16 Adds 2 more checks. \nStreams.concat(groupIdAudAddTs,                groupIdAudRemovedTs,groupMemberAudAddedTs,        groupMemberAudRemovedTs,                   Stream.of(createGroupTs))",
+      "parentUuid": "648daf30_8b7e08b7",
       "range": {
         "startLine": 10,
         "startChar": 46,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba91fcc7_50e1bd4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-23T21:36:13Z",
+      "side": 1,
+      "message": "new version proposed",
+      "parentUuid": "916493f3_de0858ca",
+      "range": {
+        "startLine": 13,
+        "startChar": 66,
+        "endLine": 15,
+        "endChar": 68
+      },
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffb33ef9_fae6eb4a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
         "patchSetId": 4
@@ -83,6 +155,24 @@
       "writtenOn": "2021-02-22T20:34:00Z",
       "side": 1,
       "message": "Would insert a blank line above.",
+      "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f428c7d3_9c637cfe",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-02-23T21:36:13Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "ffb33ef9_fae6eb4a",
       "revId": "dca48205c3a6e9cd22b9731d59b145222e0d93aa",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
