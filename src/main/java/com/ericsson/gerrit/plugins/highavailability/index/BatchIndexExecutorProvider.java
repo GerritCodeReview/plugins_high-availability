@@ -16,16 +16,17 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
 class BatchIndexExecutorProvider extends ExecutorProvider {
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   @Inject
   BatchIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    // TODO: Consider using different threadPollSize.
-    super(workQueue, config.index().threadPoolSize(), "Forward-BatchIndex-Event");
+    super(workQueue, config.index().batchThreadPoolSize(), "Forward-BatchIndex-Event");
   }
 }
