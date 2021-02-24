@@ -25,7 +25,6 @@ class ForwardedBatchIndexExecutorProvider extends ExecutorProvider {
 
   @Inject
   ForwardedBatchIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    // TODO: config new variable should be added to define separate thread pool size
-    super(workQueue, config.index().threadPoolSize(), "Forwarded-BatchIndex-Event");
+    super(workQueue, config.index().batchThreadPoolSize(), "Forwarded-BatchIndex-Event");
   }
 }

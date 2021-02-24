@@ -25,7 +25,6 @@ class BatchIndexExecutorProvider extends ExecutorProvider {
 
   @Inject
   BatchIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    // TODO: Consider using different threadPollSize.
-    super(workQueue, config.index().threadPoolSize(), "Forward-BatchIndex-Event");
+    super(workQueue, config.index().batchThreadPoolSize(), "Forward-BatchIndex-Event");
   }
 }
