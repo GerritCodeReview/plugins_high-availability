@@ -1,0 +1,308 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe8747b2_3816d06d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Would add a sentence about where these are inspired from. I think that source was mentioned in a review comment, so only a matter of adding that info here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 51,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e5ffd9_62735b78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Getting there I think; keep up.",
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b91ea42c_e1855319",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "group (Would be cleaner I think.)",
+      "range": {
+        "startLine": 77,
+        "startChar": 22,
+        "endLine": 77,
+        "endChar": 24
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "515399ca_571cf899",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "groupCreationTs",
+      "range": {
+        "startLine": 78,
+        "startChar": 18,
+        "endLine": 78,
+        "endChar": 31
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f847cee5_96fcb1cc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Added, to be consistent with below line 88\u0027s chosen name. (Also with line 95\u0027s.)",
+      "range": {
+        "startLine": 84,
+        "startChar": 36,
+        "endLine": 84,
+        "endChar": 39
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28650fc_a42b00b7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Can any resulting entry be ever null? This question would also apply further below.",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 40
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9099e9d_4f4b7aa6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Would insert a blank line above.",
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a20434c9_7a8f43ec",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Extra blank line it seems.",
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0224529_36a3fdef",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Rename? Not sure I understand its purpose up front. Note that this value is reset to 0 here before each test method executes.",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b3007ac_c9d87fa2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "groupLastTs, to match with the meaning of it? Applies further below too.",
+      "range": {
+        "startLine": 75,
+        "startChar": 24,
+        "endLine": 75,
+        "endChar": 32
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7044008e_a250e7d4",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Unused.",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 15
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a401b5a_7f6e7288",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Always 0.",
+      "range": {
+        "startLine": 93,
+        "startChar": 26,
+        "endLine": 93,
+        "endChar": 35
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "255c0707_a655be06",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "return Optional.ofNullable(\n\nThis is otherwise flagged as an IntelliJ warning, expecting such inlining.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 28
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "126ad27b_8840f5e2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Can be removed once done applying the previous comment.",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
