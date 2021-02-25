@@ -80,6 +80,24 @@
       "message": "Need re-merge",
       "revId": "f8416303d01bdf02f1a2e90e605f49d4544f18dd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320a11ee_b33cff04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:52:17Z",
+      "side": 1,
+      "message": "\u003e Also, if @Marcin could review the manual conflict resolutions, that would be great I think.\n\nReiterating my proposal if Marcin agrees; another review welcome.",
+      "parentUuid": "754f994b_93f250f4",
+      "revId": "f8416303d01bdf02f1a2e90e605f49d4544f18dd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
