@@ -155,6 +155,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caba2c46_1d580767",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedBatchIndexExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-25T00:19:21Z",
+      "side": 1,
+      "message": "Sure, but it makes sense to have them submitted as unique solution.\nWe should be close to merge them :-)",
+      "parentUuid": "de9c4fe1_7577dd03",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 50
+      },
+      "revId": "ff7686aa69c867ed06125b5c4647d98c5ccefa0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "249f9dd8_abb5fafa",
