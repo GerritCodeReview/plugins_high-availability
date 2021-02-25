@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "620c9e1a_7418afe7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Reintroduced in the latest patch set. See the sample commit message under [1] for how they are expected for review.\n\n[1] https://gerrit-review.googlesource.com/Documentation/dev-crafting-changes.html#commit-message",
+      "parentUuid": "41b05716_316d32c7",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c34c968_613943b5",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -338,6 +362,24 @@
       "side": 1,
       "message": "\"I still don\u0027t understand that commit message enough, per my related comment.\"\nSorry I don\u0027t understand what I suppose to write. I present new commit msg version in next patchset.\n\nPlease compare this implementation with Gerrit 2.15. I used same variables names for same sets of data. You will notice that the only new things are in L77 and 85 as I described. I can remove them, but my tests shows that at least L77 should be mandatory.\n\n\"Maybe this change is missing such automated (coded) tests, then. I wonder if this change shouldn\u0027t also be split into (maybe) a few iterations or so.\n\"Then adding test(s) could prove this, failing before this change -and passing with it.\"\n\nBefore this test nothing happens. Running reindexing for groups is done in L113. \nCreating unit test is great idea. And I add simple scenario like You suggested. To add more sophisticated tests more effort and new task is needed. The big problem is that there is no single unit test for all autoreindex package. So mocking objects from 0 requires high effort.",
       "parentUuid": "8ead5c38_312899b0",
+      "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c79d92fe_fcd68e78",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-25T19:44:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "04b88804_7f951dcd",
       "revId": "620d8a36337facc58d9f1ba881d3993432fcd7ba",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
