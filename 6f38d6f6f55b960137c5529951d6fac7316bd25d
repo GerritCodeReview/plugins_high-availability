@@ -1,9 +1,9 @@
 {
   "checks": {
     "gerritforge:plugins-high-availability-build-test": {
-      "state": "NOT_STARTED",
+      "state": "SCHEDULED",
       "created": "2021-02-26T18:03:05Z",
-      "updated": "2021-02-26T18:30:14Z"
+      "updated": "2021-02-26T18:39:11Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
       "state": "SCHEDULED",
