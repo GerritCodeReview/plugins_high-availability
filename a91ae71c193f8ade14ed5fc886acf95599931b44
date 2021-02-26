@@ -117,6 +117,30 @@
       },
       "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f808fb_a60ccb48",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-26T13:51:41Z",
+      "side": 1,
+      "message": "I\u0027ll rase this at the ESC, so that also Saša can give some SAP-specific points of view.\n\nWe were assuming that it was mainly Google dragging their feet on Java 8, but I believe that SAP\u0027s needs need also to be taken into account and their plans to migrate to Java 11 in the future.\n\nP.S. Java 8 is EOL and will also be unsupported on Linux very soon (2024 is the final EOL from RedHat also on their systems).",
+      "parentUuid": "f7701f2c_9813da63",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 5
+      },
+      "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
