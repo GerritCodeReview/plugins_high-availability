@@ -6,9 +6,9 @@
       "updated": "2021-02-26T18:30:14Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "NOT_STARTED",
+      "state": "SCHEDULED",
       "created": "2021-02-26T18:03:04Z",
-      "updated": "2021-02-26T18:30:15Z"
+      "updated": "2021-02-26T18:39:08Z"
     }
   }
 }
