@@ -16,6 +16,24 @@
       "message": "Just noticed, that this plugin also has stable-3.3 branch. Should we rather move that change to stable barcnh?",
       "revId": "c0e4a72a00a83b559f7e7a3b6a77d92c14364ebd",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32f28356_c94273b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-02-26T10:51:22Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "59c788bc_a1e86917",
+      "revId": "c0e4a72a00a83b559f7e7a3b6a77d92c14364ebd",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
