@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b581b127_00e8d907",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-02-26T10:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc4ad4ec_e490e980",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d0dddd1_b61dbced",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-26T09:53:53Z",
       "side": 1,
       "message": "I guess that\u0027s the workaround until the maven_jar would be able to manage the classifier correctly.\n\nIt would be nice to have a general mechanism in Gerrit to produce classifiers for Java8, so that we can generate and publish them to Maven. Currently we only produce the Java11 which isn\u0027t ideal.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 5
+      },
+      "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a72e3cf1_1d5073ce",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-02-26T10:33:52Z",
+      "side": 1,
+      "message": "Given that Java 8 support is going to be abandoned in next releases, we shouldn\u0027t add this complexity to maven_jar rule. Also maven_jar was introduced as a workaround for native Bazel maven_jar rule that didn\u0027t offer some features, like remove signed stuff from a JAR.\n\n\u003e Currently we only produce the Java11 which isn\u0027t ideal.\n\nWhy don\u0027t we publish API with Java 8 instead?\n\nglobal-refdb could do the opposite: publish per default (non classified) java 8 version and addition java 11 classifier?",
+      "parentUuid": "9d0dddd1_b61dbced",
       "range": {
         "startLine": 17,
         "startChar": 0,
