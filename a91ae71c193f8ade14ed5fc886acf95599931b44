@@ -141,6 +141,30 @@
       },
       "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d83b1125_a82efd25",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-26T14:15:46Z",
+      "side": 1,
+      "message": "Done: let\u0027s wait for the ESC on a decision on what to do with Gerrit v3.3 releases, if we want to keep on releasing on Java 11, or Java 8, or both.",
+      "parentUuid": "20f808fb_a60ccb48",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 5
+      },
+      "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
