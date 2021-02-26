@@ -93,6 +93,30 @@
       },
       "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7701f2c_9813da63",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-02-26T13:30:25Z",
+      "side": 1,
+      "message": "\u003e Given that Java 8 support is going to be abandoned in next releases,\n\nThat was the plan, but has been pushed back to the H2 2021 :-(\nThat means we will still have Java11 (main) + Java8 (fallback) releases.\n\nThat would stay for as long as Gerrit v3.3 will continue to be supported, which means at least for the next two years.\n\n\u003e we shouldn\u0027t add this complexity to maven_jar rule.\n\nThe qualifier isn\u0027t a complexity but the way it works: javadoc, source, they are all qualifiers. I believe this is simply a bug we can fix.\n\n\u003e Also maven_jar was introduced as a workaround for native Bazel maven_jar rule that didn\u0027t offer some features, like remove signed stuff from a JAR.\n\nGotcha.\n\n\u003e \u003e Currently we only produce the Java11 which isn\u0027t ideal.\n\u003e \n\u003e Why don\u0027t we publish API with Java 8 instead?\n\nYes, we could revert back and publish just Java 8, but that won\u0027t help people migrating to Java 11 as early as possible.\n\nI know this is very unfortunate and introduces complexity of releasing for Java 8 and Java 11. The idea at the beginning was \"if you need a Java 8 you can build it yourself\", but then I got this request for the high-availability plugin and I believe there will more similar requests coming through.\n\nIt would be best to manage them upfront and fixing the rule in our Bazel maven rule.\n\n\u003e global-refdb could do the opposite: publish per default (non classified) java 8 version and addition java 11 classifier?\n\nSe above: we can\u0027t release for Java 8 *IF* Gerrit isn\u0027t released for Java 8.\nTis jdk8 qualifier has been a local build for now, but we do need Gerrit also to do the same.\n\nHope this clarifies.",
+      "parentUuid": "a72e3cf1_1d5073ce",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 5
+      },
+      "revId": "a91ae71c193f8ade14ed5fc886acf95599931b44",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
