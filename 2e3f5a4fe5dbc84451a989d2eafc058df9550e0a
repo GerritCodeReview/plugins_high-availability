@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e3727a5_228c8793",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-27T16:09:26Z",
+      "side": 1,
+      "message": "down. (Consistently with the above.)",
+      "range": {
+        "startLine": 12,
+        "startChar": 53,
+        "endLine": 12,
+        "endChar": 57
+      },
+      "revId": "2e3f5a4fe5dbc84451a989d2eafc058df9550e0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13b4e10_f5e3d52f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-27T16:09:26Z",
+      "side": 1,
+      "message": "Nit left-over. And now adding Luca at this stage of the review, with the other plugin maintainers [3] in cc. (At will.)\n\n[3] https://www.gerritcodereview.com/plugins.html#active",
+      "revId": "2e3f5a4fe5dbc84451a989d2eafc058df9550e0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
