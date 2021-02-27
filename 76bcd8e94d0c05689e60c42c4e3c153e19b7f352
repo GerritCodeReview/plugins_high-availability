@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bc3c9ba6_a5d66872",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-27T16:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8747b2_3816d06d",
+      "range": {
+        "startLine": 10,
+        "startChar": 51,
+        "endLine": 10,
+        "endChar": 68
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d0e5ffd9_62735b78",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -219,6 +243,30 @@
       "side": 1,
       "message": "I am not sure. This part (map and filter)was taken from Gerrit 2.15. I assume that was already checked. I kept as it is to maintain more readability what was changed.",
       "parentUuid": "d28650fc_a42b00b7",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 40
+      },
+      "revId": "76bcd8e94d0c05689e60c42c4e3c153e19b7f352",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f181162f_05e757dc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-02-27T16:09:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fe7ee8b_39c62929",
       "range": {
         "startLine": 87,
         "startChar": 17,
