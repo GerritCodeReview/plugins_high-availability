@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed37f8d4_b0410162",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-01T21:53:27Z",
+      "side": 1,
+      "message": "Thanks for addressing this: I believe we are not covering though the recursive change of subgroups.\nCan you please check?\n\nThanks again for your time.",
+      "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0dabc70_260ad5a8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-01T21:53:27Z",
+      "side": 1,
+      "message": "Should we also deep dive into the subgroups here?\n\nIf group A contains group B which contains group C that has a new member M, then the timestamp of A, B, C needs all to be considered.",
+      "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beff5259_68cc446d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-01T21:53:27Z",
+      "side": 1,
+      "message": "I believe we are missing the test-cases for subgroups and adding/removing members to them.",
+      "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
