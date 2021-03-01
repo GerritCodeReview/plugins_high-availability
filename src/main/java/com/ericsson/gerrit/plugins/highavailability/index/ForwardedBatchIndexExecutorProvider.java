@@ -12,24 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
+package com.ericsson.gerrit.plugins.highavailability.index;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
-import com.google.gerrit.extensions.restapi.Url;
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-class IndexBatchChangeRestApiServlet extends AbstractIndexRestApiServlet<String> {
-  private static final long serialVersionUID = -1L;
+class ForwardedBatchIndexExecutorProvider extends ExecutorProvider {
 
   @Inject
-  IndexBatchChangeRestApiServlet(ForwardedIndexBatchChangeHandler handler) {
-    super(handler, IndexName.CHANGE, true);
-  }
-
-  @Override
-  String parse(String id) {
-    return Url.decode(id);
+  ForwardedBatchIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
+    super(workQueue, config.index().batchThreadPoolSize(), "Forwarded-BatchIndex-Event");
   }
 }

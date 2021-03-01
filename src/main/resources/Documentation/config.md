@@ -196,6 +196,11 @@ calls by specifying the following fields:
 :   Maximum number of threads used to send index events to the target instance.
     Defaults to 4.
 
+```index.batchThreadPoolSize```
+:   Maximum number of threads used to send batch index events to the target instance
+    and not associated to an interactive action performed by a user.
+    Defaults equal index.threadPoolSize.
+
 ```index.maxTries```
 :   Maximum number of times the plugin should attempt to reindex changes.
     Setting this value to 0 will disable retries. After this number of failed tries,

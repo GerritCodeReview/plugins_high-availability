@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.BATCH_THREAD_POOL_SIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_NUM_STRIPED_LOCKS;
@@ -263,6 +264,19 @@ public class ConfigurationTest {
 
     globalPluginConfig.setString(INDEX_SECTION, null, THREAD_POOL_SIZE_KEY, INVALID_INT);
     assertThat(getConfiguration().index().threadPoolSize()).isEqualTo(DEFAULT_THREAD_POOL_SIZE);
+  }
+
+  @Test
+  public void testGetBatchIndexThreadPoolSize() throws Exception {
+    assertThat(getConfiguration().index().batchThreadPoolSize())
+        .isEqualTo(DEFAULT_THREAD_POOL_SIZE);
+
+    globalPluginConfig.setInt(INDEX_SECTION, null, BATCH_THREAD_POOL_SIZE_KEY, THREAD_POOL_SIZE);
+    assertThat(getConfiguration().index().batchThreadPoolSize()).isEqualTo(THREAD_POOL_SIZE);
+
+    globalPluginConfig.setString(INDEX_SECTION, null, BATCH_THREAD_POOL_SIZE_KEY, INVALID_INT);
+    assertThat(getConfiguration().index().batchThreadPoolSize())
+        .isEqualTo(DEFAULT_THREAD_POOL_SIZE);
   }
 
   @Test

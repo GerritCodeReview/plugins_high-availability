@@ -85,6 +85,7 @@ public class IndexEventHandlerTest {
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
   private ScheduledExecutorService executor = new CurrentThreadScheduledExecutorService();
+  private ScheduledExecutorService batchExecutor = new CurrentThreadScheduledExecutorService();
   private ScheduledExecutorService testExecutor =
       Executors.newScheduledThreadPool(MAX_TEST_PARALLELISM);
   @Mock private RequestContext mockCtx;
@@ -142,6 +143,7 @@ public class IndexEventHandlerTest {
     indexEventHandler =
         new IndexEventHandler(
             executor,
+            batchExecutor,
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
@@ -387,9 +389,11 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
+    ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
         new IndexEventHandler(
             poolMock,
+            poolBatchMock,
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
@@ -405,9 +409,11 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
+    ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
         new IndexEventHandler(
             poolMock,
+            poolBatchMock,
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
@@ -422,9 +428,11 @@ public class IndexEventHandlerTest {
   @Test
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
+    ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
         new IndexEventHandler(
             poolMock,
+            poolBatchMock,
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
