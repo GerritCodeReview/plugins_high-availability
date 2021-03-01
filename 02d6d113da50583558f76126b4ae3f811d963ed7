@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edc13cfc_40beeb24",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerNoteDbIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-03-01T14:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a762f18_f3ee6138",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 34
+      },
+      "revId": "02d6d113da50583558f76126b4ae3f811d963ed7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e12f8a86_e42b919e",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-25T20:38:54Z",
       "side": 1,
       "message": "Should this method be renamed, as it doesn\u0027t make much sense starting from stable-3.0 branch.",
+      "range": {
+        "startLine": 45,
+        "startChar": 14,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "02d6d113da50583558f76126b4ae3f811d963ed7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "960a968c_bfc2a513",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerNoteDbIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-03-01T14:17:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e12f8a86_e42b919e",
       "range": {
         "startLine": 45,
         "startChar": 14,
