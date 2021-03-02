@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a15d494_f887a87f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-03-02T22:30:24Z",
+      "side": 1,
+      "message": "No idea, I fallow previous implementation. But I think this method will be run for each group separately. So if A,B,C will be modify after sinceTs re indexing will be started for this group. I am open to all suggestion, I don\u0027t understated this feature well. \n[1]What is the point of upgrade newLastIndexTs in the loop in ReindexRunnable L62.\n[2]How many levels deep we should check?",
+      "parentUuid": "e0dabc70_260ad5a8",
+      "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "beff5259_68cc446d",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
         "patchSetId": 7
@@ -48,6 +66,24 @@
       "writtenOn": "2021-03-01T21:53:27Z",
       "side": 1,
       "message": "I believe we are missing the test-cases for subgroups and adding/removing members to them.",
+      "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec848e2b_792db303",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-03-02T22:30:24Z",
+      "side": 1,
+      "message": "I added test for subgroup and also members. I will try to mock removal in next patchset.",
+      "parentUuid": "beff5259_68cc446d",
       "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
