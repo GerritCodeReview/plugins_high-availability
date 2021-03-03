@@ -53,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6851e99f_3ab4596a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-03T00:27:08Z",
+      "side": 1,
+      "message": "I checked the GroupSchemaDefinitions and it looks like the indexed entry doesn\u0027t contain any expansion of subgroups: so the entry should be reindexed only if the list of members or subgroups changes, but not any change in the subgroups themselves.\n\nWe should be fine.",
+      "parentUuid": "5a15d494_f887a87f",
+      "revId": "3b35773d8c56567004d4ae617c5ac72f1c24b62c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "beff5259_68cc446d",
