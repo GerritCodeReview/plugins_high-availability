@@ -40,6 +40,7 @@ class IndexEventHandler
         ProjectIndexedListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final ScheduledExecutorService executor;
+  private final ScheduledExecutorService batchExecutor;
   private final Forwarder forwarder;
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -53,6 +54,7 @@ class IndexEventHandler
   @Inject
   IndexEventHandler(
       @IndexExecutor ScheduledExecutorService executor,
+      @BatchIndexExecutor ScheduledExecutorService batchExecutor,
       @PluginName String pluginName,
       Forwarder forwarder,
       ChangeCheckerImpl.Factory changeChecker,
@@ -61,6 +63,7 @@ class IndexEventHandler
       IndexEventLocks locks) {
     this.forwarder = forwarder;
     this.executor = executor;
+    this.batchExecutor = batchExecutor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
     this.currCtx = currCtx;
@@ -95,11 +98,21 @@ class IndexEventHandler
         changeChecker
             .create(changeId)
             .newIndexEvent()
-            .map(event -> new IndexChangeTask(projectName, id, event))
+            .map(
+                event -> {
+                  if (Thread.currentThread().getName().contains("Batch")) {
+                    return new BatchIndexChangeTask(projectName, id, event);
+                  }
+                  return new IndexChangeTask(projectName, id, event);
+                })
             .ifPresent(
                 task -> {
                   if (queuedTasks.add(task)) {
-                    executor.execute(task);
+                    if (task instanceof BatchIndexChangeTask) {
+                      batchExecutor.execute(task);
+                    } else {
+                      executor.execute(task);
+                    }
                   }
                 });
       } catch (Exception e) {
@@ -212,6 +225,46 @@ class IndexEventHandler
     @Override
     String indexId() {
       return "change/" + changeId;
+    }
+  }
+
+  class BatchIndexChangeTask extends IndexTask {
+    private final int changeId;
+    private final String projectName;
+
+    BatchIndexChangeTask(String projectName, int changeId, IndexEvent indexEvent) {
+      super(indexEvent);
+      this.projectName = projectName;
+      this.changeId = changeId;
+    }
+
+    @Override
+    public CompletableFuture<Boolean> execute() {
+      return forwarder.batchIndexChange(projectName, changeId, indexEvent);
+    }
+
+    @Override
+    String indexId() {
+      return "change/" + changeId;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(IndexEventHandler.BatchIndexChangeTask.class, changeId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (!(obj instanceof IndexEventHandler.BatchIndexChangeTask)) {
+        return false;
+      }
+      IndexEventHandler.BatchIndexChangeTask other = (IndexEventHandler.BatchIndexChangeTask) obj;
+      return changeId == other.changeId;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("[%s] Index change %s in target instance", pluginName, changeId);
     }
   }
 

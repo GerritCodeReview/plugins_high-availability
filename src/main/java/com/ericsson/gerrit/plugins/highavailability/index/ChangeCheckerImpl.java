@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Comment;
+import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.server.CommentsUtil;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -62,15 +63,25 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   @Override
-  public Optional<IndexEvent> newIndexEvent() {
-    return getComputedChangeTs()
-        .map(
-            ts -> {
-              IndexEvent event = new IndexEvent();
-              event.eventCreatedOn = ts;
-              event.targetSha = getBranchTargetSha();
-              return event;
-            });
+  public Optional<IndexEvent> newIndexEvent() throws IOException {
+    Optional<Long> changeTs = getComputedChangeTs();
+    if (!changeTs.isPresent()) {
+      return Optional.empty();
+    }
+
+    long ts = changeTs.get();
+
+    IndexEvent event = new IndexEvent();
+    event.eventCreatedOn = ts;
+    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+      event.targetSha = getBranchTargetSha();
+      event.metaSha = getMetaSha(repo);
+      return Optional.of(event);
+    } catch (IOException e) {
+      log.atSevere().withCause(e).log(
+          "Unable to create index event for project %s", changeNotes.get().getProjectName());
+      throw e;
+    }
   }
 
   @Override
@@ -82,25 +93,31 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   @Override
-  public boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) {
+  public boolean isChangeUpToDate(Optional<IndexEvent> indexEventOption) throws IOException {
     getComputedChangeTs();
-    log.atFine().log("Checking change %s against index event %s", this, indexEvent);
+    log.atFine().log("Checking change %s against index event %s", this, indexEventOption);
     if (!computedChangeTs.isPresent()) {
       log.atWarning().log("Unable to compute last updated ts for change %s", changeId);
       return false;
     }
+    try {
+      if (indexEventOption.isPresent()) {
+        try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+          IndexEvent indexEvent = indexEventOption.get();
+          return (computedChangeTs.get() > indexEvent.eventCreatedOn)
+              || (computedChangeTs.get() == indexEvent.eventCreatedOn)
+                  && (Objects.isNull(indexEvent.targetSha)
+                      || Objects.equals(getBranchTargetSha(), indexEvent.targetSha))
+                  && (Objects.isNull(indexEvent.metaSha)
+                      || Objects.equals(getMetaSha(repo), indexEvent.metaSha));
+        }
+      }
+      return true;
 
-    if (indexEvent.isPresent() && indexEvent.get().targetSha == null) {
-      return indexEvent.map(e -> (computedChangeTs.get() >= e.eventCreatedOn)).orElse(true);
+    } catch (IOException ex) {
+      log.atWarning().log("Unable to read meta sha for change %s", changeId);
+      return false;
     }
-
-    return indexEvent
-        .map(
-            e ->
-                (computedChangeTs.get() > e.eventCreatedOn)
-                    || (computedChangeTs.get() == e.eventCreatedOn)
-                        && (Objects.equals(getBranchTargetSha(), e.targetSha)))
-        .orElse(true);
   }
 
   @Override
@@ -113,12 +130,19 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   @Override
   public String toString() {
-    return "change-id="
-        + changeId
-        + "@"
-        + getComputedChangeTs().map(IndexEvent::format)
-        + "/"
-        + getBranchTargetSha();
+    try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+      return "change-id="
+          + changeId
+          + "@"
+          + getComputedChangeTs().map(IndexEvent::format)
+          + "/target:"
+          + getBranchTargetSha()
+          + "/meta:"
+          + getMetaSha(repo);
+    } catch (IOException e) {
+      log.atSevere().withCause(e).log("Unable to render change %s", changeId);
+      return "change-id=" + changeId;
+    }
   }
 
   private String getBranchTargetSha() {
@@ -139,6 +163,16 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   private Optional<Long> computeLastChangeTs() {
     return getChangeNotes().map(this::getTsFromChangeAndDraftComments);
+  }
+
+  private String getMetaSha(Repository repo) throws IOException {
+    String refName = RefNames.changeMetaRef(changeNotes.get().getChange().getId());
+    Ref ref = repo.exactRef(refName);
+    if (ref == null) {
+      throw new IOException(
+          String.format("Unable to find meta ref %s for change %s", refName, changeId));
+    }
+    return ref.getTarget().getObjectId().getName();
   }
 
   private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
