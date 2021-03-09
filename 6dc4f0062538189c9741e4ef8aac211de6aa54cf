@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2c75f2b_fadeb71f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-03-09T20:37:18Z",
+      "side": 1,
+      "message": "Reuse the now available numberKey from GerritSimulation",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "6dc4f0062538189c9741e4ef8aac211de6aa54cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdeb0178_51599b1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-03-09T20:37:18Z",
+      "side": 1,
+      "message": "Minor refactorings left.",
+      "revId": "6dc4f0062538189c9741e4ef8aac211de6aa54cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208e3801_466ddba3",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/CreateChangeUsingHAGerrit1.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-03-09T20:37:18Z",
+      "side": 1,
+      "message": "\"\\\"_\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 19,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "6dc4f0062538189c9741e4ef8aac211de6aa54cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
