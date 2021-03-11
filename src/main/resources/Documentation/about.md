@@ -172,3 +172,16 @@ Minimal zookeeper-refdb.config for both active instances:
 [ref-database "zookeeper"]
   connectString = zookeeperhost:2181
 ```
+### Last index update timestamp storage
+
+The plugin keeps track of the timestamp when it lastly updated an index.
+When the [`autoReindex.enabled` option](config.md) is set to `true`, the timestamp
+is used to determine which changes to reindex when a node is temporarily out of
+sync with the primary, for example, after a node being offline for a long time.
+
+The HA plugin keeps the last update timestamp for each index in the following files:
+* `<gerrit_home>/data/high-availability/group`
+* `<gerrit_home>/data/high-availability/account`
+* `<gerrit_home>/data/high-availability/change`
+
+The timestamp is stored in this format `yyyy-mm-ddTHH:MM:SS.ss`, i.e.: `2020-12-18T12:17:53.25`.
