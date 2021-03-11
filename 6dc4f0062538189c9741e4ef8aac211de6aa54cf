@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d3c5a317_48c5b1d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-03-11T15:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2c75f2b_fadeb71f",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "6dc4f0062538189c9741e4ef8aac211de6aa54cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bdeb0178_51599b1d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2021-03-09T20:37:18Z",
       "side": 1,
       "message": "\"\\\"_\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 19,
+        "endLine": 39,
+        "endChar": 29
+      },
+      "revId": "6dc4f0062538189c9741e4ef8aac211de6aa54cf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92bdfc9d_9c803df9",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/CreateChangeUsingHAGerrit1.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-03-11T15:36:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "208e3801_466ddba3",
       "range": {
         "startLine": 39,
         "startChar": 19,
