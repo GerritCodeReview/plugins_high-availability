@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "079be484_a55a7ca7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-03-15T15:49:23Z",
+      "side": 1,
+      "message": "@Przemek, were you planning to merge this up now towards master branch?",
+      "revId": "fc8d479c905736a9beb107c3ba0f4725a232019c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
