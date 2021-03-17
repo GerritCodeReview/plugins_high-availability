@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.base.Strings;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -39,6 +40,9 @@ class GsonParser {
     Object key;
     // Need to add a case for 'adv_bases'
     if (!json.isJsonObject()) {
+      if (Constants.PROJECTS.equals(cacheName)) {
+        return Project.nameKey(json.getAsString());
+      }
       return json.getAsString();
     }
     JsonObject asJsonObject = json.getAsJsonObject();
