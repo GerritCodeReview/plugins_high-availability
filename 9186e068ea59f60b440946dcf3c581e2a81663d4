@@ -16,6 +16,23 @@
       "message": "We don\u0027t use REST based message forwarding but I believe that this change identifies an issue in that code.",
       "revId": "9186e068ea59f60b440946dcf3c581e2a81663d4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf2c5cd_2d93333e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T00:58:02Z",
+      "side": 1,
+      "message": "I actually found out that *it was* working until Gerrit v3.2. Then, the cache-key was changed from String to Project.NameKey (see Change-Id: Ifaebf2afa) and since then the cache alignment was broken.",
+      "revId": "9186e068ea59f60b440946dcf3c581e2a81663d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
