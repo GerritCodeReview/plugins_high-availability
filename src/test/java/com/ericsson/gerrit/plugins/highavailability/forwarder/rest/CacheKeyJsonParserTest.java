@@ -24,10 +24,10 @@ import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
 import org.junit.Test;
 
-public class GsonParserTest {
+public class CacheKeyJsonParserTest {
   private static final Object EMPTY_JSON = "{}";
   private final Gson gson = new EventGsonProvider().get();
-  private final GsonParser objectUnderTest = new GsonParser(gson);
+  private final CacheKeyJsonParser objectUnderTest = new CacheKeyJsonParser(gson);
 
   @Test
   public void accountIDParse() {
