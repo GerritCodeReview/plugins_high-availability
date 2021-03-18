@@ -27,11 +27,11 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-class GsonParser {
+class CacheKeyJsonParser {
   private final Gson gson;
 
   @Inject
-  public GsonParser(@EventGson Gson gson) {
+  public CacheKeyJsonParser(@EventGson Gson gson) {
     this.gson = gson;
   }
 
