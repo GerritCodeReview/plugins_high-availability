@@ -63,6 +63,30 @@
       },
       "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e077f53b_bc17357a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T13:10:22Z",
+      "side": 1,
+      "message": "\u003e Line 49 is never reached for the project cache keys because they are not a JSON objects but primitives (Strings) and the method returns at the line 42 (base version).\n\nYeah, the code structure in the multi-site plugin is clearer.\n\n\u003e I know it is all a bit messy but this is caused by using @EventGson Gson from Gerrit core to serialize Project.NameKey. It serializes it to a simple String.\n\u003e OTOH, the Account.Id, AccountGroup.Uuis etc... are serialized as json objects.\n\nI would suggest to get rid of the block between L41 and L43, because the L64 would manage that situation already. Best however to get that small refactoring into a follow-up change.",
+      "parentUuid": "38df8354_80cb1bfc",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
