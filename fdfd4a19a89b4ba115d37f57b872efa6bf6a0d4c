@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e6807a5_c472dc61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T10:30:35Z",
+      "side": 1,
+      "message": "SGTM, waiting for Marco to double-check.",
+      "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a0ea749_a8739372",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T10:30:35Z",
+      "side": 1,
+      "message": "This is working, however, the control flow is quite messy here, because the cache name is typically checked in the switch starting a L49",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}

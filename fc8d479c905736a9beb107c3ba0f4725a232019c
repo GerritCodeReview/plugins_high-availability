@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b015dd5_71b5a487",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T10:30:35Z",
+      "side": 0,
+      "message": "unrelated: this line is useless, because in order to come over here the json *must* be a JSON object, therefore the fromJson(json, String.class) would always throw an exception.",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "fc8d479c905736a9beb107c3ba0f4725a232019c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e94518ca_f1ee72b3",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParserTest.java",
         "patchSetId": 2
