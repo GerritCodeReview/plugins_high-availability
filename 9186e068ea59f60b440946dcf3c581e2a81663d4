@@ -50,6 +50,23 @@
       "message": "I actually found out that *it was* working until Gerrit v3.2. Then, the cache-key was changed from String to Project.NameKey (see Change-Id: Ifaebf2afa) and since then the cache alignment was broken.",
       "revId": "9186e068ea59f60b440946dcf3c581e2a81663d4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab7327b_a483bdce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T01:22:57Z",
+      "side": 1,
+      "message": "I\u0027ve uploaded the fix for the multi-site plugin at:\nChange-Id: Id1484b08\n\nI believe we are also missing a real cache eviction test, where for each cache we are actually trying to evict the entry and we make sure that it works.\n\nIf we had those real cache eviction tests, we would have detected this regression :-(",
+      "revId": "9186e068ea59f60b440946dcf3c581e2a81663d4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
