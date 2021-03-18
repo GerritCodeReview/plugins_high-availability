@@ -87,6 +87,30 @@
       },
       "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b582d6d_c572499b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-03-18T14:08:39Z",
+      "side": 1,
+      "message": "Done in the follow-up change(s)",
+      "parentUuid": "e077f53b_bc17357a",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
