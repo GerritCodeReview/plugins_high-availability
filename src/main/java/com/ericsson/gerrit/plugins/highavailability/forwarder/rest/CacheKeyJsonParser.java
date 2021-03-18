@@ -16,6 +16,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.base.Strings;
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
@@ -37,39 +39,28 @@ class CacheKeyJsonParser {
 
   public Object fromJson(String cacheName, String jsonString) {
     JsonElement json = gson.fromJson(Strings.nullToEmpty(jsonString), JsonElement.class);
-    Object key;
+    Supplier<JsonObject> jsonObj = Suppliers.memoize(() -> json.getAsJsonObject());
     // Need to add a case for 'adv_bases'
-    if (!json.isJsonObject()) {
-      if (Constants.PROJECTS.equals(cacheName)) {
-        return Project.nameKey(json.getAsString());
-      }
-      return json.getAsString();
-    }
-    JsonObject asJsonObject = json.getAsJsonObject();
     switch (cacheName) {
       case Constants.ACCOUNTS:
-        key = asJsonObject.has("id") ? Account.id(asJsonObject.get("id").getAsInt()) : null;
-        break;
+        return jsonObj.get().has("id") ? Account.id(jsonObj.get().get("id").getAsInt()) : null;
       case Constants.GROUPS:
-        key = asJsonObject.has("id") ? AccountGroup.id(asJsonObject.get("id").getAsInt()) : null;
-        break;
+        return jsonObj.get().has("id") ? AccountGroup.id(jsonObj.get().get("id").getAsInt()) : null;
       case Constants.GROUPS_BYINCLUDE:
       case Constants.GROUPS_MEMBERS:
-        key =
-            asJsonObject.has("uuid")
-                ? AccountGroup.uuid(asJsonObject.get("uuid").getAsString())
-                : null;
-        break;
+        return jsonObj.get().has("uuid")
+            ? AccountGroup.uuid(jsonObj.get().get("uuid").getAsString())
+            : null;
       case Constants.PROJECT_LIST:
-        key = gson.fromJson(json, Object.class);
-        break;
+        return gson.fromJson(json, Object.class);
+      case Constants.PROJECTS:
+        return Project.nameKey(json.getAsString());
       default:
         try {
-          key = gson.fromJson(json, String.class);
+          return gson.fromJson(json, String.class);
         } catch (Exception e) {
-          key = gson.fromJson(json, Object.class);
+          return gson.fromJson(json, Object.class);
         }
     }
-    return key;
   }
 }
