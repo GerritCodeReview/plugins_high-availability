@@ -151,6 +151,24 @@
       "message": "@Luca\u0027s +2 is ok but I\u0027d fix these nits prior to merging.",
       "revId": "0b8f87d10383fdc9249c31ced590de06eb27a3aa",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef60627_0d78d172",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-18T21:50:35Z",
+      "side": 1,
+      "message": "Cool, thanks for the feedback.",
+      "parentUuid": "58bc57b0_06030fc2",
+      "revId": "0b8f87d10383fdc9249c31ced590de06eb27a3aa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
