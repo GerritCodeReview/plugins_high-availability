@@ -39,6 +39,30 @@
       },
       "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38df8354_80cb1bfc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/GsonParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-03-18T12:54:10Z",
+      "side": 1,
+      "message": "Line 49 is never reached for the project cache keys because they are not a JSON objects but primitives (Strings) and the method returns at the line 42 (base version).\n\nI know it is all a bit messy but this is caused by using @EventGson Gson from Gerrit core to serialize Project.NameKey. It serializes it to a simple String.\nOTOH, the Account.Id, AccountGroup.Uuis etc... are serialized as json objects.",
+      "parentUuid": "4a0ea749_a8739372",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "fdfd4a19a89b4ba115d37f57b872efa6bf6a0d4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
