@@ -17,7 +17,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.cache.Cache;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -31,10 +33,13 @@ public class ForwardedCacheEvictionHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final DynamicMap<Cache<?, ?>> cacheMap;
+  private final ProjectCache projectCache;
 
   @Inject
-  public ForwardedCacheEvictionHandler(DynamicMap<Cache<?, ?>> cacheMap) {
+  public ForwardedCacheEvictionHandler(
+      DynamicMap<Cache<?, ?>> cacheMap, ProjectCache projectCache) {
     this.cacheMap = cacheMap;
+    this.projectCache = projectCache;
   }
 
   /**
@@ -45,6 +50,14 @@ public class ForwardedCacheEvictionHandler {
    * @throws CacheNotFoundException if cache does not exist
    */
   public void evict(CacheEntry entry) throws CacheNotFoundException {
+    // special case(s), evicted using Gerrit core API
+    if (Constants.PROJECTS.equals(entry.getCacheName())) {
+      projectCache.evict((Project.NameKey) entry.getKey());
+      log.atFine().log("Invalidated via ProjectCache.evict(%s)", entry.getKey());
+      return;
+    }
+
+    // generic cases
     Cache<?, ?> cache = cacheMap.get(entry.getPluginName(), entry.getCacheName());
     if (cache == null) {
       throw new CacheNotFoundException(entry.getPluginName(), entry.getCacheName());
