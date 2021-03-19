@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dbc2a3c_246db05e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-19T12:22:16Z",
+      "side": 1,
+      "message": "Cool, that looks better :-)\nShould this be ported back to stable-3.1?",
+      "revId": "3518aa97f9292fb25de72414c4662dcd1ce338ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bfb217_831cf037",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedCacheEvictionHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-19T12:22:16Z",
+      "side": 1,
+      "message": "Can be inlined at L82",
+      "range": {
+        "startLine": 80,
+        "startChar": 15,
+        "endLine": 80,
+        "endChar": 20
+      },
+      "revId": "3518aa97f9292fb25de72414c4662dcd1ce338ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
