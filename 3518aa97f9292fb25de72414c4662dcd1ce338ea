@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e7b8eed_246d8dee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedCacheEvictionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-19T12:36:02Z",
+      "side": 1,
+      "message": "After a second thought: this may NOT work when you are working on an NFS-mounted volume with write-through cache.\n\nThe evict() method does:\n\n  @Override\n  public void evict(Project.NameKey p) {\n    if (p !\u003d null) {\n      logger.atFine().log(\"Evict project \u0027%s\u0027\", p.get());\n      inMemoryProjectCache.invalidate(p.get());\n    }\n    indexer.get().index(p);\n  }\n\nThe call to the indexer is done *immediately* which is the wrong thing to do in this case, when the cache eviction is propagated synchronously from the primary node.\n\nThe NFS write-through cache may have some latency in propagating the data to the filesystem, which is typically longer than the latency in propagating the cache eviction event.\n\nKeeping the evictions and indexing separate would be best in this case.\n\nWe\u0027ll still get the reindexing events anyway, so we won\u0027t loose anything here.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "3518aa97f9292fb25de72414c4662dcd1ce338ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48bfb217_831cf037",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedCacheEvictionHandlerTest.java",
         "patchSetId": 2
