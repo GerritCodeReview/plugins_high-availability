@@ -23,7 +23,9 @@ import static org.mockito.Mockito.verify;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.cache.Cache;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.server.project.ProjectCache;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,12 +37,13 @@ import org.mockito.stubbing.Answer;
 public class ForwardedCacheEvictionHandlerTest {
 
   @Mock private DynamicMap<Cache<?, ?>> cacheMapMock;
+  @Mock private ProjectCache projectCacheMock;
   @Mock private Cache<?, ?> cacheMock;
   private ForwardedCacheEvictionHandler handler;
 
   @Before
   public void setUp() throws Exception {
-    handler = new ForwardedCacheEvictionHandler(cacheMapMock);
+    handler = new ForwardedCacheEvictionHandler(cacheMapMock, projectCacheMock);
   }
 
   @Test
@@ -69,6 +72,15 @@ public class ForwardedCacheEvictionHandlerTest {
 
     handler.evict(entry);
     verify(cacheMock).invalidateAll();
+  }
+
+  @Test
+  public void testSuccessfulProjectsCacheEviction() throws Exception {
+    Project.NameKey key = Project.nameKey("foo");
+    CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.PROJECTS, key);
+
+    handler.evict(entry);
+    verify(projectCacheMock).evict(key);
   }
 
   @Test
