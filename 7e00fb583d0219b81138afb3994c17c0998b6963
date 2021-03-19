@@ -16,6 +16,24 @@
       "message": "CR-1 because plugin has a 3.3 branch [1].\n\n[1] https://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/stable-3.3",
       "revId": "7e00fb583d0219b81138afb3994c17c0998b6963",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bedb457_08b185a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-03-19T14:12:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1399b7f_004e1062",
+      "revId": "7e00fb583d0219b81138afb3994c17c0998b6963",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
