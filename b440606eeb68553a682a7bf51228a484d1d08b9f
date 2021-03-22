@@ -217,6 +217,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b62faf4f_f6d46234",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-22T13:52:20Z",
+      "side": 1,
+      "message": "Change-Id: I94db246f6 (multi-site plugin)\n\nOnce the multi-site is merged, I can expand the concept to the other caches and apply to the high-availability plugin as well.",
+      "parentUuid": "b738c07a_d4771cce",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "b440606eeb68553a682a7bf51228a484d1d08b9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34511fe_ca0075e0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
         "patchSetId": 3
