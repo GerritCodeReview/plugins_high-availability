@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33f789a1_59365a25",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-03-22T12:55:59Z",
+      "side": 1,
+      "message": "OK, I see what you mean. Playing a bit with the Gson library I would say that this is probably not worth \"fixing\". A fix would be done in the \"default:\" case of the switch statement and would look like this:\n\n        try {\n          if (!json.isJsonObject()) {\n            return json.getAsString();\n          }\n          return gson.fromJson(json, String.class);\n        } catch (Exception e) {\n          return gson.fromJson(json, Object.class);\n        }\n\nHowever, when json is an object then both json.getAsString() and gson.fromJson(json, String.class) will fail (throw an exception) and the \ncatch block handles all exceptions the same way.\n\nOTOH, when json is a string then both of these calls will return the same (String) value.\n\nSo this code could also look like:\n\n        try {\n          return json.getAsString();\n        } catch (Exception e) {\n          return gson.fromJson(json, Object.class);\n        }\n\nand the behavior would be the same as in the proposed code in this change.\n\nAnyway, the proposed \"fix\" doesn\u0027t seem to solve any real issue and will only serve as a constant puzzle to anyone having to deal with that code in the future. I would prefer to keep the code as proposed in this PS.\n\nWDYT?",
+      "parentUuid": "877f73e3_f82d53b5",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "b440606eeb68553a682a7bf51228a484d1d08b9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34511fe_ca0075e0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
         "patchSetId": 3
