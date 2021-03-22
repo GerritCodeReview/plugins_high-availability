@@ -97,6 +97,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "877f73e3_f82d53b5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-22T01:04:17Z",
+      "side": 1,
+      "message": "Sure, but that is different from what was happening before.\nThe return of json.getAsString() was made unconditionally if json was not an object, regardless of the cacheName.\n\nP.S. Not sure if that is a problem or not though, it could be 100% negligible.",
+      "parentUuid": "2324ee55_25e15708",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "b440606eeb68553a682a7bf51228a484d1d08b9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e2ceb4f_214d1d48",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-22T01:04:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6935131_d3527983",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "b440606eeb68553a682a7bf51228a484d1d08b9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34511fe_ca0075e0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
         "patchSetId": 3
