@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "468d194d_aa65c052",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedCacheEvictionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-22T01:06:51Z",
+      "side": 1,
+      "message": "\u003e I agree on the argument of \"Keeping the evictions and indexing separate\". In that sense this change can be a base for discussing the need for reindexing after evicting (projects cache).\n\u003e \n\u003e I don\u0027t fully agree on the argument about the NFS cache. Propagating reindexing in a follow-up message will in the best case slightly improve the chance of seeing the update in the NFS but this is not guaranteed and this is not a safe way to deal with this issue (wait a little bit).\n\nAgreed.\n\n\u003e On the other side my tests show that when reindexing is done in the same call which evicts from the cache (using ProjectCache.evict) then the receiving node sees the changed project state. Propagating two independent events makes my tests to fail sporadically.\n\nThat is interesting and actually unexpected.\nI would have imagined that reindexing immediately would not make a lot of sense because you would have immediately reloaded the stale entry.\n\nCan you repeat the test with a substantial repository?\n\n\u003e My conclusion is that it all has to do with how fast (re)indexing happens after the cache eviction (on the receiving node). If the indexing happens fast enough then the tests will succeed. If a request reaches the receiving node before the reindexing is done then that test will fail. So this is a bit opposite of what you say about NFS caches.\n\nYes, exactly and is frankly unexpected: we should dig deeper and understand what\u0027s going on.\n\n\u003e Let\u0027s first clarify why does Gerrit core want to perform reindexing on each evict from the projects cache: I5b737803dae56331845c46719dc30de99ad6ff27\n\n+1",
+      "parentUuid": "1d564f77_03c4d107",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "3518aa97f9292fb25de72414c4662dcd1ce338ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48bfb217_831cf037",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedCacheEvictionHandlerTest.java",
         "patchSetId": 2
