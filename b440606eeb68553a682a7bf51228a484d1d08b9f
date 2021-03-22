@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80f6c363_4bce4bc7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-03-22T13:40:16Z",
+      "side": 1,
+      "message": "\u003e OK, I see what you mean. Playing a bit with the Gson library I would say that this is probably not worth \"fixing\". A fix would be done in the \"default:\" case of the switch statement and would look like this:\n\u003e \n\u003e         try {\n\u003e           if (!json.isJsonObject()) {\n\u003e             return json.getAsString();\n\u003e           }\n\u003e           return gson.fromJson(json, String.class);\n\u003e         } catch (Exception e) {\n\u003e           return gson.fromJson(json, Object.class);\n\u003e         }\n\u003e \n\u003e However, when json is an object then both json.getAsString() and gson.fromJson(json, String.class) will fail (throw an exception) and the \n\u003e catch block handles all exceptions the same way.\n\u003e \n\u003e OTOH, when json is a string then both of these calls will return the same (String) value.\n\u003e \n\u003e So this code could also look like:\n\u003e \n\u003e         try {\n\u003e           return json.getAsString();\n\u003e         } catch (Exception e) {\n\u003e           return gson.fromJson(json, Object.class);\n\u003e         }\n\u003e \n\u003e and the behavior would be the same as in the proposed code in this change.\n\u003e \n\u003e Anyway, the proposed \"fix\" doesn\u0027t seem to solve any real issue and will only serve as a constant puzzle to anyone having to deal with that code in the future. I would prefer to keep the code as proposed in this PS.\n\u003e \n\u003e WDYT?\n\nTrue, this code is messy anyway so it should be put to an order sooner or later. Would it be worth possibly to merge my Cache functional tests first and then adding more coverage to the other caches as well? So that we do know we\u0027re not breaking anything.",
+      "parentUuid": "33f789a1_59365a25",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "b440606eeb68553a682a7bf51228a484d1d08b9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34511fe_ca0075e0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
         "patchSetId": 3
