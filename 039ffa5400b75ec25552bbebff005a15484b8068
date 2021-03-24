@@ -22,6 +22,30 @@
       },
       "revId": "039ffa5400b75ec25552bbebff005a15484b8068",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c02e980_e1b1428a",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnableTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-03-24T13:17:22Z",
+      "side": 1,
+      "message": "Yes. On branch 3.3 there are some differences in GroupReference. This object was mocked but I run tests and I end up with endless java.lang.StackOverflowError. I try to fix it without success. There is no need to mock this object because we don\u0027t check object state during testes.",
+      "parentUuid": "fd226b3a_7a4a615a",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 56
+      },
+      "revId": "039ffa5400b75ec25552bbebff005a15484b8068",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
