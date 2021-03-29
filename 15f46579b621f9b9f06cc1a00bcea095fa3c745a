@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77ea45d2_f4acb6e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-03-29T12:01:52Z",
+      "side": 1,
+      "message": "@Luca can You approve? or Should I add/change something ",
+      "revId": "15f46579b621f9b9f06cc1a00bcea095fa3c745a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
