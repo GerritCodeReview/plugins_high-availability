@@ -19,14 +19,15 @@ import static com.google.common.truth.Truth.assertThat;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
 import org.junit.Test;
 
-public class GsonParserTest {
+public class CacheKeyJsonParserTest {
   private static final Object EMPTY_JSON = "{}";
   private final Gson gson = new EventGsonProvider().get();
-  private final GsonParser objectUnderTest = new GsonParser(gson);
+  private final CacheKeyJsonParser objectUnderTest = new CacheKeyJsonParser(gson);
 
   @Test
   public void accountIDParse() {
@@ -51,10 +52,17 @@ public class GsonParserTest {
   }
 
   @Test
+  public void projectNameKeyParse() {
+    Project.NameKey name = Project.nameKey("foo");
+    String json = gson.toJson(name);
+    assertThat(name).isEqualTo(objectUnderTest.fromJson(Constants.PROJECTS, json));
+  }
+
+  @Test
   public void stringParse() {
     String key = "key";
     String json = gson.toJson(key);
-    assertThat(key).isEqualTo(objectUnderTest.fromJson(Constants.PROJECTS, json));
+    assertThat(key).isEqualTo(objectUnderTest.fromJson("string-keyed-cache", json));
   }
 
   @Test
