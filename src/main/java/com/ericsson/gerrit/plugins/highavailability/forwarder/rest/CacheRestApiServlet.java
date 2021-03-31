@@ -34,13 +34,14 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
 
   private final ForwardedCacheEvictionHandler forwardedCacheEvictionHandler;
-  private final GsonParser gson;
+  private final CacheKeyJsonParser cacheKeyParser;
 
   @Inject
   CacheRestApiServlet(
-      ForwardedCacheEvictionHandler forwardedCacheEvictionHandler, GsonParser gson) {
+      ForwardedCacheEvictionHandler forwardedCacheEvictionHandler,
+      CacheKeyJsonParser cacheKeyParser) {
     this.forwardedCacheEvictionHandler = forwardedCacheEvictionHandler;
-    this.gson = gson;
+    this.cacheKeyParser = cacheKeyParser;
   }
 
   @Override
@@ -51,7 +52,7 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
       String cacheName = params.get(CACHENAME_INDEX);
       String json = req.getReader().readLine();
       forwardedCacheEvictionHandler.evict(
-          CacheEntry.from(cacheName, gson.fromJson(cacheName, json)));
+          CacheEntry.from(cacheName, cacheKeyParser.fromJson(cacheName, json)));
       rsp.setStatus(SC_NO_CONTENT);
     } catch (CacheNotFoundException e) {
       log.atSevere().log("Failed to process eviction request: %s", e.getMessage());
