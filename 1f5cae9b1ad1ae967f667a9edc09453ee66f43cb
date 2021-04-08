@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "59117915_36ddb9c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-08T15:49:07Z",
+      "side": 1,
+      "message": "Yeah, kind of share the same code pattern or even more between similar plugins. It\u0027s mid term task, though. +1 to track this in issue tracker.",
+      "parentUuid": "1b38549e_0b9fe80d",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "1f5cae9b1ad1ae967f667a9edc09453ee66f43cb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "acc85549_d7e5a935",
