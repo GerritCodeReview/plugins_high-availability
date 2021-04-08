@@ -135,6 +135,24 @@
       "message": "@Przemek, would you be able to review? @Khang, feel free as well. Thanks everyone.",
       "revId": "1f5cae9b1ad1ae967f667a9edc09453ee66f43cb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2be3bf2_1b22777c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-04-08T20:02:13Z",
+      "side": 1,
+      "message": "@Marco Yes I am already reviewing. Retry mechanism look almost identical than already used in ForwardIndexChangeHandler. For now change is blocked by @Luca, I will get back to the review after unblock.",
+      "parentUuid": "acc85549_d7e5a935",
+      "revId": "1f5cae9b1ad1ae967f667a9edc09453ee66f43cb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
