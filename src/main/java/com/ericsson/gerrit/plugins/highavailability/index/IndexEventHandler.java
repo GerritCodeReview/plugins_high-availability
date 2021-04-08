@@ -20,6 +20,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Objects;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
@@ -45,6 +46,7 @@ class IndexEventHandler
   private final String pluginName;
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
   private final ChangeCheckerImpl.Factory changeChecker;
+  private final GroupChecker groupChecker;
   private final CurrentRequestContext currCtx;
   private final IndexEventLocks locks;
 
@@ -58,6 +60,7 @@ class IndexEventHandler
       @PluginName String pluginName,
       Forwarder forwarder,
       ChangeCheckerImpl.Factory changeChecker,
+      GroupChecker groupChecker,
       CurrentRequestContext currCtx,
       Configuration cfg,
       IndexEventLocks locks) {
@@ -66,6 +69,7 @@ class IndexEventHandler
     this.batchExecutor = batchExecutor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
+    this.groupChecker = groupChecker;
     this.currCtx = currCtx;
     this.locks = locks;
     this.retryInterval = cfg.http().retryInterval();
@@ -352,6 +356,7 @@ class IndexEventHandler
 
     @Override
     public CompletableFuture<Boolean> execute() {
+      indexEvent.targetSha = groupChecker.getGroupHead(AccountGroup.uuid(groupUUID)).getName();
       return forwarder.indexGroup(groupUUID, indexEvent);
     }
 

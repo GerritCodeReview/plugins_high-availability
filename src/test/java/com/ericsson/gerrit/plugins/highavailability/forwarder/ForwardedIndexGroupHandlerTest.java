@@ -16,14 +16,21 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.index.TestGroupChecker;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,13 +42,21 @@ import org.mockito.stubbing.Answer;
 public class ForwardedIndexGroupHandlerTest {
 
   @Mock private GroupIndexer indexerMock;
+  @Mock private ScheduledExecutorService indexExecutorMock;
+  @Mock private Configuration config;
+  @Mock private Configuration.Index index;
   private ForwardedIndexGroupHandler handler;
   private AccountGroup.UUID uuid;
+  private static final int RETRY_INTERVAL = 1000;
+  private static final int MAX_TRIES = 2;
 
   @Before
   public void setUp() throws Exception {
-    handler = new ForwardedIndexGroupHandler(indexerMock);
+    when(config.index()).thenReturn(index);
     uuid = AccountGroup.uuid("123");
+    when(index.retryInterval()).thenReturn(RETRY_INTERVAL);
+    when(index.maxTries()).thenReturn(MAX_TRIES);
+    handler = groupHandler(true);
   }
 
   @Test
@@ -98,5 +113,29 @@ public class ForwardedIndexGroupHandlerTest {
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(uuid);
+  }
+
+  @Test
+  public void shouldChangeIndexEventWheNotUpToDate() throws IOException {
+    ForwardedIndexGroupHandler groupHandlerWithOutdatedEvent = groupHandler(false);
+    groupHandlerWithOutdatedEvent.index(uuid, Operation.INDEX, groupIndexEvent());
+    verify(indexerMock).index(uuid);
+  }
+
+  @Test
+  public void shouldRescheduleGroupIndexingWhenItIsNotUpToDate() throws IOException {
+    ForwardedIndexGroupHandler groupHandlerWithOutdatedEvent = groupHandler(false);
+    groupHandlerWithOutdatedEvent.index(uuid, Operation.INDEX, groupIndexEvent());
+    verify(indexExecutorMock)
+        .schedule(any(Runnable.class), eq(new Long(RETRY_INTERVAL)), eq(TimeUnit.MILLISECONDS));
+  }
+
+  private ForwardedIndexGroupHandler groupHandler(boolean checkIsUpToDate) {
+    return new ForwardedIndexGroupHandler(
+        indexerMock, new TestGroupChecker(checkIsUpToDate), config, indexExecutorMock);
+  }
+
+  private Optional<IndexEvent> groupIndexEvent() {
+    return Optional.of(new IndexEvent());
   }
 }

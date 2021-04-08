@@ -84,6 +84,7 @@ public class IndexEventHandlerTest {
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
+  private GroupChecker groupChecker = new TestGroupChecker(true);
   private ScheduledExecutorService executor = new CurrentThreadScheduledExecutorService();
   private ScheduledExecutorService batchExecutor = new CurrentThreadScheduledExecutorService();
   private ScheduledExecutorService testExecutor =
@@ -147,6 +148,7 @@ public class IndexEventHandlerTest {
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
+            groupChecker,
             currCtx,
             configuration,
             idLocks);
@@ -397,6 +399,7 @@ public class IndexEventHandlerTest {
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
+            groupChecker,
             currCtx,
             configuration,
             idLocks);
@@ -417,6 +420,7 @@ public class IndexEventHandlerTest {
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
+            groupChecker,
             currCtx,
             configuration,
             idLocks);
@@ -436,6 +440,7 @@ public class IndexEventHandlerTest {
             PLUGIN_NAME,
             forwarder,
             changeCheckerFactoryMock,
+            groupChecker,
             currCtx,
             configuration,
             idLocks);
