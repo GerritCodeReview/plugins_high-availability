@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b38549e_0b9fe80d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-08T15:47:06Z",
+      "side": 1,
+      "message": "It\u0027s a good idea, even though it requires a non-trivial effort.\nAlso the code is not seamlessly shareable between multi-site and high-availability so some adaptation will need to be done first.\n\nI understand it is on the radar to allow plugins to be dependent on each other? perhaps this is also another approach we could consider.\n\nShall I create a monorail to capture this need?",
+      "parentUuid": "7ba1f5b7_c60d0ae0",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "1f5cae9b1ad1ae967f667a9edc09453ee66f43cb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "acc85549_d7e5a935",
