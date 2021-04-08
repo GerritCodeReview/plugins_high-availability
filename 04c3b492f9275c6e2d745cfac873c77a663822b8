@@ -16,6 +16,24 @@
       "message": "Blocking this issue until we clarify how it was detected and reproduced: I read the associated issue and it does not make sense to me.",
       "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dacdc6c3_d9aba247",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-08T19:30:16Z",
+      "side": 1,
+      "message": "It\u0027s a very good point @luca.\nAs explained in the issue ticket, I have replicated this using replication plugin which is not the right setup for high-availability, which relies on a shared fs.\n\nHaving said that, IF there was any delay in GIT data being propagated/visible by the receiving end, the issue could, at least in theory, still be noticeable.\n\nI am going to try to replicate this over a proper HA setup with shared FS and provide a feedback here.",
+      "parentUuid": "0aa9eefd_0484ced2",
+      "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
