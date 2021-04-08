@@ -34,6 +34,24 @@
       "parentUuid": "0aa9eefd_0484ced2",
       "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c59a3e9b_79dfecae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-04-08T20:13:20Z",
+      "side": 1,
+      "message": "@Tony Regarding reproducion running reindexing on master \nssh -p 29418 admin@localhost gerrit index start changes --force\nand making changes in same time was usefull to test retrys on Changes.\nMaybe running reindexing and making changes in groups will work the same in case of big repo.",
+      "parentUuid": "dacdc6c3_d9aba247",
+      "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
