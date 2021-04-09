@@ -241,6 +241,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0aa85cca_5ad4d1a4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2021-04-09T08:20:44Z",
+      "side": 1,
+      "message": "@Luca: the change in the multi-site plugin which you referred to in your comment is merged now. Can we proceed with merging this change?",
+      "parentUuid": "b62faf4f_f6d46234",
+      "range": {
+        "startLine": 41,
+        "startChar": 60,
+        "endLine": 41,
+        "endChar": 77
+      },
+      "revId": "b440606eeb68553a682a7bf51228a484d1d08b9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34511fe_ca0075e0",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
         "patchSetId": 3
