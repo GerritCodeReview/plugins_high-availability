@@ -52,6 +52,24 @@
       "parentUuid": "dacdc6c3_d9aba247",
       "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d52d1ed0_45e46268",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-04-10T14:43:51Z",
+      "side": 1,
+      "message": "\u003e @Tony Regarding reproducion running reindexing on master \n\u003e ssh -p 29418 admin@localhost gerrit index start changes --force\n\u003e and making changes in same time was usefull to test retrys on Changes.\n\u003e Maybe running reindexing and making changes in groups will work the same in case of big repo.\n\nHow the repository size would impact on Groups?\n\nHowever, running that test is a good idea, @Tony can you run that test on the groups index on an AWS-based HA setup?",
+      "parentUuid": "c59a3e9b_79dfecae",
+      "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
