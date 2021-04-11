@@ -70,6 +70,24 @@
       "parentUuid": "c59a3e9b_79dfecae",
       "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d440958d_6ded1a61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-11T10:30:24Z",
+      "side": 1,
+      "message": "I have run extensive tests on an AWS-based HA setup, using EFS.\nI can confirm that:\n- Group creation\n- Group update\n- Memberships additions\n- Memberships deletes\n\nWork without any problem.\n\nI am going to abandon this change, as not reproducible.\n\nThanks all for your time and sorry for the noise 😊",
+      "parentUuid": "d52d1ed0_45e46268",
+      "revId": "04c3b492f9275c6e2d745cfac873c77a663822b8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
