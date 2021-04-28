@@ -109,7 +109,7 @@ public class GroupReindexRunnable extends ReindexRunnable<GroupReference> {
                 .max(Comparator.naturalOrder());
 
         if (groupLastTs.isPresent() && groupLastTs.get().after(sinceTs)) {
-          log.atInfo().log("Index {}/{}/{}", g.getUUID(), g.getName(), groupLastTs.get());
+          log.atInfo().log("Index %s/%s/%s", g.getUUID(), g.getName(), groupLastTs.get());
           indexer.index(g.getUUID(), Operation.INDEX, Optional.empty());
           return groupLastTs;
         }
