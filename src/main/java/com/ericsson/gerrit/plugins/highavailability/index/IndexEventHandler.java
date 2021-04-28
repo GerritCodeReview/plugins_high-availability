@@ -116,7 +116,7 @@ class IndexEventHandler
                   }
                 });
       } catch (Exception e) {
-        log.atWarning().withCause(e).log("Unable to create task to reindex change {}", changeId);
+        log.atWarning().withCause(e).log("Unable to create task to reindex change %s", changeId);
       }
     }
   }
