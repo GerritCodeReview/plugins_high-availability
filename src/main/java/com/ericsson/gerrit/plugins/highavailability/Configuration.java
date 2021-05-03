@@ -119,7 +119,7 @@ public class Configuration {
         new FileBasedConfig(sitePaths.etc_dir.resolve(configFileName).toFile(), FS.DETECTED);
     String fileConfigFileName = cfg.getFile().getPath();
     try {
-      log.atInfo().log("Loading configuration from {}", fileConfigFileName);
+      log.atInfo().log("Loading configuration from %s", fileConfigFileName);
       cfg.load();
     } catch (IOException | ConfigInvalidException e) {
       log.atSevere().withCause(e).log("Unable to load configuration from " + fileConfigFileName);
