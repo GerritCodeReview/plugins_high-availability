@@ -16,6 +16,24 @@
       "message": "Can this be unit-tested somehow?",
       "revId": "99d83f323c766e91878a9bea64970fc2aba2af65",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca7f6927_b38a9f9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-05-03T05:52:52Z",
+      "side": 1,
+      "message": "It seems that there is no way to test this temporary git repository inconsistency.",
+      "parentUuid": "3c2a5d2e_ce97c823",
+      "revId": "99d83f323c766e91878a9bea64970fc2aba2af65",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
