@@ -26,6 +26,7 @@ import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,9 +100,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
   protected Optional<IndexEvent> parseBody(HttpServletRequest req) throws IOException {
     String contentType = req.getContentType();
     if (contentType != null && contentType.contains("application/json")) {
-      return Optional.ofNullable(
-          gson.fromJson(
-              new InputStreamReader(req.getInputStream(), Charsets.UTF_8), IndexEvent.class));
+      try (Reader reader = new InputStreamReader(req.getInputStream(), Charsets.UTF_8)) {
+        return Optional.ofNullable(gson.fromJson(reader, IndexEvent.class));
+      }
     }
     return Optional.empty();
   }

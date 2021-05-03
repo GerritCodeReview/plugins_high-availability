@@ -83,6 +83,7 @@ class RestForwarder implements Forwarder {
         event);
   }
 
+  @Override
   public CompletableFuture<Boolean> batchIndexChange(
       String projectName, int changeId, IndexEvent event) {
     return execute(

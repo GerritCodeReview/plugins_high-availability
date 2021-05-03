@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.entities.Change;
+import com.google.gerrit.exceptions.StorageException;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -74,7 +75,13 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       throws IOException {
     try {
       ChangeChecker checker = changeCheckerFactory.create(id);
-      Optional<ChangeNotes> changeNotes = checker.getChangeNotes();
+      Optional<ChangeNotes> changeNotes;
+      try {
+        changeNotes = checker.getChangeNotes();
+      } catch (StorageException e) {
+        log.atWarning().withCause(e).log("Change %s: cannot load change notes", id);
+        changeNotes = Optional.empty();
+      }
       if (changeNotes.isPresent()) {
         ChangeNotes notes = changeNotes.get();
         reindex(notes);
