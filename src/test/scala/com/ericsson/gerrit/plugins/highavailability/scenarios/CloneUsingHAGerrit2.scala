@@ -12,17 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.scenarios
+package plugins.high-availability.src.test.scala.com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.GitSimulation
-import io.gatling.core.Predef.{atOnceUsers, _}
-import io.gatling.core.feeder.FeederBuilder
-import io.gatling.core.structure.ScenarioBuilder
-
-import scala.concurrent.duration._
 
 class CloneUsingHAGerrit2 extends GitSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
   private var projectName = className
 
   def this(projectName: String) {
@@ -31,7 +27,7 @@ class CloneUsingHAGerrit2 extends GitSimulation {
   }
 
   override def replaceOverride(in: String): String = {
-    val next = replaceProperty("http_port2", 8082, in)
+    val next = replaceProperty("http_port2", default.http_port2, in)
     replaceKeyWith("_project", projectName, next)
   }
 

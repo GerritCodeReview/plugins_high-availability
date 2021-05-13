@@ -12,22 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.scenarios
+package plugins.high-availability.src.test.scala.com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.GerritSimulation
-import io.gatling.core.Predef.{atOnceUsers, _}
-import io.gatling.core.feeder.FeederBuilder
-import io.gatling.core.structure.ScenarioBuilder
-import io.gatling.http.Predef.http
 
 class DeleteChangeUsingHAGerrit2 extends GerritSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
   var number: Option[Int] = None
 
   override def relativeRuntimeWeight = 10
 
   override def replaceOverride(in: String): String = {
-    replaceProperty("http_port2", 8082, in)
+    replaceProperty("http_port2", default.http_port2, in)
   }
 
   val test: ScenarioBuilder = scenario(uniqueName)

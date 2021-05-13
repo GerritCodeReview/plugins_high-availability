@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.scenarios
+package plugins.high-availability.src.test.scala.com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.ProjectSimulation
-import io.gatling.core.Predef._
-import io.gatling.core.feeder.FeederBuilder
-import io.gatling.core.structure.ScenarioBuilder
 
 class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue

@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.scenarios
+package plugins.high-availability.src.test.scala.com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.GitSimulation
-import io.gatling.core.Predef.{atOnceUsers, _}
-
-import scala.concurrent.duration._
 
 class CreateProjectUsingHAGerritTwice extends GitSimulation {
   private val projectName = className

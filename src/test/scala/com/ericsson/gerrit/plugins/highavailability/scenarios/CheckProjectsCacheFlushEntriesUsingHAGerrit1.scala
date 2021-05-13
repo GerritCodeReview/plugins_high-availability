@@ -12,19 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.scenarios
+package plugins.high-availability.src.test.scala.com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.CacheFlushSimulation
-import io.gatling.core.Predef.{atOnceUsers, _}
-import io.gatling.core.feeder.FeederBuilder
-import io.gatling.core.structure.ScenarioBuilder
-import io.gatling.http.Predef._
 
 class CheckProjectsCacheFlushEntriesUsingHAGerrit1 extends CacheFlushSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
 
   override def replaceOverride(in: String): String = {
-    replaceProperty("http_port1", 8081, in)
+    replaceProperty("http_port1", default.http_port1, in)
   }
 
   def this(producer: CacheFlushSimulation) {

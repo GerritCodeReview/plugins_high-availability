@@ -12,23 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.scenarios
+package plugins.high-availability.src.test.scala.com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.CacheFlushSimulation
-import io.gatling.core.Predef._
-import io.gatling.core.feeder.FeederBuilder
-import io.gatling.core.structure.ScenarioBuilder
-
-import scala.concurrent.duration._
 
 class FlushProjectsCacheUsingHAGerrit2 extends CacheFlushSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
   private val projectName = className
 
   override def relativeRuntimeWeight = 2
 
   override def replaceOverride(in: String): String = {
-    replaceProperty("http_port2", 8082, in)
+    replaceProperty("http_port2", default.http_port2, in)
   }
 
   private val flushCache: ScenarioBuilder = scenario(uniqueName)
