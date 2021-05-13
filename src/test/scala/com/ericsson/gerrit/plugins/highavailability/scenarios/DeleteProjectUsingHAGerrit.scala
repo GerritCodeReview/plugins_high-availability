@@ -21,10 +21,16 @@ import io.gatling.core.structure.ScenarioBuilder
 
 class DeleteProjectUsingHAGerrit extends ProjectSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
 
   def this(projectName: String) {
     this()
     this.projectName = projectName
+  }
+
+  override def replaceOverride(in: String): String = {
+    val next = replaceProperty("cluster_port", default.cluster_http_port, in)
+    super.replaceOverride(next)
   }
 
   val test: ScenarioBuilder = scenario(uniqueName)

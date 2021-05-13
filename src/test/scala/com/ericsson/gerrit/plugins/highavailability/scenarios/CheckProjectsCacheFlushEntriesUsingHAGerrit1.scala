@@ -22,9 +22,10 @@ import io.gatling.http.Predef._
 
 class CheckProjectsCacheFlushEntriesUsingHAGerrit1 extends CacheFlushSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
 
   override def replaceOverride(in: String): String = {
-    replaceProperty("http_port1", 8081, in)
+    replaceProperty("http_port1", default.http_port1, in)
   }
 
   def this(producer: CacheFlushSimulation) {
@@ -42,7 +43,7 @@ class CheckProjectsCacheFlushEntriesUsingHAGerrit1 extends CacheFlushSimulation 
       }
     })
     .exec(http(uniqueName).get("${url}")
-      .check(regex("\"" + memKey + "\": (\\d+)")
+      .check(regex("\"" + memKey + "\":(\\d+)")
         .is(session => session(entriesKey).as[String])))
 
   setUp(
