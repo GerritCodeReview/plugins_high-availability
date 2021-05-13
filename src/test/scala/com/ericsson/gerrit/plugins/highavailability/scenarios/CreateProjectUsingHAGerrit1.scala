@@ -15,7 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.scenarios
 
 import com.google.gerrit.scenarios.ProjectSimulation
-import io.gatling.core.Predef._
+import io.gatling.core.Predef.{atOnceUsers, _}
 import io.gatling.core.feeder.FeederBuilder
 import io.gatling.core.structure.ScenarioBuilder
 
