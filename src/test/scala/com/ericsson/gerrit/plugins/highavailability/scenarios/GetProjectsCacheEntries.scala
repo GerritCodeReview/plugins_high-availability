@@ -28,6 +28,11 @@ class GetProjectsCacheEntries extends CacheFlushSimulation {
     this.consumer = Some(consumer)
   }
 
+  override def replaceOverride(in: String): String = {
+    val next = replaceProperty("http_port", 80, in)
+    super.replaceOverride(next)
+  }
+
   val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(http(uniqueName).get("${url}")
