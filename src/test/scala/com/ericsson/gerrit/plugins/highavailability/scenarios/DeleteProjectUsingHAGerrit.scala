@@ -27,6 +27,11 @@ class DeleteProjectUsingHAGerrit extends ProjectSimulation {
     this.projectName = projectName
   }
 
+  override def replaceOverride(in: String): String = {
+    val next = replaceProperty("cluster_port", 80, in)
+    super.replaceOverride(next)
+  }
+
   val test: ScenarioBuilder = scenario(uniqueName)
     .feed(data)
     .exec(httpRequest)
