@@ -81,6 +81,19 @@ File '@PLUGIN@.config'
     Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, polling of conditional reindexing is disabled.
 
+```autoReindex.interval```
+:   Enable the tracking of the latest change indexed under data/high-availability
+    for each of the indexes. At startup scans all the changes, accounts and groups
+    and reindex the ones that have been updated by other nodes while the server was down.
+    When not specified, the default is "false", that means no automatic tracking
+    and indexing at start.
+
+```autoReindex.projectsReindex```
+:   When autoReindex is enabled, projectsReindex enables auto reindexing for all
+    projects after startup. High-availability plugin cannot determine which
+    project has been changed while a node was down. When not specified, the
+    default is false.
+
 ```peerInfo.strategy```
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
     Defaults to `jgroups`.
