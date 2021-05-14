@@ -82,6 +82,11 @@ File '@PLUGIN@.config'
     When not specified, the default is "false", that means no automatic tracking
     and indexing at start.
 
+```autoReindex.projectsReindex```
+:   When autoReindex is enabled, projectsReindex enables autoreindexing for all projects
+    after startup. HA plugin cannot determine which project was change while
+    node was down. Default value is false.
+
 ```peerInfo.strategy```
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
     Defaults to `jgroups`.
