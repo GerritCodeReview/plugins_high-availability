@@ -14,23 +14,38 @@
 
 package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.AbstractIndexRestApiServlet;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Optional;
 
 public class ProjectReindexRunnable extends ReindexRunnable<Project.NameKey> {
 
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
+
   private final ProjectCache projectCache;
+  private final boolean isAutoReindexEnabled;
+  private final ForwardedIndexProjectHandler indexer;
 
   @Inject
   public ProjectReindexRunnable(
-      IndexTs indexTs, OneOffRequestContext ctx, ProjectCache projectCache) {
+      ForwardedIndexProjectHandler indexer,
+      IndexTs indexTs,
+      OneOffRequestContext ctx,
+      ProjectCache projectCache,
+      Configuration cfg) {
     super(AbstractIndexRestApiServlet.IndexName.PROJECT, indexTs, ctx);
+    this.isAutoReindexEnabled = cfg.autoReindex().autoProjectsReindex();
     this.projectCache = projectCache;
+    this.indexer = indexer;
   }
 
   @Override
@@ -39,7 +54,15 @@ public class ProjectReindexRunnable extends ReindexRunnable<Project.NameKey> {
   }
 
   @Override
-  protected Optional<Timestamp> indexIfNeeded(Project.NameKey g, Timestamp sinceTs) {
+  protected Optional<Timestamp> indexIfNeeded(Project.NameKey projectName, Timestamp sinceTs) {
+    if (isAutoReindexEnabled) {
+      try {
+        indexer.index(projectName, Operation.INDEX, Optional.empty());
+      } catch (IOException e) {
+        log.atSevere().withCause(e).log("Reindex failed");
+      }
+      return Optional.of(sinceTs);
+    }
     return Optional.empty();
   }
 }
