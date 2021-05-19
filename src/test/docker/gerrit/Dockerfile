@@ -1,8 +1,8 @@
-FROM gerritcodereview/gerrit:3.1.12
+FROM gerritcodereview/gerrit:3.1.15
 
 ENV GERRIT_BRANCH=stable-3.1
 
-ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
+ENV GERRIT_CI_URL=https://archive-ci.gerritforge.com/view/Plugins-stable-3.1/job
 
 USER root
 
