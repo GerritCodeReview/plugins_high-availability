@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b21997d_d4e27085",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-19T19:37:14Z",
+      "side": 1,
+      "message": "Verified using [1] https://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/stable-3.1/src/test/docker/",
+      "revId": "14112f4ae264a32b7fd053e0c522c0a31b7e262a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
