@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa151bb8_a5063d69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-19T17:39:06Z",
+      "side": 1,
+      "message": "as done",
+      "range": {
+        "startLine": 10,
+        "startChar": 19,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "c0b373c4a07ca0056290b655fa63d55faf96141e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "42bc17e8_7c2819bf",
         "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/CheckProjectsCacheFlushEntriesUsingHAGerrit1.scala",
         "patchSetId": 3
