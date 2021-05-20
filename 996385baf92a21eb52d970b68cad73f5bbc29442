@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b63c2c_9956e6a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-20T20:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c37cc9d5_8423d8f2",
+      "range": {
+        "startLine": 12,
+        "startChar": 29,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "996385baf92a21eb52d970b68cad73f5bbc29442",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd50a88f_baad0016",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-19T17:34:12Z",
       "side": 1,
       "message": "change helps to",
+      "range": {
+        "startLine": 12,
+        "startChar": 57,
+        "endLine": 13,
+        "endChar": 8
+      },
+      "revId": "996385baf92a21eb52d970b68cad73f5bbc29442",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b9a9dff_b821c8a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-20T20:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd50a88f_baad0016",
       "range": {
         "startLine": 12,
         "startChar": 57,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8534e894_fff0094c",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-20T20:18:20Z",
+      "side": 1,
+      "message": "I wanted to use port 80 because that is the default port as it being currently used prior to this change. But I think we can remove it as you suggested and add a note that default port is 8080 now.",
+      "parentUuid": "c6a4d416_7ba7ae30",
+      "range": {
+        "startLine": 31,
+        "startChar": 15,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "996385baf92a21eb52d970b68cad73f5bbc29442",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3036191e_98be3361",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-05-19T17:34:12Z",
       "side": 1,
       "message": "Undefined in this specific class hierarchy case. But again, this added method overall is likely redundant compared to GerritSimulation\u0027s core http_port handling anyway.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "996385baf92a21eb52d970b68cad73f5bbc29442",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a989dc28_d422adc2",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-20T20:18:20Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "3036191e_98be3361",
       "range": {
         "startLine": 33,
         "startChar": 4,
