@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "133e81f3_49dd6cb4",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-21T14:45:15Z",
+      "side": 1,
+      "message": "So this is a \"breaking\" or non-backward compatible change it seems. This needs to be explained in the commit message I think for further review. And/or you could consider amending something in core or here in plugin; this change and maybe more. There is also the e2e-tests core documentation page to potentially amend. Up to you then, based on your original need with this change.",
+      "parentUuid": "29a2585d_d8e9694a",
+      "range": {
+        "startLine": 3,
+        "startChar": 34,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "995ffc5f96f083f08f66c19bf085129eba3c7c30",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d142e7bd_a9519d3a",
         "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.json",
         "patchSetId": 4
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "depends on the answer above",
       "parentUuid": "d142e7bd_a9519d3a",
+      "range": {
+        "startLine": 3,
+        "startChar": 34,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "995ffc5f96f083f08f66c19bf085129eba3c7c30",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e97720_4ea2e823",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-21T14:45:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cfca3d30_c47dd188",
       "range": {
         "startLine": 3,
         "startChar": 34,
