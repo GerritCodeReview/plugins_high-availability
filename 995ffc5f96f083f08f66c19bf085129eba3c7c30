@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de1a7539_1ae3625c",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-21T19:02:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "133e81f3_49dd6cb4",
+      "range": {
+        "startLine": 3,
+        "startChar": 34,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "995ffc5f96f083f08f66c19bf085129eba3c7c30",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d142e7bd_a9519d3a",
