@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43dfbacc_4cdaefd7",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-21T13:39:43Z",
+      "side": 1,
+      "message": "Does this still work if running the Gerrit HA instances cluster behind port 80 (rather than this default\u0027s 8080)? I mean, without setting http_port to 80 explicitly through JAVA_OPTS?",
+      "range": {
+        "startLine": 3,
+        "startChar": 34,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "995ffc5f96f083f08f66c19bf085129eba3c7c30",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d142e7bd_a9519d3a",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-21T13:39:43Z",
+      "side": 1,
+      "message": "(Same question.)",
+      "range": {
+        "startLine": 3,
+        "startChar": 34,
+        "endLine": 3,
+        "endChar": 44
+      },
+      "revId": "995ffc5f96f083f08f66c19bf085129eba3c7c30",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
