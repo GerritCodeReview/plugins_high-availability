@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16399910_94a6d9c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "property\n\n-Based on [1]\u0027s terminology below.\n\n[1] https://gerrit-review.googlesource.com/Documentation/dev-e2e-tests.html#_environment_properties",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c559e526_f8c3112f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "backward",
+      "range": {
+        "startLine": 9,
+        "startChar": 46,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35daaa97_64643511",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "Typo.",
+      "range": {
+        "startLine": 12,
+        "startChar": 53,
+        "endLine": 12,
+        "endChar": 64
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746f8fe5_f7d32729",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "More realistic example?\n\nShould also document this new property in plugin.",
+      "range": {
+        "startLine": 15,
+        "startChar": 70,
+        "endLine": 15,
+        "endChar": 71
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a88b6c2d_1771564e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "Some fairly minor comments; thanks.",
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657c870f_5f854241",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "I think this change should also document how this new property fits with the existing sibling properties serving as customizable http port(s).",
+      "range": {
+        "startLine": 3,
+        "startChar": 35,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc0e4d42_14bde8fb",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-26T19:00:45Z",
+      "side": 1,
+      "message": "Duplicated default value? Since already set in sibling DeleteProjectUsingHAGerrit.",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
