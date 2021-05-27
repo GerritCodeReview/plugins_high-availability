@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "451b1203_c8f07f59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T18:01:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16399910_94a6d9c4",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c559e526_f8c3112f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-26T19:00:45Z",
       "side": 1,
       "message": "backward",
+      "range": {
+        "startLine": 9,
+        "startChar": 46,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "488386f1_1509e0fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T18:01:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c559e526_f8c3112f",
       "range": {
         "startLine": 9,
         "startChar": 46,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c47948d4_af900a23",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T18:01:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35daaa97_64643511",
+      "range": {
+        "startLine": 12,
+        "startChar": 53,
+        "endLine": 12,
+        "endChar": 64
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "746f8fe5_f7d32729",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-05-26T19:00:45Z",
       "side": 1,
       "message": "More realistic example?\n\nShould also document this new property in plugin.",
+      "range": {
+        "startLine": 15,
+        "startChar": 70,
+        "endLine": 15,
+        "endChar": 71
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9982317_66a0c2b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T18:01:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "746f8fe5_f7d32729",
       "range": {
         "startLine": 15,
         "startChar": 70,
@@ -135,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c46d96af_3f04ae1d",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T18:01:36Z",
+      "side": 1,
+      "message": "I plan to do so in the follow-up which gives step-by-step instruction on how to use gatling testing",
+      "parentUuid": "657c870f_5f854241",
+      "range": {
+        "startLine": 3,
+        "startChar": 35,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc0e4d42_14bde8fb",
         "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
         "patchSetId": 6
@@ -146,6 +266,30 @@
       "writtenOn": "2021-05-26T19:00:45Z",
       "side": 1,
       "message": "Duplicated default value? Since already set in sibling DeleteProjectUsingHAGerrit.",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "624b33c3_65f72be1",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T18:01:36Z",
+      "side": 1,
+      "message": "They are not siblings, they have different parents. Introducing a constant might be difficult",
+      "parentUuid": "bc0e4d42_14bde8fb",
       "range": {
         "startLine": 32,
         "startChar": 36,
