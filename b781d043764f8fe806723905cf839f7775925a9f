@@ -253,6 +253,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c37ff43f_397fbcc5",
+        "filename": "src/test/resources/com/ericsson/gerrit/plugins/highavailability/scenarios/DeleteProjectUsingHAGerrit.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-27T19:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c46d96af_3f04ae1d",
+      "range": {
+        "startLine": 3,
+        "startChar": 35,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc0e4d42_14bde8fb",
@@ -290,6 +314,30 @@
       "side": 1,
       "message": "They are not siblings, they have different parents. Introducing a constant might be difficult",
       "parentUuid": "bc0e4d42_14bde8fb",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6deab0e0_27e6c4e7",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-27T19:13:00Z",
+      "side": 1,
+      "message": "I would still try (to remove this duplication); there should be a clean way, as usual with these.",
+      "parentUuid": "624b33c3_65f72be1",
       "range": {
         "startLine": 32,
         "startChar": 36,
