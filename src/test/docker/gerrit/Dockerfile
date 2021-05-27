@@ -2,7 +2,7 @@ FROM gerritcodereview/gerrit:3.2.10
 
 ENV GERRIT_BRANCH=stable-3.2
 
-ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
+ENV GERRIT_CI_URL=https://archive-ci.gerritforge.com/job
 
 USER root
 
