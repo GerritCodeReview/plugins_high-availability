@@ -1,12 +1,12 @@
-FROM gerritcodereview/gerrit:3.1.12
+FROM gerritcodereview/gerrit:3.2.10
 
-ENV GERRIT_BRANCH=stable-3.1
+ENV GERRIT_BRANCH=stable-3.2
 
-ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
+ENV GERRIT_CI_URL=https://archive-ci.gerritforge.com/job
 
 USER root
 
-RUN yum install -y iputils-ping netcat curl lsof gettext moreutils net-tools netcat inetutils-ping sudo
+RUN yum install -y iputils nmap curl lsof gettext net-tools sudo
 
 USER gerrit
 
