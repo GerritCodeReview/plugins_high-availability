@@ -346,6 +346,30 @@
       },
       "revId": "b781d043764f8fe806723905cf839f7775925a9f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a485162_14bee95b",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/GetProjectsCacheEntries.scala",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-27T21:11:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6deab0e0_27e6c4e7",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "b781d043764f8fe806723905cf839f7775925a9f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
