@@ -16,4 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.scenarios
 
 class ClusterDefault {
   val clusterHttpPort: Int = 80
+  val httpPort1: Int = 8081
+  val httpPort2: Int = 8082
 }
