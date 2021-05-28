@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9842dd2d_44995578",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96b20b2_780b8f2f",
+      "range": {
+        "startLine": 7,
+        "startChar": 38,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "1fcfa8e249a58bfc58a1e9afd4418a8c74024a12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c059cc9f_3991b51d",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-05-28T16:32:19Z",
       "side": 1,
       "message": "The property didn\u0027t exist prior. Regression also as this is losing a previous mention about backward compatibility.",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 63
+      },
+      "revId": "1fcfa8e249a58bfc58a1e9afd4418a8c74024a12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc93967_4e3c0a04",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c059cc9f_3991b51d",
       "range": {
         "startLine": 9,
         "startChar": 35,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "650f508b_07700d08",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68b3f8df_35497535",
+      "range": {
+        "startLine": 12,
+        "startChar": 29,
+        "endLine": 12,
+        "endChar": 36
+      },
+      "revId": "1fcfa8e249a58bfc58a1e9afd4418a8c74024a12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae1d7f0b_24e86417",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-05-28T16:32:19Z",
       "side": 1,
       "message": "Unrelated to the specific goal and scope of this change though. Would do these in particular through a follow-up refactoring change instead.",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "1fcfa8e249a58bfc58a1e9afd4418a8c74024a12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "531197e8_40e9687e",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/CheckProjectsCacheFlushEntriesUsingHAGerrit1.scala",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1d7f0b_24e86417",
       "range": {
         "startLine": 28,
         "startChar": 34,
@@ -116,6 +212,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d04bf1b5_9842ed63",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/ClusterDefault.scala",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "java style is interfering. Fresh new project resolved the issue. Done.",
+      "parentUuid": "874dfe52_f920dbed",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "1fcfa8e249a58bfc58a1e9afd4418a8c74024a12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68f9ceb4_ebd5ecb6",
@@ -129,6 +249,30 @@
       "writtenOn": "2021-05-28T16:32:19Z",
       "side": 1,
       "message": "Why these underscores instead of the more expected camelCase?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 23
+      },
+      "revId": "1fcfa8e249a58bfc58a1e9afd4418a8c74024a12",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e090a8ae_e4182681",
+        "filename": "src/test/scala/com/ericsson/gerrit/plugins/highavailability/scenarios/ClusterDefault.scala",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68f9ceb4_ebd5ecb6",
       "range": {
         "startLine": 18,
         "startChar": 6,

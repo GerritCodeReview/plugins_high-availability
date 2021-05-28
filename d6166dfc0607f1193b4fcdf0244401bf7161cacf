@@ -22,6 +22,30 @@
       },
       "revId": "d6166dfc0607f1193b4fcdf0244401bf7161cacf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855c64d6_7c575b0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Done. I made a mistake checking out the change.",
+      "parentUuid": "38bb0ca5_23846146",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 74
+      },
+      "revId": "d6166dfc0607f1193b4fcdf0244401bf7161cacf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

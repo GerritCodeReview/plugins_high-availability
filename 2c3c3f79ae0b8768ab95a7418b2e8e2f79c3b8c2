@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c07255_1fa7fb6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-05-28T20:21:26Z",
+      "side": 1,
+      "message": "Should this review be moved to stable-3.2? Knowing that stable-3.1 is EOL",
+      "revId": "2c3c3f79ae0b8768ab95a7418b2e8e2f79c3b8c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
