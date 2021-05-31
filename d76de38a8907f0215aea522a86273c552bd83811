@@ -22,6 +22,30 @@
       },
       "revId": "d76de38a8907f0215aea522a86273c552bd83811",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed839b97_9778120a",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-05-31T21:26:34Z",
+      "side": 1,
+      "message": "-Plugin doesn\u0027t use a 3.3 image above yet, indeed. This could be attempted with the necessary verification in some follow-up, though.",
+      "parentUuid": "64011bb5_00040011",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "d76de38a8907f0215aea522a86273c552bd83811",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
