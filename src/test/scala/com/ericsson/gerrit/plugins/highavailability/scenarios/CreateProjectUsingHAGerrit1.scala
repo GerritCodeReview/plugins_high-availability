@@ -21,6 +21,7 @@ import io.gatling.core.structure.ScenarioBuilder
 
 class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
 
   def this(projectName: String) {
     this()
@@ -28,7 +29,7 @@ class CreateProjectUsingHAGerrit1 extends ProjectSimulation {
   }
 
   override def replaceOverride(in: String): String = {
-    val next = replaceProperty("http_port1", 8081, in)
+    val next = replaceProperty("http_port1", default.httpPort1, in)
     super.replaceOverride(next)
   }
 

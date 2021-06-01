@@ -55,7 +55,7 @@ testing an HA Gerrit system. That scenario tries to clone a project
 created on gerrit 1 (port 8081) but from gerrit 2 (on 8082). The
 scenario therefore expects Gerrit HA to have properly synchronized
 the new project from 1 to 2. That project gets deleted after, here
-using HA Gerrit straight (no specific port).
+using HA Gerrit straight (through default http port 80).
 
 Scenario scala source files and their companion json resource ones are
 stored under the usual src/test directories. That structure follows the
