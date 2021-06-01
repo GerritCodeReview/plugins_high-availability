@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d02278_765f8ed9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2021-06-01T19:35:41Z",
+      "side": 1,
+      "message": "additional space to be removed?",
+      "range": {
+        "startLine": 87,
+        "startChar": 76,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "809c96135c8a734eaf753cae33b2d264a054b6c8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5cfc6c1_7ca91b3d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2021-06-01T19:35:41Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 88,
+        "startChar": 42,
+        "endLine": 88,
+        "endChar": 43
+      },
+      "revId": "809c96135c8a734eaf753cae33b2d264a054b6c8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
