@@ -22,10 +22,15 @@ import io.gatling.http.Predef.{http, _}
 
 class GetProjectsCacheEntries extends CacheFlushSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
 
   def this(consumer: CacheFlushSimulation) {
     this()
     this.consumer = Some(consumer)
+  }
+
+  override def replaceOverride(in: String): String = {
+    replaceProperty("cluster_port", default.clusterHttpPort, in)
   }
 
   val test: ScenarioBuilder = scenario(uniqueName)
