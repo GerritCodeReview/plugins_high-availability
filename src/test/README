@@ -1,0 +1,58 @@
+#!/bin/bash
+# About this directory structure
+#
+# Refer to docker/README.md for more about these directory structures:
+#  ./resources/com
+#  ./scala
+#
+# Example usage only-
+# 1. Init gerrit instances with high-availability plugin installed; you may refer to [1] below.
+#   a. Optionally, set http port of those instance to 8081 and 8082.
+#   b. Make sure ssh ports on those instances are different. (i.e. 29418 and 29419)
+#   c. Make sure instances share the same git repo.
+#   d. Create and provide shared directory to those instances.
+# 2. Set up high-availability plugin.
+#   a. main.sharedDirectory = "the created shared directory above".
+#   b. peerInfo.strategy = static
+#   c. peerInfo "static".url = other_instance_url (i.e http://localhost:8081 or http://localhost:8082)
+# 3. Locally sync plugin's scenarios to the core e2e-tests (assuming the plugin is located under gerrit's plugins
+#    directory):
+#   a. rsync -a src/test/scala/ ../../e2e-tests/src/test/scala/
+#   b. rsync -a src/test/resources/ ../../e2e-tests/src/test/resources/data/
+# 4. Set GIT_HTTP_PASSWORD below to yours, from [2].
+# 5. Change to base core e2e-tests directory to execute ./README (this executable file) in its own terminal.
+# 5. Install sbt if missing, based on your operating system; re-run to compile.
+# 7. Otherwise keep the lines below that use your existing user ssh keys for admin testing.
+# 8. This script assumes the google-sourced version of the example json file [3].
+# 9. If running that scenario locally as below reports authentication failures, [3] may be a fork.
+# 10. Uncomment any one of the below sbt commands at will; you may add some locally.
+# 11. See [4] for how to start using JAVA_OPTS below; you may leave it empty for these sbt commands. For this plugin
+#     there are some extra properties available:
+#   a. -Dcom.ericsson.gerrit.plugins.highavailability.scenarios.cluster_port to use different http port to connect
+#      to the cluster, by default port 80 is used
+#   b. -Dcom.ericsson.gerrit.plugins.highavailability.scenarios.http_port1 http port of the first high-availability
+#      instance, by default its 8081.
+#   c. -Dcom.ericsson.gerrit.plugins.highavailability.scenarios.http_port2 http port of the second
+#      high-availability instance, by default its 8082.
+# 12. You can initialize an IDE sbt (Scala) project from/in this root folder; see [5].`
+# 13. To be able to run high-availability gatling tests without a load-balancer locally, http_cluster property
+#     needs to point to one of the high-availability instances.
+#
+# [1] https://gerrit-review.googlesource.com/Documentation/dev-readme.html#init
+# [2] http://localhost:8080/settings/#HTTPCredentials
+# [3] ./src/test/resources/data/com/google/gerrit/scenarios/CloneUsingBothProtocols.json
+# [4] https://gerrit-review.googlesource.com/Documentation/dev-e2e-tests.html#_environment_properties
+# [5] https://gerrit-review.googlesource.com/Documentation/dev-e2e-tests.html#_ide_intellij
+
+
+export GIT_HTTP_USERNAME="admin"
+export GIT_HTTP_PASSWORD="TODO"
+export JAVA_OPTS="
+"
+#-Dx=y \
+
+#sbt clean
+#sbt update
+sbt compile
+sbt "gatling:testOnly com.ericsson.gerrit.plugins.highavailability.scenarios.CheckProjectsCacheFlushEntriesUsingHAGerrit1"
+#sbt "gatling:lastReport"
