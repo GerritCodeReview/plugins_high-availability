@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "gerritforge:plugins-high-availability-code-style": {
+      "state": "SCHEDULED",
+      "created": "2021-06-02T14:14:04Z",
+      "updated": "2021-06-02T14:14:04Z"
+    }
+  }
+}
