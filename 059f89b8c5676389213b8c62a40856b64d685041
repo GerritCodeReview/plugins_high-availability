@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd2365d1_037bbe94",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-06-02T20:52:42Z",
+      "side": 1,
+      "message": "auto reindexing or automatic reindexing",
+      "range": {
+        "startLine": 86,
+        "startChar": 57,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "059f89b8c5676389213b8c62a40856b64d685041",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a48e2c3a_3ff6a6f0",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-06-02T20:52:42Z",
+      "side": 1,
+      "message": "changed",
+      "range": {
+        "startLine": 87,
+        "startChar": 64,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "059f89b8c5676389213b8c62a40856b64d685041",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7de52ce6_83088a0f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-06-02T20:52:42Z",
+      "side": 1,
+      "message": "The High-availability",
+      "range": {
+        "startLine": 87,
+        "startChar": 19,
+        "endLine": 87,
+        "endChar": 21
+      },
+      "revId": "059f89b8c5676389213b8c62a40856b64d685041",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "badea09a_688e8a47",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-06-02T20:52:42Z",
+      "side": 1,
+      "message": "a node?",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "059f89b8c5676389213b8c62a40856b64d685041",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7694735_60b2688f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-06-02T20:52:42Z",
+      "side": 1,
+      "message": "Maybe add the same as line 70: When not specified,",
+      "range": {
+        "startLine": 88,
+        "startChar": 18,
+        "endLine": 88,
+        "endChar": 19
+      },
+      "revId": "059f89b8c5676389213b8c62a40856b64d685041",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
