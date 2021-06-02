@@ -24,12 +24,13 @@ import scala.concurrent.duration._
 
 class CreateChangeUsingHAGerrit1 extends GerritSimulation {
   private val data: FeederBuilder = jsonFile(resource).convert(keys).queue
+  private val default: ClusterDefault = new ClusterDefault
   private val projectName = className
 
   override def relativeRuntimeWeight = 10
 
   override def replaceOverride(in: String): String = {
-    replaceProperty("http_port1", 8081, in)
+    replaceProperty("http_port1", default.httpPort1, in)
   }
 
   private val test: ScenarioBuilder = scenario(uniqueName)
