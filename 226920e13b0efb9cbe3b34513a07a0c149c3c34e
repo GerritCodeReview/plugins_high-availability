@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "804079c6_abacaa0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-04T20:48:45Z",
+      "side": 1,
+      "message": "I will only be able to review this change next Monday or so; sorry about the delay.",
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
