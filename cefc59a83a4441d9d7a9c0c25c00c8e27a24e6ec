@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ef036a_52c9d16f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-14T21:59:46Z",
+      "side": 1,
+      "message": "Sure; push a review? (At will of course.)",
+      "parentUuid": "215204a1_43409228",
+      "range": {
+        "startLine": 451,
+        "startChar": 25,
+        "endLine": 451,
+        "endChar": 51
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e5837c1_f66644b6",
