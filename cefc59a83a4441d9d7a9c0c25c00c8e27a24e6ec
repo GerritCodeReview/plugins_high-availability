@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "da1f0136_1afd5269",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -20,10 +21,10 @@
         "endChar": 51
       },
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd74d794_968d991b",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -44,10 +45,34 @@
         "endChar": 51
       },
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "215204a1_43409228",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-14T11:50:01Z",
+      "side": 1,
+      "message": "Ping @Marco are we ready to flip the switch to false now? (2 years have passed :-) )",
+      "parentUuid": "cd74d794_968d991b",
+      "range": {
+        "startLine": 451,
+        "startChar": 25,
+        "endLine": 451,
+        "endChar": 51
+      },
+      "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "2e5837c1_f66644b6",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/CurrentRequestContext.java",
@@ -67,10 +92,10 @@
         "endChar": 13
       },
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "9fd93c32_92d4a720",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/CurrentRequestContext.java",
@@ -91,10 +116,10 @@
         "endChar": 13
       },
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d94e2f6d_30504551",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
@@ -114,10 +139,10 @@
         "endChar": 79
       },
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "aae87f4d_a6798010",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
@@ -138,8 +163,7 @@
         "endChar": 79
       },
       "revId": "cefc59a83a4441d9d7a9c0c25c00c8e27a24e6ec",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": false
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
