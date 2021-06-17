@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5db629f5_fd402ed2",
+        "filename": "src/test/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 0,
+      "message": "As this pointer to that file gets removed herein, what should happen to that file? Relates to my other comments. Meaning, that file still has a \"How to test\" section, which may appear as partly redundant and maybe inconsistent eventually.",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 25
+      },
+      "revId": "25c2fa73040a35bac7ef2a8385afd4d1ada14e77",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
