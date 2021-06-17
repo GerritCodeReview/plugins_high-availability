@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a65361_c53a112a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 1,
+      "message": "contains",
+      "range": {
+        "startLine": 10,
+        "startChar": 27,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5faae36_286ba3ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 1,
+      "message": "Why specifying this? Maybe add a clarification.",
+      "range": {
+        "startLine": 11,
+        "startChar": 39,
+        "endLine": 11,
+        "endChar": 53
+      },
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "804079c6_abacaa0c",
@@ -14,6 +60,86 @@
       "writtenOn": "2021-06-04T20:48:45Z",
       "side": 1,
       "message": "I will only be able to review this change next Monday or so; sorry about the delay.",
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10359e28_53becd12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 1,
+      "message": "Thanks for the hard work-",
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab37a41_964fbeda",
+        "filename": "src/test/README",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 1,
+      "message": "Not sure if this remains adequate; please see my related comment.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 10
+      },
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae66d56d_a9c3f041",
+        "filename": "src/test/README",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 1,
+      "message": "This made sense in the case of core\u0027s own e2e-tests/README, which is shorter, so not sure while considering the apparently complex (long, indented) procedure below.\n\nThe below procedure was a lot of work for you to write, of course. I wonder though about its usability (readability), per above. I\u0027d also not repeat some of the lines already in core\u0027s README. Maybe refer to the latter in here instead.\n\nAnyhow, I\u0027m concerned about the length of having to read every step below. Would it be possible to move (say) the \"optional\" parts elsewhere, while keeping the executable-README spirit? Some more mandatory parts below may still be required in the latter though (i.e., below in this current file).",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f90dfda_5c8261de",
+        "filename": "src/test/README",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012732
+      },
+      "writtenOn": "2021-06-17T16:48:23Z",
+      "side": 1,
+      "message": "Extra blank line it seems.",
       "revId": "226920e13b0efb9cbe3b34513a07a0c149c3c34e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
