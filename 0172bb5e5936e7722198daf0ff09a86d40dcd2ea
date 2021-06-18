@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d16e21dd_f40fc991",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "Can you quantify \u0027heavy\u0027?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699ccf42_c221ba76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "Can you formulate on how much is \u0027significant\u0027?",
+      "range": {
+        "startLine": 10,
+        "startChar": 48,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792f3553_cbb985d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "Nit: use imperative form",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b4dda2_e35f8287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "nit: Bug",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 3
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4fac720_0943da81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "nit: empty line",
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e587b0d9_0256f8f1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "I believe you are trying to implement a sort of a priority-based queue? Or just having separate channels altogether for sending/receiving different event types?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 49
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "868153eb_7f699628",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "By extending the concept, you could have a set of different executors per event type: why not making this a map of executor services?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 55
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14925b1f_66a8e2af",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-18T00:56:50Z",
+      "side": 1,
+      "message": "I believe the formula is a bit more complex, because in the documentation we say that:\n- IF batchThreadPoolSize is not defined, then there is a single thread-pool for both interactive and batch operations\n- IF batchThreadPoolSize is defined, then there are two pools",
+      "range": {
+        "startLine": 75,
+        "startChar": 14,
+        "endLine": 75,
+        "endChar": 79
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
