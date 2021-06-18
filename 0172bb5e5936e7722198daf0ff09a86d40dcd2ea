@@ -49,6 +49,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13ffb209_babc8643",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "After upgrade/ swichover\nWe used:\nthreadPoolSize \u003d 6\nbatchThreadPoolSize \u003d6\n\nAll queues where full of tasks for many h. We had high cpu load on pick h so increasing pool size was not an option.",
+      "parentUuid": "d16e21dd_f40fc991",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69199611_31816f21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "It depends on setup and load. I don\u0027t know how deep I may go into details NDA.\nWe test replication offloading feature that waits for event replication completed. Event is transported by HA plugin. We wasn\u0027t happy about performance increase so we check thread dumps and saw that lots of replication task was blocked because it was waiting for an event. This how we identify this bottleneck.",
+      "parentUuid": "699ccf42_c221ba76",
+      "range": {
+        "startLine": 10,
+        "startChar": 48,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "792f3553_cbb985d9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-18T00:56:50Z",
       "side": 1,
       "message": "Nit: use imperative form",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "075fece8_eb46a3a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "792f3553_cbb985d9",
       "range": {
         "startLine": 12,
         "startChar": 0,
@@ -93,6 +165,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46752da7_3bb00511",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4b4dda2_e35f8287",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 3
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4fac720_0943da81",
@@ -106,6 +202,24 @@
       "writtenOn": "2021-06-18T00:56:50Z",
       "side": 1,
       "message": "nit: empty line",
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ef754a_ec96783a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4fac720_0943da81",
       "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -127,6 +241,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a64583e_f669be57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "Sure discussion is needed. I expect and ask for community opinion, can You add more reviewers that can provide input? \nMaybe increasing RestForwarderScheduler size will do a job? We can make this configurable.",
+      "parentUuid": "5bb50221_d07be96b",
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e587b0d9_0256f8f1",
@@ -140,6 +272,30 @@
       "writtenOn": "2021-06-18T00:56:50Z",
       "side": 1,
       "message": "I believe you are trying to implement a sort of a priority-based queue? Or just having separate channels altogether for sending/receiving different event types?",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 49
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38ccdd9_7d62f36a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "Yes the idea is that Event should use different queue and executor to work in parallel regardless of indexing tasks.",
+      "parentUuid": "e587b0d9_0256f8f1",
       "range": {
         "startLine": 166,
         "startChar": 0,
@@ -175,6 +331,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85b0a9d7_7ca8b3ca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "There are to many event types. I don\u0027t see benefit of having 20 task executor services. The extension could be have 1 per rest point but I only see sense to add separate for batch Indexing if needed.",
+      "parentUuid": "868153eb_7f699628",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 55
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14925b1f_66a8e2af",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
         "patchSetId": 1
@@ -186,6 +366,30 @@
       "writtenOn": "2021-06-18T00:56:50Z",
       "side": 1,
       "message": "I believe the formula is a bit more complex, because in the documentation we say that:\n- IF batchThreadPoolSize is not defined, then there is a single thread-pool for both interactive and batch operations\n- IF batchThreadPoolSize is defined, then there are two pools",
+      "range": {
+        "startLine": 75,
+        "startChar": 14,
+        "endLine": 75,
+        "endChar": 79
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3061a97_04d20702",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-18T17:06:35Z",
+      "side": 1,
+      "message": "Then documentation is wrong, it is not how it is implemented. \nIf batchThreadPoolSize is not defined then batchThreadPoolSize \u003d threadPoolSize. In result for default values we have\nthreadPoolSize \u003d 4\nbatchThreadPoolSize \u003d4\nForward-Stream-Event \u003d1 (HARD coded in EventExecutorProvider)\nso without this change we have 9 threads that works on POJO that trys to send REST event though RestForwarderScheduler which uses 4 threads",
+      "parentUuid": "14925b1f_66a8e2af",
       "range": {
         "startLine": 75,
         "startChar": 14,
