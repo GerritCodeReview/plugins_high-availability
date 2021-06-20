@@ -22,6 +22,30 @@
       },
       "revId": "d0a2e85055b62453da9d2d9038e096dc9123ff5d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71bcbfa3_f1f0605a",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnableTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-06-20T14:49:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eb53f58_f21eea73",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 61
+      },
+      "revId": "d0a2e85055b62453da9d2d9038e096dc9123ff5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
