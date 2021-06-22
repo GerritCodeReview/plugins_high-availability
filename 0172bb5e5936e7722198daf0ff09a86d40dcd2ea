@@ -217,6 +217,78 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65f05ac6_063eeddb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-22T01:21:16Z",
+      "side": 1,
+      "message": "Have you analysed why the CPU was high? I guess it was on the receiver side consuming the events. In my experience, that typically happens because of flooding of reindexing events causing the re-trigger of all Prolog rules on all changes.\n\nHaving a separate queue for stream events would help at least for not delay the propagation of triggering of builds in the meantime. The online reindex may last for several hours that matches the slowdown you guys have experienced.",
+      "parentUuid": "edee842d_218b8c29",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d81a63c_297e0bc1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-22T01:21:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "243e94ca_ce686f8e",
+      "range": {
+        "startLine": 10,
+        "startChar": 48,
+        "endLine": 10,
+        "endChar": 59
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09c16b6e_887e7c15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-06-22T01:21:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "edee842d_218b8c29",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "792f3553_cbb985d9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
