@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c35c20_c89ffe7a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-07T21:45:04Z",
+      "side": 1,
+      "message": "this part now is identical to 168, can this be extracted?",
+      "range": {
+        "startLine": 172,
+        "startChar": 31,
+        "endLine": 172,
+        "endChar": 63
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
