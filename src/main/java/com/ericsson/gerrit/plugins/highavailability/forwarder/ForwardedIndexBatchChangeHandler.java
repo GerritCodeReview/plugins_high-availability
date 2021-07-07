@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.HANoteDbMigrator;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl.Factory;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedBatchIndexExecutor;
@@ -34,7 +35,9 @@ public class ForwardedIndexBatchChangeHandler extends ForwardedIndexChangeHandle
       Configuration config,
       @ForwardedBatchIndexExecutor ScheduledExecutorService indexExecutor,
       OneOffRequestContext oneOffCtx,
-      Factory changeCheckerFactory) {
-    super(indexer, changeDb, config, indexExecutor, oneOffCtx, changeCheckerFactory);
+      Factory changeCheckerFactory,
+      HANoteDbMigrator noteDbMigration) {
+    super(
+        indexer, changeDb, config, indexExecutor, oneOffCtx, changeCheckerFactory, noteDbMigration);
   }
 }

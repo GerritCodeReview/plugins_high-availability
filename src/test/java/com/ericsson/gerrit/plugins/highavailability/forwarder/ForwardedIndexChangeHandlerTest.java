@@ -25,6 +25,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.HANoteDbMigrator;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
@@ -72,6 +73,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerAbsentMock;
   @Mock private ChangeChecker changeCheckerPresentMock;
+  @Mock private HANoteDbMigrator noteDbMigration;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
 
@@ -91,7 +93,8 @@ public class ForwardedIndexChangeHandlerTest {
             configMock,
             indexExecutorMock,
             ctxMock,
-            changeCheckerFactoryMock);
+            changeCheckerFactoryMock,
+            noteDbMigration);
   }
 
   @Test
