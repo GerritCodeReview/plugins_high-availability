@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d37b25f_db9fbe74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2021-07-07T23:15:08Z",
+      "side": 1,
+      "message": "A small nit.",
+      "revId": "cc12e8672d6e9b3736a5d3d2f621d209ff267200",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62710611_e78c47bc",
+        "filename": "src/test/TEST_HA",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2021-07-07T23:15:08Z",
+      "side": 1,
+      "message": "I think you need to provide the extension .sh for it to be a runnable. Else, you can provide it for instructions with extension .md and refer it directly from the readme file like the ones in Gc-conductor plugin to be provided as links for web UI navigation like in [1].\n[1] https://gerrit.googlesource.com/plugins/gc-conductor/+/refs/heads/stable-3.1/src/main/resources/Documentation/about.md",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "cc12e8672d6e9b3736a5d3d2f621d209ff267200",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
