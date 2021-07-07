@@ -34,7 +34,9 @@ public class ForwardedIndexBatchChangeHandler extends ForwardedIndexChangeHandle
       Configuration config,
       @ForwardedBatchIndexExecutor ScheduledExecutorService indexExecutor,
       OneOffRequestContext oneOffCtx,
-      Factory changeCheckerFactory) {
-    super(indexer, changeDb, config, indexExecutor, oneOffCtx, changeCheckerFactory);
+      Factory changeCheckerFactory,
+      SingleChangeNoteDbMigrator noteDbMigration) {
+    super(
+        indexer, changeDb, config, indexExecutor, oneOffCtx, changeCheckerFactory, noteDbMigration);
   }
 }
