@@ -22,6 +22,7 @@ import com.ericsson.gerrit.plugins.highavailability.index.ChangeDb;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -51,6 +52,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   private final int retryInterval;
   private final int maxTries;
   private final ChangeCheckerImpl.Factory changeCheckerFactory;
+  private final NoteDbMigration noteDbMigration;
 
   @Inject
   ForwardedIndexChangeHandler(
@@ -59,13 +61,15 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       Configuration config,
       @ForwardedIndexExecutor ScheduledExecutorService indexExecutor,
       OneOffRequestContext oneOffCtx,
-      ChangeCheckerImpl.Factory changeCheckerFactory) {
+      ChangeCheckerImpl.Factory changeCheckerFactory,
+      NoteDbMigration noteDbMigration) {
     super(config.index());
     this.indexer = indexer;
     this.changeDb = changeDb;
     this.indexExecutor = indexExecutor;
     this.oneOffCtx = oneOffCtx;
     this.changeCheckerFactory = changeCheckerFactory;
+    this.noteDbMigration = noteDbMigration;
 
     Index indexConfig = config.index();
     this.retryInterval = indexConfig != null ? indexConfig.retryInterval() : 0;
@@ -75,6 +79,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected void doIndex(String id, Optional<IndexEvent> indexEvent)
       throws IOException, OrmException {
+    noteDbMigration.migrate(parseChangeId(id), parseProject(id));
     doIndex(id, indexEvent, 0);
   }
 
@@ -161,6 +166,10 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
   private static Change.Id parseChangeId(String id) {
     return new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
+  }
+
+  private static Project.NameKey parseProject(String id) {
+    return new Project.NameKey(Splitter.on("~").splitToList(id).get(0));
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {

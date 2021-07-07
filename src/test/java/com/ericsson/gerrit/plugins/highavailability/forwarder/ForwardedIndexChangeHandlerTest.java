@@ -72,6 +72,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerAbsentMock;
   @Mock private ChangeChecker changeCheckerPresentMock;
+  @Mock private NoteDbMigration noteDbMigration;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
 
@@ -91,7 +92,8 @@ public class ForwardedIndexChangeHandlerTest {
             configMock,
             indexExecutorMock,
             ctxMock,
-            changeCheckerFactoryMock);
+            changeCheckerFactoryMock,
+            noteDbMigration);
   }
 
   @Test
