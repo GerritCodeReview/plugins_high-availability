@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66d087de_6d0b3757",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-07-08T18:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bc9d024_44944c81",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 10,
+        "endChar": 58
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74c35c20_c89ffe7a",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-07-07T21:45:04Z",
       "side": 1,
       "message": "this part now is identical to 168, can this be extracted?",
+      "range": {
+        "startLine": 172,
+        "startChar": 31,
+        "endLine": 172,
+        "endChar": 63
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c38b52a_f1b790d1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-07-08T18:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74c35c20_c89ffe7a",
       "range": {
         "startLine": 172,
         "startChar": 31,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9df0828f_c83d2373",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-07-08T18:27:48Z",
+      "side": 1,
+      "message": "\u003e 1) What about \"NoteDbMigrator\", since it is the class giving access to the migration operations? This class is just a wrapper of the core one, right?\n\nYep, I was trying to do that but the code looks terrible because the core one is used in all over the places and needs t be fully qualified(with package) so the code looks really messy. I you have any other good name let me know\n\n\u003e 2) Should it be moved one level up, i.e.: in the \"com.ericsson.gerrit.plugins.highavailability\" package?\nDone",
+      "parentUuid": "f85e6e07_98a4d488",
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d26e96f4_2533deca",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2021-07-08T07:50:53Z",
       "side": 1,
       "message": "Do we also need to check if the change belongs to a project to skip indexing? Or the core NoteDbMigrator will take care of it?",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f113084_6dd10642",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-07-08T18:27:48Z",
+      "side": 1,
+      "message": "I believe it will be covered by NoteDbMigrator",
+      "parentUuid": "d26e96f4_2533deca",
       "range": {
         "startLine": 54,
         "startChar": 8,
@@ -100,6 +190,30 @@
       "writtenOn": "2021-07-08T07:50:53Z",
       "side": 1,
       "message": "leftover?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 77
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf2dfdbc_1073eea5",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-07-08T18:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7b6bc50_3fb565b3",
       "range": {
         "startLine": 48,
         "startChar": 2,
