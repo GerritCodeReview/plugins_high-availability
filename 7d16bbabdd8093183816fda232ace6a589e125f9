@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9bc9d024_44944c81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-08T07:50:53Z",
+      "side": 1,
+      "message": "\"reads and writes from/to NoteDB\". Maybe specify also the writes go to NoteDB might make it clearer?",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 10,
+        "endChar": 58
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74c35c20_c89ffe7a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 1
@@ -19,6 +42,69 @@
         "startChar": 31,
         "endLine": 172,
         "endChar": 63
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f85e6e07_98a4d488",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-08T07:50:53Z",
+      "side": 1,
+      "message": "1) What about \"NoteDbMigrator\", since it is the class giving access to the migration operations? This class is just a wrapper of the core one, right?\n\n2) Should it be moved one level up, i.e.: in the \"com.ericsson.gerrit.plugins.highavailability\" package?",
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d26e96f4_2533deca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-08T07:50:53Z",
+      "side": 1,
+      "message": "Do we also need to check if the change belongs to a project to skip indexing? Or the core NoteDbMigrator will take care of it?",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 38
+      },
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7b6bc50_3fb565b3",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigrationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-08T07:50:53Z",
+      "side": 1,
+      "message": "leftover?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 77
       },
       "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
