@@ -148,6 +148,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "229b7ae6_67d8049b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-07-08T19:15:07Z",
+      "side": 1,
+      "message": "Done with HANoteDbMigrator",
+      "parentUuid": "f5ee6aff_f6729098",
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d26e96f4_2533deca",
