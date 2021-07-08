@@ -132,6 +132,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5ee6aff_f6729098",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-08T18:47:20Z",
+      "side": 1,
+      "message": "\u003eYep, I was trying to do that but the code looks terrible because the core one is \u003eused in all over the places and needs t be fully qualified(with package) so the ?\u003ecode looks really messy. I you have any other good name let me know\n\nHANoteDbMigrator? NoteDbMigratorWrapper?",
+      "parentUuid": "9df0828f_c83d2373",
+      "revId": "7d16bbabdd8093183816fda232ace6a589e125f9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d26e96f4_2533deca",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/NoteDbMigration.java",
         "patchSetId": 1
