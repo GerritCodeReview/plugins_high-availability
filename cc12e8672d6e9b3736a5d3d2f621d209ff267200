@@ -39,6 +39,30 @@
       },
       "revId": "cc12e8672d6e9b3736a5d3d2f621d209ff267200",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b7e6f3_0ad48e49",
+        "filename": "src/test/TEST_HA",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-08T13:52:39Z",
+      "side": 1,
+      "message": "This file is based on core\u0027s README file that also doesn\u0027t have the .sh extension. The README.md already contains necessary instructions.",
+      "parentUuid": "62710611_e78c47bc",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "cc12e8672d6e9b3736a5d3d2f621d209ff267200",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
