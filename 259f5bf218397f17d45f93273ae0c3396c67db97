@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3dd4d2b_233cb1e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-09T13:02:38Z",
+      "side": 1,
+      "message": "Some nits left",
+      "revId": "259f5bf218397f17d45f93273ae0c3396c67db97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0616c056_402f9621",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-09T13:02:38Z",
+      "side": 1,
+      "message": "Compared to ForwardedIndexChangeHandler class, String format is not required. Is there a special reason to have it here?",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "259f5bf218397f17d45f93273ae0c3396c67db97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3974693_70882180",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-09T13:02:38Z",
+      "side": 1,
+      "message": "would add a space to improve readability",
+      "range": {
+        "startLine": 69,
+        "startChar": 70,
+        "endLine": 69,
+        "endChar": 71
+      },
+      "revId": "259f5bf218397f17d45f93273ae0c3396c67db97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d3b425_ea7b4175",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-09T13:02:38Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 80,
+        "startChar": 10,
+        "endLine": 81,
+        "endChar": 91
+      },
+      "revId": "259f5bf218397f17d45f93273ae0c3396c67db97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c806cab_bc223c66",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-09T13:02:38Z",
+      "side": 1,
+      "message": "here as well",
+      "range": {
+        "startLine": 85,
+        "startChar": 9,
+        "endLine": 85,
+        "endChar": 100
+      },
+      "revId": "259f5bf218397f17d45f93273ae0c3396c67db97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
