@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4cd7e1_7afde755",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-10T00:59:26Z",
+      "side": 1,
+      "message": "I would call this SingleChangeNoteDbMigration because that is its purpose, or did I read the code wrongly?",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d20fe64f_db09b413",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-10T00:59:26Z",
+      "side": 1,
+      "message": "Can this be reduced to package-level as it is only used by the forwarders?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 6
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c2709ac_862dbb90",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-10T00:59:26Z",
+      "side": 1,
+      "message": "Are you sure this is needed only in trial mode?",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11f8e11a_420c6485",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-10T00:59:26Z",
+      "side": 1,
+      "message": "Should this exception thrown upstream?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0036cca3_fd494d4e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-10T00:59:26Z",
+      "side": 1,
+      "message": "Should these two exceptions be thrown upstream?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 5
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
