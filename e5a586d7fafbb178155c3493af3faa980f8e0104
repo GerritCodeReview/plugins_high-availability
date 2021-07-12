@@ -47,6 +47,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b176b93_eafd06ed",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca4cd7e1_7afde755",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf6f5f91_e8e212f8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d20fe64f_db09b413",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 6
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c2709ac_862dbb90",
@@ -60,6 +108,54 @@
       "writtenOn": "2021-07-10T00:59:26Z",
       "side": 1,
       "message": "Are you sure this is needed only in trial mode?",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b361f9a9_80f795d0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c2709ac_862dbb90",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 16
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4297e5cd_34ba844e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c2709ac_862dbb90",
       "range": {
         "startLine": 56,
         "startChar": 8,
@@ -93,6 +189,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "352b36ff_fcda650a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f8e11a_420c6485",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f68d11_118d2778",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f8e11a_420c6485",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 98
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0036cca3_fd494d4e",
@@ -106,6 +250,54 @@
       "writtenOn": "2021-07-10T00:59:26Z",
       "side": 1,
       "message": "Should these two exceptions be thrown upstream?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 5
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "537e7db9_d85022c1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0036cca3_fd494d4e",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 5
+      },
+      "revId": "e5a586d7fafbb178155c3493af3faa980f8e0104",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c503330_ea0ff1db",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HANoteDbMigrator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-07-12T14:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0036cca3_fd494d4e",
       "range": {
         "startLine": 77,
         "startChar": 0,
