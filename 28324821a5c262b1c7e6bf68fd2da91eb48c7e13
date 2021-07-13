@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba8f3e9_a5f2fc24",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-13T13:07:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcd68693_bde1ed61",
+      "revId": "28324821a5c262b1c7e6bf68fd2da91eb48c7e13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70e91642_5fdd6fe2",
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4cd47d4_ed22ee80",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-13T13:07:29Z",
+      "side": 1,
+      "message": "Yes this is desired behavior. Unfortunately available objects in Gerrit core regarding projects doesn\u0027t contain last update timestamp or any other time stamps.\nList object checked: (Project, ProjectState, ProjectCacheImpl, ProjectResource..).\nThere are more details in monorail. Adding timestamp whatever there is a change in Project object requires changes in Gerrit core and It should be accepted and required by all community. This change is to give admin choice to reindex all or 0.",
+      "parentUuid": "70e91642_5fdd6fe2",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "28324821a5c262b1c7e6bf68fd2da91eb48c7e13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ad90019_3a8935ea",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
         "patchSetId": 7
@@ -54,6 +96,30 @@
       "writtenOn": "2021-06-22T23:37:19Z",
       "side": 1,
       "message": "I believe this should return the timestamp of the latest update made on the project that has been reindexed.",
+      "range": {
+        "startLine": 66,
+        "startChar": 13,
+        "endLine": 66,
+        "endChar": 33
+      },
+      "revId": "28324821a5c262b1c7e6bf68fd2da91eb48c7e13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e223eadd_4153d845",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-13T13:07:29Z",
+      "side": 1,
+      "message": "Yes but we don\u0027t have second timestamp. In this way we kept abstract behavior without it. see above.",
+      "parentUuid": "8ad90019_3a8935ea",
       "range": {
         "startLine": 66,
         "startChar": 13,
