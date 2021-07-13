@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9417ba75_5a216701",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/SingleChangeNoteDbMigrator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-07-13T08:24:20Z",
+      "side": 1,
+      "message": "nit: since class was turned down to package-protected level all methods (including constructor) could be turned to package-protected level ;)",
+      "range": {
+        "startLine": 41,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "484a1441f41be508f0266da42a33cfb040b3dfe5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
