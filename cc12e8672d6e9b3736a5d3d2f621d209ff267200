@@ -18,6 +18,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d803f44_1e83670b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-07-16T13:56:40Z",
+      "side": 1,
+      "message": "@Luca, is there anything you want me to add or to clarify? If not, I will merge this change",
+      "revId": "cc12e8672d6e9b3736a5d3d2f621d209ff267200",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62710611_e78c47bc",
