@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# Example usage only-
+# 1. Locally sync plugin's scenarios to the core e2e-tests (assuming the plugin is located under gerrit's plugins
+#    directory):
+#   a. rsync -a src/test/scala/ ../../e2e-tests/src/test/scala/
+#   b. rsync -a src/test/resources/ ../../e2e-tests/src/test/resources/data/
+# 2. Change to base core e2e-tests directory to execute ./TEST_HA (this executable file) in its own terminal.
+# 3. See [1] for how to start using JAVA_OPTS below; you may leave it empty for these sbt commands. For this plugin
+#     there are some extra properties available:
+#   a. -Dcom.ericsson.gerrit.plugins.highavailability.scenarios.cluster_port to use different http port to connect
+#      to the cluster, by default port 80 is used. This option is needed to run tests locally without the need of
+#      a load balancer.
+#   b. -Dcom.ericsson.gerrit.plugins.highavailability.scenarios.http_port1 http port of the first high-availability
+#      instance, by default its 8081.
+#   c. -Dcom.ericsson.gerrit.plugins.highavailability.scenarios.http_port2 http port of the second
+#      high-availability instance, by default its 8082.
+# 13. To be able to run high-availability gatling tests without a load-balancer locally, http_cluster property
+#     needs to point to one of the high-availability instances.
+#
+# [1] https://gerrit-review.googlesource.com/Documentation/dev-e2e-tests.html#_environment_properties
+
+export GIT_HTTP_USERNAME="admin"
+export GIT_HTTP_PASSWORD="TODO"
+export JAVA_OPTS="
+"
+#-Dx=y \
+
+#sbt clean
+#sbt update
+sbt compile
+sbt "gatling:testOnly com.ericsson.gerrit.plugins.highavailability.scenarios.CloneUsingHAGerrit2"
+#sbt "gatling:lastReport"
