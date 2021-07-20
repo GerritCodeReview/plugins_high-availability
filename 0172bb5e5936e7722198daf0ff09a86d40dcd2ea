@@ -361,6 +361,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd7c07bc_bf84be55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-20T19:13:17Z",
+      "side": 1,
+      "message": "Thx for the replay. Regarding \"Acquisition of the locking\" its side effect. We reproduce this during performance test+ running manual reindexing on big projects. But I think we miss a point. This change is for splitting events executor patch with index change tasks. I dont see a point why before we have sparate executors for batch, index and event and all ends in singe queue with singe executor. We want events that are small objects/task should be send and process as fast as possible.",
+      "parentUuid": "ff2a40d7_ae7eda14",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "792f3553_cbb985d9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
