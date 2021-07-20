@@ -109,6 +109,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1fc5e58_24c7c125",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-20T01:51:08Z",
+      "side": 1,
+      "message": "Sorry, I am behind with my reviews.\nI believe this change should be parked until that \u0027updateTs\u0027 information is exposed from Gerrit core.",
+      "parentUuid": "a34cac53_75cdd718",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "28324821a5c262b1c7e6bf68fd2da91eb48c7e13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ad90019_3a8935ea",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
         "patchSetId": 7
