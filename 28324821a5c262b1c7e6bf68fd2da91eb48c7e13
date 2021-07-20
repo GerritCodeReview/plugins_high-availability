@@ -133,6 +133,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fe92ef42_2253fd5e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-20T19:15:08Z",
+      "side": 1,
+      "message": "I am not sure that anyone is working on this. But I understand your point I will abandon this change if there are no other comments/suggestions.",
+      "parentUuid": "e1fc5e58_24c7c125",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "28324821a5c262b1c7e6bf68fd2da91eb48c7e13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ad90019_3a8935ea",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
         "patchSetId": 7
