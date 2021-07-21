@@ -385,6 +385,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "700950d8_9b96fb65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-21T00:51:09Z",
+      "side": 1,
+      "message": "\u003e Thx for the replay. Regarding \"Acquisition of the locking\" its side effect. We reproduce this during performance test+ running manual reindexing on big projects.\n\nI see: there is a setting for NOT propagating manual reindexing and therefore avoid this problem altogether called \u0027synchronizedForced\u0027 See [1]. Basically, you can disable the propagation of all events that are not \"naturally created\" in Gerrit.\n\n\u003e But I think we miss a point. This change is for splitting events executor patch with index change tasks. I dont see a point why before we have sparate executors for batch, index and event and all ends in singe queue with singe executor. We want events that are small objects/task should be send and process as fast as possible.\n\nCan I challenge the statement? Imagine you have the creation of one change and then the event of patch-set created: you want to preserve the propagation of the two in this specific order, isn\u0027t it? Having two different executors would potentially leading to the event being transferred before the reindex of the change and then creating an inconsistency.\n\n[1] https://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/stable-3.1/src/main/resources/Documentation/config.md",
+      "parentUuid": "fd7c07bc_bf84be55",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "792f3553_cbb985d9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -638,6 +662,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1660e2df_8070e2bb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-21T00:51:09Z",
+      "side": 1,
+      "message": "I believe they should stay in the same queue: see the case of a change created and the associated patch-set created event, their order should be preserved.",
+      "parentUuid": "7e30116c_4c59684b",
+      "range": {
+        "startLine": 166,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 49
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "868153eb_7f699628",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
         "patchSetId": 1
@@ -697,6 +745,30 @@
       "side": 1,
       "message": "can I resolve this?",
       "parentUuid": "85b0a9d7_7ca8b3ca",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 55
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43ed631a_f05fb313",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-21T00:51:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "232cb21a_a9c7f107",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -768,6 +840,30 @@
       "side": 1,
       "message": "can I resolve this?",
       "parentUuid": "c3061a97_04d20702",
+      "range": {
+        "startLine": 75,
+        "startChar": 14,
+        "endLine": 75,
+        "endChar": 79
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a476137_e31edebc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderScheduler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-21T00:51:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a0307a1_f75a5616",
       "range": {
         "startLine": 75,
         "startChar": 14,
