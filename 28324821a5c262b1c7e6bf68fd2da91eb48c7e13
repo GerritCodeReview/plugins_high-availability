@@ -179,6 +179,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c217efe_a7a5061a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ProjectReindexRunnable.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-22T16:29:18Z",
+      "side": 1,
+      "message": "Moved to master",
+      "parentUuid": "f306823b_45dd3e1e",
+      "range": {
+        "startLine": 62,
+        "startChar": 8,
+        "endLine": 62,
+        "endChar": 60
+      },
+      "revId": "28324821a5c262b1c7e6bf68fd2da91eb48c7e13",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ad90019_3a8935ea",
