@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27dcc443_73c73527",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2021-07-22T17:13:30Z",
+      "side": 1,
+      "message": "Is this a related change? I see only the autoReindex.projectReindex in this change",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 26
+      },
+      "revId": "52c7b16837b5818acf04cc292f10c3b88e50d1db",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
