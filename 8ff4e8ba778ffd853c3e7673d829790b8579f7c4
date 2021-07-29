@@ -16,6 +16,24 @@
       "message": "Can you also do the corresponding change in Gerrit core and set a topic for it?",
       "revId": "8ff4e8ba778ffd853c3e7673d829790b8579f7c4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf9fbdc9_4514cc72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-29T17:48:13Z",
+      "side": 1,
+      "message": "@Luca \nOk I created 2 WIP changes that have same topic: 313030, 313186\nBoth have a same topic Issue 14223. Extending gerrit core is not trivial task. This change is more like workaround and new setting want be needed in future.\nWhat we are doing with this change for now? Do we merge it, abandon ?",
+      "parentUuid": "d082c132_2f8dd77e",
+      "revId": "8ff4e8ba778ffd853c3e7673d829790b8579f7c4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
