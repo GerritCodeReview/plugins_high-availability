@@ -55,13 +55,14 @@ public class ProjectReindexRunnable extends ReindexRunnable<Project.NameKey> {
 
   @Override
   protected Optional<Timestamp> indexIfNeeded(Project.NameKey projectName, Timestamp sinceTs) {
-    if (isAutoReindexEnabled) {
+    Timestamp projectTs = projectCache.get(projectName).get().getProject().getRegisteredOn();
+    if (isAutoReindexEnabled && projectTs.after(sinceTs)) {
       try {
         indexer.index(projectName, Operation.INDEX, Optional.empty());
       } catch (IOException e) {
         log.atSevere().withCause(e).log("Reindex failed");
       }
-      return Optional.of(sinceTs);
+      return Optional.of(projectTs);
     }
     return Optional.empty();
   }
