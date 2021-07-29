@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db18f5d4_8f3b326c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-29T17:38:44Z",
+      "side": 1,
+      "message": "Change based on changes in Gerrit core so CI is expected to failed:\nhttps://gerrit-review.googlesource.com/c/gerrit/+/313030",
+      "revId": "e1a6eb3ec21a03f7c748374b775362788a506194",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
