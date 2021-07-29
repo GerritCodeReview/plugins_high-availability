@@ -26,6 +26,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.entities.Project.NameKey;
 import com.google.gerrit.server.project.ProjectCache;
+import com.google.gerrit.server.project.ProjectState;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -44,26 +45,47 @@ public class ProjectReindexRunnableTest {
   @Mock private ProjectCache projectCache;
   @Mock private Configuration cfg;
   @Mock private AutoReindex autoReindex;
+  @Mock private ProjectState projectState;
   private ProjectReindexRunnable projectReindexRunnable;
   private Project.NameKey g;
 
   @Before
   public void setUp() throws Exception {
-    Project.NameKey g = NameKey.parse("123");
+    g = NameKey.parse("123");
     when(cfg.autoReindex()).thenReturn(autoReindex);
+    when(projectCache.get(g)).thenReturn(Optional.of(projectState));
   }
 
   @Test
-  public void projectIsIndexedWhenAutoProjectsReindexIsSet() throws Exception {
+  public void projectIsIndexedAutoProjectsReindexIsSetAndProjectShouldBeIndexed() throws Exception {
     when(autoReindex.autoProjectsReindex()).thenReturn(true);
     ProjectReindexRunnable projectReindexRunnable =
         new ProjectReindexRunnable(indexer, indexTs, ctx, projectCache, cfg);
     Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
+    Timestamp afterCurrentTime = new Timestamp(currentTime.getTime() + 1000L);
+
+    when(projectState.getProject()).thenReturn(Project.builder(g, afterCurrentTime).build());
 
     Optional<Timestamp> projectLastTs = projectReindexRunnable.indexIfNeeded(g, currentTime);
     assertThat(projectLastTs.isPresent()).isTrue();
-    assertThat(projectLastTs.get()).isEqualTo(currentTime);
+    assertThat(projectLastTs.get()).isEqualTo(afterCurrentTime);
     verify(indexer).index(g, Operation.INDEX, Optional.empty());
+  }
+
+  @Test
+  public void projectIsIndexedAutoProjectsReindexIsSetAndProjectShouldntBeIndexed()
+      throws Exception {
+    when(autoReindex.autoProjectsReindex()).thenReturn(true);
+    ProjectReindexRunnable projectReindexRunnable =
+        new ProjectReindexRunnable(indexer, indexTs, ctx, projectCache, cfg);
+    Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
+    Timestamp beforeCurrentTime = new Timestamp(currentTime.getTime() - 1000L);
+
+    when(projectState.getProject()).thenReturn(Project.builder(g, beforeCurrentTime).build());
+
+    Optional<Timestamp> projectLastTs = projectReindexRunnable.indexIfNeeded(g, currentTime);
+    assertThat(projectLastTs.isPresent()).isFalse();
+    verify(indexer, never()).index(g, Operation.INDEX, Optional.empty());
   }
 
   @Test
@@ -72,6 +94,8 @@ public class ProjectReindexRunnableTest {
     ProjectReindexRunnable projectReindexRunnable =
         new ProjectReindexRunnable(indexer, indexTs, ctx, projectCache, cfg);
     Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
+    Timestamp afterCurrentTime = new Timestamp(currentTime.getTime() + 1000L);
+    when(projectState.getProject()).thenReturn(Project.builder(g, afterCurrentTime).build());
 
     Optional<Timestamp> projectLastTs = projectReindexRunnable.indexIfNeeded(g, currentTime);
     assertThat(projectLastTs.isPresent()).isFalse();
