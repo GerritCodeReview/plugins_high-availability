@@ -409,6 +409,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fe9c258_481ac130",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-07-29T20:52:51Z",
+      "side": 1,
+      "message": "Events come from EventListener and are received in EventHanlder\nIndexing task come form ChangeIndexedListener and are process in IndexEventHandler\n\nAll though invocations are done by completely different instances of gerrit core:\nfireChangeIndexedEvent:220, ChangeIndexer (com.google.gerrit.server.index.change)\nfireEvent:113, EventBroker (com.google.gerrit.server.events)\nIs there guaranty synchronization between them?\nI assume that there are different listeners they can be process parallel. \nCreating a change Generates:\n\t1. RefUpdatedEvent\n\t2. OnChangeIndexed\n\t3. .RefUpdatedEvent\n\t4. RefUpdatedEvent\n\t5. patchset-createdEvnet\n\t\nOn passive site:\nHA plugin transfer events to the core and do nothing with them\nHA plugin run reindexing for index change.\nThere is no guaranty that processing OnChangeIndexed will be finished before patchset-createdEvent.",
+      "parentUuid": "700950d8_9b96fb65",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "792f3553_cbb985d9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
