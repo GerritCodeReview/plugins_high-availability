@@ -433,6 +433,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e7d1e7c_7f0a7a60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-31T02:04:38Z",
+      "side": 1,
+      "message": "\u003e Events come from EventListener and are received in EventHanlder\n\u003e Indexing task come form ChangeIndexedListener and are process in IndexEventHandler\n\u003e \n\u003e All though invocations are done by completely different instances of gerrit core:\n\u003e fireChangeIndexedEvent:220, ChangeIndexer (com.google.gerrit.server.index.change)\n\u003e fireEvent:113, EventBroker (com.google.gerrit.server.events)\n\u003e Is there guaranty synchronization between them?\n\u003e I assume that there are different listeners they can be process parallel. \n\nAFAIK, the listeners are processed synchronously, so they won\u0027t be executed in parallel. The only exception is for the batch indexing which is a background thread.\n\nDid you see parallelism instead?",
+      "parentUuid": "9fe9c258_481ac130",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "0172bb5e5936e7722198daf0ff09a86d40dcd2ea",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "792f3553_cbb985d9",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
