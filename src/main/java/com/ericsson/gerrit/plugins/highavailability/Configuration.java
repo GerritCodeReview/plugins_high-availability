@@ -467,10 +467,34 @@ public class Configuration {
 
   public static class Event extends Forwarding {
     static final String EVENT_SECTION = "event";
+    static final String IGNORE_LIST_KEY = "list";
+    static final String IGNORE_KEY = "ignore";
+
+    private final boolean refFilteringEnabled;
+    private final Set<String> ignoreEventsSet;
 
     private Event(Config cfg) {
       super(cfg, EVENT_SECTION);
+
+      ignoreEventsSet =
+          Arrays.stream(cfg.getStringList(EVENT_SECTION, IGNORE_LIST_KEY, IGNORE_KEY))
+              .filter(Objects::nonNull)
+              .filter(s -> !s.isEmpty())
+              .collect(Collectors.toSet());
+
+      log.atFine().log("Ignore: %s", ignoreEventsSet);
+
+      refFilteringEnabled = !ignoreEventsSet.isEmpty();
     }
+
+    public boolean refFilteringEnabled() {
+      return refFilteringEnabled;
+    }
+
+    public boolean isIgnoredEvent(String eventType) {
+      return ignoreEventsSet.contains(eventType);
+    }
+
   }
 
   public static class Index extends Forwarding {
