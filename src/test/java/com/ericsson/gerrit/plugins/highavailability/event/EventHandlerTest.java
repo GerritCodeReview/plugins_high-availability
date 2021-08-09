@@ -18,13 +18,17 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.event.EventHandler.EventTask;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.gerrit.entities.Project.NameKey;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.ProjectEvent;
+import com.google.gerrit.server.events.RefEvent;
 import com.google.gerrit.server.events.RefUpdatedEvent;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,14 +39,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class EventHandlerTest {
   private static final String PLUGIN_NAME = "high-availability";
+  public static final String REPLICATION_SCHEDULED = "ref-replication-scheduled";
+  public static final String REPLICATION_DONE = "ref-replication-done";
 
   private EventHandler eventHandler;
 
   @Mock private Forwarder forwarder;
+  @Mock private Configuration config;
+  @Mock private Configuration.Event event;
 
   @Before
   public void setUp() {
-    eventHandler = new EventHandler(forwarder, MoreExecutors.directExecutor(), PLUGIN_NAME);
+    when(config.event()).thenReturn(event);
+    when(event.refFilteringEnabled()).thenReturn(false);
+    eventHandler = new EventHandler(forwarder, MoreExecutors.directExecutor(), PLUGIN_NAME, config);
   }
 
   @Test
@@ -73,5 +83,44 @@ public class EventHandlerTest {
     assertThat(task.toString())
         .isEqualTo(
             String.format("[%s] Send event '%s' to target instance", PLUGIN_NAME, event.type));
+  }
+
+  @Test
+  public void shouldNotForwardReplicationEvent() throws Exception {
+    Event refEvent = getReplicationScheduled(REPLICATION_SCHEDULED);
+    when(event.refFilteringEnabled()).thenReturn(true);
+    when(event.isIgnoredEvent(REPLICATION_SCHEDULED)).thenReturn(true);
+    eventHandler.onEvent(refEvent);
+    verifyZeroInteractions(forwarder);
+  }
+
+  @Test
+  public void shouldForwardReplicationEvent() throws Exception {
+    Event refEvent = getReplicationScheduled(REPLICATION_SCHEDULED);
+    when(event.refFilteringEnabled()).thenReturn(false);
+    eventHandler.onEvent(refEvent);
+    verify(forwarder).send(refEvent);
+  }
+
+  @Test
+  public void shouldForwardReplicationDoneEvent() throws Exception {
+    Event refEvent = getReplicationScheduled(REPLICATION_DONE);
+    when(event.refFilteringEnabled()).thenReturn(true);
+    eventHandler.onEvent(refEvent);
+    verify(forwarder).send(refEvent);
+  }
+
+  private RefEvent getReplicationScheduled(String type) {
+    return new RefEvent(type) {
+      @Override
+      public NameKey getProjectNameKey() {
+        return NameKey.parse("Test");
+      }
+
+      @Override
+      public String getRefName() {
+        return "Test";
+      }
+    };
   }
 }

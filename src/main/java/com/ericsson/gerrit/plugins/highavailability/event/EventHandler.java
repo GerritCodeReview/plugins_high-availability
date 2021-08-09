@@ -14,8 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.event;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
@@ -24,21 +26,34 @@ import com.google.inject.Inject;
 import java.util.concurrent.Executor;
 
 class EventHandler implements EventListener {
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
+
   private final Executor executor;
   private final Forwarder forwarder;
   private final String pluginName;
+  private final Configuration config;
 
   @Inject
   EventHandler(
-      Forwarder forwarder, @EventExecutor Executor executor, @PluginName String pluginName) {
+      Forwarder forwarder,
+      @EventExecutor Executor executor,
+      @PluginName String pluginName,
+      Configuration config) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.pluginName = pluginName;
+    this.config = config;
   }
 
   @Override
   public void onEvent(Event event) {
     if (!Context.isForwardedEvent() && event instanceof ProjectEvent) {
+      if (config.event().refFilteringEnabled()
+          && event instanceof Event
+          && config.event().isIgnoredEvent(event.type)) {
+        log.atInfo().log("Event filtered %s", event.instanceId);
+        return;
+      }
       executor.execute(new EventTask(event));
     }
   }
