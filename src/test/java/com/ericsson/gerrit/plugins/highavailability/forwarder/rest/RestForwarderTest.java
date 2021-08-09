@@ -115,7 +115,8 @@ public class RestForwarderTest {
             configMock,
             peersMock,
             gson, // TODO: Create provider
-            new RestForwarderScheduler(Executors.newScheduledThreadPool(1)));
+            new RestForwarderScheduler(
+                Executors.newScheduledThreadPool(1), Executors.newScheduledThreadPool(1)));
   }
 
   @Test
