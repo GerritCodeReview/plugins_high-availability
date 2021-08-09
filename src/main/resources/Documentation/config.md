@@ -175,9 +175,41 @@ calls by specifying the following fields:
     Defaults to an empty list, meaning only evictions of the core caches are
     forwarded.
 
+``` event.exclusiveExecutor```
+:   Whether to use separate work queue for all events.
+    Warning setting to true may change indexing and events order.
+    Defaults to false.
+
+```event.list.exclusive```
+:   Whether to use separate work queue for specify events.
+    When event.exclusiveExecutor is set do true this setting is
+    redundant.
+    Defaults not defined.
+
+```event.list.ignore```
+:   Enables possibility to block sending specify events.
+    Defaults not defined.
+
 ```event.synchronize```
 :   Whether to synchronize stream events.
     Defaults to true.
+
+Example event section configuration below
+: Ignore list contains 2 events that won't be sent to other nodes.
+exclusiveExecutor is disabled which means all events except directly
+specified (in this case ref-replication-done and ref-updated) will
+send using the same thread executor as indexing tasks.
+
+```
+[event]
+        exclusiveExecutor = false
+
+[event "list"]
+        ignore = ref-replicated
+        ignore = ref-replication-scheduled
+        exclusive = ref-replication-done
+        exclusive = ref-updated
+```
 
 ```index.numStripedLocks```
 :   Number of striped locks to use during reindexing. Should be of the same order
