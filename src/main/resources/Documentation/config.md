@@ -175,9 +175,22 @@ calls by specifying the following fields:
     Defaults to an empty list, meaning only evictions of the core caches are
     forwarded.
 
+```event.list.ignore```
+:   Enables possibility to block sending specify events.
+    Defaults not defined.
+
 ```event.synchronize```
 :   Whether to synchronize stream events.
     Defaults to true.
+
+Example event section configuration below
+: Ignore list contains 2 events that won't be sent to other nodes.
+
+```
+[event "list"]
+        ignore = ref-replicated
+        ignore = ref-replication-scheduled
+```
 
 ```index.numStripedLocks```
 :   Number of striped locks to use during reindexing. Should be of the same order
