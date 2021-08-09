@@ -467,9 +467,56 @@ public class Configuration {
 
   public static class Event extends Forwarding {
     static final String EVENT_SECTION = "event";
+    static final String IGNORE_LIST_KEY = "list";
+    static final String IGNORE_KEY = "ignore";
+    static final String EXCLUSIVE_KEY = "exclusive";
+    static final String USE_EXCLUSIVE_QUEUE_KEY = "exclusiveExecutor";
+
+    private final boolean refFilteringEnabled;
+    private final boolean isExclusiveEventsDefined;
+    private final boolean exclusiveExecutor;
+    private final Set<String> ignoreEventsSet;
+    private final Set<String> exclusiveEventsSet;
 
     private Event(Config cfg) {
       super(cfg, EVENT_SECTION);
+      exclusiveExecutor = cfg.getBoolean(EVENT_SECTION, USE_EXCLUSIVE_QUEUE_KEY, false);
+
+      ignoreEventsSet =
+          Arrays.stream(cfg.getStringList(EVENT_SECTION, IGNORE_LIST_KEY, IGNORE_KEY))
+              .filter(Objects::nonNull)
+              .filter(s -> !s.isEmpty())
+              .collect(Collectors.toSet());
+      exclusiveEventsSet =
+          Arrays.stream(cfg.getStringList(EVENT_SECTION, IGNORE_LIST_KEY, EXCLUSIVE_KEY))
+              .filter(Objects::nonNull)
+              .filter(s -> !s.isEmpty())
+              .collect(Collectors.toSet());
+      log.atFine().log("Ignore: %s", ignoreEventsSet);
+      log.atFine().log("Exclusive: %s", exclusiveEventsSet);
+
+      refFilteringEnabled = !ignoreEventsSet.isEmpty();
+      isExclusiveEventsDefined = !exclusiveEventsSet.isEmpty();
+    }
+
+    public boolean exclusiveExecutor() {
+      return exclusiveExecutor;
+    }
+
+    public boolean isExclusiveEventsDefined() {
+      return isExclusiveEventsDefined;
+    }
+
+    public boolean refFilteringEnabled() {
+      return refFilteringEnabled;
+    }
+
+    public boolean isIgnoredEvent(String eventType) {
+      return ignoreEventsSet.contains(eventType);
+    }
+
+    public boolean isExclusiveEvent(String eventType) {
+      return exclusiveEventsSet.contains(eventType);
     }
   }
 

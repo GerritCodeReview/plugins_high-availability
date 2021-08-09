@@ -162,10 +162,19 @@ class RestForwarder implements Forwarder {
       RequestMethod method, String action, String endpoint, Object id, Object payload) {
     return peerInfoProvider.get().stream()
         .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
-        .map(scheduler::execute)
+        .map(
+            request ->
+                payload instanceof Event && isExclusiveEvent(((Event) payload).type)
+                    ? scheduler.executeEvent(request)
+                    : scheduler.execute(request))
         .reduce(
             CompletableFuture.completedFuture(true),
             (a, b) -> a.thenCombine(b, (left, right) -> left && right));
+  }
+
+  private boolean isExclusiveEvent(String eventType) {
+    return cfg.event().exclusiveExecutor()
+        || (cfg.event().isExclusiveEventsDefined() && cfg.event().isExclusiveEvent(eventType));
   }
 
   private Request createRequest(
