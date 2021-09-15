@@ -35,6 +35,7 @@ import java.util.function.Supplier;
 public class RestForwarderScheduler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final ScheduledExecutorService executor;
+  private final ScheduledExecutorService eventExecutor;
   private final long retryIntervalMs;
 
   public class CompletablePromise<V> extends CompletableFuture<V> {
@@ -72,19 +73,30 @@ public class RestForwarderScheduler {
     int executorSize = peerInfoProvider.get().size() * cfg.index().threadPoolSize();
     retryIntervalMs = cfg.index().retryInterval();
     this.executor = workQueue.createQueue(executorSize, "RestForwarderScheduler");
+    this.eventExecutor =
+        cfg.event().exclusiveExecutor() || cfg.event().isExclusiveEventsDefined()
+            ? workQueue.createQueue(peerInfoProvider.get().size(), "RestForwarderEventScheduler")
+            : this.executor;
   }
 
   @VisibleForTesting
-  public RestForwarderScheduler(ScheduledExecutorService executor) {
+  public RestForwarderScheduler(
+      ScheduledExecutorService executor, ScheduledExecutorService eventExecutor) {
     this.executor = executor;
+    this.eventExecutor = eventExecutor;
     retryIntervalMs = 0;
   }
 
   public CompletableFuture<Boolean> execute(RestForwarder.Request request) {
-    return execute(request, 0);
+    return execute(request, 0, executor);
   }
 
-  public CompletableFuture<Boolean> execute(RestForwarder.Request request, long delayMs) {
+  public CompletableFuture<Boolean> executeEvent(RestForwarder.Request request) {
+    return execute(request, 0, eventExecutor);
+  }
+
+  public CompletableFuture<Boolean> execute(
+      RestForwarder.Request request, long delayMs, ScheduledExecutorService executor) {
     return supplyAsync(
         request.toString(),
         () -> {
@@ -92,7 +104,7 @@ public class RestForwarderScheduler {
             if (!request.execute()) {
               log.atWarning().log(
                   "Rescheduling %s for retry after %d msec", request, retryIntervalMs);
-              return execute(request, retryIntervalMs);
+              return execute(request, retryIntervalMs, executor);
             }
             return CompletableFuture.completedFuture(true);
           } catch (ForwardingException e) {
