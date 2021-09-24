@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "554b5a8b_22800c71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-09-24T17:25:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6119fb4a_538a2417",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 45
+      },
+      "revId": "f3946700868de0c2a61594b1f8954acb5062cb89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f86b787c_e683f3bc",
@@ -37,6 +61,24 @@
       "writtenOn": "2021-09-16T19:30:54Z",
       "side": 1,
       "message": "this need to fixed",
+      "revId": "f3946700868de0c2a61594b1f8954acb5062cb89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6908fd6_e7702615",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-09-24T17:25:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f86b787c_e683f3bc",
       "revId": "f3946700868de0c2a61594b1f8954acb5062cb89",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd6fcb4a_907e77f9",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-09-24T17:25:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "620d4f22_7bbcd279",
+      "range": {
+        "startLine": 179,
+        "startChar": 27,
+        "endLine": 179,
+        "endChar": 33
+      },
+      "revId": "f3946700868de0c2a61594b1f8954acb5062cb89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3196575e_0f6f51f5",
@@ -77,6 +143,30 @@
       "writtenOn": "2021-09-16T19:30:54Z",
       "side": 1,
       "message": "They are good examples, but maybe can you make it more general, not replication specific.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 71
+      },
+      "revId": "f3946700868de0c2a61594b1f8954acb5062cb89",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb3afaf7_524532f9",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandlerTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-09-24T17:25:43Z",
+      "side": 1,
+      "message": "Not agree. The test name suggest that test filtering replication event.\nshouldNotForwardReplicationEvent(). This also undeline indention of this feature. For what can be used.",
+      "parentUuid": "3196575e_0f6f51f5",
       "range": {
         "startLine": 42,
         "startChar": 0,
