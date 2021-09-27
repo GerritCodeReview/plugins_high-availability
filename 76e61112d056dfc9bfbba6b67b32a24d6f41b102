@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "669fde06_fb496483",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-09-27T14:36:05Z",
+      "side": 1,
+      "message": "is this necessary? So we have limitaions on what type of event we can filter?",
+      "range": {
+        "startLine": 50,
+        "startChar": 36,
+        "endLine": 50,
+        "endChar": 68
+      },
+      "revId": "76e61112d056dfc9bfbba6b67b32a24d6f41b102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e57cd92_1c8d13e3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-09-27T14:36:05Z",
+      "side": 1,
+      "message": "dont thinks its needed, look at line 49, its redundant now",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 35
+      },
+      "revId": "76e61112d056dfc9bfbba6b67b32a24d6f41b102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0e3667e_45d8f9d4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-09-27T14:36:05Z",
+      "side": 1,
+      "message": "maybe atFine or atDebug?",
+      "range": {
+        "startLine": 54,
+        "startChar": 12,
+        "endLine": 54,
+        "endChar": 19
+      },
+      "revId": "76e61112d056dfc9bfbba6b67b32a24d6f41b102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
