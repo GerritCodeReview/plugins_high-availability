@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c3c84bf_3a54fca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-05T18:49:53Z",
+      "side": 1,
+      "message": "How is this change related to the Issue 14682?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "76e61112d056dfc9bfbba6b67b32a24d6f41b102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "669fde06_fb496483",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
         "patchSetId": 6
