@@ -103,6 +103,31 @@ public class ChangeReindexRunnableTest {
   }
 
   @Test
+  public void changeIsIndexedDuringRun_withInvalidExtraChange() throws Exception {
+    LocalDateTime currentTime = LocalDateTime.now(ZoneOffset.UTC);
+    Timestamp afterCurrentTime =
+        new Timestamp(currentTime.toEpochSecond(ZoneOffset.UTC) * 1000 + 1000L);
+    Change change = newChange(afterCurrentTime);
+
+    when(indexTs.getUpdateTs(AbstractIndexRestApiServlet.IndexName.CHANGE))
+        .thenReturn(Optional.of(currentTime));
+    when(projectCache.all()).thenReturn(ImmutableSortedSet.of(change.getProject()));
+    when(repoManager.openRepository(change.getProject())).thenReturn(repo);
+    ChangeNotesResult invalidChangeRes = mock(ChangeNotesResult.class);
+    when(invalidChangeRes.notes()).thenThrow(IllegalStateException.class);
+    when(invalidChangeRes.error()).thenReturn(Optional.of(new IllegalStateException()));
+    when(changeNotesFactory.scan(repo, change.getProject()))
+        .thenReturn(Stream.of(invalidChangeRes, changeNotesRes));
+    when(changeNotesRes.error()).thenReturn(Optional.empty());
+    when(changeNotesRes.notes()).thenReturn(changeNotes);
+    when(changeNotes.getChange()).thenReturn(change);
+
+    changeReindexRunnable.run();
+
+    verify(indexer).index(changeProjectIndexKey(change), Operation.INDEX, Optional.empty());
+  }
+
+  @Test
   public void groupIsNotIndexedWhenItIsCreatedBeforeLastGroupReindex() throws Exception {
     Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
     Timestamp beforeCurrentTime = new Timestamp(currentTime.getTime() - 1000L);
