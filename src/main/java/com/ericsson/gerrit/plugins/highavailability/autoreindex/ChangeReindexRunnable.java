@@ -23,7 +23,6 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.notedb.ChangeNotes;
-import com.google.gerrit.server.notedb.ChangeNotes.Factory.ChangeNotesResult;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
@@ -83,7 +82,16 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
         Stream<Change> projectChangesStream =
             notesFactory
                 .scan(repo, projectName)
-                .map((ChangeNotesResult changeNotes) -> changeNotes.notes().getChange());
+                .filter(
+                    cnr -> {
+                      if (cnr.error().isEmpty()) {
+                        return true;
+                      }
+                      log.atWarning().withCause(cnr.error().get()).log(
+                          "Error fetching change " + cnr.id());
+                      return false;
+                    })
+                .map(cnr -> cnr.notes().getChange());
         allChangesStream = Streams.concat(allChangesStream, projectChangesStream);
       }
     }
