@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d9b00b6_e6e9f755",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-10-19T19:41:28Z",
+      "side": 1,
+      "message": "LGTM, not sure how much trouble is to add a test for it",
+      "revId": "c3f286d9d351fb7395ad61a1e287a734e483ed0b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
