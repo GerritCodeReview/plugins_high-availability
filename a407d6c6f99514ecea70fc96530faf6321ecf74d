@@ -34,6 +34,24 @@
       "parentUuid": "8f57af50_8c470473",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5572e5f1_2f8f8b20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-25T19:07:53Z",
+      "side": 1,
+      "message": "This works E2E for me. Are you starting with a fresh environment or using an existing one?",
+      "parentUuid": "c058700c_a8341b6a",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
