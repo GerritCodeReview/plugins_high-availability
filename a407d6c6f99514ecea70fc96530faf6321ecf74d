@@ -16,6 +16,24 @@
       "message": "Hi I try to verify change but I get errors:\n\ngerrit-02_1       | Couldn\u0027t upgrade schema. Expected if slave and read-only database\ngerrit-02_1       | ERROR com.google.gerrit.pgm.init.BaseInit : Couldn\u0027t upgrade schema. Expected if slave and read-only database\ngerrit-02_1       | com.google.gerrit.exceptions.StorageException: Cannot initialize Gerrit site\n\n\nand \ngerrit-01_1       | [2021-10-13 17:41:35,708] [main] ERROR com.google.gerrit.server.index.account.AllAccountsIndexer : Error collecting accounts\ngerrit-01_1       | org.eclipse.jgit.errors.RepositoryNotFoundException: repository not found: Cannot open repository All-Users\n\nThere are also other problems during docker-compose build, did You verify this change what I miss?\n",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c058700c_a8341b6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-10-25T14:26:17Z",
+      "side": 1,
+      "message": "I was also getting these lines, @Luca, can you tell us what is the cause?",
+      "parentUuid": "8f57af50_8c470473",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
