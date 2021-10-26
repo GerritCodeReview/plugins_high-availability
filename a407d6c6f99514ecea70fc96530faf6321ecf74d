@@ -52,6 +52,24 @@
       "parentUuid": "c058700c_a8341b6a",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b9330bf_31a2ca81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-10-26T02:19:53Z",
+      "side": 1,
+      "message": "I used docker-compose in my dev environment. It had problems to properly start.",
+      "parentUuid": "5572e5f1_2f8f8b20",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
