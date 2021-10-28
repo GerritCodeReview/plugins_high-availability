@@ -88,6 +88,24 @@
       "parentUuid": "9b9330bf_31a2ca81",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c377f9bb_b87785a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-10-28T12:59:59Z",
+      "side": 1,
+      "message": "HI I try this 1st time. It is on 3.1 and 3.2. But on 3.3 it is not starting. It also requires to modify some files to pass docker-compose build.\nI manage to run docker with some problems (only 1 node is working) and I spotted that gerrit version used in this change is 3.2.10. I think this is mistake and we should use 3.3 in this tests. Please confirm may be this is a root cause of problems",
+      "parentUuid": "5965a7de_b5099b37",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
