@@ -106,6 +106,24 @@
       "parentUuid": "5965a7de_b5099b37",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecaec05a_af5a66bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-28T20:02:22Z",
+      "side": 1,
+      "message": "\u003e HI I try this 1st time. It is on 3.1 and 3.2.\n\nWhat do you mean is on 3.1 and 3.2? *Before* this change it should be on v3.2.10\n\n\u003e But on 3.3 it is not starting. It also requires to modify some files to pass docker-compose build.\n\nNo, it shouldn\u0027t. \n\nSee what I did:\n$ git clone https://gerrit.googlesource.com/plugins/high-availability\n$ git fetch https://gerrit.googlesource.com/plugins/high-availability refs/changes/83/317883/2 \u0026\u0026 git checkout FETCH_HEAD\n$ cd high-availability/src/test/docker\n$ docker-compose build\n$ docker-compose up\n\nThe docker-compose up will:\n- start syslog-sidecar\n- start haproxy\n- start gerrit-01\n- start gerrit-02\n\n\u003e I manage to run docker with some problems (only 1 node is working) and I spotted that gerrit version used in this change is 3.2.10.\n\nThen, there must be something strange going on in your setup: *after this change* the gerrit version should be 3.3.6. Have you run \u0027docker-compose build\u0027 after fetching the change?\n\n\u003e I think this is mistake and we should use 3.3 in this tests. \n\nWhich tests? This is just a docker-compose environment without tests: what tests are you referring to?\n\n\u003e Please confirm may be this is a root cause of problems\n\nI have no idea yet of what is the issue on your side: can you record a short video of what you are doing and share it?",
+      "parentUuid": "c377f9bb_b87785a4",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
