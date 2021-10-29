@@ -3,7 +3,7 @@
     "gerritforge:plugins-high-availability-build-test": {
       "state": "NOT_STARTED",
       "created": "2021-09-14T22:08:05Z",
-      "updated": "2021-10-29T15:38:57Z"
+      "updated": "2021-10-29T15:39:37Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
       "state": "NOT_STARTED",
