@@ -142,6 +142,24 @@
       "parentUuid": "ecaec05a_af5a66bb",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb21670_94e99d48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-29T20:46:47Z",
+      "side": 1,
+      "message": "\u003e Hi I did:\n\u003e 1. git clone https://gerrit.googlesource.com/plugins/high-availability\n\u003e 2. cd high-availability/\n\u003e 3. git fetch https://gerrit.googlesource.com/plugins/high-availability refs/changes/83/317883/2 \u0026\u0026 git checkout FETCH_HEAD\n\u003e 4. cd src/test/docker/\n\u003e 5. docker-compose build\n\u003e \n\u003e Error spotted:\n\u003e \"mkdir: cannot create directory \u0027/var/lib/haproxy\u0027: File exists\n\u003e ERROR: Service \u0027haproxy\u0027 failed to build: The command \u0027/bin/sh -c mkdir /var/lib/haproxy \u0026\u0026     mkdir /var/run/haproxy \u0026\u0026     useradd haproxy \u0026\u0026     chown haproxy: /var/lib/haproxy /var/run/haproxy\u0027 returned a non-zero code: 1\"\n\u003e \n\u003e 6 vim haproxy/Dockerfile\n\u003e And add to mkdir -p flag\n\u003e\n\u003e 7.docker-compose build\n\u003e ERROR: \"useradd: user \u0027haproxy\u0027 already exists\"\n\u003e \n\u003e 8. vim haproxy/Dockerfile\n\u003e   Remove useradd line 7\n\u003e 9. docker-compose build\n\u003e  \"Successfully built 7a935dfa5e85\n\u003e  Successfully tagged docker_syslog-sidecar:latest\"\n\nAh, the issue is with haproxy:1.8 which isn\u0027t pinned to anything. It *was working* in the past, but the tag has moved forward.\n\nFixed now with Change-Id: I9dcd9940. However, that issue was 100% unrelated to the v3.3.6 upgrade. How comes that it was working for you before this change? Have tried?\n\n\u003e 10. docker-compose up\n\u003e \tDocker is starting:\n\u003e \tCreating docker_syslog-sidecar_1 ... done\n\u003e \tCreating docker_gerrit-01_1      ... done\n\u003e \tCreating docker_gerrit-02_1      ... done\n\u003e \tCreating docker_haproxy_1        ... done\n\u003e \t\n\u003e \tAnd then\n\u003e \tgerrit-01_1       | ERROR com.google.gerrit.pgm.init.BaseInit : Couldn\u0027t upgrade schema. Expected if slave and read- only database\n\u003e \tgerrit-01_1       | com.google.gerrit.exceptions.StorageException: Cannot initialize Gerrit site\n\u003e \tdocker_gerrit-01_1 exited with code 1\n\u003e \t\n\u003e Today I created fresh ubuntu 20.04 lts on virtual box. I install docker+ bazylisk + java openjdk 11.0.11 2021-04-20, result above.",
+      "parentUuid": "e3e9fd35_9bc6d211",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
