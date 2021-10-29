@@ -160,6 +160,24 @@
       "parentUuid": "e3e9fd35_9bc6d211",
       "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba3fd0e_3191ad0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-10-29T21:05:37Z",
+      "side": 1,
+      "message": "\u003e \u003e 10. docker-compose up\n\u003e \u003e \tDocker is starting:\n\u003e \u003e \tCreating docker_syslog-sidecar_1 ... done\n\u003e \u003e \tCreating docker_gerrit-01_1      ... done\n\u003e \u003e \tCreating docker_gerrit-02_1      ... done\n\u003e \u003e \tCreating docker_haproxy_1        ... done\n\u003e \u003e \t\n\u003e \u003e \tAnd then\n\u003e \u003e \tgerrit-01_1       | ERROR com.google.gerrit.pgm.init.BaseInit : Couldn\u0027t upgrade schema. Expected if slave and read- only database\n\u003e \u003e \tgerrit-01_1       | com.google.gerrit.exceptions.StorageException: Cannot initialize Gerrit site\n\u003e \u003e \tdocker_gerrit-01_1 exited with code 1\n\nI believe you don\u0027t have the ./gitvolume and ./shareddir directory on the local filesystem. What docker does it creating them for you but owned by \u0027root\u0027 which is not the same \u0027gerrit\u0027 user that the Docker image is running on. That results in the inability to initialise a Gerrit site.\n\nYou can easily fix it by:\n- creating ./gitvolume and ./shareddir locally\n- chown the directories to the user with uid 1000\n\nAgain, the the above issue isn\u0027t related to Gerrit v3.3.6 but it is a well-known docker behaviour when you mount non-existent directories.\n\nI\u0027ve addressed this second issue with Change Ia3009391b8 which relies on internal volumes.",
+      "parentUuid": "cfb21670_94e99d48",
+      "revId": "a407d6c6f99514ecea70fc96530faf6321ecf74d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
