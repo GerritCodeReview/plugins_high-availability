@@ -61,6 +61,7 @@ services:
     volumes:
       - syslog-sidecar
     depends_on:
+      - syslog-sidecar
       - gerrit-01
       - gerrit-02
 
