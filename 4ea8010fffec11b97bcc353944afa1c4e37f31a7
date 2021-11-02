@@ -16,6 +16,23 @@
       "message": "Works E2E",
       "revId": "4ea8010fffec11b97bcc353944afa1c4e37f31a7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1be2a64_f9aefbd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-11-02T19:39:48Z",
+      "side": 1,
+      "message": "works for me with chown for  ./gitvolume and ./shareddir ",
+      "revId": "4ea8010fffec11b97bcc353944afa1c4e37f31a7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
