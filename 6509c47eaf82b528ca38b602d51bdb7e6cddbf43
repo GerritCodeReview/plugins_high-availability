@@ -51,6 +51,24 @@
       "parentUuid": "2a599737_c6c145a4",
       "revId": "6509c47eaf82b528ca38b602d51bdb7e6cddbf43",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9707370_65b0318a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-11-02T20:39:26Z",
+      "side": 1,
+      "message": "Yes, indeed there was an issue because the shared dir renaming needs to happen *also* on the high-availability.*.config.\n\nGood catch.",
+      "parentUuid": "57a35d10_32d55dce",
+      "revId": "6509c47eaf82b528ca38b602d51bdb7e6cddbf43",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
