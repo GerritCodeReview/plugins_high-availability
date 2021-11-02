@@ -16,6 +16,23 @@
       "message": "Works E2E",
       "revId": "6509c47eaf82b528ca38b602d51bdb7e6cddbf43",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a599737_c6c145a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2021-11-02T19:44:31Z",
+      "side": 1,
+      "message": "Work for me, I have only 1 issue.\nI cannot signin as admin. Maybe this is my setup.\nI go to web page click sign in, then choose admin. \nI am redirected to start page but I am not signin. \nNo error msg appears.",
+      "revId": "6509c47eaf82b528ca38b602d51bdb7e6cddbf43",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
