@@ -12,6 +12,7 @@ if [[ ! -f /var/gerrit/etc/ssh_host_ed25519_key ]]
 then
   echo "Initializing Gerrit site ..."
   sudo -u gerrit java -jar /var/gerrit/bin/gerrit.war init -d /var/gerrit --batch
+  chown -R gerrit: /var/gerrit/shareddir
 fi
 
 echo "Reindexing Gerrit ..."
