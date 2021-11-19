@@ -1,6 +1,6 @@
-FROM gerritcodereview/gerrit:3.4.1
+FROM gerritcodereview/gerrit:3.5.0-rc2
 
-ENV GERRIT_BRANCH=stable-3.4
+ENV GERRIT_BRANCH=stable-3.5
 
 ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
 
