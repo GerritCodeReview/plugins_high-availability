@@ -12,7 +12,9 @@ services:
     volumes:
       - /dev/urandom:/dev/random
       - ./gitvolume:/var/gerrit/git
-      - ./shareddir:/var/gerrit/shared/dir
+      - ./shareddir:/var/gerrit/shareddir
+      - ./index-01:/var/gerrit/index
+      - ./cache-01:/var/gerrit/cache
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
     environment:
@@ -30,7 +32,9 @@ services:
     volumes:
       - /dev/urandom:/dev/random
       - ./gitvolume:/var/gerrit/git
-      - ./shareddir:/var/gerrit/shared/dir
+      - ./shareddir:/var/gerrit/shareddir
+      - ./index-02:/var/gerrit/index
+      - ./cache-02:/var/gerrit/cache
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
     environment:
