@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4d62fc_cad003ac",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/ForwardedCacheEvictionHandlerIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2021-12-06T21:56:46Z",
+      "side": 1,
+      "message": "since we are checking negative should you check if newProject is evicted?",
+      "revId": "37db51b48a92bbc22da97f2544332f292d8c7a9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
