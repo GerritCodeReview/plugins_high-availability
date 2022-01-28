@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf9e81d_c05029cd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-28T19:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19109a80_e4dc6305",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 74,
+        "endChar": 55
+      },
+      "revId": "6184c58818e6fe216534047e2e0f0eeab8eda2ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "abe71efe_4e0c951b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-28T14:19:16Z",
       "side": 1,
       "message": "nit: `AbstractIndexRestApiServlet.IndexName.toString()` already does `name().toLowerCase()` [1]\n\n[1]https://gerrit.googlesource.com/plugins/high-availability/+/refs/changes/65/329365/1/src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/AbstractIndexRestApiServlet.java#51",
+      "range": {
+        "startLine": 228,
+        "startChar": 27,
+        "endLine": 228,
+        "endChar": 53
+      },
+      "revId": "6184c58818e6fe216534047e2e0f0eeab8eda2ec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3277139_b55bfa75",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/IndexTs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-01-28T19:33:22Z",
+      "side": 1,
+      "message": "Sure, but toString() is for displaying the value, doesn\u0027t necessarily means it will always be lowercase.",
+      "parentUuid": "abe71efe_4e0c951b",
       "range": {
         "startLine": 228,
         "startChar": 27,
