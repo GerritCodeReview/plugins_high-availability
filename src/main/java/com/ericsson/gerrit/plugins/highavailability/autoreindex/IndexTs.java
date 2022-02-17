@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -138,7 +139,8 @@ public class IndexTs
                 IndexName.CHANGE,
                 !changeNotes.isPresent()
                     ? LocalDateTime.now()
-                    : changeNotes.get().getChange().getLastUpdatedOn().toLocalDateTime());
+                    : Timestamp.from(changeNotes.get().getChange().getLastUpdatedOn())
+                        .toLocalDateTime());
           } catch (Exception e) {
             log.atWarning().withCause(e).log("Unable to update the latest TS for change %d", id);
           }

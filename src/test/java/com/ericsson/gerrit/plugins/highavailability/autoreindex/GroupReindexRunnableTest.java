@@ -110,7 +110,7 @@ public class GroupReindexRunnableTest {
             Collections.singletonList(
                 AccountGroupMemberAudit.builder()
                     .addedBy(Account.Id.tryParse("1").get())
-                    .addedOn(afterCurrentTime)
+                    .addedOn(afterCurrentTime.toInstant())
                     .memberId(Account.Id.tryParse("1").get())
                     .groupId(AccountGroup.Id.parse("1"))
                     .build()));
@@ -130,10 +130,10 @@ public class GroupReindexRunnableTest {
     AccountGroupMemberAudit accountGroupMemberAudit =
         AccountGroupMemberAudit.builder()
             .addedBy(Account.Id.tryParse("1").get())
-            .addedOn(beforeCurrentTime)
+            .addedOn(beforeCurrentTime.toInstant())
             .memberId(Account.Id.tryParse("1").get())
             .groupId(AccountGroup.Id.parse("2"))
-            .removed(Account.Id.tryParse("2").get(), afterCurrentTime)
+            .removed(Account.Id.tryParse("2").get(), afterCurrentTime.toInstant())
             .build();
     when(groups.getGroup(uuid)).thenReturn(getInternalGroup(currentTime));
     when(groups.getMembersAudit(any(), any()))
@@ -158,7 +158,7 @@ public class GroupReindexRunnableTest {
                     .groupId(AccountGroup.Id.parse("1"))
                     .includeUuid(UUID.parse("123"))
                     .addedBy(Account.Id.tryParse("1").get())
-                    .addedOn(afterCurrentTime)
+                    .addedOn(afterCurrentTime.toInstant())
                     .build()));
     Optional<Timestamp> groupLastTs =
         groupReindexRunnable.indexIfNeeded(groupReference, currentTime);
@@ -178,8 +178,8 @@ public class GroupReindexRunnableTest {
             .groupId(AccountGroup.Id.parse("1"))
             .includeUuid(UUID.parse("123"))
             .addedBy(Account.Id.tryParse("1").get())
-            .addedOn(beforeCurrentTime)
-            .removed(Account.Id.tryParse("2").get(), afterCurrentTime)
+            .addedOn(beforeCurrentTime.toInstant())
+            .removed(Account.Id.tryParse("2").get(), afterCurrentTime.toInstant())
             .build();
 
     when(groups.getGroup(uuid)).thenReturn(getInternalGroup(beforeCurrentTime));
@@ -201,7 +201,7 @@ public class GroupReindexRunnableTest {
             .setOwnerGroupUUID(uuid)
             .setVisibleToAll(true)
             .setGroupUUID(UUID.parse("12"))
-            .setCreatedOn(timestamp)
+            .setCreatedOn(timestamp.toInstant())
             .setMembers(ImmutableSet.<Id>builder().build())
             .setSubgroups(ImmutableSet.<UUID>builder().build())
             .build());

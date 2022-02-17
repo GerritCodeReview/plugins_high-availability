@@ -30,8 +30,8 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import com.google.gerrit.server.util.time.TimeUtil;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import org.junit.Before;
@@ -67,7 +67,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Before
   public void setUp() throws Exception {
     id = Change.id(TEST_CHANGE_NUMBER);
-    Change change = new Change(null, id, null, null, TimeUtil.nowTs());
+    Change change = new Change(null, id, null, null, Instant.now());
     when(changeNotes.getChange()).thenReturn(change);
     when(configMock.index()).thenReturn(indexMock);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
