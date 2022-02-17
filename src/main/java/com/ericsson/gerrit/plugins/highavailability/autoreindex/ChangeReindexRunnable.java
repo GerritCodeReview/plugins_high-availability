@@ -101,7 +101,7 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
   @Override
   protected Optional<Timestamp> indexIfNeeded(Change c, Timestamp sinceTs) {
     try {
-      Timestamp changeTs = c.getLastUpdatedOn();
+      Timestamp changeTs = Timestamp.from(c.getLastUpdatedOn());
       if (changeTs.after(sinceTs)) {
         log.atInfo().log(
             "Index %s/%s/%s was updated after %s", c.getProject(), c.getId(), changeTs, sinceTs);

@@ -151,6 +151,6 @@ public class ChangeReindexRunnableTest {
         Change.id(123),
         Account.id(1000000),
         BranchNameKey.create("projectname", "main"),
-        changeTs);
+        changeTs.toInstant());
   }
 }

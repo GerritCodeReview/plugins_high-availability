@@ -30,6 +30,7 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -73,7 +74,7 @@ public class GroupReindexRunnable extends ReindexRunnable<GroupReference> {
       Optional<InternalGroup> internalGroup = groups.getGroup(g.getUUID());
       if (internalGroup.isPresent()) {
         InternalGroup group = internalGroup.get();
-        Timestamp groupCreationTs = group.getCreatedOn();
+        Timestamp groupCreationTs = Timestamp.from(group.getCreatedOn());
 
         Repository allUsersRepo = repoManager.openRepository(allUsers);
 
@@ -81,23 +82,27 @@ public class GroupReindexRunnable extends ReindexRunnable<GroupReference> {
             groups.getSubgroupsAudit(allUsersRepo, g.getUUID());
         Stream<Timestamp> groupIdAudAddedTs =
             subGroupMembersAud.stream()
-                .map(AccountGroupByIdAudit::addedOn)
+                .map(inst -> Timestamp.from(inst.addedOn()))
                 .filter(Objects::nonNull);
         Stream<Timestamp> groupIdAudRemovedTs =
             subGroupMembersAud.stream()
-                .map(AccountGroupByIdAudit::removedOn)
-                .filter(Optional<Timestamp>::isPresent)
-                .map(Optional<Timestamp>::get);
+                .map(inst -> inst.removedOn())
+                .filter(Optional<Instant>::isPresent)
+                .map(Optional<Instant>::get)
+                .map(inst -> Timestamp.from(inst));
 
         List<AccountGroupMemberAudit> groupMembersAud =
             groups.getMembersAudit(allUsersRepo, g.getUUID());
         Stream<Timestamp> groupMemberAudAddedTs =
-            groupMembersAud.stream().map(AccountGroupMemberAudit::addedOn).filter(Objects::nonNull);
+            groupMembersAud.stream()
+                .map(inst -> Timestamp.from(inst.addedOn()))
+                .filter(Objects::nonNull);
         Stream<Timestamp> groupMemberAudRemovedTs =
             groupMembersAud.stream()
-                .map(AccountGroupMemberAudit::removedOn)
-                .filter(Optional<Timestamp>::isPresent)
-                .map(Optional<Timestamp>::get);
+                .map(inst -> inst.removedOn())
+                .filter(Optional<Instant>::isPresent)
+                .map(Optional<Instant>::get)
+                .map(inst -> Timestamp.from(inst));
 
         Optional<Timestamp> groupLastTs =
             Streams.concat(
