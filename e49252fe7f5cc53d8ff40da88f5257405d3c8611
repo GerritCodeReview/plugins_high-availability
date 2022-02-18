@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b085fc58_a8000625",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2022-02-18T20:24:14Z",
+      "side": 1,
+      "message": "inst.addedOn() is optional it can be null suggest to keep orginal implementation add add additional map to timestamp after filter.\nLike this:\n            subGroupMembersAud.stream()\n                .map(AccountGroupByIdAudit::removedOn)\n                .filter((Optional\u003cInstant\u003e::isPresent))\n                .map(inst -\u003e Timestamp.from(inst.get()));",
+      "range": {
+        "startLine": 85,
+        "startChar": 43,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "e49252fe7f5cc53d8ff40da88f5257405d3c8611",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d75a3ef_9af6af72",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2022-02-18T20:24:14Z",
+      "side": 1,
+      "message": "No need to use labda we can keep\n.map(AccountGroupByIdAudit::removedOn)",
+      "range": {
+        "startLine": 89,
+        "startChar": 16,
+        "endLine": 89,
+        "endChar": 46
+      },
+      "revId": "e49252fe7f5cc53d8ff40da88f5257405d3c8611",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f5979f_5f64f409",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2022-02-18T20:24:14Z",
+      "side": 1,
+      "message": "No need to use 2 mappings\nmap(inst -\u003e Timestamp.from(inst.get())); will do a job",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 51
+      },
+      "revId": "e49252fe7f5cc53d8ff40da88f5257405d3c8611",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403b291e_f5cc51b7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/GroupReindexRunnable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2022-02-18T20:24:14Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 51
+      },
+      "revId": "e49252fe7f5cc53d8ff40da88f5257405d3c8611",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
