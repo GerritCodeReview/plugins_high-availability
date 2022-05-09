@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "290059c0_fbf89c63",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "The Optional.orElse is more elegant way to express this logic. Replace the whole line with:\n\n  protocolStack.orElse(\"not configured, using default stack\")",
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c84fa20b_51809204",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -37,10 +38,10 @@
         "endChar": 31
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f06564ec_cab83fb2",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -60,10 +61,10 @@
         "endChar": 44
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4bf06cd4_8b87584e",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -78,10 +79,10 @@
       "message": "This is not going to work because of incompatible types. Note that protocolStack is Optional\u003cPath\u003e and orElse argument is String.\nOr am I missing something?",
       "parentUuid": "290059c0_fbf89c63",
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "76f06f54_178d7f63",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -102,10 +103,10 @@
         "endChar": 31
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6f142065_c5591d03",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -126,10 +127,10 @@
         "endChar": 44
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e07d9d29_41f4fc49",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -144,10 +145,76 @@
       "message": "Correct, my mistake.",
       "parentUuid": "4bf06cd4_8b87584e",
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2b339a_d116c3a8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76f06f54_178d7f63",
+      "range": {
+        "startLine": 303,
+        "startChar": 10,
+        "endLine": 303,
+        "endChar": 31
+      },
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c5d111_40d8af68",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07d9d29_41f4fc49",
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdfcdc98_3e62e8a6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f142065_c5591d03",
+      "range": {
+        "startLine": 303,
+        "startChar": 39,
+        "endLine": 303,
+        "endChar": 44
+      },
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "89a8c180_024c2d6c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -167,10 +234,10 @@
         "endChar": 55
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5f33db12_90e9a51c",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
@@ -191,10 +258,34 @@
         "endChar": 55
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae62f2d_ed813b7a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f33db12_90e9a51c",
+      "range": {
+        "startLine": 310,
+        "startChar": 45,
+        "endLine": 310,
+        "endChar": 55
+      },
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "5444f56b_169ac88e",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -214,10 +305,10 @@
         "endChar": 5
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "91d460f3_f4bcb9fc",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -238,10 +329,34 @@
         "endChar": 5
       },
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8d0517d_76bfa0d7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91d460f3_f4bcb9fc",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 5
+      },
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "1ed5f7dd_445502ea",
         "filename": "src/main/resources/Documentation/config.md",
@@ -255,10 +370,10 @@
       "side": 1,
       "message": "Please also provide a link to some JGroups documentation which defines format of protocol stack file. Optionally, an example protocol stack file could be added to this change too.",
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "82106cda_2e62dc9a",
         "filename": "src/main/resources/Documentation/config.md",
@@ -273,8 +388,25 @@
       "message": "Done",
       "parentUuid": "1ed5f7dd_445502ea",
       "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07bfba17_2fb226bc",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82106cda_2e62dc9a",
+      "revId": "7986a6fdbe94250a8931c0f67057ae96caf53a7b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

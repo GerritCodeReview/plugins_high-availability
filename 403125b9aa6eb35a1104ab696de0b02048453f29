@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "3428a109_2effa49e",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "In an offline discussion I asked why we use configuration for this rather than just saying that if a specific properties file exists at a specific location, it is used, otherwise it defaults to no properties.  The answer is that this allows to have multiple properties files and easily switch between them by changing the config.\n\nPerhaps that should be added in the commit message.",
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c8701779_41513743",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,28 @@
       "message": "Done",
       "parentUuid": "3428a109_2effa49e",
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7923cf45_75f15336",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8701779_41513743",
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "aabb3ab3_22d11dba",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -55,10 +74,10 @@
         "endChar": 52
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "62f007f0_8a98f54f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -79,10 +98,34 @@
         "endChar": 52
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72bfa0ae_616dd4ee",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62f007f0_8a98f54f",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 52
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "c680a62e_1f65d409",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -102,10 +145,10 @@
         "endChar": 71
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "323df09d_bf643901",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -126,10 +169,34 @@
         "endChar": 71
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "945637f9_3a7da04d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "323df09d_bf643901",
+      "range": {
+        "startLine": 144,
+        "startChar": 53,
+        "endLine": 144,
+        "endChar": 71
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "4282acb0_e5d54c86",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -149,10 +216,10 @@
         "endChar": 18
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "46be6f53_e1e5d9dc",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
@@ -173,10 +240,34 @@
         "endChar": 18
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd2f9460_a69073ef",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46be6f53_e1e5d9dc",
+      "range": {
+        "startLine": 145,
+        "startChar": 6,
+        "endLine": 145,
+        "endChar": 18
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "69c23d92_a2073ffc",
         "filename": "src/main/resources/Documentation/config.md",
@@ -196,10 +287,10 @@
         "endChar": 21
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7ff3deaf_4949d2f7",
         "filename": "src/main/resources/Documentation/config.md",
@@ -220,8 +311,31 @@
         "endChar": 21
       },
       "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
-      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
-      "unresolved": true
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee9beca7_cda0e4e5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1014257
+      },
+      "writtenOn": "2022-05-09T16:44:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ff3deaf_4949d2f7",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "403125b9aa6eb35a1104ab696de0b02048453f29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
