@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.events.LifecycleListener;
@@ -157,6 +158,16 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     }
   }
 
+  @VisibleForTesting
+  void setChannel(JChannel channel) {
+    this.channel = channel;
+  }
+
+  @VisibleForTesting
+  void setPeerInfo(Optional<PeerInfo> peerInfo) {
+    this.peerInfo = peerInfo;
+  }
+
   @Override
   public Set<PeerInfo> get() {
     return peerInfo.isPresent() ? ImmutableSet.of(peerInfo.get()) : ImmutableSet.of();
@@ -177,5 +188,15 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     }
     peerInfo = Optional.empty();
     peerAddress = null;
+  }
+
+  @VisibleForTesting
+  Address getPeerAddress() {
+    return peerAddress;
+  }
+
+  @VisibleForTesting
+  void setPeerAddress(Address peerAddress) {
+    this.peerAddress = peerAddress;
   }
 }
