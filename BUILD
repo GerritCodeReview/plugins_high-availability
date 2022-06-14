@@ -47,5 +47,6 @@ java_library(
         ":high-availability__plugin",
         "@global-refdb//jar",
         "@wiremock//jar",
+        "@jgroups//jar"
     ],
 )
