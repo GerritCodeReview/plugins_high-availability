@@ -178,4 +178,8 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     peerInfo = Optional.empty();
     peerAddress = null;
   }
+
+  Address getPeerAddress() {
+    return peerAddress;
+  }
 }
