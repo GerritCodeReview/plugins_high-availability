@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
@@ -25,14 +26,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModuleTest {
 
-  @Mock(answer = Answers.RETURNS_DEEP_STUBS)
+  @Mock(answer = RETURNS_DEEP_STUBS)
   private Configuration configMock;
 
   @Rule public TemporaryFolder tempFolder = new TemporaryFolder();
