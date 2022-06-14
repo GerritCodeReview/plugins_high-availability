@@ -40,6 +40,12 @@ class InetAddressFinder {
     jgroupsConfig = pluginConfiguration.jgroups();
   }
 
+  @VisibleForTesting
+  InetAddressFinder(Configuration pluginConfiguration, boolean preferIPv4) {
+    this.preferIPv4 = preferIPv4;
+    jgroupsConfig = pluginConfiguration.jgroups();
+  }
+
   /**
    * Iterate over all network interfaces and return the first appropriate address. Interfaces which
    * are loopback interfaces, or down or which don't support multicast are not inspected. Interfaces
