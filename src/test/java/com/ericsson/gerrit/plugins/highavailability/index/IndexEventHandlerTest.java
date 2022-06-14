@@ -76,6 +76,7 @@ public class IndexEventHandlerTest {
   private static final String OTHER_UUID = "4";
   private static final Integer INDEX_WAIT_TIMEOUT_MS = 5;
   private static final int MAX_TEST_PARALLELISM = 4;
+  private static final int MAX_TEST_TRIES = 260;
 
   private IndexEventHandler indexEventHandler;
   @Mock private Forwarder forwarder;
@@ -114,7 +115,7 @@ public class IndexEventHandlerTest {
 
     Configuration.Http http = mock(Configuration.Http.class);
     when(configuration.http()).thenReturn(http);
-    when(http.maxTries()).thenReturn(Configuration.Http.DEFAULT_MAX_TRIES);
+    when(http.maxTries()).thenReturn(MAX_TEST_TRIES);
     when(http.retryInterval()).thenReturn(Configuration.Http.DEFAULT_RETRY_INTERVAL);
     when(forwarder.indexAccount(eq(ACCOUNT_ID), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
