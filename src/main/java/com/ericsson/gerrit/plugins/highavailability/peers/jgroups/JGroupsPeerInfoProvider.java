@@ -157,6 +157,14 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     }
   }
 
+  void setChannel(JChannel channel) {
+    this.channel = channel;
+  }
+
+  public void setPeerInfo(Optional<PeerInfo> peerInfo) {
+    this.peerInfo = peerInfo;
+  }
+
   @Override
   public Set<PeerInfo> get() {
     return peerInfo.isPresent() ? ImmutableSet.of(peerInfo.get()) : ImmutableSet.of();
@@ -177,5 +185,13 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     }
     peerInfo = Optional.empty();
     peerAddress = null;
+  }
+
+  Address getPeerAddress() {
+    return peerAddress;
+  }
+
+  void setPeerAddress(Address peerAddress) {
+    this.peerAddress = peerAddress;
   }
 }
