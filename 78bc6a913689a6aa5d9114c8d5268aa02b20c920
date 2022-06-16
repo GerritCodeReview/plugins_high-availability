@@ -128,6 +128,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "13e16820_8143ddb2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-06-16T18:48:16Z",
+      "side": 1,
+      "message": "Then this also goes away",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57977048_bc2211b0",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
         "patchSetId": 7
@@ -145,6 +162,23 @@
         "endLine": 35,
         "endChar": 35
       },
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a5de00_483887fc",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-06-16T18:48:16Z",
+      "side": 1,
+      "message": "Would use the same assertion to match with other tests in this plugin",
       "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
