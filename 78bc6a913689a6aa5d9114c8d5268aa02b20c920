@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "32e44f71_b4837900",
+        "filename": ".gitignore",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done\nGot it. I\u0027ll remove it.",
+      "parentUuid": "5380eee7_04f9fa3f",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 6
+      },
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2b6fe05d_df6b1c76",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -58,6 +82,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08d34111_c15f1216",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05ef4a7b_68758be4",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b90f955a_ba73c79a",
@@ -71,6 +113,24 @@
       "writtenOn": "2022-06-16T15:52:26Z",
       "side": 1,
       "message": "@VisibleForTesting",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb750f25_6dab8f48",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b90f955a_ba73c79a",
       "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -92,6 +152,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "361564f1_0e925930",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6deefe4_6919cc59",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d0d3820_3b3186b5",
@@ -105,6 +183,24 @@
       "writtenOn": "2022-06-16T15:52:26Z",
       "side": 1,
       "message": "@VisibleForTesting",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82ce92b9_776f9b26",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d0d3820_3b3186b5",
       "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -126,6 +222,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83e5251b_2fe3923a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2862b174_0c964897",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13e16820_8143ddb2",
@@ -139,6 +253,24 @@
       "writtenOn": "2022-06-16T18:48:16Z",
       "side": 1,
       "message": "Then this also goes away",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a49a23d3_ba0da6f7",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13e16820_8143ddb2",
       "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -166,6 +298,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a359003_e4d86e75",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/ModuleTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57977048_bc2211b0",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 35,
+        "endChar": 35
+      },
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67a5de00_483887fc",
@@ -179,6 +335,24 @@
       "writtenOn": "2022-06-16T18:48:16Z",
       "side": 1,
       "message": "Would use the same assertion to match with other tests in this plugin",
+      "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5242501_459b89c4",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinderTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-06-17T17:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67a5de00_483887fc",
       "revId": "78bc6a913689a6aa5d9114c8d5268aa02b20c920",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
