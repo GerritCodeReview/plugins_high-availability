@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb2398f_75e864a5",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-06-20T14:01:40Z",
+      "side": 1,
+      "message": "Any reason for this?",
+      "revId": "6728ac891193f03504783b4d027f9037605b79a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c04f78_7199227f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-06-20T14:01:40Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "6728ac891193f03504783b4d027f9037605b79a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
