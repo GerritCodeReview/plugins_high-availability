@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e0a407ba_68ee7d4b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-06-21T14:13:44Z",
+      "side": 1,
+      "message": "Then it should be done in different change. This change is about jgroups",
+      "parentUuid": "88e183b2_8f27674f",
+      "revId": "6728ac891193f03504783b4d027f9037605b79a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91c04f78_7199227f",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
         "patchSetId": 9
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "These are legacy tests that fail with StackOverflow exception due to big amount of retries. It fails in Jenkins as well.\n\nI have reduced number of retries to 260 instead of 360 that was taken from MAX TRIES setting from configuration.",
       "parentUuid": "91c04f78_7199227f",
+      "revId": "6728ac891193f03504783b4d027f9037605b79a1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbbef38_80cfb4c2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-06-21T14:13:44Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "parentUuid": "d9f59ea2_48b60f49",
       "revId": "6728ac891193f03504783b4d027f9037605b79a1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
