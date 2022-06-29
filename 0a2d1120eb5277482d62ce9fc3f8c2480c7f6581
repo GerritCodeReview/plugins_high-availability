@@ -16,6 +16,46 @@
       "message": "I did run the tests on master and I did not find any stack overflow. How can I reproduce the problem?",
       "revId": "0a2d1120eb5277482d62ce9fc3f8c2480c7f6581",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24acb526_3fd8d6b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-29T21:03:12Z",
+      "side": 1,
+      "message": "I managed the reproduce the stackoverflow on the Eclipse IDE and I see that the problem is the type of scheduler used in the tests.\n\nLet\u0027s fix the root cause rather than sweeping the problem under the carpet by just reducing the number of retries, WDYT?",
+      "revId": "0a2d1120eb5277482d62ce9fc3f8c2480c7f6581",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfc659f7_3384c635",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-29T21:03:12Z",
+      "side": 1,
+      "message": "Not sure this is the right fix though. The problem here is that this class uses the CurrentThreadScheduledExecutionService that instead of using a scheduler just makes the calls in the same thread and therefore the same stack.\n\nThe situation created by this test does not represent the real runtime operation and therefore also the stack overflow is a non-problem.\n\nWhy not using a standard scheduler instead?",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 55
+      },
+      "revId": "0a2d1120eb5277482d62ce9fc3f8c2480c7f6581",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
