@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
@@ -41,21 +41,14 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -76,6 +69,7 @@ public class IndexEventHandlerTest {
   private static final String OTHER_UUID = "4";
   private static final Integer INDEX_WAIT_TIMEOUT_MS = 5;
   private static final int MAX_TEST_PARALLELISM = 4;
+  private static final long SLEEP_INTERVAL = 15000;
 
   private IndexEventHandler indexEventHandler;
   @Mock private Forwarder forwarder;
@@ -84,8 +78,10 @@ public class IndexEventHandlerTest {
   private Change.Id changeId;
   private Account.Id accountId;
   private AccountGroup.UUID accountGroupUUID;
-  private ScheduledExecutorService executor = new CurrentThreadScheduledExecutorService();
-  private ScheduledExecutorService batchExecutor = new CurrentThreadScheduledExecutorService();
+  private ScheduledExecutorService executor =
+      Executors.newScheduledThreadPool(MAX_TEST_PARALLELISM);
+  private ScheduledExecutorService batchExecutor =
+      Executors.newScheduledThreadPool(MAX_TEST_PARALLELISM);
   private ScheduledExecutorService testExecutor =
       Executors.newScheduledThreadPool(MAX_TEST_PARALLELISM);
   @Mock private RequestContext mockCtx;
@@ -155,6 +151,7 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldIndexInRemoteOnChangeIndexedEvent() throws Exception {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
+    Thread.sleep(200);
     verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
@@ -257,7 +254,7 @@ public class IndexEventHandlerTest {
     setUpIndexEventHandler(currCtx, locks);
 
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-
+    Thread.sleep(SLEEP_INTERVAL);
     verify(locks, times(2)).withLock(any(), any(), any());
     verify(forwarder, times(1)).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
@@ -278,7 +275,7 @@ public class IndexEventHandlerTest {
     setUpIndexEventHandler(currCtx, locks, cfg);
 
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-
+    Thread.sleep(SLEEP_INTERVAL);
     verify(locks, times(11)).withLock(any(), any(), any());
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
@@ -299,7 +296,7 @@ public class IndexEventHandlerTest {
     setUpIndexEventHandler(currCtx, locks, cfg);
 
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-
+    Thread.sleep(SLEEP_INTERVAL);
     verify(locks, times(1)).withLock(any(), any(), any());
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
@@ -321,6 +318,7 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
 
+    Thread.sleep(SLEEP_INTERVAL);
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
     verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
   }
@@ -336,26 +334,29 @@ public class IndexEventHandlerTest {
 
     setUpIndexEventHandler(new CurrentRequestContext(threadLocalCtxMock, cfgMock, oneOffCtxMock));
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
+    Thread.sleep(SLEEP_INTERVAL);
     verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
   @Test
   public void shouldIndexInRemoteOnAccountIndexedEvent() throws Exception {
     indexEventHandler.onAccountIndexed(accountId.get());
+    Thread.sleep(SLEEP_INTERVAL);
     verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
   }
 
   @Test
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
     indexEventHandler.onChangeDeleted(changeId.get());
+    Thread.sleep(SLEEP_INTERVAL);
     verify(forwarder).deleteChangeFromIndex(eq(CHANGE_ID), any());
-    verifyZeroInteractions(
-        changeCheckerMock); // Deleted changes should not be checked against NoteDb
+    verifyNoInteractions(changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
 
   @Test
   public void shouldIndexInRemoteOnGroupIndexedEvent() throws Exception {
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
+    Thread.sleep(SLEEP_INTERVAL);
     verify(forwarder).indexGroup(eq(UUID), any());
   }
 
@@ -365,7 +366,7 @@ public class IndexEventHandlerTest {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeDeleted(changeId.get());
     Context.unsetForwardedEvent();
-    verifyZeroInteractions(forwarder);
+    verifyNoInteractions(forwarder);
   }
 
   @Test
@@ -374,7 +375,7 @@ public class IndexEventHandlerTest {
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     Context.unsetForwardedEvent();
-    verifyZeroInteractions(forwarder);
+    verifyNoInteractions(forwarder);
   }
 
   @Test
@@ -383,7 +384,7 @@ public class IndexEventHandlerTest {
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     Context.unsetForwardedEvent();
-    verifyZeroInteractions(forwarder);
+    verifyNoInteractions(forwarder);
   }
 
   @Test
@@ -496,9 +497,8 @@ public class IndexEventHandlerTest {
   public void testDeleteChangeTaskHashCodeAndEquals() {
     DeleteChangeTask task = indexEventHandler.new DeleteChangeTask(CHANGE_ID, null);
 
-    DeleteChangeTask sameTask = task;
-    assertThat(task.equals(sameTask)).isTrue();
-    assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
+    assertThat(task.equals(task)).isTrue();
+    assertThat(task.hashCode()).isEqualTo(task.hashCode());
 
     DeleteChangeTask identicalTask = indexEventHandler.new DeleteChangeTask(CHANGE_ID, null);
     assertThat(task.equals(identicalTask)).isTrue();
@@ -517,9 +517,8 @@ public class IndexEventHandlerTest {
   public void testIndexAccountTaskHashCodeAndEquals() {
     IndexAccountTask task = indexEventHandler.new IndexAccountTask(ACCOUNT_ID);
 
-    IndexAccountTask sameTask = task;
-    assertThat(task.equals(sameTask)).isTrue();
-    assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
+    assertThat(task.equals(task)).isTrue();
+    assertThat(task.hashCode()).isEqualTo(task.hashCode());
 
     IndexAccountTask identicalTask = indexEventHandler.new IndexAccountTask(ACCOUNT_ID);
     assertThat(task.equals(identicalTask)).isTrue();
@@ -538,9 +537,8 @@ public class IndexEventHandlerTest {
   public void testIndexGroupTaskHashCodeAndEquals() {
     IndexGroupTask task = indexEventHandler.new IndexGroupTask(UUID);
 
-    IndexGroupTask sameTask = task;
-    assertThat(task.equals(sameTask)).isTrue();
-    assertThat(task.hashCode()).isEqualTo(sameTask.hashCode());
+    assertThat(task.equals(task)).isTrue();
+    assertThat(task.hashCode()).isEqualTo(task.hashCode());
 
     IndexGroupTask identicalTask = indexEventHandler.new IndexGroupTask(UUID);
     assertThat(task.equals(identicalTask)).isTrue();
@@ -681,99 +679,5 @@ public class IndexEventHandlerTest {
      */
     assertThat(changeIndexedCount.get()).isEqualTo(1);
     assertThat(lockFailedCounts.get()).isEqualTo(1);
-  }
-
-  private class CurrentThreadScheduledExecutorService implements ScheduledExecutorService {
-
-    @Override
-    public void shutdown() {}
-
-    @Override
-    public List<Runnable> shutdownNow() {
-      return null;
-    }
-
-    @Override
-    public boolean isShutdown() {
-      return false;
-    }
-
-    @Override
-    public boolean isTerminated() {
-      return false;
-    }
-
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-      return false;
-    }
-
-    @Override
-    public <T> Future<T> submit(Callable<T> task) {
-      return null;
-    }
-
-    @Override
-    public <T> Future<T> submit(Runnable task, T result) {
-      return null;
-    }
-
-    @Override
-    public Future<?> submit(Runnable task) {
-      return null;
-    }
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-        throws InterruptedException {
-      return null;
-    }
-
-    @Override
-    public <T> List<Future<T>> invokeAll(
-        Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-        throws InterruptedException {
-      return null;
-    }
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-        throws InterruptedException, ExecutionException {
-      return null;
-    }
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-        throws InterruptedException, ExecutionException, TimeoutException {
-      return null;
-    }
-
-    @Override
-    public void execute(Runnable command) {
-      command.run();
-    }
-
-    @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-      command.run();
-      return null;
-    }
-
-    @Override
-    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
-      return null;
-    }
-
-    @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(
-        Runnable command, long initialDelay, long period, TimeUnit unit) {
-      return null;
-    }
-
-    @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(
-        Runnable command, long initialDelay, long delay, TimeUnit unit) {
-      return null;
-    }
   }
 }
