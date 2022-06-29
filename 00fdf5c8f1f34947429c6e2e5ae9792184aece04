@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "818cf5f5_733ad22f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-06-29T20:24:33Z",
+      "side": 1,
+      "message": "This isn\u0027t strictly needed IMHO: just set the property \u0027java.net.preferIPv4Stack\u0027 and then you can reuse the existing constructor.",
+      "revId": "00fdf5c8f1f34947429c6e2e5ae9792184aece04",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
