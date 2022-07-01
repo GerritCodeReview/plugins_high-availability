@@ -53,18 +53,20 @@ abstract class ReindexRunnable<T> implements Runnable {
         int count = 0;
         int errors = 0;
         Stopwatch stopwatch = Stopwatch.createStarted();
+        Timestamp maxFetchedItemTs = Timestamp.valueOf(newLastIndexTs.toLocalDateTime());
         for (T c : fetchItems()) {
           try {
             Optional<Timestamp> itemTs = indexIfNeeded(c, newLastIndexTs);
             if (itemTs.isPresent()) {
               count++;
-              newLastIndexTs = maxTimestamp(newLastIndexTs, itemTs.get());
+              maxFetchedItemTs = maxTimestamp(maxFetchedItemTs, itemTs.get());
             }
           } catch (Exception e) {
             log.atSevere().withCause(e).log("Unable to reindex %s %s", itemNameString, c);
             errors++;
           }
         }
+        newLastIndexTs = maxTimestamp(newLastIndexTs, maxFetchedItemTs);
         long elapsedNanos = stopwatch.stop().elapsed(TimeUnit.NANOSECONDS);
         if (count > 0) {
           log.atInfo().log(
