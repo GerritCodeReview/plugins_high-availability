@@ -33,6 +33,7 @@ abstract class ReindexRunnable<T> implements Runnable {
   private final OneOffRequestContext ctx;
   private final IndexTs indexTs;
   private Timestamp newLastIndexTs;
+  private Timestamp maxFetchedItemTs;
 
   @Inject
   public ReindexRunnable(
@@ -58,13 +59,14 @@ abstract class ReindexRunnable<T> implements Runnable {
             Optional<Timestamp> itemTs = indexIfNeeded(c, newLastIndexTs);
             if (itemTs.isPresent()) {
               count++;
-              newLastIndexTs = maxTimestamp(newLastIndexTs, itemTs.get());
+              maxFetchedItemTs = maxTimestamp(maxFetchedItemTs, itemTs.get());
             }
           } catch (Exception e) {
             log.atSevere().withCause(e).log("Unable to reindex %s %s", itemNameString, c);
             errors++;
           }
         }
+        newLastIndexTs = maxTimestamp(newLastIndexTs, maxFetchedItemTs);
         long elapsedNanos = stopwatch.stop().elapsed(TimeUnit.NANOSECONDS);
         if (count > 0) {
           log.atInfo().log(
