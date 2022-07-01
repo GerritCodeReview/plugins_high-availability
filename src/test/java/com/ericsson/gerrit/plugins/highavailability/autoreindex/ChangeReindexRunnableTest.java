@@ -59,8 +59,10 @@ public class ChangeReindexRunnableTest {
   @Mock private AllUsersName allUsers;
   @Mock private ChangeNotes.Factory changeNotesFactory;
   @Mock private Repository repo;
-  @Mock private ChangeNotesResult changeNotesRes;
-  @Mock private ChangeNotes changeNotes;
+  @Mock private ChangeNotesResult changeNotesResFirst;
+  @Mock private ChangeNotesResult changeNotesResSecond;
+  @Mock private ChangeNotes changeNotesFirst;
+  @Mock private ChangeNotes changeNotesSecond;
 
   private ChangeReindexRunnable changeReindexRunnable;
 
@@ -75,7 +77,7 @@ public class ChangeReindexRunnableTest {
   public void changeIsIndexedWhenItIsCreatedAfterLastChangeReindex() throws Exception {
     Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
     Timestamp afterCurrentTime = new Timestamp(currentTime.getTime() + 1000L);
-    Change change = newChange(afterCurrentTime);
+    Change change = newChange(123, afterCurrentTime);
 
     Optional<Timestamp> changeLastTs = changeReindexRunnable.indexIfNeeded(change, currentTime);
     assertThat(changeLastTs.isPresent()).isTrue();
@@ -88,16 +90,17 @@ public class ChangeReindexRunnableTest {
     LocalDateTime currentTime = LocalDateTime.now(ZoneOffset.UTC);
     Timestamp afterCurrentTime =
         new Timestamp(currentTime.toEpochSecond(ZoneOffset.UTC) * 1000 + 1000L);
-    Change change = newChange(afterCurrentTime);
+    Change change = newChange(123, afterCurrentTime);
 
     when(indexTs.getUpdateTs(AbstractIndexRestApiServlet.IndexName.CHANGE))
         .thenReturn(Optional.of(currentTime));
     when(projectCache.all()).thenReturn(ImmutableSortedSet.of(change.getProject()));
     when(repoManager.openRepository(change.getProject())).thenReturn(repo);
-    when(changeNotesFactory.scan(repo, change.getProject())).thenReturn(Stream.of(changeNotesRes));
-    lenient().when(changeNotesRes.error()).thenReturn(Optional.empty());
-    when(changeNotesRes.notes()).thenReturn(changeNotes);
-    when(changeNotes.getChange()).thenReturn(change);
+    when(changeNotesFactory.scan(repo, change.getProject()))
+        .thenReturn(Stream.of(changeNotesResFirst));
+    lenient().when(changeNotesResFirst.error()).thenReturn(Optional.empty());
+    when(changeNotesResFirst.notes()).thenReturn(changeNotesFirst);
+    when(changeNotesFirst.getChange()).thenReturn(change);
 
     changeReindexRunnable.run();
 
@@ -109,7 +112,7 @@ public class ChangeReindexRunnableTest {
     LocalDateTime currentTime = LocalDateTime.now(ZoneOffset.UTC);
     Timestamp afterCurrentTime =
         new Timestamp(currentTime.toEpochSecond(ZoneOffset.UTC) * 1000 + 1000L);
-    Change change = newChange(afterCurrentTime);
+    Change change = newChange(123, afterCurrentTime);
 
     when(indexTs.getUpdateTs(AbstractIndexRestApiServlet.IndexName.CHANGE))
         .thenReturn(Optional.of(currentTime));
@@ -119,10 +122,10 @@ public class ChangeReindexRunnableTest {
     lenient().when(invalidChangeRes.notes()).thenThrow(IllegalStateException.class);
     when(invalidChangeRes.error()).thenReturn(Optional.of(new IllegalStateException()));
     when(changeNotesFactory.scan(repo, change.getProject()))
-        .thenReturn(Stream.of(invalidChangeRes, changeNotesRes));
-    when(changeNotesRes.error()).thenReturn(Optional.empty());
-    when(changeNotesRes.notes()).thenReturn(changeNotes);
-    when(changeNotes.getChange()).thenReturn(change);
+        .thenReturn(Stream.of(invalidChangeRes, changeNotesResFirst));
+    when(changeNotesResFirst.error()).thenReturn(Optional.empty());
+    when(changeNotesResFirst.notes()).thenReturn(changeNotesFirst);
+    when(changeNotesFirst.getChange()).thenReturn(change);
 
     changeReindexRunnable.run();
 
@@ -133,7 +136,7 @@ public class ChangeReindexRunnableTest {
   public void groupIsNotIndexedWhenItIsCreatedBeforeLastGroupReindex() throws Exception {
     Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now());
     Timestamp beforeCurrentTime = new Timestamp(currentTime.getTime() - 1000L);
-    Change change = newChange(beforeCurrentTime);
+    Change change = newChange(123, beforeCurrentTime);
 
     Optional<Timestamp> changeLastTs = changeReindexRunnable.indexIfNeeded(change, currentTime);
     assertThat(changeLastTs.isPresent()).isFalse();
@@ -141,14 +144,44 @@ public class ChangeReindexRunnableTest {
         .index(changeProjectIndexKey(change), Operation.INDEX, Optional.empty());
   }
 
+  @Test
+  public void twoChangesAreIndexedDuringTheRunWhenItIsCreatedAfterLastChangeReindex()
+      throws Exception {
+    LocalDateTime currentTime = LocalDateTime.now(ZoneOffset.UTC);
+    Timestamp afterCurrentTime =
+        new Timestamp(currentTime.toEpochSecond(ZoneOffset.UTC) * 1000 + 1000L);
+    Timestamp secondAfterCurrentTime =
+        new Timestamp(currentTime.toEpochSecond(ZoneOffset.UTC) * 1000 + 2000L);
+    Change firstChange = newChange(123, secondAfterCurrentTime);
+    Change secondChange = newChange(456, afterCurrentTime);
+
+    when(indexTs.getUpdateTs(AbstractIndexRestApiServlet.IndexName.CHANGE))
+        .thenReturn(Optional.of(currentTime));
+    when(projectCache.all()).thenReturn(ImmutableSortedSet.of(firstChange.getProject()));
+    when(repoManager.openRepository(firstChange.getProject())).thenReturn(repo);
+    when(changeNotesFactory.scan(repo, firstChange.getProject()))
+        .thenReturn(Stream.of(changeNotesResFirst, changeNotesResSecond));
+    lenient().when(changeNotesResFirst.error()).thenReturn(Optional.empty());
+    lenient().when(changeNotesResSecond.error()).thenReturn(Optional.empty());
+    when(changeNotesResFirst.notes()).thenReturn(changeNotesFirst);
+    when(changeNotesResSecond.notes()).thenReturn(changeNotesSecond);
+    when(changeNotesFirst.getChange()).thenReturn(firstChange);
+    when(changeNotesSecond.getChange()).thenReturn(secondChange);
+
+    changeReindexRunnable.run();
+
+    verify(indexer).index(changeProjectIndexKey(firstChange), Operation.INDEX, Optional.empty());
+    verify(indexer).index(changeProjectIndexKey(secondChange), Operation.INDEX, Optional.empty());
+  }
+
   private String changeProjectIndexKey(Change change) {
     return change.getProject() + "~" + change.getChangeId();
   }
 
-  private Change newChange(Timestamp changeTs) {
+  private Change newChange(int id, Timestamp changeTs) {
     return new Change(
         Change.key("changekey"),
-        Change.id(123),
+        Change.id(id),
         Account.id(1000000),
         BranchNameKey.create("projectname", "main"),
         changeTs.toInstant());
