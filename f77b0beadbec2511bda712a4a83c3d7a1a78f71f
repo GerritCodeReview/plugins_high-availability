@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9556cb28_5e2a0392",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/autoreindex/ReindexRunnable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1127770
+      },
+      "writtenOn": "2022-07-04T16:08:30Z",
+      "side": 1,
+      "message": "I don\u0027t understand how intruding new member will fix or change anything. Please provide unit test that fails on original impelementation and pass with new one.",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "f77b0beadbec2511bda712a4a83c3d7a1a78f71f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
