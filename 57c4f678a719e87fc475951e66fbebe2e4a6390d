@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "308a4987_e5935541",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-07-08T17:54:48Z",
+      "side": 1,
+      "message": "not related, your subject is stackoverflow, do this chagne in the follow-up",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "57c4f678a719e87fc475951e66fbebe2e4a6390d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a976153b_7102a8a1",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2022-07-08T17:54:48Z",
+      "side": 1,
+      "message": "why sleep was introduced? maybe mention your resolution/fix in the commit message",
+      "revId": "57c4f678a719e87fc475951e66fbebe2e4a6390d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
