@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c8133c_ac19a083",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2022-07-11T15:13:33Z",
+      "side": 1,
+      "message": "The sleep can be problematic because the sleep interval can introduce regression. I think it is better to use wait() instead of Thread.sleep if that\u0027s the intent.",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 257,
+        "endChar": 33
+      },
+      "revId": "39ac315471bf735c74d926c916994b81694a8f5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
