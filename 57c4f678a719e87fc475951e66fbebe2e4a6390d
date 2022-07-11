@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d64b4ca_9a5d7e88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-11T10:25:21Z",
+      "side": 1,
+      "message": "As agreed, update jira to make wider change to refactor the class.",
+      "parentUuid": "308a4987_e5935541",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "57c4f678a719e87fc475951e66fbebe2e4a6390d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a976153b_7102a8a1",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-07-08T17:54:48Z",
       "side": 1,
       "message": "why sleep was introduced? maybe mention your resolution/fix in the commit message",
+      "revId": "57c4f678a719e87fc475951e66fbebe2e4a6390d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6756ee74_a9c41240",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-11T10:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a976153b_7102a8a1",
       "revId": "57c4f678a719e87fc475951e66fbebe2e4a6390d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
