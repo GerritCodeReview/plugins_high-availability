@@ -22,6 +22,30 @@
       },
       "revId": "39ac315471bf735c74d926c916994b81694a8f5f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ef7fa6_10d57835",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-12T12:27:23Z",
+      "side": 1,
+      "message": "The issue occurs in tests only as we run the verification once run the task in a separate thread. There is no strict time limit when executing in real HA run.\nWhen running the test, we do not control the thread (we do not create and run it), we execute the method that has scheduler that runs the tasks in one of it\u0027s available threads or create new one.\nI do not know what thread owns the monitor, so I do not know, on what thread execute wait().\nEven if we\u0027ll implement wait, that should be done in application in current implementation, not in tests, but it\u0027s another scope. Also, we do not have problem with application, we have problem with tests, so we can\u0027t change application.\nIn current implementation of unit tests we run the method from main thread. The method runs the task in available thread from the pool. Then we just run a sleep in main thread and run verification afterwards. The sleep just waits more time so task in parallel thread can complete.",
+      "parentUuid": "87c8133c_ac19a083",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 257,
+        "endChar": 33
+      },
+      "revId": "39ac315471bf735c74d926c916994b81694a8f5f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
