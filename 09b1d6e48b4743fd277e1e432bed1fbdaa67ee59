@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "058fd1bc_2334c66d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-13T09:29:57Z",
+      "side": 1,
+      "message": "it\u0027s legacy behavior so it\u0027s in past simple.\nThe behavior has been discussed.",
+      "parentUuid": "338fd205_329868ec",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "09b1d6e48b4743fd277e1e432bed1fbdaa67ee59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aaac3a76_175514d9",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-12T15:20:28Z",
       "side": 1,
       "message": "replace it by \"only if\"",
+      "range": {
+        "startLine": 12,
+        "startChar": 28,
+        "endLine": 12,
+        "endChar": 32
+      },
+      "revId": "09b1d6e48b4743fd277e1e432bed1fbdaa67ee59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fdb1bc0_c9250a9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-13T09:29:57Z",
+      "side": 1,
+      "message": "I have updated it with \u0027as\u0027 because if change is indexed, then lastIndexTimeStamp \u003c lastUpdatedDate automatically",
+      "parentUuid": "aaac3a76_175514d9",
       "range": {
         "startLine": 12,
         "startChar": 28,
