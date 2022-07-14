@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
 import com.google.common.base.Splitter;
 import com.google.gerrit.reviewdb.client.Change;
+import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.project.NoSuchChangeException;
@@ -29,6 +30,7 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -150,7 +152,15 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   private static Change.Id parseChangeId(String id) {
-    return new Change.Id(Integer.parseInt(Splitter.on("~").splitToList(id).get(1)));
+    return new Change.Id(Integer.parseInt(getChangeIdParts(id).get(1)));
+  }
+
+  private static Project.NameKey parseProject(String id) {
+    return new Project.NameKey(getChangeIdParts(id).get(0));
+  }
+
+  private static List<String> getChangeIdParts(String id) {
+    return Splitter.on("~").splitToList(id);
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {
