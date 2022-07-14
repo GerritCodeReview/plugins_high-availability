@@ -22,12 +22,14 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Charsets;
+import com.google.gerrit.server.cache.PerThreadCache;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServlet {
@@ -85,7 +87,26 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     setHeaders(rsp);
     String path = req.getRequestURI();
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
-    try {
+
+    /**
+     * Since [1] the change notes /meta refs are cached for all the incoming GET/HEAD REST APIs;
+     * however, the high-availability indexing API is a POST served by a regular servlet and
+     * therefore won't have any caching, which is problematic because of the high number of
+     * associated refs lookups generated.
+     *
+     * <p>Simulate an incoming GET request for allowing caching of the /meta refs lookups.
+     *
+     * <p>[1] https://gerrit-review.googlesource.com/c/gerrit/+/334539/17
+     */
+    HttpServletRequestWrapper simulatedGetRequestForCaching =
+        new HttpServletRequestWrapper(req) {
+          @Override
+          public String getMethod() {
+            return "GET";
+          }
+        };
+
+    try (PerThreadCache unused = PerThreadCache.create(simulatedGetRequestForCaching)) {
       forwardedIndexingHandler.index(id, operation, parseBody(req));
       rsp.setStatus(SC_NO_CONTENT);
     } catch (IOException e) {
