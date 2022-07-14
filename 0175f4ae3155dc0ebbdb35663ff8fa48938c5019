@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "gerritforge:plugins-high-availability-code-style": {
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/99%252F340799%252F2/1/console",
+      "started": "2022-07-14T22:16:45Z",
+      "created": "2022-07-14T22:12:17Z",
+      "updated": "2022-07-14T22:12:17Z"
+    }
+  }
+}
