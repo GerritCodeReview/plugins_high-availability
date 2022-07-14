@@ -88,6 +88,7 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     setHeaders(rsp);
     String path = req.getRequestURI();
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
+
     try {
       forwardedIndexingHandler.index(id, operation, parseBody(req));
       rsp.setStatus(SC_NO_CONTENT);
