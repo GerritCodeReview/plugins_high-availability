@@ -16,6 +16,24 @@
       "message": "Introducing sleep is very bad idea. 1st approach was 200% better.\nUsing sleep in test is bad practice and sonar violation. https://rules.sonarsource.com/java/RSPEC-2925\nTry to find different solution. I am not sure that we can use http://www.awaitility.org/ if timeout is needed. ",
       "revId": "113c58dba284867ae026b13f24b9f61acdfebbd3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0345dc66_557f1434",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-21T12:03:26Z",
+      "side": 1,
+      "message": "The solution is changed",
+      "parentUuid": "071f3ff8_041d6c76",
+      "revId": "113c58dba284867ae026b13f24b9f61acdfebbd3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
