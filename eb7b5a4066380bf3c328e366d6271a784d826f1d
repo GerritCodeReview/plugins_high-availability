@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d49ec00e_6039a120",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-22T10:54:45Z",
+      "side": 1,
+      "message": "Replace deprecated method verifyZeroInteractions with verifyNoInteractions method.",
+      "parentUuid": "5639b673_b5cc9bd7",
+      "range": {
+        "startLine": 409,
+        "startChar": 3,
+        "endLine": 409,
+        "endChar": 36
+      },
+      "revId": "eb7b5a4066380bf3c328e366d6271a784d826f1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3fa9afd7_9df79a3f",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-07-21T14:23:06Z",
       "side": 1,
       "message": "Why do we need this change?",
+      "range": {
+        "startLine": 418,
+        "startChar": 2,
+        "endLine": 418,
+        "endChar": 36
+      },
+      "revId": "eb7b5a4066380bf3c328e366d6271a784d826f1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e58f017_b9b82ea6",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-22T10:54:45Z",
+      "side": 1,
+      "message": "Replace deprecated method verifyZeroInteractions with verifyNoInteractions method.",
+      "parentUuid": "3fa9afd7_9df79a3f",
       "range": {
         "startLine": 418,
         "startChar": 2,
@@ -70,6 +118,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe28e82d_6dd766f7",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-22T10:54:45Z",
+      "side": 1,
+      "message": "I have returned it back. It looks like it was made by mistake. But original idea was to remove next three lines at all:\nDeleteChangeTask sameTask \u003d task;\nassertThat(task.equals(sameTask)).isTrue();\nassertThat(task.hashCode()).isEqualTo(sameTask.hashCode());\n\nWe create new link to same object and then compare them. It looks redundant. Please could you take another look and advice?",
+      "parentUuid": "49630941_39db06fb",
+      "range": {
+        "startLine": 540,
+        "startChar": 3,
+        "endLine": 542,
+        "endChar": 0
+      },
+      "revId": "eb7b5a4066380bf3c328e366d6271a784d826f1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fee918be_7b3c034d",
@@ -93,6 +165,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72ea105a_b22130cd",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-22T10:54:45Z",
+      "side": 1,
+      "message": "Same here. It looks to me Intellij changed it or any magic happened so it\u0027s updated. I\u0027d remove three lines.\n\nStrange, to be honest.",
+      "parentUuid": "fee918be_7b3c034d",
+      "range": {
+        "startLine": 560,
+        "startChar": 2,
+        "endLine": 561,
+        "endChar": 59
+      },
+      "revId": "eb7b5a4066380bf3c328e366d6271a784d826f1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cf661f4_9e861459",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-07-21T14:23:06Z",
       "side": 1,
       "message": "Why did you change this test?",
+      "range": {
+        "startLine": 580,
+        "startChar": 3,
+        "endLine": 581,
+        "endChar": 59
+      },
+      "revId": "eb7b5a4066380bf3c328e366d6271a784d826f1d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "105eb3b2_c488ade8",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-22T10:54:45Z",
+      "side": 1,
+      "message": "Same here. Apologize for this mistake but it looks like something updated in any action like formatting.\nI\u0027d remove three lines as redundant.",
+      "parentUuid": "8cf661f4_9e861459",
       "range": {
         "startLine": 580,
         "startChar": 3,
