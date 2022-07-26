@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5194e0_46e083dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2022-07-26T17:30:53Z",
+      "side": 1,
+      "message": "Just a small nit",
+      "revId": "dbdd2a854e2439827b00e91941a70502f8bac595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc76c8be_ba23be52",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinderTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2022-07-26T17:30:53Z",
+      "side": 1,
+      "message": "Those four lines are repeated in three methods can we have like a set up method to encapsulate these lines?",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 81
+      },
+      "revId": "dbdd2a854e2439827b00e91941a70502f8bac595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
