@@ -39,6 +39,30 @@
       },
       "revId": "dbdd2a854e2439827b00e91941a70502f8bac595",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3960ba4d_8f4ea377",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinderTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-07-27T13:23:11Z",
+      "side": 1,
+      "message": "I have moved this section to setup. There will be general setup that will be overwritten in method where value should be different.\nBut the section is not common for all methods therefore it makes the class more difficult to read.",
+      "parentUuid": "fc76c8be_ba23be52",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 81
+      },
+      "revId": "dbdd2a854e2439827b00e91941a70502f8bac595",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
