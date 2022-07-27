@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5baeccd9_747b7ee7",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/InetAddressFinderTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1122032
+      },
+      "writtenOn": "2022-07-27T15:29:51Z",
+      "side": 1,
+      "message": "Why did you remove this exception?",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "1cf232220f8a4563d6a10bf989f0949a6eb27322",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
