@@ -1,12 +1,12 @@
-FROM gerritcodereview/gerrit:3.2.10
+FROM gerritcodereview/gerrit:3.2.14-ubuntu20
 
 ENV GERRIT_BRANCH=stable-3.2
 
-ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
+ENV GERRIT_CI_URL=https://archive-ci.gerritforge.com/job
 
 USER root
 
-RUN yum install -y iputils nmap curl lsof gettext net-tools sudo
+RUN apt update && apt install -y iputils-ping nmap curl lsof gettext net-tools sudo
 
 USER gerrit
 
