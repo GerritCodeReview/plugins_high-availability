@@ -22,6 +22,30 @@
       },
       "revId": "e1559305ad79c94289baa5557ef161f6dfa59eb3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc7af21_7a1c768b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2022-08-01T13:24:13Z",
+      "side": 1,
+      "message": "Finally updated solution. I can present it on a call to share solution details",
+      "parentUuid": "74e938a2_dac29e39",
+      "range": {
+        "startLine": 312,
+        "startChar": 3,
+        "endLine": 315,
+        "endChar": 19
+      },
+      "revId": "e1559305ad79c94289baa5557ef161f6dfa59eb3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
