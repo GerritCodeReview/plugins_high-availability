@@ -42,9 +42,9 @@ public class ForwardedAwareEventBrokerTest {
     set.add("high-availability", listenerMock);
     event = new TestEvent();
     PluginSetContext<EventListener> listeners = new PluginSetContext<>(set, mockMetrics);
-    broker = new ForwardedAwareEventBroker(null, listeners, null, null, null, null);
+    broker = new ForwardedAwareEventBroker(null, listeners, null, null, null, null, null);
     brokerWithGerritInstanceId =
-        new ForwardedAwareEventBroker(null, listeners, null, null, null, gerritInstanceId);
+        new ForwardedAwareEventBroker(null, listeners, null, null, null, gerritInstanceId, null);
   }
 
   @Test
