@@ -14,9 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.event;
 
+import com.ericsson.gerrit.plugins.highavailability.ConfigurableAllowedEventListeners;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.AllowedEventListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.events.EventListener;
+import com.google.inject.Scopes;
 import java.util.concurrent.Executor;
 
 public class EventModule extends LifecycleModule {
@@ -26,5 +29,9 @@ public class EventModule extends LifecycleModule {
     bind(Executor.class).annotatedWith(EventExecutor.class).toProvider(EventExecutorProvider.class);
     listener().to(EventExecutorProvider.class);
     DynamicSet.bind(binder(), EventListener.class).to(EventHandler.class);
+
+    bind(AllowedEventListener.class)
+        .to(ConfigurableAllowedEventListeners.class)
+        .in(Scopes.SINGLETON);
   }
 }

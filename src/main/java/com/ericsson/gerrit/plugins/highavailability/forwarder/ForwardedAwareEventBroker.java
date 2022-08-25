@@ -29,6 +29,8 @@ import javax.annotation.Nullable;
 
 class ForwardedAwareEventBroker extends EventBroker {
 
+  private final AllowedEventListener allowedListeners;
+
   @Inject
   ForwardedAwareEventBroker(
       PluginSetContext<UserScopedEventListener> listeners,
@@ -36,7 +38,8 @@ class ForwardedAwareEventBroker extends EventBroker {
       PermissionBackend permissionBackend,
       ProjectCache projectCache,
       Factory notesFactory,
-      @Nullable @GerritInstanceId String gerritInstanceId) {
+      @Nullable @GerritInstanceId String gerritInstanceId,
+      @Nullable AllowedEventListener allowedListeners) {
     super(
         listeners,
         unrestrictedListeners,
@@ -44,6 +47,8 @@ class ForwardedAwareEventBroker extends EventBroker {
         projectCache,
         notesFactory,
         gerritInstanceId);
+
+    this.allowedListeners = allowedListeners;
   }
 
   private boolean isProducedByLocalInstance(Event event) {
@@ -59,8 +64,13 @@ class ForwardedAwareEventBroker extends EventBroker {
     }
     // or it was consumed by the high-availability rest endpoint and
     // thus the context of its consumption has already been set to "forwarded".
-    if (!Context.isForwardedEvent()) {
-      super.fireEventForUnrestrictedListeners(event);
+    unrestrictedListeners.runEach(l -> fireEventForListener(l, event));
+  }
+
+  private void fireEventForListener(EventListener l, Event event) {
+    if (!Context.isForwardedEvent()
+        || (allowedListeners != null && allowedListeners.isAllowed(l))) {
+      l.onEvent(event);
     }
   }
 }
