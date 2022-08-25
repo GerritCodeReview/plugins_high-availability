@@ -14,9 +14,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.events.Event;
@@ -29,6 +31,7 @@ import org.junit.Test;
 public class ForwardedAwareEventBrokerTest {
 
   private EventListener listenerMock;
+  private AllowEventListener allowListenerMock;
   private ForwardedAwareEventBroker broker;
   private ForwardedAwareEventBroker brokerWithGerritInstanceId;
   private Event event;
@@ -38,13 +41,14 @@ public class ForwardedAwareEventBrokerTest {
   public void setUp() {
     PluginMetrics mockMetrics = mock(PluginMetrics.class);
     listenerMock = mock(EventListener.class);
+    allowListenerMock = mock(AllowEventListener.class);
     DynamicSet<EventListener> set = DynamicSet.emptySet();
     set.add("high-availability", listenerMock);
     event = new TestEvent();
     PluginSetContext<EventListener> listeners = new PluginSetContext<>(set, mockMetrics);
-    broker = new ForwardedAwareEventBroker(null, listeners, null, null, null, null);
+    broker = new ForwardedAwareEventBroker(null, listeners, null, null, null, null, null);
     brokerWithGerritInstanceId =
-        new ForwardedAwareEventBroker(null, listeners, null, null, null, gerritInstanceId);
+        new ForwardedAwareEventBroker(null, listeners, null, null, null, gerritInstanceId, null);
   }
 
   @Test
@@ -88,6 +92,18 @@ public class ForwardedAwareEventBrokerTest {
   @Test
   public void shouldNotDispatchEventWhenInstanceIdsAreDifferent() {
     event.instanceId = "some-other-gerrit-instance-id";
+    try {
+      brokerWithGerritInstanceId.fireEventForUnrestrictedListeners(event);
+    } finally {
+      Context.unsetForwardedEvent();
+    }
+    verifyZeroInteractions(listenerMock);
+  }
+
+  @Test
+  public void shouldDispatchEventWhenInstanceIdsAreDifferentToAllowedListener() {
+    event.instanceId = "some-other-gerrit-instance-id";
+    when(allowListenerMock.isAllowed(any())).thenReturn(true);
     try {
       brokerWithGerritInstanceId.fireEventForUnrestrictedListeners(event);
     } finally {
