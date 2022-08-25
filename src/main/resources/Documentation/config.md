@@ -175,6 +175,12 @@ calls by specifying the following fields:
     Defaults to an empty list, meaning only evictions of the core caches are
     forwarded.
 
+```event.allowedListeners```
+:   Class name or package name of the event listener that is always allowed to receive
+    all events generated locally or from a remote end.
+    Can be specified multiple times for allowing multiple listeners classes or packages.
+    Defaults to an empty list.
+
 ```event.synchronize```
 :   Whether to synchronize stream events.
     Defaults to true.
