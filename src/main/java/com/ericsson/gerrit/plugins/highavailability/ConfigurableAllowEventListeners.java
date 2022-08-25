@@ -12,24 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.event;
+package com.ericsson.gerrit.plugins.highavailability;
 
-import com.ericsson.gerrit.plugins.highavailability.ConfigurableAllowEventListeners;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.AllowEventListener;
-import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.events.EventListener;
-import com.google.inject.Scopes;
-import java.util.concurrent.Executor;
+import com.google.inject.Inject;
+import java.util.Set;
 
-public class EventModule extends LifecycleModule {
+/** Configure the allowed listeners in high-availability.config */
+public class ConfigurableAllowEventListeners implements AllowEventListener {
+  private final Set<String> allowedListenerClasses;
+
+  @Inject
+  ConfigurableAllowEventListeners(Configuration config) {
+    allowedListenerClasses = config.event().allowedListeners();
+  }
 
   @Override
-  protected void configure() {
-    bind(Executor.class).annotatedWith(EventExecutor.class).toProvider(EventExecutorProvider.class);
-    listener().to(EventExecutorProvider.class);
-    DynamicSet.bind(binder(), EventListener.class).to(EventHandler.class);
-
-    bind(AllowEventListener.class).to(ConfigurableAllowEventListeners.class).in(Scopes.SINGLETON);
+  public boolean isAllowed(EventListener listener) {
+    return allowedListenerClasses.contains(listener.getClass().getName());
   }
 }
