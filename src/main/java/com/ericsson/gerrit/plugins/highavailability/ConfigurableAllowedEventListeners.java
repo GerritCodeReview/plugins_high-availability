@@ -18,18 +18,25 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.AllowedForwardedEv
 import com.google.gerrit.server.events.EventListener;
 import com.google.inject.Inject;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /** Configure the allowed listeners in high-availability.config */
 public class ConfigurableAllowedEventListeners implements AllowedForwardedEventListener {
   private final Set<String> allowedListenerClasses;
+  private final ConcurrentHashMap<EventListener, Boolean> cachedAllowedListeners;
 
   @Inject
   ConfigurableAllowedEventListeners(Configuration config) {
     allowedListenerClasses = config.event().allowedListeners();
+    cachedAllowedListeners = new ConcurrentHashMap<>();
   }
 
   @Override
   public boolean isAllowed(EventListener listener) {
+    return cachedAllowedListeners.computeIfAbsent(listener, this::computeIsAllowed);
+  }
+
+  private Boolean computeIsAllowed(EventListener listener) {
     String listenerClassName = listener.getClass().getName();
     boolean allowed = false;
     while (!allowed && !listenerClassName.isEmpty()) {
