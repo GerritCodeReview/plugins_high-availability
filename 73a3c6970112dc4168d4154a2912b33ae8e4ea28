@@ -34,6 +34,24 @@
       "parentUuid": "56b495fc_18e7b373",
       "revId": "73a3c6970112dc4168d4154a2912b33ae8e4ea28",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "344bdffa_db14500d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2022-08-26T19:47:20Z",
+      "side": 1,
+      "message": "Answered myself: there are NO IT tests AFAIK :-(\nPossibly something to address altogether with a separate change.\n\n@Marcin I ran the Docker test and the plugin works as expected.",
+      "parentUuid": "f6f0c590_4b4cd2da",
+      "revId": "73a3c6970112dc4168d4154a2912b33ae8e4ea28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
