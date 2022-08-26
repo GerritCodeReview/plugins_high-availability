@@ -76,6 +76,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -366,6 +367,36 @@ public class ConfigurationTest {
 
     assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
         .isTrue();
+  }
+
+  @Test
+  public void testConfiguredListenerAllowedShouldBeCached() throws Exception {
+    AtomicInteger allowedListenerResolutionCount = new AtomicInteger();
+    EventListener listener =
+        new EventListener() {
+
+          @Override
+          public void onEvent(Event event) {}
+        };
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isFalse();
+
+    globalPluginConfig.setString(
+        EVENT_SECTION, null, ALLOWED_LISTENERS, listener.getClass().getName());
+
+    ConfigurableAllowedEventListeners allowedEventListener =
+        new ConfigurableAllowedEventListeners(getConfiguration()) {
+          @Override
+          protected Boolean computeIsAllowed(EventListener listener) {
+            allowedListenerResolutionCount.incrementAndGet();
+            return super.computeIsAllowed(listener);
+          }
+        };
+
+    for (int i = 0; i < 2; i++) {
+      assertThat(allowedEventListener.isAllowed(listener)).isTrue();
+      assertThat(allowedListenerResolutionCount.get()).isEqualTo(1);
+    }
   }
 
   @Test
