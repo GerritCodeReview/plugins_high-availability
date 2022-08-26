@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4998e511_149760be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-08-26T17:46:01Z",
+      "side": 1,
+      "message": "I can confirm that after moving binding to the different module all works",
+      "revId": "8fb76c5dee475aef206e1b9704d45ca438379b82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee1491cd_d2f3ec3c",
@@ -14,6 +31,30 @@
       "writtenOn": "2022-08-26T17:40:20Z",
       "side": 1,
       "message": "should this be allowedListener because we can specify it multiple times",
+      "range": {
+        "startLine": 178,
+        "startChar": 9,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "8fb76c5dee475aef206e1b9704d45ca438379b82",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b770cbe_d86b019e",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-08-26T17:46:01Z",
+      "side": 1,
+      "message": "after second thought I think allowedListeners is correct",
+      "parentUuid": "ee1491cd_d2f3ec3c",
       "range": {
         "startLine": 178,
         "startChar": 9,
