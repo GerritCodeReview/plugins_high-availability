@@ -140,6 +140,29 @@
       },
       "revId": "2df352b7645beb042eca68a100186ebd46436347",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3952f8d5_913c6490",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/AllowEventListener.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-08-26T17:01:30Z",
+      "side": 1,
+      "message": "nit: could we use some more descriptive name when we allow unrestricted listeners. Something like `AllowForwardedEventListener`",
+      "range": {
+        "startLine": 20,
+        "startChar": 17,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "2df352b7645beb042eca68a100186ebd46436347",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
