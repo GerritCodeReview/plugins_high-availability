@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b495fc_18e7b373",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-08-26T17:29:07Z",
+      "side": 1,
+      "message": "This change doesn\u0027t work locally. I\u0027m getting:\n```\n1) [Guice/MissingImplementation]: No implementation for AllowedEventListener was bound.\n\nRequested by:\n1  : ForwardedAwareEventBroker.\u003cinit\u003e(ForwardedAwareEventBroker.java:43)\n      \\_ for 7th parameter allowedListeners\n     at DynamicItem.bind(DynamicItem.java:110)\n      \\_ installed by: Module -\u003e ForwarderModule\n\n\n```\n\nI believe the fix is to move:\n```\n    bind(AllowedEventListener.class)\n        .to(ConfigurableAllowedEventListeners.class)\n        .in(Scopes.SINGLETON);\n```\nfrom `EventModule` to `ForwardedModule`",
+      "revId": "73a3c6970112dc4168d4154a2912b33ae8e4ea28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
