@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36d24dc7_a80f14ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-08-30T22:17:01Z",
+      "side": 1,
+      "message": "Could we add some unit tests?",
+      "revId": "cbce31e88b203d99f4e61dfb13dfd8def89196f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "041033bc_1450ce4a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/ConfigurableAllowedEventListeners.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2022-08-30T22:17:01Z",
+      "side": 1,
+      "message": "could we add some unit tests to check if works as expected",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "cbce31e88b203d99f4e61dfb13dfd8def89196f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
