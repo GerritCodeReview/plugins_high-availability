@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventBroker;
@@ -25,7 +26,6 @@ import com.google.gerrit.server.plugincontext.PluginSetContext;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import java.util.Objects;
-import javax.annotation.Nullable;
 
 class ForwardedAwareEventBroker extends EventBroker {
 
