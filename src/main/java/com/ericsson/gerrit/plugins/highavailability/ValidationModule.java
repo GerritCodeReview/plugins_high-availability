@@ -32,7 +32,9 @@ import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforceme
 import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
+import com.google.inject.ProvisionException;
 import com.google.inject.Scopes;
+import com.google.inject.name.Names;
 
 public class ValidationModule extends FactoryModule {
   final Configuration configuration;
@@ -56,6 +58,14 @@ public class ValidationModule extends FactoryModule {
     bind(SharedRefDatabaseWrapper.class).in(Scopes.SINGLETON);
     bind(SharedRefLogger.class).to(Log4jSharedRefLogger.class);
     factory(LockWrapper.Factory.class);
+
+    try {
+      bind(GitRepositoryManager.class)
+          .annotatedWith(Names.named(SharedRefDbGitRepositoryManager.LOCAL_DISK_REPOSITORY_MANAGER))
+          .to(configuration.sharedRefDb().getLocalRepositoryManager());
+    } catch (ClassNotFoundException e) {
+      throw new ProvisionException("Unable to instantiate the local repository manager", e);
+    }
 
     bind(GitRepositoryManager.class).to(SharedRefDbGitRepositoryManager.class);
 
