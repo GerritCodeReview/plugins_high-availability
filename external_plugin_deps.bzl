@@ -15,6 +15,6 @@ def external_plugin_deps():
 
     maven_jar(
         name = "global-refdb",
-        artifact = "com.gerritforge:global-refdb:3.5.4",
-        sha1 = "6f96965d4cedd8b01b1fd9047d8c443c752bd675",
+        artifact = "com.gerritforge:global-refdb:3.6.3.1",
+        sha1 = "0f5229856d6a17e9c2382c8a404f43851f1f0287",
     )
