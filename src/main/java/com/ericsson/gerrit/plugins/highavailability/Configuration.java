@@ -23,6 +23,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.server.config.ConfigUtil;
@@ -467,9 +468,18 @@ public class Configuration {
 
   public static class Event extends Forwarding {
     static final String EVENT_SECTION = "event";
+    static final String ALLOWED_LISTENERS = "allowedListeners";
+
+    private final Set<String> allowedListeners;
 
     private Event(Config cfg) {
       super(cfg, EVENT_SECTION);
+
+      allowedListeners = Sets.newHashSet(cfg.getStringList(EVENT_SECTION, null, ALLOWED_LISTENERS));
+    }
+
+    public Set<String> allowedListeners() {
+      return allowedListeners;
     }
   }
 
