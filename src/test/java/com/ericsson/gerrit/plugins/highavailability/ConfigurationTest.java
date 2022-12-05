@@ -20,6 +20,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.P
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_NUM_STRIPED_LOCKS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_TIMEOUT_MS;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.ALLOWED_LISTENERS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.SYNCHRONIZE_KEY;
@@ -68,10 +69,14 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrate
 import com.google.common.collect.ImmutableList;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
+import com.google.gerrit.server.events.Event;
+import com.google.gerrit.server.events.EventListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -328,6 +333,88 @@ public class ConfigurationTest {
 
     globalPluginConfig.setString(EVENT_SECTION, null, SYNCHRONIZE_KEY, INVALID_BOOLEAN);
     assertThat(getConfiguration().event().synchronize()).isTrue();
+  }
+
+  @Test
+  public void testGetEventAllowedListener() throws Exception {
+    assertThat(getConfiguration().event().allowedListeners()).isEmpty();
+
+    List<String> allowedListeners = Arrays.asList("listener1", "listener2");
+    globalPluginConfig.setStringList(EVENT_SECTION, null, ALLOWED_LISTENERS, allowedListeners);
+    assertThat(getConfiguration().event().allowedListeners())
+        .containsExactlyElementsIn(allowedListeners);
+  }
+
+  @Test
+  public void testConfiguredListenerShouldBeAllowed() throws Exception {
+    EventListener listener =
+        new EventListener() {
+
+          @Override
+          public void onEvent(Event event) {}
+        };
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isFalse();
+
+    globalPluginConfig.setString(
+        EVENT_SECTION, null, ALLOWED_LISTENERS, listener.getClass().getName());
+
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isTrue();
+
+    globalPluginConfig.setString(
+        EVENT_SECTION, null, ALLOWED_LISTENERS, listener.getClass().getPackageName());
+
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isTrue();
+  }
+
+  @Test
+  public void testConfiguredListenerAllowedShouldBeCached() throws Exception {
+    AtomicInteger allowedListenerResolutionCount = new AtomicInteger();
+    EventListener listener =
+        new EventListener() {
+
+          @Override
+          public void onEvent(Event event) {}
+        };
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isFalse();
+
+    globalPluginConfig.setString(
+        EVENT_SECTION, null, ALLOWED_LISTENERS, listener.getClass().getName());
+
+    ConfigurableAllowedEventListeners allowedEventListener =
+        new ConfigurableAllowedEventListeners(getConfiguration()) {
+          @Override
+          protected Boolean computeIsAllowed(EventListener listener) {
+            allowedListenerResolutionCount.incrementAndGet();
+            return super.computeIsAllowed(listener);
+          }
+        };
+
+    for (int i = 0; i < 2; i++) {
+      assertThat(allowedEventListener.isAllowed(listener)).isTrue();
+      assertThat(allowedListenerResolutionCount.get()).isEqualTo(1);
+    }
+  }
+
+  @Test
+  public void testConfiguredPackageOfListenerShouldBeAllowed() throws Exception {
+    EventListener listener =
+        new EventListener() {
+
+          @Override
+          public void onEvent(Event event) {}
+        };
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isFalse();
+
+    globalPluginConfig.setString(
+        EVENT_SECTION, null, ALLOWED_LISTENERS, listener.getClass().getPackageName());
+
+    assertThat(new ConfigurableAllowedEventListeners(getConfiguration()).isAllowed(listener))
+        .isTrue();
   }
 
   @Test
