@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventBroker;
@@ -25,9 +26,10 @@ import com.google.gerrit.server.plugincontext.PluginSetContext;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import java.util.Objects;
-import javax.annotation.Nullable;
 
 class ForwardedAwareEventBroker extends EventBroker {
+
+  private final AllowedForwardedEventListener allowedListeners;
 
   @Inject
   ForwardedAwareEventBroker(
@@ -36,7 +38,8 @@ class ForwardedAwareEventBroker extends EventBroker {
       PermissionBackend permissionBackend,
       ProjectCache projectCache,
       Factory notesFactory,
-      @Nullable @GerritInstanceId String gerritInstanceId) {
+      @Nullable @GerritInstanceId String gerritInstanceId,
+      @Nullable AllowedForwardedEventListener allowedListeners) {
     super(
         listeners,
         unrestrictedListeners,
@@ -44,6 +47,8 @@ class ForwardedAwareEventBroker extends EventBroker {
         projectCache,
         notesFactory,
         gerritInstanceId);
+
+    this.allowedListeners = allowedListeners;
   }
 
   private boolean isProducedByLocalInstance(Event event) {
@@ -59,8 +64,13 @@ class ForwardedAwareEventBroker extends EventBroker {
     }
     // or it was consumed by the high-availability rest endpoint and
     // thus the context of its consumption has already been set to "forwarded".
-    if (!Context.isForwardedEvent()) {
-      super.fireEventForUnrestrictedListeners(event);
+    unrestrictedListeners.runEach(l -> fireEventForListener(l, event));
+  }
+
+  private void fireEventForListener(EventListener l, Event event) {
+    if (!Context.isForwardedEvent()
+        || (allowedListeners != null && allowedListeners.isAllowed(l))) {
+      l.onEvent(event);
     }
   }
 }

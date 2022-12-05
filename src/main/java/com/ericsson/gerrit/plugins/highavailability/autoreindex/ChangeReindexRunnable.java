@@ -88,7 +88,7 @@ public class ChangeReindexRunnable extends ReindexRunnable<Change> {
                         return true;
                       }
                       log.atWarning().withCause(cnr.error().get()).log(
-                          "Error fetching change " + cnr.id());
+                          "Error fetching change %s", cnr.id());
                       return false;
                     })
                 .map(cnr -> cnr.notes().getChange());
