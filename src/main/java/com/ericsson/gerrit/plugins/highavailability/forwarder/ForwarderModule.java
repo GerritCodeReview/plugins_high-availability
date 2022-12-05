@@ -14,14 +14,19 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.ConfigurableAllowedEventListeners;
 import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.events.EventDispatcher;
 import com.google.inject.AbstractModule;
+import com.google.inject.Scopes;
 
 public class ForwarderModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(AllowedForwardedEventListener.class)
+        .to(ConfigurableAllowedEventListeners.class)
+        .in(Scopes.SINGLETON);
     DynamicItem.bind(binder(), EventDispatcher.class).to(ForwardedAwareEventBroker.class);
   }
 }
