@@ -65,7 +65,7 @@ public class IndexEventLocks {
           String.format(
               "Acquisition of the locking of %s timed out after %d msec: consider increasing the number of shards",
               indexId, WAIT_TIMEOUT_MS);
-      log.atWarning().log(timeoutMessage);
+      log.atWarning().log("%s", timeoutMessage);
       lockAcquireTimeoutCallback.invoke();
       CompletableFuture<?> failureFuture = new CompletableFuture<>();
       failureFuture.completeExceptionally(new InterruptedException(timeoutMessage));
