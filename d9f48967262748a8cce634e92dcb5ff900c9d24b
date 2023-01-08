@@ -3,6 +3,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2be42726_1c8584bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-01-08T07:06:21Z",
+      "side": 1,
+      "message": "Nit add: \"bug pattern\" to subject, also\n```\n  Fix error prone bug pattern FloggerLogString\n```",
+      "revId": "d9f48967262748a8cce634e92dcb5ff900c9d24b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb085aad_8adac94a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-01-08T07:06:21Z",
+      "side": 1,
+      "message": "Nit: we are usually linking the reference to Error-prone documentation, in this case:\n\nhttps://errorprone.info/bugpattern/FloggerLogString\n\nsee. for example change 304529.",
+      "revId": "d9f48967262748a8cce634e92dcb5ff900c9d24b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ef89288_630f9c3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2023-01-08T07:06:21Z",
+      "side": 1,
+      "message": "Gerrit release line 3.5 is still officially supported: [1]. All flogger related issues fixed in this CL present already on stable-3.5 branch, so that it\u0027s not immediately clear why the bazel failures only affect stable-3.6 branch and the newer.\n\nI think that the reason is Bazel version used (4.2.x on stable-3.5 and 5.3.x on stable-3.6). Starting from java_tools 2.11.0: [2], FloggerLogString error-prone bug pattern was added. You could clarify this in the commit message, or alternatively move this change to stable-3.5 branch?\n\n[1] https://www.gerritcodereview.com/support.html\n[2] https://github.com/google/error-prone/releases/tag/v2.11.0",
+      "revId": "d9f48967262748a8cce634e92dcb5ff900c9d24b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e799690b_3b6f4436",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
