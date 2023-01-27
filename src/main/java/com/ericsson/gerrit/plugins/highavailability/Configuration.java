@@ -123,7 +123,7 @@ public class Configuration {
       log.atInfo().log("Loading configuration from %s", fileConfigFileName);
       cfg.load();
     } catch (IOException | ConfigInvalidException e) {
-      log.atSevere().withCause(e).log("Unable to load configuration from " + fileConfigFileName);
+      log.atSevere().withCause(e).log("Unable to load configuration from %s", fileConfigFileName);
     }
     return cfg;
   }
