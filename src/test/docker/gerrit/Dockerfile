@@ -6,12 +6,12 @@ ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
 
 USER root
 
-RUN yum install -y iputils nmap curl lsof gettext net-tools sudo
+RUN yum update && yum install -y iputils-ping nmap curl lsof gettext net-tools sudo
 
 USER gerrit
 
-ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
-ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-high-availability-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
+ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
+ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-high-availability-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
 
 USER root
 
