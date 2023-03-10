@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be9e24d_ad0751b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-03-10T22:25:31Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand this change though: if we are NOT forwarding the stream events to the other peers, then you are not guaranteed that all \"ssh stream-events\" command on any of the nodes will see the event.",
+      "revId": "c81f4d85446a5dee65567211c1e5a72631912fa8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
