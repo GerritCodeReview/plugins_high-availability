@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "167cc47b_764ac85a",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-03-13T22:42:22Z",
+      "side": 1,
+      "message": "This should be 3.3.7 right?",
+      "range": {
+        "startLine": 1,
+        "startChar": 29,
+        "endLine": 1,
+        "endChar": 35
+      },
+      "revId": "3404c89ada95dfce8c9e001dcc98faaae03c3e59",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
