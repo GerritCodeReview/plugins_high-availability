@@ -16,6 +16,23 @@
       "message": "Thanks @luca.milanesio@gmail.com, @david.ostrovsky@gmail.com, this is now ready for review.",
       "revId": "0d61dffc6514237d346752e544484683f649a68b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d81aa7b_eec99833",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1158171
+      },
+      "writtenOn": "2023-03-14T14:01:26Z",
+      "side": 1,
+      "message": "https://gerrit-review.googlesource.com/#/q/I0b0265644e7cb73133e4edd19ec1634ae4ce177d",
+      "revId": "0d61dffc6514237d346752e544484683f649a68b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
