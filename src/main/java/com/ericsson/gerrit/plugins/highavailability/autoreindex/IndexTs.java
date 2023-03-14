@@ -37,6 +37,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
+import org.eclipse.jgit.internal.storage.file.FileSnapshot;
 
 @Singleton
 public class IndexTs
@@ -63,15 +64,17 @@ public class IndexTs
 
   class FlusherRunner implements Runnable {
     private final AbstractIndexRestApiServlet.IndexName index;
+    private final Path tsPath;
+    private FileSnapshot tsPathSnapshot;
 
     @Override
     public void run() {
+      reloadIndexTimeStampIfChanged();
       LocalDateTime latestTs = getIndexTimeStamp();
       Optional<LocalDateTime> currTs = getUpdateTs(index);
       if (!currTs.isPresent() || latestTs.isAfter(currTs.get())) {
-        Path indexTsFile = dataDir.resolve(index.name().toLowerCase());
         try {
-          Files.write(indexTsFile, latestTs.format(formatter).getBytes(StandardCharsets.UTF_8));
+          Files.write(tsPath, latestTs.format(formatter).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
           log.atSevere().withCause(e).log("Unable to update last timestamp for index %s", index);
         }
@@ -80,6 +83,8 @@ public class IndexTs
 
     FlusherRunner(AbstractIndexRestApiServlet.IndexName index) {
       this.index = index;
+      this.tsPath = getIndexTsPath(index);
+      this.tsPathSnapshot = FileSnapshot.save(tsPath.toFile());
     }
 
     private LocalDateTime getIndexTimeStamp() {
@@ -95,6 +100,31 @@ public class IndexTs
         default:
           throw new IllegalArgumentException("Unsupported index " + index);
       }
+    }
+
+    private void reloadIndexTimeStampIfChanged() {
+      if (tsPathSnapshot.isModified(tsPath.toFile())) {
+        getUpdateTs(index).ifPresent(this::setIndexTimeStamp);
+      }
+    }
+
+    private void setIndexTimeStamp(LocalDateTime newTs) {
+      switch (index) {
+        case CHANGE:
+          changeTs = newTs;
+          break;
+        case GROUP:
+          groupTs = newTs;
+          break;
+        case ACCOUNT:
+          accountTs = newTs;
+          break;
+        case PROJECT:
+          projectTs = newTs;
+          break;
+      }
+
+      tsPathSnapshot = FileSnapshot.save(tsPath.toFile());
     }
   }
 
@@ -154,7 +184,7 @@ public class IndexTs
 
   public Optional<LocalDateTime> getUpdateTs(AbstractIndexRestApiServlet.IndexName index) {
     try {
-      Path indexTsFile = dataDir.resolve(index.name().toLowerCase());
+      Path indexTsFile = getIndexTsPath(index);
       if (indexTsFile.toFile().exists()) {
         String tsString = Files.readAllLines(indexTsFile).get(0);
         return Optional.of(LocalDateTime.parse(tsString, formatter));
@@ -186,5 +216,9 @@ public class IndexTs
       default:
         throw new IllegalArgumentException("Unsupported index " + index);
     }
+  }
+
+  private Path getIndexTsPath(AbstractIndexRestApiServlet.IndexName index) {
+    return dataDir.resolve(index.name().toLowerCase());
   }
 }
