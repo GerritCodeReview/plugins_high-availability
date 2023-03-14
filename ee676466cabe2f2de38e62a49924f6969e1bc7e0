@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d50a1f5e_a9cb3f92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-03-14T14:41:39Z",
+      "side": 1,
+      "message": "`./src/test/docker/gerrit/Dockerfile` should be set to 3.7.1",
+      "revId": "ee676466cabe2f2de38e62a49924f6969e1bc7e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
