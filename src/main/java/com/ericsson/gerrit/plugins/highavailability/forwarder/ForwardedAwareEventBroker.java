@@ -25,7 +25,6 @@ import com.google.gerrit.server.permissions.PermissionBackend;
 import com.google.gerrit.server.plugincontext.PluginSetContext;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
-import java.util.Objects;
 
 class ForwardedAwareEventBroker extends EventBroker {
 
@@ -51,17 +50,8 @@ class ForwardedAwareEventBroker extends EventBroker {
     this.allowedListeners = allowedListeners;
   }
 
-  private boolean isProducedByLocalInstance(Event event) {
-    return Objects.equals(event.instanceId, gerritInstanceId);
-  }
-
   @Override
   protected void fireEventForUnrestrictedListeners(Event event) {
-    // An event should not be dispatched when it is "forwarded".
-    // Meaning, it was either produced somewhere else
-    if (!isProducedByLocalInstance(event)) {
-      Context.setForwardedEvent(true);
-    }
     // or it was consumed by the high-availability rest endpoint and
     // thus the context of its consumption has already been set to "forwarded".
     unrestrictedListeners.runEach(l -> fireEventForListener(l, event));
