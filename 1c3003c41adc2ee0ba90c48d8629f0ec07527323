@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3adf89a7_0b48912b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-03-14T14:16:54Z",
+      "side": 1,
+      "message": "The `src/test/docker/gerrit/Dockerfile` version should be set to 3.6",
+      "revId": "1c3003c41adc2ee0ba90c48d8629f0ec07527323",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
