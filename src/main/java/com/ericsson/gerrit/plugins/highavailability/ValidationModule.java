@@ -29,10 +29,13 @@ import com.gerritforge.gerrit.globalrefdb.validation.SharedRefLogger;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.CustomSharedRefEnforcementByProject;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.DefaultSharedRefEnforcement;
 import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.SharedRefEnforcement;
+import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
 import com.google.inject.Scopes;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
 
 public class ValidationModule extends FactoryModule {
   final Configuration configuration;
@@ -52,6 +55,9 @@ public class ValidationModule extends FactoryModule {
     factory(BatchRefUpdateValidator.Factory.class);
 
     bind(SharedRefDbConfiguration.class).toInstance(configuration.sharedRefDb());
+    bind(new TypeLiteral<ImmutableSet<String>>() {})
+        .annotatedWith(Names.named(SharedRefDbGitRepositoryManager.IGNORED_REFS))
+        .toInstance(configuration.sharedRefDb().getSharedRefDb().getIgnoredRefsPrefixes());
 
     bind(SharedRefDatabaseWrapper.class).in(Scopes.SINGLETON);
     bind(SharedRefLogger.class).to(Log4jSharedRefLogger.class);

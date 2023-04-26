@@ -270,3 +270,9 @@ Defaults to 24 hours.
     Ignore the alignment with the global ref-db for AProject on refs/heads/feature.
 
     Defaults to no rule. All projects are REQUIRED to be consistent on all refs.
+
+```ref-database.ignoredRefsPrefixes```
+:   Set of refs prefixes that are ignored during the validation with the
+    global ref-db. All other Gerrit's immutables refs, such as the patch-sets, are ignored
+    automatically and added to the configured ignoredRefs.
+    Defaults: empty
