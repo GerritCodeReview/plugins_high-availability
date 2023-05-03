@@ -124,7 +124,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
   private void reindex(ChangeNotes notes) {
     notes.reload();
-    indexer.index(notes.getChange());
+    indexer.index(notes);
   }
 
   private boolean rescheduleIndex(String id, Optional<IndexEvent> indexEvent, int retryCount) {
