@@ -3,3 +3,8 @@
 /src/test/docker/gitvolume
 /src/test/docker/pgdata
 /src/test/docker/shareddir
+
+# IntelliJ files
+.idea
+*.iml
+
