@@ -1,19 +1,29 @@
 # Gerrit high-availability docker setup example
 
 The Docker Compose project in the docker directory contains a simple test 
-environment of two Gerrit masters in HA configuration.
+environment of two Gerrit masters in HA configuration, with their git repos
+hosted on NFS filesystem.
 
 ## How to build
 
-The project can be built using docker-compose.
+The project can be built using docker-compose (make sure you set the 
+arch in the docker-compose.yaml file if you're not in an amd64 arch).
 
 To build the Docker VMs:
-```
-  $ docker-compose build
+```bash
+  # first, remove the buildx if it exists and its not running
+  $ docker buildx inspect docker-ha | grep Status
+  $ docker buildx rm docker-ha
+  # create the docker-ha buildx node, provide your architecture and start it up
+  docker buildx create --name docker-ha --platform "linux/amd64" --driver docker-container --use \
+  && docker buildx inspect --bootstrap \
+  && docker-compose build
 ```
 
 ### Building the Docker VMs using a non-default user id
 
+First, update the user id in the [NFS Dockerfile](./docker/nfs/Dockerfile).
+Then, run the following:
 ```
   $ export GERRIT_UID=$(id -u)
   $ docker-compose build --build-arg GERRIT_UID
@@ -24,6 +34,9 @@ Build the gerrit images this way only if the user with id 1000 on your
 host is not owned by you. For example, some corporate environments use a
 restricted 1000 user (id). In that case, the containerized application
 may fail to write towards the host (through volumes).
+**Important:** The user id in gerrit must be the same as the uid in the
+NFS server, otherwise you will encounter file ownership problems on any
+filesystem operation.
 
 That UID will be the one set for the containerized gerrit user. Latter's
 group will remain as default (1000). This is because groups known from
@@ -36,8 +49,35 @@ user id. The individual gerrit user's writing permission does suffice.
 Use the 'up' target to startup the Docker Compose VMs.
 
 ```
-  $ docker-compose up
+  $ docker-compose up -d
 ```
+
+## Background on using an NFS server
+We are using the `erichough/nfs-server` image mainly because it's easy to use & we had success with it.
+The work has been inspired by [this blog post](https://nothing2say.co.uk/running-a-linux-based-nfs-server-in-docker-on-windows-b64445d5ada2).
+
+The containers start with the `privileged` flag set, which is a security risk but necessary to work around
+permission issues.
+
+It is worth noting that we are exposing the `/var/gerrit/git` directory as the nfs-share. This is because
+more often than not it's the git directory that's shared over the network. You can change this in the
+nfs server and gerrit docker files, and in the `exports.txt` file.
+
+The NFS server is using a static IP. The Docker Compose YAML file defines a bridge network with the
+subnet `192.168.1.0/24` (this is what allows us to give the NFS Server a known, static IP).
+
+The `addr=192.168.1.5` option (in the `nfs-client-volume` volume) is the reason we need a static IP for the server
+(and hence a configured subnet for the network). Note that using a name (ie. addr=nfs-server) we weren't able to
+get the DNS resolution to work properly.
+
+Also in the Docker Compose file we can see that the `nfs-server` container uses a `healthcheck`, this is
+necessary to control when the `gerrit` services will start up (they need to start after the nfs server is
+fully up-and-running). At least on my machine, the gerrit service is too eager to start, and if it starts
+before the nfs-server is ready, mounting of the nfs-share will fail.
+
+Finally, we are providing an `exports.txt` file, which again utilises the subnet we provided during
+the bridge network creation. This file is baked into the image sacrificing a bit of flexibility, but we feel this is
+a small price to pay to have everything automated.
 
 # Gerrit high-availability local setup example
 
