@@ -16,6 +16,29 @@
       "message": "Please provide advise on how to test all these changes.\nI have only conducted basic testing as I dont know what I should be looking for. I am able to start both gerrit instances, and create/delete a git repo.",
       "revId": "28785f93710f56f3c0c2cd5294b80ec50bdb9239",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "675281b2_cd1f8202",
+        "filename": "src/test/docker/nfs/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T16:45:21Z",
+      "side": 1,
+      "message": "As discussed it looks like this image hasn\u0027t been updated in a while, however, it is a good starting point. We can lately swap it if it causes any trouble.",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "28785f93710f56f3c0c2cd5294b80ec50bdb9239",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
