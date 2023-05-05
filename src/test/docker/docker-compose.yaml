@@ -2,16 +2,41 @@ version: '3'
 
 services:
 
+  nfs-server:
+    build: nfs
+#    platform: linux/arm64/v8 # uncomment for Apple Silicon arch
+    privileged: true
+    container_name: nfs-server
+    environment:
+      NFS_LOG_LEVEL: DEBUG
+    hostname: nfs-server
+    healthcheck:
+      test: ["CMD-SHELL", "sleep 10"] # required, otherwise the gerrit service will fail to start with a "connection refused" error
+      interval: 1s
+      timeout: 1m
+      retries: 10
+    ports:
+      - 2049:2049
+    networks:
+      nfs-server-bridge:
+        ipv4_address: 192.168.1.5
+    volumes:
+      - nfs-server-volume:/var/gerrit/git
   gerrit-01:
     build: gerrit
+    privileged: true
+    depends_on:
+      nfs-server:
+        condition: service_healthy
+        restart: true
     ports:
       - "8081:8080"
       - "29411:29418"
     networks:
-      - gerrit-net
+      nfs-server-bridge: null
     volumes:
       - /dev/urandom:/dev/random
-      - gitvolume:/var/gerrit/git
+      - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
@@ -20,16 +45,21 @@ services:
 
   gerrit-02:
     build: gerrit
+    privileged: true
     ports:
       - "8082:8080"
       - "29412:29418"
     networks:
-      - gerrit-net
+      nfs-server-bridge: null
     depends_on:
-      - gerrit-01
+      gerrit-01:
+        condition: service_started
+      nfs-server:
+        condition: service_healthy
+        restart: true
     volumes:
       - /dev/urandom:/dev/random
-      - gitvolume:/var/gerrit/git
+      - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
@@ -43,9 +73,9 @@ services:
       - "80:80"
       - "29418:29418"
     networks:
-      - gerrit-net
+      nfs-server-bridge: null
     volumes:
-      - syslog-sidecar
+      - syslog-sidecar:/syslog-sidecar
     depends_on:
       - syslog-sidecar
       - gerrit-01
@@ -54,13 +84,22 @@ services:
   syslog-sidecar:
     build: docker-syslog-ng-stdout
     networks:
-      - gerrit-net
+      nfs-server-bridge: null
 
 networks:
-  gerrit-net:
-    driver: bridge
+  nfs-server-bridge:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
 
 volumes:
   syslog-sidecar:
   shareddir:
-  gitvolume:
+  nfs-server-volume:
+  git-volume:
+    driver: "local"
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.1.5,rw"
+      device: ":/var/gerrit/git"
