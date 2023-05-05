@@ -1,27 +1,52 @@
-FROM gerritcodereview/gerrit:3.5.0-rc2
+FROM almalinux:8.5
 
-ENV GERRIT_BRANCH=stable-3.5
+# Install dependencies
+RUN yum -y install \
+    git \
+    java-11-openjdk \
+    procps \
+    sudo \
+    passwd \
+    gettext \
+    && yum -y clean all
 
-ENV GERRIT_CI_URL=https://gerrit-ci.gerritforge.com/job
+ENV GERRIT_VERSION=3.6
+ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
 
-USER root
+# Add gerrit user
+RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
+RUN echo "gerrit:gerrit" | chpasswd
+RUN echo "gerrit ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/gerrit && \
+    chmod 0440 /etc/sudoers.d/gerrit
 
-RUN yum install -y iputils nmap curl lsof gettext net-tools sudo
+# Create gerrit installation directory
+RUN mkdir -p /var/gerrit && chown -R gerrit /var/gerrit
 
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/Gerrit-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/gerrit/bazel-bin/release.war" \
+    /tmp/gerrit.war
+
+ADD --chown=gerrit \
+"https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
+    /var/gerrit/plugins/javamelody.jar
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
+    /var/gerrit/plugins/high-availability.jar
+
+ADD --chown=gerrit \
+    "https://repo1.maven.org/maven2/com/gerritforge/global-refdb/$GERRIT_VERSION.3.4/global-refdb-$GERRIT_VERSION.3.4.jar" \
+    /tmp
+
+ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
+
+# Change user
 USER gerrit
 
-ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
-ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-high-availability-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
+# Expose ssh and http ports
+EXPOSE 29418 8080
+
+COPY --chown=gerrit ./entrypoint.sh /bin
 
 USER root
 
-ADD start.sh /bin/
-ADD wait-for-it.sh /bin/
-
-RUN rm -Rf /var/gerrit/{git,index,cache}/*
-
-ARG GERRIT_UID=1000
-RUN usermod -u ${GERRIT_UID} gerrit &> /dev/null
-
-ENTRYPOINT ["/usr/bin/env"]
-CMD /bin/start.sh
+ENTRYPOINT /bin/entrypoint.sh
