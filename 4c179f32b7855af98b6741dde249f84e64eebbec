@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39c989d_19fac381",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "I would specify we are introducing it since it is closer to a real installation.\nThis allowed us to find issues specific to NFS.",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "38a7c17d_f38c2076",
@@ -14,6 +37,172 @@
       "writtenOn": "2023-05-05T16:45:21Z",
       "side": 1,
       "message": "I have verified it locally and looks ok.",
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "145f8625_25037501",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02dbaaac_b53c681f",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "Might be worth specifying the parameter to change is `platform` in the docker-compose",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 4
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfbfe943_de9d549b",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "How do you do that?",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27b582fc_79a8194c",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "not: Wrap long lines in all the lines added.",
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "973d3cd1_81aa39c2",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "I would just remove this bit. You have already explained why the hc is needed.",
+      "range": {
+        "startLine": 75,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4df7e10_729db893",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "Why are we not using the standard Gerrit image?",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 14
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95e456a6_824be811",
+        "filename": "src/test/docker/gerrit/entrypoint.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "Is the renaming necessary? It makes difficult to understand the differences between the files.",
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1fbc55_b31533e0",
+        "filename": "src/test/docker/nfs/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2023-05-05T20:07:30Z",
+      "side": 1,
+      "message": "nit: long line",
       "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
