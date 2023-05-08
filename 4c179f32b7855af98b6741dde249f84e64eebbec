@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f86b267b_c41ad39f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39c989d_19fac381",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 54
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "38a7c17d_f38c2076",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -64,6 +88,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "495c36bc_f968e217",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "145f8625_25037501",
+      "range": {
+        "startLine": 9,
+        "startChar": 68,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02dbaaac_b53c681f",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-05-05T20:07:30Z",
       "side": 1,
       "message": "Might be worth specifying the parameter to change is `platform` in the docker-compose",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 4
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d945a29_16f29c42",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02dbaaac_b53c681f",
       "range": {
         "startLine": 10,
         "startChar": 0,
@@ -110,6 +182,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08cb66ab_aa1c8c60",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfbfe943_de9d549b",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 26
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27b582fc_79a8194c",
@@ -127,6 +223,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "214bb5e8_a8f20125",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27b582fc_79a8194c",
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "973d3cd1_81aa39c2",
@@ -140,6 +254,30 @@
       "writtenOn": "2023-05-05T20:07:30Z",
       "side": 1,
       "message": "I would just remove this bit. You have already explained why the hc is needed.",
+      "range": {
+        "startLine": 75,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 68
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa7e4167_2d9dca15",
+        "filename": "src/test/README.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "973d3cd1_81aa39c2",
       "range": {
         "startLine": 75,
         "startChar": 23,
@@ -173,6 +311,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8654d7e7_a5ed194d",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Because I couldn\u0027t get it to work 😭 - i was giving me an \"operation not permitted\" error (or something similar) when trying to mount the NFS volume during the creation of the gerrit service. I don\u0027t know how the image is created, but building it ourselves ensures we have full control of the user creation settings, and directory ownership - both are very important in order for the mounting to complete successfully.",
+      "parentUuid": "a4df7e10_729db893",
+      "range": {
+        "startLine": 1,
+        "startChar": 5,
+        "endLine": 1,
+        "endChar": 14
+      },
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95e456a6_824be811",
@@ -190,6 +352,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f43b46e1_12fd25f6",
+        "filename": "src/test/docker/gerrit/entrypoint.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Yeah, i think `entrypoint.sh` is better suited here. I suggest you simply review the new file, not compare with the old one, as the approach is different.",
+      "parentUuid": "95e456a6_824be811",
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb1fbc55_b31533e0",
@@ -203,6 +383,24 @@
       "writtenOn": "2023-05-05T20:07:30Z",
       "side": 1,
       "message": "nit: long line",
+      "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c516738_cd882ab4",
+        "filename": "src/test/docker/nfs/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-05-08T09:08:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb1fbc55_b31533e0",
       "revId": "4c179f32b7855af98b6741dde249f84e64eebbec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
