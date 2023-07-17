@@ -36,12 +36,14 @@ class MyUrlProvider implements Provider<String> {
   private static final String LISTEN_URL_KEY = "listenUrl";
   private static final String LISTEN_URL = HTTPD_SECTION + "." + LISTEN_URL_KEY;
   private static final String PROXY_PREFIX = "proxy-";
+  static final String MY_URL_PROPERTY = "gerrit.url";
 
   private final String myUrl;
 
   @Inject
   MyUrlProvider(@GerritServerConfig Config srvConfig, Configuration pluginConfiguration) {
     String url = pluginConfiguration.peerInfoJGroups().myUrl();
+    url = url == null ? System.getProperty(MY_URL_PROPERTY) : url;
     if (url == null) {
       log.atInfo().log("myUrl not configured; attempting to determine from %s", LISTEN_URL);
       try {

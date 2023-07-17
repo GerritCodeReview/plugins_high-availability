@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
+import static com.ericsson.gerrit.plugins.highavailability.peers.jgroups.MyUrlProvider.MY_URL_PROPERTY;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.net.InetAddress.getLocalHost;
@@ -66,6 +67,15 @@ public class MyUrlProviderTest {
   }
 
   @Test
+  public void testGetJGroupsMyUrlFromProperty() throws Exception {
+    String hostName = "https://foo:8080";
+    System.setProperty(MY_URL_PROPERTY, hostName);
+
+    assertThat(getMyUrlProvider().get()).isEqualTo(hostName);
+    System.clearProperty(MY_URL_PROPERTY);
+  }
+
+  @Test
   public void testGetJGroupsMyUrlFromListenUrlWhenNoListenUrlSpecified() throws Exception {
     ProvisionException thrown = assertThrows(ProvisionException.class, () -> getMyUrlProvider());
     assertThat(thrown).hasMessageThat().contains("exactly 1 value configured; found 0");
@@ -96,5 +106,14 @@ public class MyUrlProviderTest {
   public void testGetJGroupsMyUrlOverridesListenUrl() throws Exception {
     when(configurationMock.peerInfoJGroups().myUrl()).thenReturn("http://somehost");
     assertThat(getMyUrlProvider().get()).isEqualTo("http://somehost");
+  }
+
+  @Test
+  public void testGetJGroupsMyUrlOverridesProperty() throws Exception {
+    String hostName = "https://foo:8080";
+    System.setProperty(MY_URL_PROPERTY, hostName);
+    when(configurationMock.peerInfoJGroups().myUrl()).thenReturn("http://somehost");
+    assertThat(getMyUrlProvider().get()).isEqualTo("http://somehost");
+    System.clearProperty(MY_URL_PROPERTY);
   }
 }
