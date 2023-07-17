@@ -21,6 +21,7 @@ import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.gerrit.common.Nullable;
 import com.google.inject.ProvisionException;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
@@ -48,7 +49,11 @@ public class MyUrlProviderTest {
   }
 
   private MyUrlProvider getMyUrlProvider() {
-    return new MyUrlProvider(gerritServerConfig, configurationMock);
+    return getMyUrlProvider(null);
+  }
+
+  private MyUrlProvider getMyUrlProvider(@Nullable String myUrlEnvVar) {
+    return new MyUrlProvider(gerritServerConfig, configurationMock, myUrlEnvVar);
   }
 
   @Test
@@ -63,6 +68,12 @@ public class MyUrlProviderTest {
 
     gerritServerConfig.setString(HTTPD, null, LISTEN_URL, "https://foo/");
     assertThat(getMyUrlProvider().get()).isEqualTo(HTTPS + hostName);
+  }
+
+  @Test
+  public void testGetJGroupsMyUrlFromEnvVariable() throws Exception {
+    String hostName = "https://foo:8080";
+    assertThat(getMyUrlProvider(hostName).get()).isEqualTo(hostName);
   }
 
   @Test
@@ -96,5 +107,11 @@ public class MyUrlProviderTest {
   public void testGetJGroupsMyUrlOverridesListenUrl() throws Exception {
     when(configurationMock.peerInfoJGroups().myUrl()).thenReturn("http://somehost");
     assertThat(getMyUrlProvider().get()).isEqualTo("http://somehost");
+  }
+
+  @Test
+  public void testGetJGroupsMyUrlOverridesEnvVariable() throws Exception {
+    when(configurationMock.peerInfoJGroups().myUrl()).thenReturn("http://somehost");
+    assertThat(getMyUrlProvider("https://foo:8080").get()).isEqualTo("http://somehost");
   }
 }

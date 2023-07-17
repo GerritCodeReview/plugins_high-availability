@@ -39,6 +39,7 @@ class Module extends LifecycleModule {
 
   @Override
   protected void configure() {
+    install(new EnvModule());
     install(new ForwarderModule());
     install(new RestForwarderModule());
 
