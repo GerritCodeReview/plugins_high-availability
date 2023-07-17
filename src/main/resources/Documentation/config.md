@@ -98,7 +98,11 @@ a member joins or leaves the cluster.
     configured, add as many url entries as necessary.
 
 ```peerInfo.jgroups.myUrl```
-:   The URL of this instance to be broadcast to other peers. If not specified, the
+:   The URL of this instance to be broadcast to other peers. Alternatively, this URL
+    can also be specified using the environment variable `GERRIT_URL`. This is useful
+    in environments like Kubernetes, where manual configuration of each Gerrit
+    instance is not possible.
+    If neither the configuration option nor the system property is specified, the
     URL is determined from the `httpd.listenUrl` in the `gerrit.config`.
     If `httpd.listenUrl` is configured with multiple values, is configured to work
     with a reverse proxy (i.e. uses `proxy-http` or `proxy-https` scheme), or is
