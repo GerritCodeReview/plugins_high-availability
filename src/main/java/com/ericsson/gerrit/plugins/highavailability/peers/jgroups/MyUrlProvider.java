@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
+import static com.ericsson.gerrit.plugins.highavailability.EnvModule.MY_URL_ENV_VAR;
+
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.base.CharMatcher;
 import com.google.common.flogger.FluentLogger;
@@ -22,6 +24,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
 import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
@@ -40,8 +43,12 @@ class MyUrlProvider implements Provider<String> {
   private final String myUrl;
 
   @Inject
-  MyUrlProvider(@GerritServerConfig Config srvConfig, Configuration pluginConfiguration) {
+  MyUrlProvider(
+      @GerritServerConfig Config srvConfig,
+      Configuration pluginConfiguration,
+      @Named(MY_URL_ENV_VAR) String myUrlEnvVar) {
     String url = pluginConfiguration.peerInfoJGroups().myUrl();
+    url = url == null ? myUrlEnvVar : url;
     if (url == null) {
       log.atInfo().log("myUrl not configured; attempting to determine from %s", LISTEN_URL);
       try {
