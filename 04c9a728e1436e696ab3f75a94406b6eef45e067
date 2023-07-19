@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1f2eba_e7112002",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-07-19T00:52:20Z",
+      "side": 1,
+      "message": "Why not using the v3.7.4 [1]?\n\n[1] https://repo1.maven.org/maven2/com/gerritforge/global-refdb/3.7.4/\n\n```suggestion\n        artifact \u003d \"com.gerritforge:global-refdb:3.7.4\",\n```",
+      "range": {
+        "startLine": 18,
+        "startChar": 49,
+        "endLine": 18,
+        "endChar": 56
+      },
+      "revId": "04c9a728e1436e696ab3f75a94406b6eef45e067",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffaf0fc_a6b03839",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-07-19T00:52:20Z",
+      "side": 1,
+      "message": "```suggestion\n        sha1 \u003d \"a5f3fcdbc04b7e98c52ecd50d2a56424e60b0575\",\n```",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 58
+      },
+      "revId": "04c9a728e1436e696ab3f75a94406b6eef45e067",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
