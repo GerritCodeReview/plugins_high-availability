@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37854b86_9c6348ac",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-07-19T01:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd1f2eba_e7112002",
+      "range": {
+        "startLine": 18,
+        "startChar": 49,
+        "endLine": 18,
+        "endChar": 56
+      },
+      "revId": "04c9a728e1436e696ab3f75a94406b6eef45e067",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fffaf0fc_a6b03839",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-19T00:52:20Z",
       "side": 1,
       "message": "```suggestion\n        sha1 \u003d \"a5f3fcdbc04b7e98c52ecd50d2a56424e60b0575\",\n```",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 58
+      },
+      "revId": "04c9a728e1436e696ab3f75a94406b6eef45e067",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbab76ec_ea11597b",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-07-19T01:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fffaf0fc_a6b03839",
       "range": {
         "startLine": 19,
         "startChar": 0,
