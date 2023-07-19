@@ -9,12 +9,12 @@ def external_plugin_deps():
 
     maven_jar(
         name = "jgroups",
-        artifact = "org.jgroups:jgroups:3.6.15.Final",
-        sha1 = "755afcfc6c8a8ea1e15ef0073417c0b6e8c6d6e4",
+        artifact = "org.jgroups:jgroups:5.2.16.Final",
+        sha1 = "d2dceef4c6917239350f2a604b4116745a1e84ae",
     )
 
     maven_jar(
         name = "global-refdb",
-        artifact = "com.gerritforge:global-refdb:3.7.0",
-        sha1 = "19dbedc1dfbf71b0a6f5453887442aca4abac06d",
+        artifact = "com.gerritforge:global-refdb:3.7.2.1",
+        sha1 = "be8177669a281f8d14e9e3b3231ee86a806710d3",
     )
