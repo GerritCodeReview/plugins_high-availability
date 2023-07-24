@@ -32,9 +32,22 @@ ADD --chown=gerrit \
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
     /var/gerrit/plugins/high-availability.jar
+<<<<<<< HEAD   (35f9021216e05d8305a41b1ee909c8402410a92f Merge branch 'stable-3.9' into stable-3.10)
+||||||| BASE   (6aa95c6512f913f3cfe6e153e86517431669f3ae Format Dockerfile of gerrit container in test setup)
+
+=======
+
+RUN mkdir -p /var/gerrit/lib && \
+    ln -sf /var/gerrit/plugins/high-availability.jar /var/gerrit/lib/high-availability.jar
+
+>>>>>>> CHANGE (4e53ee22a04401e24de3613bd59dd07cd9430504 Active/active setup using zookeeper-refdb plugin and zookeep)
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/module-global-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/global-refdb/global-refdb.jar" \
     /var/gerrit/lib/global-refdb.jar
+
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/plugin-zookeeper-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/zookeeper-refdb/zookeeper-refdb.jar" \
+    /var/gerrit/plugins/zookeeper-refdb.jar
 
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
