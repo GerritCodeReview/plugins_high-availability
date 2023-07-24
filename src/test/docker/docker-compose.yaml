@@ -18,27 +18,43 @@ services:
     ports:
       - 2049:2049
     networks:
-      nfs-server-bridge:
+      gerrit-net:
         ipv4_address: 192.168.1.5
     volumes:
       - nfs-server-volume:/var/gerrit/git
+
+  zookeeper-refdb:
+    image: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - gerrit-net
+    healthcheck:
+      test: ["CMD-SHELL", "./bin/zkServer.sh", "status"] # required, otherwise the gerrit service will fail to start with a "connection refused" error
+      interval: 1s
+      timeout: 1m
+      retries: 10
+
   gerrit-01:
     build: gerrit
     privileged: true
     depends_on:
       nfs-server:
         condition: service_healthy
+      zookeeper-refdb:
+        condition: service_healthy
     ports:
       - "8081:8080"
       - "29411:29418"
     networks:
-      nfs-server-bridge: null
+      - gerrit-net
     volumes:
       - /dev/urandom:/dev/random
       - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
+      - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
     environment:
       - HOSTNAME=localhost
 
@@ -49,7 +65,7 @@ services:
       - "8082:8080"
       - "29412:29418"
     networks:
-      nfs-server-bridge: null
+      - gerrit-net
     depends_on:
       gerrit-01:
         condition: service_started
@@ -61,6 +77,7 @@ services:
       - shareddir:/var/gerrit/shareddir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
+      - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
     environment:
       - HOSTNAME=localhost
       - WAIT_FOR=gerrit-01:8080
@@ -71,7 +88,7 @@ services:
       - "80:80"
       - "29418:29418"
     networks:
-      nfs-server-bridge: null
+      - gerrit-net
     volumes_from:
       - syslog-sidecar
     depends_on:
@@ -82,10 +99,10 @@ services:
   syslog-sidecar:
     build: docker-syslog-ng-stdout
     networks:
-      nfs-server-bridge: null
+      - gerrit-net
 
 networks:
-  nfs-server-bridge:
+  gerrit-net:
     ipam:
       driver: default
       config:
