@@ -38,7 +38,13 @@ ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/module-global-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/global-refdb/global-refdb.jar" \
     /var/gerrit/lib/global-refdb.jar
 
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/plugin-zookeeper-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/zookeeper-refdb/zookeeper-refdb.jar" \
+    /var/gerrit/plugins/zookeeper-refdb.jar
+
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
+
+RUN ln -sf /var/gerrit/plugins/high-availability.jar /var/gerrit/lib/high-availability.jar
 
 # Change user
 USER gerrit
