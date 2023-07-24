@@ -8,6 +8,7 @@ fi
 chown -R gerrit /var/gerrit/etc
 sudo -u gerrit cp /var/gerrit/etc/gerrit.config.orig /var/gerrit/etc/gerrit.config
 sudo -u gerrit cp /var/gerrit/etc/high-availability.config.orig /var/gerrit/etc/high-availability.config
+sudo -u gerrit cp /var/gerrit/etc/zookeeper-refdb.config.orig /var/gerrit/etc/zookeeper-refdb.config
 
 
 echo "Init gerrit..."
