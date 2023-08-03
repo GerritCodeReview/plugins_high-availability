@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20c8acc9_971e51a2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-08-03T09:20:09Z",
+      "side": 1,
+      "message": "we should also trim trailing slash like the constructor of PeerInfoJGroups does here\nhttps://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/stable-3.7/src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java#304",
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66f2167e_d55d8ac1",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 2
