@@ -50,6 +50,115 @@
       "message": "```suggestion\n:   The URL of this instance to be broadcast to other peers. Alternatively, this URL\n```\n[nit] - \"ALternatively\" -\u003e \"Alternatively\"",
       "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aba9a75_6add5249",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-08-03T15:50:17Z",
+      "side": 1,
+      "message": "Java system property",
+      "range": {
+        "startLine": 102,
+        "startChar": 36,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9189482_c56e57cf",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-08-03T15:50:17Z",
+      "side": 1,
+      "message": "```suggestion\n  public void testGetJGroupsMyUrlFromSystemProperty() throws Exception {\n```",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 45
+      },
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd13c7de_32412879",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-08-03T15:50:17Z",
+      "side": 1,
+      "message": "```suggestion\n  public void testGetJGroupsMyUrlOverridesSystemProperty() throws Exception {\n```",
+      "range": {
+        "startLine": 112,
+        "startChar": 14,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe2de35_bdf10436",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-08-03T15:50:17Z",
+      "side": 1,
+      "message": "inline this variable",
+      "range": {
+        "startLine": 114,
+        "startChar": 40,
+        "endLine": 114,
+        "endChar": 48
+      },
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3354a6f_1a01fc15",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/MyUrlProviderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-08-03T15:50:17Z",
+      "side": 1,
+      "message": "To avoid need for that, ideally we shall make it possible to inject the values of the relevant system properties as a named string. Could also be done in a new changes.\n\nFor example the `MyUrlProvider` constructor would then have additional parameter:\n```\n  @Inject\n  MyUrlProvider(@GerritServerConfig Config srvConfig, Configuration pluginConfiguration, @Named(\"gerrit.url\") String gerritUrl) {\n\n```\n\nwhich would be bound in the plugins system module as:\n```\n  bind(String.class)\n      .annotatedWith(Names.named(GERRIT_URL_PROPERTY))\n      .toInstance(System.getProperty(GERRIT_URL_PROPERTY));\n```\n\nThe test code then doesn\u0027t need to cause any side-effects but can simply pass the value of the gerrit URL to the constructor.\n\nI have done a similar thing for env variables in NEO:\nhttps://git.wdf.sap.corp/plugins/gitiles/NGP/LDI/gerrit-internal/+/refs/heads/hanacloud-3.3/java/com/google/gerrit/server/multizone/NeoEnvModule.java",
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
