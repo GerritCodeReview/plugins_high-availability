@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21597957_565e775d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-08-03T09:11:13Z",
+      "side": 1,
+      "message": "Build seems to be failing because of an unrelated issue in ChangeCheckerImpl?",
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66f2167e_d55d8ac1",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2023-08-03T09:11:13Z",
+      "side": 1,
+      "message": "```suggestion\n:   The URL of this instance to be broadcast to other peers. Alternatively, this URL\n```\n[nit] - \"ALternatively\" -\u003e \"Alternatively\"",
+      "revId": "6fd8802f26dd9d3d1acdbe76e1ef7c3dca53f61f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
