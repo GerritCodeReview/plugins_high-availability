@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60013b33_236eabd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-07T12:58:32Z",
+      "side": 1,
+      "message": "I changed this to use an environment variable, which is more convenient, if a bit more unstable during runtime. However, this feature is anyway meant to be used in containers, where the environment is more stable.",
+      "revId": "bc642bc025478e97e438d04d2cc3664e4d8ce07d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
