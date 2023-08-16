@@ -30,7 +30,8 @@ import java.util.Set;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
-import org.jgroups.ReceiverAdapter;
+import org.jgroups.ObjectMessage;
+import org.jgroups.Receiver;
 import org.jgroups.View;
 
 /**
@@ -44,8 +45,8 @@ import org.jgroups.View;
  * cluster.
  */
 @Singleton
-public class JGroupsPeerInfoProvider extends ReceiverAdapter
-    implements Provider<Set<PeerInfo>>, LifecycleListener {
+public class JGroupsPeerInfoProvider
+    implements Receiver, Provider<Set<PeerInfo>>, LifecycleListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
 
@@ -105,7 +106,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     }
     if (view.size() > 1) {
       try {
-        channel.send(new Message(null, myUrl));
+        channel.send(new ObjectMessage(null, myUrl));
       } catch (Exception e) {
         // channel communication caused an error. Can't do much about it.
         log.atSevere().withCause(e).log(
