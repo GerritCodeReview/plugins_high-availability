@@ -1,0 +1,109 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "labels": {
+                    "app": "gerrit",
+                    "mode": "primary",
+                    "controller-revision-hash": "gerrit-primary-1234"
+                },
+                "name": "gerrit-primary-0",
+                "namespace": "gerrit"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "gerrit:test",
+                        "name": "gerrit"
+                    }
+                ],
+                "hostname": "gerrit-primary-0"
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "image": "gerrit:test",
+                        "name": "gerrit",
+                        "ready": true,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-08-23T17:26:19Z"
+                            }
+                        }
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "127.0.0.1",
+                "podIPs": [
+                    {
+                        "ip": "127.0.0.1"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Pod",
+            "metadata": {
+                "labels": {
+                    "app": "gerrit",
+                    "mode": "primary",
+                    "controller-revision-hash": "gerrit-primary-1234"
+                },
+                "name": "gerrit-primary-1",
+                "namespace": "gerrit"
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "image": "gerrit:test",
+                        "name": "gerrit"
+                    }
+                ],
+                "hostname": "gerrit-primary-1"
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "containerStatuses": [
+                    {
+                        "image": "gerrit:test",
+                        "name": "gerrit",
+                        "ready": true,
+                        "started": true,
+                        "state": {
+                            "running": {
+                                "startedAt": "2023-08-23T17:26:19Z"
+                            }
+                        }
+                    }
+                ],
+                "phase": "Running",
+                "podIP": "127.0.0.1",
+                "podIPs": [
+                    {
+                        "ip": "127.0.0.1"
+                    }
+                ]
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
