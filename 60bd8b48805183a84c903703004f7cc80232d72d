@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbdaf9a9_7e4de387",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-08-22T13:58:44Z",
+      "side": 1,
+      "message": "Is there any possibility or space for an IT test on this?",
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c75718e_1efa1845",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-08-22T13:58:44Z",
+      "side": 1,
+      "message": "nit: unrelated change",
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168a644d_d32cbc8c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-08-22T13:58:44Z",
+      "side": 1,
+      "message": "Is there any requirement on the Kubernetes API version?",
+      "range": {
+        "startLine": 136,
+        "startChar": 20,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
