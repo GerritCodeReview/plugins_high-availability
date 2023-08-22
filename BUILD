@@ -21,6 +21,7 @@ gerrit_plugin(
     resources = glob(["src/main/resources/**/*"]),
     deps = [
       "@jgroups//jar",
+      "@jgroups-kubernetes//jar",
       "@global-refdb//jar:neverlink",
     ],
 )
