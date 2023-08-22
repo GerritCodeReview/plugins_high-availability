@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
+
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.annotations.VisibleForTesting;
@@ -57,6 +58,7 @@ public class JGroupsPeerInfoProvider
   }
 
   private final Configuration.JGroups jgroupsConfig;
+  private final Configuration.JGroupsKubernetes jgroupsKubernetesConfig;
   private final InetAddressFinder finder;
   private final String myUrl;
 
@@ -68,6 +70,7 @@ public class JGroupsPeerInfoProvider
   JGroupsPeerInfoProvider(
       Configuration pluginConfiguration, InetAddressFinder finder, MyUrlProvider myUrlProvider) {
     this.jgroupsConfig = pluginConfiguration.jgroups();
+    this.jgroupsKubernetesConfig = pluginConfiguration.jgroupsKubernetes();
     this.finder = finder;
     this.myUrl = myUrlProvider.get();
   }
@@ -149,6 +152,16 @@ public class JGroupsPeerInfoProvider
     try {
       if (protocolStack.isPresent()) {
         return new JChannel(protocolStack.get().toString());
+      }
+      if (jgroupsConfig.useKubernetes()) {
+        if (jgroupsKubernetesConfig.namespace() != null) {
+          System.setProperty("KUBERNETES_NAMESPACE", jgroupsKubernetesConfig.namespace());
+        }
+        if (!jgroupsKubernetesConfig.labels().isEmpty()) {
+          System.setProperty(
+              "KUBERNETES_LABELS", String.join(",", jgroupsKubernetesConfig.labels()));
+        }
+        return new JChannel(getClass().getResource("kubernetes.xml").toString());
       }
       return new JChannel();
     } catch (Exception e) {

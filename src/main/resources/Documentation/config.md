@@ -131,6 +131,17 @@ a member joins or leaves the cluster.
     its configuration file syntax please refer to JGroups documentation.
     See [JGroups - Advanced topics](http://jgroups.org/manual-3.x/html/user-advanced.html).
 
+```jgroups.kubernetes```
+:   If true, a protocol stack optimized for Kubernetes will be used. Peers will be discovered
+    by querying the Kubernetes API server for pods. (Default: false)
+
+```jgroups.kubernetes.namespace```
+:   The namespace in which to query for pods. (Default: default)
+
+```jgroups.kubernetes.label```
+:   A label that will be used to select the pods in the format `label=value`. Can be set
+    multiple times.
+
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.
 See [JGroups - Trouble shooting](http://jgroups.org/tutorial/index.html#_trouble_shooting).
