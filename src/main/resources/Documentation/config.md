@@ -131,6 +131,22 @@ a member joins or leaves the cluster.
     its configuration file syntax please refer to JGroups documentation.
     See [JGroups - Advanced topics](http://jgroups.org/manual-3.x/html/user-advanced.html).
 
+```jgroups.kubernetes```
+:   If true, a protocol stack optimized for Kubernetes will be used. Peers will be discovered
+    by querying the Kubernetes API server for pods. The functionality is provided by the
+    [jgroups-kubernetes extension](https://github.com/jgroups-extras/jgroups-kubernetes).
+    To enable Gerrit to use the Kubernetes API, the pods require a ServiceAccount with
+    permissions to list pods ([example](https://github.com/jgroups-extras/jgroups-kubernetes#demo)).
+    Further, Gerrit requires a valid TLS certificate in its keystore, since the Kubernetes
+    API server requires TLS. (Default: false)
+
+```jgroups.kubernetes.namespace```
+:   The namespace in which to query for pods. (Default: default)
+
+```jgroups.kubernetes.label```
+:   A label that will be used to select the pods in the format `label=value`. Can be set
+    multiple times.
+
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.
 See [JGroups - Trouble shooting](http://jgroups.org/tutorial/index.html#_trouble_shooting).
