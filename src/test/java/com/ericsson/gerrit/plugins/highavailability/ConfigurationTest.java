@@ -39,10 +39,10 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.US
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.DEFAULT_SYNCHRONIZE_FORCED;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.INDEX_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.SYNCHRONIZE_FORCED_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGROUPS_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.CLUSTER_NAME_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_CLUSTER_NAME;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_SKIP_INTERFACE_LIST;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.JGROUPS_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.PROTOCOL_STACK_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.SKIP_INTERFACE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
