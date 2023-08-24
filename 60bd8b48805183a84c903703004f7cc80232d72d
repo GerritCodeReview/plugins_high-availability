@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e2b3f625_217babf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T06:00:33Z",
+      "side": 1,
+      "message": "Let me give it a try. With wiremock I should be able to mock the Kubernetes API server.",
+      "parentUuid": "fbdaf9a9_7e4de387",
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "77e39108_e119dbad",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
         "patchSetId": 1
@@ -55,6 +73,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c7add0f_9cc9ba14",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T06:00:33Z",
+      "side": 1,
+      "message": "There should be a link to the documentation of jgroups-kubernetes and a hint, that RBAC has to be configured in the cluster as well as a valid keystore has to be present in Gerrit (TLS-only when sending requests to the Kubernetes API server).",
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "168a644d_d32cbc8c",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -66,6 +101,30 @@
       "writtenOn": "2023-08-22T13:58:44Z",
       "side": 1,
       "message": "Is there any requirement on the Kubernetes API version?",
+      "range": {
+        "startLine": 136,
+        "startChar": 20,
+        "endLine": 136,
+        "endChar": 34
+      },
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f905c4f_cb07529f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T06:00:33Z",
+      "side": 1,
+      "message": "There should not be. the jgroups-kubernetes extension doesn\u0027t use a client library but sends REST-API requests to the Kubernetes API server. The only request it sends is to list pods in a given namespace with a given set of labels [1]. It uses the v1.Pods API for that which exists for a very long time and is stable. In principle, you could even configure a different API version in the kubernetes.xml, e.g. v1beta1, if required [2].\n\n[1] https://github.com/jgroups-extras/jgroups-kubernetes/blob/main/src/main/java/org/jgroups/protocols/kubernetes/KUBE_PING.java#L162\n[2] https://github.com/jgroups-extras/jgroups-kubernetes#kube_ping-configuration",
+      "parentUuid": "168a644d_d32cbc8c",
       "range": {
         "startLine": 136,
         "startChar": 20,
