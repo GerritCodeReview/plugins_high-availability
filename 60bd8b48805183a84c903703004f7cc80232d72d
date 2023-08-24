@@ -133,6 +133,52 @@
       },
       "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bc80298_925a1003",
+        "filename": "src/main/resources/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/kubernetes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T08:15:40Z",
+      "side": 1,
+      "message": "nit: trailing whitespaces",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 4
+      },
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "048fe3de_a10c8610",
+        "filename": "src/main/resources/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/kubernetes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T08:15:40Z",
+      "side": 1,
+      "message": "This has to be removed.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
