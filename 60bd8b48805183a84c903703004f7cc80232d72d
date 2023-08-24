@@ -71,6 +71,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc45b027_37a3d475",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T13:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c75718e_1efa1845",
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c7add0f_9cc9ba14",
@@ -84,6 +102,24 @@
       "writtenOn": "2023-08-24T06:00:33Z",
       "side": 1,
       "message": "There should be a link to the documentation of jgroups-kubernetes and a hint, that RBAC has to be configured in the cluster as well as a valid keystore has to be present in Gerrit (TLS-only when sending requests to the Kubernetes API server).",
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf7b344_2f766269",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T13:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c7add0f_9cc9ba14",
       "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -158,6 +194,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eeac9a2_e6017ab8",
+        "filename": "src/main/resources/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/kubernetes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T13:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bc80298_925a1003",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 4
+      },
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "048fe3de_a10c8610",
@@ -171,6 +231,30 @@
       "writtenOn": "2023-08-24T08:15:40Z",
       "side": 1,
       "message": "This has to be removed.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "60bd8b48805183a84c903703004f7cc80232d72d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e057fdef_81333718",
+        "filename": "src/main/resources/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/kubernetes.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-24T13:24:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "048fe3de_a10c8610",
       "range": {
         "startLine": 22,
         "startChar": 0,
