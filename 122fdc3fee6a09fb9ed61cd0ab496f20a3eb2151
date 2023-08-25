@@ -16,6 +16,24 @@
       "message": "This does not test the full procedure, since jgroups won\u0027t actually be able to contact the \"Pods\" and will thus not register them as members. I tried to use WireMock to simulate the cluster member, but that failed, since jgroups doesn\u0027t use HTTPS.\n\nIdeas on how to mock this would be welcome.",
       "revId": "122fdc3fee6a09fb9ed61cd0ab496f20a3eb2151",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1447195e_2500750f",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-08-25T18:53:00Z",
+      "side": 1,
+      "message": "Why don\u0027t we define a Jenkins build agent with MiniKube? WDYT?",
+      "parentUuid": "710ea176_b60e08c2",
+      "revId": "122fdc3fee6a09fb9ed61cd0ab496f20a3eb2151",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
