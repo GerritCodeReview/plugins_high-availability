@@ -34,6 +34,24 @@
       "parentUuid": "710ea176_b60e08c2",
       "revId": "122fdc3fee6a09fb9ed61cd0ab496f20a3eb2151",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1495e8f2_780aa19d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2023-08-30T10:13:46Z",
+      "side": 1,
+      "message": "That would require quite a lot of additional work, i.e. we would have to build containers with the plugin as part of the test, usw.\n\nI found another way anyway. Now two jgroups channels are running in the same process and are thinking they run within Kubernetes.",
+      "parentUuid": "1447195e_2500750f",
+      "revId": "122fdc3fee6a09fb9ed61cd0ab496f20a3eb2151",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
