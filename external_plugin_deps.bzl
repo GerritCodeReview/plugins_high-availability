@@ -14,6 +14,12 @@ def external_plugin_deps():
     )
 
     maven_jar(
+        name = "jgroups-kubernetes",
+        artifact = "org.jgroups.kubernetes:jgroups-kubernetes:2.0.1.Final",
+        sha1 = "4e259af98c3b1fbdc8ebaebe42496ef560dfc30f",
+    )
+
+    maven_jar(
         name = "global-refdb",
         artifact = "com.gerritforge:global-refdb:3.7.4",
         sha1 = "a5f3fcdbc04b7e98c52ecd50d2a56424e60b0575",
