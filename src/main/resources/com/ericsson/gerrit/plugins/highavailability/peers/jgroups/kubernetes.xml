@@ -7,7 +7,7 @@
   xmlns="urn:org:jgroups"
   xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd"
 >
-  <TCP bind_addr="loopback,match-interface:lo,match-interface:eth0"
+  <TCP bind_addr="loopback,match-interface:eth0"
     bind_port="7800"
     external_addr="match-interface:eth0"
     thread_pool.min_threads="0"
