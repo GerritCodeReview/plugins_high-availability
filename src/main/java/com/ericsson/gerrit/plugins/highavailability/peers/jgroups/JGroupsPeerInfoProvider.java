@@ -30,7 +30,8 @@ import java.util.Set;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
-import org.jgroups.ReceiverAdapter;
+import org.jgroups.ObjectMessage;
+import org.jgroups.Receiver;
 import org.jgroups.View;
 
 /**
@@ -44,8 +45,8 @@ import org.jgroups.View;
  * cluster.
  */
 @Singleton
-public class JGroupsPeerInfoProvider extends ReceiverAdapter
-    implements Provider<Set<PeerInfo>>, LifecycleListener {
+public class JGroupsPeerInfoProvider
+    implements Receiver, Provider<Set<PeerInfo>>, LifecycleListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
 
@@ -56,6 +57,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   }
 
   private final Configuration.JGroups jgroupsConfig;
+  private final Configuration.JGroupsKubernetes jgroupsKubernetesConfig;
   private final InetAddressFinder finder;
   private final String myUrl;
 
@@ -67,6 +69,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
   JGroupsPeerInfoProvider(
       Configuration pluginConfiguration, InetAddressFinder finder, MyUrlProvider myUrlProvider) {
     this.jgroupsConfig = pluginConfiguration.jgroups();
+    this.jgroupsKubernetesConfig = pluginConfiguration.jgroupsKubernetes();
     this.finder = finder;
     this.myUrl = myUrlProvider.get();
   }
@@ -105,7 +108,7 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     }
     if (view.size() > 1) {
       try {
-        channel.send(new Message(null, myUrl));
+        channel.send(new ObjectMessage(null, myUrl));
       } catch (Exception e) {
         // channel communication caused an error. Can't do much about it.
         log.atSevere().withCause(e).log(
@@ -148,6 +151,16 @@ public class JGroupsPeerInfoProvider extends ReceiverAdapter
     try {
       if (protocolStack.isPresent()) {
         return new JChannel(protocolStack.get().toString());
+      }
+      if (jgroupsConfig.useKubernetes()) {
+        if (jgroupsKubernetesConfig.namespace() != null) {
+          System.setProperty("KUBERNETES_NAMESPACE", jgroupsKubernetesConfig.namespace());
+        }
+        if (!jgroupsKubernetesConfig.labels().isEmpty()) {
+          System.setProperty(
+              "KUBERNETES_LABELS", String.join(",", jgroupsKubernetesConfig.labels()));
+        }
+        return new JChannel(getClass().getResource("kubernetes.xml").toString());
       }
       return new JChannel();
     } catch (Exception e) {
