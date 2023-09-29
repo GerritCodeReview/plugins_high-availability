@@ -98,7 +98,11 @@ a member joins or leaves the cluster.
     configured, add as many url entries as necessary.
 
 ```peerInfo.jgroups.myUrl```
-:   The URL of this instance to be broadcast to other peers. If not specified, the
+:   The URL of this instance to be broadcast to other peers. Alternatively, this URL
+    can also be specified using the environment variable `GERRIT_URL`. This is useful
+    in environments like Kubernetes, where manual configuration of each Gerrit
+    instance is not possible.
+    If neither the configuration option nor the system property is specified, the
     URL is determined from the `httpd.listenUrl` in the `gerrit.config`.
     If `httpd.listenUrl` is configured with multiple values, is configured to work
     with a reverse proxy (i.e. uses `proxy-http` or `proxy-https` scheme), or is
@@ -126,6 +130,22 @@ a member joins or leaves the cluster.
     resolved from the site's `etc` folder. For more information on protocol stack and
     its configuration file syntax please refer to JGroups documentation.
     See [JGroups - Advanced topics](http://jgroups.org/manual-3.x/html/user-advanced.html).
+
+```jgroups.kubernetes```
+:   If true, a protocol stack optimized for Kubernetes will be used. Peers will be discovered
+    by querying the Kubernetes API server for pods. The functionality is provided by the
+    [jgroups-kubernetes extension](https://github.com/jgroups-extras/jgroups-kubernetes).
+    To enable Gerrit to use the Kubernetes API, the pods require a ServiceAccount with
+    permissions to list pods ([example](https://github.com/jgroups-extras/jgroups-kubernetes#demo)).
+    Further, Gerrit requires a valid TLS certificate in its keystore, since the Kubernetes
+    API server requires TLS. (Default: false)
+
+```jgroups.kubernetes.namespace```
+:   The namespace in which to query for pods. (Default: default)
+
+```jgroups.kubernetes.label```
+:   A label that will be used to select the pods in the format `label=value`. Can be set
+    multiple times.
 
 NOTE: To work properly in certain environments, JGroups needs the System property
 `java.net.preferIPv4Stack` to be set to `true`.
@@ -270,23 +290,3 @@ Defaults to 24 hours.
     Ignore the alignment with the global ref-db for AProject on refs/heads/feature.
 
     Defaults to no rule. All projects are REQUIRED to be consistent on all refs.
-
-File 'gerrit.config'
---------------------
-
-```gerrit.instanceId```
-:   Optional identifier for this Gerrit instance.
-[[docs](https://gerrit-documentation.storage.googleapis.com/Documentation/3.2.0/config-gerrit.html#gerrit.instanceId)].
-
-Whilst this is not, specifically, a high-availability plugin configuration, it plays
-an important role on which events are forwarded to peers.
-
-If `instanceId` is set, events produced by that Gerrit instance will contain its
-origin in the `instanceId` field, allowing to track where they are coming from.
-
-The high-availability plugin will check the `instanceId` value to decide whether
-an event should be forwarded: events that originated from different Gerrit instances
-will not be forwarded.
-
-When neither `gerrit.instanceId` nor `event.instanceId` are set, it is not possible
-to identify the origin of the event and thus the event is always forwarded.

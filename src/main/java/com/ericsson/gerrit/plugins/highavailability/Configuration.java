@@ -58,6 +58,9 @@ public class Configuration {
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
 
+  // common parameter to jgroups section
+  static final String JGROUPS_SECTION = "jgroups";
+
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
   static final String BATCH_THREAD_POOL_SIZE_KEY = "batchThreadPoolSize";
@@ -70,6 +73,7 @@ public class Configuration {
   private final AutoReindex autoReindex;
   private final PeerInfo peerInfo;
   private final JGroups jgroups;
+  private final JGroupsKubernetes jgroupsKubernetes;
   private final Http http;
   private final Cache cache;
   private final Event event;
@@ -106,6 +110,7 @@ public class Configuration {
         throw new IllegalArgumentException("Not supported strategy: " + peerInfo.strategy);
     }
     jgroups = new JGroups(site, cfg);
+    jgroupsKubernetes = new JGroupsKubernetes(cfg);
     http = new Http(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
@@ -150,6 +155,10 @@ public class Configuration {
 
   public JGroups jgroups() {
     return jgroups;
+  }
+
+  public JGroupsKubernetes jgroupsKubernetes() {
+    return jgroupsKubernetes;
   }
 
   public Http http() {
@@ -316,9 +325,9 @@ public class Configuration {
   }
 
   public static class JGroups {
-    static final String JGROUPS_SECTION = "jgroups";
     static final String SKIP_INTERFACE_KEY = "skipInterface";
     static final String CLUSTER_NAME_KEY = "clusterName";
+    static final String KUBERNETES_KEY = "kubernetes";
     static final String PROTOCOL_STACK_KEY = "protocolStack";
     static final ImmutableList<String> DEFAULT_SKIP_INTERFACE_LIST =
         ImmutableList.of("lo*", "utun*", "awdl*");
@@ -326,6 +335,7 @@ public class Configuration {
 
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
+    private final boolean useKubernetes;
     private final Optional<Path> protocolStack;
 
     private JGroups(SitePaths site, Config cfg) {
@@ -334,6 +344,7 @@ public class Configuration {
       log.atFine().log("Skip interface(s): %s", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.atFine().log("Cluster name: %s", clusterName);
+      useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
           "Protocol stack config %s",
@@ -361,6 +372,32 @@ public class Configuration {
 
     public String clusterName() {
       return clusterName;
+    }
+
+    public boolean useKubernetes() {
+      return useKubernetes;
+    }
+  }
+
+  public static class JGroupsKubernetes {
+    static final String KUBERNETES_SUBSECTION = "kubernetes";
+    static final String NAMESPACE_KEY = "namespace";
+    static final String LABEL_KEY = "label";
+
+    private final String namespace;
+    private final List<String> labels;
+
+    public JGroupsKubernetes(Config cfg) {
+      namespace = cfg.getString(JGROUPS_SECTION, KUBERNETES_SUBSECTION, NAMESPACE_KEY);
+      labels = Arrays.asList(cfg.getStringList(JGROUPS_SECTION, KUBERNETES_SUBSECTION, LABEL_KEY));
+    }
+
+    public String namespace() {
+      return namespace;
+    }
+
+    public List<String> labels() {
+      return labels;
     }
   }
 
