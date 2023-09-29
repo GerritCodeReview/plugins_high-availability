@@ -20,6 +20,7 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.HumanComment;
 import com.google.gerrit.entities.RefNames;
 import com.google.gerrit.server.CommentsUtil;
+import com.google.gerrit.server.DraftCommentsReader;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -38,8 +39,10 @@ public class ChangeCheckerImpl implements ChangeChecker {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final GitRepositoryManager gitRepoMgr;
   private final CommentsUtil commentsUtil;
+  private final DraftCommentsReader draftCommentsReader;
   private final OneOffRequestContext oneOffReqCtx;
   private final String changeId;
+
   private final ChangeFinder changeFinder;
   private Optional<Long> computedChangeTs = Optional.empty();
   private Optional<ChangeNotes> changeNotes = Optional.empty();
@@ -52,9 +55,11 @@ public class ChangeCheckerImpl implements ChangeChecker {
   public ChangeCheckerImpl(
       GitRepositoryManager gitRepoMgr,
       CommentsUtil commentsUtil,
+      DraftCommentsReader draftCommentsReader,
       ChangeFinder changeFinder,
       OneOffRequestContext oneOffReqCtx,
       @Assisted String changeId) {
+    this.draftCommentsReader = draftCommentsReader;
     this.changeFinder = changeFinder;
     this.gitRepoMgr = gitRepoMgr;
     this.commentsUtil = commentsUtil;
@@ -178,7 +183,8 @@ public class ChangeCheckerImpl implements ChangeChecker {
   private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
     Change change = notes.getChange();
     Timestamp changeTs = Timestamp.from(change.getLastUpdatedOn());
-    for (HumanComment comment : commentsUtil.draftByChange(changeNotes.get())) {
+    for (HumanComment comment :
+        draftCommentsReader.getDraftsByChangeForAllAuthors(changeNotes.get())) {
       Timestamp commentTs = comment.writtenOn;
       changeTs = commentTs.after(changeTs) ? commentTs : changeTs;
     }
