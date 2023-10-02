@@ -23,13 +23,13 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.common.Nullable;
 import com.google.inject.ProvisionException;
+import java.util.List;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import wiremock.com.google.common.collect.Lists;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MyUrlProviderTest {
@@ -84,7 +84,7 @@ public class MyUrlProviderTest {
 
   @Test
   public void testGetJGroupsMyUrlFromListenUrlWhenMultipleListenUrlsSpecified() throws Exception {
-    gerritServerConfig.setStringList(HTTPD, null, LISTEN_URL, Lists.newArrayList("a", "b"));
+    gerritServerConfig.setStringList(HTTPD, null, LISTEN_URL, List.of("a", "b"));
     ProvisionException thrown = assertThrows(ProvisionException.class, () -> getMyUrlProvider());
     assertThat(thrown).hasMessageThat().contains("exactly 1 value configured; found 2");
   }
