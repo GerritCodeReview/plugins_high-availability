@@ -37,7 +37,6 @@ import java.net.NetworkInterface;
 import java.util.List;
 import java.util.Optional;
 import org.apache.http.HttpStatus;
-import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.junit.After;
 import org.junit.Before;
@@ -56,9 +55,9 @@ public class JGroupsKubernetesPeerInfoProviderTest {
   private Configuration pluginConfigurationMock;
 
   @Mock private InetAddressFinder finder;
-  private JGroupsPeerInfoProvider jGroupsPeerInfoProvider;
-  private JGroupsPeerInfoProvider jGroupsPeerInfoProvider2;
-  @Mock private MyUrlProvider myUrlProviderTest;
+  private JGroupsPeerInfoProvider firstJGroupsPeerInfoProvider;
+  private JGroupsPeerInfoProvider secondJGroupsPeerInfoProvider;
+  @Mock private MyUrlProvider myUrlProvider;
 
   @Rule public WireMockRule kubeApiMock = new WireMockRule(options().port(48443));
 
@@ -94,16 +93,15 @@ public class JGroupsKubernetesPeerInfoProviderTest {
     } else {
       when(finder.findAddress()).thenReturn(Optional.of(Inet4Address.getByName("127.0.0.1")));
     }
-    JChannel channel1 = new JChannelProvider(pluginConfigurationMock).get();
-    JChannel channel2 = new JChannelProvider(pluginConfigurationMock).get();
-    jGroupsPeerInfoProvider =
+    JChannelProvider channelProvider = new JChannelProvider(pluginConfigurationMock);
+    firstJGroupsPeerInfoProvider =
         Mockito.spy(
             new JGroupsPeerInfoProvider(
-                pluginConfigurationMock, finder, myUrlProviderTest, channel1));
-    jGroupsPeerInfoProvider2 =
+                pluginConfigurationMock, finder, myUrlProvider, channelProvider.get()));
+    secondJGroupsPeerInfoProvider =
         Mockito.spy(
             new JGroupsPeerInfoProvider(
-                pluginConfigurationMock, finder, myUrlProviderTest, channel2));
+                pluginConfigurationMock, finder, myUrlProvider, channelProvider.get()));
 
     StringBuilder kubeApiUrlBuilder = new StringBuilder();
     kubeApiUrlBuilder.append("/api/v1/namespaces/");
@@ -121,16 +119,16 @@ public class JGroupsKubernetesPeerInfoProviderTest {
                 aResponse()
                     .withJsonBody(new ObjectMapper().readTree(respJson))
                     .withStatus(HttpStatus.SC_OK)));
-    jGroupsPeerInfoProvider.connect();
+    firstJGroupsPeerInfoProvider.connect();
     verify(getRequestedFor(urlEqualTo(kubeApiUrl)));
-    jGroupsPeerInfoProvider2.connect();
+    secondJGroupsPeerInfoProvider.connect();
 
-    verify(jGroupsPeerInfoProvider, timeout(10000)).receive(any(Message.class));
+    verify(firstJGroupsPeerInfoProvider, timeout(10000)).receive(any(Message.class));
 
-    assertThat(jGroupsPeerInfoProvider.get().isEmpty()).isFalse();
-    assertThat(jGroupsPeerInfoProvider.get().size()).isEqualTo(1);
+    assertThat(firstJGroupsPeerInfoProvider.get().isEmpty()).isFalse();
+    assertThat(firstJGroupsPeerInfoProvider.get().size()).isEqualTo(1);
 
-    assertThat(jGroupsPeerInfoProvider2.get().isEmpty()).isFalse();
-    assertThat(jGroupsPeerInfoProvider2.get().size()).isEqualTo(1);
+    assertThat(secondJGroupsPeerInfoProvider.get().isEmpty()).isFalse();
+    assertThat(secondJGroupsPeerInfoProvider.get().size()).isEqualTo(1);
   }
 }
