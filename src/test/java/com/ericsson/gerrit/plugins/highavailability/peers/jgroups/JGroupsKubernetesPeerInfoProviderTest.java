@@ -125,10 +125,10 @@ public class JGroupsKubernetesPeerInfoProviderTest {
 
     verify(firstJGroupsPeerInfoProvider, timeout(10000)).receive(any(Message.class));
 
-    assertThat(firstJGroupsPeerInfoProvider.get().isEmpty()).isFalse();
-    assertThat(firstJGroupsPeerInfoProvider.get().size()).isEqualTo(1);
+    assertThat(firstJGroupsPeerInfoProvider.get()).isNotEmpty();
+    assertThat(firstJGroupsPeerInfoProvider.get()).hasSize(1);
 
-    assertThat(secondJGroupsPeerInfoProvider.get().isEmpty()).isFalse();
-    assertThat(secondJGroupsPeerInfoProvider.get().size()).isEqualTo(1);
+    assertThat(secondJGroupsPeerInfoProvider.get()).isNotEmpty();
+    assertThat(secondJGroupsPeerInfoProvider.get()).hasSize(1);
   }
 }
