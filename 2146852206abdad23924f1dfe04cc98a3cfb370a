@@ -16,6 +16,24 @@
       "message": "note for reviewers: sleeping here is not ideal but it is acceptable as a first change that brings JGroups based message forwarding.\n\nI am going to improve on this aspect in a follow-up change and see if we can harmonize with the RestForwarderScheduler, which cannot be (re)used here as it currently belongs to the REST based forwarding code. I also need to to some research about a possible native retry support in the JGroups library.",
       "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2b5990_8940c453",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-02T15:13:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cd17653_ab6b8aa3",
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
