@@ -3,6 +3,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41a480f7_06a4e44a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-03T22:20:55Z",
+      "side": 1,
+      "message": "I propose we use ConfigUtil#getTimeUnit to allow using time units when configuring the timeout",
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3638d0df_b1c9e9ca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-03T22:20:55Z",
+      "side": 1,
+      "message": "same here for the interval",
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c806fcc_fe95624b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-03T22:20:55Z",
+      "side": 1,
+      "message": "why is the indexEvent parameter unused in this class ?",
+      "range": {
+        "startLine": 54,
+        "startChar": 64,
+        "endLine": 54,
+        "endChar": 85
+      },
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1cd17653_ab6b8aa3",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarder.java",
         "patchSetId": 1
@@ -32,6 +89,29 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "1cd17653_ab6b8aa3",
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f944abe1_8b1ec7a2",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-03T22:20:55Z",
+      "side": 1,
+      "message": "JGroups cluster defined by the clusterName participants expose",
+      "range": {
+        "startLine": 59,
+        "startChar": 80,
+        "endLine": 59,
+        "endChar": 95
+      },
       "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
