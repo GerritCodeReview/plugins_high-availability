@@ -58,6 +58,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be14b1a6_7be0260e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-04T14:31:30Z",
+      "side": 1,
+      "message": "This is the indexing-event metadata on the source system that optionally can be used at the receiving system to optimise i.e. skip (re)indexing if the index entry is already up to date. The REST based message handler for example ignored the presence of the event object when (re)indexing account but makes use of it, if present, when reindexing a change.\n\nIn that sense, this change is correct so we can submit it. In a follow-up change we can extend the transport format of JGroups based messages to include the source event.",
+      "parentUuid": "5c806fcc_fe95624b",
+      "range": {
+        "startLine": 54,
+        "startChar": 64,
+        "endLine": 54,
+        "endChar": 85
+      },
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cd17653_ab6b8aa3",
