@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa0892a_9a68ae05",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-05T11:56:42Z",
+      "side": 1,
+      "message": "That makes sense but would be incompatible with the handling of other timeout options (`CONNECTION_TIMEOUT_KEY`, `SOCKET_TIMEOUT_KEY`, `WAIT_TIMEOUT_KEY`) in this class.\n\nIf we improve then we have to be consistent and do it for all keys representing time periods in this class. Therefore, this would go into a new change.",
+      "parentUuid": "41a480f7_06a4e44a",
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3638d0df_b1c9e9ca",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-03T22:20:55Z",
       "side": 1,
       "message": "same here for the interval",
+      "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8ca1c4d_ccef9b2f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-05T11:56:42Z",
+      "side": 1,
+      "message": "Same as the previous answer",
+      "parentUuid": "3638d0df_b1c9e9ca",
       "revId": "2146852206abdad23924f1dfe04cc98a3cfb370a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
