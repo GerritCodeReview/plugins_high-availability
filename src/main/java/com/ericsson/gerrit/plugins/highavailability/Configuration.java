@@ -561,7 +561,6 @@ public class Configuration {
   public static class Index extends Forwarding {
     static final String INDEX_SECTION = "index";
     static final String MAX_TRIES_KEY = "maxTries";
-    static final String WAIT_TIMEOUT_KEY = "waitTimeout";
     static final String RETRY_INTERVAL_KEY = "retryInterval";
     static final String SYNCHRONIZE_FORCED_KEY = "synchronizeForced";
     static final boolean DEFAULT_SYNCHRONIZE_FORCED = true;
