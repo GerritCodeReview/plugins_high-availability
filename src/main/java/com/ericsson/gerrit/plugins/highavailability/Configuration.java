@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability;
 
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
 import com.google.common.annotations.VisibleForTesting;
@@ -202,6 +203,11 @@ public class Configuration {
     }
   }
 
+  private static int getTimeUnitAsInt(
+      Config cfg, String section, String setting, int defaultValue, TimeUnit unit) {
+    return (int) ConfigUtil.getTimeUnit(cfg, section, null, setting, defaultValue, unit);
+  }
+
   public static class Main {
     static final String MAIN_SECTION = "main";
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
@@ -252,16 +258,10 @@ public class Configuration {
     public AutoReindex(Config cfg) {
       enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
       delaySec =
-          ConfigUtil.getTimeUnit(
-              cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, TimeUnit.SECONDS);
+          ConfigUtil.getTimeUnit(cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, SECONDS);
       pollSec =
           ConfigUtil.getTimeUnit(
-              cfg,
-              AUTO_REINDEX_SECTION,
-              null,
-              POLL_INTERVAL,
-              DEFAULT_POLL_INTERVAL,
-              TimeUnit.SECONDS);
+              cfg, AUTO_REINDEX_SECTION, null, POLL_INTERVAL, DEFAULT_POLL_INTERVAL, SECONDS);
     }
 
     public boolean enabled() {
@@ -337,7 +337,7 @@ public class Configuration {
 
   public static class JGroups {
     static final int DEFAULT_MAX_TRIES = 720;
-    static final int DEFAULT_RETRY_INTERVAL = 10000;
+    static final int DEFAULT_RETRY_INTERVAL = 10;
 
     static final String SKIP_INTERFACE_KEY = "skipInterface";
     static final String CLUSTER_NAME_KEY = "clusterName";
@@ -366,7 +366,9 @@ public class Configuration {
       log.atFine().log("Cluster name: %s", clusterName);
       timeout = getInt(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval = getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval =
+          getTimeUnitAsInt(
+              cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL, SECONDS);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
@@ -438,7 +440,7 @@ public class Configuration {
 
   public static class Http {
     public static final int DEFAULT_MAX_TRIES = 360;
-    public static final int DEFAULT_RETRY_INTERVAL = 10000;
+    public static final int DEFAULT_RETRY_INTERVAL = 10;
 
     static final String HTTP_SECTION = "http";
     static final String USER_KEY = "user";
@@ -458,10 +460,14 @@ public class Configuration {
     private Http(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
-      connectionTimeout = getInt(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
-      socketTimeout = getInt(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      connectionTimeout =
+          getTimeUnitAsInt(
+              cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS, MILLISECONDS);
+      socketTimeout =
+          getTimeUnitAsInt(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS, MILLISECONDS);
       maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval = getInt(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval =
+          getTimeUnitAsInt(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL, SECONDS);
     }
 
     public String user() {
@@ -557,7 +563,7 @@ public class Configuration {
 
   public static class Index extends Forwarding {
     static final int DEFAULT_MAX_TRIES = 2;
-    static final int DEFAULT_RETRY_INTERVAL = 30000;
+    static final int DEFAULT_RETRY_INTERVAL = 30;
 
     static final String INDEX_SECTION = "index";
     static final String MAX_TRIES_KEY = "maxTries";
@@ -577,7 +583,8 @@ public class Configuration {
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       batchThreadPoolSize = getInt(cfg, INDEX_SECTION, BATCH_THREAD_POOL_SIZE_KEY, threadPoolSize);
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
-      retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval =
+          getTimeUnitAsInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL, SECONDS);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
