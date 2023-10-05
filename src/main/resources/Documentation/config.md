@@ -182,7 +182,8 @@ a member joins or leaves the cluster.
 
 ```jgroups.retryInterval```
 :   The interval of time in milliseconds between the subsequent auto-retries.
-    When not specified, the default value is set to 10000ms.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    When not specified, the default value is set to 10 seconds.
 
 NOTE: the default settings for `jgroups.timeout` and `jgroups.maxTries` ensure
 that JGroups will keep retrying to forward a message for one hour.
@@ -203,12 +204,15 @@ calls by specifying the following fields:
 
 ```http.connectionTimeout```
 :   Maximum interval of time in milliseconds the plugin waits for a connection
-    to the target instance. When not specified, the default value is set to 5000ms.
+    to the target instance.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    When not specified, the default value is set to 5 seconds.
 
 ```http.socketTimeout```
 :   Maximum interval of time in milliseconds the plugin waits for a response from the
-    target instance once the connection has been established. When not specified,
-    the default value is set to 5000ms.
+    target instance once the connection has been established.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    When not specified, the default value is set to 5 seconds.
 
 ```http.maxTries```
 :   Maximum number of times the plugin should attempt when calling a REST API in
@@ -218,7 +222,8 @@ calls by specifying the following fields:
 
 ```http.retryInterval```
 :   The interval of time in milliseconds between the subsequent auto-retries.
-    When not specified, the default value is set to 10000ms.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    When not specified, the default value is set to 10 seconds.
 
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.
@@ -280,7 +285,8 @@ calls by specifying the following fields:
 
 ```index.retryInterval```
 :   The interval of time in milliseconds between the subsequent auto-retries.
-    Defaults to 30000 (30 seconds).
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    Defaults to 30 seconds.
 
 NOTE: the default settings for `http.socketTimeout` and `http.maxTries` ensure
 that the plugin will keep retrying to forward a message for one hour.

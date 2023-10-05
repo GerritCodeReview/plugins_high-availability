@@ -202,6 +202,10 @@ public class Configuration {
     }
   }
 
+  private static int getMilliseconds(Config cfg, String section, String setting, int defaultValue) {
+    return (int) ConfigUtil.getTimeUnit(cfg, section, null, setting, defaultValue, MILLISECONDS);
+  }
+
   public static class Main {
     static final String MAIN_SECTION = "main";
     static final String SHARED_DIRECTORY_KEY = "sharedDirectory";
@@ -366,7 +370,8 @@ public class Configuration {
       log.atFine().log("Cluster name: %s", clusterName);
       timeout = getInt(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval = getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval =
+          getMilliseconds(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
@@ -458,10 +463,12 @@ public class Configuration {
     private Http(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
-      connectionTimeout = getInt(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
-      socketTimeout = getInt(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      connectionTimeout =
+          getMilliseconds(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      socketTimeout = getMilliseconds(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
       maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval = getInt(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval =
+          getMilliseconds(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
     }
 
     public String user() {
@@ -577,7 +584,8 @@ public class Configuration {
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       batchThreadPoolSize = getInt(cfg, INDEX_SECTION, BATCH_THREAD_POOL_SIZE_KEY, threadPoolSize);
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
-      retryInterval = getInt(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval =
+          getMilliseconds(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
