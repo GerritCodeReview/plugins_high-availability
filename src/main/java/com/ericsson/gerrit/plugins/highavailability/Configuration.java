@@ -338,8 +338,8 @@ public class Configuration {
   }
 
   public static class JGroups {
-    static final int DEFAULT_MAX_TRIES_JGROUPS = 720;
-    static final int DEFAULT_RETRY_INTERVAL_JGROUPS = 10000;
+    static final int DEFAULT_MAX_TRIES = 720;
+    static final int DEFAULT_RETRY_INTERVAL = 10000;
 
     static final String SKIP_INTERFACE_KEY = "skipInterface";
     static final String CLUSTER_NAME_KEY = "clusterName";
@@ -367,9 +367,8 @@ public class Configuration {
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.atFine().log("Cluster name: %s", clusterName);
       timeout = getInt(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
-      maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES_JGROUPS);
-      retryInterval =
-          getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL_JGROUPS);
+      maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
+      retryInterval = getInt(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
