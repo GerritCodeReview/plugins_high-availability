@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d1d0654_8400ebc3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-06T17:22:32Z",
+      "side": 1,
+      "message": "this constant isn\u0027t private, does this change affect any other code accessing the constant ?",
+      "revId": "40f06c2952b48d717c5a7775c56612ac605b7515",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd531e0_053ab53a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-06T17:22:32Z",
+      "side": 1,
+      "message": "this constant is public, does this change affect any other code accessing the constant ?",
+      "revId": "40f06c2952b48d717c5a7775c56612ac605b7515",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "584f5a74_0e610123",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-06T17:22:32Z",
+      "side": 1,
+      "message": "this constant isn\u0027t private, does this change affect any other code accessing the constant ?",
+      "revId": "40f06c2952b48d717c5a7775c56612ac605b7515",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
