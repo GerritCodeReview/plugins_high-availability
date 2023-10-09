@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "922bf764_5f76ebce",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-09T10:21:55Z",
+      "side": 1,
+      "message": "I indeed wrongly understood the semantics of the `ConfigUtil.getTimeUnit` method. The `defaultValue` and the `wantUnit` are independent i.e. the `wantUnit` is not the unit of the `defaultValue` but the `defaultValue` is expected to be expressed in the `wantUnit` units.",
+      "parentUuid": "3d1d0654_8400ebc3",
+      "revId": "40f06c2952b48d717c5a7775c56612ac605b7515",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cd531e0_053ab53a",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 2
