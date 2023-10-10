@@ -22,6 +22,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Scopes;
+import java.time.Duration;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HttpClientProviderTest {
-  private static final int TIME_INTERVAL = 1000;
+  private static final Duration TIME_INTERVAL = Duration.ofMillis(1000);
   private static final String EMPTY = "";
 
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)

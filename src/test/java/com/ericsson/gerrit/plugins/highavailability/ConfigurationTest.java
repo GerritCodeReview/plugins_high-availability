@@ -19,7 +19,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.C
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_NUM_STRIPED_LOCKS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_TIMEOUT_MS;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_TIMEOUT;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.ALLOWED_LISTENERS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
@@ -58,11 +58,10 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInf
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStatic.URL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.THREAD_POOL_SIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.CLEANUP_INTERVAL_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.DEFAULT_CLEANUP_INTERVAL_MS;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.DEFAULT_CLEANUP_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.WEBSESSION_SECTION;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
@@ -74,6 +73,7 @@ import com.google.gerrit.server.events.EventListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -216,24 +216,24 @@ public class ConfigurationTest {
 
   @Test
   public void testGetConnectionTimeout() throws Exception {
-    assertThat(getConfiguration().http().connectionTimeout()).isEqualTo(DEFAULT_TIMEOUT_MS);
+    assertThat(getConfiguration().http().connectionTimeout()).isEqualTo(DEFAULT_TIMEOUT);
 
     globalPluginConfig.setInt(HTTP_SECTION, null, CONNECTION_TIMEOUT_KEY, TIMEOUT);
-    assertThat(getConfiguration().http().connectionTimeout()).isEqualTo(TIMEOUT);
+    assertThat(getConfiguration().http().connectionTimeout().toMillis()).isEqualTo(TIMEOUT);
 
     globalPluginConfig.setString(HTTP_SECTION, null, CONNECTION_TIMEOUT_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().connectionTimeout()).isEqualTo(DEFAULT_TIMEOUT_MS);
+    assertThat(getConfiguration().http().connectionTimeout()).isEqualTo(DEFAULT_TIMEOUT);
   }
 
   @Test
   public void testGetSocketTimeout() throws Exception {
-    assertThat(getConfiguration().http().socketTimeout()).isEqualTo(DEFAULT_TIMEOUT_MS);
+    assertThat(getConfiguration().http().socketTimeout()).isEqualTo(DEFAULT_TIMEOUT);
 
     globalPluginConfig.setInt(HTTP_SECTION, null, SOCKET_TIMEOUT_KEY, TIMEOUT);
-    assertThat(getConfiguration().http().socketTimeout()).isEqualTo(TIMEOUT);
+    assertThat(getConfiguration().http().socketTimeout().toMillis()).isEqualTo(TIMEOUT);
 
     globalPluginConfig.setString(HTTP_SECTION, null, SOCKET_TIMEOUT_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().socketTimeout()).isEqualTo(DEFAULT_TIMEOUT_MS);
+    assertThat(getConfiguration().http().socketTimeout()).isEqualTo(DEFAULT_TIMEOUT);
   }
 
   @Test
@@ -252,7 +252,7 @@ public class ConfigurationTest {
     assertThat(getConfiguration().http().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
 
     globalPluginConfig.setInt(HTTP_SECTION, null, RETRY_INTERVAL_KEY, RETRY_INTERVAL);
-    assertThat(getConfiguration().http().retryInterval()).isEqualTo(RETRY_INTERVAL);
+    assertThat(getConfiguration().http().retryInterval().toMillis()).isEqualTo(RETRY_INTERVAL);
 
     globalPluginConfig.setString(HTTP_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
     assertThat(getConfiguration().http().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
@@ -441,10 +441,10 @@ public class ConfigurationTest {
   @Test
   public void testGetCleanupInterval() throws Exception {
     assertThat(getConfiguration().websession().cleanupInterval())
-        .isEqualTo(DEFAULT_CLEANUP_INTERVAL_MS);
+        .isEqualTo(DEFAULT_CLEANUP_INTERVAL);
 
     globalPluginConfig.setString(WEBSESSION_SECTION, null, CLEANUP_INTERVAL_KEY, "30 seconds");
-    assertThat(getConfiguration().websession().cleanupInterval()).isEqualTo(SECONDS.toMillis(30));
+    assertThat(getConfiguration().websession().cleanupInterval()).isEqualTo(Duration.ofSeconds(30));
   }
 
   @Test

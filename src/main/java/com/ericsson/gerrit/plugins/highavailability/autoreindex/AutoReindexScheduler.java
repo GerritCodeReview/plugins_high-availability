@@ -20,6 +20,7 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -55,27 +56,24 @@ public class AutoReindexScheduler implements LifecycleListener {
 
   @Override
   public void start() {
-    if (cfg.pollSec() > 0) {
+    if (cfg.pollInterval().compareTo(Duration.ZERO) > 0) {
       log.atInfo().log(
-          "Scheduling auto-reindex after %ds and every %ds", cfg.delaySec(), cfg.pollSec());
-      futureTasks.add(
-          executor.scheduleAtFixedRate(
-              changeReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
-      futureTasks.add(
-          executor.scheduleAtFixedRate(
-              accountReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
-      futureTasks.add(
-          executor.scheduleAtFixedRate(
-              groupReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
-      futureTasks.add(
-          executor.scheduleAtFixedRate(
-              projectReindex, cfg.delaySec(), cfg.pollSec(), TimeUnit.SECONDS));
+          "Scheduling auto-reindex after %s and every %s", cfg.delay(), cfg.pollInterval());
+      for (Runnable reindexTask :
+          List.of(changeReindex, accountReindex, groupReindex, projectReindex)) {
+        futureTasks.add(
+            executor.scheduleAtFixedRate(
+                reindexTask,
+                cfg.delay().toSeconds(),
+                cfg.pollInterval().toSeconds(),
+                TimeUnit.SECONDS));
+      }
     } else {
-      log.atInfo().log("Scheduling auto-reindex after %ds", cfg.delaySec());
-      futureTasks.add(executor.schedule(changeReindex, cfg.delaySec(), TimeUnit.SECONDS));
-      futureTasks.add(executor.schedule(accountReindex, cfg.delaySec(), TimeUnit.SECONDS));
-      futureTasks.add(executor.schedule(groupReindex, cfg.delaySec(), TimeUnit.SECONDS));
-      futureTasks.add(executor.schedule(projectReindex, cfg.delaySec(), TimeUnit.SECONDS));
+      log.atInfo().log("Scheduling auto-reindex after %s", cfg.delay());
+      for (Runnable reindexTask :
+          List.of(changeReindex, accountReindex, groupReindex, projectReindex)) {
+        futureTasks.add(executor.schedule(reindexTask, cfg.delay().toSeconds(), TimeUnit.SECONDS));
+      }
     }
   }
 

@@ -109,7 +109,7 @@ public class JGroupsForwarder implements Forwarder {
         return true;
       }
       try {
-        Thread.sleep(jgroupsConfig.retryInterval());
+        Thread.sleep(jgroupsConfig.retryInterval().toMillis());
       } catch (InterruptedException ie) {
         log.atSevere().withCause(ie).log("%s was interrupted, giving up", cmd);
         Thread.currentThread().interrupt();
@@ -132,7 +132,8 @@ public class JGroupsForwarder implements Forwarder {
       }
 
       log.atFine().log("Sending %s", json);
-      RequestOptions options = new RequestOptions(ResponseMode.GET_FIRST, jgroupsConfig.timeout());
+      RequestOptions options =
+          new RequestOptions(ResponseMode.GET_FIRST, jgroupsConfig.timeout().toMillis());
       RspList<Object> list = dispatcher.castMessage(null, new ObjectMessage(null, json), options);
 
       log.atFine().log("Received response list length = %s", list.size());

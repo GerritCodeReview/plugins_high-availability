@@ -30,6 +30,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.google.gson.Gson;
 import java.net.SocketTimeoutException;
+import java.time.Duration;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,8 +39,8 @@ import org.mockito.Answers;
 public class HttpSessionTest {
 
   private static final int MAX_TRIES = 3;
-  private static final int RETRY_INTERVAL = 250;
-  private static final int TIMEOUT = 500;
+  private static final Duration RETRY_INTERVAL = Duration.ofMillis(250);
+  private static final Duration TIMEOUT = Duration.ofMillis(500);
   private static final int ERROR = 500;
   private static final int NO_CONTENT = 204;
   private static final int NOT_FOUND = 404;
@@ -141,24 +142,24 @@ public class HttpSessionTest {
             .inScenario(RETRY_AT_DELAY)
             .whenScenarioStateIs(Scenario.STARTED)
             .willSetStateTo(REQUEST_MADE)
-            .willReturn(aResponse().withFixedDelay(TIMEOUT)));
+            .willReturn(aResponse().withFixedDelay((int) TIMEOUT.toMillis())));
     wireMockRule.givenThat(
         post(urlEqualTo(ENDPOINT))
             .inScenario(RETRY_AT_DELAY)
             .whenScenarioStateIs(REQUEST_MADE)
             .willSetStateTo(SECOND_TRY)
-            .willReturn(aResponse().withFixedDelay(TIMEOUT)));
+            .willReturn(aResponse().withFixedDelay((int) TIMEOUT.toMillis())));
     wireMockRule.givenThat(
         post(urlEqualTo(ENDPOINT))
             .inScenario(RETRY_AT_DELAY)
             .whenScenarioStateIs(SECOND_TRY)
             .willSetStateTo(THIRD_TRY)
-            .willReturn(aResponse().withFixedDelay(TIMEOUT)));
+            .willReturn(aResponse().withFixedDelay((int) TIMEOUT.toMillis())));
     wireMockRule.givenThat(
         post(urlEqualTo(ENDPOINT))
             .inScenario(RETRY_AT_DELAY)
             .whenScenarioStateIs(THIRD_TRY)
-            .willReturn(aResponse().withFixedDelay(TIMEOUT)));
+            .willReturn(aResponse().withFixedDelay((int) TIMEOUT.toMillis())));
 
     httpSession.post(uri);
   }
