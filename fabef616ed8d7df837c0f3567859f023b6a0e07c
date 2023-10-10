@@ -16,6 +16,24 @@
       "message": "this was missed",
       "revId": "fabef616ed8d7df837c0f3567859f023b6a0e07c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "386f7617_de235184",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-10T15:17:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06ee375d_3a8cade9",
+      "revId": "fabef616ed8d7df837c0f3567859f023b6a0e07c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
