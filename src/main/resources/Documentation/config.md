@@ -173,7 +173,8 @@ a member joins or leaves the cluster.
 
 ```jgroups.timeout```
 :   Maximum interval of time in milliseconds the JGroups wait for a response
-    forwarding a message. When not specified, the default value is 5000ms
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    forwarding a message. When not specified, the default value is 5 seconds.
 
 ```jgroups.maxTries```
 :   Maximum number of times JGroups should attempt to forward a message. Setting

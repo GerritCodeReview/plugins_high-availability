@@ -133,7 +133,7 @@ public class JGroupsForwarder implements Forwarder {
 
       log.atFine().log("Sending %s", json);
       RequestOptions options =
-          new RequestOptions(ResponseMode.GET_FIRST, jgroupsConfig.retryInterval());
+          new RequestOptions(ResponseMode.GET_FIRST, jgroupsConfig.timeout());
       RspList<Object> list = dispatcher.castMessage(null, new ObjectMessage(null, json), options);
 
       log.atFine().log("Received response list length = %s", list.size());
