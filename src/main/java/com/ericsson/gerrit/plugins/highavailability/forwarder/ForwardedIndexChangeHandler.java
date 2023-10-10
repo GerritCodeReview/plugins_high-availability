@@ -31,6 +31,7 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
@@ -47,7 +48,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   private final ChangeIndexer indexer;
   private final ScheduledExecutorService indexExecutor;
   private final OneOffRequestContext oneOffCtx;
-  private final int retryInterval;
+  private final Duration retryInterval;
   private final int maxTries;
   private final ChangeCheckerImpl.Factory changeCheckerFactory;
 
@@ -64,7 +65,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     this.changeCheckerFactory = changeCheckerFactory;
 
     Index indexConfig = config.index();
-    this.retryInterval = indexConfig != null ? indexConfig.retryInterval() : 0;
+    this.retryInterval = indexConfig != null ? indexConfig.retryInterval() : Duration.ZERO;
     this.maxTries = indexConfig != null ? indexConfig.maxTries() : 0;
   }
 
@@ -136,8 +137,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     }
 
     log.atWarning().log(
-        "Retrying for the #%d time to index Change %s after %d msecs",
-        retryCount, id, retryInterval);
+        "Retrying for the #%d time to index Change %s after %s", retryCount, id, retryInterval);
     indexExecutor.schedule(
         () -> {
           try (ManualRequestContext ctx = oneOffCtx.open()) {
@@ -147,7 +147,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
             log.atWarning().withCause(e).log("Change %s could not be indexed", id);
           }
         },
-        retryInterval,
+        retryInterval.toMillis(),
         TimeUnit.MILLISECONDS);
     return true;
   }

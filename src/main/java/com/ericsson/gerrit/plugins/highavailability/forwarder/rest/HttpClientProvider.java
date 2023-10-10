@@ -68,10 +68,11 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
   }
 
   private RequestConfig customRequestConfig() {
+    int connectionTimeout = (int) cfg.http().connectionTimeout().toMillis();
     return RequestConfig.custom()
-        .setConnectTimeout(cfg.http().connectionTimeout())
-        .setSocketTimeout(cfg.http().socketTimeout())
-        .setConnectionRequestTimeout(cfg.http().connectionTimeout())
+        .setConnectTimeout(connectionTimeout)
+        .setSocketTimeout((int) cfg.http().socketTimeout().toMillis())
+        .setConnectionRequestTimeout(connectionTimeout)
         .build();
   }
 

@@ -22,6 +22,7 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -35,7 +36,7 @@ import java.util.function.Supplier;
 public class RestForwarderScheduler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final ScheduledExecutorService executor;
-  private final long retryIntervalMs;
+  private final Duration retryInterval;
 
   public class CompletablePromise<V> extends CompletableFuture<V> {
     private Future<V> future;
@@ -70,29 +71,28 @@ public class RestForwarderScheduler {
   public RestForwarderScheduler(
       WorkQueue workQueue, Configuration cfg, Provider<Set<PeerInfo>> peerInfoProvider) {
     int executorSize = peerInfoProvider.get().size() * cfg.index().threadPoolSize();
-    retryIntervalMs = cfg.index().retryInterval();
+    retryInterval = cfg.index().retryInterval();
     this.executor = workQueue.createQueue(executorSize, "RestForwarderScheduler");
   }
 
   @VisibleForTesting
   public RestForwarderScheduler(ScheduledExecutorService executor) {
     this.executor = executor;
-    retryIntervalMs = 0;
+    retryInterval = Duration.ZERO;
   }
 
   public CompletableFuture<Boolean> execute(RestForwarder.Request request) {
-    return execute(request, 0);
+    return execute(request, Duration.ZERO);
   }
 
-  public CompletableFuture<Boolean> execute(RestForwarder.Request request, long delayMs) {
+  public CompletableFuture<Boolean> execute(RestForwarder.Request request, Duration delay) {
     return supplyAsync(
         request.toString(),
         () -> {
           try {
             if (!request.execute()) {
-              log.atWarning().log(
-                  "Rescheduling %s for retry after %d msec", request, retryIntervalMs);
-              return execute(request, retryIntervalMs);
+              log.atWarning().log("Rescheduling %s for retry after %s", request, retryInterval);
+              return execute(request, retryInterval);
             }
             return CompletableFuture.completedFuture(true);
           } catch (ForwardingException e) {
@@ -101,16 +101,16 @@ public class RestForwarderScheduler {
           }
         },
         executor,
-        delayMs);
+        delay);
   }
 
   private CompletableFuture<Boolean> supplyAsync(
       String taskName,
       Supplier<CompletableFuture<Boolean>> fn,
       ScheduledExecutorService executor,
-      long delayMs) {
+      Duration delay) {
     BooleanAsyncSupplier asyncSupplier = new BooleanAsyncSupplier(taskName, fn);
-    executor.schedule(asyncSupplier, delayMs, TimeUnit.MILLISECONDS);
+    executor.schedule(asyncSupplier, delay.toMillis(), TimeUnit.MILLISECONDS);
     return asyncSupplier.future();
   }
 

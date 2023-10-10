@@ -36,6 +36,7 @@ import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Provider;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -105,7 +106,7 @@ public class RestForwarderTest {
     httpSessionMock = mock(HttpSession.class);
     configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
     when(configMock.http().maxTries()).thenReturn(3);
-    when(configMock.http().retryInterval()).thenReturn(10);
+    when(configMock.http().retryInterval()).thenReturn(Duration.ofMillis(10));
     peersMock = mock(Provider.class);
     when(peersMock.get()).thenReturn(ImmutableSet.of(new PeerInfo(URL)));
     forwarder =

@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -54,7 +55,7 @@ public class JGroupsForwarderTest {
     Gson gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
     Configuration cfg = mock(Configuration.class, RETURNS_DEEP_STUBS);
     when(cfg.jgroups().maxTries()).thenReturn(MAX_TRIES);
-    when(cfg.jgroups().retryInterval()).thenReturn(1);
+    when(cfg.jgroups().retryInterval()).thenReturn(Duration.ofMillis(1));
 
     dispatcher = mock(MessageDispatcher.class, RETURNS_DEEP_STUBS);
     when(dispatcher.getChannel().getView().size()).thenReturn(2);

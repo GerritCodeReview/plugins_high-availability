@@ -24,7 +24,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoRei
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_TIMEOUT_MS;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_TIMEOUT;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.EVENT_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.DEFAULT_SYNCHRONIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Forwarding.SYNCHRONIZE_KEY;
@@ -55,7 +55,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInf
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStatic.URL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.THREAD_POOL_SIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.CLEANUP_INTERVAL_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.DEFAULT_CLEANUP_INTERVAL;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.DEFAULT_CLEANUP_INTERVAL_AS_STRING;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.WEBSESSION_SECTION;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
@@ -135,7 +135,8 @@ public class Setup implements InitStep {
     config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
 
     String delay =
-        promptAndSetString("Delay", AUTO_REINDEX_SECTION, DELAY, numberToString(DEFAULT_DELAY));
+        promptAndSetString(
+            "Delay", AUTO_REINDEX_SECTION, DELAY, numberToString(DEFAULT_DELAY.toMillis()));
     config.setLong(AUTO_REINDEX_SECTION, null, DELAY, Long.valueOf(delay));
 
     String pollInterval =
@@ -143,7 +144,7 @@ public class Setup implements InitStep {
             "Poll interval",
             AUTO_REINDEX_SECTION,
             POLL_INTERVAL,
-            numberToString(DEFAULT_POLL_INTERVAL));
+            numberToString(DEFAULT_POLL_INTERVAL.toMillis()));
     config.setLong(AUTO_REINDEX_SECTION, null, POLL_INTERVAL, Long.valueOf(pollInterval));
   }
 
@@ -203,17 +204,17 @@ public class Setup implements InitStep {
         "Retry interval [ms]",
         HTTP_SECTION,
         RETRY_INTERVAL_KEY,
-        numberToString(DEFAULT_RETRY_INTERVAL));
+        numberToString(DEFAULT_RETRY_INTERVAL.toMillis()));
     promptAndSetString(
         "Connection timeout [ms]",
         HTTP_SECTION,
         CONNECTION_TIMEOUT_KEY,
-        numberToString(DEFAULT_TIMEOUT_MS));
+        numberToString(DEFAULT_TIMEOUT.toMillis()));
     promptAndSetString(
         "Socket timeout [ms]",
         HTTP_SECTION,
         SOCKET_TIMEOUT_KEY,
-        numberToString(DEFAULT_TIMEOUT_MS));
+        numberToString(DEFAULT_TIMEOUT.toMillis()));
   }
 
   private void configureCacheSection() {
@@ -247,7 +248,10 @@ public class Setup implements InitStep {
     ui.header("Websession section");
     promptAndSetSynchronize("Websession", WEBSESSION_SECTION);
     promptAndSetString(
-        "Cleanup interval", WEBSESSION_SECTION, CLEANUP_INTERVAL_KEY, DEFAULT_CLEANUP_INTERVAL);
+        "Cleanup interval",
+        WEBSESSION_SECTION,
+        CLEANUP_INTERVAL_KEY,
+        DEFAULT_CLEANUP_INTERVAL_AS_STRING);
   }
 
   private void configureHealthCheckSection() {
