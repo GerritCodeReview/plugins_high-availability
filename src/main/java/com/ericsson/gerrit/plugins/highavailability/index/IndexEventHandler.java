@@ -26,6 +26,7 @@ import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.inject.Inject;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -48,7 +49,7 @@ class IndexEventHandler
   private final CurrentRequestContext currCtx;
   private final IndexEventLocks locks;
 
-  private final int retryInterval;
+  private final Duration retryInterval;
   private final int maxTries;
 
   @Inject
@@ -177,7 +178,7 @@ class IndexEventHandler
     private void reschedule() {
       if (++retryCount <= maxTries) {
         log.atFine().log("Retrying %d times to %s", retryCount, this);
-        executor.schedule(this, retryInterval, TimeUnit.MILLISECONDS);
+        executor.schedule(this, retryInterval.toMillis(), TimeUnit.MILLISECONDS);
       } else {
         log.atSevere().log("Failed to %s after %d tries; giving up", this, maxTries);
       }

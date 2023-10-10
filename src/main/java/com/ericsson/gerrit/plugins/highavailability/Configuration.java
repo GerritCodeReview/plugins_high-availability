@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
-import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbConfiguration;
@@ -33,13 +32,13 @@ import com.google.inject.Singleton;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.lib.Config;
@@ -51,7 +50,7 @@ public class Configuration {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   public static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
-  public static final int DEFAULT_TIMEOUT_MS = 5000;
+  public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
   public static final String PLUGIN_NAME = "high-availability";
   public static final String PLUGIN_CONFIG_FILE = PLUGIN_NAME + ".config";
 
@@ -202,8 +201,10 @@ public class Configuration {
     }
   }
 
-  private static int getMilliseconds(Config cfg, String section, String setting, int defaultValue) {
-    return (int) ConfigUtil.getTimeUnit(cfg, section, null, setting, defaultValue, MILLISECONDS);
+  private static Duration getDuration(
+      Config cfg, String section, String setting, Duration defaultValue) {
+    return Duration.ofMillis(
+        ConfigUtil.getTimeUnit(cfg, section, null, setting, defaultValue.toMillis(), MILLISECONDS));
   }
 
   public static class Main {
@@ -246,38 +247,29 @@ public class Configuration {
     static final String DELAY = "delay";
     static final String POLL_INTERVAL = "pollInterval";
     static final boolean DEFAULT_AUTO_REINDEX = false;
-    static final long DEFAULT_DELAY = 10L;
-    static final long DEFAULT_POLL_INTERVAL = 0L;
+    static final Duration DEFAULT_DELAY = Duration.ofSeconds(10);
+    static final Duration DEFAULT_POLL_INTERVAL = Duration.ZERO;
 
     private final boolean enabled;
-    private final long delaySec;
-    private final long pollSec;
+    private final Duration delay;
+    private final Duration pollInterval;
 
     public AutoReindex(Config cfg) {
       enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
-      delaySec =
-          ConfigUtil.getTimeUnit(
-              cfg, AUTO_REINDEX_SECTION, null, DELAY, DEFAULT_DELAY, TimeUnit.SECONDS);
-      pollSec =
-          ConfigUtil.getTimeUnit(
-              cfg,
-              AUTO_REINDEX_SECTION,
-              null,
-              POLL_INTERVAL,
-              DEFAULT_POLL_INTERVAL,
-              TimeUnit.SECONDS);
+      delay = getDuration(cfg, AUTO_REINDEX_SECTION, DELAY, DEFAULT_DELAY);
+      pollInterval = getDuration(cfg, AUTO_REINDEX_SECTION, POLL_INTERVAL, DEFAULT_POLL_INTERVAL);
     }
 
     public boolean enabled() {
       return enabled;
     }
 
-    public long delaySec() {
-      return delaySec;
+    public Duration delay() {
+      return delay;
     }
 
-    public long pollSec() {
-      return pollSec;
+    public Duration pollInterval() {
+      return pollInterval;
     }
   }
 
@@ -341,7 +333,7 @@ public class Configuration {
 
   public static class JGroups {
     static final int DEFAULT_MAX_TRIES = 720;
-    static final int DEFAULT_RETRY_INTERVAL = 10000;
+    static final Duration DEFAULT_RETRY_INTERVAL = Duration.ofSeconds(10);
 
     static final String SKIP_INTERFACE_KEY = "skipInterface";
     static final String CLUSTER_NAME_KEY = "clusterName";
@@ -356,9 +348,9 @@ public class Configuration {
 
     private final ImmutableList<String> skipInterface;
     private final String clusterName;
-    private final int timeout;
+    private final Duration timeout;
     private final int maxTries;
-    private final int retryInterval;
+    private final Duration retryInterval;
     private final boolean useKubernetes;
     private final Optional<Path> protocolStack;
 
@@ -368,10 +360,9 @@ public class Configuration {
       log.atFine().log("Skip interface(s): %s", skipInterface);
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.atFine().log("Cluster name: %s", clusterName);
-      timeout = getMilliseconds(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      timeout = getDuration(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT);
       maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval =
-          getMilliseconds(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval = getDuration(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
@@ -402,7 +393,7 @@ public class Configuration {
       return clusterName;
     }
 
-    public int timeout() {
+    public Duration timeout() {
       return timeout;
     }
 
@@ -410,7 +401,7 @@ public class Configuration {
       return maxTries;
     }
 
-    public int retryInterval() {
+    public Duration retryInterval() {
       return retryInterval;
     }
 
@@ -443,7 +434,7 @@ public class Configuration {
 
   public static class Http {
     public static final int DEFAULT_MAX_TRIES = 360;
-    public static final int DEFAULT_RETRY_INTERVAL = 10000;
+    public static final Duration DEFAULT_RETRY_INTERVAL = Duration.ofSeconds(10);
 
     static final String HTTP_SECTION = "http";
     static final String USER_KEY = "user";
@@ -455,20 +446,18 @@ public class Configuration {
 
     private final String user;
     private final String password;
-    private final int connectionTimeout;
-    private final int socketTimeout;
+    private final Duration connectionTimeout;
+    private final Duration socketTimeout;
     private final int maxTries;
-    private final int retryInterval;
+    private final Duration retryInterval;
 
     private Http(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
-      connectionTimeout =
-          getMilliseconds(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
-      socketTimeout = getMilliseconds(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT_MS);
+      connectionTimeout = getDuration(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT);
+      socketTimeout = getDuration(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT);
       maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
-      retryInterval =
-          getMilliseconds(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval = getDuration(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
     }
 
     public String user() {
@@ -479,11 +468,11 @@ public class Configuration {
       return password;
     }
 
-    public int connectionTimeout() {
+    public Duration connectionTimeout() {
       return connectionTimeout;
     }
 
-    public int socketTimeout() {
+    public Duration socketTimeout() {
       return socketTimeout;
     }
 
@@ -491,7 +480,7 @@ public class Configuration {
       return maxTries;
     }
 
-    public int retryInterval() {
+    public Duration retryInterval() {
       return retryInterval;
     }
   }
@@ -564,7 +553,7 @@ public class Configuration {
 
   public static class Index extends Forwarding {
     static final int DEFAULT_MAX_TRIES = 2;
-    static final int DEFAULT_RETRY_INTERVAL = 30000;
+    static final Duration DEFAULT_RETRY_INTERVAL = Duration.ofSeconds(30);
 
     static final String INDEX_SECTION = "index";
     static final String MAX_TRIES_KEY = "maxTries";
@@ -574,7 +563,7 @@ public class Configuration {
 
     private final int threadPoolSize;
     private final int batchThreadPoolSize;
-    private final int retryInterval;
+    private final Duration retryInterval;
     private final int maxTries;
     private final int numStripedLocks;
     private final boolean synchronizeForced;
@@ -584,8 +573,7 @@ public class Configuration {
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       batchThreadPoolSize = getInt(cfg, INDEX_SECTION, BATCH_THREAD_POOL_SIZE_KEY, threadPoolSize);
       numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
-      retryInterval =
-          getMilliseconds(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      retryInterval = getDuration(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
@@ -603,7 +591,7 @@ public class Configuration {
       return numStripedLocks;
     }
 
-    public int retryInterval() {
+    public Duration retryInterval() {
       return retryInterval;
     }
 
@@ -619,21 +607,18 @@ public class Configuration {
   public static class Websession extends Forwarding {
     static final String WEBSESSION_SECTION = "websession";
     static final String CLEANUP_INTERVAL_KEY = "cleanupInterval";
-    static final String DEFAULT_CLEANUP_INTERVAL = "24 hours";
-    static final long DEFAULT_CLEANUP_INTERVAL_MS = HOURS.toMillis(24);
+    static final String DEFAULT_CLEANUP_INTERVAL_AS_STRING = "24 hours";
+    static final Duration DEFAULT_CLEANUP_INTERVAL = Duration.ofHours(24);
 
-    private final long cleanupInterval;
+    private final Duration cleanupInterval;
 
     private Websession(Config cfg) {
       super(cfg, WEBSESSION_SECTION);
       cleanupInterval =
-          ConfigUtil.getTimeUnit(
-              Strings.nullToEmpty(cfg.getString(WEBSESSION_SECTION, null, CLEANUP_INTERVAL_KEY)),
-              DEFAULT_CLEANUP_INTERVAL_MS,
-              MILLISECONDS);
+          getDuration(cfg, WEBSESSION_SECTION, CLEANUP_INTERVAL_KEY, DEFAULT_CLEANUP_INTERVAL);
     }
 
-    public long cleanupInterval() {
+    public Duration cleanupInterval() {
       return cleanupInterval;
     }
   }

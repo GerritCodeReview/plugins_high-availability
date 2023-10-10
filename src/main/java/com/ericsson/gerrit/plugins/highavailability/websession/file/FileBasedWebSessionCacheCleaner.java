@@ -25,6 +25,7 @@ import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.time.Duration;
 import java.util.concurrent.ScheduledFuture;
 
 @Singleton
@@ -32,7 +33,7 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
 
   private final WorkQueue queue;
   private final Provider<CleanupTask> cleanupTaskProvider;
-  private final long cleanupIntervalMillis;
+  private final Duration cleanupInterval;
   private ScheduledFuture<?> scheduledCleanupTask;
 
   static class CleanupTask implements Runnable {
@@ -64,7 +65,7 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
       WorkQueue queue, Provider<CleanupTask> cleanupTaskProvider, Configuration config) {
     this.queue = queue;
     this.cleanupTaskProvider = cleanupTaskProvider;
-    this.cleanupIntervalMillis = config.websession().cleanupInterval();
+    this.cleanupInterval = config.websession().cleanupInterval();
   }
 
   @Override
@@ -75,7 +76,7 @@ class FileBasedWebSessionCacheCleaner implements LifecycleListener {
             .scheduleAtFixedRate(
                 cleanupTaskProvider.get(),
                 SECONDS.toMillis(1),
-                cleanupIntervalMillis,
+                cleanupInterval.toMillis(),
                 MILLISECONDS);
   }
 

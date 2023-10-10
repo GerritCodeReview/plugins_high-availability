@@ -41,6 +41,7 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -277,6 +278,7 @@ public class IndexEventHandlerTest {
     Configuration cfg = mock(Configuration.class);
     Configuration.Http httpCfg = mock(Configuration.Http.class);
     when(httpCfg.maxTries()).thenReturn(10);
+    when(httpCfg.retryInterval()).thenReturn(Duration.ZERO);
     when(cfg.http()).thenReturn(httpCfg);
     setUpIndexEventHandler(currCtx, locks, cfg);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
