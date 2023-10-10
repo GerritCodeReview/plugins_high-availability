@@ -14,17 +14,16 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import org.jgroups.blocks.MessageDispatcher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class OnStartStop implements LifecycleListener {
-  private static final Logger log = LoggerFactory.getLogger(OnStartStop.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final MessageDispatcher dispatcher;
 
@@ -38,12 +37,12 @@ public class OnStartStop implements LifecycleListener {
 
   @Override
   public void stop() {
-    log.info("Closing JChannel");
+    log.atInfo().log("Closing JChannel");
     dispatcher.getChannel().close();
     try {
       dispatcher.close();
     } catch (IOException e) {
-      log.error("Could not close the MessageDispatcher", e);
+      log.atSevere().withCause(e).log("Could not close the MessageDispatcher");
     }
   }
 }

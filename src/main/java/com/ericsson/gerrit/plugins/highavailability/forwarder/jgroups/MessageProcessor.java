@@ -23,6 +23,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.permissions.PermissionBackendException;
@@ -33,12 +34,10 @@ import java.io.IOException;
 import java.util.Optional;
 import org.jgroups.Message;
 import org.jgroups.blocks.RequestHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class MessageProcessor implements RequestHandler {
-  private static final Logger log = LoggerFactory.getLogger(MessageProcessor.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final Gson gson;
   private final ForwardedIndexChangeHandler indexChangeHandler;
@@ -80,14 +79,11 @@ public class MessageProcessor implements RequestHandler {
           ForwardedIndexChangeHandler handler =
               indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
           handler.index(indexChange.getId(), op, Optional.empty());
-          log.debug(
-              "Change index {} on change {} done", op.name().toLowerCase(), indexChange.getId());
+          log.atFine().log(
+              "Change index %s on change %s done", op.name().toLowerCase(), indexChange.getId());
         } catch (Exception e) {
-          log.error(
-              "Change index {} on change {} failed",
-              op.name().toLowerCase(),
-              indexChange.getId(),
-              e);
+          log.atSevere().withCause(e).log(
+              "Change index %s on change %s failed", op.name().toLowerCase(), indexChange.getId());
           return false;
         }
 
@@ -96,9 +92,10 @@ public class MessageProcessor implements RequestHandler {
         try {
           indexAccountHandler.index(
               Account.id(indexAccount.getId()), Operation.INDEX, Optional.empty());
-          log.debug("Account index update on account {} done", indexAccount.getId());
+          log.atFine().log("Account index update on account %s done", indexAccount.getId());
         } catch (IOException e) {
-          log.error("Account index update on account {} failed", indexAccount.getId(), e);
+          log.atSevere().withCause(e).log(
+              "Account index update on account %s failed", indexAccount.getId());
           return false;
         }
 
@@ -106,16 +103,16 @@ public class MessageProcessor implements RequestHandler {
         EvictCache evictCommand = (EvictCache) cmd;
         cacheEvictionHandler.evict(
             CacheEntry.from(evictCommand.getCacheName(), evictCommand.getKeyJson()));
-        log.debug(
-            "Cache eviction {} {} done", evictCommand.getCacheName(), evictCommand.getKeyJson());
+        log.atFine().log(
+            "Cache eviction %s %s done", evictCommand.getCacheName(), evictCommand.getKeyJson());
 
       } else if (cmd instanceof PostEvent) {
         Event event = ((PostEvent) cmd).getEvent();
         try {
           eventHandler.dispatch(event);
-          log.debug("Dispatching event {} done", event);
+          log.atFine().log("Dispatching event %s done", event);
         } catch (PermissionBackendException e) {
-          log.error("Dispatching event {} failed", event, e);
+          log.atSevere().withCause(e).log("Dispatching event %s failed", event);
           return false;
         }
 
@@ -149,10 +146,10 @@ public class MessageProcessor implements RequestHandler {
   private Command getCommand(Message msg) {
     try {
       String s = (String) msg.getObject();
-      log.debug("Received message: {}", s);
+      log.atFine().log("Received message: %s", s);
       return gson.fromJson(s, Command.class);
     } catch (RuntimeException e) {
-      log.error("Error parsing message {}", msg.getObject(), e);
+      log.atSevere().withCause(e).log("Error parsing message %s", msg.getObject());
       throw e;
     }
   }

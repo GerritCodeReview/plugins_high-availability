@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -32,12 +33,10 @@ import org.jgroups.blocks.RequestOptions;
 import org.jgroups.blocks.ResponseMode;
 import org.jgroups.util.Rsp;
 import org.jgroups.util.RspList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class JGroupsForwarder implements Forwarder {
-  private static final Logger log = LoggerFactory.getLogger(JGroupsForwarder.class);
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final MessageDispatcher dispatcher;
   private final JGroups jgroupsConfig;
@@ -112,13 +111,13 @@ public class JGroupsForwarder implements Forwarder {
       try {
         Thread.sleep(jgroupsConfig.retryInterval());
       } catch (InterruptedException ie) {
-        log.error("{} was interrupted, giving up", cmd, ie);
+        log.atSevere().withCause(ie).log("%s was interrupted, giving up", cmd);
         Thread.currentThread().interrupt();
         return false;
       }
     }
 
-    log.error("Forwarding {} failed", cmd);
+    log.atSevere().log("Forwarding %s failed", cmd);
     return false;
   }
 
@@ -128,43 +127,42 @@ public class JGroupsForwarder implements Forwarder {
       logJGroupsInfo();
 
       if (dispatcher.getChannel().getView().size() < 2) {
-        log.debug("Less than two members in cluster, not sending {}", json);
+        log.atFine().log("Less than two members in cluster, not sending %s", json);
         return false;
       }
 
-      log.debug("Sending {}", json);
+      log.atFine().log("Sending %s", json);
       RequestOptions options =
           new RequestOptions(ResponseMode.GET_FIRST, jgroupsConfig.retryInterval());
       RspList<Object> list = dispatcher.castMessage(null, new ObjectMessage(null, json), options);
 
-      log.debug("Received response list length = {}", list.size());
+      log.atFine().log("Received response list length = %s", list.size());
       if (list.isEmpty()) {
         return false;
       }
 
       for (Entry<Address, Rsp<Object>> e : list.entrySet()) {
-        log.debug("Response object {}", e);
+        log.atFine().log("Response object %s", e);
         if (!Boolean.TRUE.equals(e.getValue().getValue())) {
-          log.warn(
-              "Received a non TRUE response from receiver {}: {}",
-              e.getKey(),
-              e.getValue().getValue());
+          log.atWarning().log(
+              "Received a non TRUE response from receiver %s: %s",
+              e.getKey(), e.getValue().getValue());
           return false;
         }
       }
-      log.debug("Successfully sent message {}", json);
+      log.atFine().log("Successfully sent message %s", json);
       return true;
     } catch (Exception e) {
-      log.warn("Forwarding {} failed", json, e);
+      log.atWarning().withCause(e).log("Forwarding %s failed", json);
       return false;
     }
   }
 
   private void logJGroupsInfo() {
-    log.debug("My address: {}", dispatcher.getChannel().getAddress());
+    log.atFine().log("My address: %s", dispatcher.getChannel().getAddress());
     List<Address> members = dispatcher.getChannel().getView().getMembers();
     for (Address m : members) {
-      log.debug("Member: {}", m);
+      log.atFine().log("Member: %s", m);
     }
   }
 }

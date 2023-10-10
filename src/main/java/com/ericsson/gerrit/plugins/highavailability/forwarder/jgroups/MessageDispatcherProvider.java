@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
 import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.InetAddressFinder;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
@@ -26,12 +27,10 @@ import java.util.Optional;
 import org.jgroups.JChannel;
 import org.jgroups.blocks.MessageDispatcher;
 import org.jgroups.blocks.RequestHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class MessageDispatcherProvider implements Provider<MessageDispatcher> {
-  private static Logger log = LoggerFactory.getLogger(MessageDispatcherProvider.class);
+  private static FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final InetAddressFinder finder;
   private final JGroups jgroupsConfig;
@@ -60,7 +59,7 @@ public class MessageDispatcherProvider implements Provider<MessageDispatcher> {
       }
       channel.setDiscardOwnMessages(true);
       channel.connect(jgroupsConfig.clusterName());
-      log.info("Succesfully joined jgroups cluster {}", channel.getClusterName());
+      log.atInfo().log("Succesfully joined jgroups cluster %s", channel.getClusterName());
       MessageDispatcher dispatcher = new MessageDispatcher(channel, requestHandler);
       return dispatcher;
     } catch (Exception e) {

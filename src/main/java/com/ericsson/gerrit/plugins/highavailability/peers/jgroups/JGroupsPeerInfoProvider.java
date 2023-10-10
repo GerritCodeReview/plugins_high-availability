@@ -47,13 +47,6 @@ import org.jgroups.View;
 public class JGroupsPeerInfoProvider
     implements Receiver, Provider<Set<PeerInfo>>, LifecycleListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private static final String JGROUPS_LOG_FACTORY_PROPERTY = "jgroups.logging.log_factory_class";
-
-  static {
-    if (System.getProperty(JGROUPS_LOG_FACTORY_PROPERTY) == null) {
-      System.setProperty(JGROUPS_LOG_FACTORY_PROPERTY, SLF4JLogFactory.class.getName());
-    }
-  }
 
   private final Configuration.JGroups jgroupsConfig;
   private final InetAddressFinder finder;
