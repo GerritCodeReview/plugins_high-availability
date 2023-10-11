@@ -6,12 +6,12 @@
       "updated": "2023-10-11T11:23:36Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "SUCCESSFUL",
-      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/54%252F388954%252F1/2/console",
-      "started": "2023-10-11T10:58:51Z",
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/54%252F388954%252F1/3/console",
+      "started": "2023-10-11T11:34:45Z",
       "finished": "2023-10-11T10:58:59Z",
       "created": "2023-10-10T14:34:57Z",
-      "updated": "2023-10-11T10:58:59Z"
+      "updated": "2023-10-11T11:34:45Z"
     }
   }
 }
