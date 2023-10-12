@@ -34,7 +34,6 @@ import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.Inde
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexTask;
-import com.ericsson.gerrit.plugins.highavailability.index.IndexEventLocks.VoidFunction;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Change;
@@ -567,14 +566,11 @@ public class IndexEventHandlerTest {
     private IndexTask task;
     private CyclicBarrier testBarrier;
     private Supplier<T> successFunc;
-    private VoidFunction failureFunc;
+    private Runnable failureFunc;
     private CompletableFuture<T> future;
 
     public TestTask(
-        IndexTask task,
-        CyclicBarrier testBarrier,
-        Supplier<T> successFunc,
-        VoidFunction failureFunc) {
+        IndexTask task, CyclicBarrier testBarrier, Supplier<T> successFunc, Runnable failureFunc) {
       this.task = task;
       this.testBarrier = testBarrier;
       this.successFunc = successFunc;
@@ -598,7 +594,7 @@ public class IndexEventHandlerTest {
                         }),
                 () -> {
                   await();
-                  failureFunc.invoke();
+                  failureFunc.run();
                 })
             .whenComplete(
                 (v, t) -> {
