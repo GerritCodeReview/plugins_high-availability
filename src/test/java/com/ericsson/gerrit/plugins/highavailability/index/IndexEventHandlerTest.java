@@ -276,13 +276,14 @@ public class IndexEventHandlerTest {
 
     Configuration cfg = mock(Configuration.class);
     Configuration.Http httpCfg = mock(Configuration.Http.class);
-    when(httpCfg.maxTries()).thenReturn(10);
+    final int MAX_TRIES = 5;
+    when(httpCfg.maxTries()).thenReturn(MAX_TRIES);
     when(httpCfg.retryInterval()).thenReturn(Duration.ZERO);
     when(cfg.http()).thenReturn(httpCfg);
     setUpIndexEventHandler(currCtx, locks, cfg);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     executorThread.join();
-    verify(locks, times(11)).withLock(any(), any(), any());
+    verify(locks, times(MAX_TRIES + 1)).withLock(any(), any(), any());
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
