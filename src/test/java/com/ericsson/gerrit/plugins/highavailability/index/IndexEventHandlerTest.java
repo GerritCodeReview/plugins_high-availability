@@ -656,7 +656,7 @@ public class IndexEventHandlerTest {
         indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
     IndexChangeTask indexTask2 =
         indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
-    testIsolationOfCuncurrentIndexTasks(indexTask1, indexTask2);
+    testIsolationOfConcurrentIndexTasks(indexTask1, indexTask2);
   }
 
   @Test
@@ -665,10 +665,10 @@ public class IndexEventHandlerTest {
         indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
     DeleteChangeTask deleteTask =
         indexEventHandler.new DeleteChangeTask(CHANGE_ID, new IndexEvent());
-    testIsolationOfCuncurrentIndexTasks(indexTask, deleteTask);
+    testIsolationOfConcurrentIndexTasks(indexTask, deleteTask);
   }
 
-  private void testIsolationOfCuncurrentIndexTasks(IndexTask indexTask1, IndexTask indexTask2)
+  private void testIsolationOfConcurrentIndexTasks(IndexTask indexTask1, IndexTask indexTask2)
       throws Exception {
     AtomicInteger changeIndexedCount = new AtomicInteger();
     AtomicInteger lockFailedCounts = new AtomicInteger();
