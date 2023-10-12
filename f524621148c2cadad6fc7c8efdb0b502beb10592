@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d3f21e_4eb738f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-10-12T15:35:01Z",
+      "side": 1,
+      "message": "We probably do not need this change as I couldn\u0027t prove where the StackOverflowError comes from. In addition, after the fix of the flakiness in the IndexEventHandlerTest it seems like tests do not fail any more. Need to observe further.",
+      "revId": "f524621148c2cadad6fc7c8efdb0b502beb10592",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
