@@ -23,6 +23,7 @@ import com.google.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class IndexEventLocks {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
@@ -39,15 +40,15 @@ public class IndexEventLocks {
   }
 
   public CompletableFuture<?> withLock(
-      IndexTask id, IndexCallFunction function, VoidFunction lockAcquireTimeoutCallback) {
+      IndexTask id, Supplier<CompletableFuture<?>> indexTask, Runnable lockAcquireTimeoutCallback) {
     String indexId = id.indexId();
     Semaphore idSemaphore = getSemaphore(indexId);
     try {
       log.atFine().log("Trying to acquire %s", id);
       if (idSemaphore.tryAcquire(WAIT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
         log.atFine().log("Acquired %s", id);
-        return function
-            .invoke()
+        return indexTask
+            .get()
             .whenComplete(
                 (result, error) -> {
                   try {
@@ -66,7 +67,7 @@ public class IndexEventLocks {
               "Acquisition of the locking of %s timed out after %d msec: consider increasing the number of shards",
               indexId, WAIT_TIMEOUT_MS);
       log.atWarning().log("%s", timeoutMessage);
-      lockAcquireTimeoutCallback.invoke();
+      lockAcquireTimeoutCallback.run();
       CompletableFuture<?> failureFuture = new CompletableFuture<>();
       failureFuture.completeExceptionally(new InterruptedException(timeoutMessage));
       return failureFuture;
@@ -81,15 +82,5 @@ public class IndexEventLocks {
   @VisibleForTesting
   protected Semaphore getSemaphore(String indexId) {
     return semaphores.get(indexId);
-  }
-
-  @FunctionalInterface
-  public interface VoidFunction {
-    void invoke();
-  }
-
-  @FunctionalInterface
-  public interface IndexCallFunction {
-    CompletableFuture<?> invoke();
   }
 }
