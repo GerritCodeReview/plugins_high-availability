@@ -582,15 +582,20 @@ public class IndexEventHandlerTest {
     @Override
     public void run() {
       try {
-        testBarrier.await();
         idLocks
             .withLock(
                 task,
                 () ->
                     runLater(
                         INDEX_WAIT_TIMEOUT_MS * 2,
-                        () -> CompletableFuture.completedFuture(successFunc.get())),
-                failureFunc)
+                        () -> {
+                          await();
+                          return CompletableFuture.completedFuture(successFunc.get());
+                        }),
+                () -> {
+                  await();
+                  failureFunc.run();
+                })
             .whenComplete(
                 (v, t) -> {
                   if (t == null) {
@@ -602,6 +607,14 @@ public class IndexEventHandlerTest {
       } catch (Throwable t) {
         future = new CompletableFuture<>();
         future.completeExceptionally(t);
+      }
+    }
+
+    private void await() {
+      try {
+        testBarrier.await();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
       }
     }
 
