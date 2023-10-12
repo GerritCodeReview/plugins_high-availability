@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77110498_a44177f3",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-10-12T15:09:56Z",
+      "side": 1,
+      "message": "I hit this error when running this test:\n\n```\nplugins/high-availability/src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java:601: error: cannot find symbol\n                  failureFunc.run();\n                             ^\n  symbol:   method run()\n  location: variable failureFunc of type VoidFunction\n```",
+      "revId": "eb4dc507a105034b142edcee4fc4cf2e2d4ea36b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
