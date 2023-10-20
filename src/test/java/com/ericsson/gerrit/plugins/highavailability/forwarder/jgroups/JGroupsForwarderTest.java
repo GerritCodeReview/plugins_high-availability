@@ -56,6 +56,7 @@ public class JGroupsForwarderTest {
     Configuration cfg = mock(Configuration.class, RETURNS_DEEP_STUBS);
     when(cfg.jgroups().maxTries()).thenReturn(MAX_TRIES);
     when(cfg.jgroups().retryInterval()).thenReturn(Duration.ofMillis(1));
+    when(cfg.jgroups().timeout()).thenReturn(Duration.ZERO);
 
     dispatcher = mock(MessageDispatcher.class, RETURNS_DEEP_STUBS);
     when(dispatcher.getChannel().getView().size()).thenReturn(2);
