@@ -25,8 +25,6 @@ import com.google.inject.Singleton;
 import java.time.Duration;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -37,35 +35,6 @@ public class RestForwarderScheduler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final ScheduledExecutorService executor;
   private final Duration retryInterval;
-
-  public class CompletablePromise<V> extends CompletableFuture<V> {
-    private Future<V> future;
-
-    public CompletablePromise(Future<V> future) {
-      this.future = future;
-      executor.execute(this::tryToComplete);
-    }
-
-    private void tryToComplete() {
-      if (future.isDone()) {
-        try {
-          complete(future.get());
-        } catch (InterruptedException e) {
-          completeExceptionally(e);
-        } catch (ExecutionException e) {
-          completeExceptionally(e.getCause());
-        }
-        return;
-      }
-
-      if (future.isCancelled()) {
-        cancel(true);
-        return;
-      }
-
-      executor.execute(this::tryToComplete);
-    }
-  }
 
   @Inject
   public RestForwarderScheduler(
