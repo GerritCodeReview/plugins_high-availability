@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.event;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.ericsson.gerrit.plugins.highavailability.event.EventHandler.EventTask;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
@@ -55,7 +55,7 @@ public class EventHandlerTest {
   @Test
   public void shouldNotForwardNonProjectEvent() throws Exception {
     eventHandler.onEvent(mock(Event.class));
-    verifyZeroInteractions(forwarder);
+    verifyNoInteractions(forwarder);
   }
 
   @Test
@@ -63,7 +63,7 @@ public class EventHandlerTest {
     Context.setForwardedEvent(true);
     eventHandler.onEvent(mock(ProjectEvent.class));
     Context.unsetForwardedEvent();
-    verifyZeroInteractions(forwarder);
+    verifyNoInteractions(forwarder);
   }
 
   @Test

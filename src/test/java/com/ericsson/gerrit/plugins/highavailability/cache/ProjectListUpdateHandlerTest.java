@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.cache;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.ProjectListUpdateHandler.ProjectListUpdateTask;
@@ -69,7 +69,7 @@ public class ProjectListUpdateHandlerTest {
     handler.onNewProjectCreated(mock(NewProjectCreatedListener.Event.class));
     handler.onProjectDeleted(mock(ProjectDeletedListener.Event.class));
     Context.unsetForwardedEvent();
-    verifyZeroInteractions(forwarder);
+    verifyNoInteractions(forwarder);
   }
 
   @Test

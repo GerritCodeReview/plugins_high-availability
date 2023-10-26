@@ -16,7 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.events.Event;
@@ -59,6 +59,6 @@ public class ForwardedAwareEventBrokerTest {
     } finally {
       Context.unsetForwardedEvent();
     }
-    verifyZeroInteractions(listenerMock);
+    verifyNoInteractions(listenerMock);
   }
 }

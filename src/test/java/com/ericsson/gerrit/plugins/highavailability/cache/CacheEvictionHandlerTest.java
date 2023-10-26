@@ -14,7 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.cache;
 
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
@@ -55,6 +55,6 @@ public class CacheEvictionHandlerTest {
         new CacheEvictionHandler<>(forwarder, executorMock, PLUGIN_NAME, defaultCacheMatcher);
     handler.onRemoval(
         "test", "accounts", RemovalNotification.create("test", "accounts", RemovalCause.EXPLICIT));
-    verifyZeroInteractions(executorMock);
+    verifyNoInteractions(executorMock);
   }
 }
