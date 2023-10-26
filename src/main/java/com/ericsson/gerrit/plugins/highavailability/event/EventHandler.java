@@ -16,48 +16,23 @@ package com.ericsson.gerrit.plugins.highavailability.event;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.events.ProjectEvent;
 import com.google.inject.Inject;
-import java.util.concurrent.Executor;
 
 class EventHandler implements EventListener {
-  private final Executor executor;
   private final Forwarder forwarder;
-  private final String pluginName;
 
   @Inject
-  EventHandler(
-      Forwarder forwarder, @EventExecutor Executor executor, @PluginName String pluginName) {
+  EventHandler(Forwarder forwarder) {
     this.forwarder = forwarder;
-    this.executor = executor;
-    this.pluginName = pluginName;
   }
 
   @Override
   public void onEvent(Event event) {
     if (!Context.isForwardedEvent() && event instanceof ProjectEvent) {
-      executor.execute(new EventTask(event));
-    }
-  }
-
-  class EventTask implements Runnable {
-    private final Event event;
-
-    EventTask(Event event) {
-      this.event = event;
-    }
-
-    @Override
-    public void run() {
       forwarder.send(event);
-    }
-
-    @Override
-    public String toString() {
-      return String.format("[%s] Send event '%s' to target instance", pluginName, event.type);
     }
   }
 }
