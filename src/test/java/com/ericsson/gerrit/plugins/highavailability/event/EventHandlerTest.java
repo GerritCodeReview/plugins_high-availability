@@ -14,18 +14,14 @@
 
 package com.ericsson.gerrit.plugins.highavailability.event;
 
-import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
-import com.ericsson.gerrit.plugins.highavailability.event.EventHandler.EventTask;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.ProjectEvent;
-import com.google.gerrit.server.events.RefUpdatedEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,15 +30,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventHandlerTest {
-  private static final String PLUGIN_NAME = "high-availability";
-
   private EventHandler eventHandler;
 
   @Mock private Forwarder forwarder;
 
   @Before
   public void setUp() {
-    eventHandler = new EventHandler(forwarder, MoreExecutors.directExecutor(), PLUGIN_NAME);
+    eventHandler = new EventHandler(forwarder);
   }
 
   @Test
@@ -64,14 +58,5 @@ public class EventHandlerTest {
     eventHandler.onEvent(mock(ProjectEvent.class));
     Context.unsetForwardedEvent();
     verifyNoInteractions(forwarder);
-  }
-
-  @Test
-  public void tesEventTaskToString() throws Exception {
-    Event event = new RefUpdatedEvent();
-    EventTask task = eventHandler.new EventTask(event);
-    assertThat(task.toString())
-        .isEqualTo(
-            String.format("[%s] Send event '%s' to target instance", PLUGIN_NAME, event.type));
   }
 }

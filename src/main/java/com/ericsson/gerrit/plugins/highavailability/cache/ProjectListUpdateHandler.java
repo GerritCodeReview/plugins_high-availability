@@ -16,27 +16,20 @@ package com.ericsson.gerrit.plugins.highavailability.cache;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.NewProjectCreatedListener;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.events.ProjectEvent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.concurrent.Executor;
 
 @Singleton
 public class ProjectListUpdateHandler implements NewProjectCreatedListener, ProjectDeletedListener {
 
   private final Forwarder forwarder;
-  private final Executor executor;
-  private final String pluginName;
 
   @Inject
-  public ProjectListUpdateHandler(
-      Forwarder forwarder, @CacheExecutor Executor executor, @PluginName String pluginName) {
+  public ProjectListUpdateHandler(Forwarder forwarder) {
     this.forwarder = forwarder;
-    this.executor = executor;
-    this.pluginName = pluginName;
   }
 
   @Override
@@ -53,33 +46,11 @@ public class ProjectListUpdateHandler implements NewProjectCreatedListener, Proj
 
   private void process(ProjectEvent event, boolean delete) {
     if (!Context.isForwardedEvent()) {
-      executor.execute(new ProjectListUpdateTask(event.getProjectName(), delete));
-    }
-  }
-
-  class ProjectListUpdateTask implements Runnable {
-    private final String projectName;
-    private final boolean delete;
-
-    ProjectListUpdateTask(String projectName, boolean delete) {
-      this.projectName = projectName;
-      this.delete = delete;
-    }
-
-    @Override
-    public void run() {
       if (delete) {
-        forwarder.removeFromProjectList(projectName);
+        forwarder.removeFromProjectList(event.getProjectName());
       } else {
-        forwarder.addToProjectList(projectName);
+        forwarder.addToProjectList(event.getProjectName());
       }
-    }
-
-    @Override
-    public String toString() {
-      return String.format(
-          "[%s] Update project list in target instance: %s '%s'",
-          pluginName, delete ? "remove" : "add", projectName);
     }
   }
 }

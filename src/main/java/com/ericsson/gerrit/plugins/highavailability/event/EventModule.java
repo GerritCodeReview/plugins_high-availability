@@ -17,14 +17,11 @@ package com.ericsson.gerrit.plugins.highavailability.event;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.events.EventListener;
-import java.util.concurrent.Executor;
 
 public class EventModule extends LifecycleModule {
 
   @Override
   protected void configure() {
-    bind(Executor.class).annotatedWith(EventExecutor.class).toProvider(EventExecutorProvider.class);
-    listener().to(EventExecutorProvider.class);
     DynamicSet.bind(binder(), EventListener.class).to(EventHandler.class);
   }
 }
