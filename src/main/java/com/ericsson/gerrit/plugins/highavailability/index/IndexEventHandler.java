@@ -25,11 +25,7 @@ import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.inject.Inject;
-import java.util.Collections;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledExecutorService;
 
 class IndexEventHandler
     implements ChangeIndexedListener,
@@ -37,25 +33,18 @@ class IndexEventHandler
         GroupIndexedListener,
         ProjectIndexedListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private final ScheduledExecutorService executor;
-  private final ScheduledExecutorService batchExecutor;
   private final Forwarder forwarder;
   private final String pluginName;
-  private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
   private final ChangeCheckerImpl.Factory changeChecker;
   private final CurrentRequestContext currCtx;
 
   @Inject
   IndexEventHandler(
-      @IndexExecutor ScheduledExecutorService executor,
-      @BatchIndexExecutor ScheduledExecutorService batchExecutor,
       @PluginName String pluginName,
       Forwarder forwarder,
       ChangeCheckerImpl.Factory changeChecker,
       CurrentRequestContext currCtx) {
     this.forwarder = forwarder;
-    this.executor = executor;
-    this.batchExecutor = batchExecutor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
     this.currCtx = currCtx;
@@ -66,10 +55,7 @@ class IndexEventHandler
     currCtx.onlyWithContext(
         (ctx) -> {
           if (!Context.isForwardedEvent()) {
-            IndexAccountTask task = new IndexAccountTask(id);
-            if (queuedTasks.add(task)) {
-              executor.execute(task);
-            }
+            new IndexAccountTask(id).run();
           }
         });
   }
@@ -80,7 +66,6 @@ class IndexEventHandler
   }
 
   private void executeIndexChangeTask(String projectName, int id) {
-
     if (!Context.isForwardedEvent()) {
       String changeId = projectName + "~" + id;
       try {
@@ -94,16 +79,7 @@ class IndexEventHandler
                   }
                   return new IndexChangeTask(projectName, id, event);
                 })
-            .ifPresent(
-                task -> {
-                  if (queuedTasks.add(task)) {
-                    if (task instanceof BatchIndexChangeTask) {
-                      batchExecutor.execute(task);
-                    } else {
-                      executor.execute(task);
-                    }
-                  }
-                });
+            .ifPresent(IndexTask::run);
       } catch (Exception e) {
         log.atWarning().withCause(e).log("Unable to create task to reindex change %s", changeId);
       }
@@ -113,30 +89,21 @@ class IndexEventHandler
   @Override
   public void onChangeDeleted(int id) {
     if (!Context.isForwardedEvent()) {
-      DeleteChangeTask task = new DeleteChangeTask(id, new IndexEvent());
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
+      new DeleteChangeTask(id, new IndexEvent()).run();
     }
   }
 
   @Override
   public void onProjectIndexed(String projectName) {
     if (!Context.isForwardedEvent()) {
-      IndexProjectTask task = new IndexProjectTask(projectName);
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
+      new IndexProjectTask(projectName).run();
     }
   }
 
   @Override
   public void onGroupIndexed(String groupUUID) {
     if (!Context.isForwardedEvent()) {
-      IndexGroupTask task = new IndexGroupTask(groupUUID);
-      if (queuedTasks.add(task)) {
-        executor.execute(task);
-      }
+      new IndexGroupTask(groupUUID).run();
     }
   }
 
@@ -153,7 +120,6 @@ class IndexEventHandler
 
     @Override
     public void run() {
-      queuedTasks.remove(this);
       execute();
     }
 

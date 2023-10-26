@@ -19,28 +19,21 @@ import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.gerrit.lifecycle.LifecycleModule;
+import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import java.util.concurrent.ScheduledExecutorService;
 
-public class IndexModule extends LifecycleModule {
+public class IndexModule extends AbstractModule {
 
   @Override
   protected void configure() {
     bind(ScheduledExecutorService.class)
-        .annotatedWith(IndexExecutor.class)
-        .toProvider(IndexExecutorProvider.class);
-    bind(ScheduledExecutorService.class)
         .annotatedWith(ForwardedIndexExecutor.class)
         .toProvider(ForwardedIndexExecutorProvider.class);
     bind(ScheduledExecutorService.class)
-        .annotatedWith(BatchIndexExecutor.class)
-        .toProvider(BatchIndexExecutorProvider.class);
-    bind(ScheduledExecutorService.class)
         .annotatedWith(ForwardedBatchIndexExecutor.class)
         .toProvider(ForwardedBatchIndexExecutorProvider.class);
-    listener().to(IndexExecutorProvider.class);
     DynamicSet.bind(binder(), ChangeIndexedListener.class)
         .to(IndexEventHandler.class)
         .in(Scopes.SINGLETON);
