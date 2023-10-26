@@ -14,16 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.cache;
 
-import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.ericsson.gerrit.plugins.highavailability.cache.ProjectListUpdateHandler.ProjectListUpdateTask;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.google.gerrit.extensions.events.NewProjectCreatedListener;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import org.junit.Before;
@@ -34,15 +31,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProjectListUpdateHandlerTest {
-  private static final String PLUGIN_NAME = "high-availability";
-
   private ProjectListUpdateHandler handler;
 
   @Mock private Forwarder forwarder;
 
   @Before
   public void setUp() {
-    handler = new ProjectListUpdateHandler(forwarder, MoreExecutors.directExecutor(), PLUGIN_NAME);
+    handler = new ProjectListUpdateHandler(forwarder);
   }
 
   @Test
@@ -70,22 +65,5 @@ public class ProjectListUpdateHandlerTest {
     handler.onProjectDeleted(mock(ProjectDeletedListener.Event.class));
     Context.unsetForwardedEvent();
     verifyNoInteractions(forwarder);
-  }
-
-  @Test
-  public void testProjectUpdateTaskToString() throws Exception {
-    String projectName = "someProjectName";
-    ProjectListUpdateTask task = handler.new ProjectListUpdateTask(projectName, false);
-    assertThat(task.toString())
-        .isEqualTo(
-            String.format(
-                "[%s] Update project list in target instance: add '%s'", PLUGIN_NAME, projectName));
-
-    task = handler.new ProjectListUpdateTask(projectName, true);
-    assertThat(task.toString())
-        .isEqualTo(
-            String.format(
-                "[%s] Update project list in target instance: remove '%s'",
-                PLUGIN_NAME, projectName));
   }
 }

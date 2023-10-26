@@ -25,7 +25,6 @@ import com.google.gerrit.server.config.SitePaths;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.Executor;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,11 +34,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CacheEvictionHandlerTest {
-  @Mock private Executor executorMock;
   @Mock private Forwarder forwarder;
   @Mock private PluginConfigFactory pluginConfigFactoryMock;
 
-  private static final String PLUGIN_NAME = "high-availability";
   private static final Path SITE_PATH = Paths.get("/site_path");
   private CachePatternMatcher defaultCacheMatcher;
 
@@ -52,9 +49,9 @@ public class CacheEvictionHandlerTest {
   @Test
   public void shouldNotPublishAccountsCacheEvictions() {
     CacheEvictionHandler<String, String> handler =
-        new CacheEvictionHandler<>(forwarder, executorMock, PLUGIN_NAME, defaultCacheMatcher);
+        new CacheEvictionHandler<>(forwarder, defaultCacheMatcher);
     handler.onRemoval(
         "test", "accounts", RemovalNotification.create("test", "accounts", RemovalCause.EXPLICIT));
-    verifyNoInteractions(executorMock);
+    verifyNoInteractions(forwarder);
   }
 }
