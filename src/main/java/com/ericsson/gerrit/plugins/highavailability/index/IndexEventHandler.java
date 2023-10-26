@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
@@ -26,13 +25,11 @@ import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.inject.Inject;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 class IndexEventHandler
     implements ChangeIndexedListener,
@@ -47,10 +44,6 @@ class IndexEventHandler
   private final Set<IndexTask> queuedTasks = Collections.newSetFromMap(new ConcurrentHashMap<>());
   private final ChangeCheckerImpl.Factory changeChecker;
   private final CurrentRequestContext currCtx;
-  private final IndexEventLocks locks;
-
-  private final Duration retryInterval;
-  private final int maxTries;
 
   @Inject
   IndexEventHandler(
@@ -59,18 +52,13 @@ class IndexEventHandler
       @PluginName String pluginName,
       Forwarder forwarder,
       ChangeCheckerImpl.Factory changeChecker,
-      CurrentRequestContext currCtx,
-      Configuration cfg,
-      IndexEventLocks locks) {
+      CurrentRequestContext currCtx) {
     this.forwarder = forwarder;
     this.executor = executor;
     this.batchExecutor = batchExecutor;
     this.pluginName = pluginName;
     this.changeChecker = changeChecker;
     this.currCtx = currCtx;
-    this.locks = locks;
-    this.retryInterval = cfg.http().retryInterval();
-    this.maxTries = cfg.http().maxTries();
   }
 
   @Override
@@ -154,7 +142,6 @@ class IndexEventHandler
 
   abstract class IndexTask implements Runnable {
     protected final IndexEvent indexEvent;
-    private int retryCount = 0;
 
     IndexTask() {
       indexEvent = new IndexEvent();
@@ -166,22 +153,8 @@ class IndexEventHandler
 
     @Override
     public void run() {
-      locks.withLock(
-          this,
-          () -> {
-            queuedTasks.remove(this);
-            return execute();
-          },
-          this::reschedule);
-    }
-
-    private void reschedule() {
-      if (++retryCount <= maxTries) {
-        log.atFine().log("Retrying %d times to %s", retryCount, this);
-        executor.schedule(this, retryInterval.toMillis(), TimeUnit.MILLISECONDS);
-      } else {
-        log.atSevere().log("Failed to %s after %d tries; giving up", this, maxTries);
-      }
+      queuedTasks.remove(this);
+      execute();
     }
 
     abstract CompletableFuture<Boolean> execute();

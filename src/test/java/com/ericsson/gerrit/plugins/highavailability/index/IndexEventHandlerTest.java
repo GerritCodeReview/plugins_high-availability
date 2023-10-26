@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -33,37 +32,29 @@ import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.Dele
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexAccountTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexChangeTask;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexGroupTask;
-import com.ericsson.gerrit.plugins.highavailability.index.IndexEventHandler.IndexTask;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
-import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -74,8 +65,6 @@ public class IndexEventHandlerTest {
   private static final int ACCOUNT_ID = 2;
   private static final String UUID = "3";
   private static final String OTHER_UUID = "4";
-  private static final Integer INDEX_WAIT_TIMEOUT_MS = 5;
-  private static final int MAX_TEST_PARALLELISM = 4;
   private static final String EXECUTOR_THREAD_NAME = "EXECUTOR_THREAD";
 
   private IndexEventHandler indexEventHandler;
@@ -87,11 +76,8 @@ public class IndexEventHandlerTest {
   private AccountGroup.UUID accountGroupUUID;
   private ScheduledExecutorService executor = new CurrentThreadScheduledExecutorService();
   private ScheduledExecutorService batchExecutor = new CurrentThreadScheduledExecutorService();
-  private ScheduledExecutorService testExecutor =
-      Executors.newScheduledThreadPool(MAX_TEST_PARALLELISM);
   @Mock private RequestContext mockCtx;
   @Mock private Configuration configuration;
-  private IndexEventLocks idLocks;
   private Thread executorThread;
 
   private CurrentRequestContext currCtx =
@@ -110,14 +96,6 @@ public class IndexEventHandlerTest {
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerMock);
     when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
 
-    Configuration.Index cfgIndex = mock(Configuration.Index.class);
-    when(configuration.index()).thenReturn(cfgIndex);
-    when(cfgIndex.numStripedLocks()).thenReturn(Configuration.DEFAULT_NUM_STRIPED_LOCKS);
-
-    Configuration.Http http = mock(Configuration.Http.class);
-    when(configuration.http()).thenReturn(http);
-    when(http.maxTries()).thenReturn(Configuration.Http.DEFAULT_MAX_TRIES);
-    when(http.retryInterval()).thenReturn(Configuration.Http.DEFAULT_RETRY_INTERVAL);
     when(forwarder.indexAccount(eq(ACCOUNT_ID), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
     when(forwarder.deleteChangeFromIndex(eq(CHANGE_ID), any()))
@@ -126,32 +104,13 @@ public class IndexEventHandlerTest {
     when(forwarder.indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
 
-    idLocks = new IndexEventLocks(configuration);
     setUpIndexEventHandler(currCtx);
   }
 
   public void setUpIndexEventHandler(CurrentRequestContext currCtx) throws Exception {
-    setUpIndexEventHandler(currCtx, idLocks, configuration);
-  }
-
-  public void setUpIndexEventHandler(CurrentRequestContext currCtx, IndexEventLocks idLocks)
-      throws Exception {
-    setUpIndexEventHandler(currCtx, idLocks, configuration);
-  }
-
-  public void setUpIndexEventHandler(
-      CurrentRequestContext currCtx, IndexEventLocks idLocks, Configuration configuration)
-      throws Exception {
     indexEventHandler =
         new IndexEventHandler(
-            executor,
-            batchExecutor,
-            PLUGIN_NAME,
-            forwarder,
-            changeCheckerFactoryMock,
-            currCtx,
-            configuration,
-            idLocks);
+            executor, batchExecutor, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
   }
 
   @Test
@@ -172,161 +131,6 @@ public class IndexEventHandlerTest {
     setUpIndexEventHandler(new CurrentRequestContext(threadLocalCtxMock, cfgMock, oneOffCtxMock));
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-  }
-
-  @Test
-  public void shouldNotIndexChangeWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-  }
-
-  @Test
-  public void shouldNotIndexAccountWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onAccountIndexed(accountId.get());
-
-    verify(forwarder, never()).indexAccount(eq(ACCOUNT_ID), any());
-  }
-
-  @Test
-  public void shouldNotDeleteChangeWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onChangeDeleted(changeId.get());
-
-    verify(forwarder, never()).deleteChangeFromIndex(eq(CHANGE_ID), any());
-  }
-
-  @Test
-  public void shouldNotIndexGroupWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onGroupIndexed(accountGroupUUID.get());
-
-    verify(forwarder, never()).indexGroup(eq(UUID), any());
-  }
-
-  @Test
-  public void shouldNotIndexProjectWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onProjectIndexed(PROJECT_NAME);
-
-    verify(forwarder, never()).indexProject(eq(PROJECT_NAME), any());
-  }
-
-  @Test
-  public void shouldRetryIndexChangeWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false, true);
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    executorThread.join();
-    verify(locks, times(2)).withLock(any(), any(), any());
-    verify(forwarder, times(1)).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-  }
-
-  @Test
-  public void shouldRetryUpToMaxTriesWhenCannotAcquireLock() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-
-    Configuration cfg = mock(Configuration.class);
-    Configuration.Http httpCfg = mock(Configuration.Http.class);
-    when(httpCfg.maxTries()).thenReturn(10);
-    when(httpCfg.retryInterval()).thenReturn(Duration.ZERO);
-    when(cfg.http()).thenReturn(httpCfg);
-    setUpIndexEventHandler(currCtx, locks, cfg);
-    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    executorThread.join();
-    verify(locks, times(11)).withLock(any(), any(), any());
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-  }
-
-  @Test
-  public void shouldNotRetryWhenMaxTriesLowerThanOne() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore semaphore = mock(Semaphore.class);
-    when(locks.getSemaphore(anyString())).thenReturn(semaphore);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    when(semaphore.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-
-    Configuration cfg = mock(Configuration.class);
-    Configuration.Http httpCfg = mock(Configuration.Http.class);
-    when(httpCfg.maxTries()).thenReturn(0);
-    when(cfg.http()).thenReturn(httpCfg);
-    setUpIndexEventHandler(currCtx, locks, cfg);
-
-    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    executorThread.join();
-    verify(locks, times(1)).withLock(any(), any(), any());
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-  }
-
-  @Test
-  public void shouldLockPerIndexEventType() throws Exception {
-    IndexEventLocks locks = mock(IndexEventLocks.class);
-    Semaphore indexChangeLock = mock(Semaphore.class);
-    when(indexChangeLock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(false);
-    Semaphore accountChangeLock = mock(Semaphore.class);
-    when(accountChangeLock.tryAcquire(Mockito.anyLong(), Mockito.eq(TimeUnit.MILLISECONDS)))
-        .thenReturn(true);
-    when(locks.getSemaphore(eq("change/" + CHANGE_ID))).thenReturn(indexChangeLock);
-    when(locks.getSemaphore(eq("account/" + ACCOUNT_ID))).thenReturn(accountChangeLock);
-    Mockito.doCallRealMethod().when(locks).withLock(any(), any(), any());
-    setUpIndexEventHandler(currCtx, locks);
-
-    indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    executorThread.join();
-    indexEventHandler.onAccountIndexed(accountId.get());
-    executorThread.join();
-    verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
-    verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
   }
 
   @Test
@@ -399,14 +203,7 @@ public class IndexEventHandlerTest {
     ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
         new IndexEventHandler(
-            poolMock,
-            poolBatchMock,
-            PLUGIN_NAME,
-            forwarder,
-            changeCheckerFactoryMock,
-            currCtx,
-            configuration,
-            idLocks);
+            poolMock, poolBatchMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(poolMock, times(1))
@@ -419,14 +216,7 @@ public class IndexEventHandlerTest {
     ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
         new IndexEventHandler(
-            poolMock,
-            poolBatchMock,
-            PLUGIN_NAME,
-            forwarder,
-            changeCheckerFactoryMock,
-            currCtx,
-            configuration,
-            idLocks);
+            poolMock, poolBatchMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onAccountIndexed(accountId.get());
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
@@ -438,14 +228,7 @@ public class IndexEventHandlerTest {
     ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
     indexEventHandler =
         new IndexEventHandler(
-            poolMock,
-            poolBatchMock,
-            PLUGIN_NAME,
-            forwarder,
-            changeCheckerFactoryMock,
-            currCtx,
-            configuration,
-            idLocks);
+            poolMock, poolBatchMock, PLUGIN_NAME, forwarder, changeCheckerFactoryMock, currCtx);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
@@ -560,144 +343,6 @@ public class IndexEventHandlerTest {
     IndexGroupTask differentGroupIdTask = indexEventHandler.new IndexGroupTask("123");
     assertThat(task.equals(differentGroupIdTask)).isFalse();
     assertThat(task.hashCode()).isNotEqualTo(differentGroupIdTask.hashCode());
-  }
-
-  class TestTask<T> implements Runnable {
-    private IndexTask task;
-    private CyclicBarrier testBarrier;
-    private Supplier<T> successFunc;
-    private Runnable failureFunc;
-    private CompletableFuture<T> future;
-
-    public TestTask(
-        IndexTask task, CyclicBarrier testBarrier, Supplier<T> successFunc, Runnable failureFunc) {
-      this.task = task;
-      this.testBarrier = testBarrier;
-      this.successFunc = successFunc;
-      this.failureFunc = failureFunc;
-      this.future = new CompletableFuture<>();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void run() {
-      try {
-        idLocks
-            .withLock(
-                task,
-                () ->
-                    runLater(
-                        INDEX_WAIT_TIMEOUT_MS * 2,
-                        () -> {
-                          await();
-                          return CompletableFuture.completedFuture(successFunc.get());
-                        }),
-                () -> {
-                  await();
-                  failureFunc.run();
-                })
-            .whenComplete(
-                (v, t) -> {
-                  if (t == null) {
-                    future.complete((T) v);
-                  } else {
-                    future.completeExceptionally(t);
-                  }
-                });
-      } catch (Throwable t) {
-        future = new CompletableFuture<>();
-        future.completeExceptionally(t);
-      }
-    }
-
-    private void await() {
-      try {
-        testBarrier.await();
-      } catch (Exception e) {
-        throw new RuntimeException(e);
-      }
-    }
-
-    public void join() {
-      try {
-        future.join();
-      } catch (Exception e) {
-      }
-    }
-
-    private CompletableFuture<T> runLater(
-        long scheduledTimeMsec, Supplier<CompletableFuture<T>> supplier) {
-      CompletableFuture<T> resFuture = new CompletableFuture<>();
-      testExecutor.schedule(
-          () -> {
-            try {
-              return supplier
-                  .get()
-                  .whenComplete(
-                      (v, t) -> {
-                        if (t == null) {
-                          resFuture.complete(v);
-                        }
-                        resFuture.completeExceptionally(t);
-                      });
-            } catch (Throwable t) {
-              return resFuture.completeExceptionally(t);
-            }
-          },
-          scheduledTimeMsec,
-          TimeUnit.MILLISECONDS);
-      return resFuture;
-    }
-  }
-
-  @Test
-  public void indexLocksShouldBlockConcurrentIndexChange() throws Exception {
-    IndexChangeTask indexTask1 =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
-    IndexChangeTask indexTask2 =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
-    testIsolationOfConcurrentIndexTasks(indexTask1, indexTask2);
-  }
-
-  @Test
-  public void indexLocksShouldBlockConcurrentIndexAndDeleteChange() throws Exception {
-    IndexChangeTask indexTask =
-        indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
-    DeleteChangeTask deleteTask =
-        indexEventHandler.new DeleteChangeTask(CHANGE_ID, new IndexEvent());
-    testIsolationOfConcurrentIndexTasks(indexTask, deleteTask);
-  }
-
-  private void testIsolationOfConcurrentIndexTasks(IndexTask indexTask1, IndexTask indexTask2)
-      throws Exception {
-    AtomicInteger changeIndexedCount = new AtomicInteger();
-    AtomicInteger lockFailedCounts = new AtomicInteger();
-    CyclicBarrier changeThreadsSync = new CyclicBarrier(2);
-
-    TestTask<Integer> task1 =
-        new TestTask<>(
-            indexTask1,
-            changeThreadsSync,
-            () -> changeIndexedCount.incrementAndGet(),
-            () -> lockFailedCounts.incrementAndGet());
-    TestTask<Integer> task2 =
-        new TestTask<>(
-            indexTask2,
-            changeThreadsSync,
-            () -> changeIndexedCount.incrementAndGet(),
-            () -> lockFailedCounts.incrementAndGet());
-
-    new Thread(task1).start();
-    new Thread(task2).start();
-    task1.join();
-    task2.join();
-
-    /* Both assertions needs to be true, the order doesn't really matter:
-     * - Only one of the two tasks should succeed
-     * - Only one of the two tasks should fail to acquire the lock
-     */
-    assertThat(changeIndexedCount.get()).isEqualTo(1);
-    assertThat(lockFailedCounts.get()).isEqualTo(1);
   }
 
   private class CurrentThreadScheduledExecutorService implements ScheduledExecutorService {

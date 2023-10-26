@@ -49,7 +49,6 @@ import org.eclipse.jgit.util.FS;
 public class Configuration {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
-  public static final int DEFAULT_NUM_STRIPED_LOCKS = 10;
   public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
   public static final String PLUGIN_NAME = "high-availability";
   public static final String PLUGIN_CONFIG_FILE = PLUGIN_NAME + ".config";
@@ -64,7 +63,6 @@ public class Configuration {
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
   static final String BATCH_THREAD_POOL_SIZE_KEY = "batchThreadPoolSize";
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
-  static final String NUM_STRIPED_LOCKS = "numStripedLocks";
 
   private final Main main;
   private final AutoReindex autoReindex;
@@ -565,14 +563,12 @@ public class Configuration {
     private final int batchThreadPoolSize;
     private final Duration retryInterval;
     private final int maxTries;
-    private final int numStripedLocks;
     private final boolean synchronizeForced;
 
     private Index(Config cfg) {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       batchThreadPoolSize = getInt(cfg, INDEX_SECTION, BATCH_THREAD_POOL_SIZE_KEY, threadPoolSize);
-      numStripedLocks = getInt(cfg, INDEX_SECTION, NUM_STRIPED_LOCKS, DEFAULT_NUM_STRIPED_LOCKS);
       retryInterval = getDuration(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       synchronizeForced =
@@ -585,10 +581,6 @@ public class Configuration {
 
     public int batchThreadPoolSize() {
       return batchThreadPoolSize;
-    }
-
-    public int numStripedLocks() {
-      return numStripedLocks;
     }
 
     public Duration retryInterval() {
