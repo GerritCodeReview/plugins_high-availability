@@ -34,7 +34,6 @@ public class IndexModule extends LifecycleModule {
     bind(ScheduledExecutorService.class)
         .annotatedWith(ForwardedIndexExecutor.class)
         .toProvider(ForwardedIndexExecutorProvider.class);
-    bind(IndexEventLocks.class).in(Scopes.SINGLETON);
     bind(ScheduledExecutorService.class)
         .annotatedWith(BatchIndexExecutor.class)
         .toProvider(BatchIndexExecutorProvider.class);

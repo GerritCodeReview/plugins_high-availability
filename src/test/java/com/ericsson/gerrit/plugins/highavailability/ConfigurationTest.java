@@ -17,7 +17,6 @@ package com.ericsson.gerrit.plugins.highavailability;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.BATCH_THREAD_POOL_SIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_NUM_STRIPED_LOCKS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_TIMEOUT;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Event.ALLOWED_LISTENERS;
@@ -48,7 +47,6 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.NUM_STRIPED_LOCKS;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PEER_INFO_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.DEFAULT_PEER_INFO_STRATEGY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfo.STRATEGY_KEY;
@@ -479,14 +477,6 @@ public class ConfigurationTest {
 
     globalPluginConfig.setBoolean(HEALTH_CHECK_SECTION, null, ENABLE_KEY, true);
     assertThat(getConfiguration().healthCheck().enabled()).isTrue();
-  }
-
-  @Test
-  public void testGetIndexNumStripedLocks() throws Exception {
-    assertThat(getConfiguration().index().numStripedLocks()).isEqualTo(DEFAULT_NUM_STRIPED_LOCKS);
-
-    globalPluginConfig.setInt(INDEX_SECTION, null, NUM_STRIPED_LOCKS, 100);
-    assertThat(getConfiguration().index().numStripedLocks()).isEqualTo(100);
   }
 
   @Test
