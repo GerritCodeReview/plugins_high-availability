@@ -1,0 +1,33 @@
+[gerrit]
+	canonicalWebUrl = http://localhost:8080
+	serverId = fe3f1330-90b2-474d-b451-19a689f0187e
+	basePath = git
+[container]
+	javaOptions = "-Dflogger.backend_factory=com.google.common.flogger.backend.log4j.Log4jBackendFactory#getInstance"
+	javaOptions = "-Dflogger.logging_context=com.google.gerrit.server.logging.LoggingContext#getInstance"
+	javaOptions = "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:$DEBUG_PORT"
+	user = gerrit
+	javaOptions = -Djava.security.egd=file:/dev/./urandom
+	javaOptions = --add-opens java.base/java.net=ALL-UNNAMED
+	javaOptions = --add-opens java.base/java.lang.invoke=ALL-UNNAMED
+[index]
+	type = lucene
+[auth]
+	type = DEVELOPMENT_BECOME_ANY_ACCOUNT
+[receive]
+	enableSignedPush = false
+[sendemail]
+	smtpServer = localhost
+	enable = false
+[sshd]
+	listenAddress = *:29418
+[httpd]
+	listenUrl = http://*:8080/
+[cache]
+	directory = cache
+[plugin "javamelody"]
+    prometheusBearerToken = a5a737a4-3bef-4996-a5eb-7d14acf31ea8
+[plugin "metrics-reporter-prometheus"]
+    prometheusBearerToken = a5a737a4-3bef-4996-a5eb-7d14acf31ea8
+[plugin "websession-flatile"]
+    directory = /var/gerrit/websessions
