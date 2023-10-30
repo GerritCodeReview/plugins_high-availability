@@ -226,6 +226,9 @@ calls by specifying the following fields:
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, the default value is set to 10 seconds.
 
+```http.threadPoolSize```
+:   Maximum number of threads used to execute REST calls towards target instances.
+
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.
     Defaults to true.

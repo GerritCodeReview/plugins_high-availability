@@ -22,6 +22,7 @@ gerrit_plugin(
     deps = [
       "@jgroups//jar",
       "@jgroups-kubernetes//jar",
+      "@failsafe//jar",
       "@global-refdb//jar:neverlink",
     ],
 )
