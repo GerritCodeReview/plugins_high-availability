@@ -33,6 +33,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.events.Event;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.gson.Gson;
 import com.google.inject.Provider;
 import java.io.IOException;
@@ -107,8 +108,12 @@ public class RestForwarderTest {
     configMock = mock(Configuration.class, Answers.RETURNS_DEEP_STUBS);
     when(configMock.http().maxTries()).thenReturn(3);
     when(configMock.http().retryInterval()).thenReturn(Duration.ofMillis(10));
+    when(configMock.http().threadPoolSize()).thenReturn(2);
     peersMock = mock(Provider.class);
     when(peersMock.get()).thenReturn(ImmutableSet.of(new PeerInfo(URL)));
+    WorkQueue workQueue = mock(WorkQueue.class);
+    when(workQueue.createQueue(configMock.http().threadPoolSize(), "RestForwarderScheduler"))
+        .thenReturn(Executors.newScheduledThreadPool(2));
     forwarder =
         new RestForwarder(
             httpSessionMock,
@@ -116,7 +121,7 @@ public class RestForwarderTest {
             configMock,
             peersMock,
             gson, // TODO: Create provider
-            new RestForwarderScheduler(Executors.newScheduledThreadPool(1)));
+            new RestForwarderScheduler(new FailsafeExecutorProvider(configMock).get()));
   }
 
   @Test
