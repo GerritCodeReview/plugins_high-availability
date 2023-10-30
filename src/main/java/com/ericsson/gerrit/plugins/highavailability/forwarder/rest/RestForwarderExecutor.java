@@ -1,4 +1,4 @@
-// Copyright (C) 2020 The Android Open Source Project
+// Copyright (C) 2023 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,21 +14,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import dev.failsafe.FailsafeExecutor;
-import java.util.concurrent.CompletableFuture;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Singleton
-public class RestForwarderScheduler {
-  private final FailsafeExecutor<Boolean> executor;
+import com.google.inject.BindingAnnotation;
+import java.lang.annotation.Retention;
 
-  @Inject
-  public RestForwarderScheduler(@RestForwarderExecutor FailsafeExecutor<Boolean> executor) {
-    this.executor = executor;
-  }
-
-  public CompletableFuture<Boolean> execute(RestForwarder.Request request) {
-    return executor.getAsync(() -> request.execute());
-  }
-}
+@BindingAnnotation
+@Retention(RUNTIME)
+public @interface RestForwarderExecutor {}
