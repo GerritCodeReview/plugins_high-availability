@@ -226,12 +226,6 @@ class RestForwarder implements Forwarder {
               action, key, destination);
           throw e;
         }
-        if (execCnt >= maxTries) {
-          log.atSevere().log(
-              "Failed to %s %s on %s after %d tries; giving up",
-              action, key, destination, maxTries);
-          throw e;
-        }
       }
       return false;
     }
