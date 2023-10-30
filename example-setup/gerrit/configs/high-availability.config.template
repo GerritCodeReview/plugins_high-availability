@@ -1,0 +1,22 @@
+[peerInfo]
+  strategy = static
+
+[peerInfo "static"]
+  url = http://$PEER_INSTANCE:8080
+
+[autoReindex]
+  enabled = true
+  pollInterval = 10s
+
+[cache]
+   pattern = changes
+   pattern = conflicts
+   pattern = git_tags
+   pattern = mergeability
+   pattern = adv_bases
+
+[websession]
+  synchronize = false
+
+[healthcheck]
+  enable = false
