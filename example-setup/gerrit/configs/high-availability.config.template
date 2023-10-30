@@ -1,0 +1,8 @@
+[main]
+  sharedDirectory = /var/gerrit/shareddir
+
+[peerInfo]
+  strategy = static
+
+[peerInfo "static"]
+  url = http://$PEER_INSTANCE:8080
