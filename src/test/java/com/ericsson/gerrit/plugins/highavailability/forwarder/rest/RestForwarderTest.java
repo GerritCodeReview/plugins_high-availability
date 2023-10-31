@@ -121,7 +121,7 @@ public class RestForwarderTest {
             configMock,
             peersMock,
             gson, // TODO: Create provider
-            new RestForwarderScheduler(new FailsafeExecutorProvider(configMock).get()));
+            new FailsafeExecutorProvider(configMock).get());
   }
 
   @Test

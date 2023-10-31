@@ -29,6 +29,7 @@ import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -49,7 +50,7 @@ class RestForwarder implements Forwarder {
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
   private final Gson gson;
-  private final RestForwarderScheduler scheduler;
+  private FailsafeExecutor<Boolean> executor;
 
   @Inject
   RestForwarder(
@@ -58,13 +59,13 @@ class RestForwarder implements Forwarder {
       Configuration cfg,
       Provider<Set<PeerInfo>> peerInfoProvider,
       @EventGson Gson gson,
-      RestForwarderScheduler scheduler) {
+      @RestForwarderExecutor FailsafeExecutor<Boolean> executor) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
     this.gson = gson;
-    this.scheduler = scheduler;
+    this.executor = executor;
   }
 
   @Override
@@ -162,7 +163,7 @@ class RestForwarder implements Forwarder {
       RequestMethod method, String action, String endpoint, Object id, Object payload) {
     return peerInfoProvider.get().stream()
         .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
-        .map(scheduler::execute)
+        .map(r -> executor.getAsync(() -> r.execute()))
         .reduce(
             CompletableFuture.completedFuture(true),
             (a, b) -> a.thenCombine(b, (left, right) -> left && right));
