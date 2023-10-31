@@ -528,17 +528,11 @@ public class Configuration {
     static final String CACHE_SECTION = "cache";
     static final String PATTERN_KEY = "pattern";
 
-    private final int threadPoolSize;
     private final List<String> patterns;
 
     private Cache(Config cfg) {
       super(cfg, CACHE_SECTION);
-      threadPoolSize = getInt(cfg, CACHE_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       patterns = Arrays.asList(cfg.getStringList(CACHE_SECTION, null, PATTERN_KEY));
-    }
-
-    public int threadPoolSize() {
-      return threadPoolSize;
     }
 
     public List<String> patterns() {
