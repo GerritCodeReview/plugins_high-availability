@@ -186,6 +186,9 @@ a member joins or leaves the cluster.
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, the default value is set to 10 seconds.
 
+```jgroups.threadPoolSize```
+:   Maximum number of threads used to execute JGroups calls towards target instances.
+
 NOTE: the default settings for `jgroups.timeout` and `jgroups.maxTries` ensure
 that JGroups will keep retrying to forward a message for one hour.
 

@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
+import dev.failsafe.FailsafeExecutor;
 import org.jgroups.blocks.MessageDispatcher;
 import org.jgroups.blocks.RequestHandler;
 
@@ -34,6 +36,11 @@ public class JGroupsForwarderModule extends LifecycleModule {
     bind(RequestHandler.class).to(MessageProcessor.class);
     install(new JChannelProviderModule());
     listener().to(OnStartStop.class);
+
+    bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
+        .annotatedWith(JGroupsForwarderExecutor.class)
+        .toProvider(FailsafeExecutorProvider.class)
+        .in(Scopes.SINGLETON);
   }
 
   @Provides
