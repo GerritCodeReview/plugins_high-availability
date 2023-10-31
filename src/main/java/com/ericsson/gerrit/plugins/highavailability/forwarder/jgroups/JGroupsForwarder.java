@@ -23,6 +23,7 @@ import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import dev.failsafe.FailsafeExecutor;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
@@ -41,84 +42,74 @@ public class JGroupsForwarder implements Forwarder {
   private final MessageDispatcher dispatcher;
   private final JGroups jgroupsConfig;
   private final Gson gson;
+  private final FailsafeExecutor<Boolean> executor;
 
   @Inject
-  JGroupsForwarder(MessageDispatcher dispatcher, Configuration cfg, @JGroupsGson Gson gson) {
+  JGroupsForwarder(
+      MessageDispatcher dispatcher,
+      Configuration cfg,
+      @JGroupsGson Gson gson,
+      @JGroupsForwarderExecutor FailsafeExecutor<Boolean> executor) {
     this.dispatcher = dispatcher;
     this.jgroupsConfig = cfg.jgroups();
     this.gson = gson;
+    this.executor = executor;
   }
 
   @Override
   public CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent) {
-    return CompletableFuture.completedFuture(execute(new IndexAccount(accountId)));
+    return execute(new IndexAccount(accountId));
   }
 
   @Override
   public CompletableFuture<Boolean> indexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return CompletableFuture.completedFuture(
-        execute(new IndexChange.Update(projectName, changeId)));
+    return execute(new IndexChange.Update(projectName, changeId));
   }
 
   @Override
   public CompletableFuture<Boolean> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return CompletableFuture.completedFuture(
-        execute(new IndexChange.Update(projectName, changeId, true)));
+    return execute(new IndexChange.Update(projectName, changeId, true));
   }
 
   @Override
   public CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
-    return CompletableFuture.completedFuture(execute(new IndexChange.Delete(changeId)));
+    return execute(new IndexChange.Delete(changeId));
   }
 
   @Override
   public CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent) {
-    return CompletableFuture.completedFuture(execute(new IndexGroup(uuid)));
+    return execute(new IndexGroup(uuid));
   }
 
   @Override
   public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent) {
-    return CompletableFuture.completedFuture(execute(new IndexProject(projectName)));
+    return execute(new IndexProject(projectName));
   }
 
   @Override
   public CompletableFuture<Boolean> send(Event event) {
-    return CompletableFuture.completedFuture(execute(new PostEvent(event)));
+    return execute(new PostEvent(event));
   }
 
   @Override
   public CompletableFuture<Boolean> evict(String cacheName, Object key) {
-    return CompletableFuture.completedFuture(execute(new EvictCache(cacheName, gson.toJson(key))));
+    return execute(new EvictCache(cacheName, gson.toJson(key)));
   }
 
   @Override
   public CompletableFuture<Boolean> addToProjectList(String projectName) {
-    return CompletableFuture.completedFuture(execute(new AddToProjectList(projectName)));
+    return execute(new AddToProjectList(projectName));
   }
 
   @Override
   public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
-    return CompletableFuture.completedFuture(execute(new RemoveFromProjectList(projectName)));
+    return execute(new RemoveFromProjectList(projectName));
   }
 
-  private boolean execute(Command cmd) {
-    for (int i = 0; i < jgroupsConfig.maxTries(); i++) {
-      if (executeOnce(cmd)) {
-        return true;
-      }
-      try {
-        Thread.sleep(jgroupsConfig.retryInterval().toMillis());
-      } catch (InterruptedException ie) {
-        log.atSevere().withCause(ie).log("%s was interrupted, giving up", cmd);
-        Thread.currentThread().interrupt();
-        return false;
-      }
-    }
-
-    log.atSevere().log("Forwarding %s failed", cmd);
-    return false;
+  private CompletableFuture<Boolean> execute(Command cmd) {
+    return executor.getAsync(() -> executeOnce(cmd));
   }
 
   private boolean executeOnce(Command cmd) {
