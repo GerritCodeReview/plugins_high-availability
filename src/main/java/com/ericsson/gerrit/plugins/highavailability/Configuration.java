@@ -349,6 +349,7 @@ public class Configuration {
     private final Duration timeout;
     private final int maxTries;
     private final Duration retryInterval;
+    private final int threadPoolSize;
     private final boolean useKubernetes;
     private final Optional<Path> protocolStack;
 
@@ -361,6 +362,7 @@ public class Configuration {
       timeout = getDuration(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT);
       maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       retryInterval = getDuration(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
+      threadPoolSize = getInt(cfg, JGROUPS_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
       protocolStack = getProtocolStack(cfg, site);
       log.atFine().log(
@@ -401,6 +403,10 @@ public class Configuration {
 
     public Duration retryInterval() {
       return retryInterval;
+    }
+
+    public int threadPoolSize() {
+      return threadPoolSize;
     }
 
     public boolean useKubernetes() {
