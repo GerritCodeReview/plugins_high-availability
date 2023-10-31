@@ -236,10 +236,6 @@ calls by specifying the following fields:
 :   Whether to synchronize cache evictions.
     Defaults to true.
 
-```cache.threadPoolSize```
-:   Maximum number of threads used to send cache evictions to the target instance.
-    Defaults to 4.
-
 ```cache.pattern```
 :   Pattern to match names of custom caches for which evictions should be
     forwarded (in addition to the core caches that are always forwarded). May be
