@@ -61,7 +61,8 @@ public class JGroupsForwarderTest {
     when(dispatcher.getChannel().getView().size()).thenReturn(2);
     when(dispatcher.getChannel().getView().getMembers()).thenReturn(List.of(A1, A2));
 
-    forwarder = new JGroupsForwarder(dispatcher, cfg, gson);
+    forwarder =
+        new JGroupsForwarder(dispatcher, cfg, gson, new FailsafeExecutorProvider(cfg).get());
   }
 
   @Test
