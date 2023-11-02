@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
@@ -46,7 +47,7 @@ public class ForwardedIndexAccountHandlerTest {
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(id, Operation.INDEX, Optional.empty());
+    handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     verify(indexerMock).index(id);
   }
 
@@ -55,7 +56,7 @@ public class ForwardedIndexAccountHandlerTest {
     UnsupportedOperationException thrown =
         assertThrows(
             UnsupportedOperationException.class,
-            () -> handler.index(id, Operation.DELETE, Optional.empty()));
+            () -> handler.index(id, Operation.DELETE, Optional.empty()).get(10, SECONDS));
     assertThat(thrown).hasMessageThat().contains("Delete from account index not supported");
   }
 
@@ -73,7 +74,7 @@ public class ForwardedIndexAccountHandlerTest {
         .index(id);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(id, Operation.INDEX, Optional.empty());
+    handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(id);
@@ -92,7 +93,9 @@ public class ForwardedIndexAccountHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     IOException thrown =
-        assertThrows(IOException.class, () -> handler.index(id, Operation.INDEX, Optional.empty()));
+        assertThrows(
+            IOException.class,
+            () -> handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS));
     assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 

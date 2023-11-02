@@ -15,16 +15,39 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
-import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import dev.failsafe.Failsafe;
+import dev.failsafe.FailsafeExecutor;
+import dev.failsafe.RetryPolicy;
+import java.io.IOException;
+import java.util.concurrent.Executors;
 
 @Singleton
-class ForwardedIndexExecutorProvider extends ExecutorProvider {
+public class ForwardedIndexExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
+
+  private final Configuration cfg;
 
   @Inject
-  ForwardedIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    super(workQueue, config.index().threadPoolSize(), "Forwarded-Index-Event");
+  public ForwardedIndexExecutorProvider(Configuration cfg) {
+    this.cfg = cfg;
+  }
+
+  @Override
+  public FailsafeExecutor<Boolean> get() {
+    RetryPolicy<Boolean> retryPolicy =
+        RetryPolicy.<Boolean>builder()
+            .withMaxAttempts(cfg.index().maxTries())
+            .withDelay(cfg.index().retryInterval())
+            .handleResult(false)
+            .abortOn(IOException.class)
+            .build();
+    // TODO: the executor shall be created by workQueue.createQueue(...)
+    return Failsafe.with(retryPolicy).with(Executors.newScheduledThreadPool(threadPoolSize(cfg)));
+  }
+
+  protected int threadPoolSize(Configuration cfg) {
+    return cfg.index().threadPoolSize();
   }
 }
