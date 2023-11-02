@@ -177,9 +177,9 @@ a member joins or leaves the cluster.
     forwarding a message. When not specified, the default value is 5 seconds.
 
 ```jgroups.maxTries```
-:   Maximum number of times JGroups should attempt to forward a message. Setting
-    this value to 0 will disable retries. When not specified, the default value
-    is 720 times.
+:   Maximum number of times JGroups should attempt to forward a messages. Must be at least 1.
+    Setting this option to zero or negative will assume the default value.
+    When not specified, the default value is 720 times.
 
 ```jgroups.retryInterval```
 :   The interval of time in milliseconds between the subsequent auto-retries.
@@ -220,8 +220,9 @@ calls by specifying the following fields:
 
 ```http.maxTries```
 :   Maximum number of times the plugin should attempt when calling a REST API in
-    the target instance. Setting this value to 0 will disable retries. When not
-    specified, the default value is 360. After this number of failed tries, an
+    the target instance. Must be at least 1.
+    Setting this option to zero or negative will assume the default value;
+    When not specified, the default value is 360. After this number of failed attempts, an
     error is logged.
 
 ```http.retryInterval```
@@ -273,9 +274,10 @@ calls by specifying the following fields:
 
 ```index.maxTries```
 :   Maximum number of times the plugin should attempt to reindex changes.
-    Setting this value to 0 will disable retries. After this number of failed tries,
-    an error is logged and the local index should be considered stale and needs
-    to be investigated and manually reindexed.
+    Must be at least 1.
+    Setting this option to zero or negative will assume the default value;
+    After this number of failed tries, an error is logged and the local index should be considered
+    stale and needs to be investigated and manually reindexed.
     Defaults to 2.
 
 ```index.retryInterval```
