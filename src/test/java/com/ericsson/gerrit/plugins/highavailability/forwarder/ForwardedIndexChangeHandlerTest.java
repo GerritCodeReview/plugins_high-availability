@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeast;
@@ -28,15 +29,17 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutorProvider;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
+import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ExecutionException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,38 +76,40 @@ public class ForwardedIndexChangeHandlerTest {
     id = Change.id(TEST_CHANGE_NUMBER);
     Change change = new Change(null, id, null, null, Instant.now());
     when(changeNotes.getChange()).thenReturn(change);
+    when(configMock.index().threadPoolSize()).thenReturn(4);
     when(configMock.index().maxTries()).thenReturn(3);
+    when(configMock.index().retryInterval()).thenReturn(Duration.ofMillis(10));
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
-    ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+    FailsafeExecutor<Boolean> indexExecutor = new ForwardedIndexExecutorProvider(configMock).get();
     handler =
         new ForwardedIndexChangeHandler(
-            indexerMock, configMock, executor, ctxMock, changeCheckerFactoryMock);
+            indexerMock, indexExecutor, ctxMock, changeCheckerFactoryMock);
   }
 
   @Test
   public void changeIsIndexedWhenUpToDate() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     verify(indexerMock, times(1)).index(any(Change.class));
   }
 
   @Test
   public void changeIsStillIndexedEvenWhenOutdated() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent()));
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent())).get(10, SECONDS);
     verify(indexerMock, atLeast(1)).index(any(Change.class));
   }
 
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
-    handler.index(TEST_CHANGE_ID, Operation.DELETE, Optional.empty());
+    handler.index(TEST_CHANGE_ID, Operation.DELETE, Optional.empty()).get(10, SECONDS);
     verify(indexerMock, times(1)).delete(id);
   }
 
   @Test
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST, CHANGE_OUTDATED);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     verify(indexerMock, times(0)).delete(id);
   }
 
@@ -123,7 +128,7 @@ public class ForwardedIndexChangeHandlerTest {
         .index(any(Change.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock, times(1)).index(any(Change.class));
@@ -142,11 +147,12 @@ public class ForwardedIndexChangeHandlerTest {
         .index(any(Change.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    IOException thrown =
+    ExecutionException thrown =
         assertThrows(
-            IOException.class,
-            () -> handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()));
-    assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
+            ExecutionException.class,
+            () ->
+                handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS));
+    assertThat(thrown.getCause()).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock, times(1)).index(any(Change.class));

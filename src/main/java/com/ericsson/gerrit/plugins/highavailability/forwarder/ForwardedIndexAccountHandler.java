@@ -19,6 +19,7 @@ import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Index an account using {@link AccountIndexer}. This class is meant to be used on the receiving
@@ -36,13 +37,14 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected void doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
     indexer.index(id);
     log.atFine().log("Account %s successfully indexed", id);
+    return CompletableFuture.completedFuture(true);
   }
 
   @Override
-  protected void doDelete(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doDelete(Account.Id id, Optional<IndexEvent> indexEvent) {
     throw new UnsupportedOperationException("Delete from account index not supported");
   }
 }
