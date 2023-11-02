@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2a9e1b1_1ebd37bd",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/FailsafeExecutorProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-11-02T19:46:22Z",
+      "side": 1,
+      "message": "implement the TODO in this or another change ?",
+      "revId": "dc021e3e0f24d28824937551ed1f7b395331170f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
