@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d46f9801_42a8c182",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-11-02T19:43:37Z",
+      "side": 1,
+      "message": "Provider",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "69bebd74c27934b8eb73a6b574db9f39309bf8c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b9e7405_ff621e4f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-11-02T19:43:37Z",
+      "side": 1,
+      "message": "in the receiving gerrit instance",
+      "range": {
+        "startLine": 266,
+        "startChar": 59,
+        "endLine": 266,
+        "endChar": 76
+      },
+      "revId": "69bebd74c27934b8eb73a6b574db9f39309bf8c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2caf14ea_eaddf746",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-11-02T19:43:37Z",
+      "side": 1,
+      "message": "in the receiving gerrit instance",
+      "range": {
+        "startLine": 270,
+        "startChar": 65,
+        "endLine": 270,
+        "endChar": 82
+      },
+      "revId": "69bebd74c27934b8eb73a6b574db9f39309bf8c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71473189_0274cf0f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-11-02T19:43:37Z",
+      "side": 1,
+      "message": "to",
+      "range": {
+        "startLine": 272,
+        "startChar": 13,
+        "endLine": 272,
+        "endChar": 21
+      },
+      "revId": "69bebd74c27934b8eb73a6b574db9f39309bf8c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
