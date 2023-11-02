@@ -16,7 +16,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
+import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,6 +35,7 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Optional;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,9 +57,10 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Mock private ChangeIndexer indexerMock;
   @Mock private ChangeNotes changeNotes;
-  @Mock private Configuration configMock;
-  @Mock private Configuration.Index indexMock;
-  @Mock private ScheduledExecutorService indexExecutorMock;
+
+  @Mock(answer = RETURNS_DEEP_STUBS)
+  private Configuration configMock;
+
   @Mock private OneOffRequestContext ctxMock;
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerAbsentMock;
@@ -69,11 +73,12 @@ public class ForwardedIndexChangeHandlerTest {
     id = Change.id(TEST_CHANGE_NUMBER);
     Change change = new Change(null, id, null, null, Instant.now());
     when(changeNotes.getChange()).thenReturn(change);
-    when(configMock.index()).thenReturn(indexMock);
+    when(configMock.index().maxTries()).thenReturn(3);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
+    ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
     handler =
         new ForwardedIndexChangeHandler(
-            indexerMock, configMock, indexExecutorMock, ctxMock, changeCheckerFactoryMock);
+            indexerMock, configMock, executor, ctxMock, changeCheckerFactoryMock);
   }
 
   @Test
@@ -87,7 +92,7 @@ public class ForwardedIndexChangeHandlerTest {
   public void changeIsStillIndexedEvenWhenOutdated() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent()));
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, atLeast(1)).index(any(Change.class));
   }
 
   @Test
