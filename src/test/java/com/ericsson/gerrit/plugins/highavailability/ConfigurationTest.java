@@ -243,6 +243,12 @@ public class ConfigurationTest {
 
     globalPluginConfig.setString(HTTP_SECTION, null, MAX_TRIES_KEY, INVALID_INT);
     assertThat(getConfiguration().http().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
+
+    globalPluginConfig.setString(HTTP_SECTION, null, MAX_TRIES_KEY, "0");
+    assertThat(getConfiguration().http().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
+
+    globalPluginConfig.setString(HTTP_SECTION, null, MAX_TRIES_KEY, "-1");
+    assertThat(getConfiguration().http().maxTries()).isEqualTo(DEFAULT_MAX_TRIES);
   }
 
   @Test
