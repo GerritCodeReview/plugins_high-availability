@@ -50,6 +50,7 @@ java_library(
         "@global-refdb//jar",
         "@wiremock//jar",
         "@jgroups//jar",
-        "@commons-net//jar"
+        "@commons-net//jar",
+        "@failsafe//jar",
     ],
 )

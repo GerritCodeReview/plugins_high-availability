@@ -19,6 +19,7 @@ import com.google.gerrit.index.project.ProjectIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Index a project using {@link ProjectIndexer}. This class is meant to be used on the receiving
@@ -36,13 +37,16 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
   }
 
   @Override
-  protected void doIndex(Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doIndex(
+      Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
     indexer.index(projectName);
     log.atFine().log("Project %s successfully indexed", projectName);
+    return CompletableFuture.completedFuture(true);
   }
 
   @Override
-  protected void doDelete(Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doDelete(
+      Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
     throw new UnsupportedOperationException("Delete from project index not supported");
   }
 }

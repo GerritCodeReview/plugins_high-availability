@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -41,9 +42,11 @@ public abstract class ForwardedIndexingHandler<T> {
     }
   }
 
-  protected abstract void doIndex(T id, Optional<IndexEvent> indexEvent) throws IOException;
+  protected abstract CompletableFuture<Boolean> doIndex(T id, Optional<IndexEvent> indexEvent)
+      throws IOException;
 
-  protected abstract void doDelete(T id, Optional<IndexEvent> indexEvent) throws IOException;
+  protected abstract CompletableFuture<Boolean> doDelete(T id, Optional<IndexEvent> indexEvent)
+      throws IOException;
 
   /**
    * Index an item in the local node, indexing will not be forwarded to the other node.
@@ -53,29 +56,27 @@ public abstract class ForwardedIndexingHandler<T> {
    * @param indexEvent The index event details.
    * @throws IOException If an error occur while indexing.
    */
-  public void index(T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
+  public CompletableFuture<Boolean> index(
+      T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
     log.atFine().log("%s %s %s", operation, id, indexEvent);
     if (inFlightIndexing.add(id)) {
       try {
         Context.setForwardedEvent(true);
         switch (operation) {
           case INDEX:
-            doIndex(id, indexEvent);
-            break;
+            return doIndex(id, indexEvent);
           case DELETE:
-            doDelete(id, indexEvent);
-            break;
+            return doDelete(id, indexEvent);
           default:
             log.atSevere().log("unexpected operation: %s", operation);
-            break;
+            return CompletableFuture.completedFuture(false);
         }
       } finally {
         Context.unsetForwardedEvent();
         inFlightIndexing.remove(id);
       }
-    } else {
-      throw new InFlightIndexedException(
-          String.format("Indexing for %s %s %s already in flight", operation, id, indexEvent));
     }
+    throw new InFlightIndexedException(
+        String.format("Indexing for %s %s %s already in flight", operation, id, indexEvent));
   }
 }

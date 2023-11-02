@@ -14,14 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl.Factory;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedBatchIndexExecutor;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.concurrent.ScheduledExecutorService;
+import dev.failsafe.FailsafeExecutor;
 
 @Singleton
 public class ForwardedIndexBatchChangeHandler extends ForwardedIndexChangeHandler {
@@ -29,10 +28,9 @@ public class ForwardedIndexBatchChangeHandler extends ForwardedIndexChangeHandle
   @Inject
   ForwardedIndexBatchChangeHandler(
       ChangeIndexer indexer,
-      Configuration config,
-      @ForwardedBatchIndexExecutor ScheduledExecutorService indexExecutor,
+      @ForwardedBatchIndexExecutor FailsafeExecutor<Boolean> indexExecutor,
       OneOffRequestContext oneOffCtx,
       Factory changeCheckerFactory) {
-    super(indexer, config, indexExecutor, oneOffCtx, changeCheckerFactory);
+    super(indexer, indexExecutor, oneOffCtx, changeCheckerFactory);
   }
 }
