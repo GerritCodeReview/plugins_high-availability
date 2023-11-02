@@ -199,6 +199,11 @@ public class Configuration {
     }
   }
 
+  private static int getMaxTries(Config cfg, String section, String name, int defaultValue) {
+    int v = getInt(cfg, section, name, defaultValue);
+    return 1 <= v ? v : defaultValue;
+  }
+
   private static Duration getDuration(
       Config cfg, String section, String setting, Duration defaultValue) {
     return Duration.ofMillis(
@@ -360,7 +365,7 @@ public class Configuration {
       clusterName = getString(cfg, JGROUPS_SECTION, null, CLUSTER_NAME_KEY, DEFAULT_CLUSTER_NAME);
       log.atFine().log("Cluster name: %s", clusterName);
       timeout = getDuration(cfg, JGROUPS_SECTION, TIMEOUT_KEY, DEFAULT_TIMEOUT);
-      maxTries = getInt(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
+      maxTries = getMaxTries(cfg, JGROUPS_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       retryInterval = getDuration(cfg, JGROUPS_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       threadPoolSize = getInt(cfg, JGROUPS_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       useKubernetes = cfg.getBoolean(JGROUPS_SECTION, KUBERNETES_KEY, false);
@@ -463,7 +468,7 @@ public class Configuration {
       password = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, PASSWORD_KEY));
       connectionTimeout = getDuration(cfg, HTTP_SECTION, CONNECTION_TIMEOUT_KEY, DEFAULT_TIMEOUT);
       socketTimeout = getDuration(cfg, HTTP_SECTION, SOCKET_TIMEOUT_KEY, DEFAULT_TIMEOUT);
-      maxTries = getInt(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
+      maxTries = getMaxTries(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       retryInterval = getDuration(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       threadPoolSize = getInt(cfg, HTTP_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
     }
@@ -578,7 +583,7 @@ public class Configuration {
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
       batchThreadPoolSize = getInt(cfg, INDEX_SECTION, BATCH_THREAD_POOL_SIZE_KEY, threadPoolSize);
       retryInterval = getDuration(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
-      maxTries = getInt(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
+      maxTries = getMaxTries(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       synchronizeForced =
           cfg.getBoolean(INDEX_SECTION, SYNCHRONIZE_FORCED_KEY, DEFAULT_SYNCHRONIZE_FORCED);
     }
