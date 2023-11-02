@@ -15,16 +15,19 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
-import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-class ForwardedBatchIndexExecutorProvider extends ExecutorProvider {
+class ForwardedBatchIndexExecutorProvider extends ForwardedIndexExecutorProvider {
 
   @Inject
-  ForwardedBatchIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    super(workQueue, config.index().batchThreadPoolSize(), "Forwarded-BatchIndex-Event");
+  ForwardedBatchIndexExecutorProvider(Configuration cfg) {
+    super(cfg);
+  }
+
+  @Override
+  protected int threadPoolSize(Configuration cfg) {
+    return cfg.index().batchThreadPoolSize();
   }
 }
