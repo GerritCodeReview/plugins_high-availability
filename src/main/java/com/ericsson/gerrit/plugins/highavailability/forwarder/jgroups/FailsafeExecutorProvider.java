@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import dev.failsafe.Failsafe;
@@ -25,10 +26,12 @@ import java.util.concurrent.Executors;
 public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
 
   private final Configuration cfg;
+  private final WorkQueue workQueue;
 
   @Inject
-  FailsafeExecutorProvider(Configuration cfg) {
+  FailsafeExecutorProvider(Configuration cfg, WorkQueue workQueue) {
     this.cfg = cfg;
+    this.workQueue = workQueue;
   }
 
   @Override
@@ -40,6 +43,6 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boole
             .handleResult(false)
             .build();
     return Failsafe.with(retryPolicy)
-        .with(Executors.newScheduledThreadPool(cfg.jgroups().threadPoolSize()));
+        .with(workQueue.createQueue(cfg.jgroups().threadPoolSize(), "JGroupsForwarder"));
   }
 }
