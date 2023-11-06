@@ -24,11 +24,13 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.server.events.EventGsonProvider;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.gson.Gson;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 import org.jgroups.Address;
 import org.jgroups.blocks.MessageDispatcher;
 import org.jgroups.util.Rsp;
@@ -40,6 +42,7 @@ import org.junit.Test;
 public class JGroupsForwarderTest {
 
   private static final int MAX_TRIES = 3;
+  private static final int THREAD_POOLS_SIZE = 4;
 
   private static final Address A1 = new UUID(1, 1);
   private static final Address A2 = new UUID(2, 2);
@@ -57,13 +60,18 @@ public class JGroupsForwarderTest {
     when(cfg.jgroups().maxTries()).thenReturn(MAX_TRIES);
     when(cfg.jgroups().retryInterval()).thenReturn(Duration.ofMillis(1));
     when(cfg.jgroups().timeout()).thenReturn(Duration.ZERO);
+    when(cfg.jgroups().threadPoolSize()).thenReturn(THREAD_POOLS_SIZE);
 
     dispatcher = mock(MessageDispatcher.class, RETURNS_DEEP_STUBS);
     when(dispatcher.getChannel().getView().size()).thenReturn(2);
     when(dispatcher.getChannel().getView().getMembers()).thenReturn(List.of(A1, A2));
 
+    WorkQueue workQueue = mock(WorkQueue.class);
+    when(workQueue.createQueue(THREAD_POOLS_SIZE, "JGroupsForwarder"))
+        .thenReturn(Executors.newScheduledThreadPool(THREAD_POOLS_SIZE));
     forwarder =
-        new JGroupsForwarder(dispatcher, cfg, gson, new FailsafeExecutorProvider(cfg).get());
+        new JGroupsForwarder(
+            dispatcher, cfg, gson, new FailsafeExecutorProvider(cfg, workQueue).get());
   }
 
   @Test
