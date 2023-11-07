@@ -45,7 +45,7 @@ services:
     networks:
       - gerrit-net
     volumes:
-      - syslog-sidecar
+      - syslog-sidecar:/sidecar
     depends_on:
       - syslog-sidecar
       - gerrit-01
@@ -55,6 +55,8 @@ services:
     build: docker-syslog-ng-stdout
     networks:
       - gerrit-net
+    volumes:
+      - syslog-sidecar:/sidecar
 
 networks:
   gerrit-net:
