@@ -33,6 +33,24 @@
       "message": "hue",
       "revId": "3cfd0c56de9ea7e5a759c7d06ea6168585e1302a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "160faa6a_ae1d965c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3042426
+      },
+      "writtenOn": "2023-11-21T01:26:19Z",
+      "side": 1,
+      "message": "\u003e depends on https://gerrit-review.googlesource.com/c/gerrit/+/390986",
+      "parentUuid": "a5b0e437_2187e9e3",
+      "revId": "3cfd0c56de9ea7e5a759c7d06ea6168585e1302a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
