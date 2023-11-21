@@ -31,8 +31,11 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Optional;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 public class ChangeCheckerImpl implements ChangeChecker {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
@@ -109,13 +112,13 @@ public class ChangeCheckerImpl implements ChangeChecker {
                   && (Objects.isNull(indexEvent.targetSha)
                       || Objects.equals(getBranchTargetSha(), indexEvent.targetSha))
                   && (Objects.isNull(indexEvent.metaSha)
-                      || Objects.equals(getMetaSha(repo), indexEvent.metaSha));
+                      || isEventShaInChangeMetaHistory(repo, indexEvent));
         }
       }
       return true;
 
     } catch (IOException ex) {
-      log.atWarning().log("Unable to read meta sha for change %s", changeId);
+      log.atWarning().withCause(ex).log("Unable to read meta sha for change %s", changeId);
       return false;
     }
   }
@@ -165,14 +168,22 @@ public class ChangeCheckerImpl implements ChangeChecker {
     return getChangeNotes().map(this::getTsFromChangeAndDraftComments);
   }
 
-  private String getMetaSha(Repository repo) throws IOException {
+  private Ref getMetaRef(Repository repo) throws IOException {
     String refName = RefNames.changeMetaRef(changeNotes.get().getChange().getId());
     Ref ref = repo.exactRef(refName);
     if (ref == null) {
       throw new IOException(
           String.format("Unable to find meta ref %s for change %s", refName, changeId));
     }
-    return ref.getTarget().getObjectId().getName();
+    return ref;
+  }
+
+  private String getMetaSha(Repository repo) throws IOException {
+    return getMetaRef(repo).getTarget().getObjectId().getName();
+  }
+
+  private ObjectId getMetaObj(Repository repo) throws IOException {
+    return getMetaRef(repo).getObjectId();
   }
 
   private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
@@ -184,5 +195,23 @@ public class ChangeCheckerImpl implements ChangeChecker {
       changeTs = commentTs.after(changeTs) ? commentTs : changeTs;
     }
     return changeTs.getTime() / 1000;
+  }
+
+  private boolean isEventShaInChangeMetaHistory(Repository repo, IndexEvent indexEvent)
+      throws IOException {
+    ObjectId metaObj = null;
+    RevCommit metaCommit;
+
+    do {
+      metaCommit =
+          RevCommit.parse(
+              repo.open(metaObj == null ? getMetaObj(repo) : metaObj, Constants.OBJ_COMMIT)
+                  .getCachedBytes());
+      metaObj = metaCommit.getParents()[0].toObjectId();
+    } while (!metaObj.name().equals(indexEvent.metaSha)
+        && metaCommit.getCommitTime() == indexEvent.eventCreatedOn
+        && metaCommit.getParentCount() == 1);
+
+    return metaObj.name().equals(indexEvent.metaSha);
   }
 }
