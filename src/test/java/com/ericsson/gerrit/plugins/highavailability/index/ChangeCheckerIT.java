@@ -17,12 +17,17 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.PushOneCommit.Result;
 import com.google.gerrit.acceptance.TestPlugin;
+import com.google.gerrit.entities.Patch;
 import com.google.gerrit.entities.RefNames;
 import java.io.IOException;
 import java.util.Optional;
+import com.google.gerrit.extensions.api.changes.ReviewInput;
+import com.google.gerrit.extensions.client.Comment;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.junit.Test;
@@ -59,6 +64,11 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
     Optional<IndexEvent> event = changeChecker.newIndexEvent();
+
+    ReviewInput reviewInput = new ReviewInput();
+    ReviewInput.CommentInput comment = createCommentInput(1, 0, 1, 1, "Test comment");
+    reviewInput.comments = ImmutableMap.of(Patch.COMMIT_MSG, ImmutableList.of(comment));
+    gApi.changes().id(change.getChangeId()).current().review(reviewInput);
 
     assertThat(changeChecker.isChangeUpToDate(event)).isTrue();
   }
@@ -123,5 +133,18 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
 
       return ref.getTarget().getObjectId().getName();
     }
+  }
+
+  private ReviewInput.CommentInput createCommentInput(
+      int startLine, int startCharacter, int endLine, int endCharacter, String message) {
+    ReviewInput.CommentInput comment = new ReviewInput.CommentInput();
+    comment.range = new Comment.Range();
+    comment.range.startLine = startLine;
+    comment.range.startCharacter = startCharacter;
+    comment.range.endLine = endLine;
+    comment.range.endCharacter = endCharacter;
+    comment.message = message;
+    comment.path = Patch.COMMIT_MSG;
+    return comment;
   }
 }
