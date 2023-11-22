@@ -66,6 +66,48 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "78c167b6_49fbb252",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-11-22T10:02:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e3895b8_1f2a7f52",
+      "revId": "52c17e1749edb9cfb6c9521e8aa3cc3889882a51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44a892e7_a6be69a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-11-22T10:02:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1bfad72_a21948cf",
+      "range": {
+        "startLine": 9,
+        "startChar": 447,
+        "endLine": 9,
+        "endChar": 511
+      },
+      "revId": "52c17e1749edb9cfb6c9521e8aa3cc3889882a51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cf847856_75d0187b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -122,6 +164,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd411b6_9f7a18ff",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-11-22T10:02:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f76b8c5a_1ebce635",
+      "range": {
+        "startLine": 201,
+        "startChar": 18,
+        "endLine": 201,
+        "endChar": 42
+      },
+      "revId": "52c17e1749edb9cfb6c9521e8aa3cc3889882a51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af397157_fabb4441",
@@ -139,6 +205,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70ff5cbe_a663d8a6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-11-22T10:02:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af397157_fabb4441",
+      "revId": "52c17e1749edb9cfb6c9521e8aa3cc3889882a51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9c141c1_73c4914d",
@@ -152,6 +236,24 @@
       "writtenOn": "2023-11-21T10:36:03Z",
       "side": 1,
       "message": "how do we ensure that this recursion doesn\u0027t cause a stack overflow ?",
+      "revId": "52c17e1749edb9cfb6c9521e8aa3cc3889882a51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "102a5d09_23ea0c19",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-11-22T10:02:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9c141c1_73c4914d",
       "revId": "52c17e1749edb9cfb6c9521e8aa3cc3889882a51",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
