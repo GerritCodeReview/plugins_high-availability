@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b89f4868_9925df3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-11-23T08:10:18Z",
+      "side": 1,
+      "message": "Can you give me some help on how to find where the check fails? @matthias.sohn@gmail.com",
+      "revId": "d01e553076442e5fc5bb9158917577f1e9024ff6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ee59be03_33215239",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
         "patchSetId": 5
