@@ -22,6 +22,30 @@
       },
       "revId": "98d56f234140e4a5ee78fb5e13aee743a515f1cb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca58df20_20814ec4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2023-11-28T14:13:02Z",
+      "side": 1,
+      "message": "I cannot reproduce this issue any more. It might be something that was fixed with a newer mockito version. Anyway, I found that the default return values of unstubbed methods is non-null when using the RETURNS_DEEP_STUBS option and this explains why `cfg.jgroups()` is not `null` and also why `cfg.jgroups().timeout()` is not null.\n\nI will abandon this change.",
+      "parentUuid": "b6ea70aa_b3a41e17",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "98d56f234140e4a5ee78fb5e13aee743a515f1cb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
