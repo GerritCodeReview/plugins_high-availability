@@ -71,7 +71,7 @@ public class RestForwarderScheduler {
   public RestForwarderScheduler(
       WorkQueue workQueue, Configuration cfg, Provider<Set<PeerInfo>> peerInfoProvider) {
     int executorSize = peerInfoProvider.get().size() * cfg.index().threadPoolSize();
-    retryInterval = cfg.index().retryInterval();
+    retryInterval = cfg.http().retryInterval();
     this.executor = workQueue.createQueue(executorSize, "RestForwarderScheduler");
   }
 
