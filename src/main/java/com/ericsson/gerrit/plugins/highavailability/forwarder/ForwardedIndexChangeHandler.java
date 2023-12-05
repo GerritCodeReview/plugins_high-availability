@@ -119,6 +119,11 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         return;
       }
 
+      if (isCausedByStorageException(e)) {
+        rescheduleIndex(id, indexEvent, retryCount + 1);
+        log.atInfo().withCause(e).log("Waiting for the patchset of Change %s to be synced", id);
+        return;
+      }
       throw e;
     }
   }
@@ -179,5 +184,9 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       cause = cause.getCause();
     }
     return false;
+  }
+
+  private static boolean isCausedByStorageException(Throwable throwable) {
+    return throwable instanceof StorageException;
   }
 }
