@@ -110,6 +110,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
           log.atSevere().log(
               "Change %s could not be found in the local Git repository (event=%s)",
               id, indexEvent);
+          throw new NoSuchChangeException(Change.Id.tryParse(id).get());
         }
       }
     } catch (Exception e) {
