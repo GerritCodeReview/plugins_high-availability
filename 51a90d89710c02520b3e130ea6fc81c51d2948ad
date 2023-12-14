@@ -16,6 +16,24 @@
       "message": "I think this can still happen since the change can be modified again on the active instance at any time and there\u0027s always a lag due to NFS client caching and indexing happening asynchronously. I think to prevent this the reindexing in the standby would need to happen synchronously in the same transaction as the modification on the active instance.",
       "revId": "51a90d89710c02520b3e130ea6fc81c51d2948ad",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d3cffe_67ead03b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-12-14T08:42:22Z",
+      "side": 1,
+      "message": "I don\u0027t think so, index synchronously in the same transaction will make the operation in the active instance slow.\n\nreindex and checker.isChangeUpToDate in the stanby server is corresponding to the IndexEvent. If there is a lag and the change is modified again, another reindex and checker is responsible for the new IndexEvent.\n\nIf checker is after reindex, the standy will mistakenly assume that the latest change data from NFS had already been loaded but actually it load an old one.",
+      "parentUuid": "f3caf11f_4961861f",
+      "revId": "51a90d89710c02520b3e130ea6fc81c51d2948ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
