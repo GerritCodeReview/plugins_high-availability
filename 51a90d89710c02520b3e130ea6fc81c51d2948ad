@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3caf11f_4961861f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-12-14T08:25:35Z",
+      "side": 1,
+      "message": "I think this can still happen since the change can be modified again on the active instance at any time and there\u0027s always a lag due to NFS client caching and indexing happening asynchronously. I think to prevent this the reindexing in the standby would need to happen synchronously in the same transaction as the modification on the active instance.",
+      "revId": "51a90d89710c02520b3e130ea6fc81c51d2948ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
