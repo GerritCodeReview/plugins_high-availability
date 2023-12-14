@@ -51,6 +51,42 @@
       "message": "Can you check from which version it starts and merge it from there",
       "revId": "d8e5072ee6356cad3491c29874bafbb03ffc9493",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "590461b4_2399ce69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-12-14T06:37:55Z",
+      "side": 1,
+      "message": "I check from stable-3.0 to stable-3.9, the HA plugin use index.retryInterval not http.retryInterval and don\u0027t check stable-2.x.\n\nI think we should use http.retryInterval here to control the master reschedule http retry task and index.retryInterval should be used in the standy.",
+      "parentUuid": "60015c2e_fac9784a",
+      "revId": "d8e5072ee6356cad3491c29874bafbb03ffc9493",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a72cd03_2ad687d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-12-14T06:37:55Z",
+      "side": 1,
+      "message": "Yes, http.retryInterval is mentioned in the doc, but not used in the code in master branch.",
+      "parentUuid": "76142d56_4692dcf4",
+      "revId": "d8e5072ee6356cad3491c29874bafbb03ffc9493",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
