@@ -87,7 +87,6 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       }
       if (changeNotes.isPresent()) {
         ChangeNotes notes = changeNotes.get();
-        reindex(notes);
 
         if (checker.isChangeUpToDate(indexEvent)) {
           if (retryCount > 0) {
@@ -102,6 +101,8 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
               id, indexEvent, checker);
           rescheduleIndex(id, indexEvent, retryCount + 1);
         }
+
+        reindex(notes);
       } else {
         log.atWarning().log(
             "Change %s not present yet in local Git repository (event=%s) after %d attempt(s)",
