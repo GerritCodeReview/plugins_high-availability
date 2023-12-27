@@ -87,6 +87,24 @@
       "parentUuid": "76142d56_4692dcf4",
       "revId": "d8e5072ee6356cad3491c29874bafbb03ffc9493",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dda7747_ab837bd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083195
+      },
+      "writtenOn": "2023-12-27T02:23:21Z",
+      "side": 1,
+      "message": "then, start from lower branch and merge it up",
+      "parentUuid": "590461b4_2399ce69",
+      "revId": "d8e5072ee6356cad3491c29874bafbb03ffc9493",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
