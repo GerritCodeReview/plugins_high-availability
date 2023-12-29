@@ -20,6 +20,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9871343a_697e71f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1160733
+      },
+      "writtenOn": "2023-12-29T02:50:11Z",
+      "side": 1,
+      "message": "Hello @matthias.sohn@gmail.com, could you help review this change? Thank you.",
+      "revId": "33b5007b7d7c72fca9103543db340e89566e30fa",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "979bfc66_fc61ebc6",
         "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerIT.java",
         "patchSetId": 6
