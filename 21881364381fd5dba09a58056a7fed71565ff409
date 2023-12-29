@@ -93,6 +93,30 @@
       },
       "revId": "21881364381fd5dba09a58056a7fed71565ff409",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b270c87f_19759bfb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-12-29T10:37:04Z",
+      "side": 1,
+      "message": "\u003e The problem is when reindex(L90 at left view), then change is not up-to-date and the reindexing does nothing,\n\nSure, that was a bug because it happened before the check.\n\n\u003e but when checker.isChangeUpToDate(L92 at left view), HA will reload the change from the share storage(like NFS with some syncing lag) , the change could be up-to-date, so HA exit successfully without rescheduleIndex, this causes an old change index remaining in Gerrit.\n\nWell, if the change is up to date, then it is not an old change.\nMaybe it would be worth to create an issue on issues.gerritcodereview.com and specify the steps to reproduce the problem.\n\n\u003e I will try to create some tests to cover this case.\n\n+1",
+      "parentUuid": "74c8e500_2b1489d5",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 23
+      },
+      "revId": "21881364381fd5dba09a58056a7fed71565ff409",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

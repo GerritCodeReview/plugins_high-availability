@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d819885_166933f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-12-29T10:37:04Z",
+      "side": 1,
+      "message": "I would like to see a proper issue raised ad the steps to reproduce the problem.\nWe have been using the HA plugin for many years, I would be curious to see if this is a known issue or a new one.",
+      "revId": "3863c4c7574eb13d39f9829d3172f15bda57a62a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
