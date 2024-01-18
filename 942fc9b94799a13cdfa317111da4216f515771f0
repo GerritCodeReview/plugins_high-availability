@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73b6e336_0fc41c71",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-01-18T23:02:09Z",
+      "side": 1,
+      "message": "I believe this also needs to be checking if the SHA1 is in the branch history.\n\nWhat happens if people force-push a branch though?\nYou won\u0027t be able to understand if the expected SHA1 was reachable or not.",
+      "range": {
+        "startLine": 113,
+        "startChar": 25,
+        "endLine": 113,
+        "endChar": 83
+      },
+      "revId": "942fc9b94799a13cdfa317111da4216f515771f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c194864_e6f25b59",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
         "patchSetId": 7
