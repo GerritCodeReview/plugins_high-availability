@@ -18,6 +18,75 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c194864_e6f25b59",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-01-18T16:24:40Z",
+      "side": 1,
+      "message": "Opening repository for every commit is inefficient we should use RevWalk:\n```\ntry (RevWalk revWalk \u003d new RevWalk(repository)) {\n    RevCommit commit \u003d revWalk.parseCommit(ref.getObjectId());\n```",
+      "range": {
+        "startLine": 208,
+        "startChar": 24,
+        "endLine": 208,
+        "endChar": 82
+      },
+      "revId": "942fc9b94799a13cdfa317111da4216f515771f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979acf18_e64891e9",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-01-18T16:24:40Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 215,
+        "startChar": 19,
+        "endLine": 215,
+        "endChar": 94
+      },
+      "revId": "942fc9b94799a13cdfa317111da4216f515771f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651879dc_3dee84b5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-01-18T16:24:40Z",
+      "side": 1,
+      "message": "Here we are comparing both timestamps with the seconds precision.\n\nI understand that this condition is to prevent traversing all ref history. But the starting point is the head of the ref which means that it can be way more recent that the event creation time.\n\nCorrect condition should be:\n```\nmetaCommit.getCommitTime() \u003e\u003d indexEvent.eventCreatedOn\n```",
+      "range": {
+        "startLine": 218,
+        "startChar": 11,
+        "endLine": 218,
+        "endChar": 66
+      },
+      "revId": "942fc9b94799a13cdfa317111da4216f515771f0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5ddfa241_65ead963",
