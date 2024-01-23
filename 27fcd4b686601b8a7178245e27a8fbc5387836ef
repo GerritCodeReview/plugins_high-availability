@@ -16,6 +16,24 @@
       "message": "mention that this way we still use the thread pool of the servlet container (Jetty, Tomcat) ?",
       "revId": "27fcd4b686601b8a7178245e27a8fbc5387836ef",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c9166ec_8fc9a44a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-01-23T15:05:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3889ae32_41e69ff1",
+      "revId": "27fcd4b686601b8a7178245e27a8fbc5387836ef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
