@@ -16,6 +16,23 @@
       "message": "I would like to see a proper issue raised ad the steps to reproduce the problem.\nWe have been using the HA plugin for many years, I would be curious to see if this is a known issue or a new one.",
       "revId": "3863c4c7574eb13d39f9829d3172f15bda57a62a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45dbe26c_0bde2eed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-01-25T14:20:14Z",
+      "side": 1,
+      "message": "Hi @jhzgg2017@gmail.com thank you for you contribution. We have create the ticket 320542020[1] related to the issue. Also after looking at the proposed solution we believe it can have negative impact on the performance and it is not covering all edge cases(for example force push). Alternative approach would be to minimise the number of indexing tasks in the retry mode. You can find the details of the proposed solution in the ticket. Please feel free to add comments and optionions.\n\n\n1. https://issues.gerritcodereview.com/issues/320542020",
+      "revId": "3863c4c7574eb13d39f9829d3172f15bda57a62a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
