@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -26,7 +27,7 @@ import java.util.concurrent.Executors;
 
 @Singleton
 public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
-
+  private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration cfg;
 
   @Inject
@@ -37,12 +38,15 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boole
   @Override
   public FailsafeExecutor<Boolean> get() {
     Fallback<Boolean> fallbackToFalse = Fallback.<Boolean>of(() -> false);
-    // TODO: add listeners and logs
-    // https://failsafe.dev/retry/#event-listeners
     RetryPolicy<Boolean> retryPolicy =
         RetryPolicy.<Boolean>builder()
             .withMaxAttempts(cfg.http().maxTries())
             .withDelay(cfg.http().retryInterval())
+            .onRetry(e -> log.atFine().log("Retrying event %s", e))
+            .onRetriesExceeded(
+                e ->
+                    log.atWarning().log(
+                        "%d http retries exceeded for event %s", cfg.http().maxTries(), e))
             .handleResult(false)
             .abortIf(
                 (r, e) ->

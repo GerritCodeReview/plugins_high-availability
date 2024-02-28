@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -26,7 +27,7 @@ import java.util.concurrent.Executors;
 
 @Singleton
 public class ForwardedIndexExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
-
+  protected static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration cfg;
 
   @Inject
@@ -40,6 +41,11 @@ public class ForwardedIndexExecutorProvider implements Provider<FailsafeExecutor
         RetryPolicy.<Boolean>builder()
             .withMaxAttempts(cfg.index().maxTries())
             .withDelay(cfg.index().retryInterval())
+            .onRetry(e -> log.atFine().log("Retrying event %s", e))
+            .onRetriesExceeded(
+                e ->
+                    log.atWarning().log(
+                        "%d index retries exceeded for event %s", cfg.index().maxTries(), e))
             .handleResult(false)
             .abortOn(IOException.class)
             .build();
