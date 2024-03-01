@@ -1,4 +1,4 @@
-FROM gerritcodereview/gerrit:3.7.1-ubuntu20
+FROM gerritcodereview/gerrit:3.7.7-ubuntu20
 
 ENV GERRIT_BRANCH=stable-3.7
 
