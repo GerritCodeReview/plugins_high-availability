@@ -31,7 +31,6 @@ import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import org.junit.Before;
@@ -67,8 +66,6 @@ public class ForwardedIndexChangeHandlerTest {
   @Before
   public void setUp() throws Exception {
     id = Change.id(TEST_CHANGE_NUMBER);
-    Change change = new Change(null, id, null, null, Instant.now());
-    when(changeNotes.getChange()).thenReturn(change);
     when(configMock.index()).thenReturn(indexMock);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
     handler =
@@ -80,14 +77,14 @@ public class ForwardedIndexChangeHandlerTest {
   public void changeIsIndexedWhenUpToDate() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
   }
 
   @Test
   public void changeIsStillIndexedEvenWhenOutdated() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent()));
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
   }
 
   @Test
@@ -115,13 +112,13 @@ public class ForwardedIndexChangeHandlerTest {
                   return null;
                 })
         .when(indexerMock)
-        .index(any(Change.class));
+        .index(any(ChangeNotes.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
   }
 
   @Test
@@ -134,7 +131,7 @@ public class ForwardedIndexChangeHandlerTest {
                   throw new IOException("someMessage");
                 })
         .when(indexerMock)
-        .index(any(Change.class));
+        .index(any(ChangeNotes.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     IOException thrown =
@@ -144,7 +141,7 @@ public class ForwardedIndexChangeHandlerTest {
     assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExists, boolean changeIsUpToDate)
