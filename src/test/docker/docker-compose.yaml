@@ -92,7 +92,6 @@ networks:
         - subnet: 192.168.1.0/24
 
 volumes:
-  syslog-sidecar:
   shareddir:
   nfs-server-volume:
   git-volume:

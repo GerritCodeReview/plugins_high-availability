@@ -23,8 +23,14 @@ gerrit_plugin(
       "@jgroups//jar",
       "@jgroups-kubernetes//jar",
       "@failsafe//jar",
-      "@global-refdb//jar:neverlink",
+      ":global-refdb-neverlink",
     ],
+)
+
+java_library(
+    name = "global-refdb-neverlink",
+    neverlink = 1,
+    exports = ["//plugins/global-refdb"],
 )
 
 junit_tests(

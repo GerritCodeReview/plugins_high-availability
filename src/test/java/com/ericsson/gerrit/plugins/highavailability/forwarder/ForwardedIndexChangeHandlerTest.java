@@ -125,13 +125,13 @@ public class ForwardedIndexChangeHandlerTest {
                   return null;
                 })
         .when(indexerMock)
-        .index(any(Change.class));
+        .index(any(ChangeNotes.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
   }
 
   @Test
@@ -144,7 +144,7 @@ public class ForwardedIndexChangeHandlerTest {
                   throw new IOException("someMessage");
                 })
         .when(indexerMock)
-        .index(any(Change.class));
+        .index(any(ChangeNotes.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     ExecutionException thrown =
@@ -155,7 +155,7 @@ public class ForwardedIndexChangeHandlerTest {
     assertThat(thrown.getCause()).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(Change.class));
+    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExists, boolean changeIsUpToDate)
