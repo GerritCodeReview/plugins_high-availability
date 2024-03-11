@@ -17,7 +17,10 @@ package com.ericsson.gerrit.plugins.highavailability;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderServletModule;
 import com.ericsson.gerrit.plugins.highavailability.health.HealthServletModule;
 import com.ericsson.gerrit.plugins.highavailability.websession.file.FileBasedWebsessionModule;
+import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.httpd.AllRequestFilter;
 import com.google.inject.Inject;
+import com.google.inject.Scopes;
 import com.google.inject.servlet.ServletModule;
 
 class HttpModule extends ServletModule {
@@ -37,5 +40,8 @@ class HttpModule extends ServletModule {
     if (config.websession().synchronize()) {
       install(new FileBasedWebsessionModule());
     }
+    DynamicSet.bind(binder(), AllRequestFilter.class)
+        .to(XGerritNodeFilter.class)
+        .in(Scopes.SINGLETON);
   }
 }
