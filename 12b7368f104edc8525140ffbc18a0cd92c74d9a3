@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da126e16_82fa0de3",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/XGerritInstanceFilter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-03-12T13:16:06Z",
+      "side": 1,
+      "message": "didn\u0027t you want to set the header to instanceName if instanceId isn\u0027t set ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 51,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "12b7368f104edc8525140ffbc18a0cd92c74d9a3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
