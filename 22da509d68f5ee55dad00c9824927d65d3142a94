@@ -22,6 +22,30 @@
       },
       "revId": "22da509d68f5ee55dad00c9824927d65d3142a94",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff31ac6d_6c9214ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-03-12T12:06:44Z",
+      "side": 1,
+      "message": "As discussed, let\u0027s use `X-Gerrit-Instance` as the header name. As the value we use `gerrit.instanceid` if set, otherwise we use the `gerrit.instanceName` which falls back to the hostname if not set.",
+      "parentUuid": "ed882aa2_dcbf1304",
+      "range": {
+        "startLine": 9,
+        "startChar": 17,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "22da509d68f5ee55dad00c9824927d65d3142a94",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
