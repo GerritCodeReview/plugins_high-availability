@@ -22,6 +22,30 @@
       },
       "revId": "b4aba7f142b24cf4dbc78e1db1a9043feeb62a5d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57a39cf9_dc72a466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-03-14T13:09:00Z",
+      "side": 1,
+      "message": "Why the deprecated Truth8 ? Didn\u0027t find any other import of this class neither in this plugin nor in Gerrit core.\n\nhttps://truth.dev/api/latest/com/google/common/truth/Truth8.html",
+      "parentUuid": "42027569_10be36f5",
+      "range": {
+        "startLine": 7,
+        "startChar": 34,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "b4aba7f142b24cf4dbc78e1db1a9043feeb62a5d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
