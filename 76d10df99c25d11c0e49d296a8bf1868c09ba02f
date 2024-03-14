@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9055cd4_99c10f3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-03-14T12:23:29Z",
+      "side": 1,
+      "message": "it looks like this change broke the build of tests as described in https://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/master/src/main/resources/Documentation/build.md\n\nrunning `bazelisk build plugins/high-availability` succeeds but running the tests fails with a bazel error:\n\n```\n$ bazelisk test plugins/high-availability/...\nINFO: Invocation ID: 05cd3031-f96f-4cad-8e1d-421d56126335\nINFO: Reading \u0027startup\u0027 options from /Users/xxxxxx/.bazelrc: --output_user_root\u003d/Users/xxxxxx/.cache/bazel, --host_jvm_args\u003d-Djavax.net.ssl.trustStore\u003d/Users/xxxxxx/certs/cacerts, --host_jvm_args\u003d-Djavax.net.ssl.trustStorePassword\u003dchangeit\nINFO: Options provided by the client:\n  Inherited \u0027common\u0027 options: --isatty\u003d1 --terminal_columns\u003d250\nINFO: Reading rc options for \u0027test\u0027 from /Users/xxxxxx/src/git/gerrit/.bazelrc:\n  Inherited \u0027common\u0027 options: --noenable_bzlmod\nINFO: Reading rc options for \u0027test\u0027 from /Users/xxxxxx/src/git/gerrit/.bazelrc:\n  Inherited \u0027build\u0027 options: --workspace_status_command\u003dpython3 ./tools/workspace_status.py --repository_cache\u003d~/.gerritcodereview/bazel-cache/repository --action_env\u003dPATH --disk_cache\u003d~/.gerritcodereview/bazel-cache/cas --java_language_version\u003d17 --java_runtime_version\u003dremotejdk_17 --tool_java_language_version\u003d17 --tool_java_runtime_version\u003dremotejdk_17 --cxxopt\u003d-std\u003dc++17 --host_cxxopt\u003d-std\u003dc++17 --incompatible_strict_action_env --announce_rc\nINFO: Reading rc options for \u0027test\u0027 from /Users/xxxxxx/src/git/gerrit/.bazelrc:\n  \u0027test\u0027 options: --build_tests_only --test_output\u003derrors\nERROR: no such package \u0027plugins/global-refdb\u0027: BUILD file not found in any of the following directories. Add a BUILD file to a directory to mark it as a package.\n - /Users/xxxxxx/src/git/gerrit/plugins/global-refdb\nERROR: /Users/xxxxxx/src/git/gerrit/plugins/high-availability/BUILD:30:13: no such package \u0027plugins/global-refdb\u0027: BUILD file not found in any of the following directories. Add a BUILD file to a directory to mark it as a package.\n - /Users/xxxxxx/src/git/gerrit/plugins/global-refdb and referenced by \u0027//plugins/high-availability:global-refdb-neverlink\u0027\nERROR: Analysis of target \u0027//plugins/high-availability:high-availability_tests\u0027 failed; build aborted: Analysis failed\nINFO: Elapsed time: 0.137s, Critical Path: 0.01s\nINFO: 1 process: 1 internal.\nERROR: Build did NOT complete successfully\nERROR: No test targets were found, yet testing was requested\nFAILED:\n    Fetching repository @@remotejdk17_macos_aarch64; starting\n    Fetching repository @@failsafe; starting\n    Fetching repository @@remote_java_tools; starting\n    Fetching repository @@local_config_cc; starting\n    Fetching repository @@remote_java_tools_darwin_arm64; starting\n```",
+      "revId": "76d10df99c25d11c0e49d296a8bf1868c09ba02f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
