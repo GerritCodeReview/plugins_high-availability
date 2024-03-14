@@ -59,7 +59,6 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websess
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.DEFAULT_CLEANUP_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.WEBSESSION_SECTION;
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStrategy;
