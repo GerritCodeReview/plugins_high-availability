@@ -14,7 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetryResult;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.entities.Project.NameKey;
 import com.google.gerrit.index.project.ProjectIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -37,16 +39,22 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(
-      Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<IndexingRetryResult> doIndex(Project.NameKey projectName) {
     indexer.index(projectName);
     log.atFine().log("Project %s successfully indexed", projectName);
-    return CompletableFuture.completedFuture(true);
+    return CompletableFuture.completedFuture(createResult(true, projectName));
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(
+  protected CompletableFuture<IndexingRetryResult> doDelete(
       Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
     throw new UnsupportedOperationException("Delete from project index not supported");
+  }
+
+  @Override
+  protected boolean indexOnce(NameKey projectName) throws Exception {
+    indexer.index(projectName);
+    log.atFine().log("Project %s successfully indexed", projectName);
+    return true;
   }
 }

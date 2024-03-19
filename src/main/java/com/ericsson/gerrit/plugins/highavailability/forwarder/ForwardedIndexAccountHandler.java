@@ -14,7 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetryResult;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.Account.Id;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -37,14 +39,22 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<IndexingRetryResult> doIndex(Account.Id id) {
     indexer.index(id);
     log.atFine().log("Account %s successfully indexed", id);
-    return CompletableFuture.completedFuture(true);
+    return CompletableFuture.completedFuture(createResult(true, id));
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<IndexingRetryResult> doDelete(
+      Account.Id id, Optional<IndexEvent> indexEvent) {
     throw new UnsupportedOperationException("Delete from account index not supported");
+  }
+
+  @Override
+  protected boolean indexOnce(Id id) throws Exception {
+    indexer.index(id);
+    log.atFine().log("Account %s successfully indexed", id);
+    return true;
   }
 }
