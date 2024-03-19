@@ -34,7 +34,6 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Optional;
@@ -77,7 +76,7 @@ public class ForwardedIndexChangeHandlerTest {
     when(configMock.index().maxTries()).thenReturn(3);
     when(configMock.index().retryInterval()).thenReturn(Duration.ofMillis(10));
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
-    FailsafeExecutor<Boolean> indexExecutor = new ForwardedIndexExecutorProvider(configMock).get();
+    ForwardedIndexExecutorProvider indexExecutor = new ForwardedIndexExecutorProvider(configMock);
     handler =
         new ForwardedIndexChangeHandler(
             indexerMock, indexExecutor, ctxMock, changeCheckerFactoryMock);

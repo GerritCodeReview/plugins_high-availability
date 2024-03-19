@@ -14,7 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetryResult;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.AccountGroup.UUID;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -37,16 +39,22 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(
-      AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<IndexingRetryResult> doIndex(AccountGroup.UUID uuid) {
     indexer.index(uuid);
     log.atFine().log("Group %s successfully indexed", uuid);
-    return CompletableFuture.completedFuture(true);
+    return CompletableFuture.completedFuture(createResult(true, uuid));
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(
+  protected CompletableFuture<IndexingRetryResult> doDelete(
       AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
     throw new UnsupportedOperationException("Delete from group index not supported");
+  }
+
+  @Override
+  protected boolean indexOnce(UUID id) throws Exception {
+    indexer.index(id);
+    log.atFine().log("Group %s successfully indexed", id);
+    return true;
   }
 }
