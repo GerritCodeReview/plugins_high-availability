@@ -14,11 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetry;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetryResult;
 import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class ForwardedIndexingHandler<T> {
   protected static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private final Set<T> inFlightIndexing = Collections.newSetFromMap(new ConcurrentHashMap<>());
+  protected final Map<T, IndexingRetry> inFlightIndexing = new ConcurrentHashMap<>();
 
   public enum Operation {
     INDEX,
@@ -42,11 +43,12 @@ public abstract class ForwardedIndexingHandler<T> {
     }
   }
 
-  protected abstract CompletableFuture<Boolean> doIndex(T id, Optional<IndexEvent> indexEvent)
-      throws IOException;
+  protected abstract CompletableFuture<IndexingRetryResult> doIndex(T id) throws IOException;
 
-  protected abstract CompletableFuture<Boolean> doDelete(T id, Optional<IndexEvent> indexEvent)
-      throws IOException;
+  protected abstract CompletableFuture<IndexingRetryResult> doDelete(
+      T id, Optional<IndexEvent> indexEvent) throws IOException;
+
+  protected abstract boolean indexOnce(T id) throws Exception;
 
   /**
    * Index an item in the local node, indexing will not be forwarded to the other node.
@@ -56,27 +58,37 @@ public abstract class ForwardedIndexingHandler<T> {
    * @param indexEvent The index event details.
    * @throws IOException If an error occur while indexing.
    */
-  public CompletableFuture<Boolean> index(
+  public CompletableFuture<IndexingRetryResult> index(
       T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
     log.atFine().log("%s %s %s", operation, id, indexEvent);
-    if (inFlightIndexing.add(id)) {
+    IndexingRetry<T> retry = new IndexingRetry<>(id, indexEvent);
+    if (inFlightIndexing.put(id, retry) != null) {
       try {
         Context.setForwardedEvent(true);
-        switch (operation) {
-          case INDEX:
-            return doIndex(id, indexEvent);
-          case DELETE:
-            return doDelete(id, indexEvent);
-          default:
-            log.atSevere().log("unexpected operation: %s", operation);
-            return CompletableFuture.completedFuture(false);
-        }
+        return CompletableFuture.completedFuture(createResult(indexOnce(id), id));
+      } catch (Exception e) {
+        throw new RuntimeException(e);
       } finally {
         Context.unsetForwardedEvent();
-        inFlightIndexing.remove(id);
       }
     }
-    throw new InFlightIndexedException(
-        String.format("Indexing for %s %s %s already in flight", operation, id, indexEvent));
+    try {
+      Context.setForwardedEvent(true);
+      switch (operation) {
+        case INDEX:
+          return doIndex(id);
+        case DELETE:
+          return doDelete(id, indexEvent);
+        default:
+          log.atSevere().log("unexpected operation: %s", operation);
+          return CompletableFuture.completedFuture(createResult(false, id));
+      }
+    } finally {
+      Context.unsetForwardedEvent();
+    }
+  }
+
+  protected IndexingRetryResult createResult(boolean isSuccessful, T id) {
+    return new IndexingRetryResult(isSuccessful, inFlightIndexing.get(id));
   }
 }

@@ -1,4 +1,4 @@
-// Copyright (C) 2018 The Android Open Source Project
+// Copyright (C) 2024 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,13 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.index;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.retry;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.google.inject.BindingAnnotation;
-import java.lang.annotation.Retention;
+public class IndexingRetryResult {
+  private final boolean status;
+  private final IndexingRetry retry;
 
-@Retention(RUNTIME)
-@BindingAnnotation
-public @interface ForwardedIndexExecutor {}
+  public IndexingRetryResult(boolean status, IndexingRetry retry) {
+    this.status = status;
+    this.retry = retry;
+  }
+
+  public boolean isSuccessful() {
+    return status;
+  }
+
+  public IndexingRetry getRetry() {
+    return retry;
+  }
+}

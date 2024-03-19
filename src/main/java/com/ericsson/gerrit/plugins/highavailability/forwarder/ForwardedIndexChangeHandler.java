@@ -14,9 +14,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetry;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.retry.IndexingRetryResult;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
-import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutorFactory;
 import com.google.common.base.Splitter;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
@@ -43,36 +45,37 @@ import java.util.concurrent.CompletableFuture;
 @Singleton
 public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
   private final ChangeIndexer indexer;
-  private final FailsafeExecutor<Boolean> indexExecutor;
+  private final FailsafeExecutor<IndexingRetryResult> indexExecutor;
   private final OneOffRequestContext oneOffCtx;
   private final ChangeCheckerImpl.Factory changeCheckerFactory;
 
   @Inject
   ForwardedIndexChangeHandler(
       ChangeIndexer indexer,
-      @ForwardedIndexExecutor FailsafeExecutor<Boolean> indexExecutor,
+      ForwardedIndexExecutorFactory indexExecutorFactory,
       OneOffRequestContext oneOffCtx,
       ChangeCheckerImpl.Factory changeCheckerFactory) {
     this.indexer = indexer;
-    this.indexExecutor = indexExecutor;
+    this.indexExecutor = indexExecutorFactory.get(inFlightIndexing);
     this.oneOffCtx = oneOffCtx;
     this.changeCheckerFactory = changeCheckerFactory;
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(String id, Optional<IndexEvent> indexEvent)
-      throws IOException {
+  protected CompletableFuture<IndexingRetryResult> doIndex(String id) throws IOException {
     return indexExecutor.getAsync(
         () -> {
           try (ManualRequestContext ctx = oneOffCtx.open()) {
             Context.setForwardedEvent(true);
-            return indexOnce(id, indexEvent);
+            return createResult(indexOnce(id), id);
           }
         });
   }
 
-  private boolean indexOnce(String id, Optional<IndexEvent> indexEvent) throws Exception {
+  protected boolean indexOnce(String id) throws Exception {
+    IndexingRetry retry = inFlightIndexing.get(id);
     try {
+
       ChangeChecker checker = changeCheckerFactory.create(id);
       Optional<ChangeNotes> changeNotes;
       try {
@@ -85,19 +88,19 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         ChangeNotes notes = changeNotes.get();
         reindex(notes);
 
-        if (checker.isChangeUpToDate(indexEvent)) {
+        if (checker.isChangeUpToDate(retry.getEvent())) {
           log.atFine().log("Change %s successfully indexed", id);
           return true;
         }
 
         log.atWarning().log(
             "Change %s seems too old compared to the event timestamp (event-Ts=%s >> change-Ts=%s)",
-            id, indexEvent, checker);
+            id, retry.getEvent(), checker);
         return false;
       }
 
       log.atWarning().log(
-          "Change %s not present yet in local Git repository (event=%s)", id, indexEvent);
+          "Change %s not present yet in local Git repository (event=%s)", id, retry.getEvent());
       return false;
 
     } catch (Exception e) {
@@ -117,11 +120,11 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(String id, Optional<IndexEvent> indexEvent)
-      throws IOException {
+  protected CompletableFuture<IndexingRetryResult> doDelete(
+      String id, Optional<IndexEvent> indexEvent) throws IOException {
     indexer.delete(parseChangeId(id));
     log.atFine().log("Change %s successfully deleted from index", id);
-    return CompletableFuture.completedFuture(true);
+    return CompletableFuture.completedFuture(createResult(true, id));
   }
 
   private static Change.Id parseChangeId(String id) {
