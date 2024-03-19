@@ -19,7 +19,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-class ForwardedBatchIndexExecutorProvider extends ForwardedIndexExecutorProvider {
+public class ForwardedBatchIndexExecutorProvider extends ForwardedIndexExecutorProvider {
 
   @Inject
   ForwardedBatchIndexExecutorProvider(Configuration cfg) {
