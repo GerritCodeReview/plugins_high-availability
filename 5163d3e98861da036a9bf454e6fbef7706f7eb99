@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42b1ce3_23df86de",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-21T16:40:25Z",
+      "side": 1,
+      "message": "nit: all other methods take `Account.Id` as a parameter, IMO would be better to keep that consistency, as the `Id` is kinda ambiguous and requires additional import statements.",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "5163d3e98861da036a9bf454e6fbef7706f7eb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f1a786_9c33b987",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexProjectHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-21T16:40:25Z",
+      "side": 1,
+      "message": "nit: `Project.NameKey` to stay consistent with other places where the same class is used ;)",
+      "range": {
+        "startLine": 55,
+        "startChar": 30,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "5163d3e98861da036a9bf454e6fbef7706f7eb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1353e833_ea11c89b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/retry/IndexingRetry.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-21T16:40:25Z",
+      "side": 1,
+      "message": "nit: can also be `final` as the reference is never overriden",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 10
+      },
+      "revId": "5163d3e98861da036a9bf454e6fbef7706f7eb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30fef804_cae89efc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-21T16:40:25Z",
+      "side": 1,
+      "message": "nit: it\u0027s a bit of a code smell to mutate an outside state from a predicate, isn\u0027t there any other way of achieving the same result?\n\nAlso, will this code path ever reached? As in `onRetriesExceeded` L#71, `onAbort` L#77, `onSuccess` L#82 and `onFailure` L#87, we remove the indexing task.",
+      "range": {
+        "startLine": 52,
+        "startChar": 12,
+        "endLine": 52,
+        "endChar": 87
+      },
+      "revId": "5163d3e98861da036a9bf454e6fbef7706f7eb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38a42965_91f62a93",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-21T16:40:25Z",
+      "side": 1,
+      "message": "nit: is this `TODO` still standing?",
+      "range": {
+        "startLine": 95,
+        "startChar": 7,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "5163d3e98861da036a9bf454e6fbef7706f7eb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
