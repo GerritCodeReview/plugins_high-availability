@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edbc741e_5bea44a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-22T10:49:54Z",
+      "side": 1,
+      "message": "It looks like this change tries to address to many things at once.\n\nI would concentrate first in making the FailsafeExecutor more customisable (e.g. with custom retries) as one change, or get rid of it if we cannot make any meaningful use of it.\n\nAdding @sasa.zivkov@sap.com to the discussion, as the introduction of the `FailsafeExecutor` came from him and he could have other options or ideas to explore.",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3818519_03671487",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-22T10:49:54Z",
+      "side": 1,
+      "message": "This would basically invalidate the overall idea of using a `FailsafeExecutor`.\n\nI believe we either have to find a way to still keep using it with its management of max attempts, or just get rid of it altogether and revert the commit that introduced it.\n\nAnother path is to contribute to the `FailsafeExecutor` project a custom retry mechanism.\n\nWDYT?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 47
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
