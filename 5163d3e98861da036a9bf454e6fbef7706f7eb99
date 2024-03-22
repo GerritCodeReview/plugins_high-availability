@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "06d45ded_a353b853",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-22T10:38:39Z",
+      "side": 1,
+      "message": "🙏 do not include also the renaming of Provider \u003d\u003e Factory in the same change, as it makes quite difficult to review how you changed the current retry mechanism.\n\nLet me upload a new PS without the renames, and see if that helps making the review smoother.\n\nYou can still do the rename as a separate follow-up change.",
+      "revId": "5163d3e98861da036a9bf454e6fbef7706f7eb99",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d42b1ce3_23df86de",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexAccountHandler.java",
         "patchSetId": 2
