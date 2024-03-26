@@ -52,6 +52,7 @@ class ProjectListApiServlet extends AbstractRestApiServlet {
   }
 
   private boolean process(HttpServletRequest req, HttpServletResponse rsp, boolean delete) {
+    ForwardedMessageLogger.log(req, null);
     String requestURI = req.getRequestURI();
     String projectName = requestURI.substring(requestURI.lastIndexOf('/') + 1);
     try {

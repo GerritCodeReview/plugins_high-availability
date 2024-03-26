@@ -23,13 +23,10 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.google.common.base.Charsets;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.restapi.NotImplementedException;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -98,7 +95,9 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
 
     try {
-      forwardedIndexingHandler.index(id, operation, parseBody(req));
+      String body = readRequestBody(req);
+      ForwardedMessageLogger.log(req, body);
+      forwardedIndexingHandler.index(id, operation, parseBody(body));
       rsp.setStatus(SC_NO_CONTENT);
       return true;
     } catch (IOException e) {
@@ -108,13 +107,7 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     }
   }
 
-  protected Optional<IndexEvent> parseBody(HttpServletRequest req) throws IOException {
-    String contentType = req.getContentType();
-    if (contentType != null && contentType.contains("application/json")) {
-      try (Reader reader = new InputStreamReader(req.getInputStream(), Charsets.UTF_8)) {
-        return Optional.ofNullable(gson.fromJson(reader, IndexEvent.class));
-      }
-    }
-    return Optional.empty();
+  protected Optional<IndexEvent> parseBody(String body) {
+    return Optional.ofNullable(gson.fromJson(body, IndexEvent.class));
   }
 }

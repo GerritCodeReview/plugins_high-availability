@@ -22,7 +22,6 @@ import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.google.common.io.CharStreams;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
@@ -56,7 +55,9 @@ class EventRestApiServlet extends AbstractRestApiServlet {
         sendError(rsp, SC_UNSUPPORTED_MEDIA_TYPE, "Expecting " + JSON_UTF_8 + " content type");
         return false;
       }
-      Event event = getEventFromRequest(req);
+      String body = readRequestBody(req);
+      ForwardedMessageLogger.log(req, body);
+      Event event = getEventFromRequest(body);
       rsp.setStatus(SC_NO_CONTENT);
       forwardedEventHandler.dispatch(event);
       return true;
@@ -66,8 +67,7 @@ class EventRestApiServlet extends AbstractRestApiServlet {
     }
   }
 
-  private Event getEventFromRequest(HttpServletRequest req) throws IOException {
-    String jsonEvent = CharStreams.toString(req.getReader());
-    return gson.fromJson(jsonEvent, Event.class);
+  private Event getEventFromRequest(String body) {
+    return gson.fromJson(body, Event.class);
   }
 }

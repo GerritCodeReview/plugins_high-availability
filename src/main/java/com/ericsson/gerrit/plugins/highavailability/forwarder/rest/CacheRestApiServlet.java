@@ -54,7 +54,8 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
     try {
       List<String> params = Splitter.on('/').splitToList(req.getPathInfo());
       String cacheName = params.get(CACHENAME_INDEX);
-      String json = req.getReader().readLine();
+      String json = readRequestBody(req);
+      ForwardedMessageLogger.log(req, json);
       forwardedCacheEvictionHandler.evict(
           CacheEntry.from(cacheName, cacheKeyParser.fromJson(cacheName, json)));
       rsp.setStatus(SC_NO_CONTENT);

@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
+import com.google.common.io.CharStreams;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.restapi.NotImplementedException;
 import java.io.IOException;
@@ -104,6 +105,14 @@ public abstract class AbstractRestApiServlet extends HttpServlet {
     } catch (IOException e) {
       log.atSevere().withCause(e).log("Failed to send error messsage");
     }
+  }
+
+  protected String readRequestBody(HttpServletRequest req) throws IOException {
+    String contentType = req.getContentType();
+    if (contentType != null && contentType.contains("application/json")) {
+      return CharStreams.toString(req.getReader());
+    }
+    return null;
   }
 
   protected static void updateMetrics(
