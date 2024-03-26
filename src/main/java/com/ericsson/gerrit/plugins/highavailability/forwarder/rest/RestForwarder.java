@@ -278,34 +278,38 @@ public class RestForwarder implements Forwarder {
       Object payload,
       Instant createdOn) {
     String destination = peer.getDirectUrl();
-    return new Request(eventType, action, id, destination) {
-      @Override
-      HttpResult send() throws IOException {
-        String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, id);
-        switch (method) {
-          case POST:
-            return httpSession.post(request, payload, createdOn);
-          case DELETE:
-          default:
-            return httpSession.delete(request, createdOn);
-        }
-      }
-    };
+    return new Request(eventType, method, action, endpoint, id, destination, payload, createdOn);
   }
 
-  protected abstract class Request {
+  private class Request {
     private final EventType eventType;
+    private final RequestMethod method;
     private final String action;
+    private final String endpoint;
     private final Object key;
     private final String destination;
+    private final Object payload;
+    private final Instant createdOn;
 
     private int execCnt;
 
-    Request(EventType eventType, String action, Object key, String destination) {
+    Request(
+        EventType eventType,
+        RequestMethod method,
+        String action,
+        String endpoint,
+        Object key,
+        String destination,
+        Object payload,
+        Instant createdOn) {
+      this.method = method;
       this.eventType = eventType;
       this.action = action;
+      this.endpoint = endpoint;
       this.key = key;
       this.destination = destination;
+      this.payload = payload;
+      this.createdOn = createdOn;
     }
 
     @Override
@@ -346,7 +350,16 @@ public class RestForwarder implements Forwarder {
       }
     }
 
-    abstract HttpResult send() throws IOException;
+    HttpResult send() throws IOException {
+      String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, key);
+      switch (method) {
+        case POST:
+          return httpSession.post(request, payload, createdOn);
+        case DELETE:
+        default:
+          return httpSession.delete(request, createdOn);
+      }
+    }
 
     boolean isRecoverable(IOException e) {
       Throwable cause = e.getCause();
