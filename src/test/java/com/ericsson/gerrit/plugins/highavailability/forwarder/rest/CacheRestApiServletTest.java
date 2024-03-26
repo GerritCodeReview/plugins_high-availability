@@ -26,10 +26,12 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundExcep
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
+import com.google.common.net.MediaType;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
@@ -42,7 +44,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class CacheRestApiServletTest {
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
-  @Mock private BufferedReader readerMock;
   @Mock private ForwardedCacheEvictionHandler forwardedCacheEvictionHandlerMock;
   @Mock private ProcessorMetricsRegistry metricsRegistry;
   @Mock ProcessorMetrics metrics;
@@ -110,6 +111,7 @@ public class CacheRestApiServletTest {
   public void badRequest() throws Exception {
     when(requestMock.getPathInfo()).thenReturn("/someCache");
     String errorMessage = "someError";
+    when(requestMock.getContentType()).thenReturn(MediaType.JSON_UTF_8.toString());
     doThrow(new IOException(errorMessage)).when(requestMock).getReader();
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_BAD_REQUEST, errorMessage);
@@ -141,17 +143,19 @@ public class CacheRestApiServletTest {
     } else {
       when(requestMock.getPathInfo()).thenReturn("/" + pluginName + "." + cacheName);
     }
-    when(requestMock.getReader()).thenReturn(readerMock);
+    when(requestMock.getContentType()).thenReturn(MediaType.JSON_UTF_8.toString());
 
+    StringReader reader;
     if (Constants.PROJECTS.equals(cacheName)) {
-      when(readerMock.readLine()).thenReturn("abc");
+      reader = new StringReader("abc");
     } else if (Constants.GROUPS_BYINCLUDE.equals(cacheName)
         || Constants.GROUPS_MEMBERS.equals(cacheName)) {
-      when(readerMock.readLine()).thenReturn("{\"uuid\":\"abcd1234\"}");
+      reader = new StringReader("{\"uuid\":\"abcd1234\"}");
     } else if (Constants.TOKENS.equals(cacheName)) {
-      when(readerMock.readLine()).thenReturn("{\"id\":\"1234\"}");
+      reader = new StringReader("{\"id\":\"1234\"}");
     } else {
-      when(readerMock.readLine()).thenReturn("{}");
+      reader = new StringReader("{}");
     }
+    when(requestMock.getReader()).thenReturn(new BufferedReader(reader));
   }
 }
