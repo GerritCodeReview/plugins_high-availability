@@ -328,21 +328,22 @@ public class RestForwarderTest {
 
   @Test
   public void testEventSentOK() throws Exception {
-    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(event), any()))
+    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(gson.toJson(event)), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.send(event).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result()).isTrue();
   }
 
   @Test
   public void testEventSentFailed() throws Exception {
-    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(event), any()))
+    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(gson.toJson(event)), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.send(event).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result()).isFalse();
   }
 
   @Test
   public void testEventSentThrowsException() throws Exception {
-    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(event), any())).thenThrow(IOException.class);
+    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(gson.toJson(event)), any()))
+        .thenThrow(IOException.class);
     assertThat(forwarder.send(event).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result()).isFalse();
   }
 

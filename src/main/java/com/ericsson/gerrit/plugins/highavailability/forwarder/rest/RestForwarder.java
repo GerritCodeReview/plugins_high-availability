@@ -278,7 +278,15 @@ public class RestForwarder implements Forwarder {
       Object payload,
       Instant createdOn) {
     String destination = peer.getDirectUrl();
-    return new Request(eventType, method, action, endpoint, id, destination, payload, createdOn);
+    String payloadJson;
+    if (payload == null) {
+      payloadJson = null;
+    } else if (payload instanceof String) {
+      payloadJson = (String) payload;
+    } else {
+      payloadJson = gson.toJson(payload);
+    }
+    return new Request(eventType, method, action, endpoint, id, destination, payloadJson, createdOn);
   }
 
   private class Request {
@@ -288,7 +296,7 @@ public class RestForwarder implements Forwarder {
     private final String endpoint;
     private final Object key;
     private final String destination;
-    private final Object payload;
+    private final String payloadJson;
     private final Instant createdOn;
 
     private int execCnt;
@@ -300,7 +308,7 @@ public class RestForwarder implements Forwarder {
         String endpoint,
         Object key,
         String destination,
-        Object payload,
+        String payloadJson,
         Instant createdOn) {
       this.method = method;
       this.eventType = eventType;
@@ -308,7 +316,7 @@ public class RestForwarder implements Forwarder {
       this.endpoint = endpoint;
       this.key = key;
       this.destination = destination;
-      this.payload = payload;
+      this.payloadJson = payloadJson;
       this.createdOn = createdOn;
     }
 
@@ -318,11 +326,11 @@ public class RestForwarder implements Forwarder {
     }
 
     Result execute() {
-      log.atFine().log("Executing %s %s towards %s", action, key, destination);
+      log.atFine().log("Executing %s %s towards %s: %s", action, key, destination, payloadJson);
       try {
         execCnt++;
         tryOnce();
-        log.atFine().log("%s %s towards %s OK", action, key, destination);
+        log.atFine().log("%s %s towards %s OK: %s", action, key, destination, payloadJson);
         return new Result(eventType, true);
       } catch (ForwardingException e) {
         int maxTries = cfg.http().maxTries();
@@ -354,7 +362,7 @@ public class RestForwarder implements Forwarder {
       String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, key);
       switch (method) {
         case POST:
-          return httpSession.post(request, payload, createdOn);
+          return httpSession.post(request, payloadJson, createdOn);
         case DELETE:
         default:
           return httpSession.delete(request, createdOn);
