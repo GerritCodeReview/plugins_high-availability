@@ -28,7 +28,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseH
 import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
-import com.google.gson.Gson;
 import java.net.SocketTimeoutException;
 import java.time.Duration;
 import java.time.Instant;
@@ -73,7 +72,7 @@ public class HttpSessionTest {
     when(configMock.http().socketTimeout()).thenReturn(TIMEOUT);
     when(configMock.http().retryInterval()).thenReturn(RETRY_INTERVAL);
 
-    httpSession = new HttpSession(new HttpClientProvider(configMock).get(), new Gson());
+    httpSession = new HttpSession(new HttpClientProvider(configMock).get());
   }
 
   @Test

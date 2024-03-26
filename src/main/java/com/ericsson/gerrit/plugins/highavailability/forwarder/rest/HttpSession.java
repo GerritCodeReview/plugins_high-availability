@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.google.common.net.MediaType;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import java.io.IOException;
 import java.net.URI;
@@ -32,19 +31,17 @@ class HttpSession {
   public static final String HEADER_EVENT_CREATED_ON = "Event-Created-On";
 
   private final CloseableHttpClient httpClient;
-  private final Gson gson;
 
   @Inject
-  HttpSession(CloseableHttpClient httpClient, @RestGson Gson gson) {
+  HttpSession(CloseableHttpClient httpClient) {
     this.httpClient = httpClient;
-    this.gson = gson;
   }
 
   HttpResult post(String uri, Instant createdOn) throws IOException {
     return post(uri, null, createdOn);
   }
 
-  HttpResult post(String uri, Object content, Instant createdOn) throws IOException {
+  HttpResult post(String uri, String content, Instant createdOn) throws IOException {
     HttpPost post = new HttpPost(uri);
     setContent(post, content, createdOn);
     return httpClient.execute(post, new HttpResponseHandler());
@@ -54,26 +51,19 @@ class HttpSession {
     return delete(uri, null, createdOn);
   }
 
-  HttpResult delete(String uri, Object content, Instant createdOn) throws IOException {
+  HttpResult delete(String uri, String content, Instant createdOn) throws IOException {
     HttpDeleteWithBody delete = new HttpDeleteWithBody(uri);
     setContent(delete, content, createdOn);
     return httpClient.execute(delete, new HttpResponseHandler());
   }
 
   private void setContent(
-      HttpEntityEnclosingRequestBase request, Object content, Instant createdOn) {
+      HttpEntityEnclosingRequestBase request, String content, Instant createdOn) {
     if (content != null) {
       request.addHeader("Content-Type", MediaType.JSON_UTF_8.toString());
-      request.setEntity(new StringEntity(jsonEncode(content), StandardCharsets.UTF_8));
+      request.setEntity(new StringEntity(content, StandardCharsets.UTF_8));
     }
     request.addHeader(HEADER_EVENT_CREATED_ON, String.valueOf(createdOn.toEpochMilli()));
-  }
-
-  private String jsonEncode(Object content) {
-    if (content instanceof String) {
-      return (String) content;
-    }
-    return gson.toJson(content);
   }
 
   private class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
