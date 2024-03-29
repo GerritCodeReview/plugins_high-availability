@@ -27,5 +27,7 @@ public class RestForwarderServletModule extends ServletModule {
     serve("/event/*").with(EventRestApiServlet.class);
     serve("/cache/project_list/*").with(ProjectListApiServlet.class);
     serve("/cache/*").with(CacheRestApiServlet.class);
+
+    serve("/query/changes.updated.since/*").with(QueryChangesUpdatedSinceServlet.class);
   }
 }
