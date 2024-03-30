@@ -105,6 +105,39 @@ defined by the `jgroups.clusterName`.
     Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, polling of conditional reindexing is disabled.
 
+**NOTE:** The indexSync feature exposes a REST endpoint that can be used to discover project names.
+Admins are advised to restrict access to the REST endpoints exposed by this plugin.
+
+```indexSync.enabled```
+:   When indexSync is enabled, the primary servers will synchronize indexes with the intention to
+    self-heal any missed reindexing event.
+
+```indexSync.delay```
+:   If enabled, index sync will start running after this initial delay.
+    Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    When not specified, the default is zero: run immediately.
+
+```indexSync.period```
+    Period between two index sync executions. If any execution of this task takes longer than
+    this period, then subsequent executions may start late, but will not concurrently execute.
+    Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    When not specified, the default is `2 seconds`.
+
+```indexSync.initialSyncAge```
+    This options defines the max age of changes in the other peer for which local index shall
+    be synchronized on the initial run of the index sync task. The age defined here is usualy
+    larger than the `syncAge` in order to accommodate max foreseen downtime of a server during
+    restarts.
+    The age is express in the format of the `age:` change query parameter.
+    When not specified, the default is `1hour`.
+
+```indexSync.syncAge```
+    This option defines the max age of changes in the other peer for this local index shall be
+    synchronized on each run, except for the initial run.
+    The age is express in the format of the `age:` change query parameter.
+    When not specified, the default is `5minutes`.
+
+
 ```peerInfo.strategy```
 :   Strategy to find other peers. Supported strategies are `static` or `jgroups`.
     Defaults to `jgroups`.
