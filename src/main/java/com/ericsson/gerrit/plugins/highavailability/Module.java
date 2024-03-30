@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
+import com.ericsson.gerrit.plugins.highavailability.indexsync.IndexSyncModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Inject;
@@ -66,6 +67,9 @@ class Module extends LifecycleModule {
     }
     if (config.autoReindex().enabled()) {
       install(new AutoReindexModule());
+    }
+    if (config.indexSync().enabled()) {
+      install(new IndexSyncModule());
     }
 
     if (config.sharedRefDb().getSharedRefDb().isEnabled()) {
