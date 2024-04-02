@@ -9,11 +9,12 @@
       "updated": "2024-04-02T23:24:53Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "RUNNING",
+      "state": "SUCCESSFUL",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/98%252F414698%252F4/2/console",
       "started": "2024-04-02T23:34:00Z",
+      "finished": "2024-04-02T23:34:04Z",
       "created": "2024-03-22T11:00:56Z",
-      "updated": "2024-04-02T23:34:01Z"
+      "updated": "2024-04-02T23:34:05Z"
     }
   }
 }
