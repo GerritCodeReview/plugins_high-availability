@@ -206,6 +206,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93619e20_1527e5c6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T11:31:18Z",
+      "side": 1,
+      "message": "What happens with the sha-1 checks when squashing multiple events into one? Which sha-1 values will be used for the up-to-date checks?",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3818519_03671487",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
         "patchSetId": 4
