@@ -110,6 +110,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8188139_56509ab7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T11:05:04Z",
+      "side": 1,
+      "message": "Alternatively, we can also use the Aborts API of the failsafe for an abort before the max retries is reached:\nhttps://failsafe.dev/retry/#aborts",
+      "parentUuid": "2a414798_ac2b1b45",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "edbc741e_5bea44a1",
