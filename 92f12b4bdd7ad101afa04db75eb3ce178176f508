@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "151195a1_1d56314d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T10:50:18Z",
+      "side": 1,
+      "message": "I think this subject doesn\u0027t properly indicate the main issue that is being addressed with this change which is that some indexing events are retried up to the max number of retries even when it is known that the up-to-date check will never succeed (in the way it is currently implemented).",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad96c02e_3e086cdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T10:50:18Z",
+      "side": 1,
+      "message": "For my understanding, why is that check necessary? Why not just index with the current target-branch state? After all this is what this site sees and has.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d3b98f_6ce1bb89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T10:50:18Z",
+      "side": 1,
+      "message": "In the case of pointing to a previous meta-ref commit, why not just index that change in that case? What bad could happen if we simply index the change in that case? To keep the performance better we can also switch to using `reindexIfStale`",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff62b5f1_ea135299",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -16,6 +79,29 @@
       "message": "Can you elaborate more about how this change intends to achieve that? This would make the review easier.",
       "range": {
         "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a414798_ac2b1b45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-22T10:50:18Z",
+      "side": 1,
+      "message": "This is highly prone to race conditions. For example, if there is a pending indexing task which is already stale then it will prevent submitting a new (uo-to-date) indexing that for that change.\n\nI would rather propose to think in a different direction:\n* Always accept indexing tasks\n* If necessary, implement an early exit when a task detects that it is stale and will never be up-to-date. That staleness check shall be implemented in the task itself and, an early exit, shall be done by indicating success back to failsafe executor.",
+      "range": {
+        "startLine": 24,
         "startChar": 0,
         "endLine": 27,
         "endChar": 55
