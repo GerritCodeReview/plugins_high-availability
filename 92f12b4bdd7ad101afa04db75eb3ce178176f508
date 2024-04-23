@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1712ee3e_86abf3aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-23T22:05:48Z",
+      "side": 1,
+      "message": "\u003e Proposed solution:\n\u003e \n\u003e 1. If any of the indexing tasks for the ref are successful all previous ones which are retrying can be discarded - it\u0027s because all retrying tasks for that ref are pointing to an outdated SHA1.\n\u003e 2. If we have a new event and already have a task which is retrying, we know that it will never be successful for the current SHA1, so let\u0027s update the SHA1 to the new one and restart the number of retries.\n\nIf I follow correctly, then when 2. is implemented there can be only one retrying task for indexing one change, right? So, if this observation is correct, why would 1. be necessary? In that case 1. describes an impossible scenario?",
+      "parentUuid": "10f95af3_27c2b059",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad96c02e_3e086cdb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -266,6 +284,23 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "0dc513ff_b9f9ef5e",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb31aac_d632cc6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-23T22:05:48Z",
+      "side": 1,
+      "message": "Just wanted to post another question quickly. This is not a complete response.",
       "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
