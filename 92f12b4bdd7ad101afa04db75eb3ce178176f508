@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10f95af3_27c2b059",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-04-23T19:52:33Z",
+      "side": 1,
+      "message": "I think showing an example will make things cleaner, let\u0027s imagine that:\n\n1. The current tip of the ref SHA1 is `A1`.\n2. We receive an event to reindex the ref, and the tip SHA1 should be `A2`.\n3. We check if that is true, but in our case, it\u0027s not because the SHA1 is still `A1`(this can happen because of the NFS caching), so we index anyway and we back off for 10 seconds to check if we see correct data.\n4. During that 10 seconds, we have another update to `A3`.\n5. After the backoff, the task checks if the tip SHA1 is `A2`, but in our case, it\u0027s already `A3`, so the task will index current state and back off for another 10 seconds.\n6. Repeat point 5 up to maximum retries.\n\nAnother use case would be that sending/consuming events is slow, so before we consume the event for `A2`, the ref is already pointing to A3.\n\nIn the meantime, we have an event to reindex SHA1 `A3`, and this one is successful. The problem is that we still have a task for `A2` which is retrying and consuming resources(in a very busy repo we can thousands of those).\n\nProposed solution:\n\n1. If any of the indexing tasks for the ref are successful all previous ones which are retrying can be discarded - it\u0027s because all retrying tasks for that ref are pointing to an outdated SHA1.\n2. If we have a new event and already have a task which is retrying, we know that it will never be successful for the current SHA1, so let\u0027s update the SHA1 to the new one and restart the number of retries.\n\nAn alternative approach would be to check the ref history if `A2` is present but it\u0027s not the tip. If yes, we could discard that task. The problem with that solution is that it would be very expensive to traverse the history.",
+      "parentUuid": "151195a1_1d56314d",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad96c02e_3e086cdb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04289315_aaa2caef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-04-23T19:52:33Z",
+      "side": 1,
+      "message": "but we have to make sure that we index the latest state of the change. What if the new commit is not yet visible(for example,because of the NFS caching) if we index the current state we will index old data and the new data would be never indexed.",
+      "parentUuid": "ad96c02e_3e086cdb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44d3b98f_6ce1bb89",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -54,6 +96,30 @@
       "writtenOn": "2024-04-22T10:50:18Z",
       "side": 1,
       "message": "In the case of pointing to a previous meta-ref commit, why not just index that change in that case? What bad could happen if we simply index the change in that case? To keep the performance better we can also switch to using `reindexIfStale`",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1722dfb_5757796c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-04-23T19:52:33Z",
+      "side": 1,
+      "message": "we do reindex, but we want to make sure that we keep retrying until the new data is visible to make sure that we index that data",
+      "parentUuid": "44d3b98f_6ce1bb89",
       "range": {
         "startLine": 16,
         "startChar": 0,
