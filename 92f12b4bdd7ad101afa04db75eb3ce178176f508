@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "177a3393_51fe709b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2024-04-24T10:15:44Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct. This change is implementing point 2 and implicitly resolving point 1",
+      "parentUuid": "1712ee3e_86abf3aa",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad96c02e_3e086cdb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
