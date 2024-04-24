@@ -323,6 +323,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d580c2f_71c20221",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-24T12:20:40Z",
+      "side": 1,
+      "message": "I would like to freeze this discussion as @Saša might have a much better solution to this problem 😊\n\n@sasa.zivkov@sap.com could you contribute your alternative change?",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93619e20_1527e5c6",
