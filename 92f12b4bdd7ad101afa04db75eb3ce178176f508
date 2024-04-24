@@ -340,6 +340,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32a67892_2006cfff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-24T15:48:32Z",
+      "side": 1,
+      "message": "Issues caused by NFS caching with using jgit on NFS are solved for us since we use a jgit version including the following mitigations from QualComm:\n\ncore.trustLooseRefStat\nhttps://eclipse.gerrithub.io/c/eclipse-jgit/jgit/+/1177316\n\ncore.trustPackedRefsStat\nhttps://eclipse.gerrithub.io/c/eclipse-jgit/jgit/+/197526\n\nwith the following configuration in `$gerrit_site/etc/jgit.config`\n``` \n[core]\n    trustFolderStat \u003d false\n    trustLooseRefStat \u003d after_open\n    trustPackedRefsStat \u003d after_open\n```\n\nthe latter 2 can also be set to false but that\u0027s much slower.",
+      "parentUuid": "2d580c2f_71c20221",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93619e20_1527e5c6",
