@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "258fba58_86881b69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-25T16:44:55Z",
+      "side": 1,
+      "message": "Unfortunately that may not happen, as you know the reindexing is not guaranteed.",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f64e7d6_0a9614ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-25T16:44:55Z",
+      "side": 1,
+      "message": "This is a neat idea",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "942e236f_f6f7121d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-25T16:44:55Z",
+      "side": 1,
+      "message": "Sure, it\u0027s not going to be perfect because the assumption that the reindex would always happen and succeed at least on one node isn\u0027t true. However, I agree that it would definitely improve the situation.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcae221_b650e22d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-25T16:44:55Z",
+      "side": 1,
+      "message": "Why do you need to specify those? I believe it should simply query of all changes modified since the last time it checked.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
