@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a50acf8_7c1a0003",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-25T19:56:45Z",
+      "side": 1,
+      "message": "I believe that would be useful in Gerrit as well, regardless of the use-case of the high-availability plugin.\n\nCould you contribute this to Gerrit backend?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "392916e8_ae9d8e90",
