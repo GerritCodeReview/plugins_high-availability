@@ -16,6 +16,24 @@
       "message": "This looks like just a duplicate of Gerrit change queries: what is the added value compared to running a REST-API with a query?",
       "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a880225_99c1e87b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-04-25T19:50:14Z",
+      "side": 1,
+      "message": "The main difference is that the standard change query returns a full `ChangeInfo` [1] per change which is a lot of data. This implementation only returns the changeids. This query is run frequently, hence I think it makes sense to add an optimized API.\n\nAs an experiment I ran a change query `age:2min` on our productive server, it returned 100 changes, response size was 3.3 MB, the list of 100 changeids in the response format used here had the size of 2.5kB which is a reduction by a factor of 1.3k.\n\n[1] https://gerrit-review.googlesource.com/Documentation/rest-api-changes.html#change-info",
+      "parentUuid": "392916e8_ae9d8e90",
+      "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
