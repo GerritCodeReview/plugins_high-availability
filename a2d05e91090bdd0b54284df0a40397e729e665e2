@@ -105,6 +105,23 @@
       "parentUuid": "392916e8_ae9d8e90",
       "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd4e912b_51a115f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-26T11:14:25Z",
+      "side": 1,
+      "message": "Upgrading to a +1, but I am just concerned about the unrestricted visibility of project names in the payload.",
+      "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
