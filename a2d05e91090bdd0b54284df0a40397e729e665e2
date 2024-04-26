@@ -122,6 +122,24 @@
       "message": "Upgrading to a +1, but I am just concerned about the unrestricted visibility of project names in the payload.",
       "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce53486c_b6961b11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-04-26T11:50:52Z",
+      "side": 1,
+      "message": "In our setup the HA endpoints are protected by istio (configured form k8s-gerrit). However, I agree with you that we cannot leave this endpoint unprotected. Let me fix that.",
+      "parentUuid": "cd4e912b_51a115f1",
+      "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
