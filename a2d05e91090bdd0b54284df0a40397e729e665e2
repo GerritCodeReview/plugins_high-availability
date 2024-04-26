@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e45583_03249e50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-04-26T11:13:42Z",
+      "side": 1,
+      "message": "\u003e This endpoint is based on a simple change query: `-age:\u003cperiod\u003e` which can also be executed against Gerrit core, but then Gerrit core would provide a much larger response with all other change-data included. In addition, Gerrit core also performs visibility checks on the default change-query endpoint.\n\nTrue, and the visibility checks can be a performance issue and source of misalignments between nodes indexes.\n\nHow would you protect this endpoint though? The returned payload also contains the project names which could be confidential.\n\n\u003e I put this into the HA plugin because I thought this is a highly specialized endnpoint (condensed response, no visibility checks, no limit) for the HA plugin scenario.\n\nSure, I did something similar also in the past for the reindexing, so it makes sense in this context. Thanks for clarifying.\n\n\u003e Considering the given arguments what is your opinion?\n\nI like this change, it is a quick and lightweight way to recover the index alignments from a temporary outage very quickly.",
+      "parentUuid": "6d60a339_4917e1ff",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "a2d05e91090bdd0b54284df0a40397e729e665e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "392916e8_ae9d8e90",
