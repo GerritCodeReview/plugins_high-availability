@@ -72,6 +72,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52160ed2_5a4b46f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "Acknowledged, as you both agreed on the  resolution.",
+      "parentUuid": "177a3393_51fe709b",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad96c02e_3e086cdb",
@@ -121,6 +139,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67434dfe_c69f1062",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "+1, if we don\u0027t wait for the target branch to reach (or being over) the expected SHA1, we may end up consuming the reindexing event and being stuck with a stale Lucene index.",
+      "parentUuid": "04289315_aaa2caef",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44d3b98f_6ce1bb89",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -156,6 +198,30 @@
       "side": 1,
       "message": "we do reindex, but we want to make sure that we keep retrying until the new data is visible to make sure that we index that data",
       "parentUuid": "44d3b98f_6ce1bb89",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c68c1fc_27210284",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "+1 to @maczech@gmail.com comment, @sasa.zivkov@sap.com you could possibly catch-up and discuss further with @diego.sessona@gmail.com who will be joining the Hackathon shortly.",
+      "parentUuid": "e1722dfb_5757796c",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -228,6 +294,54 @@
       "parentUuid": "2a414798_ac2b1b45",
       "range": {
         "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98cd02b4_5e6e28fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "+1 to @sasa.zivkov@sap.com\u0027s solution of the FailSafe\u0027s abort mechanism. May @diego.sessona@gmail.com can take over during the forthcoming Hackathon?",
+      "parentUuid": "d8188139_56509ab7",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 55
+      },
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc2efc4f_4f74b5da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "I believe @maczech@gmail.com did, maybe @diego.sessona@gmail.com can rephrase the commit message for making the intention clearer?",
+      "parentUuid": "ff62b5f1_ea135299",
+      "range": {
+        "startLine": 25,
         "startChar": 0,
         "endLine": 27,
         "endChar": 55
@@ -376,6 +490,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b660c17_7ec6e1ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "@matthias.sohn@gmail.com I hear you and if you don\u0027t use `core.trustFolderStat \u003d true` then it is clear that you\u0027re not impacted by this problem.\n\nAlso, this change is about solving the issues deriving by using HA with `core.trustFolderStat \u003d true` (see Issue 320626488) therefore I believe it would still make sense to get this reviewed and merged, even if it would not be useful for SAP or Qualcomm.",
+      "parentUuid": "e2cb814e_99fbde1a",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93619e20_1527e5c6",
@@ -389,6 +521,24 @@
       "writtenOn": "2024-04-22T11:31:18Z",
       "side": 1,
       "message": "What happens with the sha-1 checks when squashing multiple events into one? Which sha-1 values will be used for the up-to-date checks?",
+      "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51f5d2d7_5e3ec16e",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-05-02T09:21:22Z",
+      "side": 1,
+      "message": "It should be the one of the newest indexing event, as all the previous ones are snapshots of the past that may not be the tip anymore.",
+      "parentUuid": "93619e20_1527e5c6",
       "revId": "92f12b4bdd7ad101afa04db75eb3ce178176f508",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
