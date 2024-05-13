@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc5c7cc_3421d277",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-13T14:14:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "004a3e9b_56b22d9b",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f64e7d6_0a9614ec",
@@ -61,6 +85,30 @@
       "writtenOn": "2024-04-25T16:44:55Z",
       "side": 1,
       "message": "This is a neat idea",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e25d0fcd_d8470575",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-13T14:14:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f64e7d6_0a9614ec",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -118,6 +166,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89de6958_a6c013e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-13T14:14:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23d4e3d8_23493e1a",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ebcae221_b650e22d",
@@ -155,6 +227,30 @@
       "side": 1,
       "message": "Sure, there could be some default value based on the `indexSync.period`. However, there must be some overlap in the queried periods as there could be some indexing tasks running (and not yet finished) at the moment when a query is processed. After that there might be a new entry in the index that would fit into the queried interval but was persisted too late in the index. A (small) overlap is a safety net. Since this feature uses reindex-if-stale, the constant reindexing of the changes updated in the last few minutes is cheap. We do not notice any noteworthy CPU usage caused by the `indexSync` feature.",
       "parentUuid": "ebcae221_b650e22d",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "30b850f730b445007534e75b4ef7711788c12716",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bf0dbd6_6cee4fcc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-05-13T14:14:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77cd111_f72d2134",
       "range": {
         "startLine": 44,
         "startChar": 0,
