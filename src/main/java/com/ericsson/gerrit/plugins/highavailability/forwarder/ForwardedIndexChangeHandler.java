@@ -90,13 +90,13 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
           return true;
         }
 
-        log.atWarning().log(
+        log.atFine().log(
             "Change %s seems too old compared to the event timestamp (event-Ts=%s >> change-Ts=%s)",
             id, indexEvent, checker);
         return false;
       }
 
-      log.atWarning().log(
+      log.atFine().log(
           "Change %s not present yet in local Git repository (event=%s)", id, indexEvent);
       return false;
 
@@ -113,7 +113,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
   private void reindex(ChangeNotes notes) {
     notes.reload();
-    indexer.index(notes);
+    indexer.reindexIfStale(notes.getProjectName(), notes.getChangeId());
   }
 
   @Override
