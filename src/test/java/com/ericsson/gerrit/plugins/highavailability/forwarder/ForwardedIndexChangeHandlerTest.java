@@ -32,6 +32,7 @@ import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutorProvider;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexFailsafeExecutorProvider;
 import com.google.gerrit.entities.Change;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
@@ -61,6 +62,7 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Mock private ChangeIndexer indexerMock;
   @Mock private ChangeNotes changeNotes;
+  @Mock private Project.NameKey projectName;
 
   @Mock(answer = RETURNS_DEEP_STUBS)
   private Configuration configMock;
@@ -92,14 +94,15 @@ public class ForwardedIndexChangeHandlerTest {
   public void changeIsIndexedWhenUpToDate() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
-    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
+    verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
   public void changeIsStillIndexedEvenWhenOutdated() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent())).get(10, SECONDS);
-    verify(indexerMock, atLeast(1)).index(any(ChangeNotes.class));
+    verify(indexerMock, atLeast(1))
+        .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
@@ -127,13 +130,13 @@ public class ForwardedIndexChangeHandlerTest {
                   return null;
                 })
         .when(indexerMock)
-        .index(any(ChangeNotes.class));
+        .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
+    verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
@@ -146,7 +149,7 @@ public class ForwardedIndexChangeHandlerTest {
                   throw new IOException("someMessage");
                 })
         .when(indexerMock)
-        .index(any(ChangeNotes.class));
+        .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
     ExecutionException thrown =
@@ -157,7 +160,7 @@ public class ForwardedIndexChangeHandlerTest {
     assertThat(thrown.getCause()).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(indexerMock, times(1)).index(any(ChangeNotes.class));
+    verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExists, boolean changeIsUpToDate)
@@ -166,7 +169,8 @@ public class ForwardedIndexChangeHandlerTest {
       when(changeCheckerFactoryMock.create(TEST_CHANGE_ID)).thenReturn(changeCheckerPresentMock);
       when(changeCheckerPresentMock.getChangeNotes()).thenReturn(Optional.of(changeNotes));
     }
-
+    when(changeNotes.getChangeId()).thenReturn(id);
+    when(changeNotes.getProjectName()).thenReturn(projectName);
     when(changeCheckerPresentMock.isChangeUpToDate(any())).thenReturn(changeIsUpToDate);
   }
 }
