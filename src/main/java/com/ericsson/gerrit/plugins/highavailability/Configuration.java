@@ -66,6 +66,7 @@ public class Configuration {
 
   private final Main main;
   private final AutoReindex autoReindex;
+  private final IndexSync indexSync;
   private final PeerInfo peerInfo;
   private final JGroups jgroups;
   private final JGroupsKubernetes jgroupsKubernetes;
@@ -98,6 +99,7 @@ public class Configuration {
   public Configuration(Config cfg, SitePaths site) {
     main = new Main(site, cfg);
     autoReindex = new AutoReindex(cfg);
+    indexSync = new IndexSync(cfg);
     peerInfo = new PeerInfo(cfg);
     switch (peerInfo.strategy()) {
       case STATIC:
@@ -139,6 +141,10 @@ public class Configuration {
 
   public AutoReindex autoReindex() {
     return autoReindex;
+  }
+
+  public IndexSync indexSync() {
+    return indexSync;
   }
 
   public PeerInfo peerInfo() {
@@ -273,6 +279,60 @@ public class Configuration {
 
     public Duration pollInterval() {
       return pollInterval;
+    }
+  }
+
+  public static class IndexSync {
+
+    static final String INDEX_SYNC_SECTION = "indexSync";
+    static final String ENABLED = "enabled";
+    static final String DELAY = "delay";
+    static final String PERIOD = "period";
+    static final String INITIAL_SYNC_AGE = "initialSyncAge";
+    static final String SYNC_AGE = "syncAge";
+
+    static final boolean DEFAULT_SYNC_INDEX = false;
+    static final Duration DEFAULT_DELAY = Duration.ofSeconds(0);
+    static final Duration DEFAULT_PERIOD = Duration.ofSeconds(2);
+    static final String DEFAULT_INITIAL_SYNC_AGE = "1hour";
+    static final String DEFAULT_SYNC_AGE = "1minute";
+
+    private final boolean enabled;
+    private final Duration delay;
+    private final Duration period;
+    private final String initialSyncAge;
+    private final String syncAge;
+
+    public IndexSync(Config cfg) {
+      enabled = cfg.getBoolean(INDEX_SYNC_SECTION, ENABLED, DEFAULT_SYNC_INDEX);
+      delay = getDuration(cfg, INDEX_SYNC_SECTION, DELAY, DEFAULT_DELAY);
+      period = getDuration(cfg, INDEX_SYNC_SECTION, PERIOD, DEFAULT_PERIOD);
+
+      String v = cfg.getString(INDEX_SYNC_SECTION, "", INITIAL_SYNC_AGE);
+      initialSyncAge = v != null ? v : DEFAULT_INITIAL_SYNC_AGE;
+
+      v = cfg.getString(INDEX_SYNC_SECTION, "", SYNC_AGE);
+      syncAge = v != null ? v : DEFAULT_SYNC_AGE;
+    }
+
+    public boolean enabled() {
+      return enabled;
+    }
+
+    public Duration delay() {
+      return delay;
+    }
+
+    public Duration period() {
+      return period;
+    }
+
+    public String initialSyncAge() {
+      return initialSyncAge;
+    }
+
+    public String syncAge() {
+      return syncAge;
     }
   }
 

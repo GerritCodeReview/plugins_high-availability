@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers;
 
+import java.util.Objects;
+
 public class PeerInfo {
 
   private final String directUrl;
@@ -24,5 +26,15 @@ public class PeerInfo {
 
   public String getDirectUrl() {
     return directUrl;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(directUrl);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    return (o instanceof PeerInfo) && Objects.equals(directUrl, ((PeerInfo) o).directUrl);
   }
 }
