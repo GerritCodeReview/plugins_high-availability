@@ -24,7 +24,6 @@ import com.google.common.io.CharStreams;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGson;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -53,10 +52,10 @@ class EventRestApiServlet extends AbstractRestApiServlet {
         sendError(rsp, SC_UNSUPPORTED_MEDIA_TYPE, "Expecting " + JSON_UTF_8 + " content type");
         return;
       }
-      forwardedEventHandler.dispatch(getEventFromRequest(req));
+      Event event = getEventFromRequest(req);
       rsp.setStatus(SC_NO_CONTENT);
-    } catch (IOException | PermissionBackendException e) {
-      log.atSevere().withCause(e).log("Unable to re-trigger event");
+      forwardedEventHandler.dispatch(event);
+    } catch (IOException e) {
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }
   }
