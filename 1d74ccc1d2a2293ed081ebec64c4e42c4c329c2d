@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf992575_9710279a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-06-05T16:03:11Z",
+      "side": 1,
+      "message": "The code ignores the failure to *dispatch* the event, not processing it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f83b0b21_5f2f53fb",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -42,6 +65,29 @@
         "startChar": 20,
         "endLine": 26,
         "endChar": 23
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006663de_54a07fd6",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/EventRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-06-05T16:03:11Z",
+      "side": 1,
+      "message": "This should be a fire-and-forget and if we are not able to dispatch the event internally, it is correct to fail.\n\nMaybe the bug is in the `ForwardedEventHandler` that should really be a _fire-and-forget_ rather than process the event and return an error if the processing fail.",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 44
       },
       "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
