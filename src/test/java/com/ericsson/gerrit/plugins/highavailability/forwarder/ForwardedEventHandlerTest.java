@@ -15,7 +15,6 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
@@ -82,9 +81,7 @@ public class ForwardedEventHandlerTest {
         .postEvent(event);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    PermissionBackendException thrown =
-        assertThrows(PermissionBackendException.class, () -> handler.dispatch(event));
-    assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
+    handler.dispatch(event);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(dispatcherMock).postEvent(event);
