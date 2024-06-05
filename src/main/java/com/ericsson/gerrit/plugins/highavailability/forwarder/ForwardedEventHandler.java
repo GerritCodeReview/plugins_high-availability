@@ -17,7 +17,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventDispatcher;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -42,11 +41,13 @@ public class ForwardedEventHandler {
    *
    * @param event The event to dispatch
    */
-  public void dispatch(Event event) throws PermissionBackendException {
+  public void dispatch(Event event) {
     try {
       Context.setForwardedEvent(true);
       log.atFine().log("dispatching event %s", event.getType());
       dispatcher.postEvent(event);
+    } catch (Exception e) {
+      log.atSevere().withCause(e).log("Unable to re-trigger event");
     } finally {
       Context.unsetForwardedEvent();
     }

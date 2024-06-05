@@ -26,7 +26,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectLi
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -108,13 +107,7 @@ public class MessageProcessor implements RequestHandler {
 
       } else if (cmd instanceof PostEvent) {
         Event event = ((PostEvent) cmd).getEvent();
-        try {
-          eventHandler.dispatch(event);
-          log.atFine().log("Dispatching event %s done", event);
-        } catch (PermissionBackendException e) {
-          log.atSevere().withCause(e).log("Dispatching event %s failed", event);
-          return false;
-        }
+        eventHandler.dispatch(event);
 
       } else if (cmd instanceof AddToProjectList) {
         String projectName = ((AddToProjectList) cmd).getProjectName();
