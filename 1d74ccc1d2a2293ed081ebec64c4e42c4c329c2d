@@ -91,6 +91,30 @@
       },
       "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3d331ec_3f2827e0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/EventRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-06-05T23:07:12Z",
+      "side": 1,
+      "message": "the replication plugin\u0027s Destination just logs an error if an event cannot be dispatched due to missing permission:\nhttps://gerrit.googlesource.com/plugins/replication/+/refs/heads/master/src/main/java/com/googlesource/gerrit/plugins/replication/Destination.java#840",
+      "parentUuid": "006663de_54a07fd6",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 44
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
