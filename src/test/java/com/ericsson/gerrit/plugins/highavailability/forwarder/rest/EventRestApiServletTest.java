@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.google.common.net.MediaType;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.server.events.EventDispatcher;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.EventTypes;
 import com.google.gerrit.server.events.RefEvent;
@@ -41,6 +42,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -85,11 +87,15 @@ public class EventRestApiServletTest {
             + "\"refs/changes/76/669676/2\",\"nodesCount\":1,\"type\":"
             + "\"ref-replication-done\",\"eventCreatedOn\":1451415011}";
     when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader(event)));
+
+    EventDispatcher dispatcher = Mockito.mock(EventDispatcher.class);
     doThrow(new PermissionBackendException(ERR_MSG))
-        .when(forwardedEventHandlerMock)
-        .dispatch(any(RefReplicationDoneEvent.class));
+        .when(dispatcher)
+        .postEvent(any(RefReplicationDoneEvent.class));
+    ForwardedEventHandler forwardedEventHandler = new ForwardedEventHandler(dispatcher);
+    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandler, gson);
     eventRestApiServlet.doPost(requestMock, responseMock);
-    verify(responseMock).sendError(SC_BAD_REQUEST, ERR_MSG);
+    verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
   @Test
