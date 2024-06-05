@@ -89,7 +89,7 @@ public class EventRestApiServletTest {
         .when(forwardedEventHandlerMock)
         .dispatch(any(RefReplicationDoneEvent.class));
     eventRestApiServlet.doPost(requestMock, responseMock);
-    verify(responseMock).sendError(SC_BAD_REQUEST, ERR_MSG);
+    verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
   @Test

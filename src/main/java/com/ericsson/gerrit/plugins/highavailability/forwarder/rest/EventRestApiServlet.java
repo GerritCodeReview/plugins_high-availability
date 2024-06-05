@@ -48,16 +48,23 @@ class EventRestApiServlet extends AbstractRestApiServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
     setHeaders(rsp);
+    Event event;
     try {
       if (!MediaType.parse(req.getContentType()).is(JSON_UTF_8)) {
         sendError(rsp, SC_UNSUPPORTED_MEDIA_TYPE, "Expecting " + JSON_UTF_8 + " content type");
         return;
       }
-      forwardedEventHandler.dispatch(getEventFromRequest(req));
+      event = getEventFromRequest(req);
       rsp.setStatus(SC_NO_CONTENT);
-    } catch (IOException | PermissionBackendException e) {
-      log.atSevere().withCause(e).log("Unable to re-trigger event");
+    } catch (IOException e) {
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
+      return;
+    }
+
+    try {
+      forwardedEventHandler.dispatch(event);
+    } catch (PermissionBackendException e) {
+      log.atSevere().withCause(e).log("Unable to re-trigger event");
     }
   }
 
