@@ -47,6 +47,54 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcdcb240_4581c61d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-06T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ad066f0_e83fe457",
+      "range": {
+        "startLine": 9,
+        "startChar": 62,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e005adcf_0ebf995d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-06T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf992575_9710279a",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f83b0b21_5f2f53fb",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-06-05T14:15:44Z",
       "side": 1,
       "message": "no",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b614d33_1f543456",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-06T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f83b0b21_5f2f53fb",
       "range": {
         "startLine": 26,
         "startChar": 20,
@@ -107,6 +179,30 @@
       "side": 1,
       "message": "the replication plugin\u0027s Destination just logs an error if an event cannot be dispatched due to missing permission:\nhttps://gerrit.googlesource.com/plugins/replication/+/refs/heads/master/src/main/java/com/googlesource/gerrit/plugins/replication/Destination.java#840",
       "parentUuid": "006663de_54a07fd6",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 44
+      },
+      "revId": "1d74ccc1d2a2293ed081ebec64c4e42c4c329c2d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b774bd0c_06c49a8b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/EventRestApiServlet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-06-06T09:04:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3d331ec_3f2827e0",
       "range": {
         "startLine": 65,
         "startChar": 6,
