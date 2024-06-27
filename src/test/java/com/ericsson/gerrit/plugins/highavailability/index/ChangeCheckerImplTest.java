@@ -19,7 +19,6 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.entities.Change;
-import com.google.gerrit.server.DraftCommentsReader;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -38,7 +37,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class ChangeCheckerImplTest {
 
   @Mock private GitRepositoryManager gitRepoMgr;
-  @Mock private DraftCommentsReader draftCommentsReader;
   @Mock private ChangeFinder changeFinder;
   @Mock private OneOffRequestContext oneOffReqCtx;
   @Mock private ChangeNotes testChangeNotes;
@@ -52,9 +50,7 @@ public class ChangeCheckerImplTest {
 
   @Before
   public void setUp() {
-    changeChecker =
-        new ChangeCheckerImpl(
-            gitRepoMgr, draftCommentsReader, changeFinder, oneOffReqCtx, changeId);
+    changeChecker = new ChangeCheckerImpl(gitRepoMgr, changeFinder, oneOffReqCtx, changeId);
   }
 
   @Test

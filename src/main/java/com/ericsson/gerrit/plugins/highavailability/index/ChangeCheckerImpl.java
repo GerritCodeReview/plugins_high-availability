@@ -17,9 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Change;
-import com.google.gerrit.entities.HumanComment;
 import com.google.gerrit.entities.RefNames;
-import com.google.gerrit.server.DraftCommentsReader;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -28,7 +26,6 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Optional;
 import org.eclipse.jgit.lib.Ref;
@@ -37,7 +34,6 @@ import org.eclipse.jgit.lib.Repository;
 public class ChangeCheckerImpl implements ChangeChecker {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final GitRepositoryManager gitRepoMgr;
-  private final DraftCommentsReader draftCommentsReader;
   private final OneOffRequestContext oneOffReqCtx;
   private final String changeId;
   private final ChangeFinder changeFinder;
@@ -51,13 +47,11 @@ public class ChangeCheckerImpl implements ChangeChecker {
   @Inject
   public ChangeCheckerImpl(
       GitRepositoryManager gitRepoMgr,
-      DraftCommentsReader draftCommentsReader,
       ChangeFinder changeFinder,
       OneOffRequestContext oneOffReqCtx,
       @Assisted String changeId) {
     this.changeFinder = changeFinder;
     this.gitRepoMgr = gitRepoMgr;
-    this.draftCommentsReader = draftCommentsReader;
     this.oneOffReqCtx = oneOffReqCtx;
     this.changeId = changeId;
   }
@@ -177,12 +171,6 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
     Change change = notes.getChange();
-    Timestamp changeTs = Timestamp.from(change.getLastUpdatedOn());
-    for (HumanComment comment :
-        draftCommentsReader.getDraftsByChangeForAllAuthors(changeNotes.get())) {
-      Timestamp commentTs = comment.writtenOn;
-      changeTs = commentTs.after(changeTs) ? commentTs : changeTs;
-    }
-    return changeTs.getTime() / 1000;
+    return change.getLastUpdatedOn().toEpochMilli() / 1000;
   }
 }
