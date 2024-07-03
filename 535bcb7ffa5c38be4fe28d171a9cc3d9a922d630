@@ -35,6 +35,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d79dbb7_2e2bb85c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-03T11:28:24Z",
+      "side": 1,
+      "message": "I\u0027ve made the equivalent fix also on multi-site: I9644fbdce",
+      "revId": "535bcb7ffa5c38be4fe28d171a9cc3d9a922d630",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4007c6d2_9da38dad",
