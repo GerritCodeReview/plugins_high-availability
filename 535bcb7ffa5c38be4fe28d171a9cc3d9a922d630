@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b16baba0_b63d4265",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-07-03T10:52:50Z",
+      "side": 1,
+      "message": "Good stuff @sasa.zivkov@sap.com and thanks for contributing it. I\u0027ll do the equivalent for the multi-site plugin now.",
+      "revId": "535bcb7ffa5c38be4fe28d171a9cc3d9a922d630",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
