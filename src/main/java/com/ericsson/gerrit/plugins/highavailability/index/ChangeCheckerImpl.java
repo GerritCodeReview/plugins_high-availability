@@ -156,7 +156,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   private Optional<Long> computeLastChangeTs() {
-    return getChangeNotes().map(this::getTsFromChangeAndDraftComments);
+    return getChangeNotes().map(this::getTsFromChange);
   }
 
   private String getMetaSha(Repository repo) throws IOException {
@@ -169,7 +169,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
     return ref.getTarget().getObjectId().getName();
   }
 
-  private long getTsFromChangeAndDraftComments(ChangeNotes notes) {
+  private long getTsFromChange(ChangeNotes notes) {
     Change change = notes.getChange();
     return change.getLastUpdatedOn().toEpochMilli() / 1000;
   }
