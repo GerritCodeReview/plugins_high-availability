@@ -52,6 +52,23 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19352787_66a7c8b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3563139
+      },
+      "writtenOn": "2024-08-14T12:33:20Z",
+      "side": 1,
+      "message": "Gracias",
+      "revId": "535bcb7ffa5c38be4fe28d171a9cc3d9a922d630",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4007c6d2_9da38dad",
@@ -113,6 +130,30 @@
       "side": 1,
       "message": "Done in I13a184dd9cc5748cc05b0e330272fb4643a95c9c",
       "parentUuid": "c3d0b23d_c0f54b29",
+      "range": {
+        "startLine": 172,
+        "startChar": 15,
+        "endLine": 172,
+        "endChar": 46
+      },
+      "revId": "535bcb7ffa5c38be4fe28d171a9cc3d9a922d630",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7700903f_9a66f447",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 3563139
+      },
+      "writtenOn": "2024-08-14T12:33:20Z",
+      "side": 1,
+      "message": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImplTest.java",
+      "parentUuid": "105f74b5_0c54769d",
       "range": {
         "startLine": 172,
         "startChar": 15,
