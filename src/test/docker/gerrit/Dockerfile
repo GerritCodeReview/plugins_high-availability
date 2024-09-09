@@ -1,17 +1,17 @@
-FROM almalinux:8.5
+FROM almalinux:9.4
 
 # Install dependencies
 RUN yum -y install \
     git \
-    java-11-openjdk \
+    java-17-openjdk \
     procps \
     sudo \
     passwd \
     gettext \
     && yum -y clean all
 
-ENV GERRIT_VERSION=3.6
-ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
+ENV GERRIT_VERSION=3.10
+ENV JAVA_HOME /usr/lib/jvm/jre-17-openjdk
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
@@ -34,8 +34,8 @@ ADD --chown=gerrit \
     /var/gerrit/plugins/high-availability.jar
 
 ADD --chown=gerrit \
-    "https://repo1.maven.org/maven2/com/gerritforge/global-refdb/$GERRIT_VERSION.3.4/global-refdb-$GERRIT_VERSION.3.4.jar" \
-    /tmp
+    "https://gerrit-ci.gerritforge.com/job/module-global-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/global-refdb/global-refdb.jar" \
+    /var/gerrit/lib/global-refdb.jar
 
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
