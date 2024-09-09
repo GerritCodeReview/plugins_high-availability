@@ -72,8 +72,8 @@ services:
       - "29418:29418"
     networks:
       nfs-server-bridge: null
-    volumes:
-      - syslog-sidecar:/syslog-sidecar
+    volumes_from:
+      - syslog-sidecar
     depends_on:
       - syslog-sidecar
       - gerrit-01
