@@ -1,13 +1,13 @@
 # Gerrit high-availability docker setup example
 
-The Docker Compose project in the docker directory contains a simple test 
+The Docker Compose project in the docker directory contains a simple test
 environment of two Gerrit masters in HA configuration, with their git repos
 hosted on NFS filesystem.
 
 ## How to build
 
 The project can be built using docker-compose (make sure you set the
-`platform` attribute in the docker-compose.yaml file if you're not 
+`platform` attribute in the docker-compose.yaml file if you're not
 in an amd64 arch).
 
 To build the Docker VMs:
@@ -67,11 +67,11 @@ nfs-share. This is because more often than not it's the git directory that's
 shared over the network. You can change this in the nfs server and gerrit
 docker files, and in the `exports.txt` file.
 
-The NFS server is using a static IP. The Docker Compose YAML file defines a 
+The NFS server is using a static IP. The Docker Compose YAML file defines a
 bridge network with the subnet `192.168.1.0/24` (this is what allows us to
 give the NFS Server a known, static IP).
 
-The `addr=192.168.1.5` option (in the `nfs-client-volume` volume) is the 
+The `addr=192.168.1.5` option (in the `nfs-client-volume` volume) is the
 reason we need a static IP for the server (and hence a configured subnet
 for the network). Note that using a name (ie. addr=nfs-server) we weren't
 able to get the DNS resolution to work properly.
