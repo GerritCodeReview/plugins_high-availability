@@ -9,6 +9,9 @@ chown -R gerrit /var/gerrit/etc
 sudo -u gerrit cp /var/gerrit/etc/gerrit.config.orig /var/gerrit/etc/gerrit.config
 sudo -u gerrit cp /var/gerrit/etc/high-availability.config.orig /var/gerrit/etc/high-availability.config
 sudo -u gerrit cp /var/gerrit/etc/zookeeper-refdb.config.orig /var/gerrit/etc/zookeeper-refdb.config
+sudo -u gerrit git config -f /var/gerrit/etc/healthcheck.config healthcheck.auth.enabled false
+sudo -u gerrit git config -f /var/gerrit/etc/healthcheck.config healthcheck.querychanges.enabled false
+sudo -u gerrit git config -f /var/gerrit/etc/healthcheck.config healthcheck.changesindex.enabled false
 
 
 echo "Init gerrit..."
