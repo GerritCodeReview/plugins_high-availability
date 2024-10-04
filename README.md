@@ -1,5 +1,7 @@
 # Gerrit high-availability plugin
 
+Test
+
 This plugin allows deploying a cluster of multiple Gerrit masters
 on the same data-center sharing the same Git repositories.
 
