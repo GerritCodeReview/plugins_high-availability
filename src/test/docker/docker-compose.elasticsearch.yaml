@@ -1,0 +1,153 @@
+version: '3'
+
+services:
+
+  nfs-server:
+    build: nfs
+#    platform: linux/arm64/v8 # uncomment for Apple Silicon arch
+    privileged: true
+    container_name: nfs-server
+    environment:
+      NFS_LOG_LEVEL: DEBUG
+    hostname: nfs-server
+    healthcheck:
+      test: ["CMD-SHELL", "sleep 10"] # required, otherwise the gerrit service will fail to start with a "connection refused" error
+      interval: 1s
+      timeout: 1m
+      retries: 10
+    ports:
+      - 2049:2049
+    networks:
+      gerrit-net:
+        ipv4_address: 192.168.1.5
+    volumes:
+      - nfs-server-volume:/var/gerrit/git
+
+  zookeeper-refdb:
+    image: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - gerrit-net
+    healthcheck:
+      test: ["CMD-SHELL", "./bin/zkServer.sh", "status"] # required, otherwise the gerrit service will fail to start with a "connection refused" error
+      interval: 1s
+      timeout: 1m
+      retries: 10
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.2
+    container_name: elasticsearch
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - node.name=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - ELASTIC_PASSWORD=os_Secret1234
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600
+    networks:
+      - gerrit-net
+    healthcheck:
+      test: ["CMD-SHELL", "sleep 10"]
+      interval: 1s
+      timeout: 1m
+      retries: 10
+
+  gerrit-01:
+    build: gerrit
+    privileged: true
+    depends_on:
+      nfs-server:
+        condition: service_healthy
+      zookeeper-refdb:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+      - "29411:29418"
+    networks:
+      - gerrit-net
+    volumes:
+      - /dev/urandom:/dev/random
+      - git-volume:/var/gerrit/git
+      - shareddir:/var/gerrit/shareddir
+      - ./etc/gerrit_es.config:/var/gerrit/etc/gerrit.config.orig
+      - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
+      - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
+    environment:
+      - HOSTNAME=localhost
+      - INDEX_TYPE=ELASTICSEARCH
+
+  gerrit-02:
+    build: gerrit
+    privileged: true
+    ports:
+      - "8082:8080"
+      - "29412:29418"
+    networks:
+      - gerrit-net
+    depends_on:
+      gerrit-01:
+        condition: service_started
+      nfs-server:
+        condition: service_healthy
+    volumes:
+      - /dev/urandom:/dev/random
+      - git-volume:/var/gerrit/git
+      - shareddir:/var/gerrit/shareddir
+      - ./etc/gerrit_es.config:/var/gerrit/etc/gerrit.config.orig
+      - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
+      - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
+    environment:
+      - HOSTNAME=localhost
+      - INDEX_TYPE=ELASTICSEARCH
+      - WAIT_FOR=gerrit-01:8080
+
+  haproxy:
+    build: haproxy
+    ports:
+      - "80:80"
+      - "29418:29418"
+    networks:
+      - gerrit-net
+    volumes_from:
+      - syslog-sidecar
+    depends_on:
+      - syslog-sidecar
+      - gerrit-01
+      - gerrit-02
+
+  syslog-sidecar:
+    build: docker-syslog-ng-stdout
+    networks:
+      - gerrit-net
+
+networks:
+  gerrit-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
+
+volumes:
+  shareddir:
+  nfs-server-volume:
+  elasticsearch-data:
+  git-volume:
+    driver: "local"
+    driver_opts:
+      type: nfs
+      o: "addr=192.168.1.5,rw"
+      device: ":/var/gerrit/git"
