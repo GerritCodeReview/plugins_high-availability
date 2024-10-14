@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63677bbf_604a63f3",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-10-14T12:38:17Z",
+      "side": 0,
+      "message": "It would be a lot more maintainable to just introduce the variable $GERRIT_BRANCH and set to `stable-$GERRIT_VERSION` on stable branches whilst set to `master` on master.",
+      "range": {
+        "startLine": 26,
+        "startChar": 56,
+        "endLine": 26,
+        "endChar": 78
+      },
+      "revId": "2e8cfb5bb824bbfc38df9170ddfa1e42058200f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
