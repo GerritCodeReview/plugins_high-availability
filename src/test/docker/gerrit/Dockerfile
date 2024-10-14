@@ -27,8 +27,9 @@ ADD --chown=gerrit \
     /tmp/gerrit.war
 
 ADD --chown=gerrit \
-"https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
+    "https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
+
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
     /var/gerrit/plugins/high-availability.jar
