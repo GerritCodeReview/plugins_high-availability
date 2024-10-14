@@ -44,6 +44,10 @@ ADD --chown=gerrit:gerrit \
     "https://gerrit-ci.gerritforge.com/job/plugin-zookeeper-refdb-bazel-master/lastSuccessfulBuild/artifact/bazel-bin/plugins/zookeeper-refdb/zookeeper-refdb.jar" \
     /var/gerrit/plugins/zookeeper-refdb.jar
 
+ADD --chown=gerrit:gerrit \
+    "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/module-index-elasticsearch-bazel-master/lastSuccessfulBuild/artifact/bazel-bin/plugins/index-elasticsearch/index-elasticsearch.jar" \
+    /var/gerrit_plugins/index-elasticsearch.jar
+
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
 # Change user
