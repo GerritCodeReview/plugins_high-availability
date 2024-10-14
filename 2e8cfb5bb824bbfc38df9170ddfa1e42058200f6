@@ -22,6 +22,30 @@
       },
       "revId": "2e8cfb5bb824bbfc38df9170ddfa1e42058200f6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd72611d_5814132b",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-10-14T12:59:15Z",
+      "side": 1,
+      "message": "No, it doesn\u0027t since the Gerrit site is only initialized on startup and we haven\u0027t implicitly craeted it with `ADD` yet.",
+      "parentUuid": "82ef1332_afeb0e5a",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "2e8cfb5bb824bbfc38df9170ddfa1e42058200f6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
