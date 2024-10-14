@@ -13,6 +13,10 @@ sudo -u gerrit git config -f /var/gerrit/etc/healthcheck.config healthcheck.auth
 sudo -u gerrit git config -f /var/gerrit/etc/healthcheck.config healthcheck.querychanges.enabled false
 sudo -u gerrit git config -f /var/gerrit/etc/healthcheck.config healthcheck.changesindex.enabled false
 
+if [[ "INDEX_TYPE" == "ELASTICSEARCH" ]]; then
+  ln -sf /var/gerrit_plugins/index-elasticsearch.jar /var/gerrit/lib/index-elasticsearch.jar
+  ln -sf /var/gerrit_plugins/index-elasticsearch.jar /var/gerrit/plugins/index-elasticsearch.jar
+fi
 
 echo "Init gerrit..."
 sudo -u gerrit java -jar /tmp/gerrit.war init -d /var/gerrit --batch --install-all-plugins
