@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a72f8f_27638c49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-10-14T12:22:32Z",
+      "side": 1,
+      "message": "You should also mention that you are downloading the global-refdb directly to $GERRIT_SITE/lib",
+      "revId": "7c270a4501cc4246bd19c6c1ab68ddcf10cc3afc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
