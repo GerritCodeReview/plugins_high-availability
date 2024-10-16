@@ -22,6 +22,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsFor
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.indexsync.IndexSyncModule;
+import com.ericsson.gerrit.plugins.highavailability.lock.FileBasedLockManager;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Inject;
@@ -43,6 +44,7 @@ class Module extends LifecycleModule {
   protected void configure() {
     install(new EnvModule());
     install(new ForwarderModule());
+    install(new FileBasedLockManager.Module());
 
     switch (config.main().transport()) {
       case HTTP:
