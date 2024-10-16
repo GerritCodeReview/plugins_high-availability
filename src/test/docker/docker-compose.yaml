@@ -4,7 +4,6 @@ services:
 
   nfs-server:
     build: nfs
-#    platform: linux/arm64/v8 # uncomment for Apple Silicon arch
     privileged: true
     container_name: nfs-server
     environment:
