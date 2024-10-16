@@ -16,6 +16,24 @@
       "message": "Works nicely.\nMention the new setup in the README ?",
       "revId": "3110e44a00cc5ab7a79a926ae634485ae7501c4c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2efd34c9_3d7a7061",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-10-16T13:06:21Z",
+      "side": 1,
+      "message": "I pushed another change to update the dated documentation for the old example https://gerrit-review.googlesource.com/c/plugins/high-availability/+/439723",
+      "parentUuid": "9e409fd8_d783a16a",
+      "revId": "3110e44a00cc5ab7a79a926ae634485ae7501c4c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
