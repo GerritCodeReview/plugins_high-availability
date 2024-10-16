@@ -6,19 +6,12 @@ hosted on NFS filesystem.
 
 ## How to build
 
-The project can be built using docker-compose (make sure you set the
-`platform` attribute in the docker-compose.yaml file if you're not
-in an amd64 arch).
+The project can be built using docker compose.
 
 To build the Docker VMs:
+
 ```bash
-  # first, remove the buildx if it exists and its not running
-  $ docker buildx inspect docker-ha | grep Status
-  $ docker buildx rm docker-ha
-  # create the docker-ha buildx node, provide your architecture and start it up
-  docker buildx create --name docker-ha --platform "linux/amd64" --driver docker-container --use \
-  && docker buildx inspect --bootstrap \
-  && docker-compose build
+  docker compose build
 ```
 
 ### Building the Docker VMs using a non-default user id
@@ -28,7 +21,7 @@ This is done simply by modifying the file setting the non-default user id.
 Then, run the following:
 ```
   $ export GERRIT_UID=$(id -u)
-  $ docker-compose build --build-arg GERRIT_UID
+  $ docker compose build --build-arg GERRIT_UID
 ```
 
 Above, exporting that UID is optional and will be 1000 by default.
@@ -51,10 +44,11 @@ user id. The individual gerrit user's writing permission does suffice.
 Use the 'up' target to startup the Docker Compose VMs.
 
 ```
-  $ docker-compose up -d
+  $ docker compose up -d
 ```
 
 ## Background on using an NFS server
+
 We are using the `erichough/nfs-server` image mainly because it's easy to use
 & we had success with it. The work has been inspired by
 [this blog post](https://nothing2say.co.uk/running-a-linux-based-nfs-server-in-docker-on-windows-b64445d5ada2).
@@ -86,7 +80,7 @@ subnet we provided during the bridge network creation. This file is baked
 into the image sacrificing a bit of flexibility, but we feel this is
 a small price to pay to have everything automated.
 
-# Gerrit high-availability local setup example
+## Gerrit high-availability local setup example
 
  1. Init gerrit instances with high-availability plugin installed:
     1. Optionally, set http port of those instance to 8081 and 8082.
@@ -137,5 +131,5 @@ If you want to stop and cleanup all the previous state, use the 'down'
 target.
 
 ```
-  $ docker-compose down
+  $ docker compose down
 ```
