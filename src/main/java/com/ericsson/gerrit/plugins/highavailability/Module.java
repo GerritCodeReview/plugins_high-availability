@@ -64,12 +64,12 @@ class Module extends LifecycleModule {
     }
     if (config.index().synchronize()) {
       install(new IndexModule());
+      if (config.indexSync().enabled()) {
+        install(new IndexSyncModule());
+      }
     }
     if (config.autoReindex().enabled()) {
       install(new AutoReindexModule());
-    }
-    if (config.indexSync().enabled()) {
-      install(new IndexSyncModule());
     }
 
     if (config.sharedRefDb().getSharedRefDb().isEnabled()) {
