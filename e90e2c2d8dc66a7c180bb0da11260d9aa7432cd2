@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "451e8f95_e4b0b6e7",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/HttpModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-21T12:47:37Z",
+      "side": 1,
+      "message": "This constructor is annotated with `@Inject`, therefore either let Guice inject the `Configuration` and also inject `RestForwarderModule` into this class\u0027 constructor, or remove the `@Inject` annotation from the `RestForwarderModule` if instantiating it here explicitely.",
+      "revId": "e90e2c2d8dc66a7c180bb0da11260d9aa7432cd2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
