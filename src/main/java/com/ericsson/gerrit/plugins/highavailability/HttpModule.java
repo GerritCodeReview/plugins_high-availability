@@ -33,7 +33,7 @@ class HttpModule extends ServletModule {
 
   @Override
   protected void configureServlets() {
-    install(new RestForwarderServletModule());
+    install(new RestForwarderServletModule(config));
     if (config.healthCheck().enabled()) {
       install(new HealthServletModule());
     }
