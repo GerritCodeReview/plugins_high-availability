@@ -16,6 +16,24 @@
       "message": "I still see guice errors. Will continue to check",
       "revId": "f92e03e4522decb45c1f54eaa402b7d46a3b48e7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc1cf45e_658af726",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-10-21T10:47:02Z",
+      "side": 1,
+      "message": "Fixed in followup change",
+      "parentUuid": "58815223_c62c9c26",
+      "revId": "f92e03e4522decb45c1f54eaa402b7d46a3b48e7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
