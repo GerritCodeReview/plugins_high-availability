@@ -21,13 +21,11 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.View;
-import org.jgroups.stack.IpAddress;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Test.None;
@@ -43,7 +41,7 @@ public class JGroupsPeerInfoProviderTest {
 
   private InetAddressFinder finder;
   private JGroupsPeerInfoProvider jGroupsPeerInfoProvider;
-  private Optional<PeerInfo> peerInfo;
+  private PeerInfo peerInfo;
   @Mock private JChannel channel;
   @Mock private MyUrlProvider myUrlProviderTest;
   @Mock private Message message;
@@ -57,7 +55,7 @@ public class JGroupsPeerInfoProviderTest {
     JChannel channel = new JChannelProvider(pluginConfigurationMock).get();
     jGroupsPeerInfoProvider =
         new JGroupsPeerInfoProvider(pluginConfigurationMock, finder, myUrlProviderTest, channel);
-    peerInfo = Optional.of(new PeerInfo("test message"));
+    peerInfo = new PeerInfo("test message");
     channel.setName("testChannel");
   }
 
@@ -68,7 +66,7 @@ public class JGroupsPeerInfoProviderTest {
 
     jGroupsPeerInfoProvider.receive(message);
 
-    assertThat(jGroupsPeerInfoProvider.getPeerAddress()).isEqualTo(peerAddress);
+    assertThat(jGroupsPeerInfoProvider.getPeers().containsKey(peerAddress));
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     for (PeerInfo testPeerInfo : testPeerInfoSet) {
       assertThat(testPeerInfo.getDirectUrl()).contains("test message");
@@ -78,20 +76,18 @@ public class JGroupsPeerInfoProviderTest {
 
   @Test
   public void testReceiveWhenPeerAddressIsNotNull() throws Exception {
-    jGroupsPeerInfoProvider.setPeerAddress(new IpAddress("checkAddress.com"));
+    jGroupsPeerInfoProvider.addPeer(null, peerInfo);
 
     jGroupsPeerInfoProvider.receive(message);
 
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
-    assertThat(testPeerInfoSet.isEmpty()).isTrue();
-    assertThat(testPeerInfoSet.size()).isEqualTo(0);
+    assertThat(testPeerInfoSet.isEmpty());
+    assertThat(testPeerInfoSet.size() == 0);
   }
 
   @Test(expected = None.class)
   public void testViewAcceptedWithNoExceptionThrown() throws Exception {
-    when(view.getMembers()).thenReturn(members);
     when(view.size()).thenReturn(3);
-    when(members.size()).thenReturn(3);
     jGroupsPeerInfoProvider.setChannel(channel);
     jGroupsPeerInfoProvider.viewAccepted(view);
   }
@@ -100,21 +96,19 @@ public class JGroupsPeerInfoProviderTest {
   public void testViewAcceptedWhenPeerAddressIsNotNullAndIsNotMemberOfView() {
     when(view.getMembers()).thenReturn(members);
     when(view.size()).thenReturn(2);
-    when(members.size()).thenReturn(2);
     when(members.contains(peerAddress)).thenReturn(false);
-    jGroupsPeerInfoProvider.setPeerAddress(peerAddress);
-    jGroupsPeerInfoProvider.setPeerInfo(peerInfo);
+    jGroupsPeerInfoProvider.addPeer(peerAddress, peerInfo);
     jGroupsPeerInfoProvider.setChannel(channel);
     jGroupsPeerInfoProvider.viewAccepted(view);
 
-    assertThat(jGroupsPeerInfoProvider.getPeerAddress()).isEqualTo(null);
+    assertThat(jGroupsPeerInfoProvider.getPeers().isEmpty());
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
-    assertThat(testPeerInfoSet.isEmpty()).isTrue();
-    assertThat(testPeerInfoSet.size()).isEqualTo(0);
+    assertThat(testPeerInfoSet.isEmpty());
+    assertThat(testPeerInfoSet.size() == 0);
   }
 
   @Test
-  public void testConnect() throws NoSuchFieldException, IllegalAccessException {
+  public void testConnect() {
     jGroupsPeerInfoProvider.connect();
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     assertThat(testPeerInfoSet.isEmpty()).isTrue();
@@ -130,7 +124,7 @@ public class JGroupsPeerInfoProviderTest {
 
   @Test
   public void testGetWhenPeerInfoIsPresent() {
-    jGroupsPeerInfoProvider.setPeerInfo(peerInfo);
+    jGroupsPeerInfoProvider.addPeer(peerAddress, peerInfo);
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     for (PeerInfo testPeerInfo : testPeerInfoSet) {
       assertThat(testPeerInfo.getDirectUrl()).contains("test message");
@@ -140,10 +134,9 @@ public class JGroupsPeerInfoProviderTest {
 
   @Test
   public void testStop() throws Exception {
-    jGroupsPeerInfoProvider.setPeerAddress(peerAddress);
-    jGroupsPeerInfoProvider.setPeerInfo(peerInfo);
+    jGroupsPeerInfoProvider.addPeer(peerAddress, peerInfo);
     jGroupsPeerInfoProvider.stop();
-    assertThat(jGroupsPeerInfoProvider.getPeerAddress()).isEqualTo(null);
+    assertThat(jGroupsPeerInfoProvider.getPeers().isEmpty());
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     assertThat(testPeerInfoSet.isEmpty()).isTrue();
     assertThat(testPeerInfoSet.size()).isEqualTo(0);
