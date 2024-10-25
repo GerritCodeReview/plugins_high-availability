@@ -87,6 +87,8 @@ public class JGroupsKubernetesPeerInfoProviderTest {
     when(pluginConfigurationMock.jgroupsKubernetes().namespace()).thenReturn(namespace);
     when(pluginConfigurationMock.jgroupsKubernetes().labels()).thenReturn(labels);
 
+    when(myUrlProvider.get()).thenReturn("http://127.0.0.1:7800");
+
     NetworkInterface eth0 = NetworkInterface.getByName("eth0");
     if (eth0 != null) {
       when(finder.findAddress()).thenReturn(eth0.inetAddresses().findFirst());
