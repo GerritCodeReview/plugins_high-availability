@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
+import autovalue.shaded.com.google.common.collect.ImmutableMap;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.annotations.VisibleForTesting;
@@ -24,8 +25,11 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.net.InetAddress;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -39,9 +43,8 @@ import org.jgroups.View;
  * each gerrit server publishes its url to all cluster members (publishes it to all channels).
  *
  * <p>This provider maintains a list of all members which joined the jgroups cluster. This may be
- * more than two. But will always pick the first node which sent its url as the peer to be returned
- * by {@link #get()}. It will continue to return that node until that node leaves the jgroups
- * cluster.
+ * more than two. The set of urls of all peers is returned by {@link #get()}. If a node leaves the
+ * jgroups cluster it's removed from this set.
  */
 @Singleton
 public class JGroupsPeerInfoProvider
@@ -53,8 +56,7 @@ public class JGroupsPeerInfoProvider
   private final String myUrl;
 
   private JChannel channel;
-  private Optional<PeerInfo> peerInfo = Optional.empty();
-  private Address peerAddress;
+  private Map<Address, PeerInfo> peers = new ConcurrentHashMap<>();
 
   @Inject
   JGroupsPeerInfoProvider(
@@ -70,34 +72,28 @@ public class JGroupsPeerInfoProvider
 
   @Override
   public void receive(Message msg) {
-    synchronized (this) {
-      if (peerAddress != null) {
-        return;
-      }
-      peerAddress = msg.getSrc();
-      String url = (String) msg.getObject();
-      peerInfo = Optional.of(new PeerInfo(url));
-      log.atInfo().log("receive(): Set new peerInfo: %s", url);
+    String url = (String) msg.getObject();
+    if (url == null) {
+      return;
+    }
+    Address addr = msg.getSrc();
+    PeerInfo old = peers.put(addr, new PeerInfo(url));
+    if (old == null) {
+      log.atInfo().log("receive(): Add new peerInfo: %s", url);
+    } else {
+      log.atInfo().log("receive(): Update peerInfo: from %s to %s", old.getDirectUrl(), url);
     }
   }
 
   @Override
   public void viewAccepted(View view) {
     log.atInfo().log("viewAccepted(view: %s) called", view);
-    synchronized (this) {
-      if (view.getMembers().size() > 2) {
-        log.atWarning().log(
-            "%d members joined the jgroups cluster %s (%s). "
-                + " Only two members are supported. Members: %s",
-            view.getMembers().size(),
-            jgroupsConfig.clusterName(),
-            channel.getName(),
-            view.getMembers());
-      }
-      if (peerAddress != null && !view.getMembers().contains(peerAddress)) {
-        log.atInfo().log("viewAccepted(): removed peerInfo");
-        peerAddress = null;
-        peerInfo = Optional.empty();
+    Iterator<Map.Entry<Address, PeerInfo>> it = peers.entrySet().iterator();
+    while (it.hasNext()) {
+      Map.Entry<Address, PeerInfo> e = it.next();
+      if (!view.getMembers().contains(e.getKey())) {
+        log.atInfo().log("viewAccepted(): removed peerInfo %s", e.getValue().getDirectUrl());
+        it.remove();
       }
     }
     if (view.size() > 1) {
@@ -144,14 +140,9 @@ public class JGroupsPeerInfoProvider
     this.channel = channel;
   }
 
-  @VisibleForTesting
-  void setPeerInfo(Optional<PeerInfo> peerInfo) {
-    this.peerInfo = peerInfo;
-  }
-
   @Override
   public Set<PeerInfo> get() {
-    return peerInfo.isPresent() ? ImmutableSet.of(peerInfo.get()) : ImmutableSet.of();
+    return ImmutableSet.copyOf(peers.values());
   }
 
   @Override
@@ -167,17 +158,19 @@ public class JGroupsPeerInfoProvider
           channel.getName(), jgroupsConfig.clusterName());
       channel.close();
     }
-    peerInfo = Optional.empty();
-    peerAddress = null;
+    peers.clear();
   }
 
   @VisibleForTesting
-  Address getPeerAddress() {
-    return peerAddress;
+  Map<Address, PeerInfo> getPeers() {
+    return ImmutableMap.copyOf(peers);
   }
 
   @VisibleForTesting
-  void setPeerAddress(Address peerAddress) {
-    this.peerAddress = peerAddress;
+  void addPeer(Address address, PeerInfo info) {
+    if (address == null) {
+      return;
+    }
+    this.peers.put(address, info);
   }
 }
