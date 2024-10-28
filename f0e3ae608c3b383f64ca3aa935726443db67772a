@@ -22,6 +22,143 @@
       },
       "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c79f05_210e64bb",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "Is is possible to get a message without the sender\u0027s Address?",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29306def_72c11a31",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "What about the case where `peers.put(...) !\u003d null`? In that case we already had an entry in the `peers` map for that address and this code will update the `PeerInfo` with the new `url` but the logging will tell nothing about that.",
+      "range": {
+        "startLine": 78,
+        "startChar": 24,
+        "endLine": 79,
+        "endChar": 63
+      },
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ff3749c_8d71c556",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t here the `peers` simply be re-computed (instead of trying to update it) from the `view.getMembers()`?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 20
+      },
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947b4206_9df9c594",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "```suggestion\n    assertThat(jGroupsPeerInfoProvider.getPeers()).containsKey(peerAddress);\n```",
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db070637_48e9c1fd",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "```suggestion\n    assertThat(testPeerInfoSet).isEmpty();\n```",
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e8eba1_8d5f3d79",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "```suggestion\n    assertThat(testPeerInfoSet).isEmpty();\n```\n\nOr leave it as-is.",
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d4c307_b83d02ad",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-28T09:55:18Z",
+      "side": 1,
+      "message": "```suggestion\n    assertThat(jGroupsPeerInfoProvider.getPeers()).isEmpty();\n```\n\nThe same mistake is repeated through many asserts further below... please fix all of them",
+      "revId": "f0e3ae608c3b383f64ca3aa935726443db67772a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
