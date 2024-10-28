@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f35b9c03_03840721",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-10-28T09:36:28Z",
+      "side": 1,
+      "message": "- the custom retry implementation was replaced by using failsafe library in https://gerrit-review.googlesource.com/c/plugins/high-availability/+/391386\nlooking at this change it seems it\u0027s using the correct config option to configure the retryInterval\n- subsequently RestForwardScheduler was removed in https://gerrit-review.googlesource.com/c/plugins/high-availability/+/391435",
+      "revId": "df2a5b8fb061ce614379789d68fbe984e1f1d216",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
