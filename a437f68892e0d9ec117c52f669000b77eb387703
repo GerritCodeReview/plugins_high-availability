@@ -16,6 +16,24 @@
       "message": "Please add test when multiple peers exist.",
       "revId": "a437f68892e0d9ec117c52f669000b77eb387703",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "669c5d9a_74df231e",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-10-28T15:33:15Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "4b02a570_0cab1d72",
+      "revId": "a437f68892e0d9ec117c52f669000b77eb387703",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
