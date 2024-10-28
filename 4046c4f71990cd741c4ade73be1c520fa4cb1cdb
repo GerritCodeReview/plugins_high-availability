@@ -16,6 +16,23 @@
       "message": "Can anyone help review this change and submit?",
       "revId": "4046c4f71990cd741c4ade73be1c520fa4cb1cdb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "229de0ad_b6abf170",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-10-28T09:26:06Z",
+      "side": 1,
+      "message": "extracting this into a method doesn\u0027t seem to add value, I\u0027d instead add another catch(StorageException e) block above line 115",
+      "revId": "4046c4f71990cd741c4ade73be1c520fa4cb1cdb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
