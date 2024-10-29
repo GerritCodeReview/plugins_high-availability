@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde96c7f_6c48c2b0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T14:16:23Z",
+      "side": 1,
+      "message": "This method is unused",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 3
+      },
+      "revId": "467cf652cd91f9255457456d38a62aaed006ac1e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3914f02_7b734e83",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T14:16:23Z",
+      "side": 1,
+      "message": "Factor out the common code into a `receive` method and then reduce the above code to:\n```\nreceive(ADDR1, URL1);\nreceive(ADDR2, URL2);\nreceive(ADDR3, URL3);\n```",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 45
+      },
+      "revId": "467cf652cd91f9255457456d38a62aaed006ac1e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab4238d_d1a54624",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T14:16:23Z",
+      "side": 1,
+      "message": "```suggestion\n    assertThat(peers.stream().map(p -\u003e p.getDirectUrl()).containsExactly(URL1, URL2, URL3);\n```\n\nAlternatively, use `PeerInfo` type instead of `String` (lines 97-99) and work here with `peerInfo` instances, which makes code simpler:\n\n```suggestion\n    assertThat(peers).containsExactly(PEER1, PEER2, PEER3);\n```",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 57
+      },
+      "revId": "467cf652cd91f9255457456d38a62aaed006ac1e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61dcae18_1cd5b854",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T14:16:23Z",
+      "side": 1,
+      "message": "```suggestion\n    List\u003cAddress\u003e reducedView \u003d List.of(ADDR2, ADDR3);\n```",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 27
+      },
+      "revId": "467cf652cd91f9255457456d38a62aaed006ac1e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb872ba_b4484a6b",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T14:16:23Z",
+      "side": 1,
+      "message": "Same as above proposal using `containsExactly`",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 57
+      },
+      "revId": "467cf652cd91f9255457456d38a62aaed006ac1e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
