@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac19219_f232aa6c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T15:51:00Z",
+      "side": 1,
+      "message": "```suggestion\n    return peers;\n```\n\n`peers` is already a `Map`",
+      "revId": "cb6c7abc418bc660aad6d2b6ff484c63918d2e7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59fb55ab_3c2dc5dc",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-10-29T15:51:00Z",
+      "side": 1,
+      "message": "the usage of `final` for local variables is not done in Gerrit\u0027s code base, unless really necessary.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "cb6c7abc418bc660aad6d2b6ff484c63918d2e7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
