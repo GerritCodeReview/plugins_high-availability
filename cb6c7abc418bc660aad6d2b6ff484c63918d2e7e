@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eeae60b_9c91d72c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProvider.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-10-29T23:34:22Z",
+      "side": 1,
+      "message": "this is a defensive copy, though we can do better by using an ImmutableMap",
+      "parentUuid": "2ac19219_f232aa6c",
+      "revId": "cb6c7abc418bc660aad6d2b6ff484c63918d2e7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59fb55ab_3c2dc5dc",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-29T15:51:00Z",
       "side": 1,
       "message": "the usage of `final` for local variables is not done in Gerrit\u0027s code base, unless really necessary.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "cb6c7abc418bc660aad6d2b6ff484c63918d2e7e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbda63fe_55591a77",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsPeerInfoProviderTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-10-29T23:34:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59fb55ab_3c2dc5dc",
       "range": {
         "startLine": 92,
         "startChar": 0,
