@@ -22,6 +22,30 @@
       },
       "revId": "97fae120edbef6ac656ee26cbf72f94cec925f92",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6781ab8_8c63226a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-04T10:17:48Z",
+      "side": 1,
+      "message": "Done.\n\nThe documentation says: \n```\n:   When indexSync is enabled, the primary servers will synchronize indexes with the intention to\n    self-heal any missed reindexing event.\n```\n\nThe \"self-heal\" includes also missed index deletions.",
+      "parentUuid": "5a6192c6_b8b8b1b4",
+      "range": {
+        "startLine": 13,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "97fae120edbef6ac656ee26cbf72f94cec925f92",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
