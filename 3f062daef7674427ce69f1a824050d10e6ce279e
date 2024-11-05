@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43c6e413_b867316a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLock.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-11-05T14:37:46Z",
+      "side": 1,
+      "message": "use jgit\u0027s FS.createNewFileAtomic(File) [1] which has an implementation in FS_POSIX mitigating potential NFS caching issues ?\n\n[1] https://github.com/eclipse-jgit/jgit/blob/master/org.eclipse.jgit/src/org/eclipse/jgit/util/FS_POSIX.java#L344",
+      "range": {
+        "startLine": 89,
+        "startChar": 23,
+        "endLine": 89,
+        "endChar": 49
+      },
+      "revId": "3f062daef7674427ce69f1a824050d10e6ce279e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
