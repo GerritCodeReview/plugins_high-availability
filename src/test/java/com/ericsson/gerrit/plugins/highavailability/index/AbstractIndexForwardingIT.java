@@ -49,10 +49,8 @@ import org.junit.Test;
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public abstract class AbstractIndexForwardingIT extends LightweightPluginDaemonTest {
-  private static final int PORT = 18889;
-  private static final String URL = "http://localhost:" + PORT;
 
-  @Rule public WireMockRule wireMockRule = new WireMockRule(options().port(PORT));
+  @Rule public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
 
   @Inject SitePaths sitePaths;
 
@@ -62,7 +60,7 @@ public abstract class AbstractIndexForwardingIT extends LightweightPluginDaemonT
     FileBasedConfig fileBasedConfig =
         new FileBasedConfig(
             sitePaths.etc_dir.resolve(Configuration.PLUGIN_CONFIG_FILE).toFile(), FS.DETECTED);
-    fileBasedConfig.setString("peerInfo", "static", "url", URL);
+    fileBasedConfig.setString("peerInfo", "static", "url", url());
     fileBasedConfig.setInt("http", null, "retryInterval", 100);
     fileBasedConfig.save();
     beforeAction();
@@ -86,6 +84,10 @@ public abstract class AbstractIndexForwardingIT extends LightweightPluginDaemonT
     doAction();
     assertThat(expectedRequestLatch.await(5, TimeUnit.SECONDS)).isTrue();
     verify(postRequestedFor(urlEqualTo(expectedRequest)));
+  }
+
+  private String url() {
+    return "http://localhost:" + wireMockRule.port();
   }
 
   /** Perform pre-test setup. */
