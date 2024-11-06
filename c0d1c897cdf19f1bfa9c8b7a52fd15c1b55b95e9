@@ -51,6 +51,24 @@
       "message": "on the CI some tests hit a NoSuchFileException here\nthey succeed when run locally",
       "revId": "c0d1c897cdf19f1bfa9c8b7a52fd15c1b55b95e9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b15b2f6_7e790853",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/lock/StaleLockRemoval.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-11-06T17:08:06Z",
+      "side": 1,
+      "message": "looks like this was a transient failure",
+      "parentUuid": "5fadd3ea_f2e1a015",
+      "revId": "c0d1c897cdf19f1bfa9c8b7a52fd15c1b55b95e9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
