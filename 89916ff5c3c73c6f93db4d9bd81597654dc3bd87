@@ -16,6 +16,24 @@
       "message": "This tests should be run with both possible values `true, false` of the jgit option `core.supportsAtomicFileCreation`",
       "revId": "89916ff5c3c73c6f93db4d9bd81597654dc3bd87",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946d719b_0e845d23",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLockTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-11-07T21:43:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f2c1927_8ffbe89e",
+      "revId": "89916ff5c3c73c6f93db4d9bd81597654dc3bd87",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
