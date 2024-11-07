@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a08ea1b9_27b50792",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLock.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-07T14:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f41126_af0eff5e",
+      "revId": "86a0c58e3286f3e6037a1a98eac429b5a5890e7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f35c5555_03ba965a",
@@ -41,6 +59,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "847454cb_cdcbce52",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/lock/StaleLockRemoval.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-07T14:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f35c5555_03ba965a",
+      "range": {
+        "startLine": 65,
+        "startChar": 50,
+        "endLine": 65,
+        "endChar": 85
+      },
+      "revId": "86a0c58e3286f3e6037a1a98eac429b5a5890e7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e701134a_ee667564",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-11-07T12:48:33Z",
       "side": 1,
       "message": "Instead of hardcoding the timeout, set it based on the `touchInterval` as we need to ensure a timeout which is longer than the sleep time in the next line",
+      "range": {
+        "startLine": 105,
+        "startChar": 59,
+        "endLine": 105,
+        "endChar": 79
+      },
+      "revId": "86a0c58e3286f3e6037a1a98eac429b5a5890e7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16a9b4fe_d8ecb482",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLockTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-07T14:30:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e701134a_ee667564",
       "range": {
         "startLine": 105,
         "startChar": 59,
