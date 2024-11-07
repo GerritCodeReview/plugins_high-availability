@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e92976_250f9714",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLock.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-07T12:01:35Z",
+      "side": 1,
+      "message": "This got lost in the PS-10",
+      "revId": "a6db9f5af18930dec67cd76b7cbc02d1cf7e634b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
