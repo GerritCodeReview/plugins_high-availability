@@ -16,6 +16,29 @@
       "message": "Depending on the file system and Git configuration, this may also create a hard-link to that file in the same directory. However, we will only schedule `TouchFileService` for the lock file itself. Therefore, the `StaleLockRemoval` may find those hardlink files, detect them as stale and delete them. Creation of those hard-links is an implementation detail in JGit and we do not want to proliferate that knowledge into this plugin.",
       "revId": "86a0c58e3286f3e6037a1a98eac429b5a5890e7f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e701134a_ee667564",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLockTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-07T12:48:33Z",
+      "side": 1,
+      "message": "Instead of hardcoding the timeout, set it based on the `touchInterval` as we need to ensure a timeout which is longer than the sleep time in the next line",
+      "range": {
+        "startLine": 105,
+        "startChar": 59,
+        "endLine": 105,
+        "endChar": 79
+      },
+      "revId": "86a0c58e3286f3e6037a1a98eac429b5a5890e7f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
