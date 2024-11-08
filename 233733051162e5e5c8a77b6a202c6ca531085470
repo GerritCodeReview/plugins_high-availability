@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3726268_8d70c5a5",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLockTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-08T11:09:15Z",
+      "side": 1,
+      "message": "This is also not needed when we have only one test parameter",
+      "range": {
+        "startLine": 75,
+        "startChar": 12,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "233733051162e5e5c8a77b6a202c6ca531085470",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
