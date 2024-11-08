@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccfd469b_dbde1da0",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLockTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2024-11-08T11:05:20Z",
+      "side": 1,
+      "message": "According to the JUnit documentation, when using only one parameter we don\u0027t have to wrap it in an array. Instead we simply provide an array of test data values:\n\n```suggestion\n  @Parameters(name \u003d \"supportsAtomicFileCreation\u003d{0}\")\n  public static Boolean[] testData() {\n    return new Boolean[] {true, false};\n  }\n\n```\n\nWill upload a new PS",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 3
+      },
+      "revId": "98468999a324d27e56fcb9065c8b324346af74e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
