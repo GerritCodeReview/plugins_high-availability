@@ -46,6 +46,30 @@
       },
       "revId": "98468999a324d27e56fcb9065c8b324346af74e6",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c6d2026_b5aab5d2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/lock/FileBasedLockTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2024-11-08T11:09:55Z",
+      "side": 1,
+      "message": "thanks, much cleaner",
+      "parentUuid": "31d14f7a_a0b896e3",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 3
+      },
+      "revId": "98468999a324d27e56fcb9065c8b324346af74e6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
