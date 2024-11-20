@@ -29,15 +29,14 @@ ADD --chown=gerrit \
 ADD --chown=gerrit \
 "https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
-#ADD --chown=gerrit \
-#    "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
-#    /var/gerrit/plugins/high-availability.jar
-
-ADD --chown=gerrit high-availability.jar /var/gerrit/plugins/high-availability.jar
 
 ADD --chown=gerrit \
-    "https://repo1.maven.org/maven2/com/gerritforge/global-refdb/$GERRIT_VERSION.3.4/global-refdb-$GERRIT_VERSION.3.4.jar" \
-    /tmp
+    "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
+    /var/gerrit/plugins/high-availability.jar
+
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/module-global-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/global-refdb/global-refdb.jar" \
+    /var/gerrit/lib/global-refdb.jar
 
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
