@@ -92,6 +92,7 @@ networks:
 volumes:
   shareddir:
   nfs-server-volume:
+  syslog-sidecar:
   git-volume:
     driver: "local"
     driver_opts:
