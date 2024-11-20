@@ -5,7 +5,7 @@ on the same data-center sharing the same Git repositories.
 
 Requirements for the Gerrit masters are:
 
-- Gerrit v2.14.20 or later
+- Gerrit v3.0.0 or later
 - Externally mounted filesystem shared among the cluster
 - Load-balancer (HAProxy or similar)
 
