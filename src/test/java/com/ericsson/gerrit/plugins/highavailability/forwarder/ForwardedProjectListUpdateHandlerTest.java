@@ -20,6 +20,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectCache;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,11 +36,12 @@ public class ForwardedProjectListUpdateHandlerTest {
   private static final String SOME_MESSAGE = "someMessage";
   private static final Project.NameKey PROJECT_KEY = Project.nameKey(PROJECT_NAME);
   @Mock private ProjectCache projectCacheMock;
+  @Mock private GitRepositoryManager repoMgrMock;
   private ForwardedProjectListUpdateHandler handler;
 
   @Before
   public void setUp() throws Exception {
-    handler = new ForwardedProjectListUpdateHandler(projectCacheMock);
+    handler = new ForwardedProjectListUpdateHandler(projectCacheMock, repoMgrMock);
   }
 
   @Test
