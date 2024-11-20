@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af5de020_814246aa",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2024-11-20T11:41:32Z",
+      "side": 1,
+      "message": "nit: I understand that we should aim on `3.11` for `stable-3.11` plugin brunch but I believe that we should most likely keep `ENV GERRIT_BRANCH master` and switch to `3.11` in the follow-up as otherwise the commit message is not clear of what has happened, WDYT?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "992b48254fdfe204777c8b4675c807e13e9afc35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7716fc39_e1b9cbd0",
         "filename": "src/test/docker/gerrit/Dockerfile",
         "patchSetId": 2
