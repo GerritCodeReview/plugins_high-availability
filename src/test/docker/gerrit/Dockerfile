@@ -1,9 +1,9 @@
-FROM almalinux:8.5
+FROM almalinux:9.3
 
 # Install dependencies
 RUN yum -y install \
     git \
-    java-11-openjdk \
+    java-17-openjdk \
     procps \
     sudo \
     passwd \
