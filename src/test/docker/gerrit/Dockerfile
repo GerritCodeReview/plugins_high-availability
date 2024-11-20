@@ -10,7 +10,7 @@ RUN yum -y install \
     gettext \
     && yum -y clean all
 
-ENV GERRIT_VERSION master
+ENV GERRIT_VERSION stable-3.11
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
