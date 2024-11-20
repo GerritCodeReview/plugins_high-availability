@@ -10,8 +10,7 @@ RUN yum -y install \
     gettext \
     && yum -y clean all
 
-ENV GERRIT_BRANCH master
-ENV JAVA_HOME /usr/lib/jvm/jre-17-openjdk
+ENV GERRIT_VERSION master
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
