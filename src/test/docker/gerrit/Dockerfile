@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FROM almalinux:9.4
+=======
+FROM almalinux:9.3
+>>>>>>> stable-3.10
 
 # Install dependencies
 RUN yum -y install \
@@ -10,8 +14,12 @@ RUN yum -y install \
     gettext \
     && yum -y clean all
 
+<<<<<<< HEAD
 ENV GERRIT_BRANCH master
 ENV JAVA_HOME /usr/lib/jvm/jre-17-openjdk
+=======
+ENV GERRIT_VERSION=3.10
+>>>>>>> stable-3.10
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
@@ -29,6 +37,7 @@ ADD --chown=gerrit \
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
+<<<<<<< HEAD
 
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
@@ -48,6 +57,14 @@ ADD --chown=gerrit:gerrit \
 ADD --chown=gerrit:gerrit \
     "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/module-index-elasticsearch-bazel-master/lastSuccessfulBuild/artifact/bazel-bin/plugins/index-elasticsearch/index-elasticsearch.jar" \
     /var/gerrit_plugins/index-elasticsearch.jar
+=======
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
+    /var/gerrit/plugins/high-availability.jar
+ADD --chown=gerrit \
+    "https://gerrit-ci.gerritforge.com/job/module-global-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/global-refdb/global-refdb.jar" \
+    /var/gerrit/lib/global-refdb.jar
+>>>>>>> stable-3.10
 
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
