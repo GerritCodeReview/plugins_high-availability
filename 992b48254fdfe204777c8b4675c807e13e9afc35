@@ -16,6 +16,24 @@
       "message": "nit: extra line?",
       "revId": "992b48254fdfe204777c8b4675c807e13e9afc35",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d28e3f4f_753f15e5",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-20T11:25:24Z",
+      "side": 1,
+      "message": "Nope, I don\u0027t see any extra line compared to the version on stable-3.11",
+      "parentUuid": "7716fc39_e1b9cbd0",
+      "revId": "992b48254fdfe204777c8b4675c807e13e9afc35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
