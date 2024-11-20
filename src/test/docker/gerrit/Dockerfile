@@ -1,17 +1,16 @@
-FROM almalinux:8.5
+FROM almalinux:9.3
 
 # Install dependencies
 RUN yum -y install \
     git \
-    java-11-openjdk \
+    java-17-openjdk \
     procps \
     sudo \
     passwd \
     gettext \
     && yum -y clean all
 
-ENV GERRIT_VERSION=3.9
-ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
+ENV GERRIT_VERSION=3.10
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
