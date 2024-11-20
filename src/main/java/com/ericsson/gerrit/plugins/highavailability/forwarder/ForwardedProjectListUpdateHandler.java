@@ -16,10 +16,13 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.RepositoryCache;
 
 /**
  * Update project list cache. This class is meant to be used on the receiving side of the {@link
@@ -31,10 +34,12 @@ public class ForwardedProjectListUpdateHandler {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   private final ProjectCache projectCache;
+  private final GitRepositoryManager repoMgr;
 
   @Inject
-  ForwardedProjectListUpdateHandler(ProjectCache projectCache) {
+  ForwardedProjectListUpdateHandler(ProjectCache projectCache, GitRepositoryManager repoMgr) {
     this.projectCache = projectCache;
+    this.repoMgr = repoMgr;
   }
 
   /**
@@ -50,6 +55,7 @@ public class ForwardedProjectListUpdateHandler {
       Context.setForwardedEvent(true);
       if (remove) {
         projectCache.remove(projectKey);
+        removeFromRepositoryCache(projectKey);
         log.atFine().log("Removed %s from project list", projectName);
       } else {
         projectCache.onCreateProject(projectKey);
@@ -57,6 +63,16 @@ public class ForwardedProjectListUpdateHandler {
       }
     } finally {
       Context.unsetForwardedEvent();
+    }
+  }
+
+  private void removeFromRepositoryCache(Project.NameKey projectKey) {
+    try (Repository repo = repoMgr.openRepository(projectKey)) {
+      if (repo != null) {
+        RepositoryCache.unregister(repo);
+      }
+    } catch (IOException e) {
+      // The repository does not exist: nothing to do
     }
   }
 }
