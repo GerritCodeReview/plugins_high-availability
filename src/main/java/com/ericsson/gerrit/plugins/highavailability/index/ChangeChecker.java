@@ -23,7 +23,7 @@ import java.util.Optional;
 public interface ChangeChecker {
 
   /**
-   * Return the Change notes read from ReviewDb or NoteDb.
+   * Return the Change notes read from NoteDb.
    *
    * @return notes of the Change
    */

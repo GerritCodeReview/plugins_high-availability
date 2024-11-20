@@ -1,13 +1,12 @@
 # Gerrit high-availability plugin
 
 This plugin allows deploying a cluster of multiple Gerrit masters
-on the same data-center sharing the same ReviewDb and Git repositories.
+on the same data-center sharing the same Git repositories.
 
 Requirements for the Gerrit masters are:
 
-- Gerrit v2.14.20 or later
+- Gerrit v3.0.0 or later
 - Externally mounted filesystem shared among the cluster
-- ReviewDb on an external DataBase Server
 - Load-balancer (HAProxy or similar)
 
 ## License
@@ -25,12 +24,12 @@ Assuming that the Gerrit masters in the clusters are `gerrit-01.mycompany.com` a
 `gerrit-02.mycompany.com`, listening on the HTTP port 8080, with a shared volume
 mounted under `/shared`, see below the minimal configuration steps.
 
-1. Install one Gerrit master on the first node (e.g. `gerrit-01.mycompany.com`) using an external
-   ReviewDb on a DB server and the repositories location under the shared volume (e.g. `/shared/git`).
-   Init the site in order to create the DB Schema and the initial repositories.
+1. Install one Gerrit master on the first node (e.g. `gerrit-01.mycompany.com`) using the external
+   repositories location under the shared volume (e.g. `/shared/git`).
+   Init the site in order to create the initial repositories.
 
 2. Copy all the files of the first Gerrit master onto the second node (e.g. `gerrit-02.mycompany.com`)
-   so that it points to the same ReviewDb and the same repositories location.
+   so that it points to the same repositories location.
 
 3. Install the high-availability plugin into the `$GERRIT_SITE/plugins` directory of both
    the Gerrit servers.
