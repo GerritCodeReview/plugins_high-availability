@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61499555_0293dd4d",
+        "filename": "src/test/docker/gerrit/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-20T22:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af5de020_814246aa",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "992b48254fdfe204777c8b4675c807e13e9afc35",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7716fc39_e1b9cbd0",
