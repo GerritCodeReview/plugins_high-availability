@@ -10,7 +10,7 @@ RUN yum -y install \
     gettext \
     && yum -y clean all
 
-ENV GERRIT_VERSION=3.6
+ENV GERRIT_VERSION=3.10
 ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
 
 # Add gerrit user
