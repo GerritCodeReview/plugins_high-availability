@@ -14,20 +14,34 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.inject.servlet.ServletModule;
 
 public class RestForwarderServletModule extends ServletModule {
+  private final Configuration config;
+
+  public RestForwarderServletModule(Configuration config) {
+    this.config = config;
+  }
+
   @Override
   protected void configureServlets() {
-    serveRegex("/index/account/\\d+$").with(IndexAccountRestApiServlet.class);
-    serveRegex("/index/change/batch/.*$").with(IndexBatchChangeRestApiServlet.class);
-    serveRegex("/index/change/.*$").with(IndexChangeRestApiServlet.class);
-    serveRegex("/index/group/\\w+$").with(IndexGroupRestApiServlet.class);
-    serveRegex("/index/project/.*$").with(IndexProjectRestApiServlet.class);
-    serve("/event/*").with(EventRestApiServlet.class);
-    serve("/cache/project_list/*").with(ProjectListApiServlet.class);
-    serve("/cache/*").with(CacheRestApiServlet.class);
-
-    serve("/query/changes.updated.since/*").with(QueryChangesUpdatedSinceServlet.class);
+    if (config.index().synchronize()) {
+      serveRegex("/index/account/\\d+$").with(IndexAccountRestApiServlet.class);
+      serveRegex("/index/change/batch/.*$").with(IndexBatchChangeRestApiServlet.class);
+      serveRegex("/index/change/.*$").with(IndexChangeRestApiServlet.class);
+      serveRegex("/index/group/\\w+$").with(IndexGroupRestApiServlet.class);
+      serveRegex("/index/project/.*$").with(IndexProjectRestApiServlet.class);
+      if (config.indexSync().enabled()) {
+        serve("/query/changes.updated.since/*").with(QueryChangesUpdatedSinceServlet.class);
+      }
+    }
+    if (config.event().synchronize()) {
+      serve("/event/*").with(EventRestApiServlet.class);
+    }
+    if (config.cache().synchronize()) {
+      serve("/cache/project_list/*").with(ProjectListApiServlet.class);
+      serve("/cache/*").with(CacheRestApiServlet.class);
+    }
   }
 }
