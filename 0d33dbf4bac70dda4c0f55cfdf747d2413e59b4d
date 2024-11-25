@@ -22,6 +22,30 @@
       },
       "revId": "0d33dbf4bac70dda4c0f55cfdf747d2413e59b4d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e1d7c17_b8fbd07a",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2024-11-25T18:34:33Z",
+      "side": 1,
+      "message": "I think it\u0027s referring to primary/replicas, shall I update that rather than creating 10 merge-ups?",
+      "parentUuid": "7e0583b5_41ba991f",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 15
+      },
+      "revId": "0d33dbf4bac70dda4c0f55cfdf747d2413e59b4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
