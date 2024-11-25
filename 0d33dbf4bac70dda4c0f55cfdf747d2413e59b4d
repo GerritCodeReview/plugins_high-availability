@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0583b5_41ba991f",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-11-25T18:32:34Z",
+      "side": 1,
+      "message": "If we are referring to the master branch, it must be v3.11 or later. On the stable branches, should have the corresponding version of the stable branch.",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 15
+      },
+      "revId": "0d33dbf4bac70dda4c0f55cfdf747d2413e59b4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
