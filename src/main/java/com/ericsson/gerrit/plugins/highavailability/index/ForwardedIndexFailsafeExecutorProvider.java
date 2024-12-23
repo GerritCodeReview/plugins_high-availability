@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -23,16 +24,18 @@ import dev.failsafe.Failsafe;
 import dev.failsafe.FailsafeExecutor;
 import dev.failsafe.RetryPolicy;
 import java.io.IOException;
-import java.util.concurrent.Executors;
 
 @Singleton
 public class ForwardedIndexFailsafeExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
   protected static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration cfg;
+  private final ExecutorProvider indexExecutorProvider;
 
   @Inject
-  public ForwardedIndexFailsafeExecutorProvider(Configuration cfg) {
+  public ForwardedIndexFailsafeExecutorProvider(
+      Configuration cfg, @ForwardedIndexExecutor ExecutorProvider indexExecutorProvider) {
     this.cfg = cfg;
+    this.indexExecutorProvider = indexExecutorProvider;
   }
 
   @Override
@@ -50,7 +53,7 @@ public class ForwardedIndexFailsafeExecutorProvider implements Provider<Failsafe
             .abortOn(IOException.class)
             .build();
     // TODO: the executor shall be created by workQueue.createQueue(...)
-    return Failsafe.with(retryPolicy).with(Executors.newScheduledThreadPool(threadPoolSize(cfg)));
+    return Failsafe.with(retryPolicy).with(indexExecutorProvider.get());
   }
 
   protected int threadPoolSize(Configuration cfg) {
