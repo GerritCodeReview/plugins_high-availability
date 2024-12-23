@@ -30,6 +30,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutorProvider;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexFailsafeExecutorProvider;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.index.change.ChangeIndexer;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,6 +71,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerAbsentMock;
   @Mock private ChangeChecker changeCheckerPresentMock;
+  @Mock private ForwardedIndexExecutorProvider indexExecutorProviderMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
 
@@ -79,7 +82,9 @@ public class ForwardedIndexChangeHandlerTest {
     when(configMock.index().maxTries()).thenReturn(3);
     when(configMock.index().retryInterval()).thenReturn(Duration.ofMillis(10));
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
-    FailsafeExecutor<Boolean> indexExecutor = new ForwardedIndexExecutorProvider(configMock).get();
+    when(indexExecutorProviderMock.get()).thenReturn(Executors.newScheduledThreadPool(2));
+    FailsafeExecutor<Boolean> indexExecutor =
+        new ForwardedIndexFailsafeExecutorProvider(configMock, indexExecutorProviderMock).get();
     handler =
         new ForwardedIndexChangeHandler(
             indexerMock, indexExecutor, ctxMock, changeCheckerFactoryMock);
