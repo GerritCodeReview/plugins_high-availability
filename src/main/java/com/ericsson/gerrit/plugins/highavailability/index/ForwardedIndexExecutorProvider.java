@@ -15,45 +15,20 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.google.common.flogger.FluentLogger;
+import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
+import com.google.gerrit.common.UsedAt;
+import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import dev.failsafe.Failsafe;
-import dev.failsafe.FailsafeExecutor;
-import dev.failsafe.RetryPolicy;
-import java.io.IOException;
-import java.util.concurrent.Executors;
 
 @Singleton
-public class ForwardedIndexExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
-  protected static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private final Configuration cfg;
+public class ForwardedIndexExecutorProvider extends ExecutorProvider {
+
+  @UsedAt(UsedAt.Project.PLUGIN_MULTI_SITE)
+  public static final String FORWARDED_INDEX_EVENT_THREAD_PREFIX = "Forwarded-Index-Event";
 
   @Inject
-  public ForwardedIndexExecutorProvider(Configuration cfg) {
-    this.cfg = cfg;
-  }
-
-  @Override
-  public FailsafeExecutor<Boolean> get() {
-    RetryPolicy<Boolean> retryPolicy =
-        RetryPolicy.<Boolean>builder()
-            .withMaxAttempts(cfg.index().maxTries())
-            .withDelay(cfg.index().retryInterval())
-            .onRetry(e -> log.atFine().log("Retrying event %s", e))
-            .onRetriesExceeded(
-                e ->
-                    log.atWarning().log(
-                        "%d index retries exceeded for event %s", cfg.index().maxTries(), e))
-            .handleResult(false)
-            .abortOn(IOException.class)
-            .build();
-    // TODO: the executor shall be created by workQueue.createQueue(...)
-    return Failsafe.with(retryPolicy).with(Executors.newScheduledThreadPool(threadPoolSize(cfg)));
-  }
-
-  protected int threadPoolSize(Configuration cfg) {
-    return cfg.index().threadPoolSize();
+  ForwardedIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
+    super(workQueue, config.index().threadPoolSize(), FORWARDED_INDEX_EVENT_THREAD_PREFIX);
   }
 }
