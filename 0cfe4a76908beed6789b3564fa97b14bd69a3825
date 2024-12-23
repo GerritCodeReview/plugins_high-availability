@@ -22,6 +22,30 @@
       },
       "revId": "0cfe4a76908beed6789b3564fa97b14bd69a3825",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4434688_4b783480",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutorProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-12-23T11:59:34Z",
+      "side": 1,
+      "message": "Fixed with I7d473515, @sasa.zivkov@sap.com WDYT?",
+      "parentUuid": "30e88c15_262782d5",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 72
+      },
+      "revId": "0cfe4a76908beed6789b3564fa97b14bd69a3825",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
