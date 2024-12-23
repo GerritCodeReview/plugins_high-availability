@@ -1,4 +1,4 @@
-// Copyright (C) 2024 The Android Open Source Project
+// Copyright (C) 2021 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,11 +14,17 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-import com.google.inject.BindingAnnotation;
-import java.lang.annotation.Retention;
+@Singleton
+class ForwardedBatchIndexFailsafeExecutorProvider extends ForwardedIndexFailsafeExecutorProvider {
 
-@Retention(RUNTIME)
-@BindingAnnotation
-public @interface ForwardedIndexExecutor {}
+  @Inject
+  ForwardedBatchIndexFailsafeExecutorProvider(
+      Configuration cfg, @ForwardedBatchIndexExecutor ExecutorProvider indexExecutorProvider) {
+    super(cfg, indexExecutorProvider);
+  }
+}
