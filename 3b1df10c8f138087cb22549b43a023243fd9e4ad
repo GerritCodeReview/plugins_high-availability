@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1359bad_9dbb16e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-12-23T12:15:20Z",
+      "side": 1,
+      "message": "Clarified in the commit message.",
+      "parentUuid": "d9f98c26_3468ea10",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "3b1df10c8f138087cb22549b43a023243fd9e4ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc20621c_a9eda6ca",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-23T12:09:13Z",
       "side": 1,
       "message": "nit: unrelated?",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "3b1df10c8f138087cb22549b43a023243fd9e4ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "297d43f5_5a6bf98b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-12-23T12:15:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc20621c_a9eda6ca",
       "range": {
         "startLine": 1,
         "startChar": 17,
