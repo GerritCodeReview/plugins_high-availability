@@ -29,7 +29,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
-import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutorProvider;
+import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexFailsafeExecutorProvider;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.index.change.ChangeIndexer;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -77,7 +77,7 @@ public class ForwardedIndexChangeHandlerTest {
     when(configMock.index().maxTries()).thenReturn(3);
     when(configMock.index().retryInterval()).thenReturn(Duration.ofMillis(10));
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerAbsentMock);
-    FailsafeExecutor<Boolean> indexExecutor = new ForwardedIndexExecutorProvider(configMock).get();
+    FailsafeExecutor<Boolean> indexExecutor = new ForwardedIndexFailsafeExecutorProvider(configMock).get();
     handler =
         new ForwardedIndexChangeHandler(
             indexerMock, indexExecutor, ctxMock, changeCheckerFactoryMock);
