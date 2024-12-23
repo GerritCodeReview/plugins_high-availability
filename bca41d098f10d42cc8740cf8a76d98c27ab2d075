@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba93f91e_b6424194",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedBatchIndexFailsafeExecutorProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-12-23T11:45:16Z",
+      "side": 1,
+      "message": "This is now unused",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "bca41d098f10d42cc8740cf8a76d98c27ab2d075",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
