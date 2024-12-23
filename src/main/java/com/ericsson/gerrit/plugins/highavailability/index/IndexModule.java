@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
+import com.ericsson.gerrit.plugins.highavailability.ExecutorProvider;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
@@ -31,12 +32,20 @@ public class IndexModule extends AbstractModule {
   protected void configure() {
     bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
         .annotatedWith(ForwardedIndexExecutor.class)
-        .toProvider(ForwardedIndexExecutorProvider.class)
+        .toProvider(ForwardedIndexFailsafeExecutorProvider.class)
+        .in(Scopes.SINGLETON);
+    bind(ExecutorProvider.class)
+        .annotatedWith(ForwardedIndexExecutor.class)
+        .to(ForwardedIndexExecutorProvider.class)
         .in(Scopes.SINGLETON);
 
     bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
         .annotatedWith(ForwardedBatchIndexExecutor.class)
-        .toProvider(ForwardedBatchIndexExecutorProvider.class)
+        .toProvider(ForwardedBatchIndexFailsafeExecutorProvider.class)
+        .in(Scopes.SINGLETON);
+    bind(ExecutorProvider.class)
+        .annotatedWith(ForwardedBatchIndexExecutor.class)
+        .to(ForwardedBatchIndexExecutorProvider.class)
         .in(Scopes.SINGLETON);
 
     DynamicSet.bind(binder(), ChangeIndexedListener.class)
