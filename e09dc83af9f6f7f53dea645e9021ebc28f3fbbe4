@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb718c45_4d98d4b4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexFailsafeExecutorProvider.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-12-23T11:20:52Z",
+      "side": 0,
+      "message": "Same should be done with ForwardedBatchIndexExecutorProvider",
+      "revId": "e09dc83af9f6f7f53dea645e9021ebc28f3fbbe4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
