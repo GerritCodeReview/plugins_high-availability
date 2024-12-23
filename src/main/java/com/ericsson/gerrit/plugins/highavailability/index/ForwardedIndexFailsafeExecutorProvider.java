@@ -26,12 +26,12 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 
 @Singleton
-public class ForwardedIndexExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
+public class ForwardedIndexFailsafeExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
   protected static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration cfg;
 
   @Inject
-  public ForwardedIndexExecutorProvider(Configuration cfg) {
+  public ForwardedIndexFailsafeExecutorProvider(Configuration cfg) {
     this.cfg = cfg;
   }
 
