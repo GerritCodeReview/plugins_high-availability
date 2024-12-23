@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9f98c26_3468ea10",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-23T12:09:13Z",
+      "side": 1,
+      "message": "nit: I think this might be misleading since the `ForwardedIndexExecutor` and the `ForwardedBatchIndexExecutor` were not actually removed, but rather their executor names were changed. \n\nWould you mind rephrasing this to make it clear that the introduction is just on the executor names, as you explain later on in the commit message?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "3b1df10c8f138087cb22549b43a023243fd9e4ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc20621c_a9eda6ca",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ForwardedIndexExecutor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-23T12:09:13Z",
+      "side": 1,
+      "message": "nit: unrelated?",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "3b1df10c8f138087cb22549b43a023243fd9e4ad",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
