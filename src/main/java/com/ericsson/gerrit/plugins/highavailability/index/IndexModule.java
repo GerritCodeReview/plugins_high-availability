@@ -31,7 +31,7 @@ public class IndexModule extends AbstractModule {
   protected void configure() {
     bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
         .annotatedWith(ForwardedIndexExecutor.class)
-        .toProvider(ForwardedIndexExecutorProvider.class)
+        .toProvider(ForwardedIndexFailsafeExecutorProvider.class)
         .in(Scopes.SINGLETON);
 
     bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
