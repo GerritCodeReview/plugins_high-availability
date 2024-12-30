@@ -114,6 +114,30 @@
       },
       "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d29a77bf_0a93b67d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-30T11:58:06Z",
+      "side": 1,
+      "message": "\u003e We should probably make it clear in the logs that...\n\nI meant in the configuration, of course.",
+      "parentUuid": "28b58862_afcfa3a2",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 85
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
