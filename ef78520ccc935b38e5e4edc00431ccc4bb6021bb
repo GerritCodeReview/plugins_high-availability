@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "255657e8_dfecc42c",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-30T11:42:42Z",
+      "side": 1,
+      "message": "nit: trailing space",
+      "range": {
+        "startLine": 91,
+        "startChar": 86,
+        "endLine": 91,
+        "endChar": 87
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78f5bd6b_bbf8c56f",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-30T11:42:42Z",
+      "side": 1,
+      "message": "nit: remove groups?",
+      "range": {
+        "startLine": 104,
+        "startChar": 43,
+        "endLine": 104,
+        "endChar": 49
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91cec621_4652bbaf",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-30T11:42:42Z",
+      "side": 1,
+      "message": "I wonder if we should make it clear how to map to the ha settings to the core ones?\nSome of them are not intuitive for me:\n\n```\nautoReindex.enabled -\u003e scheduledIndexer.projects.enabled\nautoReindex.startTime -\u003e scheduledIndexer.projects.startTime\nautoReindex.pollInterval -\u003e scheduledIndexer.projects.interval\nautoReindex.delay -\u003e ???\n??? -\u003e scheduledIndexer.projects.runOnStartup\n```",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 21
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
