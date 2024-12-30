@@ -16,9 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.autoreindex;
 
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
-import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.LifecycleListener;
-import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.inject.AbstractModule;
 
@@ -29,7 +27,5 @@ public class AutoReindexModule extends AbstractModule {
     DynamicSet.bind(binder(), LifecycleListener.class).to(AutoReindexScheduler.class);
     DynamicSet.bind(binder(), ChangeIndexedListener.class).to(IndexTs.class);
     DynamicSet.bind(binder(), AccountIndexedListener.class).to(IndexTs.class);
-    DynamicSet.bind(binder(), GroupIndexedListener.class).to(IndexTs.class);
-    DynamicSet.bind(binder(), ProjectIndexedListener.class).to(IndexTs.class);
   }
 }

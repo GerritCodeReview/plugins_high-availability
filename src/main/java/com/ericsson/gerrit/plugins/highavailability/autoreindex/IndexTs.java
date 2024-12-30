@@ -21,8 +21,6 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.annotations.PluginData;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
-import com.google.gerrit.extensions.events.GroupIndexedListener;
-import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.notedb.ChangeNotes;
@@ -40,11 +38,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.eclipse.jgit.internal.storage.file.FileSnapshot;
 
 @Singleton
-public class IndexTs
-    implements ChangeIndexedListener,
-        AccountIndexedListener,
-        GroupIndexedListener,
-        ProjectIndexedListener {
+public class IndexTs implements ChangeIndexedListener, AccountIndexedListener {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
@@ -52,15 +46,11 @@ public class IndexTs
   private final ScheduledExecutorService exec;
   private final FlusherRunner changeFlusher;
   private final FlusherRunner accountFlusher;
-  private final FlusherRunner groupFlusher;
-  private final FlusherRunner projectFlusher;
   private final ChangeFinder changeFinder;
   private final CurrentRequestContext currCtx;
 
   private volatile LocalDateTime changeTs;
   private volatile LocalDateTime accountTs;
-  private volatile LocalDateTime groupTs;
-  private volatile LocalDateTime projectTs;
 
   class FlusherRunner implements Runnable {
     private final AbstractIndexRestApiServlet.IndexName index;
@@ -91,12 +81,8 @@ public class IndexTs
       switch (index) {
         case CHANGE:
           return changeTs;
-        case GROUP:
-          return groupTs;
         case ACCOUNT:
           return accountTs;
-        case PROJECT:
-          return projectTs;
         default:
           throw new IllegalArgumentException("Unsupported index " + index);
       }
@@ -113,14 +99,8 @@ public class IndexTs
         case CHANGE:
           changeTs = newTs;
           break;
-        case GROUP:
-          groupTs = newTs;
-          break;
         case ACCOUNT:
           accountTs = newTs;
-          break;
-        case PROJECT:
-          projectTs = newTs;
           break;
       }
 
@@ -138,20 +118,8 @@ public class IndexTs
     this.exec = queue.getDefaultQueue();
     this.changeFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.CHANGE);
     this.accountFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.ACCOUNT);
-    this.groupFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.GROUP);
-    this.projectFlusher = new FlusherRunner(AbstractIndexRestApiServlet.IndexName.PROJECT);
     this.changeFinder = changeFinder;
     this.currCtx = currCtx;
-  }
-
-  @Override
-  public void onProjectIndexed(String project) {
-    currCtx.onlyWithContext((ctx) -> update(IndexName.PROJECT, LocalDateTime.now()));
-  }
-
-  @Override
-  public void onGroupIndexed(String uuid) {
-    currCtx.onlyWithContext((ctx) -> update(IndexName.GROUP, LocalDateTime.now()));
   }
 
   @Override
@@ -204,14 +172,6 @@ public class IndexTs
       case ACCOUNT:
         accountTs = dateTime;
         exec.execute(accountFlusher);
-        break;
-      case GROUP:
-        groupTs = dateTime;
-        exec.execute(groupFlusher);
-        break;
-      case PROJECT:
-        projectTs = dateTime;
-        exec.execute(projectFlusher);
         break;
       default:
         throw new IllegalArgumentException("Unsupported index " + index);
