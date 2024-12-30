@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1de0683_821dc16b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-30T11:53:12Z",
+      "side": 1,
+      "message": "introduced",
+      "range": {
+        "startLine": 9,
+        "startChar": 29,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "255657e8_dfecc42c",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 1
@@ -65,6 +88,29 @@
         "startChar": 0,
         "endLine": 123,
         "endChar": 21
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b58862_afcfa3a2",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-12-30T11:53:12Z",
+      "side": 1,
+      "message": "The high-availability plugin was using a ts to only reindex the needed \"delta\" for the relevant indexes.\n\nDoes the core functionality support the same (I don\u0027t think so)?\nWe should probably make it clear in the logs that for groups and projects this is always a \"full\" reindex, irrespective of how long Gerrit was down, which, in some large installations might constitute a performance concern.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 85
       },
       "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
