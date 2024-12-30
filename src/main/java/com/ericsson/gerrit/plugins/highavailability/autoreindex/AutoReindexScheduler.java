@@ -33,8 +33,6 @@ public class AutoReindexScheduler implements LifecycleListener {
   private final Configuration.AutoReindex cfg;
   private final ChangeReindexRunnable changeReindex;
   private final AccountReindexRunnable accountReindex;
-  private final GroupReindexRunnable groupReindex;
-  private final ProjectReindexRunnable projectReindex;
   private final ScheduledExecutorService executor;
   private final List<Future<?>> futureTasks = new ArrayList<>();
 
@@ -43,14 +41,10 @@ public class AutoReindexScheduler implements LifecycleListener {
       Configuration cfg,
       WorkQueue workQueue,
       ChangeReindexRunnable changeReindex,
-      AccountReindexRunnable accountReindex,
-      GroupReindexRunnable groupReindex,
-      ProjectReindexRunnable projectReindex) {
+      AccountReindexRunnable accountReindex) {
     this.cfg = cfg.autoReindex();
     this.changeReindex = changeReindex;
     this.accountReindex = accountReindex;
-    this.groupReindex = groupReindex;
-    this.projectReindex = projectReindex;
     this.executor = workQueue.createQueue(1, "HighAvailability-AutoReindex");
   }
 
@@ -59,8 +53,7 @@ public class AutoReindexScheduler implements LifecycleListener {
     if (cfg.pollInterval().compareTo(Duration.ZERO) > 0) {
       log.atInfo().log(
           "Scheduling auto-reindex after %s and every %s", cfg.delay(), cfg.pollInterval());
-      for (Runnable reindexTask :
-          List.of(changeReindex, accountReindex, groupReindex, projectReindex)) {
+      for (Runnable reindexTask : List.of(changeReindex, accountReindex)) {
         futureTasks.add(
             executor.scheduleAtFixedRate(
                 reindexTask,
@@ -70,8 +63,7 @@ public class AutoReindexScheduler implements LifecycleListener {
       }
     } else {
       log.atInfo().log("Scheduling auto-reindex after %s", cfg.delay());
-      for (Runnable reindexTask :
-          List.of(changeReindex, accountReindex, groupReindex, projectReindex)) {
+      for (Runnable reindexTask : List.of(changeReindex, accountReindex)) {
         futureTasks.add(executor.schedule(reindexTask, cfg.delay().toSeconds(), TimeUnit.SECONDS));
       }
     }

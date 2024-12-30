@@ -88,25 +88,43 @@ defined by the `jgroups.clusterName`.
 
 ```autoReindex.enabled```
 :   Enable the tracking of the latest change indexed under data/high-availability
-    for each of the indexes. At startup scans all the changes, accounts and groups
-    and reindex the ones that have been updated by other nodes while the server was down.
+    for each of the indexes. At startup scans all the changes and accounts and reindex
+    the ones that have been updated by other nodes while the server was down.
     When not specified, the default is "false", that means no automatic tracking
     and indexing at start.
 
 ```autoReindex.delay```
 :   When autoReindex is enabled, indicates the delay aftere the plugin startup,
-    before triggering the conditional reindexing of all changes, accounts and groups.
+    before triggering the conditional reindexing of all changes and accounts.
     Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, the default is "10 seconds".
 
 ```autoReindex.pollInterval```
 :   When autoReindex is enabled, indicates the interval between the conditional
-    reindexing of all changes, accounts and groups.
+    reindexing of all changes and accounts.
     Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, polling of conditional reindexing is disabled.
 
 **NOTE:** The indexSync feature exposes a REST endpoint that can be used to discover project names.
 Admins are advised to restrict access to the REST endpoints exposed by this plugin.
+
+**Note:** For projects and groups reindexing, [scheduled indexer](https://gerrit-review.googlesource.com/Documentation/config-gerrit.html#scheduledIndexer) can be enabled with specific configurations.
+Example configurations:
+
+```
+[scheduledIndexer "groups"]
+    enabled = true
+    interval = 1h
+    startTime = 13:00
+
+[scheduledIndexer "projects"]
+    enabled = true
+    interval = 1h
+    startTime = 13:00
+```
+Note: Ensure these settings are added to enable periodic reindexing of groups and projects.
+Groups and projects may become outdated if indexing events are missed due to the node being down or
+some networking issues.
 
 ```indexSync.enabled```
 :   When indexSync is enabled, the primary servers will synchronize indexes with the intention to
