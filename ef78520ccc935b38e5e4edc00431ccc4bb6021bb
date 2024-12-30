@@ -138,6 +138,30 @@
       },
       "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7697f703_a54f3be6",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2024-12-30T15:49:53Z",
+      "side": 1,
+      "message": "Considering the feature introduced in Gerrit Core is not a like for like of what we have in the HA plugin, are we sure we want to remove it?\n\nShall we maybe instead check in the configs if the reindexing is enabled in both Gerrit core and the HA plugin and warn the user about it?",
+      "parentUuid": "d29a77bf_0a93b67d",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 85
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
