@@ -180,7 +180,6 @@ is used to determine which changes to reindex when a node is temporarily out of
 sync with the primary, for example, after a node being offline for a long time.
 
 The HA plugin keeps the last update timestamp for each index in the following files:
-* `<gerrit_home>/data/high-availability/group`
 * `<gerrit_home>/data/high-availability/account`
 * `<gerrit_home>/data/high-availability/change`
 
