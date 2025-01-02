@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5bdc933_62370de7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2025-01-02T11:09:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1de0683_821dc16b",
+      "range": {
+        "startLine": 9,
+        "startChar": 29,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "255657e8_dfecc42c",
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "Considering the feature introduced in Gerrit Core is not a like for like of what we have in the HA plugin, are we sure we want to remove it?\n\nShall we maybe instead check in the configs if the reindexing is enabled in both Gerrit core and the HA plugin and warn the user about it?",
       "parentUuid": "d29a77bf_0a93b67d",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 85
+      },
+      "revId": "ef78520ccc935b38e5e4edc00431ccc4bb6021bb",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b84486bf_864f2d00",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2025-01-02T11:09:37Z",
+      "side": 1,
+      "message": "I agree is not like to like but it\u0027s not true to we do full reindex everytime. For projects it\u0027s exactly the same. For groups we use `reindexIfStale` which should only reindex when needed, for up to date group should be noop",
+      "parentUuid": "7697f703_a54f3be6",
       "range": {
         "startLine": 125,
         "startChar": 0,
