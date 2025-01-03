@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3ad68e8c_f8f78334",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2025-01-03T11:41:22Z",
+      "side": 1,
+      "message": "Good catch! Thank you",
+      "parentUuid": "7259fbe7_51712cb0",
+      "range": {
+        "startLine": 15,
+        "startChar": 11,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "21b6d2c0934b8ab49b453d99b3569ad359dc1529",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b0d29d6b_22b17677",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
