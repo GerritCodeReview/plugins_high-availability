@@ -1,6 +1,98 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "62469759_642182de",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-15T08:56:19Z",
+      "side": 1,
+      "message": "Why **must** here? I believe they _can_ enable it or not, depending how likely is the probability for them to have misalignments on projects and groups.",
+      "range": {
+        "startLine": 111,
+        "startChar": 156,
+        "endLine": 111,
+        "endChar": 160
+      },
+      "revId": "9b05e18252d23bffab5fd67b57017655f1a53aa6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c011570_c8ffb38b",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-15T08:56:19Z",
+      "side": 1,
+      "message": "That looks too aggressive as an example.\n\n\n\n```suggestion\n    interval \u003d 1h\n```",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 18
+      },
+      "revId": "9b05e18252d23bffab5fd67b57017655f1a53aa6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9d451f6_1a577d5b",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-15T08:56:19Z",
+      "side": 1,
+      "message": "That looks too aggressive as an example.\n\n\n\n```suggestion\n    interval \u003d 1h\n```",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 18
+      },
+      "revId": "9b05e18252d23bffab5fd67b57017655f1a53aa6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f448ae_4f2da0f4",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-01-15T08:56:19Z",
+      "side": 1,
+      "message": "I believe you need to describe here what\u0027s the situation where there could be a misalignment between projects and groups between nodes.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 85
+      },
+      "revId": "9b05e18252d23bffab5fd67b57017655f1a53aa6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "d70800d1_186d85e8",
