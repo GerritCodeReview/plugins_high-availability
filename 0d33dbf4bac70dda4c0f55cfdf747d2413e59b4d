@@ -46,6 +46,47 @@
       },
       "revId": "0d33dbf4bac70dda4c0f55cfdf747d2413e59b4d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6749ce09_e8d03ce3",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-01-20T10:16:05Z",
+      "side": 1,
+      "message": "Unless there is a *minimum* requirement for which Gerrit version can run high-availability (I don\u0027t think there\u0027s any, for any \"recent\" enough version). I would consider removing any explicit version.",
+      "parentUuid": "1e1d7c17_b8fbd07a",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 15
+      },
+      "revId": "0d33dbf4bac70dda4c0f55cfdf747d2413e59b4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f1cbf8_6860ab21",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-01-20T10:16:05Z",
+      "side": 1,
+      "message": "nit: unrelated line",
+      "revId": "0d33dbf4bac70dda4c0f55cfdf747d2413e59b4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
