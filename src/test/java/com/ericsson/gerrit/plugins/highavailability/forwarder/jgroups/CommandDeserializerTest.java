@@ -101,7 +101,8 @@ public class CommandDeserializerTest {
   public void postEvent() {
     Command cmd =
         gson.fromJson(
-            "{event: {projectName : 'foo', headName : 'refs/heads/master', type : 'project-created', eventCreatedOn:1505898779}, type : 'post-event'}",
+            "{event: {projectName : 'foo', headName : 'refs/heads/master', type :"
+                + " 'project-created', eventCreatedOn:1505898779}, type : 'post-event'}",
             Command.class);
     assertThat(cmd).isInstanceOf(PostEvent.class);
     Event e = ((PostEvent) cmd).getEvent();
