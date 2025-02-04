@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "883a3cba_75d70ea9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-02-04T15:27:34Z",
+      "side": 1,
+      "message": "From the CI:\n\n```\n+ ./tools/setup_gjf.sh 1.24.0\nunknown google-java-format version: 1.24.0\n```\n\nI guess GJF 1.24.0 is not available on such an old branch?",
+      "revId": "85506f8b6699434755951ed0522476004532b23c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
