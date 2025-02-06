@@ -26,7 +26,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
-import com.google.gerrit.acceptance.NoHttpd;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.acceptance.config.GlobalPluginConfig;
@@ -37,7 +36,6 @@ import org.apache.http.HttpStatus;
 import org.junit.Rule;
 import org.junit.Test;
 
-@NoHttpd
 @TestPlugin(
     name = "high-availability",
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
