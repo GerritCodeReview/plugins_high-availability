@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ef6922e_2ff5ba87",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/index/IndexEventHandlerTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-02-06T21:58:15Z",
+      "side": 1,
+      "message": "This causes two issues:\n1. The delay is ignored, therefore instead of retrying in a loose way, it retries continuously at maximum CPU speed\n2. It is executed within the same call stack, the test to NOT continue and making the whole invocation synchronous.\n\nThis has caused a stack overflow that prevent all the tests to pass.\n\nHow did it manage to pass on the CI 😮 ?",
+      "range": {
+        "startLine": 598,
+        "startChar": 6,
+        "endLine": 598,
+        "endChar": 20
+      },
+      "revId": "8fb718bed3222436d1b398b41538dc2af898706c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
