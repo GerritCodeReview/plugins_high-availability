@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.Optional;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 
@@ -107,9 +108,9 @@ public class ChangeCheckerImpl implements ChangeChecker {
           return (computedChangeTs.get() > indexEvent.eventCreatedOn)
               || (computedChangeTs.get() == indexEvent.eventCreatedOn)
                   && (Objects.isNull(indexEvent.targetSha)
-                      || Objects.equals(getBranchTargetSha(), indexEvent.targetSha))
-                  && (Objects.isNull(indexEvent.metaSha)
-                      || Objects.equals(getMetaSha(repo), indexEvent.metaSha));
+                      || repositoryHas(repo, indexEvent.targetSha))
+                  && (Objects.isNull(indexEvent.targetSha)
+                      || repositoryHas(repo, indexEvent.metaSha));
         }
       }
       return true;
@@ -158,6 +159,16 @@ public class ChangeCheckerImpl implements ChangeChecker {
       log.atWarning().withCause(e).log(
           "Unable to resolve target branch SHA for change %s", changeId);
       return null;
+    }
+  }
+
+  private boolean repositoryHas(Repository repo, String sha1ToCheck) {
+    try {
+      return repo.parseCommit(ObjectId.fromString(sha1ToCheck)) != null;
+    } catch (IOException e) {
+      log.atWarning().withCause(e).log(
+          "Unable to find SHA1 %s for change %s", sha1ToCheck, changeId);
+      return false;
     }
   }
 
