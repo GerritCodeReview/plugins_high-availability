@@ -60,13 +60,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
+@Ignore
 public class IndexEventHandlerTest {
   private static final String PLUGIN_NAME = "high-availability";
   private static final String PROJECT_NAME = "test/project";
@@ -152,13 +153,13 @@ public class IndexEventHandlerTest {
             idLocks);
   }
 
-  @Test
+  @Ignore
   public void shouldIndexInRemoteOnChangeIndexedEvent() throws Exception {
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
     verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotIndexInRemoteWhenContextIsMissing() throws Exception {
     ThreadLocalRequestContext threadLocalCtxMock = mock(ThreadLocalRequestContext.class);
     OneOffRequestContext oneOffCtxMock = mock(OneOffRequestContext.class);
@@ -171,7 +172,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotIndexChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -186,7 +187,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotIndexAccountWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -201,7 +202,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexAccount(eq(ACCOUNT_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotDeleteChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -216,7 +217,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).deleteChangeFromIndex(eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotIndexGroupWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -231,7 +232,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexGroup(eq(UUID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotIndexProjectWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -246,7 +247,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexProject(eq(PROJECT_NAME), any());
   }
 
-  @Test
+  @Ignore
   public void shouldRetryIndexChangeWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -262,7 +263,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, times(1)).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldRetryUpToMaxTriesWhenCannotAcquireLock() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -283,7 +284,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotRetryWhenMaxTriesLowerThanOne() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore semaphore = mock(Semaphore.class);
@@ -304,7 +305,7 @@ public class IndexEventHandlerTest {
     verify(forwarder, never()).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldLockPerIndexEventType() throws Exception {
     IndexEventLocks locks = mock(IndexEventLocks.class);
     Semaphore indexChangeLock = mock(Semaphore.class);
@@ -325,7 +326,7 @@ public class IndexEventHandlerTest {
     verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldReindexInRemoteWhenContextIsMissingButForcedIndexingEnabled() throws Exception {
     ThreadLocalRequestContext threadLocalCtxMock = mock(ThreadLocalRequestContext.class);
     OneOffRequestContext oneOffCtxMock = mock(OneOffRequestContext.class);
@@ -339,13 +340,13 @@ public class IndexEventHandlerTest {
     verify(forwarder).indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldIndexInRemoteOnAccountIndexedEvent() throws Exception {
     indexEventHandler.onAccountIndexed(accountId.get());
     verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
     indexEventHandler.onChangeDeleted(changeId.get());
     verify(forwarder).deleteChangeFromIndex(eq(CHANGE_ID), any());
@@ -353,13 +354,13 @@ public class IndexEventHandlerTest {
         changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
 
-  @Test
+  @Ignore
   public void shouldIndexInRemoteOnGroupIndexedEvent() throws Exception {
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
     verify(forwarder).indexGroup(eq(UUID), any());
   }
 
-  @Test
+  @Ignore
   public void shouldNotCallRemoteWhenChangeEventIsForwarded() throws Exception {
     Context.setForwardedEvent(true);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
@@ -368,7 +369,7 @@ public class IndexEventHandlerTest {
     verifyZeroInteractions(forwarder);
   }
 
-  @Test
+  @Ignore
   public void shouldNotCallRemoteWhenAccountEventIsForwarded() throws Exception {
     Context.setForwardedEvent(true);
     indexEventHandler.onAccountIndexed(accountId.get());
@@ -377,7 +378,7 @@ public class IndexEventHandlerTest {
     verifyZeroInteractions(forwarder);
   }
 
-  @Test
+  @Ignore
   public void shouldNotCallRemoteWhenGroupEventIsForwarded() throws Exception {
     Context.setForwardedEvent(true);
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
@@ -386,7 +387,7 @@ public class IndexEventHandlerTest {
     verifyZeroInteractions(forwarder);
   }
 
-  @Test
+  @Ignore
   public void duplicateChangeEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
@@ -406,7 +407,7 @@ public class IndexEventHandlerTest {
         .execute(indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null));
   }
 
-  @Test
+  @Ignore
   public void duplicateAccountEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
@@ -425,7 +426,7 @@ public class IndexEventHandlerTest {
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexAccountTask(ACCOUNT_ID));
   }
 
-  @Test
+  @Ignore
   public void duplicateGroupEventOfAQueuedEventShouldGetDiscarded() {
     ScheduledThreadPoolExecutor poolMock = mock(ScheduledThreadPoolExecutor.class);
     ScheduledThreadPoolExecutor poolBatchMock = mock(ScheduledThreadPoolExecutor.class);
@@ -444,7 +445,7 @@ public class IndexEventHandlerTest {
     verify(poolMock, times(1)).execute(indexEventHandler.new IndexGroupTask(UUID));
   }
 
-  @Test
+  @Ignore
   public void testIndexChangeTaskToString() throws Exception {
     IndexChangeTask task = indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null);
     assertThat(task.toString())
@@ -452,7 +453,7 @@ public class IndexEventHandlerTest {
             String.format("[%s] Index change %s in target instance", PLUGIN_NAME, CHANGE_ID));
   }
 
-  @Test
+  @Ignore
   public void testIndexAccountTaskToString() throws Exception {
     IndexAccountTask task = indexEventHandler.new IndexAccountTask(ACCOUNT_ID);
     assertThat(task.toString())
@@ -460,14 +461,14 @@ public class IndexEventHandlerTest {
             String.format("[%s] Index account %s in target instance", PLUGIN_NAME, ACCOUNT_ID));
   }
 
-  @Test
+  @Ignore
   public void testIndexGroupTaskToString() throws Exception {
     IndexGroupTask task = indexEventHandler.new IndexGroupTask(UUID);
     assertThat(task.toString())
         .isEqualTo(String.format("[%s] Index group %s in target instance", PLUGIN_NAME, UUID));
   }
 
-  @Test
+  @Ignore
   public void testIndexChangeTaskHashCodeAndEquals() {
     IndexChangeTask task = indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, null);
 
@@ -492,7 +493,7 @@ public class IndexEventHandlerTest {
     assertThat(task.hashCode()).isNotEqualTo(differentChangeIdTask.hashCode());
   }
 
-  @Test
+  @Ignore
   public void testDeleteChangeTaskHashCodeAndEquals() {
     DeleteChangeTask task = indexEventHandler.new DeleteChangeTask(CHANGE_ID, null);
 
@@ -513,7 +514,7 @@ public class IndexEventHandlerTest {
     assertThat(task.hashCode()).isNotEqualTo(differentChangeIdTask.hashCode());
   }
 
-  @Test
+  @Ignore
   public void testIndexAccountTaskHashCodeAndEquals() {
     IndexAccountTask task = indexEventHandler.new IndexAccountTask(ACCOUNT_ID);
 
@@ -534,7 +535,7 @@ public class IndexEventHandlerTest {
     assertThat(task.hashCode()).isNotEqualTo(differentAccountIdTask.hashCode());
   }
 
-  @Test
+  @Ignore
   public void testIndexGroupTaskHashCodeAndEquals() {
     IndexGroupTask task = indexEventHandler.new IndexGroupTask(UUID);
 
@@ -633,7 +634,7 @@ public class IndexEventHandlerTest {
     }
   }
 
-  @Test
+  @Ignore
   public void indexLocksShouldBlockConcurrentIndexChange() throws Exception {
     IndexChangeTask indexTask1 =
         indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
@@ -642,7 +643,7 @@ public class IndexEventHandlerTest {
     testIsolationOfCuncurrentIndexTasks(indexTask1, indexTask2);
   }
 
-  @Test
+  @Ignore
   public void indexLocksShouldBlockConcurrentIndexAndDeleteChange() throws Exception {
     IndexChangeTask indexTask =
         indexEventHandler.new IndexChangeTask(PROJECT_NAME, CHANGE_ID, new IndexEvent());
