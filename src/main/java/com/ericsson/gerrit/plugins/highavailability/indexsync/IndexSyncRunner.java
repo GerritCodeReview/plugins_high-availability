@@ -108,15 +108,17 @@ public class IndexSyncRunner implements CheckedSupplier<Boolean> {
     }
 
     ChangeIndexer indexer = changeIndexerFactory.create(executor, changeIndexes, false);
-    // NOTE: this loop will stop as soon as the initial sync is performed from one peer
+    boolean failed = false;
     for (PeerInfo peer : peers) {
       if (syncFrom(peer, indexer)) {
-        log.atFine().log("Finished indexSync");
-        return true;
+        log.atFine().log("Finished indexSync for %s", peer.getDirectUrl());
+      } else {
+        log.atSevere().log("Failed to sync index with %s", peer.getDirectUrl());
+        failed = true;
       }
     }
 
-    return false;
+    return !failed;
   }
 
   private boolean syncFrom(PeerInfo peer, ChangeIndexer indexer) {
