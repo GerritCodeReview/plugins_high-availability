@@ -16,7 +16,7 @@
   <RED />
 
   <org.jgroups.protocols.kubernetes.KUBE_PING
-    port_range="1"
+    port_range="0"
     namespace="${KUBERNETES_NAMESPACE:default}"
     labels="${KUBERNETES_LABELS:app=gerrit}"
   />
