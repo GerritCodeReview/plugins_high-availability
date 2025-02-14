@@ -112,7 +112,7 @@ backend gerrit_http_nodes
     server gerrit_http_01 gerrit-01.mycompany.com:8080 check inter 10s
     server gerrit_http_02 gerrit-01.mycompany.com:8080 check inter 10s backup
 
-ackend ssh
+backend gerrit_ssh_nodes
     mode tcp
     option httpchk GET /config/server/version HTTP/1.0
     http-check expect status 200
