@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "600050e7_8dffc4c6",
+        "filename": "src/test/docker/docker-compose.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-24T14:35:52Z",
+      "side": 1,
+      "message": "The commit message states that we no longer use the docker volume driver for NFS, however, this is still used here.\nIs this still necessary?",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "71228cdc8c51c6676016ea2525d9354a35af9dae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2782325b_1173d2d0",
+        "filename": "src/test/docker/docker-compose.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-24T14:35:52Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be mount options passed via the `mount -t nfs` call?",
+      "range": {
+        "startLine": 98,
+        "startChar": 29,
+        "endLine": 98,
+        "endChar": 76
+      },
+      "revId": "71228cdc8c51c6676016ea2525d9354a35af9dae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864198a5_86c8a7a5",
+        "filename": "src/test/docker/gerrit/entrypoint.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-03-24T14:35:52Z",
+      "side": 1,
+      "message": "The `nolock` option is ignored when using NFS4+ [1].\nIs this needed?\n\n[1] https://unix.stackexchange.com/questions/430570/mount-nfs-with-nolock-option-do-not-take-effect",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "71228cdc8c51c6676016ea2525d9354a35af9dae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
