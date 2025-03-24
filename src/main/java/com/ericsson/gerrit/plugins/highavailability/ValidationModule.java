@@ -15,7 +15,6 @@
 package com.ericsson.gerrit.plugins.highavailability;
 
 import com.gerritforge.gerrit.globalrefdb.validation.BatchRefUpdateValidator;
-import com.gerritforge.gerrit.globalrefdb.validation.LockWrapper;
 import com.gerritforge.gerrit.globalrefdb.validation.Log4jSharedRefLogger;
 import com.gerritforge.gerrit.globalrefdb.validation.RefUpdateValidator;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDatabaseWrapper;
@@ -55,7 +54,6 @@ public class ValidationModule extends FactoryModule {
 
     bind(SharedRefDatabaseWrapper.class).in(Scopes.SINGLETON);
     bind(SharedRefLogger.class).to(Log4jSharedRefLogger.class);
-    factory(LockWrapper.Factory.class);
 
     bind(GitRepositoryManager.class).to(SharedRefDbGitRepositoryManager.class);
 
