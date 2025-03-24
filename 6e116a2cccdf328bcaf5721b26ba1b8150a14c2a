@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad8bd1a_f774ba24",
+        "filename": "src/test/docker/gerrit/entrypoint.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-03-24T14:44:14Z",
+      "side": 1,
+      "message": "You are not specifying any mounting parameter here, while before you were setting some.\n\nDoes it mean we rely on the defaults? I think it makes sense, I am just asking to make sure they didn\u0027t get lost among PSs.",
+      "revId": "6e116a2cccdf328bcaf5721b26ba1b8150a14c2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
