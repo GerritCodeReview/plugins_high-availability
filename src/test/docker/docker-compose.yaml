@@ -33,7 +33,6 @@ services:
       nfs-server-bridge: null
     volumes:
       - /dev/urandom:/dev/random
-      - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
@@ -55,7 +54,6 @@ services:
         condition: service_healthy
     volumes:
       - /dev/urandom:/dev/random
-      - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
@@ -97,5 +95,5 @@ volumes:
     driver: "local"
     driver_opts:
       type: nfs
-      o: "addr=192.168.1.5,rw"
+      o: "addr=192.168.1.5,rw,actimeo=30,acregmax=60,acdirmin=30,acdirmax=60"
       device: ":/var/gerrit/git"
