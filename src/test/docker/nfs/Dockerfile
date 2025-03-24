@@ -6,8 +6,8 @@ COPY exports.txt /etc/exports
 # server and the client, hence we are creating it explicitly in both.
 RUN adduser --disabled-password --gecos "" --uid 1000 gerrit
 
-# /var/gerrit/git is the shared directory
-RUN mkdir --parents /var/gerrit/git
-
 RUN chown gerrit:gerrit /var/lib/nfs
-RUN chown gerrit:gerrit /var/gerrit/git
+
+COPY gerrit-git-mount-entrypoint.sh /usr/local/bin
+
+ENTRYPOINT /usr/local/bin/gerrit-git-mount-entrypoint.sh
