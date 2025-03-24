@@ -116,6 +116,30 @@
       },
       "revId": "71228cdc8c51c6676016ea2525d9354a35af9dae",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b363ea9_c0730e11",
+        "filename": "src/test/docker/gerrit/entrypoint.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-24T14:42:34Z",
+      "side": 1,
+      "message": "The NFS server used is v3",
+      "parentUuid": "864198a5_86c8a7a5",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "71228cdc8c51c6676016ea2525d9354a35af9dae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
