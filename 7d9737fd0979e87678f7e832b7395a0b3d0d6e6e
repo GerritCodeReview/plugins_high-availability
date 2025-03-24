@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52419796_8c04a82e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-24T23:34:37Z",
+      "side": 1,
+      "message": "I have realised that the Docker test environment with NFS was working with core.trustFolderStat \u003d true, which means it wasn\u0027t a *real* environment at all, as the NFS would never behave properly with trusting the folders stats, isn\u0027t it?",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
