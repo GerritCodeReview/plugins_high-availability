@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb18fc87_e2cfbba9",
+        "filename": "src/test/docker/docker-compose.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-24T21:16:17Z",
+      "side": 0,
+      "message": "Yes, that is correct: NFS server cannot export overlayfs, therefore we still need an ext4 volume.",
+      "parentUuid": "f32ce118_6e93bb8e",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 41
+      },
+      "revId": "25fa2efa616027d6476779a0b8d36eed7c57a673",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a55d6c74_7c812ebf",
@@ -85,6 +109,30 @@
       "writtenOn": "2025-03-24T16:06:33Z",
       "side": 0,
       "message": "If you agree with the previous comment, this will be needed too.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 20
+      },
+      "revId": "25fa2efa616027d6476779a0b8d36eed7c57a673",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2cd9c6f_0aaf6774",
+        "filename": "src/test/docker/docker-compose.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-24T21:16:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "a55d6c74_7c812ebf",
       "range": {
         "startLine": 94,
         "startChar": 0,
