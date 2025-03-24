@@ -10,6 +10,10 @@ sudo -u gerrit cp /var/gerrit/etc/gerrit.config.orig /var/gerrit/etc/gerrit.conf
 sudo -u gerrit cp /var/gerrit/etc/high-availability.config.orig /var/gerrit/etc/high-availability.config
 
 
+echo "Mount NFS ..."
+mkdir /var/gerrit/git && chown gerrit:gerrit /var/gerrit/git
+mount -t nfs -o nolock nfs-server:/var/gerrit/git /var/gerrit/git
+
 echo "Init gerrit..."
 sudo -u gerrit java -jar /tmp/gerrit.war init -d /var/gerrit --batch --install-all-plugins
 chown -R gerrit: /var/gerrit/shareddir
