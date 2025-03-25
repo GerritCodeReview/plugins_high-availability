@@ -16,6 +16,46 @@
       "message": "I have realised that the Docker test environment with NFS was working with core.trustFolderStat \u003d true, which means it wasn\u0027t a *real* environment at all, as the NFS would never behave properly with trusting the folders stats, isn\u0027t it?",
       "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc495f86_ecf0379d",
+        "filename": "src/test/docker/docker-compose.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-03-25T08:54:45Z",
+      "side": 1,
+      "message": "Since the `jgit.config` is not a template and we are not doing any processing on it, why not copying it directly to `/var/gerrit/etc/jgit.config.orig`?",
+      "range": {
+        "startLine": 40,
+        "startChar": 26,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a212c1ad_fd8f8313",
+        "filename": "src/test/docker/nfs/exports.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-03-25T08:54:45Z",
+      "side": 1,
+      "message": "If we are now mounting the parent, why do we still need to mount this?",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
