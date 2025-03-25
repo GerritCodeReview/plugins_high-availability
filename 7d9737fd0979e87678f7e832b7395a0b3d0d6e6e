@@ -53,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1059600_03413382",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-25T10:05:59Z",
+      "side": 1,
+      "message": "The creation of `/var/gerrit/git` was in the Dockerfile, which sounds strange to me, as the volume is mounted.\n\nI\u0027ve moved it now in to the entrypoint and it should work.",
+      "parentUuid": "74d2be97_082967d8",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc495f86_ecf0379d",
