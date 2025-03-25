@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50f8329b_2f4f48aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-03-25T09:09:56Z",
+      "side": 1,
+      "message": "The build instruction in the README for MacOS arm64 didn\u0027t work for me. Maybe they are outdated ?\n\nAfter uncommenting the platform option in docker-compose.yaml the docker-compose build succeeded.\n\nThough starting the nfs server failed:\n```\n$ docker-compose up\n[+] Running 6/4\n ✔ Network docker_nfs-server-bridge   Created                                                                                                                                                                    0.0s\n ✔ Container docker-syslog-sidecar-1  Created                                                                                                                                                                    0.0s\n ✔ Container nfs-server               Created                                                                                                                                                                    0.0s\n ✔ Container docker-gerrit-01-1       Created                                                                                                                                                                    0.0s\n ✔ Container docker-gerrit-02-1       Created                                                                                                                                                                    0.0s\n ✔ Container docker-haproxy-1         Created                                                                                                                                                                    0.0s\nAttaching to gerrit-01-1, gerrit-02-1, haproxy-1, syslog-sidecar-1, nfs-server\nsyslog-sidecar-1  | Starting syslog-ng -F\nsyslog-sidecar-1  | Mar 25 09:04:08 a4f75e7acbd4 syslog-ng[1]: syslog-ng starting up; version\u003d\u00273.30.1\u0027\nnfs-server        |\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        |       SETTING UP ...\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        | ----\u003e log level set to DEBUG\nnfs-server        | ----\u003e will use 10 rpc.nfsd server thread(s) (1 thread per CPU)\nnfs-server        | ----\u003e /etc/exports is baked into the image\nnfs-server        | ----\u003e kernel module nfs is loaded\nnfs-server        | ----\u003e kernel module nfsd is loaded\nnfs-server        | ----\u003e setup complete\nnfs-server        |\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        |       STARTING SERVICES ...\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        | ----\u003e mounting rpc_pipefs filesystem onto /var/lib/nfs/rpc_pipefs\nnfs-server        | mount: mount(\u0027rpc_pipefs\u0027,\u0027/var/lib/nfs/rpc_pipefs\u0027,\u0027rpc_pipefs\u0027,0x00008000,\u0027(null)\u0027):0\nnfs-server        | ----\u003e mounting nfsd filesystem onto /proc/fs/nfsd\nnfs-server        | mount: mount(\u0027nfsd\u0027,\u0027/proc/fs/nfsd\u0027,\u0027nfsd\u0027,0x00008000,\u0027(null)\u0027):0\nnfs-server        | ----\u003e starting rpcbind\nnfs-server        | ----\u003e starting exportfs\nnfs-server        | exportfs: /etc/exports [1]: Neither \u0027subtree_check\u0027 or \u0027no_subtree_check\u0027 specified for export \"192.168.1.0/24:/var/gerrit/\".\nnfs-server        |   Assuming default behaviour (\u0027no_subtree_check\u0027).\nnfs-server        |   NOTE: this default has changed since nfs-utils version 1.0.x\nnfs-server        |\nnfs-server        | exporting 192.168.1.0/24:/var/gerrit/git\nnfs-server        | exportfs: Failed to stat /var/gerrit/git: No such file or directory\nnfs-server        | exporting 192.168.1.0/24:/var/gerrit\nnfs-server        | ----\u003e\nnfs-server        | ----\u003e ERROR: /usr/sbin/exportfs failed\nnfs-server        | ----\u003e\nnfs-server        |\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        |       TERMINATING ...\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        | ----\u003e terminating nfsd\nnfs-server        | ----\u003e rpc.mountd was not running\nnfs-server        | ----\u003e un-exporting filesystem(s)\nnfs-server        | ----\u003e terminating rpcbind\nnfs-server        | ----\u003e un-mounting nfsd filesystem from /proc/fs/nfsd\nnfs-server        | ----\u003e un-mounting rpc_pipefs filesystem from /var/lib/nfs/rpc_pipefs\nnfs-server        |\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server        |       TERMINATED\nnfs-server        | \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nnfs-server exited with code 0\ndependency failed to start: container nfs-server exited (0)\n```",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc495f86_ecf0379d",
         "filename": "src/test/docker/docker-compose.yaml",
         "patchSetId": 9
@@ -60,6 +77,29 @@
         "startChar": 26,
         "endLine": 40,
         "endChar": 58
+      },
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7602f97c_d9010faa",
+        "filename": "src/test/docker/etc/jgit.config",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-03-25T09:09:56Z",
+      "side": 1,
+      "message": "this is correct for jgit 6.10, when using master (or servlet-4) branch this should be replaced by\n`trustStat \u003d after_open`",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 36
       },
       "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
