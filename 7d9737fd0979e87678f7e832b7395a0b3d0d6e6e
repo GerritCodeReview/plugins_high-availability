@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28bb2cb8_e449cd36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-03-25T10:53:14Z",
+      "side": 1,
+      "message": "thanks, now containers are starting but I get 503 when accessing http://localhost:80 and find the following in docker-compose logs:\n\n```\r\nsyslog-sidecar-1  | Mar 25 10:45:34 192.168.1.6 haproxy[8]: Server gerrit_http_nodes_balanced/gerrit_01 is DOWN. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.\nsyslog-sidecar-1  | Mar 25 10:45:36 192.168.1.6 haproxy[8]: Health check for server gerrit_http_nodes_balanced/gerrit_02 failed, reason: Layer4 connection problem, info: \"Connection refused\", check duration: 0ms, status: 0/2 DOWN.\nsyslog-sidecar-1  | Mar 25 10:45:36 192.168.1.6 haproxy[8]: Server gerrit_http_nodes_balanced/gerrit_02 is DOWN. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.\nsyslog-sidecar-1  | Mar 25 10:45:36 192.168.1.6 haproxy[8]: backend gerrit_http_nodes_balanced has no server available!\n```",
+      "parentUuid": "7e0695a5_76aef87c",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc495f86_ecf0379d",
         "filename": "src/test/docker/docker-compose.yaml",
         "patchSetId": 9
