@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74d2be97_082967d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-03-25T09:43:28Z",
+      "side": 1,
+      "message": "Yes, I\u0027m seeing the same error.",
+      "parentUuid": "50f8329b_2f4f48aa",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc495f86_ecf0379d",
         "filename": "src/test/docker/docker-compose.yaml",
         "patchSetId": 9
