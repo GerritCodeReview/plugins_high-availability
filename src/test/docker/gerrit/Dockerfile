@@ -8,6 +8,7 @@ RUN yum -y install \
     sudo \
     passwd \
     gettext \
+    nfs-utils \
     && yum -y clean all
 
 ENV GERRIT_VERSION master
