@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3110953d_2f145614",
+        "filename": "src/test/docker/docker-compose.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-25T08:57:55Z",
+      "side": 1,
+      "message": "Because Gerrit rewrites the file, unfortunately.",
+      "parentUuid": "bc495f86_ecf0379d",
+      "range": {
+        "startLine": 40,
+        "startChar": 26,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a212c1ad_fd8f8313",
@@ -54,6 +78,24 @@
       "writtenOn": "2025-03-25T08:54:45Z",
       "side": 1,
       "message": "If we are now mounting the parent, why do we still need to mount this?",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7413c84b_b4c76321",
+        "filename": "src/test/docker/nfs/exports.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-25T08:57:55Z",
+      "side": 1,
+      "message": "This is how NFSv4 exportfs works: I know it is weird but this is copy\u0026pasted from the docs.",
+      "parentUuid": "a212c1ad_fd8f8313",
       "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
