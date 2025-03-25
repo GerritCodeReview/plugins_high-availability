@@ -8,6 +8,7 @@ RUN yum -y install \
     sudo \
     passwd \
     gettext \
+    nfs-utils \
     && yum -y clean all
 
 ENV GERRIT_BRANCH stable-3.11

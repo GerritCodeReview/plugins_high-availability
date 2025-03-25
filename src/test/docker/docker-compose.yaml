@@ -6,6 +6,8 @@ services:
     container_name: nfs-server
     environment:
       NFS_LOG_LEVEL: DEBUG
+      NFS_DISABLE_VERSION_3: true
+      NFS_VERSION: 4.2
     hostname: nfs-server
     healthcheck:
       test: ["CMD-SHELL", "sleep 10"] # required, otherwise the gerrit service will fail to start with a "connection refused" error
@@ -47,8 +49,8 @@ services:
       - gerrit-net
     volumes:
       - /dev/urandom:/dev/random
-      - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
+      - ./etc/jgit.config:/var/gerrit/etc/jgit.config.orig
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
       - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
@@ -70,8 +72,8 @@ services:
         condition: service_healthy
     volumes:
       - /dev/urandom:/dev/random
-      - git-volume:/var/gerrit/git
       - shareddir:/var/gerrit/shareddir
+      - ./etc/jgit.config:/var/gerrit/etc/jgit.config.orig
       - ./etc/gerrit.config:/var/gerrit/etc/gerrit.config.orig
       - ./etc/high-availability.gerrit-02.config:/var/gerrit/etc/high-availability.config.orig
       - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
@@ -109,9 +111,3 @@ volumes:
   shareddir:
   nfs-server-volume:
   syslog-sidecar:
-  git-volume:
-    driver: "local"
-    driver_opts:
-      type: nfs
-      o: "addr=192.168.1.5,rw"
-      device: ":/var/gerrit/git"
