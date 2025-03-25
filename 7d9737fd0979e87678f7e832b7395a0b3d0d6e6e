@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55f0b595_27069e08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-03-25T11:43:25Z",
+      "side": 1,
+      "message": "Strange as it works for me.\n\nI\u0027d suggest to check:\n\n1. Start the `nfs-server` and check that the `/var/gerrit/git` is created and writeable by the `gerrit` user\n\n2. Set the entrypoint to `sleep 3600` and start gerrit-01\n\n3. Mount `/var/gerrit/git` over NFSv4 and check that `/var/gerrit/git` is writeable by the `gerrit` user",
+      "parentUuid": "9aa21213_e539d635",
+      "revId": "7d9737fd0979e87678f7e832b7395a0b3d0d6e6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bc495f86_ecf0379d",
         "filename": "src/test/docker/docker-compose.yaml",
         "patchSetId": 9
