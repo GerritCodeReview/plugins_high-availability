@@ -280,6 +280,15 @@ calls by specifying the following fields:
     stale and needs to be investigated and manually reindexed.
     Defaults to 2.
 
+```index.initialDelay```
+:   The initial delay, internally converted in milliseconds, of triggering the
+    indexing operation after the indexing even has been received.
+    Typically needed when there is a well-known latency of propagation of the updates
+    across the nodes sharing the same NFS volume.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    Defaults to 0 milliseconds, meaning that indexing happens immediately when the indexing
+    event is received.
+
 ```index.retryInterval```
 :   The interval of time in milliseconds between the subsequent auto-retries.
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
