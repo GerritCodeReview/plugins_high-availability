@@ -61,6 +61,7 @@ public class Configuration {
 
   // common parameters to cache and index sections
   static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
+  static final String INITIAL_DELAY = "initialDelay";
   static final String BATCH_THREAD_POOL_SIZE_KEY = "batchThreadPoolSize";
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
 
@@ -565,6 +566,7 @@ public class Configuration {
   public static class Index extends Forwarding {
     static final int DEFAULT_MAX_TRIES = 2;
     static final Duration DEFAULT_RETRY_INTERVAL = Duration.ofSeconds(30);
+    static final Duration DEFAULT_INITIAL_DELAY = Duration.ofMillis(0);
 
     static final String INDEX_SECTION = "index";
     static final String MAX_TRIES_KEY = "maxTries";
@@ -573,6 +575,7 @@ public class Configuration {
     static final boolean DEFAULT_SYNCHRONIZE_FORCED = true;
 
     private final int threadPoolSize;
+    private final long initialDelayMsec;
     private final int batchThreadPoolSize;
     private final Duration retryInterval;
     private final int maxTries;
@@ -581,6 +584,8 @@ public class Configuration {
     private Index(Config cfg) {
       super(cfg, INDEX_SECTION);
       threadPoolSize = getInt(cfg, INDEX_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+      initialDelayMsec =
+          getDuration(cfg, INDEX_SECTION, INITIAL_DELAY, DEFAULT_INITIAL_DELAY).toMillis();
       batchThreadPoolSize = getInt(cfg, INDEX_SECTION, BATCH_THREAD_POOL_SIZE_KEY, threadPoolSize);
       retryInterval = getDuration(cfg, INDEX_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       maxTries = getMaxTries(cfg, INDEX_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
@@ -590,6 +595,10 @@ public class Configuration {
 
     public int threadPoolSize() {
       return threadPoolSize;
+    }
+
+    public long initialDelayMsec() {
+      return initialDelayMsec;
     }
 
     public int batchThreadPoolSize() {
