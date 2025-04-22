@@ -29,6 +29,10 @@ public class ForwardedIndexExecutorProvider extends ExecutorProvider {
 
   @Inject
   ForwardedIndexExecutorProvider(WorkQueue workQueue, Configuration config) {
-    super(workQueue, config.index().threadPoolSize(), FORWARDED_INDEX_EVENT_THREAD_PREFIX);
+    super(
+        workQueue,
+        config.index().threadPoolSize(),
+        FORWARDED_INDEX_EVENT_THREAD_PREFIX,
+        config.index().initialDelayMsec());
   }
 }
