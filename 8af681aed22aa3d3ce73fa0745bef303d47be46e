@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e2e809_9d2d02b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-05-08T14:37:23Z",
+      "side": 1,
+      "message": "The build looks like fallout from Wendy\u0027s series [1]. She\u0027s looking into it.\n\n[1] https://gerrit-review.googlesource.com/c/modules/global-refdb/+/425506",
+      "revId": "8af681aed22aa3d3ce73fa0745bef303d47be46e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
