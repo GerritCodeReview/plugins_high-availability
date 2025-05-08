@@ -27,15 +27,18 @@ This plugin needs to be installed in all the instances and it will take care of
 sharing or synchronizing them.
 
 #### Caches
+
 Every time a cache eviction occurs in one of the instances, the eviction will be
 forwarded the other nodes so their caches do not contain stale entries.
 
 #### Secondary indexes
+
 Every time the secondary index is modified in one of the instances, e.g., a change
 is added, updated or removed from the index, the others instances index are updated
 accordingly. This way, both indexes are kept synchronized.
 
 #### Stream events
+
 Every time a stream event occurs in one of the instances
 (see [more events info](https://gerrit-review.googlesource.com/Documentation/cmd-stream-events.html#events)),
 the event is forwarded to the other instances which re-plays it. This way, the output
@@ -43,6 +46,7 @@ of the stream-events command is the same, no matter which  instance a client is
 connected to.
 
 #### Web session
+
 The built-in Gerrit H2 based web session cache is replaced with a file based
 implementation that is shared amongst the instances.
 
@@ -55,8 +59,8 @@ Prerequisites:
 
 For the instances:
 
-* Configure gerrit.basePath in gerrit.config to the shared repositories location
-* Configure gerrit.serverId in gerrit.config based on [config](config.md)'s introduction
+* Configure `gerrit.basePath` in `gerrit.config` to the shared repositories location
+* Configure `gerrit.serverId` in `gerrit.config` based on [config](config.md)'s introduction
 * Install and configure this @PLUGIN@ plugin [further](config.md) or based on below.
 
 Here is an example of the minimal @PLUGIN@.config:
@@ -110,25 +114,34 @@ Prerequisites:
 
 * Git repositories must be located on a shared file system
 * A directory on a shared file system must be available for @PLUGIN@ to use
-* An implementation of global-refdb (e.g. Zookeeper) must be accessible from all the active
-instances
+* An implementation of `global-refdb` (e.g. Zookeeper) must be accessible from all the active
+  instances to maintain consistent ref updates across all Gerrit primary sites
+
+The following `global-refdb` implementations are available:
+
+* [zookeeper-refdb plugin](https://gerrit.googlesource.com/plugins/zookeeper-refdb/+/refs/heads/master)
+  using Apache Zookeeper
+* [aws-dynamodb-refdb plugin](https://gerrit.googlesource.com/plugins/aws-dynamodb-refdb/+/refs/heads/master)
+  using AWS DynamoDB
+* [spanner-refdb plugin](https://gerrit.googlesource.com/plugins/spanner-refdb/+/refs/heads/master)
+  using Google Cloud Spanner
 
 For the instances:
 
-* Configure gerrit.basePath in gerrit.config to the shared repositories location
-* Configure gerrit.serverId in gerrit.config based on [config](config.md)'s introduction
+* Configure `gerrit.basePath` in `gerrit.config` to the shared repositories location
+* Configure `gerrit.serverId` in `gerrit.config` based on [config](config.md)'s introduction
 * Install and configure this @PLUGIN@ plugin [further](config.md) or based on example
 configuration
-* Install @PLUGIN@ plugin as a database module in $GERRIT_SITE/lib(please note that
-@PLUGIN plugin must be installed as a plugin and as a database module) and add
-`installDbModule = com.ericsson.gerrit.plugins.highavailability.ValidationModule`
-to the gerrit section in gerrit.config
-* Install [global-refdb library](https://mvnrepository.com/artifact/com.gerritforge/global-refdb) as a library module in $GERRIT_SITE/lib and add
-`installModule = com.gerritforge.gerrit.globalrefdb.validation.LibModule` to the gerrit
-section in gerrit.config
+* Install @PLUGIN@ plugin as a database module in `$GERRIT_SITE/lib` (please note that
+@PLUGIN plugin must be installed as a plugin and as a database module) and add <br/>
+`installDbModule = com.ericsson.gerrit.plugins.highavailability.ValidationModule` <br/>
+to the gerrit section in `gerrit.config`
+* Install [global-refdb library](https://mvnrepository.com/artifact/com.gerritforge/global-refdb) as a library module in $GERRIT_SITE/lib and add  <br/>
+`installModule = com.gerritforge.gerrit.globalrefdb.validation.LibModule` <br/>
+to the `gerrit` section in `gerrit.config`
 * Install and configure [zookeeper-refdb plugin](https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-zookeeper-refdb-bazel-master) based on [config.md](https://gerrit.googlesource.com/plugins/zookeeper-refdb/+/refs/heads/master/src/main/resources/Documentation/config.md)
-* Configure ref-database.enabled = true in @PLUGIN@.config to enable validation with
-global-refdb.
+* Configure `ref-database.enabled = true` in @PLUGIN@.config to enable validation with
+`global-refdb`.
 
 Here is an example of the minimal @PLUGIN@.config:
 
@@ -166,12 +179,13 @@ Active instance two
   enabled = true
 ```
 
-Minimal zookeeper-refdb.config for both active instances:
+Minimal `zookeeper-refdb.config` for both active instances:
 
 ```
 [ref-database "zookeeper"]
   connectString = zookeeperhost:2181
 ```
+
 ### Last index update timestamp storage
 
 The plugin keeps track of the timestamp when it lastly updated an index.
@@ -180,6 +194,7 @@ is used to determine which changes to reindex when a node is temporarily out of
 sync with the primary, for example, after a node being offline for a long time.
 
 The HA plugin keeps the last update timestamp for each index in the following files:
+
 * `<gerrit_home>/data/high-availability/account`
 * `<gerrit_home>/data/high-availability/change`
 
