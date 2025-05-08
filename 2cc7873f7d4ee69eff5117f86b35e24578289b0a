@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e91e611_6ec784d8",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-05-08T12:20:23Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "ec3bca13_8624c505",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 66
+      },
+      "revId": "2cc7873f7d4ee69eff5117f86b35e24578289b0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "812df75f_68f57f42",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-05-08T11:28:57Z",
       "side": 1,
       "message": "```suggestion\nimplementation is needed to maintain consistent ref updates across all\n```\n\nWithout the global-refdb, you would risk to run into refs overwrites unless you completely disable the NFS caching, that nobody does.",
+      "range": {
+        "startLine": 28,
+        "startChar": 15,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "2cc7873f7d4ee69eff5117f86b35e24578289b0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7c7c61_39afd719",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-05-08T12:20:23Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "812df75f_68f57f42",
       "range": {
         "startLine": 28,
         "startChar": 15,
