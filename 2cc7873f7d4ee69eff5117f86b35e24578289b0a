@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec3bca13_8624c505",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-08T11:28:57Z",
+      "side": 1,
+      "message": "This should only be in the active-active setups.\nThe requirement to have it for the active-passive is rather a bug to be fixed.\n\n\n\n```suggestion\n\n\u003e **NOTE** the `global-refdb` lib module in the Gerrit site\u0027s `lib` folder, even if it is not used or referenced as libModule in the `gerrit.config`, because of a bug in the high-availability plugin initialisation sequence.\n```",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 66
+      },
+      "revId": "2cc7873f7d4ee69eff5117f86b35e24578289b0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "812df75f_68f57f42",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-05-08T11:28:57Z",
+      "side": 1,
+      "message": "```suggestion\nimplementation is needed to maintain consistent ref updates across all\n```\n\nWithout the global-refdb, you would risk to run into refs overwrites unless you completely disable the NFS caching, that nobody does.",
+      "range": {
+        "startLine": 28,
+        "startChar": 15,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "2cc7873f7d4ee69eff5117f86b35e24578289b0a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
