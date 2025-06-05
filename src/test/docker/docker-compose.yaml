@@ -17,6 +17,7 @@ services:
       - ./etc/high-availability.gerrit-01.config:/var/gerrit/etc/high-availability.config.orig
     environment:
       - HOSTNAME=localhost
+      - AWS_ACCESS_KEY_ID=theKey
 
   gerrit-02:
     build: gerrit
@@ -36,6 +37,7 @@ services:
     environment:
       - HOSTNAME=localhost
       - WAIT_FOR=gerrit-01:8080
+      - AWS_ACCESS_KEY_ID=theKey
 
   haproxy:
     build: haproxy
@@ -49,8 +51,21 @@ services:
       - gerrit-01
       - gerrit-02
 
+  kinesis:
+    image: localstack/localstack:0.14.5
+    ports:
+      - "4566:4566"
+      - "4751:4751"
+    environment:
+      SERVICES: dynamodb,cloudwatch
+      AWS_REGION: us-east-1
+      USE_SSL: "true"
+    networks:
+      - gerrit-net
+
   syslog-sidecar:
     build: docker-syslog-ng-stdout
+    platform: linux/amd64
     networks:
       - gerrit-net
 

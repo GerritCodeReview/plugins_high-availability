@@ -22,4 +22,8 @@ sudo -u gerrit git config -f /var/gerrit/etc/gerrit.config gerrit.canonicalWebUr
 sudo -u gerrit touch /var/gerrit/logs/{gc_log,error_log,httpd_log,sshd_log,replication_log} && tail -f /var/gerrit/logs/* | grep --line-buffered -v 'HEAD /' &
 
 echo "Running Gerrit ..."
-sudo -u gerrit /var/gerrit/bin/gerrit.sh run
+sudo -u gerrit bash -c "cd /var/gerrit/lib && ln -sf ../plugins/high-availability.jar ."
+sudo -u gerrit git config -f /var/gerrit/etc/gerrit.config --add gerrit.installDbModule com.ericsson.gerrit.plugins.highavailability.ValidationModule
+sudo -u gerrit git config -f /var/gerrit/etc/gerrit.config --add gerrit.installModule com.gerritforge.gerrit.globalrefdb.validation.LibModule
+
+sudo -u gerrit bash -c "export AWS_ACCESS_KEY_ID=theKey && export AWS_SECRET_ACCESS_KEY=theSecret && /var/gerrit/bin/gerrit.sh run"
