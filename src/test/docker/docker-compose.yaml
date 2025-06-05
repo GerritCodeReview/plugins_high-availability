@@ -44,8 +44,6 @@ services:
       - "29418:29418"
     networks:
       - gerrit-net
-    volumes:
-      - syslog-sidecar
     depends_on:
       - syslog-sidecar
       - gerrit-01
@@ -61,6 +59,5 @@ networks:
     driver: bridge
 
 volumes:
-  syslog-sidecar:
   shareddir:
   gitvolume:
