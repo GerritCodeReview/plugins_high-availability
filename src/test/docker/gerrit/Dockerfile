@@ -3,7 +3,7 @@ FROM almalinux:9.4
 # Install dependencies
 RUN yum -y install \
     git \
-    java-17-openjdk \
+    java-21-openjdk \
     procps \
     sudo \
     passwd \
