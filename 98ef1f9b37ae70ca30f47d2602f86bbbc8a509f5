@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea9ad5c_e32a1b74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-06-06T06:54:25Z",
+      "side": 1,
+      "message": "nit: could just cherry-pick this from 3.5\n\nhttps://gerrit-review.googlesource.com/c/plugins/high-availability/+/451901",
+      "revId": "98ef1f9b37ae70ca30f47d2602f86bbbc8a509f5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
