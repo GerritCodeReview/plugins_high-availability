@@ -22,6 +22,30 @@
       },
       "revId": "78f094d6c637868c38a2d9adf32d1b59e628a00f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "698332fc_7db51c86",
+        "filename": "src/test/docker/nfs/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-06-06T10:18:54Z",
+      "side": 1,
+      "message": "I have generated the tag based on the version of Alpine [2] providing the nfs-server.\n\n[2] https://github.com/GerritForge/docker-nfs-server/commit/6b916d6f6c1822b507d8612c32b5eff04250338d",
+      "parentUuid": "8ea57a8a_ad168d53",
+      "range": {
+        "startLine": 1,
+        "startChar": 35,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "78f094d6c637868c38a2d9adf32d1b59e628a00f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
