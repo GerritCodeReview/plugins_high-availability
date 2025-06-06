@@ -3,7 +3,7 @@ FROM almalinux:9.4
 # Install dependencies
 RUN yum -y install \
     git \
-    java-17-openjdk \
+    java-21-openjdk \
     procps \
     sudo \
     passwd \
@@ -27,7 +27,7 @@ ADD --chown=gerrit \
     /tmp/gerrit.war
 
 ADD --chown=gerrit \
-    "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
+    "https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
 
 ADD --chown=gerrit \
