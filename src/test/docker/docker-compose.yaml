@@ -20,7 +20,7 @@ services:
       gerrit-net:
         ipv4_address: 192.168.1.5
     volumes:
-      - nfs-server-volume:/var/gerrit/git
+      - nfs-server-volume:/var/gerrit
 
   zookeeper-refdb:
     image: zookeeper
