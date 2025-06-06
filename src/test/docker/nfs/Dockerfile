@@ -1,4 +1,4 @@
-FROM erichough/nfs-server
+FROM gerritforge/docker-nfs-server:3.11.3
 
 COPY exports.txt /etc/exports
 
