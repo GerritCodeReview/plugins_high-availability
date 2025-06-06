@@ -22,6 +22,9 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsFor
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
+import com.gerritforge.gerrit.globalrefdb.validation.ProjectDeletedSharedDbCleanup;
+import com.google.gerrit.extensions.events.ProjectDeletedListener;
+import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
@@ -70,6 +73,8 @@ class Module extends LifecycleModule {
 
     if (config.sharedRefDb().getSharedRefDb().isEnabled()) {
       listener().to(PluginStartup.class);
+      DynamicSet.bind(binder(), ProjectDeletedListener.class)
+          .to(ProjectDeletedSharedDbCleanup.class);
     }
   }
 
