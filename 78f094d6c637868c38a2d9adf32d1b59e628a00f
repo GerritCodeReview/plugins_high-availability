@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea57a8a_ad168d53",
+        "filename": "src/test/docker/nfs/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-06-06T10:07:05Z",
+      "side": 1,
+      "message": "out of curiosity: how is this tag generated at `docker publish` time?",
+      "range": {
+        "startLine": 1,
+        "startChar": 35,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "78f094d6c637868c38a2d9adf32d1b59e628a00f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
