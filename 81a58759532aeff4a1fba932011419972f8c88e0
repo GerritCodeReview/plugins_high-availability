@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26399269_8f062ddf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-06-06T06:56:41Z",
+      "side": 1,
+      "message": "```suggestion\nthe global-refdb wasn\u0027t cleaned up properly upon project\n```",
+      "range": {
+        "startLine": 10,
+        "startChar": 44,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "81a58759532aeff4a1fba932011419972f8c88e0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
