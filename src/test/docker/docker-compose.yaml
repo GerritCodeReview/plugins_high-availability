@@ -56,6 +56,7 @@ services:
       - ./etc/zookeeper-refdb.config:/var/gerrit/etc/zookeeper-refdb.config.orig
     environment:
       - HOSTNAME=localhost
+    entrypoint: sleep 3600
 
   gerrit-02:
     build: gerrit
