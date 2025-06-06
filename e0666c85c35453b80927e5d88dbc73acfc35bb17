@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaab2732_dc441d4d",
+        "filename": "Jenkinsfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-06-06T17:05:05Z",
+      "side": 1,
+      "message": "This should be removed, as Gerrit v3.9 is verified with GJF 1.24.0",
+      "range": {
+        "startLine": 3,
+        "startChar": 15,
+        "endLine": 3,
+        "endChar": 33
+      },
+      "revId": "e0666c85c35453b80927e5d88dbc73acfc35bb17",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
