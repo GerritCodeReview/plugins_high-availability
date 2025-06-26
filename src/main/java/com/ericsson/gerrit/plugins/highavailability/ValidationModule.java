@@ -62,11 +62,11 @@ public class ValidationModule extends FactoryModule {
 
     if (configuration.sharedRefDb().getSharedRefDb().getEnforcementRules().isEmpty()) {
       bind(LegacySharedRefEnforcement.class)
-          .to(LegacyDefaultSharedRefEnforcement.class)
+          .to(LegacyCustomSharedRefEnforcementByProject.class)
           .in(Scopes.SINGLETON);
     } else {
       bind(LegacySharedRefEnforcement.class)
-          .to(LegacyCustomSharedRefEnforcementByProject.class)
+          .to(LegacyDefaultSharedRefEnforcement.class)
           .in(Scopes.SINGLETON);
     }
 

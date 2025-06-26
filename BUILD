@@ -54,6 +54,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":high-availability__plugin",
+        "//plugins/global-refdb",
         "@global-refdb//jar",
         "@wiremock//jar",
         "@jgroups//jar",
