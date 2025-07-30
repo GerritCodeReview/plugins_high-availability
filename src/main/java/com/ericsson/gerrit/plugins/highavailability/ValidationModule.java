@@ -26,9 +26,6 @@ import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbRefDatabase;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbRefUpdate;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefDbRepository;
 import com.gerritforge.gerrit.globalrefdb.validation.SharedRefLogger;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyCustomSharedRefEnforcementByProject;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacyDefaultSharedRefEnforcement;
-import com.gerritforge.gerrit.globalrefdb.validation.dfsrefdb.LegacySharedRefEnforcement;
 import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.ExceptionHook;
@@ -59,16 +56,6 @@ public class ValidationModule extends FactoryModule {
     bind(SharedRefLogger.class).to(Log4jSharedRefLogger.class);
 
     bind(GitRepositoryManager.class).to(SharedRefDbGitRepositoryManager.class);
-
-    if (configuration.sharedRefDb().getSharedRefDb().getEnforcementRules().isEmpty()) {
-      bind(LegacySharedRefEnforcement.class)
-          .to(LegacyDefaultSharedRefEnforcement.class)
-          .in(Scopes.SINGLETON);
-    } else {
-      bind(LegacySharedRefEnforcement.class)
-          .to(LegacyCustomSharedRefEnforcementByProject.class)
-          .in(Scopes.SINGLETON);
-    }
 
     DynamicSet.bind(binder(), ExceptionHook.class).to(SharedRefDbExceptionHook.class);
   }
