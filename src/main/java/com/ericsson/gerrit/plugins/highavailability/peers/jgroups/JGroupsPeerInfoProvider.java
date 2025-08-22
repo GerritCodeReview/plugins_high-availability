@@ -14,7 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.peers.jgroups;
 
-import autovalue.shaded.com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.annotations.VisibleForTesting;
