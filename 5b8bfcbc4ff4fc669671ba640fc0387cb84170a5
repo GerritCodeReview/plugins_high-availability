@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a862a11f_0b24671b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4317416
+      },
+      "writtenOn": "2025-08-26T23:08:11Z",
+      "side": 1,
+      "message": "While some broodmothers are vaunted, such as the bearers of Stormvermin and other higher-caste specimens, the majority are kept in filthy pits.\"",
+      "revId": "5b8bfcbc4ff4fc669671ba640fc0387cb84170a5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
