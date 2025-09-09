@@ -108,6 +108,11 @@ public class JGroupsForwarder implements Forwarder {
     return execute(new RemoveFromProjectList(projectName));
   }
 
+  @Override
+  public CompletableFuture<Boolean> deleteAllChangesForProject(String projectName) {
+    return execute(new DeleteAllProjectChangesFromIndex(projectName));
+  }
+
   private CompletableFuture<Boolean> execute(Command cmd) {
     return executor.getAsync(() -> executeOnce(cmd));
   }
