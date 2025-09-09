@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import java.util.concurrent.CompletableFuture;
 
@@ -119,4 +120,13 @@ public interface Forwarder {
    *     false.
    */
   CompletableFuture<Boolean> removeFromProjectList(String projectName);
+
+  /**
+   * Forward the removal of all project changes from index to the other master.
+   *
+   * @param projectName the name of the project whose changes should be removed from the index
+   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
+   *     false.
+   */
+  CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName);
 }

@@ -20,8 +20,10 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
@@ -37,11 +39,13 @@ import javax.net.ssl.SSLException;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
 
-class RestForwarder implements Forwarder {
+public class RestForwarder implements Forwarder {
   enum RequestMethod {
     POST,
     DELETE
   }
+
+  public static final String ALL_CHANGES_FOR_PROJECT = "0";
 
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
@@ -115,6 +119,12 @@ class RestForwarder implements Forwarder {
     return escapedProjectName + '~' + changeId;
   }
 
+  @VisibleForTesting
+  public static String buildAllChangesForProjectEndpoint(String projectName) {
+    String escapedProjectName = Url.encode(projectName);
+    return escapedProjectName + '~' + ALL_CHANGES_FOR_PROJECT;
+  }
+
   @Override
   public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent event) {
     return execute(
@@ -148,6 +158,15 @@ class RestForwarder implements Forwarder {
         "Update project_list, remove ",
         buildProjectListEndpoint(),
         Url.encode(projectName));
+  }
+
+  @Override
+  public CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName) {
+    return execute(
+        RequestMethod.DELETE,
+        "Delete all project changes from index",
+        "index/change",
+        buildAllChangesForProjectEndpoint(projectName.get()));
   }
 
   private static String buildProjectListEndpoint() {
