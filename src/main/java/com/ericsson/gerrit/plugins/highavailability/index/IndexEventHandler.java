@@ -58,6 +58,17 @@ class IndexEventHandler
     currCtx.onlyWithContext((ctx) -> executeIndexChangeTask(projectName, id));
   }
 
+  @Override
+  public void onAllChangesDeletedForProject(String projectName) {
+    currCtx.onlyWithContext((ctx) -> executeAllChangesDeletedForProject(projectName));
+  }
+
+  private void executeAllChangesDeletedForProject(String projectName) {
+    if (!Context.isForwardedEvent()) {
+      forwarder.deleteAllChangesForProject(projectName);
+    }
+  }
+
   private void executeIndexChangeTask(String projectName, int id) {
     if (!Context.isForwardedEvent()) {
       String changeId = projectName + "~" + id;

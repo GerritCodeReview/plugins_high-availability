@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import static com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarder.ALL_CHANGES_FOR_PROJECT;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -55,6 +56,7 @@ public class ForwardedIndexChangeHandlerTest {
   private static final int TEST_CHANGE_NUMBER = 123;
   private static String TEST_PROJECT = "test/project";
   private static String TEST_CHANGE_ID = TEST_PROJECT + "~" + TEST_CHANGE_NUMBER;
+  private static String TEST_ALL_CHANGES = TEST_PROJECT + "~" + ALL_CHANGES_FOR_PROJECT;
   private static final boolean CHANGE_EXISTS = true;
   private static final boolean CHANGE_DOES_NOT_EXIST = false;
   private static final boolean CHANGE_UP_TO_DATE = true;
@@ -109,6 +111,12 @@ public class ForwardedIndexChangeHandlerTest {
   public void changeIsDeletedFromIndex() throws Exception {
     handler.index(TEST_CHANGE_ID, Operation.DELETE, Optional.empty()).get(10, SECONDS);
     verify(indexerMock, times(1)).delete(id);
+  }
+
+  @Test
+  public void AllChangesAreDeletedFromIndex() throws Exception {
+    handler.index(TEST_ALL_CHANGES, Operation.DELETE, Optional.empty()).get(10, SECONDS);
+    verify(indexerMock, times(1)).deleteAllForProject(Project.nameKey(TEST_PROJECT));
   }
 
   @Test

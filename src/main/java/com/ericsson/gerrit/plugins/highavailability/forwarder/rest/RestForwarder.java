@@ -37,11 +37,13 @@ import javax.net.ssl.SSLException;
 import org.apache.http.HttpException;
 import org.apache.http.client.ClientProtocolException;
 
-class RestForwarder implements Forwarder {
+public class RestForwarder implements Forwarder {
   enum RequestMethod {
     POST,
     DELETE
   }
+
+  public static final String ALL_CHANGES_FOR_PROJECT = "all";
 
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
@@ -115,6 +117,11 @@ class RestForwarder implements Forwarder {
     return escapedProjectName + '~' + changeId;
   }
 
+  private String buildAllChangesForProjectEndpoint(String projectName) {
+    String escapedProjectName = Url.encode(projectName);
+    return escapedProjectName + '~' + ALL_CHANGES_FOR_PROJECT;
+  }
+
   @Override
   public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent event) {
     return execute(
@@ -148,6 +155,15 @@ class RestForwarder implements Forwarder {
         "Update project_list, remove ",
         buildProjectListEndpoint(),
         Url.encode(projectName));
+  }
+
+  @Override
+  public CompletableFuture<Boolean> deleteAllChangesForProject(String projectName) {
+    return execute(
+        RequestMethod.DELETE,
+        "Delete all project changes from index",
+        "index/change",
+        buildAllChangesForProjectEndpoint(projectName));
   }
 
   private static String buildProjectListEndpoint() {

@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import static com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarder.ALL_CHANGES_FOR_PROJECT;
+
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
@@ -119,8 +121,14 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected CompletableFuture<Boolean> doDelete(String id, Optional<IndexEvent> indexEvent)
       throws IOException {
-    indexer.delete(parseChangeId(id));
-    log.atFine().log("Change %s successfully deleted from index", id);
+    if (ALL_CHANGES_FOR_PROJECT.equals(getChangeIdParts(id).get(1))) {
+      Project.NameKey projectName = parseProject(id);
+      indexer.deleteAllForProject(projectName);
+      log.atFine().log("All %s changes successfully deleted from index", projectName.get());
+    } else {
+      indexer.delete(parseChangeId(id));
+      log.atFine().log("Change %s successfully deleted from index", id);
+    }
     return CompletableFuture.completedFuture(true);
   }
 
