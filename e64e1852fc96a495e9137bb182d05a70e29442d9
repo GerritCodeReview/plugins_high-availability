@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3835f629_92c6a67a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-09-10T07:23:06Z",
+      "side": 1,
+      "message": "I would add the change introducing the hook: `I4c8a5362`",
+      "range": {
+        "startLine": 12,
+        "startChar": 48,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eb802eb_573b82fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-09-10T07:23:06Z",
+      "side": 1,
+      "message": "I would add something like:\n\n```\nTo propagate this event to the peer nodes, this change adds:\n- a REST endpoint: DELETE /plugins/high-availability/index/change/\u003cproject\u003e~all\n- A JGroups command\n```",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f14dff1_3d8ef576",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-09-10T07:23:06Z",
+      "side": 1,
+      "message": "nit: What about encapsulating it in a similar function like `parseChangeId` for better readability? Something like: `getLastSegment` , which can also be reused in `parseChangeId`",
+      "range": {
+        "startLine": 124,
+        "startChar": 55,
+        "endLine": 124,
+        "endChar": 66
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a336f0dd_7893f163",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-09-10T07:23:06Z",
+      "side": 1,
+      "message": "We are making this public, just to expose the `ALL_CHANGES_FOR_PROJECT`, correct?\n\nI would have avoided it, but I cannot come up with a better place to put it, so let\u0027s leave it here 😊",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d4c3904_69d3c602",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2025-09-10T07:23:06Z",
+      "side": 1,
+      "message": "You could use `buildAllChangesForProjectEndpoint` if made class protected, isn\u0027t it?",
+      "range": {
+        "startLine": 91,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 66
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
