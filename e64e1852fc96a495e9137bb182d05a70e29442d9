@@ -66,6 +66,74 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84c244ab_2cd3122a",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-10T07:42:38Z",
+      "side": 1,
+      "message": "```suggestion\n   * Forward the removal of all project changes from index to other primaries.\n```",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a118aa92_ce19972f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-10T07:42:38Z",
+      "side": 1,
+      "message": "shouldn\u0027t this better use the type `Project.NameKey` ?",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a63c0c99_d832437b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/DeleteAllProjectChangesFromIndex.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-10T07:42:38Z",
+      "side": 1,
+      "message": "shouldn\u0027t this better use the type `Project.NameKey` ?",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cc10788_e633891d",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-09-10T07:42:38Z",
+      "side": 1,
+      "message": "shouldn\u0027t this better use the type `Project.NameKey` ?",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a336f0dd_7893f163",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
         "patchSetId": 2
