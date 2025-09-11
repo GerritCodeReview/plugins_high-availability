@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6a2783b_a4f9916e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3835f629_92c6a67a",
+      "range": {
+        "startLine": 12,
+        "startChar": 48,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0eb802eb_573b82fd",
@@ -41,6 +65,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "508e0c9d_2fc00484",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0eb802eb_573b82fd",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f14dff1_3d8ef576",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-09-10T07:23:06Z",
       "side": 1,
       "message": "nit: What about encapsulating it in a similar function like `parseChangeId` for better readability? Something like: `getLastSegment` , which can also be reused in `parseChangeId`",
+      "range": {
+        "startLine": 124,
+        "startChar": 55,
+        "endLine": 124,
+        "endChar": 66
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "668e0eb6_5c02718f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f14dff1_3d8ef576",
       "range": {
         "startLine": 124,
         "startChar": 55,
@@ -83,6 +149,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "612b7808_53f5ddf8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "All other javadocs refer to the peers as a `master`, so I kept it consistent.\nI will change them all in a follow-up change.",
+      "parentUuid": "84c244ab_2cd3122a",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a118aa92_ce19972f",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
         "patchSetId": 2
@@ -94,6 +178,24 @@
       "writtenOn": "2025-09-10T07:42:38Z",
       "side": 1,
       "message": "shouldn\u0027t this better use the type `Project.NameKey` ?",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9250b5d_8f52c5e8",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/Forwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Yes, even though all other interface methods are using `String projectName`, so I wanted to keep this consinstent.\n\nI guess since this is a new interface method we can just do the right thing and introduce it as `Project.NameKey`.\n\nLet me do that.",
+      "parentUuid": "a118aa92_ce19972f",
       "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -115,6 +217,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6ef8462_82858a55",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/DeleteAllProjectChangesFromIndex.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a63c0c99_d832437b",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cc10788_e633891d",
@@ -128,6 +248,24 @@
       "writtenOn": "2025-09-10T07:42:38Z",
       "side": 1,
       "message": "shouldn\u0027t this better use the type `Project.NameKey` ?",
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35531af7_aba8096f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc10788_e633891d",
       "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -155,6 +293,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef1de96b_11ec8e05",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a336f0dd_7893f163",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 6
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d4c3904_69d3c602",
@@ -168,6 +330,30 @@
       "writtenOn": "2025-09-10T07:23:06Z",
       "side": 1,
       "message": "You could use `buildAllChangesForProjectEndpoint` if made class protected, isn\u0027t it?",
+      "range": {
+        "startLine": 91,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 66
+      },
+      "revId": "e64e1852fc96a495e9137bb182d05a70e29442d9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bd123e8_1d454779",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-09-11T14:45:21Z",
+      "side": 1,
+      "message": "Yes, I have also made it static and annotated as `@VisibleForTesting`",
+      "parentUuid": "7d4c3904_69d3c602",
       "range": {
         "startLine": 91,
         "startChar": 14,
