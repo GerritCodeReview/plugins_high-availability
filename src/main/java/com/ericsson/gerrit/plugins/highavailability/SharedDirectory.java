@@ -20,7 +20,7 @@ import com.google.inject.BindingAnnotation;
 import java.lang.annotation.Retention;
 
 /**
- * {@link java.nio.file.Path} to a directory accessible from both master instances.
+ * {@link java.nio.file.Path} to a directory accessible from both primary instances.
  *
  * <p>Example of usage:
  *

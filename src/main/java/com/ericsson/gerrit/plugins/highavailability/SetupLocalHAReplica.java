@@ -46,17 +46,17 @@ import org.eclipse.jgit.util.FS;
 class SetupLocalHAReplica {
   private static final String DATABASE = "database";
 
-  private final SitePaths masterSitePaths;
-  private final FileBasedConfig masterConfig;
+  private final SitePaths primarySitePaths;
+  private final FileBasedConfig primaryConfig;
   private final Path sharedDir;
 
   private SitePaths replicaSitePaths;
 
   @Inject
-  SetupLocalHAReplica(SitePaths masterSitePaths, InitFlags flags) {
-    this.masterSitePaths = masterSitePaths;
-    this.masterConfig = flags.cfg;
-    this.sharedDir = masterSitePaths.site_path.resolve(DEFAULT_SHARED_DIRECTORY);
+  SetupLocalHAReplica(SitePaths primarySitePaths, InitFlags flags) {
+    this.primarySitePaths = primarySitePaths;
+    this.primaryConfig = flags.cfg;
+    this.sharedDir = primarySitePaths.site_path.resolve(DEFAULT_SHARED_DIRECTORY);
   }
 
   void run(SitePaths replica, FileBasedConfig pluginConfig)
@@ -74,15 +74,15 @@ class SetupLocalHAReplica {
 
     mkdir(replicaSitePaths.logs_dir);
     mkdir(replicaSitePaths.tmp_dir);
-    symlink(Paths.get(masterConfig.getString("gerrit", null, "basePath")));
+    symlink(Paths.get(primaryConfig.getString("gerrit", null, "basePath")));
     symlink(sharedDir);
 
     FileBasedConfig replicaConfig =
         new FileBasedConfig(replicaSitePaths.gerrit_config.toFile(), FS.DETECTED);
     replicaConfig.load();
 
-    if ("h2".equals(masterConfig.getString(DATABASE, null, "type"))) {
-      masterConfig.setBoolean(DATABASE, "h2", "autoServer", true);
+    if ("h2".equals(primaryConfig.getString(DATABASE, null, "type"))) {
+      primaryConfig.setBoolean(DATABASE, "h2", "autoServer", true);
       replicaConfig.setBoolean(DATABASE, "h2", "autoServer", true);
       symlinkH2ReviewDbDir();
     }
@@ -91,32 +91,32 @@ class SetupLocalHAReplica {
   private List<Path> listDirsForCopy() throws IOException {
     ImmutableList.Builder<Path> toSkipBuilder = ImmutableList.builder();
     toSkipBuilder.add(
-        masterSitePaths.resolve(masterConfig.getString("gerrit", null, "basePath")),
-        masterSitePaths.db_dir,
-        masterSitePaths.logs_dir,
+        primarySitePaths.resolve(primaryConfig.getString("gerrit", null, "basePath")),
+        primarySitePaths.db_dir,
+        primarySitePaths.logs_dir,
         replicaSitePaths.site_path,
-        masterSitePaths.site_path.resolve(sharedDir),
-        masterSitePaths.tmp_dir);
-    if ("h2".equals(masterConfig.getString(DATABASE, null, "type"))) {
+        primarySitePaths.site_path.resolve(sharedDir),
+        primarySitePaths.tmp_dir);
+    if ("h2".equals(primaryConfig.getString(DATABASE, null, "type"))) {
       toSkipBuilder.add(
-          masterSitePaths.resolve(masterConfig.getString(DATABASE, null, DATABASE)).getParent());
+          primarySitePaths.resolve(primaryConfig.getString(DATABASE, null, DATABASE)).getParent());
     }
     final ImmutableList<Path> toSkip = toSkipBuilder.build();
 
     final ArrayList<Path> dirsForCopy = new ArrayList<>();
     Files.walkFileTree(
-        masterSitePaths.site_path,
+        primarySitePaths.site_path,
         EnumSet.of(FileVisitOption.FOLLOW_LINKS),
         Integer.MAX_VALUE,
         new SimpleFileVisitor<Path>() {
           @Override
           public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
               throws IOException {
-            if (Files.isSameFile(dir, masterSitePaths.site_path)) {
+            if (Files.isSameFile(dir, primarySitePaths.site_path)) {
               return FileVisitResult.CONTINUE;
             }
 
-            Path p = masterSitePaths.site_path.relativize(dir);
+            Path p = primarySitePaths.site_path.relativize(dir);
             if (shouldSkip(p)) {
               return FileVisitResult.SKIP_SUBTREE;
             }
@@ -125,7 +125,7 @@ class SetupLocalHAReplica {
           }
 
           private boolean shouldSkip(Path p) throws IOException {
-            Path resolved = masterSitePaths.site_path.resolve(p);
+            Path resolved = primarySitePaths.site_path.resolve(p);
             for (Path skip : toSkip) {
               if (skip.toFile().exists() && Files.isSameFile(resolved, skip)) {
                 return true;
@@ -139,7 +139,7 @@ class SetupLocalHAReplica {
   }
 
   private void copyFiles(Path dir) throws IOException {
-    final Path source = masterSitePaths.site_path.resolve(dir);
+    final Path source = primarySitePaths.site_path.resolve(dir);
     final Path target = replicaSitePaths.site_path.resolve(dir);
     Files.createDirectories(target);
     Files.walkFileTree(
@@ -167,12 +167,12 @@ class SetupLocalHAReplica {
     if (!path.isAbsolute()) {
       Files.createSymbolicLink(
           replicaSitePaths.site_path.resolve(path),
-          masterSitePaths.site_path.resolve(path).toAbsolutePath().normalize());
+          primarySitePaths.site_path.resolve(path).toAbsolutePath().normalize());
     }
   }
 
   private void symlinkH2ReviewDbDir() throws IOException {
-    symlink(Paths.get(masterConfig.getString(DATABASE, null, DATABASE)).getParent());
+    symlink(Paths.get(primaryConfig.getString(DATABASE, null, DATABASE)).getParent());
   }
 
   private void configureMainSection(FileBasedConfig pluginConfig) throws IOException {
@@ -180,7 +180,7 @@ class SetupLocalHAReplica {
         MAIN_SECTION,
         null,
         SHARED_DIRECTORY_KEY,
-        masterSitePaths.site_path.relativize(sharedDir).toString());
+        primarySitePaths.site_path.relativize(sharedDir).toString());
     pluginConfig.save();
   }
 
