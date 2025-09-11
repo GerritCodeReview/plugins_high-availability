@@ -1,7 +1,7 @@
 # Gerrit high-availability docker setup example
 
 The Docker Compose project in the docker directory contains a simple test
-environment of two Gerrit masters in HA configuration, with their git repos
+environment of two Gerrit primaries in HA configuration, with their git repos
 hosted on NFS filesystem.
 
 ## How to build
