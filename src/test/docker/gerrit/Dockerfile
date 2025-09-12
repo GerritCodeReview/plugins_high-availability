@@ -1,4 +1,4 @@
-FROM gerritcodereview/gerrit:3.5.0-rc2
+FROM gerritcodereview/gerrit:3.5.6-ubuntu20
 
 ENV GERRIT_BRANCH=stable-3.5
 
@@ -12,6 +12,8 @@ USER gerrit
 
 ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar /var/gerrit/plugins/javamelody.jar
 ADD --chown=gerrit:gerrit $GERRIT_CI_URL/plugin-high-availability-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar /var/gerrit/plugins/high-availability.jar
+
+ADD --chown=gerrit:gerrit https://repo1.maven.org/maven2/com/gerritforge/global-refdb/3.5.6/global-refdb-3.5.6.jar /var/gerrit/lib/global-refdb.jar
 
 USER root
 
