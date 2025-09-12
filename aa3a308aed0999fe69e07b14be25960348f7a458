@@ -16,6 +16,24 @@
       "message": "We do not implement new features on an old and EOL branch. Please use master which has all these features already implemented, see https://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/master/src/test/docker/gerrit/Dockerfile",
       "revId": "aa3a308aed0999fe69e07b14be25960348f7a458",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "742d39dd_5cfbb422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2025-09-12T21:17:32Z",
+      "side": 1,
+      "message": "It\u0027s not a new feature, the environment doesn\u0027t start up without this, as HA plugin requires the global refdb jar to start.\n\nNotice how I\u0027ve not provided any implementation of it.",
+      "parentUuid": "e688f6c7_fd604514",
+      "revId": "aa3a308aed0999fe69e07b14be25960348f7a458",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
