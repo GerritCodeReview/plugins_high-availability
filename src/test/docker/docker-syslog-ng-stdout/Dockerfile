@@ -1,4 +1,4 @@
-FROM alpine:3.22.1
+FROM alpine:3.4
 MAINTAINER Ryan Schlesinger <ryan@outstand.com>
 
 RUN apk add --no-cache bash syslog-ng
