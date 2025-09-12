@@ -34,6 +34,24 @@
       "parentUuid": "e688f6c7_fd604514",
       "revId": "aa3a308aed0999fe69e07b14be25960348f7a458",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4885a24_5ef6092d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-09-12T22:13:35Z",
+      "side": 1,
+      "message": "Why not then cherry-picking the proper fix made by @christoforos.miliotis.dev@gmail.com with Change 372920?\n\nYou would avoid unpleasant merge conflicts upstream.",
+      "parentUuid": "742d39dd_5cfbb422",
+      "revId": "aa3a308aed0999fe69e07b14be25960348f7a458",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
