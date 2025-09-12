@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e688f6c7_fd604514",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-09-12T20:26:23Z",
+      "side": 1,
+      "message": "We do not implement new features on an old and EOL branch. Please use master which has all these features already implemented, see https://gerrit.googlesource.com/plugins/high-availability/+/refs/heads/master/src/test/docker/gerrit/Dockerfile",
+      "revId": "aa3a308aed0999fe69e07b14be25960348f7a458",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
