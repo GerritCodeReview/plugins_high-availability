@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import static com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarder.ALL_CHANGES_FOR_PROJECT;
+
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
@@ -119,17 +121,27 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected CompletableFuture<Boolean> doDelete(String id, Optional<IndexEvent> indexEvent)
       throws IOException {
-    indexer.delete(parseChangeId(id));
-    log.atFine().log("Change %s successfully deleted from index", id);
+    if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
+      Project.NameKey projectName = parseProject(id);
+      indexer.deleteAllForProject(projectName);
+      log.atFine().log("All %s changes successfully deleted from index", projectName.get());
+    } else {
+      indexer.delete(parseChangeId(id));
+      log.atFine().log("Change %s successfully deleted from index", id);
+    }
     return CompletableFuture.completedFuture(true);
   }
 
   private static Change.Id parseChangeId(String id) {
-    return Change.id(Integer.parseInt(getChangeIdParts(id).get(1)));
+    return Change.id(Integer.parseInt(extractChangeId(id)));
   }
 
   private static Project.NameKey parseProject(String id) {
     return Project.nameKey(getChangeIdParts(id).get(0));
+  }
+
+  private static String extractChangeId(String id) {
+    return getChangeIdParts(id).get(1);
   }
 
   private static List<String> getChangeIdParts(String id) {

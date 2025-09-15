@@ -14,14 +14,15 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import java.util.concurrent.CompletableFuture;
 
-/** Forward indexing, stream events and cache evictions to the other master */
+/** Forward indexing, stream events and cache evictions to the other primary */
 public interface Forwarder {
 
   /**
-   * Forward a account indexing event to the other master.
+   * Forward an account indexing event to the other primary.
    *
    * @param accountId the account to index.
    * @param indexEvent the details of the index event.
@@ -31,7 +32,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent);
 
   /**
-   * Forward a change indexing event to the other master.
+   * Forward a change indexing event to the other primary.
    *
    * @param projectName the project of the change to index.
    * @param changeId the change to index.
@@ -42,7 +43,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> indexChange(String projectName, int changeId, IndexEvent indexEvent);
 
   /**
-   * Forward a change indexing event to the other master using batch index endpoint.
+   * Forward a change indexing event to the other primary using batch index endpoint.
    *
    * @param projectName the project of the change to index.
    * @param changeId the change to index.
@@ -54,7 +55,7 @@ public interface Forwarder {
       String projectName, int changeId, IndexEvent indexEvent);
 
   /**
-   * Forward a delete change from index event to the other master.
+   * Forward a delete change from index event to the other primary.
    *
    * @param changeId the change to remove from the index.
    * @param indexEvent the details of the index event.
@@ -64,7 +65,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
 
   /**
-   * Forward a group indexing event to the other master.
+   * Forward a group indexing event to the other primary.
    *
    * @param uuid the group to index.
    * @param indexEvent the details of the index event.
@@ -74,7 +75,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent);
 
   /**
-   * Forward a project indexing event to the other master.
+   * Forward a project indexing event to the other primary.
    *
    * @param projectName the project to index.
    * @param indexEvent the details of the index event.
@@ -84,7 +85,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent);
 
   /**
-   * Forward a stream event to the other master.
+   * Forward a stream event to the other primary.
    *
    * @param event the event to forward.
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
@@ -93,7 +94,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> send(Event event);
 
   /**
-   * Forward a cache eviction event to the other master.
+   * Forward a cache eviction event to the other primary.
    *
    * @param cacheName the name of the cache to evict an entry from.
    * @param key the key identifying the entry to evict from the cache.
@@ -103,7 +104,7 @@ public interface Forwarder {
   CompletableFuture<Boolean> evict(String cacheName, Object key);
 
   /**
-   * Forward an addition to the project list cache to the other master.
+   * Forward an addition to the project list cache to the other primary.
    *
    * @param projectName the name of the project to add to the project list cache
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
@@ -112,11 +113,20 @@ public interface Forwarder {
   CompletableFuture<Boolean> addToProjectList(String projectName);
 
   /**
-   * Forward a removal from the project list cache to the other master.
+   * Forward a removal from the project list cache to the other primary.
    *
    * @param projectName the name of the project to remove from the project list cache
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
   CompletableFuture<Boolean> removeFromProjectList(String projectName);
+
+  /**
+   * Forward the removal of all project changes from index to the other primary.
+   *
+   * @param projectName the name of the project whose changes should be removed from the index
+   * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
+   *     false.
+   */
+  CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName);
 }

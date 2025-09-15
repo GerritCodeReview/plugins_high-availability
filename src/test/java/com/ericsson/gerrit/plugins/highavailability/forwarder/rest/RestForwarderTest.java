@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import static com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarder.buildAllChangesForProjectEndpoint;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -32,6 +33,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gson.Gson;
@@ -80,6 +82,14 @@ public class RestForwarderTest {
               PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
   private static final String DELETE_CHANGE_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/change", "~" + CHANGE_NUMBER);
+  private static final String DELETE_ALL_CHANGES_ENDPOINT =
+      Joiner.on("/")
+          .join(
+              URL,
+              PLUGINS,
+              PLUGIN_NAME,
+              "index/change",
+              buildAllChangesForProjectEndpoint(PROJECT_NAME));
   private static final int ACCOUNT_NUMBER = 2;
   private static final String INDEX_ACCOUNT_ENDPOINT =
       Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/account", ACCOUNT_NUMBER);
@@ -241,6 +251,17 @@ public class RestForwarderTest {
     assertThat(
             forwarder
                 .deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())
+                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
+        .isTrue();
+  }
+
+  @Test
+  public void testAllChangesDeletedFromIndexOK() throws Exception {
+    when(httpSessionMock.delete(eq(DELETE_ALL_CHANGES_ENDPOINT)))
+        .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
+    assertThat(
+            forwarder
+                .deleteAllChangesForProject(Project.nameKey(PROJECT_NAME))
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
   }
