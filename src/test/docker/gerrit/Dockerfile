@@ -29,6 +29,7 @@ ADD --chown=gerrit \
 ADD --chown=gerrit \
 "https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
+
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
     /var/gerrit/plugins/high-availability.jar
@@ -39,10 +40,13 @@ RUN mkdir -p /var/gerrit/lib && \
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/module-global-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/global-refdb/global-refdb.jar" \
     /var/gerrit/lib/global-refdb.jar
+<<<<<<< HEAD
 
 ADD --chown=gerrit \
     "https://gerrit-ci.gerritforge.com/job/plugin-zookeeper-refdb-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/zookeeper-refdb/zookeeper-refdb.jar" \
     /var/gerrit/plugins/zookeeper-refdb.jar
+=======
+>>>>>>> stable-3.9
 
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
