@@ -19,6 +19,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -106,6 +107,11 @@ public class JGroupsForwarder implements Forwarder {
   @Override
   public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
     return execute(new RemoveFromProjectList(projectName));
+  }
+
+  @Override
+  public CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName) {
+    return execute(new DeleteAllProjectChangesFromIndex(projectName));
   }
 
   private CompletableFuture<Boolean> execute(Command cmd) {

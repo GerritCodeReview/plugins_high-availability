@@ -88,7 +88,11 @@ SSH traffic is balanced at L4 (Transport) level.
 
 It is the simplest and safest configuration, where only one Gerrit primary at a
 time serves the incoming requests.
+<<<<<<< HEAD
 In case of failure of the active primary, the traffic is forwarded to the backup.
+=======
+In case of failure of the primary, the traffic is forwarded to the backup.
+>>>>>>> stable-3.12
 
 Assuming a load-balancing implemented using [HAProxy](http://www.haproxy.org/)
 associated with the domain name `gerrit.mycompany.com`, exposing Gerrit cluster nodes
