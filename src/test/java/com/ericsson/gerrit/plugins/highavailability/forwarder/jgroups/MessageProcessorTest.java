@@ -116,7 +116,7 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID, true);
+    IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexBatchChangeHandler, times(1))
         .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.INDEX, Optional.empty());

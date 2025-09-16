@@ -16,7 +16,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
@@ -25,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.failsafe.FailsafeExecutor;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
@@ -44,17 +47,22 @@ public class JGroupsForwarder implements Forwarder {
   private final JGroups jgroupsConfig;
   private final Gson gson;
   private final FailsafeExecutor<Boolean> executor;
+  private final ForwarderMetricsRegistry metricsRegistry;
 
   @Inject
   JGroupsForwarder(
       MessageDispatcher dispatcher,
       Configuration cfg,
       @JGroupsGson Gson gson,
-      @JGroupsForwarderExecutor FailsafeExecutor<Boolean> executor) {
+      @JGroupsForwarderExecutor FailsafeExecutor<Boolean> executor,
+      ForwarderMetricsRegistry metricsRegistry) {
     this.dispatcher = dispatcher;
     this.jgroupsConfig = cfg.jgroups();
     this.gson = gson;
     this.executor = executor;
+
+    this.metricsRegistry = metricsRegistry;
+    this.metricsRegistry.putAll(Arrays.asList(EventType.values()));
   }
 
   @Override
@@ -71,7 +79,7 @@ public class JGroupsForwarder implements Forwarder {
   @Override
   public CompletableFuture<Boolean> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId, true));
+    return execute(new IndexChange.BatchUpdate(projectName, changeId));
   }
 
   @Override
@@ -115,7 +123,13 @@ public class JGroupsForwarder implements Forwarder {
   }
 
   private CompletableFuture<Boolean> execute(Command cmd) {
-    return executor.getAsync(() -> executeOnce(cmd));
+    return executor
+        .getAsync(() -> executeOnce(cmd))
+        .thenApplyAsync(
+            result -> {
+              metricsRegistry.get(cmd.type).recordResult(result);
+              return result;
+            });
   }
 
   private boolean executeOnce(Command cmd) {

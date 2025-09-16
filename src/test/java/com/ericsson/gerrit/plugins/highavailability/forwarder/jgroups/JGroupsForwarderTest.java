@@ -23,6 +23,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gson.Gson;
@@ -30,7 +33,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import org.jgroups.Address;
 import org.jgroups.blocks.MessageDispatcher;
 import org.jgroups.util.Rsp;
@@ -38,7 +41,10 @@ import org.jgroups.util.RspList;
 import org.jgroups.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 
+@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class JGroupsForwarderTest {
 
   private static final int MAX_TRIES = 3;
@@ -51,6 +57,9 @@ public class JGroupsForwarderTest {
 
   private MessageDispatcher dispatcher;
   private JGroupsForwarder forwarder;
+
+  @Mock ForwarderMetricsRegistry metricsRegistry;
+  @Mock ForwarderMetrics metrics;
 
   @Before
   public void setUp() throws Exception {
@@ -67,10 +76,17 @@ public class JGroupsForwarderTest {
 
     WorkQueue workQueue = mock(WorkQueue.class);
     when(workQueue.createQueue(THREAD_POOLS_SIZE, "JGroupsForwarder"))
-        .thenReturn(Executors.newScheduledThreadPool(THREAD_POOLS_SIZE));
+        .thenReturn(new ScheduledThreadPoolExecutor(THREAD_POOLS_SIZE));
+
+    when(metricsRegistry.get(any())).thenReturn(metrics);
+
     forwarder =
         new JGroupsForwarder(
-            dispatcher, cfg, gson, new FailsafeExecutorProvider(cfg, workQueue).get());
+            dispatcher,
+            cfg,
+            gson,
+            new FailsafeExecutorProvider(cfg, workQueue).get(),
+            metricsRegistry);
   }
 
   @Test
@@ -78,7 +94,7 @@ public class JGroupsForwarderTest {
     RspList<Object> OK = new RspList<>(Map.of(A1, RSP_OK, A2, RSP_OK));
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(OK);
 
-    CompletableFuture<Boolean> result = forwarder.indexAccount(100, null);
+    CompletableFuture<Boolean> result = forwarder.indexAccount(100, new IndexEvent());
     assertThat(result.get()).isTrue();
     verify(dispatcher, times(1)).castMessage(any(), any(), any());
   }
@@ -90,7 +106,7 @@ public class JGroupsForwarderTest {
     RspList<Object> FAIL = new RspList<>(Map.of(A1, RSP_OK, A2, RSP_FAIL));
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, OK);
 
-    CompletableFuture<Boolean> result = forwarder.indexAccount(100, null);
+    CompletableFuture<Boolean> result = forwarder.indexAccount(100, new IndexEvent());
     assertThat(result.get()).isTrue();
     verify(dispatcher, times(2)).castMessage(any(), any(), any());
   }
@@ -102,7 +118,7 @@ public class JGroupsForwarderTest {
     // return FAIL x MAX_TRIES
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, FAIL, FAIL);
 
-    CompletableFuture<Boolean> result = forwarder.indexAccount(100, null);
+    CompletableFuture<Boolean> result = forwarder.indexAccount(100, new IndexEvent());
     assertThat(result.get()).isFalse();
     verify(dispatcher, times(MAX_TRIES)).castMessage(any(), any(), any());
   }

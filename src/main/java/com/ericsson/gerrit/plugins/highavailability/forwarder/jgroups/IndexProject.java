@@ -14,8 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+
 public class IndexProject extends Command {
-  static final String TYPE = "index-project";
+  static final EventType TYPE = EventType.INDEX_PROJECT;
 
   private String projectName;
 
