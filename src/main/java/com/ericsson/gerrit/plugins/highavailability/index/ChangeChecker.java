@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Optional;
 
 /** Encapsulates the logic of verifying the up-to-date status of a change. */
@@ -51,8 +52,8 @@ public interface ChangeChecker {
    *
    * <p>Compute the up-to-date Change time-stamp when it is invoked for the very first time.
    *
-   * @return the Change timestamp epoch in seconds
+   * @return the Change timestamp instant
    * @throws IOException if an I/O error occurred while reading the local Change
    */
-  Optional<Long> getComputedChangeTs() throws IOException;
+  Optional<Instant> getComputedChangeTs() throws IOException;
 }

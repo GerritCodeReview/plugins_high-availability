@@ -45,7 +45,7 @@ public class ChangeCheckerImplTest {
   private final Instant testLastUpdatedOn = Instant.now();
   private final String changeId = "1";
   Optional<IndexEvent> event = Optional.empty();
-  private Optional<Long> computedChangeTs = Optional.empty();
+  private Optional<Instant> computedChangeTs = Optional.empty();
   private ChangeCheckerImpl changeChecker;
 
   @Before
@@ -61,8 +61,7 @@ public class ChangeCheckerImplTest {
 
   @Test
   public void testGetComputedChangeTs() {
-    long testTime = Timestamp.from(testLastUpdatedOn).getTime();
-    computedChangeTs = Optional.of(testTime / 1000);
+    computedChangeTs = Optional.of(testLastUpdatedOn);
     when(changeChecker.getChangeNotes()).thenReturn(Optional.of(testChangeNotes));
     when(testChangeNotes.getChange()).thenReturn(testChange);
     when(testChange.getLastUpdatedOn()).thenReturn(testLastUpdatedOn);
