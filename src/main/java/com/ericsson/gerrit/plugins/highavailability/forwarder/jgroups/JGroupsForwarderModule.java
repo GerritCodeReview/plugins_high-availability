@@ -24,6 +24,7 @@ import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import dev.failsafe.FailsafeExecutor;
+import java.time.Instant;
 import org.jgroups.blocks.MessageDispatcher;
 import org.jgroups.blocks.RequestHandler;
 
@@ -50,6 +51,7 @@ public class JGroupsForwarderModule extends LifecycleModule {
     return eventGson
         .newBuilder()
         .registerTypeAdapter(Command.class, new CommandDeserializer())
+        .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
         .create();
   }
 }

@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.EventGson;
@@ -22,6 +23,7 @@ import com.google.inject.Inject;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpPost;
@@ -35,7 +37,9 @@ class HttpSession {
   @Inject
   HttpSession(CloseableHttpClient httpClient, @EventGson Gson gson) {
     this.httpClient = httpClient;
-    this.gson = gson;
+
+    this.gson =
+        gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
   }
 
   HttpResult post(String uri) throws IOException {
