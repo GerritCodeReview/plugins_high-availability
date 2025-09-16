@@ -62,7 +62,7 @@ public class ChangeCheckerImplTest {
   @Test
   public void testGetComputedChangeTs() {
     long testTime = Timestamp.from(testLastUpdatedOn).getTime();
-    computedChangeTs = Optional.of(testTime / 1000);
+    computedChangeTs = Optional.of(testTime);
     when(changeChecker.getChangeNotes()).thenReturn(Optional.of(testChangeNotes));
     when(testChangeNotes.getChange()).thenReturn(testChange);
     when(testChange.getLastUpdatedOn()).thenReturn(testLastUpdatedOn);

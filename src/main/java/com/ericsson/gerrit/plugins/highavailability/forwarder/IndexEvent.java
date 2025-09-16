@@ -14,12 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class IndexEvent {
-  public long eventCreatedOn = System.currentTimeMillis() / 1000;
+  public long eventCreatedOn = Instant.now().toEpochMilli();
   public String targetSha;
   public String metaSha;
 
