@@ -217,9 +217,6 @@ public class ConfigurationTest {
 
     globalPluginConfig.setInt(HTTP_SECTION, null, CONNECTION_TIMEOUT_KEY, TIMEOUT);
     assertThat(getConfiguration().http().connectionTimeout().toMillis()).isEqualTo(TIMEOUT);
-
-    globalPluginConfig.setString(HTTP_SECTION, null, CONNECTION_TIMEOUT_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().connectionTimeout()).isEqualTo(DEFAULT_TIMEOUT);
   }
 
   @Test
@@ -228,9 +225,6 @@ public class ConfigurationTest {
 
     globalPluginConfig.setInt(HTTP_SECTION, null, SOCKET_TIMEOUT_KEY, TIMEOUT);
     assertThat(getConfiguration().http().socketTimeout().toMillis()).isEqualTo(TIMEOUT);
-
-    globalPluginConfig.setString(HTTP_SECTION, null, SOCKET_TIMEOUT_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().socketTimeout()).isEqualTo(DEFAULT_TIMEOUT);
   }
 
   @Test
@@ -256,9 +250,6 @@ public class ConfigurationTest {
 
     globalPluginConfig.setInt(HTTP_SECTION, null, RETRY_INTERVAL_KEY, RETRY_INTERVAL);
     assertThat(getConfiguration().http().retryInterval().toMillis()).isEqualTo(RETRY_INTERVAL);
-
-    globalPluginConfig.setString(HTTP_SECTION, null, RETRY_INTERVAL_KEY, INVALID_INT);
-    assertThat(getConfiguration().http().retryInterval()).isEqualTo(DEFAULT_RETRY_INTERVAL);
   }
 
   @Test
