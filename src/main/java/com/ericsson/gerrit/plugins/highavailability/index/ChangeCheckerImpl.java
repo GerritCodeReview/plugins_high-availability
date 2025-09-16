@@ -182,6 +182,6 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   private long getTsFromChange(ChangeNotes notes) {
     Change change = notes.getChange();
-    return change.getLastUpdatedOn().toEpochMilli() / 1000;
+    return change.getLastUpdatedOn().toEpochMilli();
   }
 }
