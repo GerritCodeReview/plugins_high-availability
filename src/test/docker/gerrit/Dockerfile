@@ -10,7 +10,7 @@ RUN yum -y install \
     gettext \
     && yum -y clean all
 
-ENV GERRIT_VERSION=3.6
+ENV GERRIT_VERSION=3.9
 ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
 
 # Add gerrit user
@@ -29,9 +29,11 @@ ADD --chown=gerrit \
 ADD --chown=gerrit \
 "https://gerrit-ci.gerritforge.com/job/plugin-javamelody-bazel-master-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
-ADD --chown=gerrit \
-    "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
-    /var/gerrit/plugins/high-availability.jar
+#ADD --chown=gerrit \
+#    "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/bazel-bin/plugins/high-availability/high-availability.jar" \
+#    /var/gerrit/plugins/high-availability.jar
+
+ADD --chown=gerrit high-availability.jar /var/gerrit/plugins/high-availability.jar
 
 ADD --chown=gerrit \
     "https://repo1.maven.org/maven2/com/gerritforge/global-refdb/$GERRIT_VERSION.3.4/global-refdb-$GERRIT_VERSION.3.4.jar" \
