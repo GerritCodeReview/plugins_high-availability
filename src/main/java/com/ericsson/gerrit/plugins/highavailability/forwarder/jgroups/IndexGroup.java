@@ -21,8 +21,8 @@ public class IndexGroup extends Command {
 
   private final String uuid;
 
-  protected IndexGroup(String uuid) {
-    super(TYPE);
+  protected IndexGroup(String uuid, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.uuid = uuid;
   }
 

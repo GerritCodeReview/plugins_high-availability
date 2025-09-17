@@ -22,8 +22,8 @@ public class PostEvent extends Command {
 
   private final Event event;
 
-  protected PostEvent(Event event) {
-    super(TYPE);
+  protected PostEvent(Event event, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.event = event;
   }
 

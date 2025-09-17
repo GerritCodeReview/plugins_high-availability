@@ -18,8 +18,10 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 
 public class Command {
   public final EventType type;
+  public final long eventCreatedOn;
 
-  protected Command(EventType type) {
+  protected Command(EventType type, long eventCreatedOn) {
     this.type = type;
+    this.eventCreatedOn = eventCreatedOn;
   }
 }

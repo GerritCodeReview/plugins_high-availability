@@ -21,8 +21,8 @@ public class IndexProject extends Command {
 
   private String projectName;
 
-  protected IndexProject(String projectName) {
-    super(TYPE);
+  protected IndexProject(String projectName, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.projectName = projectName;
   }
 

@@ -21,8 +21,8 @@ public class AddToProjectList extends Command {
 
   private final String projectName;
 
-  public AddToProjectList(String projectName) {
-    super(TYPE);
+  public AddToProjectList(String projectName, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.projectName = projectName;
   }
 
