@@ -23,6 +23,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
@@ -45,6 +46,7 @@ public class MessageProcessor implements RequestHandler {
   private final ForwardedCacheEvictionHandler cacheEvictionHandler;
   private final ForwardedEventHandler eventHandler;
   private final ForwardedProjectListUpdateHandler projectListUpdateHandler;
+  private final ProcessorMetricsRegistry metricRegistry;
 
   @Inject
   MessageProcessor(
@@ -54,7 +56,8 @@ public class MessageProcessor implements RequestHandler {
       ForwardedIndexAccountHandler indexAccountHandler,
       ForwardedCacheEvictionHandler cacheEvictionHandler,
       ForwardedEventHandler eventHandler,
-      ForwardedProjectListUpdateHandler projectListUpdateHandler) {
+      ForwardedProjectListUpdateHandler projectListUpdateHandler,
+      ProcessorMetricsRegistry metricRegistry) {
     this.gson = gson;
     this.indexChangeHandler = indexChangeHandler;
     this.indexBatchChangeHandler = indexBatchChangeHandler;
@@ -62,6 +65,7 @@ public class MessageProcessor implements RequestHandler {
     this.cacheEvictionHandler = cacheEvictionHandler;
     this.eventHandler = eventHandler;
     this.projectListUpdateHandler = projectListUpdateHandler;
+    this.metricRegistry = metricRegistry;
   }
 
   @Override
@@ -83,7 +87,7 @@ public class MessageProcessor implements RequestHandler {
         } catch (Exception e) {
           log.atSevere().withCause(e).log(
               "Change index %s on change %s failed", op.name().toLowerCase(), indexChange.getId());
-          return false;
+          throw e;
         }
 
       } else if (cmd instanceof IndexAccount) {
@@ -95,7 +99,7 @@ public class MessageProcessor implements RequestHandler {
         } catch (IOException e) {
           log.atSevere().withCause(e).log(
               "Account index update on account %s failed", indexAccount.getId());
-          return false;
+          throw e;
         }
 
       } else if (cmd instanceof EvictCache) {
@@ -118,8 +122,10 @@ public class MessageProcessor implements RequestHandler {
         projectListUpdateHandler.update(projectName, true);
       }
 
+      metricRegistry.get(cmd.type).recordResult(true);
       return true;
     } catch (Exception e) {
+      metricRegistry.get(cmd.type).recordResult(false);
       return false;
     } finally {
       Context.unsetForwardedEvent();

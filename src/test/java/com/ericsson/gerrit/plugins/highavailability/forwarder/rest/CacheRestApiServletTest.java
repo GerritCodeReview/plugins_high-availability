@@ -24,6 +24,8 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundException;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,13 +43,16 @@ public class CacheRestApiServletTest {
   @Mock private HttpServletResponse responseMock;
   @Mock private BufferedReader readerMock;
   @Mock private ForwardedCacheEvictionHandler forwardedCacheEvictionHandlerMock;
+  @Mock private ProcessorMetricsRegistry metricsRegistry;
+  @Mock ProcessorMetrics metrics;
   private CacheRestApiServlet servlet;
 
   @Before
   public void setUp() {
+    when(metricsRegistry.get(any())).thenReturn(metrics);
     servlet =
         new CacheRestApiServlet(
-            forwardedCacheEvictionHandlerMock, new CacheKeyJsonParser(new Gson()));
+            forwardedCacheEvictionHandlerMock, new CacheKeyJsonParser(new Gson()), metricsRegistry);
   }
 
   @Test
