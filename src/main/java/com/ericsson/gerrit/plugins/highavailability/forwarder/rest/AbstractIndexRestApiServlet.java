@@ -18,10 +18,13 @@ import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.base.Charsets;
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -56,45 +59,44 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
   AbstractIndexRestApiServlet(
       ForwardedIndexingHandler<T> forwardedIndexingHandler,
       IndexName indexName,
-      boolean allowDelete,
-      @EventGson Gson gson) {
+      @EventGson Gson gson,
+      ProcessorMetricsRegistry metricsRegistry,
+      EventType postEventType,
+      @Nullable EventType deleteEventType) {
+    super(metricsRegistry, postEventType, deleteEventType);
     this.forwardedIndexingHandler = forwardedIndexingHandler;
     this.indexName = indexName;
-    this.allowDelete = allowDelete;
     this.gson = gson;
-  }
-
-  AbstractIndexRestApiServlet(
-      ForwardedIndexingHandler<T> forwardedIndexingHandler, IndexName indexName) {
-    this(forwardedIndexingHandler, indexName, false, new Gson());
+    this.allowDelete = deleteEventType != null;
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
-    process(req, rsp, Operation.INDEX);
+  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
+    return process(req, rsp, Operation.INDEX);
   }
 
   @Override
-  protected void doDelete(HttpServletRequest req, HttpServletResponse rsp) {
+  protected boolean processDeleteRequest(HttpServletRequest req, HttpServletResponse rsp) {
     if (!allowDelete) {
       sendError(
           rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", indexName));
-    } else {
-      process(req, rsp, Operation.DELETE);
+      return false;
     }
+    return process(req, rsp, Operation.DELETE);
   }
 
-  private void process(HttpServletRequest req, HttpServletResponse rsp, Operation operation) {
-    setHeaders(rsp);
+  private boolean process(HttpServletRequest req, HttpServletResponse rsp, Operation operation) {
     String path = req.getRequestURI();
     T id = parse(path.substring(path.lastIndexOf('/') + 1));
 
     try {
       forwardedIndexingHandler.index(id, operation, parseBody(req));
       rsp.setStatus(SC_NO_CONTENT);
+      return true;
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
       log.atSevere().withCause(e).log("Unable to update %s index", indexName);
+      return false;
     }
   }
 

@@ -28,5 +28,8 @@ public class ForwarderModule extends FactoryModule {
         .in(Scopes.SINGLETON);
     DynamicItem.bind(binder(), EventDispatcher.class).to(ForwardedAwareEventBroker.class);
     factory(ForwarderMetrics.Factory.class);
+    bind(ForwarderMetricsRegistry.class).in(Scopes.SINGLETON);
+    factory(ProcessorMetrics.Factory.class);
+    bind(ProcessorMetricsRegistry.class).in(Scopes.SINGLETON);
   }
 }

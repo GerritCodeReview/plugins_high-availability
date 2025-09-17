@@ -19,7 +19,9 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.io.CharStreams;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.Event;
@@ -39,24 +41,29 @@ class EventRestApiServlet extends AbstractRestApiServlet {
   private final Gson gson;
 
   @Inject
-  EventRestApiServlet(ForwardedEventHandler forwardedEventHandler, @EventGson Gson gson) {
+  EventRestApiServlet(
+      ForwardedEventHandler forwardedEventHandler,
+      @EventGson Gson gson,
+      ProcessorMetricsRegistry metricRegistry) {
+    super(metricRegistry, EventType.SEND_EVENT, null);
     this.forwardedEventHandler = forwardedEventHandler;
     this.gson = gson;
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
-    setHeaders(rsp);
+  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
     try {
       if (!MediaType.parse(req.getContentType()).is(JSON_UTF_8)) {
         sendError(rsp, SC_UNSUPPORTED_MEDIA_TYPE, "Expecting " + JSON_UTF_8 + " content type");
-        return;
+        return false;
       }
       Event event = getEventFromRequest(req);
       rsp.setStatus(SC_NO_CONTENT);
       forwardedEventHandler.dispatch(event);
+      return true;
     } catch (IOException e) {
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
+      return false;
     }
   }
 

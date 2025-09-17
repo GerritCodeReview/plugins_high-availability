@@ -26,7 +26,10 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Account;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,13 +47,16 @@ public class IndexAccountRestApiServletTest {
   @Mock private ForwardedIndexAccountHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private ProcessorMetricsRegistry metricsRegistryMock;
+  @Mock private ProcessorMetrics metrics;
 
   private Account.Id id;
   private IndexAccountRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexAccountRestApiServlet(handlerMock);
+    when(metricsRegistryMock.get(any())).thenReturn(metrics);
+    servlet = new IndexAccountRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
     id = Account.id(ACCOUNT_NUMBER);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/account/" + ACCOUNT_NUMBER);

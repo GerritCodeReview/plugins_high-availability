@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,12 +48,15 @@ public class IndexChangeRestApiServletTest {
   @Mock private ForwardedIndexChangeHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private ProcessorMetricsRegistry metricsRegistryMock;
+  @Mock private ProcessorMetrics metrics;
 
   private IndexChangeRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexChangeRestApiServlet(handlerMock, new Gson());
+    when(metricsRegistryMock.get(any())).thenReturn(metrics);
+    servlet = new IndexChangeRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/change/" + PROJECT_NAME_URL_ENC + "~" + CHANGE_NUMBER);
   }

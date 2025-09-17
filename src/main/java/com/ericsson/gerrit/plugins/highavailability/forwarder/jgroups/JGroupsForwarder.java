@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
@@ -28,7 +27,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.failsafe.FailsafeExecutor;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
@@ -63,7 +61,6 @@ public class JGroupsForwarder implements Forwarder {
     this.executor = executor;
 
     this.metricsRegistry = metricsRegistry;
-    this.metricsRegistry.putAll(Arrays.asList(EventType.values()));
   }
 
   @Override
