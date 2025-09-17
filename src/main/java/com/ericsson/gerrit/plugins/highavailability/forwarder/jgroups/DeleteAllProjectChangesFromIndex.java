@@ -16,14 +16,15 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.gerrit.entities.Project;
+import java.time.Instant;
 
 public class DeleteAllProjectChangesFromIndex extends Command {
   static final EventType TYPE = EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT;
 
   private final Project.NameKey projectName;
 
-  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName) {
-    super(TYPE);
+  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName, Instant createdOn) {
+    super(TYPE, createdOn);
     this.projectName = projectName;
   }
 

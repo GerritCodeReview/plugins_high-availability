@@ -16,14 +16,15 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.gerrit.server.events.Event;
+import java.time.Instant;
 
 public class PostEvent extends Command {
   static final EventType TYPE = EventType.EVENT_SENT;
 
   private final Event event;
 
-  protected PostEvent(Event event) {
-    super(TYPE);
+  protected PostEvent(Event event, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.event = event;
   }
 

@@ -15,14 +15,15 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
 
 public class IndexAccount extends Command {
   static final EventType TYPE = EventType.INDEX_ACCOUNT_UPDATE;
 
   private final int id;
 
-  public IndexAccount(int id) {
-    super(TYPE);
+  public IndexAccount(int id, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.id = id;
   }
 

@@ -250,7 +250,7 @@ public class RestForwarder implements Forwarder {
       Instant requestStart) {
     log.atFine().log("Scheduling forwarding of: %s %s %s", action, id, payload);
     return peerInfoProvider.get().stream()
-        .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
+        .map(peer -> createRequest(method, peer, action, endpoint, id, payload, requestStart))
         .map(r -> executor.getAsync(() -> r.execute()))
         .reduce(
             CompletableFuture.completedFuture(true),
@@ -271,7 +271,8 @@ public class RestForwarder implements Forwarder {
       String action,
       String endpoint,
       Object id,
-      Object payload) {
+      Object payload,
+      Instant createdOn) {
     String destination = peer.getDirectUrl();
     return new Request(action, id, destination) {
       @Override
@@ -279,10 +280,10 @@ public class RestForwarder implements Forwarder {
         String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, id);
         switch (method) {
           case POST:
-            return httpSession.post(request, payload);
+            return httpSession.post(request, payload, createdOn);
           case DELETE:
           default:
-            return httpSession.delete(request);
+            return httpSession.delete(request, createdOn);
         }
       }
     };

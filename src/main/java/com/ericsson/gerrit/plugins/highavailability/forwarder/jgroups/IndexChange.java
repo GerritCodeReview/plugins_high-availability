@@ -16,14 +16,16 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.common.base.Strings;
+import java.time.Instant;
 
 public abstract class IndexChange extends Command {
   private final String projectName;
   private final int id;
   private final boolean batchMode;
 
-  protected IndexChange(EventType type, String projectName, int id, boolean batchMode) {
-    super(type);
+  protected IndexChange(
+      EventType type, String projectName, int id, boolean batchMode, Instant eventCreatedOn) {
+    super(type, eventCreatedOn);
     this.projectName = projectName;
     this.id = id;
     this.batchMode = batchMode;
@@ -40,28 +42,28 @@ public abstract class IndexChange extends Command {
   public static class Update extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE;
 
-    public Update(String projectName, int id) {
-      super(TYPE, projectName, id, false);
+    public Update(String projectName, int id, Instant eventCreatedOn) {
+      super(TYPE, projectName, id, false, eventCreatedOn);
     }
   }
 
   public static class BatchUpdate extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE_BATCH;
 
-    public BatchUpdate(String projectName, int id) {
-      super(TYPE, projectName, id, true);
+    public BatchUpdate(String projectName, int id, Instant eventCreatedOn) {
+      super(TYPE, projectName, id, true, eventCreatedOn);
     }
   }
 
   public static class Delete extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_DELETION;
 
-    public Delete(int id) {
-      this("", id);
+    public Delete(int id, Instant eventCreatedOn) {
+      this("", id, eventCreatedOn);
     }
 
-    public Delete(String projectName, int id) {
-      super(TYPE, projectName, id, false);
+    public Delete(String projectName, int id, Instant eventCreatedOn) {
+      super(TYPE, projectName, id, false, eventCreatedOn);
     }
   }
 }
