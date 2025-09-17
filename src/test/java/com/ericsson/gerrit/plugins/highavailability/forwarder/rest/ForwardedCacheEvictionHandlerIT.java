@@ -16,8 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.google.common.cache.RemovalNotification;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -39,8 +37,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-@NoHttpd
-@UseSsh
 @TestPlugin(
     name = "high-availability",
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
@@ -53,8 +49,6 @@ public class ForwardedCacheEvictionHandlerIT extends LightweightPluginDaemonTest
   private DynamicSet<CacheRemovalListener> cacheRemovalListeners;
 
   @Inject @EventGson private Gson gson;
-  @Inject private ForwardedCacheEvictionHandler objectUnderTest;
-  @Inject private CacheKeyJsonParser gsonParser;
 
   private CacheEvictionsTracker<?, ?> evictionsCacheTracker;
   private RegistrationHandle cacheEvictionRegistrationHandle;
@@ -106,8 +100,10 @@ public class ForwardedCacheEvictionHandlerIT extends LightweightPluginDaemonTest
 
   @Test
   public void shouldEvictProjectCache() throws Exception {
-    Object parsedKey = gsonParser.fromJson(ProjectCacheImpl.CACHE_NAME, gson.toJson(project));
-    objectUnderTest.evict(CacheEntry.from(ProjectCacheImpl.CACHE_NAME, parsedKey));
+    adminRestSession
+        .post(
+            "/plugins/high-availability/cache/" + ProjectCacheImpl.CACHE_NAME, gson.toJson(project))
+        .assertNoContent();
     evictionsCacheTracker.waitForExpectedEvictions();
 
     assertThat(evictionsCacheTracker.trackedEvictionsFor(ProjectCacheImpl.CACHE_NAME))

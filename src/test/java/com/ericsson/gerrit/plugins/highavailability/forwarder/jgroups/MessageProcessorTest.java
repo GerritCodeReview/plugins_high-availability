@@ -15,10 +15,12 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundException;
@@ -29,6 +31,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.events.Event;
@@ -43,8 +47,11 @@ import java.util.Optional;
 import org.jgroups.ObjectMessage;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 
+@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class MessageProcessorTest {
 
   private MessageProcessor processor;
@@ -57,10 +64,14 @@ public class MessageProcessorTest {
   private ForwardedEventHandler eventHandler;
   private ForwardedProjectListUpdateHandler projectListUpdateHandler;
 
+  @Mock ProcessorMetrics processorMetrics;
+  @Mock ProcessorMetricsRegistry metricsRegistry;
+
   private List<Object> allHandlers = new ArrayList<>();
 
   @Before
   public void setUp() {
+    when(metricsRegistry.get(any())).thenReturn(processorMetrics);
     Gson eventGson = new EventGsonProvider().get();
     gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
 
@@ -79,7 +90,8 @@ public class MessageProcessorTest {
             indexAccountHandler,
             cacheEvictionHandler,
             eventHandler,
-            projectListUpdateHandler);
+            projectListUpdateHandler,
+            metricsRegistry);
   }
 
   private <T> T createHandlerMock(Class<T> handlerClass) {

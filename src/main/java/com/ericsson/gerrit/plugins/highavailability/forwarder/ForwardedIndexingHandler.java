@@ -64,13 +64,23 @@ public abstract class ForwardedIndexingHandler<T> {
         Context.setForwardedEvent(true);
         switch (operation) {
           case INDEX:
-            return doIndex(id, indexEvent);
+            return doIndex(id, indexEvent)
+                .thenApplyAsync(
+                    r -> {
+                      return r;
+                    });
           case DELETE:
-            return doDelete(id, indexEvent);
+            return doDelete(id, indexEvent)
+                .thenApplyAsync(
+                    r -> {
+                      return r;
+                    });
           default:
             log.atSevere().log("unexpected operation: %s", operation);
             return CompletableFuture.completedFuture(false);
         }
+      } catch (Exception e) {
+        throw e;
       } finally {
         Context.unsetForwardedEvent();
         inFlightIndexing.remove(id);

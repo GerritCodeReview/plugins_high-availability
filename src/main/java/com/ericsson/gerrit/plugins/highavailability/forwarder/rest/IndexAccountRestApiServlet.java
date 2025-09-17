@@ -14,8 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.server.events.EventGson;
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -24,8 +28,11 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet<Account.Id>
   private static final long serialVersionUID = -1L;
 
   @Inject
-  IndexAccountRestApiServlet(ForwardedIndexAccountHandler handler) {
-    super(handler, IndexName.ACCOUNT);
+  IndexAccountRestApiServlet(
+      ForwardedIndexAccountHandler handler,
+      @EventGson Gson gson,
+      ProcessorMetricsRegistry metricRegistry) {
+    super(handler, IndexName.ACCOUNT, gson, metricRegistry, EventType.INDEX_ACCOUNT, null);
   }
 
   @Override

@@ -14,9 +14,13 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.restapi.Url;
+import com.google.gerrit.server.events.EventGson;
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -25,8 +29,11 @@ class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet<Project.Nam
   private static final long serialVersionUID = -1L;
 
   @Inject
-  IndexProjectRestApiServlet(ForwardedIndexProjectHandler handler) {
-    super(handler, IndexName.PROJECT);
+  IndexProjectRestApiServlet(
+      ForwardedIndexProjectHandler handler,
+      @EventGson Gson gson,
+      ProcessorMetricsRegistry metricRegistry) {
+    super(handler, IndexName.PROJECT, gson, metricRegistry, EventType.INDEX_PROJECT, null);
   }
 
   @Override
