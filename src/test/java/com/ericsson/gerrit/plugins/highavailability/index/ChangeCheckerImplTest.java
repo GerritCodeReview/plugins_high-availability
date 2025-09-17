@@ -24,7 +24,6 @@ import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Optional;
 import org.junit.Before;

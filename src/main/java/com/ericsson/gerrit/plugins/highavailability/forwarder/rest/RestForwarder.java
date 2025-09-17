@@ -35,6 +35,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -87,7 +89,8 @@ public class RestForwarder implements Forwarder {
         "index account",
         "index/account",
         accountId,
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
@@ -99,7 +102,8 @@ public class RestForwarder implements Forwarder {
         "index change",
         "index/change",
         buildIndexEndpoint(projectName, changeId),
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
@@ -111,7 +115,8 @@ public class RestForwarder implements Forwarder {
         "index change",
         "index/change/batch",
         buildIndexEndpoint(projectName, changeId),
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
@@ -122,7 +127,8 @@ public class RestForwarder implements Forwarder {
         "delete change",
         "index/change",
         buildIndexEndpoint(changeId),
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
@@ -133,7 +139,8 @@ public class RestForwarder implements Forwarder {
         "index group",
         "index/group",
         uuid,
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   private String buildIndexEndpoint(int changeId) {
@@ -159,13 +166,20 @@ public class RestForwarder implements Forwarder {
         "index project",
         "index/project",
         Url.encode(projectName),
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> send(final Event event) {
     return execute(
-        RequestMethod.POST, EventType.EVENT_SENT, "send event", "event", event.type, event);
+        RequestMethod.POST,
+        EventType.EVENT_SENT,
+        "send event",
+        "event",
+        event.type,
+        event,
+        Instant.ofEpochSecond(event.eventCreatedOn));
   }
 
   @Override
@@ -177,7 +191,8 @@ public class RestForwarder implements Forwarder {
         "invalidate cache " + cacheName,
         "cache",
         cacheName,
-        json);
+        json,
+        Instant.now());
   }
 
   @Override
@@ -187,7 +202,8 @@ public class RestForwarder implements Forwarder {
         EventType.PROJECT_LIST_ADDITION,
         "Update project_list, add ",
         buildProjectListEndpoint(),
-        Url.encode(projectName));
+        Url.encode(projectName),
+        Instant.now());
   }
 
   @Override
@@ -197,7 +213,8 @@ public class RestForwarder implements Forwarder {
         EventType.PROJECT_LIST_DELETION,
         "Update project_list, remove ",
         buildProjectListEndpoint(),
-        Url.encode(projectName));
+        Url.encode(projectName),
+        Instant.now());
   }
 
   @Override
@@ -207,16 +224,12 @@ public class RestForwarder implements Forwarder {
         EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT,
         "Delete all project changes from index",
         "index/change",
-        buildAllChangesForProjectEndpoint(projectName.get()));
+        buildAllChangesForProjectEndpoint(projectName.get()),
+        Instant.now());
   }
 
   private static String buildProjectListEndpoint() {
     return Joiner.on("/").join("cache", Constants.PROJECT_LIST);
-  }
-
-  private CompletableFuture<Boolean> execute(
-      RequestMethod method, EventType eventType, String action, String endpoint, Object id) {
-    return execute(method, eventType, action, endpoint, id, null);
   }
 
   private CompletableFuture<Boolean> execute(
@@ -225,7 +238,19 @@ public class RestForwarder implements Forwarder {
       String action,
       String endpoint,
       Object id,
-      Object payload) {
+      Instant requestStart) {
+    return execute(method, eventType, action, endpoint, id, null, requestStart);
+  }
+
+  private CompletableFuture<Boolean> execute(
+      RequestMethod method,
+      EventType eventType,
+      String action,
+      String endpoint,
+      Object id,
+      Object payload,
+      Instant requestStart) {
+    log.atFine().log("Scheduling forwarding of: %s %s %s", action, id, payload);
     return peerInfoProvider.get().stream()
         .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
         .map(r -> executor.getAsync(() -> r.execute()))
@@ -235,6 +260,9 @@ public class RestForwarder implements Forwarder {
         .thenApplyAsync(
             result -> {
               metricsRegistry.get(eventType).recordResult(result);
+              metricsRegistry
+                  .get(eventType)
+                  .recordLatency(Duration.between(requestStart, Instant.now()).toMillis());
               return result;
             });
   }
