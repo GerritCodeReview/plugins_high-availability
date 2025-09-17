@@ -37,7 +37,6 @@ import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import javax.net.ssl.SSLException;
@@ -78,7 +77,6 @@ public class RestForwarder implements Forwarder {
     this.gson = gson;
     this.executor = executor;
     this.metricsRegistry = metricsRegistry;
-    this.metricsRegistry.putAll(Arrays.asList(EventType.values()));
   }
 
   @Override

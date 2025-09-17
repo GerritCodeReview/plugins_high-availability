@@ -22,19 +22,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Singleton
-public class ForwarderMetricsRegistry {
+public class ProcessorMetricsRegistry {
 
-  private final ForwarderMetrics.Factory metricsFactory;
+  private final ProcessorMetrics.Factory metricsFactory;
 
-  private Map<EventType, ForwarderMetrics> metrics = new HashMap<>();
+  private Map<EventType, ProcessorMetrics> metrics = new HashMap<>();
 
   @Inject
-  public ForwarderMetricsRegistry(ForwarderMetrics.Factory metricsFactory) {
+  public ProcessorMetricsRegistry(ProcessorMetrics.Factory metricsFactory) {
     this.metricsFactory = metricsFactory;
     this.putAll(Arrays.asList(EventType.values()));
   }
 
-  public ForwarderMetrics get(EventType eventType) {
+  public ProcessorMetrics get(EventType eventType) {
     return metrics.get(eventType);
   }
 

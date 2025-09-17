@@ -68,7 +68,8 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         () -> {
           try (ManualRequestContext ctx = oneOffCtx.open()) {
             Context.setForwardedEvent(true);
-            return indexOnce(id, indexEvent);
+            boolean result = indexOnce(id, indexEvent);
+            return result;
           }
         });
   }
@@ -123,11 +124,22 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       throws IOException {
     if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
       Project.NameKey projectName = parseProject(id);
-      indexer.deleteAllForProject(projectName);
-      log.atFine().log("All %s changes successfully deleted from index", projectName.get());
+      try {
+        indexer.deleteAllForProject(projectName);
+        log.atFine().log("All %s changes successfully deleted from index", projectName.get());
+      } catch (RuntimeException e) {
+        log.atFine().log(
+            "An error occured during deletion of all %s changes from index", projectName.get());
+        throw e;
+      }
     } else {
-      indexer.delete(parseChangeId(id));
-      log.atFine().log("Change %s successfully deleted from index", id);
+      try {
+        indexer.delete(parseChangeId(id));
+        log.atFine().log("Change %s successfully deleted from index", id);
+      } catch (RuntimeException e) {
+        log.atFine().log("Change %s could not be deleted from index", id);
+        throw e;
+      }
     }
     return CompletableFuture.completedFuture(true);
   }

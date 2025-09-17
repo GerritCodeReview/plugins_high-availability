@@ -19,7 +19,9 @@ import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundException;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.base.Splitter;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -39,13 +41,15 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
   @Inject
   CacheRestApiServlet(
       ForwardedCacheEvictionHandler forwardedCacheEvictionHandler,
-      CacheKeyJsonParser cacheKeyParser) {
+      CacheKeyJsonParser cacheKeyParser,
+      ProcessorMetricsRegistry metricRegistry) {
+    super(metricRegistry, EventType.CACHE_EVICTION, null);
     this.forwardedCacheEvictionHandler = forwardedCacheEvictionHandler;
     this.cacheKeyParser = cacheKeyParser;
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
+  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
     setHeaders(rsp);
     try {
       List<String> params = Splitter.on('/').splitToList(req.getPathInfo());
@@ -54,6 +58,7 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
       forwardedCacheEvictionHandler.evict(
           CacheEntry.from(cacheName, cacheKeyParser.fromJson(cacheName, json)));
       rsp.setStatus(SC_NO_CONTENT);
+      return true;
     } catch (CacheNotFoundException e) {
       log.atSevere().log("Failed to process eviction request: %s", e.getMessage());
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
@@ -61,5 +66,6 @@ class CacheRestApiServlet extends AbstractRestApiServlet {
       log.atSevere().withCause(e).log("Failed to process eviction request");
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
     }
+    return false;
   }
 }
