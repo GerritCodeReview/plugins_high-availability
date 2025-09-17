@@ -41,6 +41,7 @@ import com.google.gerrit.server.events.EventTypes;
 import com.google.gerrit.server.permissions.PermissionBackendException;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -104,7 +105,7 @@ public class MessageProcessorTest {
   public void indexAccount() throws IOException {
     int ACCOUNT_ID = 100;
 
-    IndexAccount cmd = new IndexAccount(ACCOUNT_ID);
+    IndexAccount cmd = new IndexAccount(ACCOUNT_ID, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexAccountHandler, times(1))
         .index(Account.id(ACCOUNT_ID), Operation.INDEX, Optional.empty());
@@ -116,7 +117,8 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID);
+    IndexChange.Update cmd =
+        new IndexChange.Update(PROJECT, CHANGE_ID, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexChangeHandler, times(1))
         .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.INDEX, Optional.empty());
@@ -128,7 +130,8 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID);
+    IndexChange.BatchUpdate cmd =
+        new IndexChange.BatchUpdate(PROJECT, CHANGE_ID, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexBatchChangeHandler, times(1))
         .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.INDEX, Optional.empty());
@@ -140,7 +143,8 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Delete cmd = new IndexChange.Delete(PROJECT, CHANGE_ID);
+    IndexChange.Delete cmd =
+        new IndexChange.Delete(PROJECT, CHANGE_ID, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexChangeHandler, times(1))
         .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.DELETE, Optional.empty());
@@ -152,7 +156,7 @@ public class MessageProcessorTest {
     String CACHE = "foo";
     String KEY_JSON = gson.toJson(100);
 
-    EvictCache cmd = new EvictCache(CACHE, KEY_JSON);
+    EvictCache cmd = new EvictCache(CACHE, KEY_JSON, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     CacheEntry e = CacheEntry.from(CACHE, KEY_JSON);
     verify(cacheEvictionHandler, times(1)).evict(e);
@@ -166,7 +170,7 @@ public class MessageProcessorTest {
 
     EventTypes.register(TestEvent.TYPE, TestEvent.class);
     TestEvent event = new TestEvent(FOO, BAR);
-    PostEvent cmd = new PostEvent(event);
+    PostEvent cmd = new PostEvent(event, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     ArgumentCaptor<Event> captor = ArgumentCaptor.forClass(Event.class);
     verify(eventHandler, times(1)).dispatch(captor.capture());
@@ -181,7 +185,7 @@ public class MessageProcessorTest {
   public void addToProjectList() throws IOException {
     String PROJECT = "foo";
 
-    AddToProjectList cmd = new AddToProjectList(PROJECT);
+    AddToProjectList cmd = new AddToProjectList(PROJECT, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(projectListUpdateHandler, times(1)).update(PROJECT, false);
     verifyOtherHandlersNotUsed(projectListUpdateHandler);
@@ -191,7 +195,7 @@ public class MessageProcessorTest {
   public void removeFromProjectList() throws IOException {
     String PROJECT = "foo";
 
-    RemoveFromProjectList cmd = new RemoveFromProjectList(PROJECT);
+    RemoveFromProjectList cmd = new RemoveFromProjectList(PROJECT, Instant.now().toEpochMilli());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(projectListUpdateHandler, times(1)).update(PROJECT, true);
     verifyOtherHandlersNotUsed(projectListUpdateHandler);

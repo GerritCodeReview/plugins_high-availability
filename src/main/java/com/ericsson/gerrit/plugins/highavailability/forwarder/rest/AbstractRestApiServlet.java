@@ -19,10 +19,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
+import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.restapi.NotImplementedException;
 import java.io.IOException;
+import java.time.Instant;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,23 +57,37 @@ public abstract class AbstractRestApiServlet extends HttpServlet {
   @Override
   public final void doPost(HttpServletRequest req, HttpServletResponse rsp) {
     setHeaders(rsp);
+    Instant start = Instant.now();
 
     boolean success = processPostRequest(req, rsp);
 
-    if (this.postMetrics != null) {
-      this.postMetrics.recordResult(success);
-    }
+    postMetrics.record(getEventCreatedOnFromHeader(req), start, success);
   }
 
   @Override
   public final void doDelete(HttpServletRequest req, HttpServletResponse rsp) {
     setHeaders(rsp);
+    Instant start = Instant.now();
 
-    boolean success = processDeleteRequest(req, rsp);
-
-    if (this.deleteMetrics != null) {
-      this.deleteMetrics.recordResult(success);
+    try {
+      boolean success = processDeleteRequest(req, rsp);
+      deleteMetrics.record(getEventCreatedOnFromHeader(req), start, success);
+    } catch (NotImplementedException e) {
+      return;
     }
+  }
+
+  private Long getEventCreatedOnFromHeader(HttpServletRequest req) {
+    String header = req.getHeader(HttpSession.HEADER_EVENT_CREATED_ON);
+    if (!Strings.isNullOrEmpty(header)) {
+      try {
+        return Long.valueOf(header);
+      } catch (NumberFormatException e) {
+        log.atWarning().withCause(e).log(
+            "Invalid value for header %s: %s", HttpSession.HEADER_EVENT_CREATED_ON, header);
+      }
+    }
+    return null;
   }
 
   protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
@@ -88,5 +104,20 @@ public abstract class AbstractRestApiServlet extends HttpServlet {
     } catch (IOException e) {
       log.atSevere().withCause(e).log("Failed to send error messsage");
     }
+  }
+
+  protected static void updateMetrics(
+      ProcessorMetrics metrics, HttpServletRequest req, Instant startTime, boolean success) {
+    String eventCreatedOn = req.getHeader(HttpSession.HEADER_EVENT_CREATED_ON);
+    Instant now = Instant.now();
+    long totalDuration;
+    if (Strings.isNullOrEmpty(eventCreatedOn)) {
+      totalDuration = 0L;
+    } else {
+      totalDuration = now.toEpochMilli() - Long.valueOf(eventCreatedOn);
+    }
+    metrics.recordResult(success);
+    metrics.recordProcessingTime(now.toEpochMilli() - startTime.toEpochMilli());
+    metrics.recordTotalTime(totalDuration);
   }
 }

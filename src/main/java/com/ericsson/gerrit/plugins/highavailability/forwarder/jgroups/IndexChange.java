@@ -22,8 +22,9 @@ public abstract class IndexChange extends Command {
   private final int id;
   private final boolean batchMode;
 
-  protected IndexChange(EventType type, String projectName, int id, boolean batchMode) {
-    super(type);
+  protected IndexChange(
+      EventType type, String projectName, int id, boolean batchMode, long eventCreatedOn) {
+    super(type, eventCreatedOn);
     this.projectName = projectName;
     this.id = id;
     this.batchMode = batchMode;
@@ -40,28 +41,28 @@ public abstract class IndexChange extends Command {
   public static class Update extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE;
 
-    public Update(String projectName, int id) {
-      super(TYPE, projectName, id, false);
+    public Update(String projectName, int id, long eventCreatedOn) {
+      super(TYPE, projectName, id, false, eventCreatedOn);
     }
   }
 
   public static class BatchUpdate extends IndexChange {
     static final EventType TYPE = EventType.BATCH_INDEX_CHANGE;
 
-    public BatchUpdate(String projectName, int id) {
-      super(TYPE, projectName, id, true);
+    public BatchUpdate(String projectName, int id, long eventCreatedOn) {
+      super(TYPE, projectName, id, true, eventCreatedOn);
     }
   }
 
   public static class Delete extends IndexChange {
     static final EventType TYPE = EventType.DELETE_CHANGE_FROM_INDEX;
 
-    public Delete(int id) {
-      this("", id);
+    public Delete(int id, long eventCreatedOn) {
+      this("", id, eventCreatedOn);
     }
 
-    public Delete(String projectName, int id) {
-      super(TYPE, projectName, id, false);
+    public Delete(String projectName, int id, long eventCreatedOn) {
+      super(TYPE, projectName, id, false, eventCreatedOn);
     }
   }
 }

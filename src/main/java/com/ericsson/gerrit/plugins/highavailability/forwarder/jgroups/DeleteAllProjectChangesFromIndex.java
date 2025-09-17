@@ -22,8 +22,8 @@ public class DeleteAllProjectChangesFromIndex extends Command {
 
   private final Project.NameKey projectName;
 
-  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName) {
-    super(TYPE);
+  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName, long createdOn) {
+    super(TYPE, createdOn);
     this.projectName = projectName;
   }
 

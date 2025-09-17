@@ -21,8 +21,8 @@ public class RemoveFromProjectList extends Command {
 
   private final String projectName;
 
-  public RemoveFromProjectList(String projectName) {
-    super(TYPE);
+  public RemoveFromProjectList(String projectName, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.projectName = projectName;
   }
 

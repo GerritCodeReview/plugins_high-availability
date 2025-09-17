@@ -14,13 +14,19 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.common.Nullable;
 import com.google.gerrit.metrics.Counter0;
 import com.google.gerrit.metrics.Description;
 import com.google.gerrit.metrics.MetricMaker;
+import com.google.gerrit.metrics.Timer0;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
 
 public class ProcessorMetrics {
+  private final Timer0 processingTimeMetric;
+  private final Timer0 totalTimeMetric;
   private final Counter0 failureCounterMetric;
   private final Counter0 successCounterMetric;
 
@@ -30,6 +36,22 @@ public class ProcessorMetrics {
 
   @AssistedInject
   public ProcessorMetrics(MetricMaker metricMaker, @Assisted EventType eventType) {
+    this.processingTimeMetric =
+        metricMaker.newTimer(
+            String.format("forwarded_%s_event_handler/time_processing", eventType),
+            new Description(
+                    String.format(
+                        "Time from receiving an %s event to finish processing it.", eventType))
+                .setCumulative()
+                .setUnit(Description.Units.MILLISECONDS));
+    this.totalTimeMetric =
+        metricMaker.newTimer(
+            String.format("forwarded_%s_event_handler/time_total", eventType),
+            new Description(
+                    String.format(
+                        "Time from %s event scheduling to finish processing it.", eventType))
+                .setCumulative()
+                .setUnit(Description.Units.MILLISECONDS));
     this.failureCounterMetric =
         metricMaker.newCounter(
             String.format("forwarded_%s_event_handler/failure", eventType),
@@ -51,6 +73,23 @@ public class ProcessorMetrics {
       successCounterMetric.increment();
     } else {
       failureCounterMetric.increment();
+    }
+  }
+
+  public void recordProcessingTime(Long processingTime) {
+    processingTimeMetric.record(processingTime, TimeUnit.MILLISECONDS);
+  }
+
+  public void recordTotalTime(Long totalTime) {
+    totalTimeMetric.record(totalTime, TimeUnit.MILLISECONDS);
+  }
+
+  public void record(@Nullable Long eventCreatedOn, Instant startTime, boolean success) {
+    long now = Instant.now().toEpochMilli();
+    recordResult(success);
+    recordProcessingTime(now - startTime.toEpochMilli());
+    if (eventCreatedOn != null && eventCreatedOn > 0) {
+      recordTotalTime(now - eventCreatedOn);
     }
   }
 }

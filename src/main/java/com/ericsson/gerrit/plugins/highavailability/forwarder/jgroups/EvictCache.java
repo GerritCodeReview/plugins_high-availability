@@ -22,8 +22,8 @@ public class EvictCache extends Command {
   private final String cacheName;
   private final String keyJson;
 
-  protected EvictCache(String cacheName, String keyJson) {
-    super(TYPE);
+  protected EvictCache(String cacheName, String keyJson, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.cacheName = cacheName;
     this.keyJson = keyJson;
   }

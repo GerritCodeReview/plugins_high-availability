@@ -25,6 +25,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.base.Charsets;
 import com.google.gerrit.common.Nullable;
+import com.google.gerrit.extensions.restapi.NotImplementedException;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -80,7 +81,7 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     if (!allowDelete) {
       sendError(
           rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", indexName));
-      return false;
+      throw new NotImplementedException("Deletions not allowed for " + indexName);
     }
     return process(req, rsp, Operation.DELETE);
   }

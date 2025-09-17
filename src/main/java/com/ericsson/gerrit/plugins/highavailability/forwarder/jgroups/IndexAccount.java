@@ -21,8 +21,8 @@ public class IndexAccount extends Command {
 
   private final int id;
 
-  public IndexAccount(int id) {
-    super(TYPE);
+  public IndexAccount(int id, long eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.id = id;
   }
 
