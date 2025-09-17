@@ -27,6 +27,8 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.failsafe.FailsafeExecutor;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
@@ -67,67 +69,70 @@ public class JGroupsForwarder implements Forwarder {
 
   @Override
   public CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent) {
-    return execute(new IndexAccount(accountId));
+    return execute(new IndexAccount(accountId), indexEvent.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> indexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId));
+    return execute(new IndexChange.Update(projectName, changeId), indexEvent.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.BatchUpdate(projectName, changeId));
+    return execute(new IndexChange.BatchUpdate(projectName, changeId), indexEvent.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Delete(changeId));
+    return execute(new IndexChange.Delete(changeId), indexEvent.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent) {
-    return execute(new IndexGroup(uuid));
+    return execute(new IndexGroup(uuid), indexEvent.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent) {
-    return execute(new IndexProject(projectName));
+    return execute(new IndexProject(projectName), indexEvent.eventCreatedOn);
   }
 
   @Override
   public CompletableFuture<Boolean> send(Event event) {
-    return execute(new PostEvent(event));
+    return execute(new PostEvent(event), Instant.ofEpochSecond(event.eventCreatedOn));
   }
 
   @Override
   public CompletableFuture<Boolean> evict(String cacheName, Object key) {
-    return execute(new EvictCache(cacheName, gson.toJson(key)));
+    return execute(new EvictCache(cacheName, gson.toJson(key)), Instant.now());
   }
 
   @Override
   public CompletableFuture<Boolean> addToProjectList(String projectName) {
-    return execute(new AddToProjectList(projectName));
+    return execute(new AddToProjectList(projectName), Instant.now());
   }
 
   @Override
   public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
-    return execute(new RemoveFromProjectList(projectName));
+    return execute(new RemoveFromProjectList(projectName), Instant.now());
   }
 
   @Override
   public CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName) {
-    return execute(new DeleteAllProjectChangesFromIndex(projectName));
+    return execute(new DeleteAllProjectChangesFromIndex(projectName), Instant.now());
   }
 
-  private CompletableFuture<Boolean> execute(Command cmd) {
+  private CompletableFuture<Boolean> execute(Command cmd, Instant requestStart) {
     return executor
         .getAsync(() -> executeOnce(cmd))
         .thenApplyAsync(
             result -> {
               metricsRegistry.get(cmd.type).recordResult(result);
+              metricsRegistry
+                  .get(cmd.type)
+                  .recordLatency(Duration.between(requestStart, Instant.now()).toMillis());
               return result;
             });
   }

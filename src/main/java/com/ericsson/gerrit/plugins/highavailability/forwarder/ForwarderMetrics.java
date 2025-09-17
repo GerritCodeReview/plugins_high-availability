@@ -17,11 +17,14 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.google.gerrit.metrics.Counter0;
 import com.google.gerrit.metrics.Description;
 import com.google.gerrit.metrics.MetricMaker;
+import com.google.gerrit.metrics.Timer0;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class ForwarderMetrics {
+  private final Timer0 latencyMetric;
   private final Counter0 failureCounterMetric;
   private final Counter0 successCounterMetric;
 
@@ -32,6 +35,15 @@ public class ForwarderMetrics {
   @AssistedInject
   public ForwarderMetrics(MetricMaker metricMaker, @Assisted EventType eventType) {
     String event = eventType.toString().toLowerCase(Locale.US);
+
+    this.latencyMetric =
+        metricMaker.newTimer(
+            String.format("forwarding_%s_event/latency", event),
+            new Description(
+                    String.format(
+                        "Time from %s event scheduling to receiving on the other node", event))
+                .setCumulative()
+                .setUnit(Description.Units.MILLISECONDS));
     this.failureCounterMetric =
         metricMaker.newCounter(
             String.format("forwarding_%s_event/failure", event),
@@ -52,5 +64,9 @@ public class ForwarderMetrics {
     } else {
       failureCounterMetric.increment();
     }
+  }
+
+  public void recordLatency(long latencyMs) {
+    latencyMetric.record(latencyMs, TimeUnit.MILLISECONDS);
   }
 }
