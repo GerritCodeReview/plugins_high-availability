@@ -15,14 +15,15 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
 
 public class IndexGroup extends Command {
   static final EventType TYPE = EventType.INDEX_GROUP_UPDATE;
 
   private final String uuid;
 
-  protected IndexGroup(String uuid) {
-    super(TYPE);
+  protected IndexGroup(String uuid, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.uuid = uuid;
   }
 

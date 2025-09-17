@@ -15,14 +15,15 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
 
 public class RemoveFromProjectList extends Command {
   static final EventType TYPE = EventType.PROJECT_LIST_DELETION;
 
   private final String projectName;
 
-  public RemoveFromProjectList(String projectName) {
-    super(TYPE);
+  public RemoveFromProjectList(String projectName, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.projectName = projectName;
   }
 

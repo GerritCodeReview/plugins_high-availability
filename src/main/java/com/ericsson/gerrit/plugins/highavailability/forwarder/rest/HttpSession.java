@@ -31,6 +31,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 class HttpSession {
+  public static final String HEADER_EVENT_CREATED_ON = "Event-Created-On";
+
   private final CloseableHttpClient httpClient;
   private final Gson gson;
 
@@ -42,31 +44,33 @@ class HttpSession {
         gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
   }
 
-  HttpResult post(String uri) throws IOException {
-    return post(uri, null);
+  HttpResult post(String uri, Instant createdOn) throws IOException {
+    return post(uri, null, createdOn);
   }
 
-  HttpResult post(String uri, Object content) throws IOException {
+  HttpResult post(String uri, Object content, Instant createdOn) throws IOException {
     HttpPost post = new HttpPost(uri);
-    setContent(post, content);
+    setContent(post, content, createdOn);
     return httpClient.execute(post, new HttpResponseHandler());
   }
 
-  HttpResult delete(String uri) throws IOException {
-    return delete(uri, null);
+  HttpResult delete(String uri, Instant createdOn) throws IOException {
+    return delete(uri, null, createdOn);
   }
 
-  HttpResult delete(String uri, Object content) throws IOException {
+  HttpResult delete(String uri, Object content, Instant createdOn) throws IOException {
     HttpDeleteWithBody delete = new HttpDeleteWithBody(uri);
-    setContent(delete, content);
+    setContent(delete, content, createdOn);
     return httpClient.execute(delete, new HttpResponseHandler());
   }
 
-  private void setContent(HttpEntityEnclosingRequestBase request, Object content) {
+  private void setContent(
+      HttpEntityEnclosingRequestBase request, Object content, Instant createdOn) {
     if (content != null) {
       request.addHeader("Content-Type", MediaType.JSON_UTF_8.toString());
       request.setEntity(new StringEntity(jsonEncode(content), StandardCharsets.UTF_8));
     }
+    request.addHeader(HEADER_EVENT_CREATED_ON, String.valueOf(createdOn.toEpochMilli()));
   }
 
   private String jsonEncode(Object content) {

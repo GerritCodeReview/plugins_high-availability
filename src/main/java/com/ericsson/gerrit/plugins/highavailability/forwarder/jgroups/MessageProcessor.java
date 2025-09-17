@@ -23,6 +23,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Optional;
 import org.jgroups.Message;
 import org.jgroups.blocks.RequestHandler;
@@ -71,6 +73,9 @@ public class MessageProcessor implements RequestHandler {
   @Override
   public Object handle(Message msg) {
     Command cmd = getCommand(msg);
+    ProcessorMetrics metrics = metricRegistry.get(cmd.type);
+    Instant startTime = Instant.now();
+    boolean success = false;
 
     Context.setForwardedEvent(true);
     try {
@@ -121,15 +126,14 @@ public class MessageProcessor implements RequestHandler {
         String projectName = ((RemoveFromProjectList) cmd).getProjectName();
         projectListUpdateHandler.update(projectName, true);
       }
-
-      metricRegistry.get(cmd.type).recordResult(true);
-      return true;
+      success = true;
     } catch (Exception e) {
-      metricRegistry.get(cmd.type).recordResult(false);
-      return false;
+      success = false;
     } finally {
       Context.unsetForwardedEvent();
     }
+    metrics.record(cmd.eventCreatedOn, startTime, success);
+    return success;
   }
 
   private Operation getOperation(IndexChange cmd) {

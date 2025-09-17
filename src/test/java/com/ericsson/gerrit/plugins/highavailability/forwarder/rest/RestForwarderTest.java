@@ -19,7 +19,6 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -141,7 +140,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexAccountOK() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
@@ -152,7 +151,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexAccountFailed() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
@@ -163,7 +162,8 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexAccountThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_ACCOUNT_ENDPOINT), any());
+    when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any(), any()))
+        .thenThrow(IOException.class);
     assertThat(
             forwarder
                 .indexAccount(ACCOUNT_NUMBER, new IndexEvent())
@@ -173,7 +173,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexGroupOK() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.indexGroup(UUID, new IndexEvent()).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
@@ -181,7 +181,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexGroupFailed() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.indexGroup(UUID, new IndexEvent()).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
@@ -189,14 +189,14 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexGroupThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_GROUP_ENDPOINT), any());
+    when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any(), any())).thenThrow(IOException.class);
     assertThat(forwarder.indexGroup(UUID, new IndexEvent()).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
   }
 
   @Test
   public void testIndexChangeOK() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
@@ -207,7 +207,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexChangeFailed() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
@@ -218,7 +218,8 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexChangeThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_CHANGE_ENDPOINT), any());
+    when(httpSessionMock.post(eq(INDEX_CHANGE_ENDPOINT), any(), any()))
+        .thenThrow(IOException.class);
     assertThat(
             forwarder
                 .indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
@@ -228,7 +229,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexBatchChangeOK() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent()).get())
         .isTrue();
@@ -236,7 +237,7 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexBatchChangeFailed() throws Exception {
-    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any()))
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent()).get())
         .isFalse();
@@ -244,14 +245,15 @@ public class RestForwarderTest {
 
   @Test
   public void testIndexBatchChangeThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any());
+    when(httpSessionMock.post(eq(INDEX_BATCH_CHANGE_ENDPOINT), any(), any()))
+        .thenThrow(IOException.class);
     assertThat(forwarder.batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent()).get())
         .isFalse();
   }
 
   @Test
   public void testChangeDeletedFromIndexOK() throws Exception {
-    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT)))
+    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
@@ -262,7 +264,7 @@ public class RestForwarderTest {
 
   @Test
   public void testAllChangesDeletedFromIndexOK() throws Exception {
-    when(httpSessionMock.delete(eq(DELETE_ALL_CHANGES_ENDPOINT)))
+    when(httpSessionMock.delete(eq(DELETE_ALL_CHANGES_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
@@ -273,7 +275,7 @@ public class RestForwarderTest {
 
   @Test
   public void testChangeDeletedFromIndexFailed() throws Exception {
-    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT)))
+    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
@@ -284,7 +286,7 @@ public class RestForwarderTest {
 
   @Test
   public void testChangeDeletedFromThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).delete(eq(DELETE_CHANGE_ENDPOINT));
+    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT), any())).thenThrow(IOException.class);
     assertThat(
             forwarder
                 .deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())
@@ -294,20 +296,21 @@ public class RestForwarderTest {
 
   @Test
   public void testEventSentOK() throws Exception {
-    when(httpSessionMock.post(EVENT_ENDPOINT, event))
+    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(event), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.send(event).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)).isTrue();
   }
 
   @Test
   public void testEventSentFailed() throws Exception {
-    when(httpSessionMock.post(EVENT_ENDPOINT, event)).thenReturn(new HttpResult(FAILED, EMPTY_MSG));
+    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(event), any()))
+        .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.send(event).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)).isFalse();
   }
 
   @Test
   public void testEventSentThrowsException() throws Exception {
-    doThrow(new IOException()).when(httpSessionMock).post(EVENT_ENDPOINT, event);
+    when(httpSessionMock.post(eq(EVENT_ENDPOINT), eq(event), any())).thenThrow(IOException.class);
     assertThat(forwarder.send(event).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)).isFalse();
   }
 
@@ -315,7 +318,7 @@ public class RestForwarderTest {
   public void testEvictProjectOK() throws Exception {
     String key = PROJECT_NAME;
     String keyJson = gson.toJson(key);
-    when(httpSessionMock.post(buildCacheEndpoint(Constants.PROJECTS), keyJson))
+    when(httpSessionMock.post(eq(buildCacheEndpoint(Constants.PROJECTS)), eq(keyJson), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.PROJECTS, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
@@ -325,7 +328,7 @@ public class RestForwarderTest {
   public void testEvictAccountsOK() throws Exception {
     Account.Id key = Account.id(123);
     String keyJson = gson.toJson(key);
-    when(httpSessionMock.post(buildCacheEndpoint(Constants.ACCOUNTS), keyJson))
+    when(httpSessionMock.post(eq(buildCacheEndpoint(Constants.ACCOUNTS)), eq(keyJson), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.ACCOUNTS, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
@@ -336,7 +339,8 @@ public class RestForwarderTest {
     AccountGroup.Id key = AccountGroup.id(123);
     String keyJson = gson.toJson(key);
     String endpoint = buildCacheEndpoint(Constants.GROUPS);
-    when(httpSessionMock.post(endpoint, keyJson)).thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
+    when(httpSessionMock.post(eq(endpoint), eq(keyJson), any()))
+        .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.GROUPS, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
   }
@@ -345,7 +349,8 @@ public class RestForwarderTest {
   public void testEvictGroupsByIncludeOK() throws Exception {
     AccountGroup.UUID key = AccountGroup.uuid("90b3042d9094a37985f3f9281391dbbe9a5addad");
     String keyJson = gson.toJson(key);
-    when(httpSessionMock.post(buildCacheEndpoint(Constants.GROUPS_BYINCLUDE), keyJson))
+    when(httpSessionMock.post(
+            eq(buildCacheEndpoint(Constants.GROUPS_BYINCLUDE)), eq(keyJson), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder.evict(Constants.GROUPS_BYINCLUDE, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
@@ -356,7 +361,7 @@ public class RestForwarderTest {
   public void testEvictGroupsMembersOK() throws Exception {
     AccountGroup.UUID key = AccountGroup.uuid("90b3042d9094a37985f3f9281391dbbe9a5addad");
     String keyJson = gson.toJson(key);
-    when(httpSessionMock.post(buildCacheEndpoint(Constants.GROUPS_MEMBERS), keyJson))
+    when(httpSessionMock.post(eq(buildCacheEndpoint(Constants.GROUPS_MEMBERS)), eq(keyJson), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.GROUPS_MEMBERS, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
@@ -366,7 +371,7 @@ public class RestForwarderTest {
   public void testEvictCacheFailed() throws Exception {
     String key = PROJECT_NAME;
     String keyJson = gson.toJson(key);
-    when(httpSessionMock.post(buildCacheEndpoint(Constants.PROJECTS), keyJson))
+    when(httpSessionMock.post(eq(buildCacheEndpoint(Constants.PROJECTS)), eq(keyJson), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.evict(Constants.PROJECTS, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
@@ -376,9 +381,8 @@ public class RestForwarderTest {
   public void testEvictCacheThrowsException() throws Exception {
     String key = PROJECT_NAME;
     String keyJson = gson.toJson(key);
-    doThrow(new IOException())
-        .when(httpSessionMock)
-        .post(buildCacheEndpoint(Constants.PROJECTS), keyJson);
+    when(httpSessionMock.post(eq(buildCacheEndpoint(Constants.PROJECTS)), eq(keyJson), any()))
+        .thenThrow(IOException.class);
     assertThat(forwarder.evict(Constants.PROJECTS, key).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
   }
@@ -390,7 +394,7 @@ public class RestForwarderTest {
   @Test
   public void testAddToProjectListOK() throws Exception {
     String projectName = PROJECT_TO_ADD;
-    when(httpSessionMock.post(buildProjectListCacheEndpoint(projectName), null))
+    when(httpSessionMock.post(eq(buildProjectListCacheEndpoint(projectName)), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.addToProjectList(projectName).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
@@ -399,7 +403,7 @@ public class RestForwarderTest {
   @Test
   public void testAddToProjectListFailed() throws Exception {
     String projectName = PROJECT_TO_ADD;
-    when(httpSessionMock.post(buildProjectListCacheEndpoint(projectName), null))
+    when(httpSessionMock.post(eq(buildProjectListCacheEndpoint(projectName)), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.addToProjectList(projectName).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
@@ -408,9 +412,8 @@ public class RestForwarderTest {
   @Test
   public void testAddToProjectListThrowsException() throws Exception {
     String projectName = PROJECT_TO_ADD;
-    doThrow(new IOException())
-        .when(httpSessionMock)
-        .post(buildProjectListCacheEndpoint(projectName), null);
+    when(httpSessionMock.post(eq(buildProjectListCacheEndpoint(projectName)), any(), any()))
+        .thenThrow(IOException.class);
     assertThat(forwarder.addToProjectList(projectName).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
   }
@@ -418,7 +421,7 @@ public class RestForwarderTest {
   @Test
   public void testRemoveFromProjectListOK() throws Exception {
     String projectName = PROJECT_TO_DELETE;
-    when(httpSessionMock.delete(buildProjectListCacheEndpoint(projectName)))
+    when(httpSessionMock.delete(eq(buildProjectListCacheEndpoint(projectName)), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(forwarder.removeFromProjectList(projectName).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isTrue();
@@ -427,7 +430,7 @@ public class RestForwarderTest {
   @Test
   public void testRemoveToProjectListFailed() throws Exception {
     String projectName = PROJECT_TO_DELETE;
-    when(httpSessionMock.delete(buildProjectListCacheEndpoint(projectName)))
+    when(httpSessionMock.delete(eq(buildProjectListCacheEndpoint(projectName)), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(forwarder.removeFromProjectList(projectName).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
@@ -436,9 +439,8 @@ public class RestForwarderTest {
   @Test
   public void testRemoveToProjectListThrowsException() throws Exception {
     String projectName = PROJECT_TO_DELETE;
-    doThrow(new IOException())
-        .when(httpSessionMock)
-        .delete((buildProjectListCacheEndpoint(projectName)));
+    when(httpSessionMock.delete(eq(buildProjectListCacheEndpoint(projectName)), any()))
+        .thenThrow(IOException.class);
     assertThat(forwarder.removeFromProjectList(projectName).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS))
         .isFalse();
   }
@@ -449,7 +451,7 @@ public class RestForwarderTest {
 
   @Test
   public void testRetryOnErrorThenSuccess() throws Exception {
-    when(httpSessionMock.post(anyString(), anyString()))
+    when(httpSessionMock.post(anyString(), anyString(), any()))
         .thenReturn(new HttpResult(false, ERROR))
         .thenReturn(new HttpResult(false, ERROR))
         .thenReturn(new HttpResult(true, SUCCESS));
@@ -463,7 +465,7 @@ public class RestForwarderTest {
 
   @Test
   public void testRetryOnIoExceptionThenSuccess() throws Exception {
-    when(httpSessionMock.post(anyString(), anyString()))
+    when(httpSessionMock.post(anyString(), anyString(), any()))
         .thenThrow(new IOException())
         .thenThrow(new IOException())
         .thenReturn(new HttpResult(true, SUCCESS));
@@ -477,7 +479,7 @@ public class RestForwarderTest {
 
   @Test
   public void testNoRetryAfterNonRecoverableException() throws Exception {
-    when(httpSessionMock.post(anyString(), anyString()))
+    when(httpSessionMock.post(anyString(), anyString(), any()))
         .thenThrow(new SSLException("Non Recoverable"))
         .thenReturn(new HttpResult(true, SUCCESS));
 
@@ -490,7 +492,7 @@ public class RestForwarderTest {
 
   @Test
   public void testFailureAfterMaxTries() throws Exception {
-    when(httpSessionMock.post(anyString(), anyString()))
+    when(httpSessionMock.post(anyString(), anyString(), any()))
         .thenReturn(new HttpResult(false, ERROR))
         .thenReturn(new HttpResult(false, ERROR))
         .thenReturn(new HttpResult(false, ERROR));

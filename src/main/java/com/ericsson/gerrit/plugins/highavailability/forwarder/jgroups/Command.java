@@ -15,11 +15,14 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
 
 public class Command {
   public final EventType type;
+  public final Instant eventCreatedOn;
 
-  protected Command(EventType type) {
+  protected Command(EventType type, Instant eventCreatedOn) {
     this.type = type;
+    this.eventCreatedOn = eventCreatedOn;
   }
 }
