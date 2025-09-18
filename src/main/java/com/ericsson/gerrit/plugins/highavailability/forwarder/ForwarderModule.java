@@ -26,6 +26,7 @@ public class ForwarderModule extends FactoryModule {
     bind(AllowedForwardedEventListener.class)
         .to(ConfigurableAllowedEventListeners.class)
         .in(Scopes.SINGLETON);
+    bind(ForwarderMetricsRegistry.class);
     DynamicItem.bind(binder(), EventDispatcher.class).to(ForwardedAwareEventBroker.class);
     factory(ForwarderMetrics.Factory.class);
     bind(ForwarderMetricsRegistry.class).in(Scopes.SINGLETON);
