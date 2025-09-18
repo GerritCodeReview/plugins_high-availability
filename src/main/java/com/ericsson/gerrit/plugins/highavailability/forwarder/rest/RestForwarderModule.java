@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
@@ -29,7 +30,7 @@ public class RestForwarderModule extends AbstractModule {
     bind(HttpSession.class);
     bind(Forwarder.class).to(RestForwarder.class);
 
-    bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
+    bind(new TypeLiteral<FailsafeExecutor<Result>>() {})
         .annotatedWith(RestForwarderExecutor.class)
         .toProvider(FailsafeExecutorProvider.class)
         .in(Scopes.SINGLETON);

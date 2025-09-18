@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.inject.Inject;
@@ -23,7 +24,7 @@ import dev.failsafe.Failsafe;
 import dev.failsafe.FailsafeExecutor;
 import dev.failsafe.RetryPolicy;
 
-public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
+public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Result>> {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration cfg;
   private final WorkQueue workQueue;
@@ -35,9 +36,9 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boole
   }
 
   @Override
-  public FailsafeExecutor<Boolean> get() {
-    RetryPolicy<Boolean> retryPolicy =
-        RetryPolicy.<Boolean>builder()
+  public FailsafeExecutor<Result> get() {
+    RetryPolicy<Result> retryPolicy =
+        RetryPolicy.<Result>builder()
             .withMaxAttempts(cfg.jgroups().maxTries())
             .withDelay(cfg.jgroups().retryInterval())
             .onRetry(e -> log.atFine().log("Retrying event %s", e))
@@ -45,7 +46,7 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boole
                 e ->
                     log.atWarning().log(
                         "%d jgroups retries exceeded for event %s", cfg.jgroups().maxTries(), e))
-            .handleResult(false)
+            .handleResultIf(r -> !r.getResult())
             .build();
     return Failsafe.with(retryPolicy)
         .with(workQueue.createQueue(cfg.jgroups().threadPoolSize(), "JGroupsForwarder"));
