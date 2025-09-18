@@ -24,7 +24,9 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
@@ -75,12 +77,15 @@ public class IndexEventHandlerTest {
     when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
 
     when(forwarder.indexAccount(eq(ACCOUNT_ID), any()))
-        .thenReturn(CompletableFuture.completedFuture(true));
+        .thenReturn(CompletableFuture.completedFuture(new Result(EventType.INDEX_ACCOUNT, true)));
     when(forwarder.deleteChangeFromIndex(eq(CHANGE_ID), any()))
-        .thenReturn(CompletableFuture.completedFuture(true));
-    when(forwarder.indexGroup(eq(UUID), any())).thenReturn(CompletableFuture.completedFuture(true));
+        .thenReturn(
+            CompletableFuture.completedFuture(
+                new Result(EventType.DELETE_CHANGE_FROM_INDEX, true)));
+    when(forwarder.indexGroup(eq(UUID), any()))
+        .thenReturn(CompletableFuture.completedFuture(new Result(EventType.INDEX_GROUP, true)));
     when(forwarder.indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any()))
-        .thenReturn(CompletableFuture.completedFuture(true));
+        .thenReturn(CompletableFuture.completedFuture(new Result(EventType.INDEX_CHANGE, true)));
 
     setUpIndexEventHandler(currCtx);
   }

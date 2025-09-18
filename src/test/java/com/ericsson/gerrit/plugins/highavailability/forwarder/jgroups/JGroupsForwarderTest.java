@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
@@ -94,8 +95,8 @@ public class JGroupsForwarderTest {
     RspList<Object> OK = new RspList<>(Map.of(A1, RSP_OK, A2, RSP_OK));
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(OK);
 
-    CompletableFuture<Boolean> result = forwarder.indexAccount(100, new IndexEvent());
-    assertThat(result.get()).isTrue();
+    CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
+    assertThat(result.get().getResult()).isTrue();
     verify(dispatcher, times(1)).castMessage(any(), any(), any());
   }
 
@@ -106,8 +107,8 @@ public class JGroupsForwarderTest {
     RspList<Object> FAIL = new RspList<>(Map.of(A1, RSP_OK, A2, RSP_FAIL));
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, OK);
 
-    CompletableFuture<Boolean> result = forwarder.indexAccount(100, new IndexEvent());
-    assertThat(result.get()).isTrue();
+    CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
+    assertThat(result.get().getResult()).isTrue();
     verify(dispatcher, times(2)).castMessage(any(), any(), any());
   }
 
@@ -118,8 +119,8 @@ public class JGroupsForwarderTest {
     // return FAIL x MAX_TRIES
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, FAIL, FAIL);
 
-    CompletableFuture<Boolean> result = forwarder.indexAccount(100, new IndexEvent());
-    assertThat(result.get()).isFalse();
+    CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
+    assertThat(result.get().getResult()).isFalse();
     verify(dispatcher, times(MAX_TRIES)).castMessage(any(), any(), any());
   }
 }
