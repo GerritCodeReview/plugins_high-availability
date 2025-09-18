@@ -21,6 +21,34 @@ import java.util.concurrent.CompletableFuture;
 /** Forward indexing, stream events and cache evictions to the other primary */
 public interface Forwarder {
 
+  public class Result {
+    private EventType type;
+    private boolean result;
+    private boolean isRecoverable;
+
+    public Result(EventType task, boolean result) {
+      this(task, result, true);
+    }
+
+    public Result(EventType type, boolean result, boolean isRecoverable) {
+      this.type = type;
+      this.result = result;
+      this.isRecoverable = isRecoverable;
+    }
+
+    public EventType getType() {
+      return type;
+    }
+
+    public boolean getResult() {
+      return result;
+    }
+
+    public boolean isRecoverable() {
+      return isRecoverable;
+    }
+  }
+
   /**
    * Forward an account indexing event to the other primary.
    *
@@ -29,7 +57,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent);
+  CompletableFuture<Result> indexAccount(int accountId, IndexEvent indexEvent);
 
   /**
    * Forward a change indexing event to the other primary.
@@ -40,7 +68,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> indexChange(String projectName, int changeId, IndexEvent indexEvent);
+  CompletableFuture<Result> indexChange(String projectName, int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a change indexing event to the other primary using batch index endpoint.
@@ -51,7 +79,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> batchIndexChange(
+  CompletableFuture<Result> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent);
 
   /**
@@ -62,7 +90,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
+  CompletableFuture<Result> deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a group indexing event to the other primary.
@@ -72,7 +100,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent);
+  CompletableFuture<Result> indexGroup(String uuid, IndexEvent indexEvent);
 
   /**
    * Forward a project indexing event to the other primary.
@@ -82,7 +110,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent);
+  CompletableFuture<Result> indexProject(String projectName, IndexEvent indexEvent);
 
   /**
    * Forward a stream event to the other primary.
@@ -91,7 +119,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> send(Event event);
+  CompletableFuture<Result> send(Event event);
 
   /**
    * Forward a cache eviction event to the other primary.
@@ -101,7 +129,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> evict(String cacheName, Object key);
+  CompletableFuture<Result> evict(String cacheName, Object key);
 
   /**
    * Forward an addition to the project list cache to the other primary.
@@ -110,7 +138,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> addToProjectList(String projectName);
+  CompletableFuture<Result> addToProjectList(String projectName);
 
   /**
    * Forward a removal from the project list cache to the other primary.
@@ -119,7 +147,7 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> removeFromProjectList(String projectName);
+  CompletableFuture<Result> removeFromProjectList(String projectName);
 
   /**
    * Forward the removal of all project changes from index to the other primary.
@@ -128,5 +156,5 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName);
+  CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName);
 }

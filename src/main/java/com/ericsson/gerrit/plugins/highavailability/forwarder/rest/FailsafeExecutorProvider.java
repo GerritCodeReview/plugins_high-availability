@@ -15,18 +15,18 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import dev.failsafe.Failsafe;
 import dev.failsafe.FailsafeExecutor;
-import dev.failsafe.Fallback;
 import dev.failsafe.RetryPolicy;
 import java.util.concurrent.Executors;
 
 @Singleton
-public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boolean>> {
+public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Result>> {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Configuration cfg;
 
@@ -36,10 +36,9 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boole
   }
 
   @Override
-  public FailsafeExecutor<Boolean> get() {
-    Fallback<Boolean> fallbackToFalse = Fallback.<Boolean>of(() -> false);
-    RetryPolicy<Boolean> retryPolicy =
-        RetryPolicy.<Boolean>builder()
+  public FailsafeExecutor<Result> get() {
+    RetryPolicy<Result> retryPolicy =
+        RetryPolicy.<Result>builder()
             .withMaxAttempts(cfg.http().maxTries())
             .withDelay(cfg.http().retryInterval())
             .onRetry(e -> log.atFine().log("Retrying event %s", e))
@@ -47,15 +46,13 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Boole
                 e ->
                     log.atWarning().log(
                         "%d http retries exceeded for event %s", cfg.http().maxTries(), e))
-            .handleResult(false)
-            .abortIf(
-                (r, e) ->
-                    e instanceof ForwardingException && !((ForwardingException) e).isRecoverable())
+            .handleResultIf(r -> !r.getResult())
+            .abortIf((r, e) -> !r.getResult() && !r.isRecoverable())
             .build();
     // TODO: the executor shall be created by workQueue.createQueue(...)
     //   However, this currently doesn't work because WorkQueue.Executor doesn't support wrapping of
     //   Callable i.e. it throws an exception on decorateTask(Callable)
-    return Failsafe.with(fallbackToFalse, retryPolicy)
+    return Failsafe.with(retryPolicy)
         .with(Executors.newScheduledThreadPool(cfg.http().threadPoolSize()));
   }
 }

@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.gerrit.metrics.Counter0;
 import com.google.gerrit.metrics.Description;
+import com.google.gerrit.metrics.Histogram0;
 import com.google.gerrit.metrics.MetricMaker;
 import com.google.gerrit.metrics.Timer0;
 import com.google.inject.assistedinject.Assisted;
@@ -27,6 +28,7 @@ public class ForwarderMetrics {
   private final Timer0 latencyMetric;
   private final Counter0 failureCounterMetric;
   private final Counter0 successCounterMetric;
+  private final Histogram0 retryMetric;
 
   public interface Factory {
     ForwarderMetrics create(EventType eventType);
@@ -58,6 +60,11 @@ public class ForwarderMetrics {
                 .setCumulative()
                 .setRate()
                 .setUnit("successes"));
+    this.retryMetric =
+        metricMaker.newHistogram(
+            String.format("forwarding_%s_event/retries", eventType),
+            new Description(String.format("%s events forwarding retries", eventType))
+                .setCumulative());
   }
 
   public void recordResult(boolean isSuccessful) {
@@ -70,5 +77,9 @@ public class ForwarderMetrics {
 
   public void recordLatency(long latencyMs) {
     latencyMetric.record(latencyMs, TimeUnit.MILLISECONDS);
+  }
+
+  public void recordRetries(int retries) {
+    retryMetric.record(retries);
   }
 }

@@ -45,7 +45,7 @@ public class JGroupsForwarder implements Forwarder {
   private final MessageDispatcher dispatcher;
   private final JGroups jgroupsConfig;
   private final Gson gson;
-  private final FailsafeExecutor<Boolean> executor;
+  private final FailsafeExecutor<Result> executor;
   private final ForwarderMetricsRegistry metricsRegistry;
 
   @Inject
@@ -53,7 +53,7 @@ public class JGroupsForwarder implements Forwarder {
       MessageDispatcher dispatcher,
       Configuration cfg,
       @JGroupsGson Gson gson,
-      @JGroupsForwarderExecutor FailsafeExecutor<Boolean> executor,
+      @JGroupsForwarderExecutor FailsafeExecutor<Result> executor,
       ForwarderMetricsRegistry metricsRegistry) {
     this.dispatcher = dispatcher;
     this.jgroupsConfig = cfg.jgroups();
@@ -61,71 +61,75 @@ public class JGroupsForwarder implements Forwarder {
     this.executor = executor;
 
     this.metricsRegistry = metricsRegistry;
+    this.executor.onComplete(
+        ev -> {
+          this.metricsRegistry.get(ev.getResult().getType()).recordRetries(ev.getAttemptCount());
+        });
   }
 
   @Override
-  public CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent) {
+  public CompletableFuture<Result> indexAccount(int accountId, IndexEvent indexEvent) {
     return execute(new IndexAccount(accountId, indexEvent.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> indexChange(
+  public CompletableFuture<Result> indexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
     return execute(new IndexChange.Update(projectName, changeId, indexEvent.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> batchIndexChange(
+  public CompletableFuture<Result> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
     return execute(new IndexChange.BatchUpdate(projectName, changeId, indexEvent.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
+  public CompletableFuture<Result> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
     return execute(new IndexChange.Delete(changeId, indexEvent.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent) {
+  public CompletableFuture<Result> indexGroup(String uuid, IndexEvent indexEvent) {
     return execute(new IndexGroup(uuid, indexEvent.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent) {
+  public CompletableFuture<Result> indexProject(String projectName, IndexEvent indexEvent) {
     return execute(new IndexProject(projectName, indexEvent.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> send(Event event) {
+  public CompletableFuture<Result> send(Event event) {
     return execute(new PostEvent(event, event.eventCreatedOn));
   }
 
   @Override
-  public CompletableFuture<Boolean> evict(String cacheName, Object key) {
+  public CompletableFuture<Result> evict(String cacheName, Object key) {
     return execute(new EvictCache(cacheName, gson.toJson(key), Instant.now().toEpochMilli()));
   }
 
   @Override
-  public CompletableFuture<Boolean> addToProjectList(String projectName) {
+  public CompletableFuture<Result> addToProjectList(String projectName) {
     return execute(new AddToProjectList(projectName, Instant.now().toEpochMilli()));
   }
 
   @Override
-  public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
+  public CompletableFuture<Result> removeFromProjectList(String projectName) {
     return execute(new RemoveFromProjectList(projectName, Instant.now().toEpochMilli()));
   }
 
   @Override
-  public CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName) {
+  public CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName) {
     return execute(new DeleteAllProjectChangesFromIndex(projectName, Instant.now().toEpochMilli()));
   }
 
-  private CompletableFuture<Boolean> execute(Command cmd) {
+  private CompletableFuture<Result> execute(Command cmd) {
     return executor
         .getAsync(() -> executeOnce(cmd))
         .thenApplyAsync(
             result -> {
-              metricsRegistry.get(cmd.type).recordResult(result);
+              metricsRegistry.get(cmd.type).recordResult(result.getResult());
               metricsRegistry
                   .get(cmd.type)
                   .recordLatency(Instant.now().toEpochMilli() - cmd.eventCreatedOn);
@@ -133,14 +137,14 @@ public class JGroupsForwarder implements Forwarder {
             });
   }
 
-  private boolean executeOnce(Command cmd) {
+  private Result executeOnce(Command cmd) {
     String json = gson.toJson(cmd);
     try {
       logJGroupsInfo();
 
       if (dispatcher.getChannel().getView().size() < 2) {
         log.atFine().log("Less than two members in cluster, not sending %s", json);
-        return false;
+        return new Result(cmd.type, false);
       }
 
       log.atFine().log("Sending %s", json);
@@ -150,7 +154,7 @@ public class JGroupsForwarder implements Forwarder {
 
       log.atFine().log("Received response list length = %s", list.size());
       if (list.isEmpty()) {
-        return false;
+        return new Result(cmd.type, false);
       }
 
       for (Entry<Address, Rsp<Object>> e : list.entrySet()) {
@@ -159,14 +163,14 @@ public class JGroupsForwarder implements Forwarder {
           log.atWarning().log(
               "Received a non TRUE response from receiver %s: %s",
               e.getKey(), e.getValue().getValue());
-          return false;
+          return new Result(cmd.type, false);
         }
       }
       log.atFine().log("Successfully sent message %s", json);
-      return true;
+      return new Result(cmd.type, true);
     } catch (Exception e) {
       log.atWarning().withCause(e).log("Forwarding %s failed", json);
-      return false;
+      return new Result(cmd.type, false);
     }
   }
 
