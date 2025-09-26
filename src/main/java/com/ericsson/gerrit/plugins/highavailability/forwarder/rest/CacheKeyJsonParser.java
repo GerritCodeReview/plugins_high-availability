@@ -44,6 +44,7 @@ public class CacheKeyJsonParser {
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
       case Constants.ACCOUNTS:
+      case Constants.TOKENS:
         return id.get() == null ? null : Account.id(id.get().getAsInt());
       case Constants.GROUPS:
         return id.get() == null ? null : AccountGroup.id(id.get().getAsInt());

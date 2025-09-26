@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 @Singleton
 class CachePatternMatcher {
   private static final List<String> DEFAULT_PATTERNS =
-      ImmutableList.of("^groups.*", "ldap_usernames", "projects", "sshkeys");
+      ImmutableList.of("^groups.*", "ldap_usernames", "projects", "sshkeys", "tokens");
 
   private final Pattern pattern;
 
