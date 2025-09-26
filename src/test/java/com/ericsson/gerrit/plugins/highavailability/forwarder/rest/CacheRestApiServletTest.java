@@ -87,6 +87,12 @@ public class CacheRestApiServletTest {
   }
 
   @Test
+  public void evictTokensCache() throws Exception {
+    configureMocksFor(Constants.TOKENS);
+    verifyResponseIsOK();
+  }
+
+  @Test
   public void evictDefault() throws Exception {
     configureMocksFor(Constants.PROJECTS);
     verifyResponseIsOK();
@@ -134,6 +140,8 @@ public class CacheRestApiServletTest {
     } else if (Constants.GROUPS_BYINCLUDE.equals(cacheName)
         || Constants.GROUPS_MEMBERS.equals(cacheName)) {
       when(readerMock.readLine()).thenReturn("{\"uuid\":\"abcd1234\"}");
+    } else if (Constants.TOKENS.equals(cacheName)) {
+      when(readerMock.readLine()).thenReturn("{\"id\":\"1234\"}");
     } else {
       when(readerMock.readLine()).thenReturn("{}");
     }

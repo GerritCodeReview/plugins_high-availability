@@ -54,6 +54,8 @@ public class CacheKeyJsonParser {
         return gson.fromJson(json, Object.class);
       case Constants.PROJECTS:
         return Project.nameKey(json.getAsString());
+      case Constants.TOKENS:
+        return id.get() == null ? null : Account.id(id.get().getAsInt());
       default:
         try {
           return gson.fromJson(json, String.class);

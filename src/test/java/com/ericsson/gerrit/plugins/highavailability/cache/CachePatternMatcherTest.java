@@ -47,6 +47,7 @@ public class CachePatternMatcherTest {
             "ldap_usernames",
             "projects",
             "sshkeys",
+            "tokens",
             "my_cache_a",
             "my_cache_b",
             "other")) {
