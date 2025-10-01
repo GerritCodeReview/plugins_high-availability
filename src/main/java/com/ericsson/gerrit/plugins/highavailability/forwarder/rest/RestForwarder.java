@@ -78,7 +78,7 @@ public class RestForwarder implements Forwarder {
     this.metricsRegistry = metricsRegistry;
     this.executor.onComplete(
         ev -> {
-          this.metricsRegistry.get(ev.getResult().getType()).recordRetries(ev.getAttemptCount());
+          this.metricsRegistry.get(ev.getResult().type()).recordRetries(ev.getAttemptCount());
         });
   }
 
@@ -264,11 +264,10 @@ public class RestForwarder implements Forwarder {
             CompletableFuture.completedFuture(new Result(eventType, true)),
             (a, b) ->
                 a.thenCombine(
-                    b,
-                    (left, right) -> new Result(eventType, left.getResult() && right.getResult())))
+                    b, (left, right) -> new Result(eventType, left.result() && right.result())))
         .thenApplyAsync(
             result -> {
-              metricsRegistry.get(eventType).recordResult(result.getResult());
+              metricsRegistry.get(eventType).recordResult(result.result());
               metricsRegistry
                   .get(eventType)
                   .recordLatency(Instant.now().toEpochMilli() - requestStart);

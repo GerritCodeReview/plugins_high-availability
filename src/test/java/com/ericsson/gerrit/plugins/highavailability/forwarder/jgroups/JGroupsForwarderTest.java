@@ -96,7 +96,7 @@ public class JGroupsForwarderTest {
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(OK);
 
     CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
-    assertThat(result.get().getResult()).isTrue();
+    assertThat(result.get().result()).isTrue();
     verify(dispatcher, times(1)).castMessage(any(), any(), any());
   }
 
@@ -108,7 +108,7 @@ public class JGroupsForwarderTest {
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, OK);
 
     CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
-    assertThat(result.get().getResult()).isTrue();
+    assertThat(result.get().result()).isTrue();
     verify(dispatcher, times(2)).castMessage(any(), any(), any());
   }
 
@@ -120,7 +120,7 @@ public class JGroupsForwarderTest {
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, FAIL, FAIL);
 
     CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
-    assertThat(result.get().getResult()).isFalse();
+    assertThat(result.get().result()).isFalse();
     verify(dispatcher, times(MAX_TRIES)).castMessage(any(), any(), any());
   }
 }
