@@ -46,7 +46,7 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Resul
                 e ->
                     log.atWarning().log(
                         "%d jgroups retries exceeded for event %s", cfg.jgroups().maxTries(), e))
-            .handleResultIf(r -> !r.getResult())
+            .handleResultIf(r -> !r.result())
             .build();
     return Failsafe.with(retryPolicy)
         .with(workQueue.createQueue(cfg.jgroups().threadPoolSize(), "JGroupsForwarder"));

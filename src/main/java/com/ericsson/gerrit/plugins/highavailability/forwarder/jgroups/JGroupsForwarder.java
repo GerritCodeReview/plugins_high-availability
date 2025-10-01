@@ -64,7 +64,7 @@ public class JGroupsForwarder implements Forwarder {
     this.metricsRegistry = metricsRegistry;
     this.executor.onComplete(
         ev -> {
-          this.metricsRegistry.get(ev.getResult().getType()).recordRetries(ev.getAttemptCount());
+          this.metricsRegistry.get(ev.getResult().type()).recordRetries(ev.getAttemptCount());
         });
   }
 
@@ -130,7 +130,7 @@ public class JGroupsForwarder implements Forwarder {
         .getAsync(() -> executeOnce(cmd))
         .thenApplyAsync(
             result -> {
-              metricsRegistry.get(cmd.type).recordResult(result.getResult());
+              metricsRegistry.get(cmd.type).recordResult(result.result());
               metricsRegistry
                   .get(cmd.type)
                   .recordLatency(Duration.between(cmd.eventCreatedOn, Instant.now()).toMillis());
