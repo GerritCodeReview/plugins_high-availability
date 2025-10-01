@@ -21,31 +21,9 @@ import java.util.concurrent.CompletableFuture;
 /** Forward indexing, stream events and cache evictions to the other primary */
 public interface Forwarder {
 
-  public class Result {
-    private EventType type;
-    private boolean result;
-    private boolean isRecoverable;
-
+  public record Result(EventType type, boolean result, boolean isRecoverable) {
     public Result(EventType task, boolean result) {
       this(task, result, true);
-    }
-
-    public Result(EventType type, boolean result, boolean isRecoverable) {
-      this.type = type;
-      this.result = result;
-      this.isRecoverable = isRecoverable;
-    }
-
-    public EventType getType() {
-      return type;
-    }
-
-    public boolean getResult() {
-      return result;
-    }
-
-    public boolean isRecoverable() {
-      return isRecoverable;
     }
   }
 

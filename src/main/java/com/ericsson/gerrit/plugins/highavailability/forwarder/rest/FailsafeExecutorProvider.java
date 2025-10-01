@@ -46,8 +46,8 @@ public class FailsafeExecutorProvider implements Provider<FailsafeExecutor<Resul
                 e ->
                     log.atWarning().log(
                         "%d http retries exceeded for event %s", cfg.http().maxTries(), e))
-            .handleResultIf(r -> !r.getResult())
-            .abortIf((r, e) -> !r.getResult() && !r.isRecoverable())
+            .handleResultIf(r -> !r.result())
+            .abortIf((r, e) -> !r.result() && !r.isRecoverable())
             .build();
     // TODO: the executor shall be created by workQueue.createQueue(...)
     //   However, this currently doesn't work because WorkQueue.Executor doesn't support wrapping of
