@@ -1,4 +1,4 @@
-// Copyright (C) 2023 The Android Open Source Project
+// Copyright (C) 2025 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import com.google.gerrit.entities.Project;
 import java.time.Instant;
 
-public class AddToProjectList extends Command {
-  static final EventType TYPE = EventType.PROJECT_LIST_ADDITION;
+public class DeleteAllProjectChangesFromIndex extends Command {
+  static final EventType TYPE = EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT;
 
-  private final String projectName;
+  private final Project.NameKey projectName;
 
-  public AddToProjectList(String projectName, Instant eventCreatedOn) {
-    super(TYPE, eventCreatedOn);
+  public DeleteAllProjectChangesFromIndex(Project.NameKey projectName, Instant createdOn) {
+    super(TYPE, createdOn);
     this.projectName = projectName;
   }
 
   public String getProjectName() {
-    return projectName;
+    return projectName.get();
   }
 }

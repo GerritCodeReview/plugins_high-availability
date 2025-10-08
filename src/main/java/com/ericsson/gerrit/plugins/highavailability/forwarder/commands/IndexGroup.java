@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class IndexProject extends Command {
-  static final EventType TYPE = EventType.INDEX_PROJECT_UPDATE;
+public class IndexGroup extends Command {
+  static final EventType TYPE = EventType.INDEX_GROUP_UPDATE;
 
-  private String projectName;
+  private final String uuid;
 
-  protected IndexProject(String projectName, Instant eventCreatedOn) {
+  public IndexGroup(String uuid, Instant eventCreatedOn) {
     super(TYPE, eventCreatedOn);
-    this.projectName = projectName;
+    this.uuid = uuid;
   }
 
-  public String getProjectName() {
-    return projectName;
+  public String getUuid() {
+    return uuid;
   }
 }

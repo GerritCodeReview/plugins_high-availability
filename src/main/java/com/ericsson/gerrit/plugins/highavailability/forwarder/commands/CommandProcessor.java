@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
@@ -25,23 +25,20 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Optional;
-import org.jgroups.Message;
-import org.jgroups.blocks.RequestHandler;
 
 @Singleton
-public class MessageProcessor implements RequestHandler {
+public class CommandProcessor {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
-  private final Gson gson;
   private final ForwardedIndexChangeHandler indexChangeHandler;
   private final ForwardedIndexBatchChangeHandler indexBatchChangeHandler;
   private final ForwardedIndexAccountHandler indexAccountHandler;
@@ -51,8 +48,8 @@ public class MessageProcessor implements RequestHandler {
   private final ProcessorMetricsRegistry metricRegistry;
 
   @Inject
-  MessageProcessor(
-      @JGroupsGson Gson gson,
+  @VisibleForTesting
+  public CommandProcessor(
       ForwardedIndexChangeHandler indexChangeHandler,
       ForwardedIndexBatchChangeHandler indexBatchChangeHandler,
       ForwardedIndexAccountHandler indexAccountHandler,
@@ -60,7 +57,6 @@ public class MessageProcessor implements RequestHandler {
       ForwardedEventHandler eventHandler,
       ForwardedProjectListUpdateHandler projectListUpdateHandler,
       ProcessorMetricsRegistry metricRegistry) {
-    this.gson = gson;
     this.indexChangeHandler = indexChangeHandler;
     this.indexBatchChangeHandler = indexBatchChangeHandler;
     this.indexAccountHandler = indexAccountHandler;
@@ -70,9 +66,7 @@ public class MessageProcessor implements RequestHandler {
     this.metricRegistry = metricRegistry;
   }
 
-  @Override
-  public Object handle(Message msg) {
-    Command cmd = getCommand(msg);
+  public boolean handle(Command cmd) {
     ProcessorMetrics metrics = metricRegistry.get(cmd.type);
     Instant startTime = Instant.now();
     boolean success = false;
@@ -117,7 +111,7 @@ public class MessageProcessor implements RequestHandler {
       } else if (cmd instanceof PostEvent) {
         Event event = ((PostEvent) cmd).getEvent();
         eventHandler.dispatch(event);
-
+        log.atFine().log("Dispatching event %s done", event);
       } else if (cmd instanceof AddToProjectList) {
         String projectName = ((AddToProjectList) cmd).getProjectName();
         projectListUpdateHandler.update(projectName, false);
@@ -143,17 +137,6 @@ public class MessageProcessor implements RequestHandler {
       return Operation.DELETE;
     } else {
       throw new IllegalArgumentException("Unknown type of IndexChange command " + cmd.getClass());
-    }
-  }
-
-  private Command getCommand(Message msg) {
-    try {
-      String s = (String) msg.getObject();
-      log.atFine().log("Received message: %s", s);
-      return gson.fromJson(s, Command.class);
-    } catch (RuntimeException e) {
-      log.atSevere().withCause(e).log("Error parsing message %s", msg.getObject());
-      throw e;
     }
   }
 }
