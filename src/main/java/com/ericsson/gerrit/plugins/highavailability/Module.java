@@ -18,7 +18,9 @@ import com.ericsson.gerrit.plugins.highavailability.autoreindex.AutoReindexModul
 import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.PubSubForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.indexsync.IndexSyncModule;
@@ -55,7 +57,12 @@ class Module extends LifecycleModule {
         install(new PeerInfoModule(config.peerInfo().strategy()));
         break;
       case JGROUPS:
+        install(new ForwarderCommandsModule());
         install(new JGroupsForwarderModule());
+        break;
+      case PUBSUB:
+        install(new ForwarderCommandsModule());
+        install(new PubSubForwarderModule(config));
         break;
       default:
         throw new IllegalArgumentException("Unsupported transport: " + config.main().transport());
