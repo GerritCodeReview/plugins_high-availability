@@ -73,6 +73,29 @@ defined by the `jgroups.clusterName`.
   maxTries = 100
 ```
 
+### GCP PubSub based message transport
+
+In this case no discovery is required. Gerrit instances will just subscribe
+to the same PubSub topic. They will publish all messages to tha topic and will
+pull all messages except for their own from their subscription.
+
+```
+[main]
+  transport = pubsub
+  sharedDirectory = /directory/accessible/from/both/instances
+[autoReindex]
+  enabled = false
+[pubsub]
+  gcloudProject = project
+  privateKeyLocation = etc/serviceAccountKey.json
+  topic = gerrit
+  ackDeadline = 10s
+  subscriptionTimeout = 10s
+  shutdownTimeout = 10s
+  publisherThreadPoolSize = 4
+  subscriberThreadPoolSize = 4
+```
+
 ```main.sharedDirectory```
 :   Path to a directory accessible from both instances.
     When given as a relative path, then it is resolved against the $SITE_PATH
@@ -82,9 +105,9 @@ defined by the `jgroups.clusterName`.
     is "shared".
 
 ```main.transport```
-:   Message transport layer. Could be: `http` or `jgroups`.
+:   Message transport layer. Could be: `http`, `jgroups` or `pubsub`.
     When not specificed the default is `http`.
-    When set to `jgroups` then all `peerInfo.*` sections are unnecessary and ignored.
+    When set to `jgroups` or `pubsub` then all `peerInfo.*` sections are unnecessary and ignored.
 
 ```autoReindex.enabled```
 :   Enable the tracking of the latest change indexed under data/high-availability
@@ -283,6 +306,38 @@ calls by specifying the following fields:
 
 ```http.threadPoolSize```
 :   Maximum number of threads used to execute REST calls towards target instances.
+
+```pubsub.gcloudProject```
+:   The name of the GCP project containing the PubSub topic to be used. This
+    setting is mandatory if using PubSub.
+
+```pubsub.privateKeyLocation```
+:   The location of the file containing the service account key of the service
+    account that Gerrit can use to create subscriptions for the topic configured
+    in [pubsub.topic](#pubsubtopic) and to subscribe to it. This setting is
+    mandatory if using PubSub.
+
+```pubsub.topic```
+:   PubSub topic to publish event messages to. Defaults to `gerrit`.
+
+```pubsub.ackDeadline```
+:   Time span the PubSub subscription will wait for acknowledgement of the message
+    before declaring message delivery as failed. Defaults to 10s.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+
+```pubsub.subscriptionTimeout```
+:   Timeout for establishing the subscription. Defaults to 10s.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+
+```pubsub.shutdownTimeout```
+:   Timeout for waiting the publisher and subscriber to shut down. Defaults to 10s.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+
+```pubsub.publisherThreadPoolSize```
+:   Thread pool size for PubSub publisher. Defaults to 4.
+
+```pubsub.subscriberThreadPoolSize```
+:   Thread pool size for PubSub subscriber. Defaults to 4.
 
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.
