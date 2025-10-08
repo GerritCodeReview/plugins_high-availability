@@ -72,6 +72,7 @@ public class Configuration {
   private final JGroups jgroups;
   private final JGroupsKubernetes jgroupsKubernetes;
   private final Http http;
+  private final PubSub pubSub;
   private final Cache cache;
   private final Event event;
   private final Index index;
@@ -88,7 +89,8 @@ public class Configuration {
 
   public enum Transport {
     HTTP,
-    JGROUPS
+    JGROUPS,
+    PUBSUB
   }
 
   @Inject
@@ -115,6 +117,7 @@ public class Configuration {
     jgroups = new JGroups(site, cfg);
     jgroupsKubernetes = new JGroupsKubernetes(cfg);
     http = new Http(cfg);
+    pubSub = new PubSub(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
     index = new Index(cfg);
@@ -170,6 +173,10 @@ public class Configuration {
 
   public Http http() {
     return http;
+  }
+
+  public PubSub pubSub() {
+    return pubSub;
   }
 
   public Cache cache() {
@@ -560,6 +567,92 @@ public class Configuration {
 
     public int threadPoolSize() {
       return threadPoolSize;
+    }
+  }
+
+  public static class PubSub {
+    static final String PUBSUB_SECTION = "pubsub";
+    static final String GCLOUD_PROJECT_FIELD = "gcloudProject";
+    static final String PRIVATE_KEY_LOCATION_FIELD = "privateKeyLocation";
+    static final String TOPIC_FIELD = "topic";
+    static final String ACK_DEADLINE_FIELD = "ackDeadline";
+    static final String SUBSCRIPTION_TIMEOUT_FIELD = "subscriptionTimeout";
+    static final String SHUTDOWN_TIMEOUT_FIELD = "shutdownTimeout";
+    static final String PUBLISHER_THREAD_POOL_SIZE_FIELD = "publisherThreadPoolSize";
+    static final String SUBSCRIBER_THREAD_POOL_SIZE_FIELD = "subscriberThreadPoolSize";
+
+    static final Duration DEFAULT_ACK_DEADLINE = Duration.ofSeconds(10);
+    static final Duration DEFAULT_SUBSCRIPTION_TIMEOUT = Duration.ofSeconds(10);
+    static final Duration DEFAULT_SHUTDOWN_TIMEOUT = Duration.ofSeconds(10);
+    static final String DEFAULT_TOPIC = "gerrit";
+    static final int DEFAULT_PUBLISHER_THREAD_POOL_SIZE = 4;
+    static final int DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE = 4;
+
+    private final String gcloudProject;
+    private final String privateKeyLocation;
+    private final Duration ackDeadline;
+    private final Duration subscriptionTimeout;
+    private final Duration shutdownTimeout;
+    private final String topic;
+    private final int publisherThreadPoolSize;
+    private final int subscriberThreadPoolSize;
+
+    @Inject
+    public PubSub(Config cfg) {
+      this.gcloudProject = getString(cfg, PUBSUB_SECTION, GCLOUD_PROJECT_FIELD, null);
+      this.privateKeyLocation = getString(cfg, PUBSUB_SECTION, PRIVATE_KEY_LOCATION_FIELD, null);
+      this.topic = getString(cfg, PUBSUB_SECTION, TOPIC_FIELD, DEFAULT_TOPIC);
+      this.ackDeadline = getDuration(cfg, PUBSUB_SECTION, ACK_DEADLINE_FIELD, DEFAULT_ACK_DEADLINE);
+      this.subscriptionTimeout =
+          getDuration(
+              cfg, PUBSUB_SECTION, SUBSCRIPTION_TIMEOUT_FIELD, DEFAULT_SUBSCRIPTION_TIMEOUT);
+      this.shutdownTimeout =
+          getDuration(cfg, PUBSUB_SECTION, SHUTDOWN_TIMEOUT_FIELD, DEFAULT_SHUTDOWN_TIMEOUT);
+      this.publisherThreadPoolSize =
+          cfg.getInt(
+              PUBSUB_SECTION, PUBLISHER_THREAD_POOL_SIZE_FIELD, DEFAULT_PUBLISHER_THREAD_POOL_SIZE);
+      this.subscriberThreadPoolSize =
+          cfg.getInt(
+              PUBSUB_SECTION,
+              SUBSCRIBER_THREAD_POOL_SIZE_FIELD,
+              DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE);
+    }
+
+    public static String getString(Config cfg, String section, String field, String def) {
+      String value = cfg.getString(section, null, field);
+      return value == null ? def : value;
+    }
+
+    public String gCloudProject() {
+      return gcloudProject;
+    }
+
+    public String privateKeyLocation() {
+      return privateKeyLocation;
+    }
+
+    public Duration ackDeadline() {
+      return ackDeadline;
+    }
+
+    public Duration subscriptionTimeout() {
+      return subscriptionTimeout;
+    }
+
+    public Duration shutdownTimeout() {
+      return shutdownTimeout;
+    }
+
+    public String topic() {
+      return topic;
+    }
+
+    public int publisherThreadPoolSize() {
+      return publisherThreadPoolSize;
+    }
+
+    public int subscriberThreadPoolSize() {
+      return subscriberThreadPoolSize;
     }
   }
 
