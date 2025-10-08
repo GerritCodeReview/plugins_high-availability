@@ -29,6 +29,14 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessor;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.EvictCache;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexAccount;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexChange;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.PostEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.RemoveFromProjectList;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.events.Event;
@@ -47,7 +55,7 @@ import org.mockito.ArgumentCaptor;
 
 public class MessageProcessorTest {
 
-  private MessageProcessor processor;
+  private JGroupsMessageProcessor processor;
   private Gson gson;
 
   private ForwardedIndexChangeHandler indexChangeHandler;
@@ -62,7 +70,7 @@ public class MessageProcessorTest {
   @Before
   public void setUp() {
     Gson eventGson = new EventGsonProvider().get();
-    gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
+    gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
 
     indexChangeHandler = createHandlerMock(ForwardedIndexChangeHandler.class);
     indexBatchChangeHandler = createHandlerMock(ForwardedIndexBatchChangeHandler.class);
@@ -72,14 +80,15 @@ public class MessageProcessorTest {
     projectListUpdateHandler = createHandlerMock(ForwardedProjectListUpdateHandler.class);
 
     processor =
-        new MessageProcessor(
+        new JGroupsMessageProcessor(
             gson,
-            indexChangeHandler,
-            indexBatchChangeHandler,
-            indexAccountHandler,
-            cacheEvictionHandler,
-            eventHandler,
-            projectListUpdateHandler);
+            new CommandProcessor(
+                indexChangeHandler,
+                indexBatchChangeHandler,
+                indexAccountHandler,
+                cacheEvictionHandler,
+                eventHandler,
+                projectListUpdateHandler));
   }
 
   private <T> T createHandlerMock(Class<T> handlerClass) {

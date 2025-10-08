@@ -1,4 +1,4 @@
-// Copyright (C) 2023 The Android Open Source Project
+// Copyright (C) 2025 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-import com.google.gerrit.server.events.Event;
+import com.google.gerrit.entities.Project;
 
-public class PostEvent extends Command {
-  static final String TYPE = "post-event";
+public class DeleteAllProjectChangesFromIndex extends Command {
+  static final String TYPE = "delete-all-project-changes-from-index";
 
-  private final Event event;
+  private final Project.NameKey projectName;
 
-  protected PostEvent(Event event) {
+  public DeleteAllProjectChangesFromIndex(Project.NameKey projectName) {
     super(TYPE);
-    this.event = event;
+    this.projectName = projectName;
   }
 
-  public Event getEvent() {
-    return event;
+  public String getProjectName() {
+    return projectName.get();
   }
 }

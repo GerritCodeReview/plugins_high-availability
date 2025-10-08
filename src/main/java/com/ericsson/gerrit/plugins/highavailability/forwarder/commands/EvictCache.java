@@ -12,19 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-public class RemoveFromProjectList extends Command {
-  static final String TYPE = "remove-from-project-list";
+public class EvictCache extends Command {
+  public static final String TYPE = "evict-cache";
 
-  private final String projectName;
+  private final String cacheName;
+  private final String keyJson;
 
-  public RemoveFromProjectList(String projectName) {
+  public EvictCache(String cacheName, String keyJson) {
     super(TYPE);
-    this.projectName = projectName;
+    this.cacheName = cacheName;
+    this.keyJson = keyJson;
   }
 
-  public String getProjectName() {
-    return projectName;
+  public String getCacheName() {
+    return cacheName;
+  }
+
+  public String getKeyJson() {
+    return keyJson;
   }
 }
