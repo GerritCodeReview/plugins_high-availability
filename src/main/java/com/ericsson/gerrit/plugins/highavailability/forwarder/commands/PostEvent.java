@@ -12,17 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import com.google.gerrit.server.events.Event;
 import java.time.Instant;
 
-public class Command {
-  public final EventType type;
-  public final Instant eventCreatedOn;
+public class PostEvent extends Command {
+  static final EventType TYPE = EventType.EVENT_SENT;
 
-  protected Command(EventType type, Instant eventCreatedOn) {
-    this.type = type;
-    this.eventCreatedOn = eventCreatedOn;
+  private final Event event;
+
+  public PostEvent(Event event, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
+    this.event = event;
+  }
+
+  public Event getEvent() {
+    return event;
   }
 }

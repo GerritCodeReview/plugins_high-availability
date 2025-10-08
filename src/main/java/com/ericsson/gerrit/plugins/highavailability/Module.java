@@ -55,6 +55,7 @@ class Module extends LifecycleModule {
         install(new PeerInfoModule(config.peerInfo().strategy()));
         break;
       case JGROUPS:
+        install(new ForwarderCommandsModule());
         install(new JGroupsForwarderModule());
         break;
       default:
