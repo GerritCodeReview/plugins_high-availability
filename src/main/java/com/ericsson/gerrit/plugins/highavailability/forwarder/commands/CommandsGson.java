@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -21,4 +21,4 @@ import java.lang.annotation.Retention;
 
 @BindingAnnotation
 @Retention(RUNTIME)
-public @interface JGroupsGson {}
+public @interface CommandsGson {}

@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-public class AddToProjectList extends Command {
-  static final String TYPE = "add-to-project-list";
+public class RemoveFromProjectList extends Command {
+  static final String TYPE = "remove-from-project-list";
 
   private final String projectName;
 
-  public AddToProjectList(String projectName) {
+  public RemoveFromProjectList(String projectName) {
     super(TYPE);
     this.projectName = projectName;
   }

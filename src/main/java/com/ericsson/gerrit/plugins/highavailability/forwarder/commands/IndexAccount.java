@@ -12,12 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-public class Command {
-  public final String type;
+public class IndexAccount extends Command {
+  static final String TYPE = "index-account";
 
-  protected Command(String type) {
-    this.type = type;
+  private final int id;
+
+  public IndexAccount(int id) {
+    super(TYPE);
+    this.id = id;
+  }
+
+  public int getId() {
+    return id;
   }
 }

@@ -1,4 +1,4 @@
-// Copyright (C) 2025 The Android Open Source Project
+// Copyright (C) 2023 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,21 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-import com.google.gerrit.entities.Project;
+public class IndexGroup extends Command {
+  static final String TYPE = "index-group";
 
-public class DeleteAllProjectChangesFromIndex extends Command {
-  static final String TYPE = "delete-all-project-changes-from-index";
+  private final String uuid;
 
-  private final Project.NameKey projectName;
-
-  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName) {
+  public IndexGroup(String uuid) {
     super(TYPE);
-    this.projectName = projectName;
+    this.uuid = uuid;
   }
 
-  public String getProjectName() {
-    return projectName.get();
+  public String getUuid() {
+    return uuid;
   }
 }
