@@ -17,6 +17,16 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.Command;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.EvictCache;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexAccount;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexChange;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexGroup;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexProject;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.PostEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.RemoveFromProjectList;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.CacheKeyJsonParser;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
@@ -34,7 +44,7 @@ public class CommandDeserializerTest {
   @Before
   public void setUp() {
     Gson eventGson = new EventGsonProvider().get();
-    this.gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
+    this.gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
     this.cacheKeyParser = new CacheKeyJsonParser(eventGson);
   }
 

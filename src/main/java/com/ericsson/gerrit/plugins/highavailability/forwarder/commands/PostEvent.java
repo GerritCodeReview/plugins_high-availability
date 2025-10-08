@@ -12,19 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-public class IndexProject extends Command {
-  static final String TYPE = "index-project";
+import com.google.gerrit.server.events.Event;
 
-  private String projectName;
+public class PostEvent extends Command {
+  static final String TYPE = "post-event";
 
-  protected IndexProject(String projectName) {
+  private final Event event;
+
+  public PostEvent(Event event) {
     super(TYPE);
-    this.projectName = projectName;
+    this.event = event;
   }
 
-  public String getProjectName() {
-    return projectName;
+  public Event getEvent() {
+    return event;
   }
 }

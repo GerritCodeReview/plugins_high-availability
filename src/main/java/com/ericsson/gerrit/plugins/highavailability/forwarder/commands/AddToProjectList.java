@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-public class IndexGroup extends Command {
-  static final String TYPE = "index-group";
+public class AddToProjectList extends Command {
+  static final String TYPE = "add-to-project-list";
 
-  private final String uuid;
+  private final String projectName;
 
-  protected IndexGroup(String uuid) {
+  public AddToProjectList(String projectName) {
     super(TYPE);
-    this.uuid = uuid;
+    this.projectName = projectName;
   }
 
-  public String getUuid() {
-    return uuid;
+  public String getProjectName() {
+    return projectName;
   }
 }

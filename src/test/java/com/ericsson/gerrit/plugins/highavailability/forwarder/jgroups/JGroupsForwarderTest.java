@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gson.Gson;
@@ -55,7 +56,7 @@ public class JGroupsForwarderTest {
   @Before
   public void setUp() throws Exception {
     Gson eventGson = new EventGsonProvider().get();
-    Gson gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
+    Gson gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
     Configuration cfg = mock(Configuration.class, RETURNS_DEEP_STUBS);
     when(cfg.jgroups().maxTries()).thenReturn(MAX_TRIES);
     when(cfg.jgroups().retryInterval()).thenReturn(Duration.ofMillis(1));

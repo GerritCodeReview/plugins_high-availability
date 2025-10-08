@@ -17,11 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProviderModule;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.server.events.EventGson;
-import com.google.gson.Gson;
-import com.google.inject.Provides;
 import com.google.inject.Scopes;
-import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import dev.failsafe.FailsafeExecutor;
 import org.jgroups.blocks.MessageDispatcher;
@@ -33,7 +29,7 @@ public class JGroupsForwarderModule extends LifecycleModule {
   protected void configure() {
     bind(Forwarder.class).to(JGroupsForwarder.class);
     bind(MessageDispatcher.class).toProvider(MessageDispatcherProvider.class).in(Scopes.SINGLETON);
-    bind(RequestHandler.class).to(MessageProcessor.class);
+    bind(RequestHandler.class).to(JGroupsMessageProcessor.class);
     install(new JChannelProviderModule());
     listener().to(OnStartStop.class);
 
@@ -41,15 +37,5 @@ public class JGroupsForwarderModule extends LifecycleModule {
         .annotatedWith(JGroupsForwarderExecutor.class)
         .toProvider(FailsafeExecutorProvider.class)
         .in(Scopes.SINGLETON);
-  }
-
-  @Provides
-  @Singleton
-  @JGroupsGson
-  Gson buildJGroupsGson(@EventGson Gson eventGson) {
-    return eventGson
-        .newBuilder()
-        .registerTypeAdapter(Command.class, new CommandDeserializer())
-        .create();
   }
 }
