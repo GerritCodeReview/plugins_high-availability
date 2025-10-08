@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -35,7 +35,7 @@ public class CommandDeserializerTest {
   @Before
   public void setUp() {
     Gson eventGson = new EventGsonProvider().get();
-    this.gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
+    this.gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
     this.cacheKeyParser = new CacheKeyJsonParser(eventGson);
   }
 
