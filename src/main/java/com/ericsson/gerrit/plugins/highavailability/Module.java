@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.autoreindex.AutoReindexModul
 import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
@@ -55,6 +56,7 @@ class Module extends LifecycleModule {
         install(new PeerInfoModule(config.peerInfo().strategy()));
         break;
       case JGROUPS:
+        install(new ForwarderCommandsModule());
         install(new JGroupsForwarderModule());
         break;
       default:

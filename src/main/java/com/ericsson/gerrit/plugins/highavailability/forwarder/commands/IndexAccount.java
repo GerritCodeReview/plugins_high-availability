@@ -1,4 +1,4 @@
-// Copyright (C) 2025 The Android Open Source Project
+// Copyright (C) 2023 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,23 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import com.google.gerrit.entities.Project;
 import java.time.Instant;
 
-public class DeleteAllProjectChangesFromIndex extends Command {
-  static final EventType TYPE = EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT;
+public class IndexAccount extends Command {
+  static final EventType TYPE = EventType.INDEX_ACCOUNT_UPDATE;
 
-  private final Project.NameKey projectName;
+  private final int id;
 
-  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName, Instant createdOn) {
-    super(TYPE, createdOn);
-    this.projectName = projectName;
+  public IndexAccount(int id, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
+    this.id = id;
   }
 
-  public String getProjectName() {
-    return projectName.get();
+  public int getId() {
+    return id;
   }
 }
