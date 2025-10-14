@@ -120,6 +120,12 @@ def external_plugin_deps():
     )
 
     maven_jar(
+        name = "docker-java-transport-zerodep",
+        artifact = "com.github.docker-java:docker-java-transport-zerodep:" + DOCKER_JAVA_VERS,
+        sha1 = "c4ce6d8695cfdb0027872f99cc20f8f679f8a969",
+    )
+
+    maven_jar(
         name = "jackson-annotations",
         artifact = "com.fasterxml.jackson.core:jackson-annotations:2.19.2",
         sha1 = "0f63b3b1da563767d04d2e4d3fc1ae0cdeffebe7",
