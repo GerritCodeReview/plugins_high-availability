@@ -49,6 +49,10 @@ ADD --chown=gerrit:gerrit \
     "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/module-index-elasticsearch-bazel-master/lastSuccessfulBuild/artifact/bazel-bin/plugins/index-elasticsearch/index-elasticsearch.jar" \
     /var/gerrit_plugins/index-elasticsearch.jar
 
+ADD --chown=gerrit:gerrit \
+    "https://gerrit-ci.gerritforge.com/job/plugin-healthcheck-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/healthcheck/healthcheck.jar" \
+    /var/gerrit/plugins/healthcheck.jar
+
 ADD --chown=gerrit:gerrit ./wait-for-it.sh /bin
 
 # Change user
