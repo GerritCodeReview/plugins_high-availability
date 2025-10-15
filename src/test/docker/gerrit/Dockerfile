@@ -11,7 +11,7 @@ RUN yum -y install \
     nfs-utils \
     && yum -y clean all
 
-ENV GERRIT_BRANCH stable-3.12
+ENV GERRIT_BRANCH stable-3.13
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
@@ -42,7 +42,7 @@ ADD --chown=gerrit:gerrit \
     /var/gerrit/lib/global-refdb.jar
 
 ADD --chown=gerrit:gerrit \
-    "https://gerrit-ci.gerritforge.com/job/plugin-zookeeper-refdb-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/zookeeper-refdb/zookeeper-refdb.jar" \
+    "https://gerrit-ci.gerritforge.com/job/plugin-zookeeper-refdb-gh-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/zookeeper-refdb/zookeeper-refdb.jar" \
     /var/gerrit/plugins/zookeeper-refdb.jar
 
 ADD --chown=gerrit:gerrit \
