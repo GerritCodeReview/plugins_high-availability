@@ -11,7 +11,7 @@ RUN yum -y install \
     nfs-utils \
     && yum -y clean all
 
-ENV GERRIT_BRANCH stable-3.12
+ENV GERRIT_BRANCH stable-3.13
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
