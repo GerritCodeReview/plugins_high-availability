@@ -20,6 +20,7 @@ import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -28,12 +29,18 @@ import java.util.concurrent.TimeoutException;
 public class OnStartStop implements LifecycleListener {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
+  private final PubSubInitializer initializer;
   private final Configuration config;
-  private final Publisher publisher;
-  private final Subscriber subscriber;
+  private final Provider<Publisher> publisher;
+  private final Provider<Subscriber> subscriber;
 
   @Inject
-  public OnStartStop(Configuration config, Publisher publisher, Subscriber subscriber) {
+  public OnStartStop(
+      PubSubInitializer initializer,
+      Configuration config,
+      Provider<Publisher> publisher,
+      Provider<Subscriber> subscriber) {
+    this.initializer = initializer;
     this.config = config;
     this.publisher = publisher;
     this.subscriber = subscriber;
@@ -41,8 +48,10 @@ public class OnStartStop implements LifecycleListener {
 
   @Override
   public void start() {
+    initializer.initialize();
     try {
       subscriber
+          .get()
           .startAsync()
           .awaitRunning(config.pubSub().subscriptionTimeout().getSeconds(), TimeUnit.SECONDS);
     } catch (TimeoutException e) {
@@ -54,8 +63,9 @@ public class OnStartStop implements LifecycleListener {
   public void stop() {
     logger.atInfo().log("Closing PubSub publisher");
     try {
-      publisher.shutdown();
-      publisher.awaitTermination(config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
+      publisher.get().shutdown();
+      publisher.get().awaitTermination(
+          config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       logger.atSevere().withCause(e).log("Could not close the MessageDispatcher");
     }
@@ -63,6 +73,7 @@ public class OnStartStop implements LifecycleListener {
     logger.atInfo().log("Closing PubSub subscriber");
     try {
       subscriber
+          .get()
           .stopAsync()
           .awaitTerminated(config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
     } catch (TimeoutException e) {
