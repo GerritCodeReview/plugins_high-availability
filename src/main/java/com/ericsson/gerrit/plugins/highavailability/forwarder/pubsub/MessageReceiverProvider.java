@@ -18,6 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.cloud.pubsub.v1.AckReplyConsumer;
 import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -29,11 +30,14 @@ public class MessageReceiverProvider implements Provider<MessageReceiver> {
 
   private final Configuration config;
   private final PubSubMessageProcessor processor;
+  private final String instanceId;
 
   @Inject
-  public MessageReceiverProvider(Configuration config, PubSubMessageProcessor processor) {
+  public MessageReceiverProvider(
+      Configuration config, PubSubMessageProcessor processor, @GerritInstanceId String instanceId) {
     this.config = config;
     this.processor = processor;
+    this.instanceId = instanceId;
   }
 
   @Override
@@ -41,6 +45,13 @@ public class MessageReceiverProvider implements Provider<MessageReceiver> {
     return (PubsubMessage message, AckReplyConsumer consumer) -> {
       try {
         logger.atFine().log("Received message: %s", message);
+        if (message.getAttributesMap().get("instanceId").equals(instanceId)) {
+          logger.atWarning().log(
+              "Skipping message %s since it was sent by this instance %s",
+              message.getMessageId(), instanceId);
+          consumer.ack();
+          return;
+        }
         if (processor.handle(message)) {
           consumer.ack();
         } else {
