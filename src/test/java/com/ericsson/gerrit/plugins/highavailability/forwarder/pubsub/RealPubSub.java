@@ -136,7 +136,7 @@ public class RealPubSub extends PubSubTestSystem {
         new GCPSubscriberProvider(
                 getCredentials(),
                 getSubscription(instanceId),
-                new MessageReceiverProvider(cfg, processor).get(),
+                new MessageReceiverProvider(cfg, processor, instanceId).get(),
                 PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
             .get();
     return subscriber;
