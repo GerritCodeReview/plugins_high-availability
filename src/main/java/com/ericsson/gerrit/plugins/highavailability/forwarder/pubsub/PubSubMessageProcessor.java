@@ -37,13 +37,13 @@ public class PubSubMessageProcessor {
   }
 
   public boolean handle(PubsubMessage msg) {
+    log.atFine().log("Processing message: %s", msg);
     return processor.handle(getCommand(msg));
   }
 
   private Command getCommand(PubsubMessage msg) {
     try {
       String s = msg.getData().toStringUtf8();
-      log.atFine().log("Received message: %s", msg);
       return gson.fromJson(s, Command.class);
     } catch (RuntimeException e) {
       log.atSevere().withCause(e).log("Error parsing message %s", msg);
