@@ -124,7 +124,7 @@ public class EmulatedPubSub extends PubSubTestSystem {
             getCredentials(),
             emulatorModule.createTransportChannelProvider(),
             getSubscription(instanceId),
-            new MessageReceiverProvider(cfg, processor).get(),
+            new MessageReceiverProvider(cfg, processor, instanceId).get(),
             PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
         .get();
   }
