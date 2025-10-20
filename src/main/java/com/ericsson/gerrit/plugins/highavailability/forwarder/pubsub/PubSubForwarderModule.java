@@ -75,8 +75,8 @@ public class PubSubForwarderModule extends LifecycleModule {
     bind(PubSubMessageProcessor.class);
     bind(Forwarder.class).to(PubSubForwarder.class);
     bind(TopicName.class)
-        .annotatedWith(ForwarderTopic.class)
-        .toInstance(TopicName.of(config.pubSub().gCloudProject(), config.pubSub().topic()));
+        .annotatedWith(DefaultTopic.class)
+        .toInstance(TopicName.of(config.pubSub().gCloudProject(), config.pubSub().defaultTopic()));
     listener().to(OnStartStop.class);
   }
 
@@ -112,7 +112,7 @@ public class PubSubForwarderModule extends LifecycleModule {
   @Provides
   @Singleton
   ProjectSubscriptionName getProjectSubscriptionName(
-      Configuration config, @GerritInstanceId String instanceId, @ForwarderTopic TopicName topic) {
+      Configuration config, @GerritInstanceId String instanceId, @DefaultTopic TopicName topic) {
     String subscriptionId = String.format("%s-%s", instanceId, topic.getTopic());
     return ProjectSubscriptionName.of(config.pubSub().gCloudProject(), subscriptionId);
   }
