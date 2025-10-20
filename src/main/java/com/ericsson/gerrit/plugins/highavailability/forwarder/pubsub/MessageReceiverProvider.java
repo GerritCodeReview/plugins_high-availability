@@ -61,7 +61,9 @@ public class MessageReceiverProvider implements Provider<MessageReceiver> {
         consumer.nack();
         logger.atSevere().withCause(e).log(
             "Exception when consuming message %s from topic %s [message: %s]",
-            message.getMessageId(), config.pubSub().topic(), message.getData().toStringUtf8());
+            message.getMessageId(),
+            config.pubSub().defaultTopic(),
+            message.getData().toStringUtf8());
       }
     };
   }
