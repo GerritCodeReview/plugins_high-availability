@@ -44,7 +44,7 @@ public class PubSubInitializer {
       SubscriptionAdminClient subscriptionAdminClient,
       Configuration pluginConfiguration,
       @GerritInstanceId String instanceId,
-      @ForwarderTopic TopicName topic) {
+      @DefaultTopic TopicName topic) {
     this.topicAdminClient = topicAdminClient;
     this.subscriptionAdminClient = subscriptionAdminClient;
     this.pluginConfiguration = pluginConfiguration;
