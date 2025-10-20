@@ -36,7 +36,7 @@ public class LocalPublisherProvider implements Provider<Publisher> {
   public LocalPublisherProvider(
       CredentialsProvider credentials,
       TransportChannelProvider transportChannelProvider,
-      @ForwarderTopic TopicName topic,
+      @DefaultTopic TopicName topic,
       @PublisherExecutorProvider ExecutorProvider executor) {
     this.credentials = credentials;
     this.transportChannelProvider = transportChannelProvider;
