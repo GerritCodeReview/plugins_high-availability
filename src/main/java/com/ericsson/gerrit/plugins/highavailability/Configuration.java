@@ -574,7 +574,7 @@ public class Configuration {
     static final String PUBSUB_SECTION = "pubsub";
     static final String GCLOUD_PROJECT_FIELD = "gcloudProject";
     static final String PRIVATE_KEY_LOCATION_FIELD = "privateKeyLocation";
-    static final String TOPIC_FIELD = "topic";
+    static final String DEFAULT_TOPIC_FIELD = "topic";
     static final String ACK_DEADLINE_FIELD = "ackDeadline";
     static final String SUBSCRIPTION_TIMEOUT_FIELD = "subscriptionTimeout";
     static final String SHUTDOWN_TIMEOUT_FIELD = "shutdownTimeout";
@@ -593,7 +593,7 @@ public class Configuration {
     private final Duration ackDeadline;
     private final Duration subscriptionTimeout;
     private final Duration shutdownTimeout;
-    private final String topic;
+    private final String defaultTopic;
     private final int publisherThreadPoolSize;
     private final int subscriberThreadPoolSize;
 
@@ -601,7 +601,7 @@ public class Configuration {
     public PubSub(Config cfg) {
       this.gcloudProject = getString(cfg, PUBSUB_SECTION, GCLOUD_PROJECT_FIELD, null);
       this.privateKeyLocation = getString(cfg, PUBSUB_SECTION, PRIVATE_KEY_LOCATION_FIELD, null);
-      this.topic = getString(cfg, PUBSUB_SECTION, TOPIC_FIELD, DEFAULT_TOPIC);
+      this.defaultTopic = getString(cfg, PUBSUB_SECTION, DEFAULT_TOPIC_FIELD, DEFAULT_TOPIC);
       this.ackDeadline = getDuration(cfg, PUBSUB_SECTION, ACK_DEADLINE_FIELD, DEFAULT_ACK_DEADLINE);
       this.subscriptionTimeout =
           getDuration(
@@ -643,8 +643,8 @@ public class Configuration {
       return shutdownTimeout;
     }
 
-    public String topic() {
-      return topic;
+    public String defaultTopic() {
+      return defaultTopic;
     }
 
     public int publisherThreadPoolSize() {
