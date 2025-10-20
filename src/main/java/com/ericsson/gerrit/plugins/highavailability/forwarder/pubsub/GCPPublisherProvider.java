@@ -33,7 +33,7 @@ public class GCPPublisherProvider implements Provider<Publisher> {
   @Inject
   public GCPPublisherProvider(
       CredentialsProvider credentials,
-      @ForwarderTopic TopicName topic,
+      @DefaultTopic TopicName topic,
       @PublisherExecutorProvider ExecutorProvider executor) {
     this.credentials = credentials;
     this.topic = topic;

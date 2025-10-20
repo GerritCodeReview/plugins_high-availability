@@ -21,4 +21,4 @@ import java.lang.annotation.Retention;
 
 @BindingAnnotation
 @Retention(RUNTIME)
-public @interface ForwarderTopic {}
+public @interface DefaultTopic {}
