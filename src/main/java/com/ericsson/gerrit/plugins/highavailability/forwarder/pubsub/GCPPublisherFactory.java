@@ -16,37 +16,34 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
 
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.ExecutorProvider;
-import com.google.cloud.pubsub.v1.MessageReceiver;
-import com.google.cloud.pubsub.v1.Subscriber;
+import com.google.cloud.pubsub.v1.Publisher;
+import com.google.gerrit.server.StartupException;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.google.pubsub.v1.Subscription;
+import com.google.pubsub.v1.TopicName;
+import java.io.IOException;
 
 @Singleton
-public class GCPSubscriberProvider implements Provider<Subscriber> {
+public class GCPPublisherFactory implements PublisherFactory {
   private final CredentialsProvider credentials;
-  private final Subscription subscription;
-  private final MessageReceiver messageReceiver;
   private final ExecutorProvider executor;
 
   @Inject
-  public GCPSubscriberProvider(
-      CredentialsProvider credentials,
-      Subscription subscription,
-      MessageReceiver messageReceiver,
-      @SubscriberExecutorProvider ExecutorProvider executor) {
+  public GCPPublisherFactory(
+      CredentialsProvider credentials, @PublisherExecutorProvider ExecutorProvider executor) {
     this.credentials = credentials;
-    this.subscription = subscription;
-    this.messageReceiver = messageReceiver;
     this.executor = executor;
   }
 
   @Override
-  public Subscriber get() {
-    return Subscriber.newBuilder(subscription.getName(), messageReceiver)
-        .setExecutorProvider(executor)
-        .setCredentialsProvider(credentials)
-        .build();
+  public Publisher create(TopicName topic) {
+    try {
+      return Publisher.newBuilder(topic)
+          .setExecutorProvider(executor)
+          .setCredentialsProvider(credentials)
+          .build();
+    } catch (IOException e) {
+      throw new StartupException("Failed to create publisher for PubSub.", e);
+    }
   }
 }

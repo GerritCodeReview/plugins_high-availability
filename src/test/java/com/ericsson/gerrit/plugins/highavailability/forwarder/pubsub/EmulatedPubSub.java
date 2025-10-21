@@ -26,7 +26,6 @@ import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.pubsub.v1.ProjectSubscriptionName;
-import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -35,13 +34,15 @@ import org.testcontainers.utility.DockerImageName;
 
 public class EmulatedPubSub extends PubSubTestSystem {
   public static final String PROJECT_ID = "test";
-  public static final String PUBSUB_TOPIC_ID = "gerrit";
-  public static final TopicName TOPIC_NAME = TopicName.of(PROJECT_ID, PUBSUB_TOPIC_ID);
+  public static final String DEFAULT_TOPIC = "gerrit";
+  public static final String STREAM_EVENTS_TOPIC = "stream-events";
+  public static final TopicName TOPIC_NAME = TopicName.of(PROJECT_ID, DEFAULT_TOPIC);
+  public static final TopicName STREAM_EVENTS_TOPIC_NAME =
+      TopicName.of(PROJECT_ID, STREAM_EVENTS_TOPIC);
 
   private final PubSubEmulatorContainer container;
   private final FixedTransportChannelProvider channelProvider;
   private final String hostPort;
-  private final PubSubForwarderModule pubSubForwarderModule;
 
   public EmulatedPubSub(Configuration cfg) throws Exception {
     super(cfg);
@@ -56,7 +57,6 @@ public class EmulatedPubSub extends PubSubTestSystem {
         String.format(
             "PubSub emulator container started and is listening on %s",
             container.getEmulatorEndpoint()));
-    pubSubForwarderModule = new PubSubForwarderModule(cfg);
   }
 
   @Override
@@ -82,11 +82,6 @@ public class EmulatedPubSub extends PubSubTestSystem {
   }
 
   @Override
-  TopicName getTopicName() {
-    return TOPIC_NAME;
-  }
-
-  @Override
   CredentialsProvider getCredentials() throws Exception {
     return NoCredentialsProvider.create();
   }
@@ -106,39 +101,35 @@ public class EmulatedPubSub extends PubSubTestSystem {
 
   @Override
   Publisher getPublisher() throws Exception {
+    return getPublisher(TOPIC_NAME);
+  }
+
+  @Override
+  Publisher getStreamEventsPublisher() throws Exception {
+    return getPublisher(STREAM_EVENTS_TOPIC_NAME);
+  }
+
+  private Publisher getPublisher(TopicName topicName) throws Exception {
     EmulatorModule emulatorModule =
         new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    return new LocalPublisherProvider(
+    return new LocalPublisherFactory(
             getCredentials(),
             emulatorModule.createTransportChannelProvider(),
-            TOPIC_NAME,
             PubSubForwarderModule.buildPublisherExecutorProvider(cfg))
-        .get();
+        .create(topicName);
   }
 
   @Override
   Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId) throws Exception {
     EmulatorModule emulatorModule =
         new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    return new LocalSubscriberProvider(
-            getCredentials(),
-            emulatorModule.createTransportChannelProvider(),
-            getSubscription(instanceId),
-            new MessageReceiverProvider(cfg, processor, instanceId).get(),
-            PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
-        .get();
-  }
-
-  Subscription getSubscription(String instanceId) throws Exception {
     ProjectSubscriptionName subscriptionName =
         new ProjectSubscriptionNameFactory(instanceId, cfg).create(TOPIC_NAME);
-    EmulatorModule emulatorModule =
-        new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    SubscriptionAdminClient subscriptionAdminClient =
-        emulatorModule.createSubscriptionAdminClient(
-            emulatorModule.createTransportChannelProvider());
-    return pubSubForwarderModule.getSubscription(
-        subscriptionAdminClient,
-        ProjectSubscriptionName.of(getProjectId(), subscriptionName.getSubscription()));
+    return new LocalSubscriberFactory(
+            getCredentials(),
+            emulatorModule.createTransportChannelProvider(),
+            new MessageReceiverProvider(cfg, processor, instanceId).get(),
+            PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
+        .create(subscriptionName);
   }
 }

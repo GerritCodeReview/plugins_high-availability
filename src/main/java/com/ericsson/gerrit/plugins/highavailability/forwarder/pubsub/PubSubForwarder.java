@@ -47,73 +47,83 @@ import java.util.concurrent.CompletableFuture;
 public class PubSubForwarder implements Forwarder {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
-  private final Publisher publisher;
+  private final Publisher defaultPublisher;
+  private final Publisher streamEventsPublisher;
   private final Gson gson;
   private final String instanceId;
 
   @Inject
   PubSubForwarder(
-      Publisher publisher, @CommandsGson Gson gson, @GerritInstanceId String instanceId) {
-    this.publisher = publisher;
+      @DefaultTopic Publisher defaultPublisher,
+      @StreamEventsTopic Publisher streamEventsPublisher,
+      @CommandsGson Gson gson,
+      @GerritInstanceId String instanceId) {
+    this.defaultPublisher = defaultPublisher;
+    this.streamEventsPublisher = streamEventsPublisher;
     this.gson = gson;
     this.instanceId = instanceId;
   }
 
   @Override
   public CompletableFuture<Result> indexAccount(int accountId, IndexEvent indexEvent) {
-    return execute(new IndexAccount(accountId, indexEvent.eventCreatedOn));
+    return execute(new IndexAccount(accountId, indexEvent.eventCreatedOn), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> indexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId, indexEvent.eventCreatedOn));
+    return execute(
+        new IndexChange.Update(projectName, changeId, indexEvent.eventCreatedOn), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.BatchUpdate(projectName, changeId, indexEvent.eventCreatedOn));
+    return execute(
+        new IndexChange.BatchUpdate(projectName, changeId, indexEvent.eventCreatedOn),
+        defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Delete(changeId, indexEvent.eventCreatedOn));
+    return execute(new IndexChange.Delete(changeId, indexEvent.eventCreatedOn), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> indexGroup(String uuid, IndexEvent indexEvent) {
-    return execute(new IndexGroup(uuid, indexEvent.eventCreatedOn));
+    return execute(new IndexGroup(uuid, indexEvent.eventCreatedOn), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> indexProject(String projectName, IndexEvent indexEvent) {
-    return execute(new IndexProject(projectName, indexEvent.eventCreatedOn));
+    return execute(new IndexProject(projectName, indexEvent.eventCreatedOn), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> send(Event event) {
-    return execute(new PostEvent(event, Instant.ofEpochSecond(event.eventCreatedOn)));
+    return execute(
+        new PostEvent(event, Instant.ofEpochSecond(event.eventCreatedOn)), streamEventsPublisher);
   }
 
   @Override
   public CompletableFuture<Result> evict(String cacheName, Object key) {
-    return execute(new EvictCache(cacheName, gson.toJson(key), Instant.now()));
+    return execute(new EvictCache(cacheName, gson.toJson(key), Instant.now()), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> addToProjectList(String projectName) {
-    return execute(new AddToProjectList(projectName, Instant.now()));
+    return execute(new AddToProjectList(projectName, Instant.now()), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> removeFromProjectList(String projectName) {
-    return execute(new RemoveFromProjectList(projectName, Instant.now()));
+    return execute(new RemoveFromProjectList(projectName, Instant.now()), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName) {
-    return execute(new DeleteAllProjectChangesFromIndex(projectName, Instant.now()));
+    return execute(
+        new DeleteAllProjectChangesFromIndex(projectName, Instant.now()), defaultPublisher);
   }
 
   private PubsubMessage buildMessage(Command cmd) {
@@ -123,7 +133,7 @@ public class PubSubForwarder implements Forwarder {
         .build();
   }
 
-  private CompletableFuture<Result> execute(Command cmd) {
+  private CompletableFuture<Result> execute(Command cmd, Publisher publisher) {
     CompletableFuture<Result> future = new CompletableFuture<>();
     String msg = gson.toJson(cmd);
     log.atInfo().log("Publishing message: %s", msg);
