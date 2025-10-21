@@ -45,68 +45,73 @@ import java.util.concurrent.CompletableFuture;
 public class PubSubForwarder implements Forwarder {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
-  private final Publisher publisher;
+  private final Publisher defaultPublisher;
+  private final Publisher streamEventsPublisher;
   private final Gson gson;
   private final String instanceId;
 
   @Inject
   PubSubForwarder(
-      Publisher publisher, @CommandsGson Gson gson, @GerritInstanceId String instanceId) {
-    this.publisher = publisher;
+      @DefaultTopic Publisher defaultPublisher,
+      @StreamEventsTopic Publisher streamEventsPublisher,
+      @CommandsGson Gson gson,
+      @GerritInstanceId String instanceId) {
+    this.defaultPublisher = defaultPublisher;
+    this.streamEventsPublisher = streamEventsPublisher;
     this.gson = gson;
     this.instanceId = instanceId;
   }
 
   @Override
   public CompletableFuture<Boolean> indexAccount(int accountId, IndexEvent indexEvent) {
-    return execute(new IndexAccount(accountId));
+    return execute(new IndexAccount(accountId), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> indexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId));
+    return execute(new IndexChange.Update(projectName, changeId), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId, true));
+    return execute(new IndexChange.Update(projectName, changeId, true), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Delete(changeId));
+    return execute(new IndexChange.Delete(changeId), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> indexGroup(String uuid, IndexEvent indexEvent) {
-    return execute(new IndexGroup(uuid));
+    return execute(new IndexGroup(uuid), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent indexEvent) {
-    return execute(new IndexProject(projectName));
+    return execute(new IndexProject(projectName), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> send(Event event) {
-    return execute(new PostEvent(event));
+    return execute(new PostEvent(event), streamEventsPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> evict(String cacheName, Object key) {
-    return execute(new EvictCache(cacheName, gson.toJson(key)));
+    return execute(new EvictCache(cacheName, gson.toJson(key)), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> addToProjectList(String projectName) {
-    return execute(new AddToProjectList(projectName));
+    return execute(new AddToProjectList(projectName), defaultPublisher);
   }
 
   @Override
   public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
-    return execute(new RemoveFromProjectList(projectName));
+    return execute(new RemoveFromProjectList(projectName), defaultPublisher);
   }
 
   @Override
@@ -122,7 +127,7 @@ public class PubSubForwarder implements Forwarder {
         .build();
   }
 
-  private CompletableFuture<Boolean> execute(Command cmd) {
+  private CompletableFuture<Boolean> execute(Command cmd, Publisher publisher) {
     CompletableFuture<Boolean> future = new CompletableFuture<>();
     String msg = gson.toJson(cmd);
     log.atInfo().log("Publishing message: %s", msg);
