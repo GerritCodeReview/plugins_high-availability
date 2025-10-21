@@ -20,32 +20,28 @@ import com.google.api.gax.rpc.TransportChannelProvider;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.gerrit.server.StartupException;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.pubsub.v1.TopicName;
 import java.io.IOException;
 
 @Singleton
-public class LocalPublisherProvider implements Provider<Publisher> {
+public class LocalPublisherFactory implements PublisherFactory {
   private final CredentialsProvider credentials;
   private final TransportChannelProvider transportChannelProvider;
-  private final TopicName topic;
   private final ExecutorProvider executor;
 
   @Inject
-  public LocalPublisherProvider(
+  public LocalPublisherFactory(
       CredentialsProvider credentials,
       TransportChannelProvider transportChannelProvider,
-      @DefaultTopic TopicName topic,
       @PublisherExecutorProvider ExecutorProvider executor) {
     this.credentials = credentials;
     this.transportChannelProvider = transportChannelProvider;
-    this.topic = topic;
     this.executor = executor;
   }
 
   @Override
-  public Publisher get() {
+  public Publisher create(TopicName topic) {
     try {
       return Publisher.newBuilder(topic)
           .setExecutorProvider(executor)

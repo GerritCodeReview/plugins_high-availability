@@ -89,6 +89,7 @@ pull all messages except for their own from their subscription.
   gcloudProject = project
   privateKeyLocation = etc/serviceAccountKey.json
   topic = gerrit
+  streamEventsTopic = stream-events
   ackDeadline = 10s
   subscriptionTimeout = 10s
   shutdownTimeout = 10s
@@ -318,7 +319,11 @@ calls by specifying the following fields:
     mandatory if using PubSub.
 
 ```pubsub.topic```
-:   PubSub topic to publish event messages to. Defaults to `gerrit`.
+:   The default pubsub topic for publishing all messages that do not have
+    a specific topic. Defaults to `gerrit`.
+
+```pubsub.streamEventsTopic```
+:   PubSub topic to publish event messages to. Defaults to `stream-events`.
 
 ```pubsub.ackDeadline```
 :   Time span the PubSub subscription will wait for acknowledgement of the message

@@ -36,7 +36,8 @@ public class PubSubInitializer {
   private final SubscriptionAdminClient subscriptionAdminClient;
   private final Configuration pluginConfiguration;
   private final String instanceId;
-  private final TopicName topic;
+  private final TopicNames topicNames;
+  private final ProjectSubscriptionNameFactory subscriptionNameFactory;
 
   @Inject
   PubSubInitializer(
@@ -44,20 +45,24 @@ public class PubSubInitializer {
       SubscriptionAdminClient subscriptionAdminClient,
       Configuration pluginConfiguration,
       @GerritInstanceId String instanceId,
-      @DefaultTopic TopicName topic) {
+      TopicNames topicNames,
+      ProjectSubscriptionNameFactory subscriptionNameFactory) {
     this.topicAdminClient = topicAdminClient;
     this.subscriptionAdminClient = subscriptionAdminClient;
     this.pluginConfiguration = pluginConfiguration;
     this.instanceId = instanceId;
-    this.topic = topic;
+    this.topicNames = topicNames;
+    this.subscriptionNameFactory = subscriptionNameFactory;
   }
 
   public void initialize() {
-    initializeTopic();
-    initializeSubscription();
+    for (TopicName topic : topicNames.all()) {
+      initializeTopic(topic);
+      initializeSubscription(topic);
+    }
   }
 
-  private void initializeTopic() {
+  private void initializeTopic(TopicName topic) {
     try {
       topicAdminClient.createTopic(topic);
       logger.atInfo().log("Created topic %s", topic.getTopic());
@@ -66,22 +71,19 @@ public class PubSubInitializer {
     }
   }
 
-  private void initializeSubscription() {
-    Configuration.PubSub pubSubProperties = pluginConfiguration.pubSub();
-    String subscriptionId = String.format("%s-%s", instanceId, topic.getTopic());
-    ProjectSubscriptionName projectSubscriptionName =
-        ProjectSubscriptionName.of(pubSubProperties.gCloudProject(), subscriptionId);
+  private void initializeSubscription(TopicName topic) {
+    ProjectSubscriptionName projectSubscriptionName = subscriptionNameFactory.create(topic);
     try {
       subscriptionAdminClient.getSubscription(projectSubscriptionName);
-      logger.atInfo().log("Subscription %s already exists", subscriptionId);
+      logger.atInfo().log("Subscription for topic %s already exists", topic);
     } catch (NotFoundException e) {
-      logger.atInfo().log("Creating subscription %s", subscriptionId);
+      logger.atInfo().log("Creating subscription for topic %s", topic);
       String filter = String.format("attributes.instanceId!=\"%s\"", instanceId);
       Subscription subscription =
           Subscription.newBuilder()
               .setName(projectSubscriptionName.toString())
               .setTopic(topic.toString())
-              .setAckDeadlineSeconds((int) pubSubProperties.ackDeadline().getSeconds())
+              .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
               .setFilter(filter)
               .build();
       subscriptionAdminClient.createSubscription(subscription);
