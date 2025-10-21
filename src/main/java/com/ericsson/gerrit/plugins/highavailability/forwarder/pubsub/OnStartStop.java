@@ -22,6 +22,7 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -31,54 +32,67 @@ public class OnStartStop implements LifecycleListener {
 
   private final PubSubInitializer initializer;
   private final Configuration config;
-  private final Provider<Publisher> publisher;
-  private final Provider<Subscriber> subscriber;
+
+  private final Provider<Collection<Publisher>> publishers;
+  private final Provider<Collection<Subscriber>> subscribers;
 
   @Inject
   public OnStartStop(
       PubSubInitializer initializer,
       Configuration config,
-      Provider<Publisher> publisher,
-      Provider<Subscriber> subscriber) {
+      Provider<Collection<Publisher>> publishers,
+      Provider<Collection<Subscriber>> subscribers) {
     this.initializer = initializer;
     this.config = config;
-    this.publisher = publisher;
-    this.subscriber = subscriber;
+    this.publishers = publishers;
+    this.subscribers = subscribers;
   }
 
   @Override
   public void start() {
     initializer.initialize();
-    try {
-      subscriber
-          .get()
-          .startAsync()
-          .awaitRunning(config.pubSub().subscriptionTimeout().getSeconds(), TimeUnit.SECONDS);
-    } catch (TimeoutException e) {
-      throw new IllegalStateException("Timeout while subscribing to PubSub topic", e);
+    startSubscribers();
+  }
+
+  private void startSubscribers() {
+    for (Subscriber subscriber : subscribers.get()) {
+      try {
+        subscriber
+            .startAsync()
+            .awaitRunning(config.pubSub().subscriptionTimeout().getSeconds(), TimeUnit.SECONDS);
+      } catch (TimeoutException e) {
+        throw new IllegalStateException("Timeout while subscribing to PubSub topic", e);
+      }
     }
   }
 
   @Override
   public void stop() {
-    logger.atInfo().log("Closing PubSub publisher");
-    try {
-      publisher.get().shutdown();
-      publisher
-          .get()
-          .awaitTermination(config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
-    } catch (InterruptedException e) {
-      logger.atSevere().withCause(e).log("Could not close the MessageDispatcher");
-    }
+    shutdownPublishers();
+    stopSubscribers();
+  }
 
-    logger.atInfo().log("Closing PubSub subscriber");
-    try {
-      subscriber
-          .get()
-          .stopAsync()
-          .awaitTerminated(config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
-    } catch (TimeoutException e) {
-      logger.atSevere().withCause(e).log("Timeout during stopping of subscription.");
+  private void shutdownPublishers() {
+    for (Publisher publisher : publishers.get()) {
+      try {
+        publisher.shutdown();
+        publisher.awaitTermination(
+            config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
+      } catch (InterruptedException e) {
+        logger.atSevere().withCause(e).log("Could not close the MessageDispatcher");
+      }
+    }
+  }
+
+  private void stopSubscribers() {
+    for (Subscriber subscriber : subscribers.get()) {
+      try {
+        subscriber
+            .stopAsync()
+            .awaitTerminated(config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
+      } catch (TimeoutException e) {
+        logger.atSevere().withCause(e).log("Timeout during stopping of subscription.");
+      }
     }
   }
 }

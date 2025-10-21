@@ -20,7 +20,6 @@ import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminClient;
-import com.google.pubsub.v1.TopicName;
 
 public abstract class PubSubTestSystem {
   final Configuration cfg;
@@ -42,7 +41,9 @@ public abstract class PubSubTestSystem {
 
   abstract String getProjectId();
 
-  abstract TopicName getTopicName();
+  abstract String getTopicName();
+
+  abstract String getStreamEventsTopicName();
 
   abstract CredentialsProvider getCredentials() throws Exception;
 
@@ -51,6 +52,8 @@ public abstract class PubSubTestSystem {
   abstract SubscriptionAdminClient getSubscriptionAdminClient() throws Exception;
 
   abstract Publisher getPublisher() throws Exception;
+
+  abstract Publisher getStreamEventsPublisher() throws Exception;
 
   abstract Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId)
       throws Exception;

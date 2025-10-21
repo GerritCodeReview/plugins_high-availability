@@ -575,6 +575,7 @@ public class Configuration {
     static final String GCLOUD_PROJECT_FIELD = "gcloudProject";
     static final String PRIVATE_KEY_LOCATION_FIELD = "privateKeyLocation";
     static final String DEFAULT_TOPIC_FIELD = "topic";
+    static final String STREAM_EVENTS_TOPIC_FIELD = "streamEventsTopic";
     static final String ACK_DEADLINE_FIELD = "ackDeadline";
     static final String SUBSCRIPTION_TIMEOUT_FIELD = "subscriptionTimeout";
     static final String SHUTDOWN_TIMEOUT_FIELD = "shutdownTimeout";
@@ -585,6 +586,7 @@ public class Configuration {
     static final Duration DEFAULT_SUBSCRIPTION_TIMEOUT = Duration.ofSeconds(10);
     static final Duration DEFAULT_SHUTDOWN_TIMEOUT = Duration.ofSeconds(10);
     static final String DEFAULT_TOPIC = "gerrit";
+    static final String STREAM_EVENTS_TOPIC = "stream-events";
     static final int DEFAULT_PUBLISHER_THREAD_POOL_SIZE = 4;
     static final int DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE = 4;
 
@@ -594,6 +596,7 @@ public class Configuration {
     private final Duration subscriptionTimeout;
     private final Duration shutdownTimeout;
     private final String defaultTopic;
+    private final String streamEventsTopic;
     private final int publisherThreadPoolSize;
     private final int subscriberThreadPoolSize;
 
@@ -601,6 +604,8 @@ public class Configuration {
       this.gcloudProject = getString(cfg, PUBSUB_SECTION, GCLOUD_PROJECT_FIELD, null);
       this.privateKeyLocation = getString(cfg, PUBSUB_SECTION, PRIVATE_KEY_LOCATION_FIELD, null);
       this.defaultTopic = getString(cfg, PUBSUB_SECTION, DEFAULT_TOPIC_FIELD, DEFAULT_TOPIC);
+      this.streamEventsTopic =
+          getString(cfg, PUBSUB_SECTION, STREAM_EVENTS_TOPIC_FIELD, STREAM_EVENTS_TOPIC);
       this.ackDeadline = getDuration(cfg, PUBSUB_SECTION, ACK_DEADLINE_FIELD, DEFAULT_ACK_DEADLINE);
       this.subscriptionTimeout =
           getDuration(
@@ -644,6 +649,10 @@ public class Configuration {
 
     public String defaultTopic() {
       return defaultTopic;
+    }
+
+    public String streamEventsTopic() {
+      return streamEventsTopic;
     }
 
     public int publisherThreadPoolSize() {

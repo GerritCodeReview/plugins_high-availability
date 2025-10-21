@@ -28,7 +28,6 @@ import com.google.cloud.pubsub.v1.TopicAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.common.flogger.FluentLogger;
 import com.google.pubsub.v1.ProjectSubscriptionName;
-import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
 import java.io.FileInputStream;
 
@@ -39,34 +38,50 @@ public class RealPubSub extends PubSubTestSystem {
 
   public static RealPubSub create(Configuration cfg) {
     if (INSTANCE == null) {
-      String keyPath = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
-      String project = System.getenv("GCP_PROJECT");
+      String keyPath = getEnv("GOOGLE_APPLICATION_CREDENTIALS");
+      String project = getEnv("GCP_PROJECT");
       String topic = System.getenv("PUBSUB_TOPIC");
+      String streamEventsTopic = System.getenv("PUBSUB_STREAM_EVENTS_TOPIC");
       if (Strings.isNullOrEmpty(topic)) {
         INSTANCE = new RealPubSub(cfg, keyPath, project);
       } else {
-        INSTANCE = new RealPubSub(cfg, keyPath, project, topic);
+        INSTANCE = new RealPubSub(cfg, keyPath, project, topic, streamEventsTopic);
       }
     }
     return INSTANCE;
   }
 
-  private final String keyPath;
-  private final TopicName topicName;
-
-  private boolean topicCreatedByTest;
-  private Subscriber subscriber;
-  private PubSubForwarderModule pubSubForwarderModule;
-
-  private RealPubSub(Configuration cfg, String keyPath, String project) {
-    this(cfg, keyPath, project, "gerrit-pubsub-" + System.currentTimeMillis());
+  private static String getEnv(String name) {
+    String value = System.getenv(name);
+    if (Strings.isNullOrEmpty(value)) {
+      throw new IllegalStateException("Environment variable " + name + " is not set");
+    }
+    return value;
   }
 
-  private RealPubSub(Configuration cfg, String keyPath, String project, String topic) {
+  private final String keyPath;
+  private final TopicName topicName;
+  private final TopicName streamEventsTopicName;
+
+  private boolean topicCreatedByTest;
+  private boolean streamEventsTopicCreatedByTest;
+  private Subscriber subscriber;
+
+  private RealPubSub(Configuration cfg, String keyPath, String project) {
+    this(
+        cfg,
+        keyPath,
+        project,
+        "gerrit-pubsub-" + System.currentTimeMillis(),
+        "gerrit-stream-events-" + System.currentTimeMillis());
+  }
+
+  private RealPubSub(
+      Configuration cfg, String keyPath, String project, String topic, String streamEventsTopic) {
     super(cfg);
     this.keyPath = keyPath;
     this.topicName = TopicName.of(project, topic);
-    this.pubSubForwarderModule = new PubSubForwarderModule(cfg);
+    this.streamEventsTopicName = TopicName.of(project, streamEventsTopic);
   }
 
   private TopicAdminSettings topicAdminSettings() throws Exception {
@@ -87,12 +102,18 @@ public class RealPubSub extends PubSubTestSystem {
       subscriptionAdminClient.deleteSubscription(subscriber.getSubscriptionNameString());
     }
     if (topicCreatedByTest) {
-      TopicName toBeDeleted = topicName;
-      try (TopicAdminClient topicAdminClient = TopicAdminClient.create(topicAdminSettings())) {
-        topicAdminClient.deleteTopic(toBeDeleted);
-      } catch (Exception e) {
-        logger.atSevere().withCause(e).log("Failed to delete topic %s", toBeDeleted);
-      }
+      deleteTopic(topicName);
+    }
+    if (streamEventsTopicCreatedByTest) {
+      deleteTopic(streamEventsTopicName);
+    }
+  }
+
+  private void deleteTopic(TopicName topicName) {
+    try (TopicAdminClient topicAdminClient = TopicAdminClient.create(topicAdminSettings())) {
+      topicAdminClient.deleteTopic(topicName);
+    } catch (Exception e) {
+      logger.atSevere().withCause(e).log("Failed to delete topic %s", topicName);
     }
   }
 
@@ -102,8 +123,13 @@ public class RealPubSub extends PubSubTestSystem {
   }
 
   @Override
-  TopicName getTopicName() {
-    return topicName;
+  String getTopicName() {
+    return topicName.getTopic();
+  }
+
+  @Override
+  String getStreamEventsTopicName() {
+    return streamEventsTopicName.getTopic();
   }
 
   @Override
@@ -119,35 +145,36 @@ public class RealPubSub extends PubSubTestSystem {
 
   @Override
   SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
-    GCPModule gcpModule = new PubSubForwarderModule.GCPModule();
+    GCPModule gcpModule = new GCPModule();
     return gcpModule.createSubscriptionAdminClient(getCredentials());
   }
 
   @Override
   Publisher getPublisher() throws Exception {
-    return new GCPPublisherProvider(
-            getCredentials(), topicName, PubSubForwarderModule.buildPublisherExecutorProvider(cfg))
-        .get();
+    return getPublisher(topicName);
+  }
+
+  @Override
+  Publisher getStreamEventsPublisher() throws Exception {
+    return getPublisher(streamEventsTopicName);
+  }
+
+  private Publisher getPublisher(TopicName topicName) throws Exception {
+    return new GCPPublisherFactory(
+            getCredentials(), PubSubForwarderModule.buildPublisherExecutorProvider(cfg))
+        .create(topicName);
   }
 
   @Override
   Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId) throws Exception {
-    subscriber =
-        new GCPSubscriberProvider(
-                getCredentials(),
-                getSubscription(instanceId),
-                new MessageReceiverProvider(cfg, processor, instanceId).get(),
-                PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
-            .get();
-    return subscriber;
-  }
-
-  Subscription getSubscription(String instanceId) throws Exception {
     ProjectSubscriptionName subscriptionName =
         new ProjectSubscriptionNameFactory(instanceId, cfg).create(topicName);
-    GCPModule gcpModule = new PubSubForwarderModule.GCPModule();
-    return pubSubForwarderModule.getSubscription(
-        gcpModule.createSubscriptionAdminClient(getCredentials()),
-        ProjectSubscriptionName.of(getProjectId(), subscriptionName.getSubscription()));
+    subscriber =
+        new GCPSubscriberFactory(
+                getCredentials(),
+                new MessageReceiverProvider(cfg, processor, instanceId).get(),
+                PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
+            .create(subscriptionName);
+    return subscriber;
   }
 }
