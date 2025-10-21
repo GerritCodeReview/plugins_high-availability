@@ -20,35 +20,31 @@ import com.google.api.gax.rpc.TransportChannelProvider;
 import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.google.pubsub.v1.Subscription;
+import com.google.pubsub.v1.ProjectSubscriptionName;
 
 @Singleton
-public class LocalSubscriberProvider implements Provider<Subscriber> {
+public class LocalSubscriberFactory implements SubscriberFactory {
   private final CredentialsProvider credentials;
   private TransportChannelProvider transportChannelProvider;
-  private final Subscription subscription;
   private final MessageReceiver messageReceiver;
   private final ExecutorProvider executor;
 
   @Inject
-  public LocalSubscriberProvider(
+  public LocalSubscriberFactory(
       CredentialsProvider credentials,
       TransportChannelProvider transportChannelProvider,
-      Subscription subscription,
       MessageReceiver messageReceiver,
       @SubscriberExecutorProvider ExecutorProvider executor) {
     this.credentials = credentials;
     this.transportChannelProvider = transportChannelProvider;
-    this.subscription = subscription;
     this.messageReceiver = messageReceiver;
     this.executor = executor;
   }
 
   @Override
-  public Subscriber get() {
-    return Subscriber.newBuilder(subscription.getName(), messageReceiver)
+  public Subscriber create(ProjectSubscriptionName subscriptionName) {
+    return Subscriber.newBuilder(subscriptionName.toString(), messageReceiver)
         .setExecutorProvider(executor)
         .setChannelProvider(transportChannelProvider)
         .setCredentialsProvider(credentials)
