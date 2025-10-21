@@ -14,8 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
 
-import static com.google.inject.Scopes.SINGLETON;
-
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.api.gax.core.CredentialsProvider;
@@ -35,27 +33,19 @@ import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
-import com.google.pubsub.v1.ProjectSubscriptionName;
-import com.google.pubsub.v1.Subscription;
-import com.google.pubsub.v1.TopicName;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class PubSubForwarderModule extends LifecycleModule {
   public static final String PUBSUB_EMULATOR_HOST = "PUBSUB_EMULATOR_HOST";
-
-  private final Configuration config;
-
-  public PubSubForwarderModule(Configuration config) {
-    this.config = config;
-  }
 
   @Override
   protected void configure() {
@@ -69,11 +59,9 @@ public class PubSubForwarderModule extends LifecycleModule {
       install(new EmulatorModule(hostPort));
     }
 
+    bind(ProjectSubscriptionNameFactory.class);
     bind(PubSubMessageProcessor.class);
     bind(Forwarder.class).to(PubSubForwarder.class);
-    bind(TopicName.class)
-        .annotatedWith(DefaultTopic.class)
-        .toInstance(TopicName.of(config.pubSub().gCloudProject(), config.pubSub().defaultTopic()));
     listener().to(OnStartStop.class);
   }
 
@@ -99,18 +87,35 @@ public class PubSubForwarderModule extends LifecycleModule {
 
   @Provides
   @Singleton
-  ProjectSubscriptionName getProjectSubscriptionName(
-      Configuration config, @GerritInstanceId String instanceId, @DefaultTopic TopicName topic) {
-    String subscriptionId = String.format("%s-%s", instanceId, topic.getTopic());
-    return ProjectSubscriptionName.of(config.pubSub().gCloudProject(), subscriptionId);
+  @DefaultTopic
+  Publisher createDefaultTopicPublisher(PublisherFactory factory, TopicNames topicNames) {
+    return factory.create(topicNames.defaultTopic());
   }
 
   @Provides
   @Singleton
-  Subscription getSubscription(
-      SubscriptionAdminClient subscriptionAdminClient,
-      ProjectSubscriptionName projectSubscriptionName) {
-    return subscriptionAdminClient.getSubscription(projectSubscriptionName);
+  @StreamEventsTopic
+  Publisher createStreamEventsTopicPublisher(PublisherFactory factory, TopicNames topicNames) {
+    return factory.create(topicNames.streamEventsTopic());
+  }
+
+  @Provides
+  @Singleton
+  Collection<Publisher> allPublishers(
+      @DefaultTopic Publisher defaultPublisher,
+      @StreamEventsTopic Publisher streamEventsPublisher) {
+    return List.of(defaultPublisher, streamEventsPublisher);
+  }
+
+  @Provides
+  @Singleton
+  Collection<Subscriber> allSubscribers(
+      TopicNames topicNames,
+      ProjectSubscriptionNameFactory subscriptionNameFactory,
+      SubscriberFactory subscriberFactory) {
+    return topicNames.all().stream()
+        .map(topic -> subscriberFactory.create(subscriptionNameFactory.create(topic)))
+        .toList();
   }
 
   private static String getEmulatorHost() {
@@ -124,8 +129,8 @@ public class PubSubForwarderModule extends LifecycleModule {
       bind(CredentialsProvider.class)
           .toProvider(ServiceAccountCredentialsProvider.class)
           .in(Scopes.SINGLETON);
-      bind(Publisher.class).toProvider(GCPPublisherProvider.class).in(SINGLETON);
-      bind(Subscriber.class).toProvider(GCPSubscriberProvider.class).in(SINGLETON);
+      bind(PublisherFactory.class).to(GCPPublisherFactory.class);
+      bind(SubscriberFactory.class).to(GCPSubscriberFactory.class);
     }
 
     @Provides
@@ -155,8 +160,8 @@ public class PubSubForwarderModule extends LifecycleModule {
     @Override
     protected void configure() {
       bind(CredentialsProvider.class).toInstance(NoCredentialsProvider.create());
-      bind(Publisher.class).toProvider(LocalPublisherProvider.class).in(SINGLETON);
-      bind(Subscriber.class).toProvider(LocalSubscriberProvider.class).in(SINGLETON);
+      bind(PublisherFactory.class).to(LocalPublisherFactory.class);
+      bind(SubscriberFactory.class).to(LocalSubscriberFactory.class);
     }
 
     @Provides
