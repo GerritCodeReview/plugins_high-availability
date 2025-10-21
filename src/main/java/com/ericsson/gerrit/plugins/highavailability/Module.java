@@ -62,7 +62,7 @@ class Module extends LifecycleModule {
         break;
       case PUBSUB:
         install(new ForwarderCommandsModule());
-        install(new PubSubForwarderModule(config));
+        install(new PubSubForwarderModule());
         break;
       default:
         throw new IllegalArgumentException("Unsupported transport: " + config.main().transport());
