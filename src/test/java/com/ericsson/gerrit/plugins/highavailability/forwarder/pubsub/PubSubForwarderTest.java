@@ -33,6 +33,7 @@ import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
 import com.google.inject.util.Providers;
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.After;
 import org.junit.Before;
@@ -48,6 +49,7 @@ public class PubSubForwarderTest {
 
   private PubSubTestSystem testSystem;
   private Publisher publisher;
+  private Publisher streamEventsPublisher;
   private PubSubForwarder forwarder;
   private Subscriber subscriber;
   private OnStartStop onStartStop;
@@ -60,13 +62,16 @@ public class PubSubForwarderTest {
 
     testSystem = PubSubTestSystem.create(cfg);
     when(cfg.pubSub().gCloudProject()).thenReturn(testSystem.getProjectId());
+    when(cfg.pubSub().defaultTopic()).thenReturn("gerrit");
+    when(cfg.pubSub().streamEventsTopic()).thenReturn("stream-events");
     when(cfg.pubSub().subscriptionTimeout()).thenReturn(Duration.ofSeconds(30));
     when(cfg.pubSub().shutdownTimeout()).thenReturn(Duration.ofSeconds(30));
 
     Gson eventGson = new EventGsonProvider().get();
     gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
     publisher = testSystem.getPublisher();
-    forwarder = new PubSubForwarder(publisher, gson, PUBLISHER_INSTANCE_ID);
+    streamEventsPublisher = testSystem.getStreamEventsPublisher();
+    forwarder = new PubSubForwarder(publisher, streamEventsPublisher, gson, PUBLISHER_INSTANCE_ID);
 
     TopicAdminClient topicAdminClient = testSystem.getTopicAdminClient();
     SubscriptionAdminClient subscriptionAdminClient = testSystem.getSubscriptionAdminClient();
@@ -76,15 +81,17 @@ public class PubSubForwarderTest {
             subscriptionAdminClient,
             cfg,
             SUBSCRIBER_INSTANCE_ID,
-            testSystem.getTopicName());
+            new TopicNames(cfg),
+            new ProjectSubscriptionNameFactory(SUBSCRIBER_INSTANCE_ID, cfg));
 
-    onStartStop = new OnStartStop(initializer, cfg, Providers.of(publisher), this::getSubscriber);
+    onStartStop =
+        new OnStartStop(initializer, cfg, Providers.of(List.of(publisher)), this::getSubscriber);
     onStartStop.start();
   }
 
-  private Subscriber getSubscriber() {
+  private List<Subscriber> getSubscriber() {
     if (subscriber != null) {
-      return subscriber;
+      return List.of(subscriber);
     }
     PubSubMessageProcessor msgProcessor = new PubSubMessageProcessor(gson, cmdProcessor);
     try {
@@ -92,7 +99,7 @@ public class PubSubForwarderTest {
     } catch (Exception e) {
       throw new IllegalStateException("Could not create PubSub subscriber", e);
     }
-    return subscriber;
+    return List.of(subscriber);
   }
 
   @After
