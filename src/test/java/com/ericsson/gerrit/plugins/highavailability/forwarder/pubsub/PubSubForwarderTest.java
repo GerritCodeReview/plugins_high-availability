@@ -66,6 +66,9 @@ public class PubSubForwarderTest {
     when(cfg.pubSub().streamEventsTopic()).thenReturn("stream-events");
     when(cfg.pubSub().subscriptionTimeout()).thenReturn(Duration.ofSeconds(30));
     when(cfg.pubSub().shutdownTimeout()).thenReturn(Duration.ofSeconds(30));
+    when(cfg.pubSub().ackDeadline()).thenReturn(Duration.ofSeconds(10));
+    when(cfg.pubSub().retainAckedMessages()).thenReturn(false);
+    when(cfg.pubSub().messageRetentionDuration()).thenReturn(Duration.ofMinutes(10));
 
     Gson eventGson = new EventGsonProvider().get();
     gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
