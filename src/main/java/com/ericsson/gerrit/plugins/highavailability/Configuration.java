@@ -577,12 +577,16 @@ public class Configuration {
     static final String DEFAULT_TOPIC_FIELD = "topic";
     static final String STREAM_EVENTS_TOPIC_FIELD = "streamEventsTopic";
     static final String ACK_DEADLINE_FIELD = "ackDeadline";
+    static final String MESSAGE_RETENTION_DURATION_FIELD = "messageRetentionDuration";
+    static final String RETAIN_ACKED_MESSAGES_FIELD = "retainAckedMessages";
     static final String SUBSCRIPTION_TIMEOUT_FIELD = "subscriptionTimeout";
     static final String SHUTDOWN_TIMEOUT_FIELD = "shutdownTimeout";
     static final String PUBLISHER_THREAD_POOL_SIZE_FIELD = "publisherThreadPoolSize";
     static final String SUBSCRIBER_THREAD_POOL_SIZE_FIELD = "subscriberThreadPoolSize";
 
     static final Duration DEFAULT_ACK_DEADLINE = Duration.ofSeconds(10);
+    static final Duration DEFAULT_MESSAGE_RETENTION_DURATION = Duration.ofDays(7);
+    static final boolean DEFAULT_RETAIN_ACKED_MESSAGES = false;
     static final Duration DEFAULT_SUBSCRIPTION_TIMEOUT = Duration.ofSeconds(10);
     static final Duration DEFAULT_SHUTDOWN_TIMEOUT = Duration.ofSeconds(10);
     static final String DEFAULT_TOPIC = "gerrit";
@@ -593,6 +597,8 @@ public class Configuration {
     private final String gcloudProject;
     private final String privateKeyLocation;
     private final Duration ackDeadline;
+    private final Duration messageRetentionDuration;
+    private final boolean retainAckedMessages;
     private final Duration subscriptionTimeout;
     private final Duration shutdownTimeout;
     private final String defaultTopic;
@@ -608,6 +614,15 @@ public class Configuration {
       this.streamEventsTopic =
           getString(cfg, PUBSUB_SECTION, STREAM_EVENTS_TOPIC_FIELD, STREAM_EVENTS_TOPIC);
       this.ackDeadline = getDuration(cfg, PUBSUB_SECTION, ACK_DEADLINE_FIELD, DEFAULT_ACK_DEADLINE);
+      this.messageRetentionDuration =
+          getDuration(
+              cfg,
+              PUBSUB_SECTION,
+              MESSAGE_RETENTION_DURATION_FIELD,
+              DEFAULT_MESSAGE_RETENTION_DURATION);
+      this.retainAckedMessages =
+          cfg.getBoolean(
+              PUBSUB_SECTION, RETAIN_ACKED_MESSAGES_FIELD, DEFAULT_RETAIN_ACKED_MESSAGES);
       this.subscriptionTimeout =
           getDuration(
               cfg, PUBSUB_SECTION, SUBSCRIPTION_TIMEOUT_FIELD, DEFAULT_SUBSCRIPTION_TIMEOUT);
@@ -638,6 +653,14 @@ public class Configuration {
 
     public Duration ackDeadline() {
       return ackDeadline;
+    }
+
+    public Duration messageRetentionDuration() {
+      return messageRetentionDuration;
+    }
+
+    public boolean retainAckedMessages() {
+      return retainAckedMessages;
     }
 
     public Duration subscriptionTimeout() {
