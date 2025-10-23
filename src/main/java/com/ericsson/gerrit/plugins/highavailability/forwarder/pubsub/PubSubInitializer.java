@@ -84,6 +84,12 @@ public class PubSubInitializer {
               .setName(projectSubscriptionName.toString())
               .setTopic(topic.toString())
               .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
+              .setMessageRetentionDuration(
+                  com.google.protobuf.Duration.newBuilder()
+                      .setSeconds(
+                          pluginConfiguration.pubSub().messageRetentionDuration().getSeconds())
+                      .build())
+              .setRetainAckedMessages(pluginConfiguration.pubSub().retainAckedMessages())
               .setFilter(filter)
               .build();
       subscriptionAdminClient.createSubscription(subscription);
