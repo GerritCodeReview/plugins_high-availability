@@ -91,6 +91,8 @@ pull all messages except for their own from their subscription.
   topic = gerrit
   streamEventsTopic = stream-events
   ackDeadline = 10s
+  messageRetentionDuration = 7days
+  retainAckedMessages = true
   subscriptionTimeout = 10s
   shutdownTimeout = 10s
   publisherThreadPoolSize = 4
@@ -329,6 +331,15 @@ calls by specifying the following fields:
 :   Time span the PubSub subscription will wait for acknowledgement of the message
     before declaring message delivery as failed. Defaults to 10s.
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+
+```pubsub.messageRetentionDuration```
+:   How long to retain unacknowledged messages in the subscription's backlog.
+    If `retainAckedMessages` is `true`, then this also configures the retention
+    of acknowledged messages. Defaults to 7 days.
+
+```pubsub.retainAckedMessages```
+:   Indicates whether to retain acknowledged messages. Applies to subscriptions.
+    Defaults to `false`.
 
 ```pubsub.subscriptionTimeout```
 :   Timeout for establishing the subscription. Defaults to 10s.
