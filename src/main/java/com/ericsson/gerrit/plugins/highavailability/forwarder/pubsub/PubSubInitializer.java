@@ -24,6 +24,7 @@ import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.protobuf.FieldMask;
+import com.google.pubsub.v1.DeadLetterPolicy;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
@@ -60,8 +61,13 @@ public class PubSubInitializer {
   public void initialize() {
     for (TopicName topic : topicNames.all()) {
       initializeTopic(topic);
+      initializeTopic(createDltTopicName(topic));
       initializeSubscription(topic);
     }
+  }
+
+  private TopicName createDltTopicName(TopicName topic) {
+    return TopicName.of(topic.getProject(), topic.getTopic() + "-dlt");
   }
 
   private void initializeTopic(TopicName topic) {
@@ -91,10 +97,16 @@ public class PubSubInitializer {
       subscriptionAdminClient.createSubscription(subscription);
     }
 
-    updateSubscriptionSettings(subscription);
+    updateSubscriptionSettings(subscription, topic);
   }
 
-  private void updateSubscriptionSettings(Subscription subscription) {
+  private void updateSubscriptionSettings(Subscription subscription, TopicName topic) {
+    DeadLetterPolicy deadLetterPolicy =
+        DeadLetterPolicy.newBuilder()
+            .setDeadLetterTopic(createDltTopicName(topic).toString())
+            .setMaxDeliveryAttempts(5)
+            .build();
+
     Subscription desired =
         subscription.toBuilder()
             .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
@@ -104,6 +116,7 @@ public class PubSubInitializer {
                         pluginConfiguration.pubSub().messageRetentionDuration().getSeconds())
                     .build())
             .setRetainAckedMessages(pluginConfiguration.pubSub().retainAckedMessages())
+            .setDeadLetterPolicy(deadLetterPolicy)
             .build();
 
     FieldMask fieldMask =
@@ -111,6 +124,7 @@ public class PubSubInitializer {
             .addPaths("ack_deadline_seconds")
             .addPaths("message_retention_duration")
             .addPaths("retain_acked_messages")
+            .addPaths("dead_letter_policy")
             .build();
 
     UpdateSubscriptionRequest updateRequest =
