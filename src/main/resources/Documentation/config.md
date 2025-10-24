@@ -97,6 +97,8 @@ pull all messages except for their own from their subscription.
   shutdownTimeout = 10s
   publisherThreadPoolSize = 4
   subscriberThreadPoolSize = 4
+[pubsub "dlt"]
+  maxDeliveryAttempts = 5
 ```
 
 ```main.sharedDirectory```
@@ -354,6 +356,10 @@ calls by specifying the following fields:
 
 ```pubsub.subscriberThreadPoolSize```
 :   Thread pool size for PubSub subscriber. Defaults to 4.
+
+```pubsub.dlt.maxDeliveryAttempts```
+:   The maximum number of delivery attempts for any message. After this many
+    failed delivery attempts the message is moved to the dead letter topic.
 
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.
