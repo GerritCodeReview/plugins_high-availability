@@ -23,9 +23,11 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.protobuf.FieldMask;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
+import com.google.pubsub.v1.UpdateSubscriptionRequest;
 
 /** Initialize topic(s) and subscription(s) for Pub/Sub if they do not already exist. */
 @Singleton
@@ -73,26 +75,50 @@ public class PubSubInitializer {
 
   private void initializeSubscription(TopicName topic) {
     ProjectSubscriptionName projectSubscriptionName = subscriptionNameFactory.create(topic);
+    Subscription subscription;
     try {
-      subscriptionAdminClient.getSubscription(projectSubscriptionName);
+      subscription = subscriptionAdminClient.getSubscription(projectSubscriptionName);
       logger.atInfo().log("Subscription for topic %s already exists", topic);
     } catch (NotFoundException e) {
       logger.atInfo().log("Creating subscription for topic %s", topic);
       String filter = String.format("attributes.instanceId!=\"%s\"", instanceId);
-      Subscription subscription =
+      subscription =
           Subscription.newBuilder()
               .setName(projectSubscriptionName.toString())
               .setTopic(topic.toString())
-              .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
-              .setMessageRetentionDuration(
-                  com.google.protobuf.Duration.newBuilder()
-                      .setSeconds(
-                          pluginConfiguration.pubSub().messageRetentionDuration().getSeconds())
-                      .build())
-              .setRetainAckedMessages(pluginConfiguration.pubSub().retainAckedMessages())
               .setFilter(filter)
               .build();
       subscriptionAdminClient.createSubscription(subscription);
     }
+
+    updateSubscriptionSettings(subscription);
+  }
+
+  private void updateSubscriptionSettings(Subscription subscription) {
+    Subscription desired =
+        subscription.toBuilder()
+            .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
+            .setMessageRetentionDuration(
+                com.google.protobuf.Duration.newBuilder()
+                    .setSeconds(
+                        pluginConfiguration.pubSub().messageRetentionDuration().getSeconds())
+                    .build())
+            .setRetainAckedMessages(pluginConfiguration.pubSub().retainAckedMessages())
+            .build();
+
+    FieldMask fieldMask =
+        FieldMask.newBuilder()
+            .addPaths("ack_deadline_seconds")
+            .addPaths("message_retention_duration")
+            .addPaths("retain_acked_messages")
+            .build();
+
+    UpdateSubscriptionRequest updateRequest =
+        UpdateSubscriptionRequest.newBuilder()
+            .setSubscription(desired)
+            .setUpdateMask(fieldMask)
+            .build();
+
+    subscriptionAdminClient.updateSubscription(updateRequest);
   }
 }
