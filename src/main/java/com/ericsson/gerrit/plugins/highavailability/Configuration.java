@@ -73,6 +73,7 @@ public class Configuration {
   private final JGroupsKubernetes jgroupsKubernetes;
   private final Http http;
   private final PubSub pubSub;
+  private final PubSubDlt pubSubDlt;
   private final Cache cache;
   private final Event event;
   private final Index index;
@@ -118,6 +119,7 @@ public class Configuration {
     jgroupsKubernetes = new JGroupsKubernetes(cfg);
     http = new Http(cfg);
     pubSub = new PubSub(cfg);
+    pubSubDlt = new PubSubDlt(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
     index = new Index(cfg);
@@ -177,6 +179,10 @@ public class Configuration {
 
   public PubSub pubSub() {
     return pubSub;
+  }
+
+  public PubSubDlt pubSubDlt() {
+    return pubSubDlt;
   }
 
   public Cache cache() {
@@ -684,6 +690,28 @@ public class Configuration {
 
     public int subscriberThreadPoolSize() {
       return subscriberThreadPoolSize;
+    }
+  }
+
+  public static class PubSubDlt {
+    static final String DLT_SUBSECTION = "dlt";
+    static final String MAX_DELIVERY_ATTEMPTS_FIELD = "maxDeliveryAttempts";
+
+    static final int DEFAULT_MAX_DELIVERY_ATTEMPTS = 5;
+    private final int maxDeliveryAttempts;
+
+    @Inject
+    public PubSubDlt(Config cfg) {
+      this.maxDeliveryAttempts =
+          cfg.getInt(
+              PubSub.PUBSUB_SECTION,
+              DLT_SUBSECTION,
+              MAX_DELIVERY_ATTEMPTS_FIELD,
+              DEFAULT_MAX_DELIVERY_ATTEMPTS);
+    }
+
+    public int maxDeliveryAttempts() {
+      return maxDeliveryAttempts;
     }
   }
 
