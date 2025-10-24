@@ -104,7 +104,7 @@ public class PubSubInitializer {
     DeadLetterPolicy deadLetterPolicy =
         DeadLetterPolicy.newBuilder()
             .setDeadLetterTopic(createDltTopicName(topic).toString())
-            .setMaxDeliveryAttempts(5)
+            .setMaxDeliveryAttempts(pluginConfiguration.pubSubDlt().maxDeliveryAttempts())
             .build();
 
     Subscription desired =
