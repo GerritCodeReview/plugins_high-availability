@@ -26,6 +26,7 @@ import com.google.inject.Singleton;
 import com.google.protobuf.FieldMask;
 import com.google.pubsub.v1.DeadLetterPolicy;
 import com.google.pubsub.v1.ProjectSubscriptionName;
+import com.google.pubsub.v1.RetryPolicy;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
 import com.google.pubsub.v1.UpdateSubscriptionRequest;
@@ -107,6 +108,18 @@ public class PubSubInitializer {
             .setMaxDeliveryAttempts(pluginConfiguration.pubSubDlt().maxDeliveryAttempts())
             .build();
 
+    RetryPolicy retryPolicy =
+        RetryPolicy.newBuilder()
+            .setMinimumBackoff(
+                com.google.protobuf.Duration.newBuilder()
+                    .setSeconds(pluginConfiguration.pubSub().minimumBackoff().getSeconds())
+                    .build())
+            .setMaximumBackoff(
+                com.google.protobuf.Duration.newBuilder()
+                    .setSeconds(pluginConfiguration.pubSub().maximumBackoff().getSeconds())
+                    .build())
+            .build();
+
     Subscription desired =
         subscription.toBuilder()
             .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
@@ -117,6 +130,7 @@ public class PubSubInitializer {
                     .build())
             .setRetainAckedMessages(pluginConfiguration.pubSub().retainAckedMessages())
             .setDeadLetterPolicy(deadLetterPolicy)
+            .setRetryPolicy(retryPolicy)
             .build();
 
     FieldMask fieldMask =
@@ -125,6 +139,7 @@ public class PubSubInitializer {
             .addPaths("message_retention_duration")
             .addPaths("retain_acked_messages")
             .addPaths("dead_letter_policy")
+            .addPaths("retry_policy")
             .build();
 
     UpdateSubscriptionRequest updateRequest =
