@@ -589,6 +589,8 @@ public class Configuration {
     static final String SHUTDOWN_TIMEOUT_FIELD = "shutdownTimeout";
     static final String PUBLISHER_THREAD_POOL_SIZE_FIELD = "publisherThreadPoolSize";
     static final String SUBSCRIBER_THREAD_POOL_SIZE_FIELD = "subscriberThreadPoolSize";
+    static final String MINIMUM_BACKOFF_FIELD = "minimumBackoff";
+    static final String MAXIMUM_BACKOFF_FIELD = "maximumBackoff";
 
     static final Duration DEFAULT_ACK_DEADLINE = Duration.ofSeconds(10);
     static final Duration DEFAULT_MESSAGE_RETENTION_DURATION = Duration.ofDays(7);
@@ -599,6 +601,8 @@ public class Configuration {
     static final String STREAM_EVENTS_TOPIC = "stream-events";
     static final int DEFAULT_PUBLISHER_THREAD_POOL_SIZE = 4;
     static final int DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE = 4;
+    static final Duration DEFAULT_MINIMUM_BACKOFF = Duration.ofSeconds(10);
+    static final Duration DEFAULT_MAXIMUM_BACKOFF = Duration.ofMinutes(10);
 
     private final String gcloudProject;
     private final String privateKeyLocation;
@@ -611,6 +615,8 @@ public class Configuration {
     private final String streamEventsTopic;
     private final int publisherThreadPoolSize;
     private final int subscriberThreadPoolSize;
+    private final Duration minimumBackoff;
+    private final Duration maximumBackoff;
 
     @Inject
     public PubSub(Config cfg) {
@@ -642,6 +648,10 @@ public class Configuration {
               PUBSUB_SECTION,
               SUBSCRIBER_THREAD_POOL_SIZE_FIELD,
               DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE);
+      this.minimumBackoff =
+          getDuration(cfg, PUBSUB_SECTION, MINIMUM_BACKOFF_FIELD, DEFAULT_MINIMUM_BACKOFF);
+      this.maximumBackoff =
+          getDuration(cfg, PUBSUB_SECTION, MAXIMUM_BACKOFF_FIELD, DEFAULT_MAXIMUM_BACKOFF);
     }
 
     public static String getString(Config cfg, String section, String field, String def) {
@@ -691,6 +701,14 @@ public class Configuration {
 
     public int subscriberThreadPoolSize() {
       return subscriberThreadPoolSize;
+    }
+
+    public Duration minimumBackoff() {
+      return minimumBackoff;
+    }
+
+    public Duration maximumBackoff() {
+      return maximumBackoff;
     }
   }
 
