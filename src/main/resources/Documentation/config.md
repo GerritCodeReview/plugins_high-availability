@@ -97,6 +97,8 @@ pull all messages except for their own from their subscription.
   shutdownTimeout = 10s
   publisherThreadPoolSize = 4
   subscriberThreadPoolSize = 4
+  minimumBackoff = 10s
+  maximumBackoff = 10m
 [pubsub "dlt"]
   maxDeliveryAttempts = 5
 ```
@@ -356,6 +358,14 @@ calls by specifying the following fields:
 
 ```pubsub.subscriberThreadPoolSize```
 :   Thread pool size for PubSub subscriber. Defaults to 4.
+
+```pubsub.minimumBackoff```
+:   The minimum delay between consecutive deliveries of a given message.
+    Defaults to 10 seconds.
+
+```pubsub.maximumBackoff```
+:   The maximum delay between consecutive deliveries of a given message.
+    Defaults to 10 minutes.
 
 ```pubsub.dlt.maxDeliveryAttempts```
 :   The maximum number of delivery attempts for any message. After this many
