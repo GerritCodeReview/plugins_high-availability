@@ -7,26 +7,33 @@ load(
     "gerrit_plugin",
 )
 
-gerrit_plugin(
-    name = "high-availability",
-    srcs = glob(["src/main/java/**/*.java"]),
-    manifest_entries = [
-        "Gerrit-PluginName: high-availability",
-        "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
-        "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
-        "Gerrit-InitStep: com.ericsson.gerrit.plugins.highavailability.Setup",
-        "Implementation-Title: high-availability plugin",
-        "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/high-availability",
-    ],
-    resources = glob(["src/main/resources/**/*"]),
-    deps = [
-        ":gcp-client",
-        ":global-refdb-neverlink",
-        "@failsafe//jar",
-        "@jgroups-kubernetes//jar",
-        "@jgroups//jar",
-    ],
-)
+[
+    gerrit_plugin(
+        name = name,
+        srcs = glob(["src/main/java/**/*.java"]),
+        dir_name = "high-availability",
+        manifest_entries = [
+            "Gerrit-PluginName: high-availability",
+            "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
+            "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
+            "Gerrit-InitStep: com.ericsson.gerrit.plugins.highavailability.Setup",
+            "Implementation-Title: high-availability plugin",
+            "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/high-availability",
+        ],
+        resources = glob(["src/main/resources/**/*"]),
+        deps = [
+            gcp_client_lib,
+            ":global-refdb-neverlink",
+            "@failsafe//jar",
+            "@jgroups-kubernetes//jar",
+            "@jgroups//jar",
+        ],
+    )
+    for name, gcp_client_lib in [
+        ("high-availability", ":gcp-client-neverlink"),
+        ("high-availability-pubsub", ":gcp-client"),
+    ]
+]
 
 GCP_PUBSUB_CLIENT_LIBS = [
     "@api-common//jar",
@@ -58,6 +65,12 @@ GCP_PUBSUB_CLIENT_LIBS = [
 
 java_library(
     name = "gcp-client",
+    exports = GCP_PUBSUB_CLIENT_LIBS,
+)
+
+java_library(
+    name = "gcp-client-neverlink",
+    neverlink = 1,
     exports = GCP_PUBSUB_CLIENT_LIBS,
 )
 
