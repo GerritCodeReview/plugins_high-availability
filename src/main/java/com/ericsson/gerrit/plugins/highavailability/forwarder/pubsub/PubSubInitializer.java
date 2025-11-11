@@ -61,8 +61,10 @@ public class PubSubInitializer {
 
   public void initialize() {
     for (TopicName topic : topicNames.all()) {
+      TopicName dltTopicName = createDltTopicName(topic);
+      initializeTopic(dltTopicName);
+      initializeDltSubscription(dltTopicName);
       initializeTopic(topic);
-      initializeTopic(createDltTopicName(topic));
       initializeSubscription(topic);
     }
   }
@@ -99,6 +101,24 @@ public class PubSubInitializer {
     }
 
     updateSubscriptionSettings(subscription, topic);
+  }
+
+  private void initializeDltSubscription(TopicName dltTopic) {
+    ProjectSubscriptionName projectSubscriptionName =
+        ProjectSubscriptionName.of(
+            pluginConfiguration.pubSub().gCloudProject(), "monitoring-" + dltTopic.getTopic());
+    try {
+      subscriptionAdminClient.getSubscription(projectSubscriptionName);
+      logger.atInfo().log("DLT Subscription for topic %s already exists", dltTopic);
+    } catch (NotFoundException e) {
+      logger.atInfo().log("Creating DLT subscription for topic %s", dltTopic);
+      Subscription subscription =
+          Subscription.newBuilder()
+              .setName(projectSubscriptionName.toString())
+              .setTopic(dltTopic.toString())
+              .build();
+      subscriptionAdminClient.createSubscription(subscription);
+    }
   }
 
   private void updateSubscriptionSettings(Subscription subscription, TopicName topic) {
