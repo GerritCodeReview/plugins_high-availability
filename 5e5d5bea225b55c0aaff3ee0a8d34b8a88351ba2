@@ -16,6 +16,24 @@
       "message": "This enum has to be maintained along the `Command` class hierarchy. Can we avoid that?\n\nIf it turns out that this new enum is really necessary, then please introduce it in own change preceding this one.",
       "revId": "5e5d5bea225b55c0aaff3ee0a8d34b8a88351ba2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c31d051_a5a818f4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/EventType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-11-13T07:57:22Z",
+      "side": 1,
+      "message": "It is necessary, because it is used as a key for the metric registry.\nI will move it to a separate change.",
+      "parentUuid": "51bc8a7d_37406ead",
+      "revId": "5e5d5bea225b55c0aaff3ee0a8d34b8a88351ba2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
