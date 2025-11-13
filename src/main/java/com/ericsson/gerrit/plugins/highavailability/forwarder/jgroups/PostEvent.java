@@ -14,10 +14,11 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.gerrit.server.events.Event;
 
 public class PostEvent extends Command {
-  static final String TYPE = "post-event";
+  static final EventType TYPE = EventType.EVENT_SENT;
 
   private final Event event;
 

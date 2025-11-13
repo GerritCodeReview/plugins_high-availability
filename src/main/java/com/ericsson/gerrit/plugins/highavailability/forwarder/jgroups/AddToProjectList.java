@@ -14,8 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+
 public class AddToProjectList extends Command {
-  static final String TYPE = "add-to-project-list";
+  static final EventType TYPE = EventType.PROJECT_LIST_ADDITION;
 
   private final String projectName;
 

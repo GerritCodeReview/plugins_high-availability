@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.common.base.Strings;
 
 public abstract class IndexChange extends Command {
@@ -21,7 +22,7 @@ public abstract class IndexChange extends Command {
   private final int id;
   private final boolean batchMode;
 
-  protected IndexChange(String type, String projectName, int id, boolean batchMode) {
+  protected IndexChange(EventType type, String projectName, int id, boolean batchMode) {
     super(type);
     this.projectName = projectName;
     this.id = id;
@@ -37,19 +38,23 @@ public abstract class IndexChange extends Command {
   }
 
   public static class Update extends IndexChange {
-    static final String TYPE = "update-change";
+    static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE;
 
     public Update(String projectName, int id) {
-      this(projectName, id, false);
+      super(TYPE, projectName, id, false);
     }
+  }
 
-    public Update(String projectName, int id, boolean batchMode) {
-      super(TYPE, projectName, id, batchMode);
+  public static class BatchUpdate extends IndexChange {
+    static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE_BATCH;
+
+    public BatchUpdate(String projectName, int id) {
+      super(TYPE, projectName, id, true);
     }
   }
 
   public static class Delete extends IndexChange {
-    static final String TYPE = "delete-change";
+    static final EventType TYPE = EventType.INDEX_CHANGE_DELETION;
 
     public Delete(int id) {
       this("", id);

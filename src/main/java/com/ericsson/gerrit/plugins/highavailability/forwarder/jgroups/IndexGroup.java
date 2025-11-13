@@ -14,8 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+
 public class IndexGroup extends Command {
-  static final String TYPE = "index-group";
+  static final EventType TYPE = EventType.INDEX_GROUP_UPDATE;
 
   private final String uuid;
 

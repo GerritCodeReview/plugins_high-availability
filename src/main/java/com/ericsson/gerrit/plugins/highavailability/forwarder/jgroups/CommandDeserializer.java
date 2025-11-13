@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -29,6 +30,7 @@ public class CommandDeserializer implements JsonDeserializer<Command> {
   private static final List<Class<? extends Command>> CMD_CLASSES =
       List.of(
           IndexChange.Update.class,
+          IndexChange.BatchUpdate.class,
           IndexChange.Delete.class,
           IndexAccount.class,
           IndexGroup.class,
@@ -37,13 +39,13 @@ public class CommandDeserializer implements JsonDeserializer<Command> {
           PostEvent.class,
           AddToProjectList.class,
           RemoveFromProjectList.class);
-  private static final Map<String, Class<?>> COMMAND_TYPE_TO_CLASS_MAPPING = new HashMap<>();
+  private static final Map<EventType, Class<?>> COMMAND_TYPE_TO_CLASS_MAPPING = new HashMap<>();
 
   static {
     for (Class<?> clazz : CMD_CLASSES) {
       try {
         Field type = clazz.getDeclaredField("TYPE");
-        COMMAND_TYPE_TO_CLASS_MAPPING.put((String) type.get(null), clazz);
+        COMMAND_TYPE_TO_CLASS_MAPPING.put((EventType) type.get(null), clazz);
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
@@ -63,7 +65,7 @@ public class CommandDeserializer implements JsonDeserializer<Command> {
       throw new JsonParseException("Type is not a string: " + typeJson);
     }
     String type = typeJson.getAsJsonPrimitive().getAsString();
-    Class<?> commandClass = COMMAND_TYPE_TO_CLASS_MAPPING.get(type);
+    Class<?> commandClass = COMMAND_TYPE_TO_CLASS_MAPPING.get(EventType.valueOf(type));
     if (commandClass == null) {
       throw new JsonParseException("Unknown command type: " + type);
     }
