@@ -14,10 +14,12 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
-public class Command {
-  public final String type;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 
-  protected Command(String type) {
+public class Command {
+  public final EventType type;
+
+  protected Command(EventType type) {
     this.type = type;
   }
 }

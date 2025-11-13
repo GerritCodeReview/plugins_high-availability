@@ -71,7 +71,7 @@ public class JGroupsForwarder implements Forwarder {
   @Override
   public CompletableFuture<Boolean> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId, true));
+    return execute(new IndexChange.BatchUpdate(projectName, changeId));
   }
 
   @Override

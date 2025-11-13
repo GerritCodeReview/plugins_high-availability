@@ -12,22 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import com.google.gerrit.entities.Project;
-
-public class DeleteAllProjectChangesFromIndex extends Command {
-  static final EventType TYPE = EventType.DELETE_ALL_PROJECT_CHANGES_FROM_INDEX;
-
-  private final Project.NameKey projectName;
-
-  protected DeleteAllProjectChangesFromIndex(Project.NameKey projectName) {
-    super(TYPE);
-    this.projectName = projectName;
-  }
-
-  public String getProjectName() {
-    return projectName.get();
-  }
+public enum EventType {
+  ADD_TO_PROJECT_LIST,
+  BATCH_INDEX_CHANGE,
+  DELETE_CHANGE_FROM_INDEX,
+  EVICT_CACHE,
+  INDEX_ACCOUNT,
+  INDEX_CHANGE,
+  INDEX_GROUP,
+  INDEX_PROJECT,
+  REMOVE_FROM_PROJECT_LIST,
+  SEND_EVENT,
+  DELETE_ALL_PROJECT_CHANGES_FROM_INDEX
 }

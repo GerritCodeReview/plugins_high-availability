@@ -127,7 +127,7 @@ public class MessageProcessor implements RequestHandler {
   }
 
   private Operation getOperation(IndexChange cmd) {
-    if (cmd instanceof IndexChange.Update) {
+    if (cmd instanceof IndexChange.Update || cmd instanceof IndexChange.BatchUpdate) {
       return Operation.INDEX;
     } else if (cmd instanceof IndexChange.Delete) {
       return Operation.DELETE;

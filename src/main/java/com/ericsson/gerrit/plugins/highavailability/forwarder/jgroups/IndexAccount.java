@@ -14,8 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+
 public class IndexAccount extends Command {
-  static final String TYPE = "index-account";
+  static final EventType TYPE = EventType.INDEX_ACCOUNT;
 
   private final int id;
 
