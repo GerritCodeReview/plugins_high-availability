@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.TestEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
@@ -35,19 +37,20 @@ import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.git.WorkQueue;
 import com.google.gson.Gson;
 import com.google.inject.Provider;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Set;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Answers;
+import org.mockito.Mock;
 
+@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class RestForwarderTest {
   private static final String URL = "http://fake.com";
   private static final String PLUGIN_NAME = "high-availability";
@@ -111,6 +114,9 @@ public class RestForwarderTest {
   private Configuration configMock;
   Provider<Set<PeerInfo>> peersMock;
 
+  @Mock ForwarderMetricsRegistry metricsRegistry;
+  @Mock ForwarderMetrics metrics;
+
   @SuppressWarnings("unchecked")
   @Before
   public void setUp() {
@@ -121,9 +127,7 @@ public class RestForwarderTest {
     when(configMock.http().threadPoolSize()).thenReturn(2);
     peersMock = mock(Provider.class);
     when(peersMock.get()).thenReturn(ImmutableSet.of(new PeerInfo(URL)));
-    WorkQueue workQueue = mock(WorkQueue.class);
-    when(workQueue.createQueue(configMock.http().threadPoolSize(), "RestForwarderScheduler"))
-        .thenReturn(Executors.newScheduledThreadPool(2));
+    when(metricsRegistry.get(any())).thenReturn(metrics);
     forwarder =
         new RestForwarder(
             httpSessionMock,
@@ -131,7 +135,8 @@ public class RestForwarderTest {
             configMock,
             peersMock,
             gson, // TODO: Create provider
-            new FailsafeExecutorProvider(configMock).get());
+            new FailsafeExecutorProvider(configMock).get(),
+            metricsRegistry);
   }
 
   @Test

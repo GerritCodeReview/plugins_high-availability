@@ -16,7 +16,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
@@ -33,6 +35,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import javax.net.ssl.SSLException;
@@ -55,6 +58,7 @@ public class RestForwarder implements Forwarder {
   private final Provider<Set<PeerInfo>> peerInfoProvider;
   private final Gson gson;
   private FailsafeExecutor<Boolean> executor;
+  private final ForwarderMetricsRegistry metricsRegistry;
 
   @Inject
   RestForwarder(
@@ -63,18 +67,27 @@ public class RestForwarder implements Forwarder {
       Configuration cfg,
       Provider<Set<PeerInfo>> peerInfoProvider,
       @EventGson Gson gson,
-      @RestForwarderExecutor FailsafeExecutor<Boolean> executor) {
+      @RestForwarderExecutor FailsafeExecutor<Boolean> executor,
+      ForwarderMetricsRegistry metricsRegistry) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
     this.gson = gson;
     this.executor = executor;
+    this.metricsRegistry = metricsRegistry;
+    this.metricsRegistry.putAll(Arrays.asList(EventType.values()));
   }
 
   @Override
   public CompletableFuture<Boolean> indexAccount(final int accountId, IndexEvent event) {
-    return execute(RequestMethod.POST, "index account", "index/account", accountId, event);
+    return execute(
+        RequestMethod.POST,
+        EventType.INDEX_ACCOUNT_UPDATE,
+        "index account",
+        "index/account",
+        accountId,
+        event);
   }
 
   @Override
@@ -82,6 +95,7 @@ public class RestForwarder implements Forwarder {
       String projectName, int changeId, IndexEvent event) {
     return execute(
         RequestMethod.POST,
+        EventType.INDEX_CHANGE_UPDATE,
         "index change",
         "index/change",
         buildIndexEndpoint(projectName, changeId),
@@ -93,6 +107,7 @@ public class RestForwarder implements Forwarder {
       String projectName, int changeId, IndexEvent event) {
     return execute(
         RequestMethod.POST,
+        EventType.INDEX_CHANGE_UPDATE_BATCH,
         "index change",
         "index/change/batch",
         buildIndexEndpoint(projectName, changeId),
@@ -102,12 +117,23 @@ public class RestForwarder implements Forwarder {
   @Override
   public CompletableFuture<Boolean> deleteChangeFromIndex(final int changeId, IndexEvent event) {
     return execute(
-        RequestMethod.DELETE, "delete change", "index/change", buildIndexEndpoint(changeId), event);
+        RequestMethod.DELETE,
+        EventType.INDEX_CHANGE_DELETION,
+        "delete change",
+        "index/change",
+        buildIndexEndpoint(changeId),
+        event);
   }
 
   @Override
   public CompletableFuture<Boolean> indexGroup(final String uuid, IndexEvent event) {
-    return execute(RequestMethod.POST, "index group", "index/group", uuid, event);
+    return execute(
+        RequestMethod.POST,
+        EventType.INDEX_GROUP_UPDATE,
+        "index group",
+        "index/group",
+        uuid,
+        event);
   }
 
   private String buildIndexEndpoint(int changeId) {
@@ -128,24 +154,37 @@ public class RestForwarder implements Forwarder {
   @Override
   public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent event) {
     return execute(
-        RequestMethod.POST, "index project", "index/project", Url.encode(projectName), event);
+        RequestMethod.POST,
+        EventType.INDEX_PROJECT_UPDATE,
+        "index project",
+        "index/project",
+        Url.encode(projectName),
+        event);
   }
 
   @Override
   public CompletableFuture<Boolean> send(final Event event) {
-    return execute(RequestMethod.POST, "send event", "event", event.type, event);
+    return execute(
+        RequestMethod.POST, EventType.EVENT_SENT, "send event", "event", event.type, event);
   }
 
   @Override
   public CompletableFuture<Boolean> evict(final String cacheName, final Object key) {
     String json = gson.toJson(key);
-    return execute(RequestMethod.POST, "invalidate cache " + cacheName, "cache", cacheName, json);
+    return execute(
+        RequestMethod.POST,
+        EventType.CACHE_EVICTION,
+        "invalidate cache " + cacheName,
+        "cache",
+        cacheName,
+        json);
   }
 
   @Override
   public CompletableFuture<Boolean> addToProjectList(String projectName) {
     return execute(
         RequestMethod.POST,
+        EventType.PROJECT_LIST_ADDITION,
         "Update project_list, add ",
         buildProjectListEndpoint(),
         Url.encode(projectName));
@@ -155,6 +194,7 @@ public class RestForwarder implements Forwarder {
   public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
     return execute(
         RequestMethod.DELETE,
+        EventType.PROJECT_LIST_DELETION,
         "Update project_list, remove ",
         buildProjectListEndpoint(),
         Url.encode(projectName));
@@ -164,6 +204,7 @@ public class RestForwarder implements Forwarder {
   public CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName) {
     return execute(
         RequestMethod.DELETE,
+        EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT,
         "Delete all project changes from index",
         "index/change",
         buildAllChangesForProjectEndpoint(projectName.get()));
@@ -174,18 +215,28 @@ public class RestForwarder implements Forwarder {
   }
 
   private CompletableFuture<Boolean> execute(
-      RequestMethod method, String action, String endpoint, Object id) {
-    return execute(method, action, endpoint, id, null);
+      RequestMethod method, EventType eventType, String action, String endpoint, Object id) {
+    return execute(method, eventType, action, endpoint, id, null);
   }
 
   private CompletableFuture<Boolean> execute(
-      RequestMethod method, String action, String endpoint, Object id, Object payload) {
+      RequestMethod method,
+      EventType eventType,
+      String action,
+      String endpoint,
+      Object id,
+      Object payload) {
     return peerInfoProvider.get().stream()
         .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
         .map(r -> executor.getAsync(() -> r.execute()))
         .reduce(
             CompletableFuture.completedFuture(true),
-            (a, b) -> a.thenCombine(b, (left, right) -> left && right));
+            (a, b) -> a.thenCombine(b, (left, right) -> left && right))
+        .thenApplyAsync(
+            result -> {
+              metricsRegistry.get(eventType).recordResult(result);
+              return result;
+            });
   }
 
   private Request createRequest(
