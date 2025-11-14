@@ -106,7 +106,11 @@ java_library(
         "@jgroups//jar",
         "@commons-net//jar",
         "@failsafe//jar",
-        "@duct-tape//jar",
+        "@testcontainers//jar",
+        "@testcontainers-gcloud//jar",
+        "@docker-java-api//jar",
+        "@docker-java-transport-zerodep//jar",
+        "@docker-java-transport//jar",
         "@jackson-annotations//jar",
     ],
 )

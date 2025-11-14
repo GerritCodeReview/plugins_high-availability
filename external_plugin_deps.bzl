@@ -67,10 +67,62 @@ def external_plugin_deps():
         sha1 = "6fb01d2c856a6f5a46b8390efa160891c25041f8",
     )
 
+    TESTCONTAINERS_VERSION = "1.21.3"
+
+    maven_jar(
+        name = "testcontainers",
+        artifact = "org.testcontainers:testcontainers:" + TESTCONTAINERS_VERSION,
+        sha1 = "95c6cfde71c2209f0c29cb14e432471e0b111880",
+    )
+
+    maven_jar(
+        name = "testcontainers-gcloud",
+        artifact = "org.testcontainers:gcloud:" + TESTCONTAINERS_VERSION,
+        sha1 = "5134c3849d2acb6979ac8e51e3a4ae52d799673a",
+    )
+
+    maven_jar(
+        name = "duct-tape",
+        artifact = "org.rnorth.duct-tape:duct-tape:1.0.8",
+        sha1 = "92edc22a9ab2f3e17c9bf700aaee377d50e8b530",
+    )
+
+    maven_jar(
+        name = "visible-assertions",
+        artifact = "org.rnorth.visible-assertions:visible-assertions:2.1.2",
+        sha1 = "20d31a578030ec8e941888537267d3123c2ad1c1",
+    )
+
+    maven_jar(
+        name = "jna",
+        artifact = "net.java.dev.jna:jna:5.5.0",
+        sha1 = "0e0845217c4907822403912ad6828d8e0b256208",
+    )
+
+    DOCKER_JAVA_VERS = "3.6.0"
+
+    maven_jar(
+        name = "docker-java-api",
+        artifact = "com.github.docker-java:docker-java-api:" + DOCKER_JAVA_VERS,
+        sha1 = "caeb5bee6a9c07bff31f73ace576436168e2aa47",
+    )
+
+    maven_jar(
+        name = "docker-java-transport",
+        artifact = "com.github.docker-java:docker-java-transport:" + DOCKER_JAVA_VERS,
+        sha1 = "d522c467aad17fd927e0db0130d2849a321a36aa",
+    )
+
+    maven_jar(
+        name = "docker-java-transport-zerodep",
+        artifact = "com.github.docker-java:docker-java-transport-zerodep:" + DOCKER_JAVA_VERS,
+        sha1 = "549f4985f9c7714deff47d1041603e85e132d184",
+    )
+
     maven_jar(
         name = "jackson-annotations",
         artifact = "com.fasterxml.jackson.core:jackson-annotations:2.19.2",
-        sha1 = "0f63b3b1da563767d04d2e4d3fc1ae0cdeffebe7",
+        sha1 = "0c5381f11988ae3d424b197a26087d86067b6d7d",
     )
 
     maven_jar(
