@@ -23,7 +23,12 @@ public abstract class PubSubTestSystem {
   final Configuration cfg;
 
   public static PubSubTestSystem create(Configuration cfg) throws Exception {
-    PubSubTestSystem testSystem = RealPubSub.create(cfg);
+    PubSubTestSystem testSystem;
+    if (System.getenv("TEST_REAL_PUBSUB") == null) {
+      testSystem = new EmulatedPubSub(cfg);
+    } else {
+      testSystem = RealPubSub.create(cfg);
+    }
     testSystem.reset();
     return testSystem;
   }
