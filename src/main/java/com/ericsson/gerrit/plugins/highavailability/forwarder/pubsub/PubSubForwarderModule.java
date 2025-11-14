@@ -21,22 +21,34 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.ExecutorProvider;
 import com.google.api.gax.core.InstantiatingExecutorProvider;
+import com.google.api.gax.core.NoCredentialsProvider;
+import com.google.api.gax.grpc.GrpcTransportChannel;
+import com.google.api.gax.rpc.FixedTransportChannelProvider;
+import com.google.api.gax.rpc.TransportChannelProvider;
 import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
+import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
+import com.google.cloud.pubsub.v1.SubscriptionAdminSettings;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Strings;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.inject.Inject;
+import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import java.io.IOException;
+import java.util.Optional;
 
 public class PubSubForwarderModule extends LifecycleModule {
+  public static final String PUBSUB_EMULATOR_HOST = "PUBSUB_EMULATOR_HOST";
+
   private final Configuration config;
 
-  @Inject
   public PubSubForwarderModule(Configuration config) {
     this.config = config;
   }
@@ -45,13 +57,14 @@ public class PubSubForwarderModule extends LifecycleModule {
   protected void configure() {
     bind(MessageReceiver.class).toProvider(MessageReceiverProvider.class);
 
-    bind(CredentialsProvider.class)
-        .toProvider(ServiceAccountCredentialsProvider.class)
-        .in(Scopes.SINGLETON);
-    bind(Publisher.class).toProvider(GCPPublisherProvider.class).in(SINGLETON);
-    bind(Subscription.class).toProvider(PubSubSubscriptionProvider.class).in(SINGLETON);
-    bind(Subscriber.class).toProvider(GCPSubscriberProvider.class).in(SINGLETON);
+    String hostPort = getEmulatorHost();
+    if (Strings.isNullOrEmpty(hostPort)) {
+      install(new GCPModule());
+    } else {
+      install(new EmulatorModule(hostPort));
+    }
 
+    bind(Subscription.class).toProvider(PubSubSubscriptionProvider.class).in(SINGLETON);
     bind(PubSubMessageProcessor.class);
     bind(Forwarder.class).to(PubSubForwarder.class);
     bind(TopicName.class)
@@ -78,5 +91,63 @@ public class PubSubForwarderModule extends LifecycleModule {
     return InstantiatingExecutorProvider.newBuilder()
         .setExecutorThreadCount(config.pubSub().subscriberThreadPoolSize())
         .build();
+  }
+
+  private static String getEmulatorHost() {
+    return Optional.ofNullable(System.getenv(PUBSUB_EMULATOR_HOST))
+        .orElse(System.getProperty(PUBSUB_EMULATOR_HOST));
+  }
+
+  static class GCPModule extends AbstractModule {
+    @Override
+    protected void configure() {
+      bind(CredentialsProvider.class)
+          .toProvider(ServiceAccountCredentialsProvider.class)
+          .in(Scopes.SINGLETON);
+      bind(Publisher.class).toProvider(GCPPublisherProvider.class).in(SINGLETON);
+      bind(Subscriber.class).toProvider(GCPSubscriberProvider.class).in(SINGLETON);
+    }
+
+    @Provides
+    @Singleton
+    SubscriptionAdminClient createSubscriptionAdminClient(CredentialsProvider credentials)
+        throws IOException {
+      return SubscriptionAdminClient.create(
+          SubscriptionAdminSettings.newBuilder().setCredentialsProvider(credentials).build());
+    }
+  }
+
+  static class EmulatorModule extends AbstractModule {
+    private final String hostPort;
+
+    EmulatorModule(String hostPort) {
+      this.hostPort = hostPort;
+    }
+
+    @Override
+    protected void configure() {
+      bind(CredentialsProvider.class).toInstance(NoCredentialsProvider.create());
+      bind(Publisher.class).toProvider(LocalPublisherProvider.class).in(SINGLETON);
+      bind(Subscriber.class).toProvider(LocalSubscriberProvider.class).in(SINGLETON);
+    }
+
+    @Provides
+    @Singleton
+    TransportChannelProvider createTransportChannelProvider() {
+      ManagedChannel channel = ManagedChannelBuilder.forTarget(hostPort).usePlaintext().build();
+      return FixedTransportChannelProvider.create(GrpcTransportChannel.create(channel));
+    }
+
+    @Provides
+    @Singleton
+    SubscriptionAdminClient createSubscriptionAdminClient(TransportChannelProvider channelProvider)
+        throws IOException {
+      SubscriptionAdminSettings settings =
+          SubscriptionAdminSettings.newBuilder()
+              .setTransportChannelProvider(channelProvider)
+              .setCredentialsProvider(NoCredentialsProvider.create())
+              .build();
+      return SubscriptionAdminClient.create(settings);
+    }
   }
 }
