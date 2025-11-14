@@ -139,6 +139,11 @@ public class RealPubSub extends PubSubTestSystem {
   }
 
   Subscription getSubscription(String instanceId) throws Exception {
-    return new PubSubSubscriptionProvider(getCredentials(), cfg, instanceId, topicName).get();
+    try (SubscriptionAdminClient subscriptionAdminClient =
+        SubscriptionAdminClient.create(subscriptionAdminSettings())) {
+      return new PubSubSubscriptionProvider(
+              subscriptionAdminClient, getCredentials(), cfg, instanceId, topicName)
+          .get();
+    }
   }
 }
