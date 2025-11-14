@@ -20,7 +20,6 @@ import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
 import com.google.cloud.pubsub.v1.SubscriptionAdminSettings;
-import com.google.gerrit.server.StartupException;
 import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -31,6 +30,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class PubSubSubscriptionProvider implements Provider<Subscription> {
+  private final SubscriptionAdminClient subscriptionAdminClient;
   final CredentialsProvider credentials;
   private final PubSub pubSubProperties;
   private final TopicName topic;
@@ -39,10 +39,12 @@ public class PubSubSubscriptionProvider implements Provider<Subscription> {
 
   @Inject
   public PubSubSubscriptionProvider(
+      SubscriptionAdminClient subscriptionAdminClient,
       CredentialsProvider credentials,
       Configuration pluginConfiguration,
       @GerritInstanceId String instanceId,
       @ForwarderTopic TopicName topic) {
+    this.subscriptionAdminClient = subscriptionAdminClient;
     this.credentials = credentials;
     this.pubSubProperties = pluginConfiguration.pubSub();
     this.topic = topic;
@@ -52,29 +54,18 @@ public class PubSubSubscriptionProvider implements Provider<Subscription> {
 
   @Override
   public Subscription get() {
-    try {
-      return getOrCreate();
-    } catch (IOException e) {
-      throw new StartupException("Unable to get/create subscription in PubSub.", e);
-    }
+    ProjectSubscriptionName projectSubscriptionName =
+        ProjectSubscriptionName.of(pubSubProperties.gCloudProject(), subscriptionId);
+
+    return getSubscription(subscriptionAdminClient, projectSubscriptionName)
+        .orElseGet(
+            () ->
+                subscriptionAdminClient.createSubscription(
+                    createSubscriptionRequest(projectSubscriptionName)));
   }
 
   protected SubscriptionAdminSettings createSubscriptionAdminSettings() throws IOException {
     return SubscriptionAdminSettings.newBuilder().setCredentialsProvider(credentials).build();
-  }
-
-  public Subscription getOrCreate() throws IOException {
-    try (SubscriptionAdminClient subscriptionAdminClient =
-        SubscriptionAdminClient.create(createSubscriptionAdminSettings())) {
-      ProjectSubscriptionName projectSubscriptionName =
-          ProjectSubscriptionName.of(pubSubProperties.gCloudProject(), subscriptionId);
-
-      return getSubscription(subscriptionAdminClient, projectSubscriptionName)
-          .orElseGet(
-              () ->
-                  subscriptionAdminClient.createSubscription(
-                      createSubscriptionRequest(projectSubscriptionName)));
-    }
   }
 
   private Subscription createSubscriptionRequest(ProjectSubscriptionName projectSubscriptionName) {
