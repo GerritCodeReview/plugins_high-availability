@@ -1,11 +1,12 @@
 {
   "checks": {
     "gerritforge:plugins-high-availability-build-test": {
-      "state": "RUNNING",
+      "state": "FAILED",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/73%252F526773%252F8/1/console",
       "started": "2025-11-17T16:17:23Z",
+      "finished": "2025-11-17T16:18:05Z",
       "created": "2025-11-17T16:17:23Z",
-      "updated": "2025-11-17T16:17:23Z"
+      "updated": "2025-11-17T16:18:06Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
       "state": "SUCCESSFUL",
