@@ -32,12 +32,16 @@ import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
 import com.google.cloud.pubsub.v1.SubscriptionAdminSettings;
+import com.google.cloud.pubsub.v1.TopicAdminClient;
+import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.gerrit.lifecycle.LifecycleModule;
+import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.TopicName;
 import io.grpc.ManagedChannel;
@@ -58,6 +62,7 @@ public class PubSubForwarderModule extends LifecycleModule {
 
   @Override
   protected void configure() {
+    bind(PubSubInitializer.class);
     bind(MessageReceiver.class).toProvider(MessageReceiverProvider.class);
 
     String hostPort = getEmulatorHost();
@@ -67,7 +72,6 @@ public class PubSubForwarderModule extends LifecycleModule {
       install(new EmulatorModule(hostPort));
     }
 
-    bind(Subscription.class).toProvider(PubSubSubscriptionProvider.class).in(SINGLETON);
     bind(PubSubMessageProcessor.class);
     bind(Forwarder.class).to(PubSubForwarder.class);
     bind(TopicName.class)
@@ -105,6 +109,22 @@ public class PubSubForwarderModule extends LifecycleModule {
         .build();
   }
 
+  @Provides
+  @Singleton
+  ProjectSubscriptionName getProjectSubscriptionName(
+      Configuration config, @GerritInstanceId String instanceId, @ForwarderTopic TopicName topic) {
+    String subscriptionId = String.format("%s-%s", instanceId, topic.getTopic());
+    return ProjectSubscriptionName.of(config.pubSub().gCloudProject(), subscriptionId);
+  }
+
+  @Provides
+  @Singleton
+  Subscription getSubscription(
+      SubscriptionAdminClient subscriptionAdminClient,
+      ProjectSubscriptionName projectSubscriptionName) {
+    return subscriptionAdminClient.getSubscription(projectSubscriptionName);
+  }
+
   private static String getEmulatorHost() {
     return Optional.ofNullable(System.getenv(PUBSUB_EMULATOR_HOST))
         .orElse(System.getProperty(PUBSUB_EMULATOR_HOST));
@@ -126,6 +146,14 @@ public class PubSubForwarderModule extends LifecycleModule {
         throws IOException {
       return SubscriptionAdminClient.create(
           SubscriptionAdminSettings.newBuilder().setCredentialsProvider(credentials).build());
+    }
+
+    @Provides
+    @Singleton
+    TopicAdminClient createTopicAdminClient(CredentialsProvider credentials) throws IOException {
+      TopicAdminSettings settings =
+          TopicAdminSettings.newBuilder().setCredentialsProvider(credentials).build();
+      return TopicAdminClient.create(settings);
     }
   }
 
@@ -160,6 +188,18 @@ public class PubSubForwarderModule extends LifecycleModule {
               .setCredentialsProvider(NoCredentialsProvider.create())
               .build();
       return SubscriptionAdminClient.create(settings);
+    }
+
+    @Provides
+    @Singleton
+    TopicAdminClient createTopicAdminClient(TransportChannelProvider channelProvider)
+        throws IOException {
+      TopicAdminSettings settings =
+          TopicAdminSettings.newBuilder()
+              .setTransportChannelProvider(channelProvider)
+              .setCredentialsProvider(NoCredentialsProvider.create())
+              .build();
+      return TopicAdminClient.create(settings);
     }
   }
 }
