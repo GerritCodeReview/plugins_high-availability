@@ -18,6 +18,9 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
+import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
+import com.google.cloud.pubsub.v1.TopicAdminClient;
+import com.google.pubsub.v1.TopicName;
 
 public abstract class PubSubTestSystem {
   final Configuration cfg;
@@ -39,7 +42,13 @@ public abstract class PubSubTestSystem {
 
   abstract String getProjectId();
 
+  abstract TopicName getTopicName();
+
   abstract CredentialsProvider getCredentials() throws Exception;
+
+  abstract TopicAdminClient getTopicAdminClient() throws Exception;
+
+  abstract SubscriptionAdminClient getSubscriptionAdminClient() throws Exception;
 
   abstract Publisher getPublisher() throws Exception;
 

@@ -22,10 +22,11 @@ import com.google.api.gax.grpc.GrpcTransportChannel;
 import com.google.api.gax.rpc.FixedTransportChannelProvider;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
+import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminSettings;
+import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.Subscription;
-import com.google.pubsub.v1.Topic;
 import com.google.pubsub.v1.TopicName;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -40,6 +41,7 @@ public class EmulatedPubSub extends PubSubTestSystem {
   private final PubSubEmulatorContainer container;
   private final FixedTransportChannelProvider channelProvider;
   private final String hostPort;
+  private final PubSubForwarderModule pubSubForwarderModule;
 
   public EmulatedPubSub(Configuration cfg) throws Exception {
     super(cfg);
@@ -54,15 +56,11 @@ public class EmulatedPubSub extends PubSubTestSystem {
         String.format(
             "PubSub emulator container started and is listening on %s",
             container.getEmulatorEndpoint()));
+    pubSubForwarderModule = new PubSubForwarderModule(cfg);
   }
 
   @Override
-  public void reset() throws Exception {
-    try (TopicAdminClient topicAdminClient = TopicAdminClient.create(topicAdminSettings())) {
-      Topic topic = topicAdminClient.createTopic(TOPIC_NAME);
-      System.out.println("Created topic: " + topic.getName());
-    }
-  }
+  public void reset() throws Exception {}
 
   @Override
   public void cleanup() throws Exception {
@@ -84,8 +82,26 @@ public class EmulatedPubSub extends PubSubTestSystem {
   }
 
   @Override
+  TopicName getTopicName() {
+    return TOPIC_NAME;
+  }
+
+  @Override
   CredentialsProvider getCredentials() throws Exception {
     return NoCredentialsProvider.create();
+  }
+
+  @Override
+  TopicAdminClient getTopicAdminClient() throws Exception {
+    return TopicAdminClient.create(topicAdminSettings());
+  }
+
+  @Override
+  SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
+    EmulatorModule emulatorModule =
+        new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
+    return emulatorModule.createSubscriptionAdminClient(
+        emulatorModule.createTransportChannelProvider());
   }
 
   @Override
@@ -114,15 +130,15 @@ public class EmulatedPubSub extends PubSubTestSystem {
   }
 
   Subscription getSubscription(String instanceId) throws Exception {
+    ProjectSubscriptionName subscriptionName =
+        new ProjectSubscriptionNameFactory(instanceId, cfg).create(TOPIC_NAME);
     EmulatorModule emulatorModule =
         new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    return new PubSubSubscriptionProvider(
-            emulatorModule.createSubscriptionAdminClient(
-                emulatorModule.createTransportChannelProvider()),
-            getCredentials(),
-            cfg,
-            instanceId,
-            TOPIC_NAME)
-        .get();
+    SubscriptionAdminClient subscriptionAdminClient =
+        emulatorModule.createSubscriptionAdminClient(
+            emulatorModule.createTransportChannelProvider());
+    return pubSubForwarderModule.getSubscription(
+        subscriptionAdminClient,
+        ProjectSubscriptionName.of(getProjectId(), subscriptionName.getSubscription()));
   }
 }
