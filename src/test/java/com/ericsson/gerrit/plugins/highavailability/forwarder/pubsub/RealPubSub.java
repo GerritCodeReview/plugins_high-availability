@@ -15,10 +15,10 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.PubSubForwarderModule.GCPModule;
 import com.google.api.client.util.Strings;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.FixedCredentialsProvider;
-import com.google.api.gax.rpc.NotFoundException;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
@@ -27,8 +27,8 @@ import com.google.cloud.pubsub.v1.SubscriptionAdminSettings;
 import com.google.cloud.pubsub.v1.TopicAdminClient;
 import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.common.flogger.FluentLogger;
+import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.Subscription;
-import com.google.pubsub.v1.Topic;
 import com.google.pubsub.v1.TopicName;
 import java.io.FileInputStream;
 
@@ -56,6 +56,7 @@ public class RealPubSub extends PubSubTestSystem {
 
   private boolean topicCreatedByTest;
   private Subscriber subscriber;
+  private PubSubForwarderModule pubSubForwarderModule;
 
   private RealPubSub(Configuration cfg, String keyPath, String project) {
     this(cfg, keyPath, project, "gerrit-pubsub-" + System.currentTimeMillis());
@@ -65,18 +66,7 @@ public class RealPubSub extends PubSubTestSystem {
     super(cfg);
     this.keyPath = keyPath;
     this.topicName = TopicName.of(project, topic);
-  }
-
-  private void initialize() throws Exception {
-    try (TopicAdminClient topicAdminClient = TopicAdminClient.create(topicAdminSettings())) {
-      try {
-        topicAdminClient.getTopic(topicName);
-      } catch (NotFoundException e) {
-        Topic topic = topicAdminClient.createTopic(topicName);
-        topicCreatedByTest = true;
-        logger.atInfo().log("Created topic: %s", topic.getName());
-      }
-    }
+    this.pubSubForwarderModule = new PubSubForwarderModule(cfg);
   }
 
   private TopicAdminSettings topicAdminSettings() throws Exception {
@@ -88,9 +78,7 @@ public class RealPubSub extends PubSubTestSystem {
   }
 
   @Override
-  public void reset() throws Exception {
-    initialize();
-  }
+  public void reset() throws Exception {}
 
   @Override
   void cleanup() throws Exception {
@@ -114,9 +102,25 @@ public class RealPubSub extends PubSubTestSystem {
   }
 
   @Override
+  TopicName getTopicName() {
+    return topicName;
+  }
+
+  @Override
   CredentialsProvider getCredentials() throws Exception {
     return FixedCredentialsProvider.create(
         ServiceAccountCredentials.fromStream(new FileInputStream(keyPath)));
+  }
+
+  @Override
+  TopicAdminClient getTopicAdminClient() throws Exception {
+    return TopicAdminClient.create(topicAdminSettings());
+  }
+
+  @Override
+  SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
+    GCPModule gcpModule = new PubSubForwarderModule.GCPModule();
+    return gcpModule.createSubscriptionAdminClient(getCredentials());
   }
 
   @Override
@@ -139,11 +143,11 @@ public class RealPubSub extends PubSubTestSystem {
   }
 
   Subscription getSubscription(String instanceId) throws Exception {
-    try (SubscriptionAdminClient subscriptionAdminClient =
-        SubscriptionAdminClient.create(subscriptionAdminSettings())) {
-      return new PubSubSubscriptionProvider(
-              subscriptionAdminClient, getCredentials(), cfg, instanceId, topicName)
-          .get();
-    }
+    ProjectSubscriptionName subscriptionName =
+        new ProjectSubscriptionNameFactory(instanceId, cfg).create(topicName);
+    GCPModule gcpModule = new PubSubForwarderModule.GCPModule();
+    return pubSubForwarderModule.getSubscription(
+        gcpModule.createSubscriptionAdminClient(getCredentials()),
+        ProjectSubscriptionName.of(getProjectId(), subscriptionName.getSubscription()));
   }
 }
