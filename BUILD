@@ -111,6 +111,7 @@ java_library(
         "@docker-java-api//jar",
         "@docker-java-transport-zerodep//jar",
         "@docker-java-transport//jar",
+        "@duct-tape//jar",
         "@jackson-annotations//jar",
     ],
 )
