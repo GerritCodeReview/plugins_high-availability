@@ -24,7 +24,7 @@ public abstract class ExecutorProvider
   private ScheduledExecutorService executor;
 
   protected ExecutorProvider(WorkQueue workQueue, int threadPoolSize, String threadNamePrefix) {
-    executor = workQueue.createQueue(threadPoolSize, threadNamePrefix);
+    executor = workQueue.createQueue(threadPoolSize, threadNamePrefix, true);
   }
 
   @Override
