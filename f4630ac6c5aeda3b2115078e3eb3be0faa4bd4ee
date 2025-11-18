@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b3912d_b480f759",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ProcessorMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-11-18T14:25:37Z",
+      "side": 1,
+      "message": "it seems inconsistent that the first parameter is a `Long` in milliseconds and the second is an `Instant`",
+      "revId": "f4630ac6c5aeda3b2115078e3eb3be0faa4bd4ee",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
