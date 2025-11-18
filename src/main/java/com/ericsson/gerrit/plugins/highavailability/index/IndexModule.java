@@ -31,17 +31,20 @@ public class IndexModule extends LifecycleModule {
     bind(ScheduledExecutorService.class)
         .annotatedWith(IndexExecutor.class)
         .toProvider(IndexExecutorProvider.class);
+    listener().to(IndexExecutorProvider.class);
     bind(ScheduledExecutorService.class)
         .annotatedWith(ForwardedIndexExecutor.class)
         .toProvider(ForwardedIndexExecutorProvider.class);
+    listener().to(ForwardedIndexExecutorProvider.class);
     bind(IndexEventLocks.class).in(Scopes.SINGLETON);
     bind(ScheduledExecutorService.class)
         .annotatedWith(BatchIndexExecutor.class)
         .toProvider(BatchIndexExecutorProvider.class);
+    listener().to(BatchIndexExecutorProvider.class);
     bind(ScheduledExecutorService.class)
         .annotatedWith(ForwardedBatchIndexExecutor.class)
         .toProvider(ForwardedBatchIndexExecutorProvider.class);
-    listener().to(IndexExecutorProvider.class);
+    listener().to(ForwardedBatchIndexExecutorProvider.class);
     DynamicSet.bind(binder(), ChangeIndexedListener.class)
         .to(IndexEventHandler.class)
         .in(Scopes.SINGLETON);

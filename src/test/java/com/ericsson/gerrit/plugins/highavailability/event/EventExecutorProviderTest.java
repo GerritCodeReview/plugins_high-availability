@@ -35,7 +35,7 @@ public class EventExecutorProviderTest {
   @Before
   public void setUp() throws Exception {
     WorkQueue workQueueMock = mock(WorkQueue.class);
-    when(workQueueMock.createQueue(1, "Forward-Stream-Event")).thenReturn(executorMock);
+    when(workQueueMock.createQueue(1, "Forward-Stream-Event", true)).thenReturn(executorMock);
     eventsExecutorProvider = new EventExecutorProvider(workQueueMock);
   }
 
