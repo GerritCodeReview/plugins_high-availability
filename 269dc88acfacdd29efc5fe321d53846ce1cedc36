@@ -34,6 +34,24 @@
       "parentUuid": "087d078a_07a4ae98",
       "revId": "269dc88acfacdd29efc5fe321d53846ce1cedc36",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d8ba5df_47ae225b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-18T20:14:22Z",
+      "side": 1,
+      "message": "The high-availability side of the problem is fixed now, the Gerrit side is now tracked as Issue 461836624 and fixed with Change 528441.",
+      "parentUuid": "3f26c86e_b8319ee2",
+      "revId": "269dc88acfacdd29efc5fe321d53846ce1cedc36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
