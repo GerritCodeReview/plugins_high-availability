@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d03545de_898febab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-18T20:15:40Z",
+      "side": 1,
+      "message": "I have verified end-to-end that:\n- The queues\u0027 metrics are registered\n- The plugin can be reloaded and restarted without issues (once Gerrit Change 528441)",
+      "revId": "b8fb8e29671b943444d3adba70d98a01554c9f88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
