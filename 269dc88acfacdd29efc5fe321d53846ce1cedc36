@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "087d078a_07a4ae98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2025-11-18T15:46:18Z",
+      "side": 1,
+      "message": "I can see the metrics being populated now, for example:\n\n```\nqueue_forwarded_batch_index_event_active_threads 0.0\nqueue_forwarded_batch_index_event_max_pool_size 2.147483647E9\nqueue_forwarded_batch_index_event_pool_size 0.0\nqueue_forwarded_batch_index_event_scheduled_tasks 0.0\nqueue_forwarded_batch_index_event_total_completed_tasks_count 0.0\nqueue_forwarded_batch_index_event_total_scheduled_tasks_count 0.0\nqueue_forwarded_index_event_active_threads 0.0\nqueue_forwarded_index_event_max_pool_size 2.147483647E9\nqueue_forwarded_index_event_pool_size 0.0\nqueue_forwarded_index_event_scheduled_tasks 0.0\nqueue_forwarded_index_event_total_completed_tasks_count 0.0\nqueue_forwarded_index_event_total_scheduled_tasks_count 0.0\n```\n\nHowever, we now lose the ability to disable/re-enable the high-availability plugin, because the workQueue creation upon reload will collide with pre-existing metrics and fail with:\n\n\n```\ncom.google.gerrit.server.plugins.PluginInstallException: Unable to provision, see the following errors:\n\n1) [Guice/ErrorInjectingConstructor]: IllegalArgumentException: A metric named queue/forward_cache_eviction_event/max_pool_size already exists\n  at CacheExecutorProvider.\u003cinit\u003e(CacheExecutorProvider.java:28)\n  at CacheExecutorProvider.class(CacheExecutorProvider.java:28)\n  while locating CacheExecutorProvider\n  while locating LifecycleListener annotated with @UniqueAnnotations$Internal(value\u003d253)\n\nLearn more:\n  https://github.com/google/guice/wiki/ERROR_INJECTING_CONSTRUCTOR\n\n1 error\n```\n\n\nJacek\u0027s fix [1] allowed the registration handle to be returned, so that metrics can be removed explicitly. This is included in 3.6 already, so we should be able to remove the registration handles, I believe. WDYT?\n\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/344300",
+      "revId": "269dc88acfacdd29efc5fe321d53846ce1cedc36",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
