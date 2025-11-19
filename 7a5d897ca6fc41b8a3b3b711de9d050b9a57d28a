@@ -9,12 +9,12 @@
       "updated": "2025-11-19T11:08:42Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "SUCCESSFUL",
-      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/67%252F526767%252F10/1/console",
-      "started": "2025-11-19T11:04:52Z",
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/67%252F526767%252F10/2/console",
+      "started": "2025-11-19T11:09:57Z",
       "finished": "2025-11-19T11:05:26Z",
       "created": "2025-11-19T11:04:53Z",
-      "updated": "2025-11-19T11:05:26Z"
+      "updated": "2025-11-19T11:09:57Z"
     }
   }
 }
