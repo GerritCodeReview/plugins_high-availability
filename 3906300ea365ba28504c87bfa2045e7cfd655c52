@@ -6,12 +6,12 @@
       "updated": "2025-11-19T12:47:36Z"
     },
     "gerritforge:plugins-high-availability-code-style": {
-      "state": "RUNNING",
+      "state": "SUCCESSFUL",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/65%252F526765%252F6/2/console",
       "started": "2025-11-19T12:52:52Z",
-      "finished": "2025-11-19T10:17:43Z",
+      "finished": "2025-11-19T12:53:27Z",
       "created": "2025-11-19T10:17:02Z",
-      "updated": "2025-11-19T12:52:53Z"
+      "updated": "2025-11-19T12:53:28Z"
     }
   }
 }
