@@ -20,13 +20,13 @@ import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
-import com.google.inject.AbstractModule;
+import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import dev.failsafe.FailsafeExecutor;
 
-public class IndexModule extends AbstractModule {
+public class IndexModule extends LifecycleModule {
 
   @Override
   protected void configure() {
@@ -38,6 +38,7 @@ public class IndexModule extends AbstractModule {
         .annotatedWith(ForwardedIndexExecutor.class)
         .to(ForwardedIndexExecutorProvider.class)
         .in(Scopes.SINGLETON);
+    listener().to(ForwardedIndexExecutorProvider.class);
 
     bind(new TypeLiteral<FailsafeExecutor<Boolean>>() {})
         .annotatedWith(ForwardedBatchIndexExecutor.class)
@@ -47,7 +48,7 @@ public class IndexModule extends AbstractModule {
         .annotatedWith(ForwardedBatchIndexExecutor.class)
         .to(ForwardedBatchIndexExecutorProvider.class)
         .in(Scopes.SINGLETON);
-
+    listener().to(ForwardedBatchIndexExecutorProvider.class);
     DynamicSet.bind(binder(), ChangeIndexedListener.class)
         .to(IndexEventHandler.class)
         .in(Scopes.SINGLETON);
