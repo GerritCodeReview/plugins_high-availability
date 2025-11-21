@@ -35,7 +35,7 @@ public abstract class ExecutorProvider
       WorkQueue workQueue, int threadPoolSize, String threadNamePrefix, long scheduleDelayMsec) {
     executor =
         new ScheduledWithDelayExecutorService(
-            workQueue.createQueue(threadPoolSize, threadNamePrefix), scheduleDelayMsec);
+            workQueue.createQueue(threadPoolSize, threadNamePrefix, true), scheduleDelayMsec);
   }
 
   @Override
