@@ -15,6 +15,7 @@ gerrit_plugin(
         "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
         "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
         "Gerrit-InitStep: com.ericsson.gerrit.plugins.highavailability.Setup",
+        "Gerrit-ReloadMode: restart",
         "Implementation-Title: high-availability plugin",
         "Implementation-URL: https://gerrit-review.googlesource.com/#/admin/projects/plugins/high-availability",
     ],
