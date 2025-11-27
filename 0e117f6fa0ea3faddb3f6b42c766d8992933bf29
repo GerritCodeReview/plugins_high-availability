@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00eace88_7038ee3c",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-27T08:50:56Z",
+      "side": 1,
+      "message": "Don\u0027t we want to enable the tracking on these execution providers as well?",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "0e117f6fa0ea3faddb3f6b42c766d8992933bf29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ac644f8_2eb23232",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/index/IndexModule.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2025-11-27T08:50:56Z",
+      "side": 1,
+      "message": "Don\u0027t we want to enable the tracking on these execution providers as well?",
+      "range": {
+        "startLine": 45,
+        "startChar": 20,
+        "endLine": 45,
+        "endChar": 63
+      },
+      "revId": "0e117f6fa0ea3faddb3f6b42c766d8992933bf29",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
