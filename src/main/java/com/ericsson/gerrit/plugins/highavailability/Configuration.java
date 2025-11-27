@@ -91,7 +91,8 @@ public class Configuration {
   public enum Transport {
     HTTP,
     JGROUPS,
-    PUBSUB
+    PUBSUB,
+    PUBSUB_AWS,
   }
 
   @Inject

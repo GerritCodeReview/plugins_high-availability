@@ -27,6 +27,7 @@ load(
             "@failsafe//jar",
             "@jgroups-kubernetes//jar",
             "@jgroups//jar",
+            ":aws-client",
         ],
     )
     for name, gcp_client_lib in [
@@ -63,6 +64,20 @@ GCP_PUBSUB_CLIENT_LIBS = [
     "@threetenbp//jar",
 ]
 
+AWS_PUBSUB_CLIENT_LIBS = [
+    "@aws_sdk_sns//jar",
+    "@aws_sdk_sqs//jar",
+    "@aws_sdk_netty//jar",
+    "@aws_auth//jar",
+    "@aws_regions//jar",
+    "@aws_identity_spi//jar",
+    "@aws_utils//jar",
+    "@aws_http_client_spi//jar",
+    "@aws_sns//jar",
+    "@aws_core//jar",
+    "@aws_sdk_core//jar",
+]
+
 java_library(
     name = "gcp-client",
     exports = GCP_PUBSUB_CLIENT_LIBS,
@@ -72,6 +87,11 @@ java_library(
     name = "gcp-client-neverlink",
     neverlink = 1,
     exports = GCP_PUBSUB_CLIENT_LIBS,
+)
+
+java_library(
+    name = "aws-client",
+    exports = AWS_PUBSUB_CLIENT_LIBS,
 )
 
 java_library(

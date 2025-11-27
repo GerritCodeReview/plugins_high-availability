@@ -238,3 +238,69 @@ def external_plugin_deps():
         artifact = "io.opentelemetry:opentelemetry-context:1.47.0",
         sha1 = "86e49fe98ce06c279f7b9f028af8658cb7bc972a",
     )
+
+    maven_jar(
+        name = "aws_sdk_sns",
+        artifact = "software.amazon.awssdk:sns:2.29.15",
+        sha1 = "3271de1c86221da6ab2859dc21a7a5aad088456e",
+    )
+
+    maven_jar(
+        name = "aws_sdk_sqs",
+        artifact = "software.amazon.awssdk:sqs:2.29.15",
+        sha1 = "d169f0e0645a4281d34758828b85762b52d643b8",
+    )
+
+    maven_jar(
+        name = "aws_sdk_netty",
+        artifact = "software.amazon.awssdk:netty-nio-client:2.29.15",
+        sha1 = "2f17728a99424a63c1cfc8e37e3c4ecd48281872",
+    )
+
+    maven_jar(
+        name = "aws_auth",
+        artifact = "software.amazon.awssdk:auth:2.29.15",
+        sha1 = "a158e23aa752f7a240ba08def255bcc81465fec3",
+    )
+
+    maven_jar(
+        name = "aws_regions",
+        artifact = "software.amazon.awssdk:regions:2.29.15",
+        sha1 = "2a07489790581760abdadaffa36027ce7619e7b9",
+    )
+
+    maven_jar(
+        name = "aws_identity_spi",
+        artifact = "software.amazon.awssdk:identity-spi:2.29.15",
+        sha1 = "892d5b9476bdfcf0f7f177b45995d6cf17e5da2b",
+    )
+
+    maven_jar(
+        name = "aws_utils",
+        artifact = "software.amazon.awssdk:utils:2.29.15",
+        sha1 = "9f4c25b1aef2c80eeba6c6a8e4b0eed6453224aa",
+    )
+
+    maven_jar(
+        name = "aws_http_client_spi",
+        artifact = "software.amazon.awssdk:http-client-spi:2.29.15",
+        sha1 = "81f806d3aabf78b687895bdd11c4e9560bc029f2",
+    )
+
+    maven_jar(
+        name = "aws_sns",
+        artifact = "software.amazon.awssdk:sns:2.29.15",
+        sha1 = "3271de1c86221da6ab2859dc21a7a5aad088456e",
+    )
+
+    maven_jar(
+        name = "aws_core",
+        artifact = "software.amazon.awssdk:aws-core:2.29.15",
+        sha1 = "610fb7f6805c0b8aefd0375ae6ec8a8e25e7a999",
+    )
+
+    maven_jar(
+        name = "aws_sdk_core",
+        artifact = "software.amazon.awssdk:sdk-core:2.29.15",
+        sha1 = "1925ab5140147caa628a8e60ebf5cceaafbd3bf8",
+    )
