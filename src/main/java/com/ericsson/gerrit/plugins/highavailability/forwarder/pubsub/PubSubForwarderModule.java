@@ -1,6 +1,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.aws.AwsPubSubForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp.GcpPubSubForwarderModule;
 import com.google.inject.AbstractModule;
 
@@ -17,6 +18,7 @@ public class PubSubForwarderModule extends AbstractModule {
 
     PubSubProvider provider = PubSubProvider.valueOf(config.pubSub().provider().toUpperCase());
     switch (provider) {
+      case AWS -> install(AwsPubSubForwarderModule.create());
       case GCP -> install(new GcpPubSubForwarderModule());
     }
   }
