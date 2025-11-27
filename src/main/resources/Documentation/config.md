@@ -1,4 +1,3 @@
-
 @PLUGIN@ Configuration
 =========================
 
@@ -102,6 +101,26 @@ pull all messages except for their own from their subscription.
   minimumBackoff = 10s
   maximumBackoff = 10m
   maxDeliveryAttempts = 5
+```
+
+### PubSub AWS provider configuration
+
+If you use AWS SNS/SQS as the PubSub provider, configure the following properties:
+
+```
+[main]
+  transport = pubsub
+  sharedDirectory = /directory/accessible/from/both/instances
+[pubsub]
+  provider = aws
+  topic = gerrit
+  streamEventsTopic = stream-events
+[pubsub "aws"]
+  region = us-east-1
+  accessKeyIdLocation = etc/aws-access-key-id
+  secretAccessKeyLocation = etc/aws-secret-access-key
+  maxReceiveCount = 5
+  messageProcessingThreadPoolSize = 4
 ```
 
 ```main.sharedDirectory```
@@ -375,6 +394,51 @@ calls by specifying the following fields:
 ```pubsub.gcp.maxDeliveryAttempts```
 :   The maximum number of delivery attempts for any message. After this many
     failed delivery attempts the message is moved to the dead letter topic.
+
+```pubsub.aws.region```
+:   The AWS region where SNS/SQS is hosted. This setting is mandatory when
+    using AWS as the PubSub provider.
+
+```pubsub.aws.accessKeyIdLocation```
+:   The location of the file containing the AWS access key ID. May be an
+    absolute or relative path. If relative, it is resolved the site directory.
+    This setting is mandatory when using AWS as the PubSub provider.
+
+```pubsub.aws.secretAccessKeyLocation```
+:   The location of the file containing the AWS secret access key. May be an
+    absolute or relative path. If relative, it is resolved from the site directory.
+    This setting is mandatory when using AWS as the PubSub provider.
+
+```pubsub.aws.maxReceiveCount```
+:   The maximum number of times a message can be received from the SQS queue
+    before it is considered a failure and moved to the dead letter queue (if
+    configured). Defaults to 5.
+
+```pubsub.aws.messageProcessingThreadPoolSize```
+:   The number of threads used to process messages received from SQS. Controls
+    the concurrency of message processing. Defaults to 4.
+
+```pubsub.aws.visibilityTimeout```
+:   The duration that messages received from the SQS queue are hidden from other
+    consumers. Messages will be redelivered to the queue if not deleted within
+    this timeout, allowing for reprocessing in case of failures. During normal
+    operation, messages should be deleted before this timeout expires.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    Defaults to 2 seconds.
+
+```pubsub.aws.waitTime```
+:   The duration that the SQS receiveMessage API will wait for messages to arrive
+    in the queue before returning an empty response. This enables long polling,
+    reducing the number of API calls and improving efficiency.
+    Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
+    Defaults to 20 seconds.
+
+```pubsub.aws.maxNumberOfMessages```
+:   The maximum number of messages to receive from the SQS queue in a single
+    API call. Must be between 1 and 10. Increasing this value can reduce the
+    number of API calls needed, but may increase the processing latency if
+    not all messages are handled promptly.
+    Defaults to 10.
 
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.

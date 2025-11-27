@@ -99,6 +99,7 @@ class IndexEventHandler
 
   @Override
   public void onProjectIndexed(String projectName) {
+    log.atInfo().log("Project indexed event received for project: %s", projectName);
     if (!Context.isForwardedEvent()) {
       forwarder.indexProject(projectName, new IndexEvent());
     }
