@@ -22,6 +22,7 @@ load(
         ],
         resources = glob(["src/main/resources/**/*"]),
         deps = [
+            aws_client_lib,
             gcp_client_lib,
             ":global-refdb-neverlink",
             "@failsafe//jar",
@@ -29,9 +30,10 @@ load(
             "@jgroups//jar",
         ],
     )
-    for name, gcp_client_lib in [
-        ("high-availability", ":gcp-client-neverlink"),
-        ("high-availability-pubsub-gcp", ":gcp-client"),
+    for name, gcp_client_lib, aws_client_lib in [
+        ("high-availability", ":gcp-client-neverlink", ":aws-client-neverlink"),
+        ("high-availability-pubsub-aws", ":gcp-client-neverlink", ":aws-client"),
+        ("high-availability-pubsub-gcp", ":gcp-client", ":aws-client-neverlink"),
     ]
 ]
 
@@ -63,6 +65,48 @@ GCP_PUBSUB_CLIENT_LIBS = [
     "@threetenbp//jar",
 ]
 
+AWS_PUBSUB_CLIENT_LIBS = [
+    "@aws_sdk_sns//jar",
+    "@aws_sdk_sqs//jar",
+    "@aws_sdk_netty//jar",
+    "@aws_auth//jar",
+    "@aws_regions//jar",
+    "@aws_identity_spi//jar",
+    "@aws_utils//jar",
+    "@aws_http_client_spi//jar",
+    "@aws_sns//jar",
+    "@aws_core//jar",
+    "@aws_sdk_core//jar",
+    "@aws_retries_spi//jar",
+    "@aws_profiles//jar",
+    "@aws_endpoints_spi//jar",
+    "@aws_http_auth_api//jar",
+    "@netty-common//jar",
+    "@netty-transport//jar",
+    "@aws_http_auth_aws//jar",
+    "@aws_http_auth//jar",
+    "@reactive-streams//jar",
+    "@aws_retries//jar",
+    "@netty-handler//jar",
+    "@netty-buffer//jar",
+    "@aws_metrics_spi//jar",
+    "@aws_query_protocol//jar",
+    "@aws_protocol_core//jar",
+    "@aws_checksums//jar",
+    "@aws_checksums_spi//jar",
+    "@netty-codec-http2//jar",
+    "@netty-codec-http//jar",
+    "@netty-codec//jar",
+    "@netty-resolver//jar",
+    "@aws_json_protocol//jar",
+    "@aws_json_utils//jar",
+    "@aws_third_party_jackson_core//jar",
+    "@aws_crt_client//jar",
+    "@aws_crt//jar",
+    "@aws_crt_core//jar",
+    "@netty_transport_native_unix_common//jar",
+]
+
 java_library(
     name = "gcp-client",
     exports = GCP_PUBSUB_CLIENT_LIBS,
@@ -72,6 +116,17 @@ java_library(
     name = "gcp-client-neverlink",
     neverlink = 1,
     exports = GCP_PUBSUB_CLIENT_LIBS,
+)
+
+java_library(
+    name = "aws-client",
+    exports = AWS_PUBSUB_CLIENT_LIBS,
+)
+
+java_library(
+    name = "aws-client-neverlink",
+    neverlink = 1,
+    exports = AWS_PUBSUB_CLIENT_LIBS,
 )
 
 java_library(
@@ -113,6 +168,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":high-availability__plugin",
+        ":aws-client",
         ":gcp-client",
         "@global-refdb//jar",
         "@wiremock//jar",
