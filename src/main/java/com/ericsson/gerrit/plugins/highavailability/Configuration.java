@@ -66,7 +66,6 @@ public class Configuration {
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
 
   public static final String PUBSUB_SECTION = "pubsub";
-  public static final String AWS_PUBSUB_SECTION = "awspubsub";
 
   private final Main main;
   private final AutoReindex autoReindex;
@@ -77,6 +76,7 @@ public class Configuration {
   private final Http http;
   private final PubSub pubSub;
   private final PubSubGcp pubSubGcp;
+  private final PubSubAws awsPubSub;
   private final Cache cache;
   private final Event event;
   private final Index index;
@@ -94,7 +94,8 @@ public class Configuration {
   public enum Transport {
     HTTP,
     JGROUPS,
-    PUBSUB
+    PUBSUB,
+    PUBSUB_AWS,
   }
 
   @Inject
@@ -123,6 +124,7 @@ public class Configuration {
     http = new Http(cfg);
     pubSub = new PubSub(cfg);
     pubSubGcp = new PubSubGcp(cfg);
+    awsPubSub = new PubSubAws(cfg, site);
     cache = new Cache(cfg);
     event = new Event(cfg);
     index = new Index(cfg);
@@ -186,6 +188,10 @@ public class Configuration {
 
   public PubSubGcp pubSubGcp() {
     return pubSubGcp;
+  }
+
+  public PubSubAws pubSubAws() {
+    return awsPubSub;
   }
 
   public Cache cache() {
@@ -589,7 +595,7 @@ public class Configuration {
     static final String DEFAULT_TOPIC_FIELD = "topic";
     static final String STREAM_EVENTS_TOPIC_FIELD = "streamEventsTopic";
     static final String DEFAULT_PROVIDER = "gcp";
-    static final String DEFAULT_TOPIC = "gerrit";
+    static final String DEFAULT_TOPIC = "default";
     static final String STREAM_EVENTS_TOPIC = "stream-events";
 
     private final String provider;
@@ -771,6 +777,76 @@ public class Configuration {
 
     public int maxDeliveryAttempts() {
       return maxDeliveryAttempts;
+    }
+  }
+
+  public static class PubSubAws {
+    static final String AWS_SUBSECTION = "aws";
+    static final String REGION_FIELD = "region";
+    static final String ACCESS_KEY_ID_LOCATION_FIELD = "accessKeyIdLocation";
+    static final String SECRET_ACCESS_KEY_LOCATION_FIELD = "secretAccessKeyLocation";
+    static final String MAX_RECEIVE_COUNT_FIELD = "maxReceiveCount";
+    static final String MESSAGE_PROCESSING_THREAD_POOL_SIZE_FIELD =
+        "messageProcessingThreadPoolSize";
+
+    static final int DEFAULT_MAX_RECEIVE_COUNT = 5;
+    static final int DEFAULT_MESSAGE_PROCESSING_THREAD_POOL_SIZE = 4;
+
+    private final String region;
+    private final Path accessKeyIdLocation;
+    private final Path secretAccessKeyLocation;
+    private final int maxReceiveCount;
+    private final int messageProcessingThreadPoolSize;
+
+    public PubSubAws(Config cfg, SitePaths site) {
+      this.region = cfg.getString(PUBSUB_SECTION, AWS_SUBSECTION, REGION_FIELD);
+      this.accessKeyIdLocation =
+          resolve(
+              site, cfg.getString(PUBSUB_SECTION, AWS_SUBSECTION, ACCESS_KEY_ID_LOCATION_FIELD));
+      this.secretAccessKeyLocation =
+          resolve(
+              site,
+              cfg.getString(PUBSUB_SECTION, AWS_SUBSECTION, SECRET_ACCESS_KEY_LOCATION_FIELD));
+      this.maxReceiveCount =
+          cfg.getInt(
+              PUBSUB_SECTION, AWS_SUBSECTION, MAX_RECEIVE_COUNT_FIELD, DEFAULT_MAX_RECEIVE_COUNT);
+      this.messageProcessingThreadPoolSize =
+          cfg.getInt(
+              PUBSUB_SECTION,
+              AWS_SUBSECTION,
+              MESSAGE_PROCESSING_THREAD_POOL_SIZE_FIELD,
+              DEFAULT_MESSAGE_PROCESSING_THREAD_POOL_SIZE);
+    }
+
+    private Path resolve(SitePaths site, String location) {
+      if (location == null) {
+        return null;
+      }
+      Path p = Paths.get(location);
+      if (p.isAbsolute()) {
+        return p;
+      }
+      return site.resolve(location);
+    }
+
+    public String region() {
+      return region;
+    }
+
+    public Path accessKeyIdLocation() {
+      return accessKeyIdLocation;
+    }
+
+    public Path secretAccessKeyLocation() {
+      return secretAccessKeyLocation;
+    }
+
+    public int maxReceiveCount() {
+      return maxReceiveCount;
+    }
+
+    public int messageProcessingThreadPoolSize() {
+      return messageProcessingThreadPoolSize;
     }
   }
 

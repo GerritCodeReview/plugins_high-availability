@@ -21,6 +21,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.PubSubForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.aws.AwsPubSubForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
 import com.ericsson.gerrit.plugins.highavailability.indexsync.IndexSyncModule;
@@ -63,6 +64,10 @@ class Module extends LifecycleModule {
       case PUBSUB:
         install(new ForwarderCommandsModule());
         install(new PubSubForwarderModule(config));
+        break;
+      case PUBSUB_AWS:
+        install(new ForwarderCommandsModule());
+        install(AwsPubSubForwarderModule.create());
         break;
       default:
         throw new IllegalArgumentException("Unsupported transport: " + config.main().transport());
