@@ -16,6 +16,24 @@
       "message": "can we use `Instant` here and convert to millis after subtracting requestStart from now in line 268 ?",
       "revId": "2a1b729c3755da1101103e839693d5f32bad485d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e118671_e09f8aec",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-12-05T15:13:36Z",
+      "side": 1,
+      "message": "Only if we change the format in the IndexEvent to Instant.",
+      "parentUuid": "84b4a4bc_93e72215",
+      "revId": "2a1b729c3755da1101103e839693d5f32bad485d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
