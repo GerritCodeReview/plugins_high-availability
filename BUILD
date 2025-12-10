@@ -32,7 +32,7 @@ load(
     )
     for name, gcp_client_lib in [
         ("high-availability", ":gcp-client-neverlink"),
-        ("high-availability-pubsub", ":gcp-client"),
+        ("high-availability-pubsub-gcp", ":gcp-client"),
     ]
 ]
 
