@@ -12,44 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.ExecutorProvider;
-import com.google.api.gax.rpc.TransportChannelProvider;
-import com.google.cloud.pubsub.v1.Publisher;
-import com.google.gerrit.server.StartupException;
+import com.google.cloud.pubsub.v1.MessageReceiver;
+import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.pubsub.v1.TopicName;
-import java.io.IOException;
+import com.google.pubsub.v1.ProjectSubscriptionName;
 
 @Singleton
-public class LocalPublisherFactory implements PublisherFactory {
+public class GCPSubscriberFactory implements SubscriberFactory {
   private final CredentialsProvider credentials;
-  private final TransportChannelProvider transportChannelProvider;
+  private final MessageReceiver messageReceiver;
   private final ExecutorProvider executor;
 
   @Inject
-  public LocalPublisherFactory(
+  public GCPSubscriberFactory(
       CredentialsProvider credentials,
-      TransportChannelProvider transportChannelProvider,
-      @PublisherExecutorProvider ExecutorProvider executor) {
+      MessageReceiver messageReceiver,
+      @SubscriberExecutorProvider ExecutorProvider executor) {
     this.credentials = credentials;
-    this.transportChannelProvider = transportChannelProvider;
+    this.messageReceiver = messageReceiver;
     this.executor = executor;
   }
 
   @Override
-  public Publisher create(TopicName topic) {
-    try {
-      return Publisher.newBuilder(topic)
-          .setExecutorProvider(executor)
-          .setChannelProvider(transportChannelProvider)
-          .setCredentialsProvider(credentials)
-          .build();
-    } catch (IOException e) {
-      throw new StartupException("Failed to create publisher for PubSub.", e);
-    }
+  public Subscriber create(ProjectSubscriptionName subscriptionName) {
+    return Subscriber.newBuilder(subscriptionName.toString(), messageReceiver)
+        .setExecutorProvider(executor)
+        .setCredentialsProvider(credentials)
+        .build();
   }
 }

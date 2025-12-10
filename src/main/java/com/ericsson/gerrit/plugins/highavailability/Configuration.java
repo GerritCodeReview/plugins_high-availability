@@ -65,6 +65,9 @@ public class Configuration {
   static final String BATCH_THREAD_POOL_SIZE_KEY = "batchThreadPoolSize";
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
 
+  public static final String PUBSUB_SECTION = "pubsub";
+  public static final String AWS_PUBSUB_SECTION = "awspubsub";
+
   private final Main main;
   private final AutoReindex autoReindex;
   private final IndexSync indexSync;
@@ -73,7 +76,7 @@ public class Configuration {
   private final JGroupsKubernetes jgroupsKubernetes;
   private final Http http;
   private final PubSub pubSub;
-  private final PubSubDlt pubSubDlt;
+  private final PubSubGcp pubSubGcp;
   private final Cache cache;
   private final Event event;
   private final Index index;
@@ -119,7 +122,7 @@ public class Configuration {
     jgroupsKubernetes = new JGroupsKubernetes(cfg);
     http = new Http(cfg);
     pubSub = new PubSub(cfg);
-    pubSubDlt = new PubSubDlt(cfg);
+    pubSubGcp = new PubSubGcp(cfg);
     cache = new Cache(cfg);
     event = new Event(cfg);
     index = new Index(cfg);
@@ -181,8 +184,8 @@ public class Configuration {
     return pubSub;
   }
 
-  public PubSubDlt pubSubDlt() {
-    return pubSubDlt;
+  public PubSubGcp pubSubGcp() {
+    return pubSubGcp;
   }
 
   public Cache cache() {
@@ -207,6 +210,11 @@ public class Configuration {
 
   public SharedRefDbConfiguration sharedRefDb() {
     return sharedRefDb;
+  }
+
+  public static String getString(Config cfg, String section, String field, String def) {
+    String value = cfg.getString(section, null, field);
+    return value == null ? def : value;
   }
 
   private static int getInt(Config cfg, String section, String name, int defaultValue) {
@@ -577,18 +585,51 @@ public class Configuration {
   }
 
   public static class PubSub {
-    static final String PUBSUB_SECTION = "pubsub";
-    static final String GCLOUD_PROJECT_FIELD = "gcloudProject";
-    static final String PRIVATE_KEY_LOCATION_FIELD = "privateKeyLocation";
+    static final String PROVIDER_FIELD = "provider";
     static final String DEFAULT_TOPIC_FIELD = "topic";
     static final String STREAM_EVENTS_TOPIC_FIELD = "streamEventsTopic";
+    static final String DEFAULT_PROVIDER = "gcp";
+    static final String DEFAULT_TOPIC = "gerrit";
+    static final String STREAM_EVENTS_TOPIC = "stream-events";
+
+    private final String provider;
+    private final String defaultTopic;
+    private final String streamEventsTopic;
+
+    public PubSub(Config cfg) {
+      this.provider =
+          Configuration.getString(cfg, PUBSUB_SECTION, PROVIDER_FIELD, DEFAULT_PROVIDER);
+      this.defaultTopic =
+          Configuration.getString(cfg, PUBSUB_SECTION, DEFAULT_TOPIC_FIELD, DEFAULT_TOPIC);
+      this.streamEventsTopic =
+          Configuration.getString(
+              cfg, PUBSUB_SECTION, STREAM_EVENTS_TOPIC_FIELD, STREAM_EVENTS_TOPIC);
+    }
+
+    public String provider() {
+      return provider;
+    }
+
+    public String defaultTopic() {
+      return defaultTopic;
+    }
+
+    public String streamEventsTopic() {
+      return streamEventsTopic;
+    }
+  }
+
+  public static class PubSubGcp {
+    static final String GCP_SUBSECTION = "gcp";
+    static final String GCLOUD_PROJECT_FIELD = "gcloudProject";
+    static final String PRIVATE_KEY_LOCATION_FIELD = "privateKeyLocation";
     static final String ACK_DEADLINE_FIELD = "ackDeadline";
     static final String MESSAGE_RETENTION_DURATION_FIELD = "messageRetentionDuration";
     static final String RETAIN_ACKED_MESSAGES_FIELD = "retainAckedMessages";
     static final String SUBSCRIPTION_TIMEOUT_FIELD = "subscriptionTimeout";
     static final String SHUTDOWN_TIMEOUT_FIELD = "shutdownTimeout";
     static final String PUBLISHER_THREAD_POOL_SIZE_FIELD = "publisherThreadPoolSize";
-    static final String SUBSCRIBER_THREAD_POOL_SIZE_FIELD = "subscriberThreadPoolSize";
+    static final String MAX_DELIVERY_ATTEMPTS_FIELD = "maxDeliveryAttempts";
     static final String MINIMUM_BACKOFF_FIELD = "minimumBackoff";
     static final String MAXIMUM_BACKOFF_FIELD = "maximumBackoff";
 
@@ -597,12 +638,11 @@ public class Configuration {
     static final boolean DEFAULT_RETAIN_ACKED_MESSAGES = false;
     static final Duration DEFAULT_SUBSCRIPTION_TIMEOUT = Duration.ofSeconds(10);
     static final Duration DEFAULT_SHUTDOWN_TIMEOUT = Duration.ofSeconds(10);
-    static final String DEFAULT_TOPIC = "gerrit";
-    static final String STREAM_EVENTS_TOPIC = "stream-events";
     static final int DEFAULT_PUBLISHER_THREAD_POOL_SIZE = 4;
     static final int DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE = 4;
     static final Duration DEFAULT_MINIMUM_BACKOFF = Duration.ofSeconds(10);
     static final Duration DEFAULT_MAXIMUM_BACKOFF = Duration.ofMinutes(10);
+    static final int DEFAULT_MAX_DELIVERY_ATTEMPTS = 5;
 
     private final String gcloudProject;
     private final String privateKeyLocation;
@@ -611,51 +651,78 @@ public class Configuration {
     private final boolean retainAckedMessages;
     private final Duration subscriptionTimeout;
     private final Duration shutdownTimeout;
-    private final String defaultTopic;
-    private final String streamEventsTopic;
     private final int publisherThreadPoolSize;
     private final int subscriberThreadPoolSize;
     private final Duration minimumBackoff;
     private final Duration maximumBackoff;
+    private final int maxDeliveryAttempts;
 
-    public PubSub(Config cfg) {
-      this.gcloudProject = getString(cfg, PUBSUB_SECTION, GCLOUD_PROJECT_FIELD, null);
-      this.privateKeyLocation = getString(cfg, PUBSUB_SECTION, PRIVATE_KEY_LOCATION_FIELD, null);
-      this.defaultTopic = getString(cfg, PUBSUB_SECTION, DEFAULT_TOPIC_FIELD, DEFAULT_TOPIC);
-      this.streamEventsTopic =
-          getString(cfg, PUBSUB_SECTION, STREAM_EVENTS_TOPIC_FIELD, STREAM_EVENTS_TOPIC);
-      this.ackDeadline = getDuration(cfg, PUBSUB_SECTION, ACK_DEADLINE_FIELD, DEFAULT_ACK_DEADLINE);
+    public PubSubGcp(Config cfg) {
+      this.gcloudProject = cfg.getString(PUBSUB_SECTION, GCP_SUBSECTION, GCLOUD_PROJECT_FIELD);
+      this.privateKeyLocation =
+          cfg.getString(PUBSUB_SECTION, GCP_SUBSECTION, PRIVATE_KEY_LOCATION_FIELD);
+      this.ackDeadline =
+          getDuration(
+              cfg, PUBSUB_SECTION, GCP_SUBSECTION, ACK_DEADLINE_FIELD, DEFAULT_ACK_DEADLINE);
       this.messageRetentionDuration =
           getDuration(
               cfg,
               PUBSUB_SECTION,
+              GCP_SUBSECTION,
               MESSAGE_RETENTION_DURATION_FIELD,
               DEFAULT_MESSAGE_RETENTION_DURATION);
       this.retainAckedMessages =
           cfg.getBoolean(
-              PUBSUB_SECTION, RETAIN_ACKED_MESSAGES_FIELD, DEFAULT_RETAIN_ACKED_MESSAGES);
+              PUBSUB_SECTION,
+              GCP_SUBSECTION,
+              RETAIN_ACKED_MESSAGES_FIELD,
+              DEFAULT_RETAIN_ACKED_MESSAGES);
       this.subscriptionTimeout =
           getDuration(
-              cfg, PUBSUB_SECTION, SUBSCRIPTION_TIMEOUT_FIELD, DEFAULT_SUBSCRIPTION_TIMEOUT);
+              cfg,
+              PUBSUB_SECTION,
+              GCP_SUBSECTION,
+              SUBSCRIPTION_TIMEOUT_FIELD,
+              DEFAULT_SUBSCRIPTION_TIMEOUT);
       this.shutdownTimeout =
-          getDuration(cfg, PUBSUB_SECTION, SHUTDOWN_TIMEOUT_FIELD, DEFAULT_SHUTDOWN_TIMEOUT);
+          getDuration(
+              cfg,
+              PUBSUB_SECTION,
+              GCP_SUBSECTION,
+              SHUTDOWN_TIMEOUT_FIELD,
+              DEFAULT_SHUTDOWN_TIMEOUT);
       this.publisherThreadPoolSize =
           cfg.getInt(
-              PUBSUB_SECTION, PUBLISHER_THREAD_POOL_SIZE_FIELD, DEFAULT_PUBLISHER_THREAD_POOL_SIZE);
+              PUBSUB_SECTION,
+              GCP_SUBSECTION,
+              PUBLISHER_THREAD_POOL_SIZE_FIELD,
+              DEFAULT_PUBLISHER_THREAD_POOL_SIZE);
       this.subscriberThreadPoolSize =
           cfg.getInt(
               PUBSUB_SECTION,
-              SUBSCRIBER_THREAD_POOL_SIZE_FIELD,
+              GCP_SUBSECTION,
+              THREAD_POOL_SIZE_KEY,
               DEFAULT_SUBSCRIBER_THREAD_POOL_SIZE);
       this.minimumBackoff =
-          getDuration(cfg, PUBSUB_SECTION, MINIMUM_BACKOFF_FIELD, DEFAULT_MINIMUM_BACKOFF);
+          getDuration(
+              cfg, PUBSUB_SECTION, GCP_SUBSECTION, MINIMUM_BACKOFF_FIELD, DEFAULT_MINIMUM_BACKOFF);
       this.maximumBackoff =
-          getDuration(cfg, PUBSUB_SECTION, MAXIMUM_BACKOFF_FIELD, DEFAULT_MAXIMUM_BACKOFF);
+          getDuration(
+              cfg, PUBSUB_SECTION, GCP_SUBSECTION, MAXIMUM_BACKOFF_FIELD, DEFAULT_MAXIMUM_BACKOFF);
+
+      this.maxDeliveryAttempts =
+          cfg.getInt(
+              Configuration.PUBSUB_SECTION,
+              GCP_SUBSECTION,
+              MAX_DELIVERY_ATTEMPTS_FIELD,
+              DEFAULT_MAX_DELIVERY_ATTEMPTS);
     }
 
-    public static String getString(Config cfg, String section, String field, String def) {
-      String value = cfg.getString(section, null, field);
-      return value == null ? def : value;
+    private static Duration getDuration(
+        Config cfg, String section, String subsection, String setting, Duration defaultValue) {
+      return Duration.ofMillis(
+          ConfigUtil.getTimeUnit(
+              cfg, section, subsection, setting, defaultValue.toMillis(), MILLISECONDS));
     }
 
     public String gCloudProject() {
@@ -686,14 +753,6 @@ public class Configuration {
       return shutdownTimeout;
     }
 
-    public String defaultTopic() {
-      return defaultTopic;
-    }
-
-    public String streamEventsTopic() {
-      return streamEventsTopic;
-    }
-
     public int publisherThreadPoolSize() {
       return publisherThreadPoolSize;
     }
@@ -708,24 +767,6 @@ public class Configuration {
 
     public Duration maximumBackoff() {
       return maximumBackoff;
-    }
-  }
-
-  public static class PubSubDlt {
-    static final String DLT_SUBSECTION = "dlt";
-    static final String MAX_DELIVERY_ATTEMPTS_FIELD = "maxDeliveryAttempts";
-
-    static final int DEFAULT_MAX_DELIVERY_ATTEMPTS = 5;
-    private final int maxDeliveryAttempts;
-
-    @Inject
-    public PubSubDlt(Config cfg) {
-      this.maxDeliveryAttempts =
-          cfg.getInt(
-              PubSub.PUBSUB_SECTION,
-              DLT_SUBSECTION,
-              MAX_DELIVERY_ATTEMPTS_FIELD,
-              DEFAULT_MAX_DELIVERY_ATTEMPTS);
     }
 
     public int maxDeliveryAttempts() {

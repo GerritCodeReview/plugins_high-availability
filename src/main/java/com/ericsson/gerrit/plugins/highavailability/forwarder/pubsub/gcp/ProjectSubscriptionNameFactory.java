@@ -12,39 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
+import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.TopicName;
-import java.util.List;
 
 @Singleton
-public class SubscriptionNames {
-
-  private final List<String> names;
+public class ProjectSubscriptionNameFactory {
   private final String instanceId;
-
-  public static String getSubscriptionName(String instanceId, String topic) {
-    return instanceId + "-" + topic;
-  }
+  private final Configuration pluginConfiguration;
 
   @Inject
-  SubscriptionNames(@GerritInstanceId String instanceId, TopicNames topicNames) {
+  ProjectSubscriptionNameFactory(
+      @GerritInstanceId String instanceId, Configuration pluginConfiguration) {
     this.instanceId = instanceId;
-    this.names = initializeNames(topicNames);
+    this.pluginConfiguration = pluginConfiguration;
   }
 
-  public String nameFor(TopicName topic) {
-    return instanceId + "-" + topic.getTopic();
-  }
-
-  public List<String> all() {
-    return names;
-  }
-
-  private List<String> initializeNames(TopicNames topicNames) {
-    return topicNames.all().stream().map(topic -> instanceId + "-" + topic.getTopic()).toList();
+  public ProjectSubscriptionName create(TopicName topic) {
+    String subscriptionId = String.format("%s-%s", instanceId, topic.getTopic());
+    return ProjectSubscriptionName.of(
+        pluginConfiguration.pubSubGcp().gCloudProject(), subscriptionId);
   }
 }
