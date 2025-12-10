@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.TopicNames;
 import com.google.api.gax.rpc.AlreadyExistsException;
 import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
@@ -40,6 +41,7 @@ public class PubSubInitializer {
   private final SubscriptionAdminClient subscriptionAdminClient;
   private final Configuration pluginConfiguration;
   private final String instanceId;
+  private final String gCloudProject;
   private final TopicNames topicNames;
   private final ProjectSubscriptionNameFactory subscriptionNameFactory;
 
@@ -49,18 +51,21 @@ public class PubSubInitializer {
       SubscriptionAdminClient subscriptionAdminClient,
       Configuration pluginConfiguration,
       @GerritInstanceId String instanceId,
+      @GCloudProject String gCloudProject,
       TopicNames topicNames,
       ProjectSubscriptionNameFactory subscriptionNameFactory) {
     this.topicAdminClient = topicAdminClient;
     this.subscriptionAdminClient = subscriptionAdminClient;
     this.pluginConfiguration = pluginConfiguration;
     this.instanceId = instanceId;
+    this.gCloudProject = gCloudProject;
     this.topicNames = topicNames;
     this.subscriptionNameFactory = subscriptionNameFactory;
   }
 
   public void initialize() {
-    for (TopicName topic : topicNames.all()) {
+    for (String name : topicNames.all()) {
+      TopicName topic = TopicName.of(gCloudProject, name);
       TopicName dltTopicName = createDltTopicName(topic);
       initializeTopic(dltTopicName);
       initializeDltSubscription(dltTopicName);
@@ -106,7 +111,7 @@ public class PubSubInitializer {
   private void initializeDltSubscription(TopicName dltTopic) {
     ProjectSubscriptionName projectSubscriptionName =
         ProjectSubscriptionName.of(
-            pluginConfiguration.pubSub().gCloudProject(), "monitoring-" + dltTopic.getTopic());
+            pluginConfiguration.pubSubGcp().gCloudProject(), "monitoring-" + dltTopic.getTopic());
     try {
       subscriptionAdminClient.getSubscription(projectSubscriptionName);
       logger.atInfo().log("DLT Subscription for topic %s already exists", dltTopic);
@@ -125,30 +130,30 @@ public class PubSubInitializer {
     DeadLetterPolicy deadLetterPolicy =
         DeadLetterPolicy.newBuilder()
             .setDeadLetterTopic(createDltTopicName(topic).toString())
-            .setMaxDeliveryAttempts(pluginConfiguration.pubSubDlt().maxDeliveryAttempts())
+            .setMaxDeliveryAttempts(pluginConfiguration.pubSubGcp().maxDeliveryAttempts())
             .build();
 
     RetryPolicy retryPolicy =
         RetryPolicy.newBuilder()
             .setMinimumBackoff(
                 com.google.protobuf.Duration.newBuilder()
-                    .setSeconds(pluginConfiguration.pubSub().minimumBackoff().getSeconds())
+                    .setSeconds(pluginConfiguration.pubSubGcp().minimumBackoff().getSeconds())
                     .build())
             .setMaximumBackoff(
                 com.google.protobuf.Duration.newBuilder()
-                    .setSeconds(pluginConfiguration.pubSub().maximumBackoff().getSeconds())
+                    .setSeconds(pluginConfiguration.pubSubGcp().maximumBackoff().getSeconds())
                     .build())
             .build();
 
     Subscription desired =
         subscription.toBuilder()
-            .setAckDeadlineSeconds((int) pluginConfiguration.pubSub().ackDeadline().getSeconds())
+            .setAckDeadlineSeconds((int) pluginConfiguration.pubSubGcp().ackDeadline().getSeconds())
             .setMessageRetentionDuration(
                 com.google.protobuf.Duration.newBuilder()
                     .setSeconds(
-                        pluginConfiguration.pubSub().messageRetentionDuration().getSeconds())
+                        pluginConfiguration.pubSubGcp().messageRetentionDuration().getSeconds())
                     .build())
-            .setRetainAckedMessages(pluginConfiguration.pubSub().retainAckedMessages())
+            .setRetainAckedMessages(pluginConfiguration.pubSubGcp().retainAckedMessages())
             .setDeadLetterPolicy(deadLetterPolicy)
             .setRetryPolicy(retryPolicy)
             .build();

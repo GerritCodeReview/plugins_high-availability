@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessor;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.TopicNames;
 import com.google.cloud.pubsub.v1.Publisher;
 import com.google.cloud.pubsub.v1.Subscriber;
 import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
@@ -61,14 +62,14 @@ public class PubSubForwarderTest {
     Configuration cfg = mock(Configuration.class, RETURNS_DEEP_STUBS);
 
     testSystem = PubSubTestSystem.create(cfg);
-    when(cfg.pubSub().gCloudProject()).thenReturn(testSystem.getProjectId());
+    when(cfg.pubSubGcp().gCloudProject()).thenReturn(testSystem.getProjectId());
     when(cfg.pubSub().defaultTopic()).thenReturn("gerrit");
     when(cfg.pubSub().streamEventsTopic()).thenReturn("stream-events");
-    when(cfg.pubSub().subscriptionTimeout()).thenReturn(Duration.ofSeconds(30));
-    when(cfg.pubSub().shutdownTimeout()).thenReturn(Duration.ofSeconds(30));
-    when(cfg.pubSub().ackDeadline()).thenReturn(Duration.ofSeconds(10));
-    when(cfg.pubSub().retainAckedMessages()).thenReturn(false);
-    when(cfg.pubSub().messageRetentionDuration()).thenReturn(Duration.ofMinutes(10));
+    when(cfg.pubSubGcp().subscriptionTimeout()).thenReturn(Duration.ofSeconds(30));
+    when(cfg.pubSubGcp().shutdownTimeout()).thenReturn(Duration.ofSeconds(30));
+    when(cfg.pubSubGcp().ackDeadline()).thenReturn(Duration.ofSeconds(10));
+    when(cfg.pubSubGcp().retainAckedMessages()).thenReturn(false);
+    when(cfg.pubSubGcp().messageRetentionDuration()).thenReturn(Duration.ofMinutes(10));
 
     Gson eventGson = new EventGsonProvider().get();
     gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
@@ -84,6 +85,7 @@ public class PubSubForwarderTest {
             subscriptionAdminClient,
             cfg,
             SUBSCRIBER_INSTANCE_ID,
+            testSystem.getProjectId(),
             new TopicNames(cfg),
             new ProjectSubscriptionNameFactory(SUBSCRIBER_INSTANCE_ID, cfg));
 

@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.PubSubForwarderModule.EmulatorModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp.GcpPubSubForwarderModule.EmulatorModule;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.NoCredentialsProvider;
 import com.google.api.gax.grpc.GrpcTransportChannel;
@@ -94,7 +94,7 @@ public class EmulatedPubSub extends PubSubTestSystem {
   @Override
   SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
     EmulatorModule emulatorModule =
-        new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
+        new GcpPubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
     return emulatorModule.createSubscriptionAdminClient(
         emulatorModule.createTransportChannelProvider());
   }
@@ -111,25 +111,25 @@ public class EmulatedPubSub extends PubSubTestSystem {
 
   private Publisher getPublisher(TopicName topicName) throws Exception {
     EmulatorModule emulatorModule =
-        new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
+        new GcpPubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
     return new LocalPublisherFactory(
             getCredentials(),
             emulatorModule.createTransportChannelProvider(),
-            PubSubForwarderModule.buildPublisherExecutorProvider(cfg))
+            GcpPubSubForwarderModule.buildPublisherExecutorProvider(cfg))
         .create(topicName);
   }
 
   @Override
   Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId) throws Exception {
     EmulatorModule emulatorModule =
-        new PubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
+        new GcpPubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
     ProjectSubscriptionName subscriptionName =
         new ProjectSubscriptionNameFactory(instanceId, cfg).create(TOPIC_NAME);
     return new LocalSubscriberFactory(
             getCredentials(),
             emulatorModule.createTransportChannelProvider(),
             new MessageReceiverProvider(cfg, processor, instanceId).get(),
-            PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
+            GcpPubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
         .create(subscriptionName);
   }
 }

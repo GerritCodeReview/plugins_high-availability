@@ -73,10 +73,10 @@ defined by the `jgroups.clusterName`.
   maxTries = 100
 ```
 
-### GCP PubSub based message transport
+### PubSub based message transport
 
 In this case no discovery is required. Gerrit instances will just subscribe
-to the same PubSub topic. They will publish all messages to tha topic and will
+to the same PubSub topic(s). They will publish all messages to those topics and will
 pull all messages except for their own from their subscription.
 
 ```
@@ -86,10 +86,12 @@ pull all messages except for their own from their subscription.
 [autoReindex]
   enabled = false
 [pubsub]
-  gcloudProject = project
-  privateKeyLocation = etc/serviceAccountKey.json
+  provider = gcp
   topic = gerrit
   streamEventsTopic = stream-events
+[pubsub "gcp"]
+  gcloudProject = project
+  privateKeyLocation = etc/serviceAccountKey.json
   ackDeadline = 10s
   messageRetentionDuration = 7days
   retainAckedMessages = true
@@ -99,7 +101,6 @@ pull all messages except for their own from their subscription.
   subscriberThreadPoolSize = 4
   minimumBackoff = 10s
   maximumBackoff = 10m
-[pubsub "dlt"]
   maxDeliveryAttempts = 5
 ```
 
@@ -314,15 +315,9 @@ calls by specifying the following fields:
 ```http.threadPoolSize```
 :   Maximum number of threads used to execute REST calls towards target instances.
 
-```pubsub.gcloudProject```
-:   The name of the GCP project containing the PubSub topic to be used. This
-    setting is mandatory if using PubSub.
-
-```pubsub.privateKeyLocation```
-:   The location of the file containing the service account key of the service
-    account that Gerrit can use to create subscriptions for the topic configured
-    in [pubsub.topic](#pubsubtopic) and to subscribe to it. This setting is
-    mandatory if using PubSub.
+```pubsub.provider```
+:   The provider of the pubsub service. Supported values are: `gcp`.
+    This setting is mandatory when using pubsub.
 
 ```pubsub.topic```
 :   The default pubsub topic for publishing all messages that do not have
@@ -331,43 +326,53 @@ calls by specifying the following fields:
 ```pubsub.streamEventsTopic```
 :   PubSub topic to publish event messages to. Defaults to `stream-events`.
 
-```pubsub.ackDeadline```
+```pubsub.gcp.gcloudProject```
+:   The name of the GCP project containing the PubSub topic to be used. This
+    setting is mandatory if using PubSub.
+
+```pubsub.gcp.privateKeyLocation```
+:   The location of the file containing the service account key of the service
+    account that Gerrit can use to create subscriptions for the topic configured
+    in [pubsub.topic](#pubsubtopic) and to subscribe to it. This setting is
+    mandatory if using PubSub.
+
+```pubsub.gcp.ackDeadline```
 :   Time span the PubSub subscription will wait for acknowledgement of the message
     before declaring message delivery as failed. Defaults to 10s.
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
 
-```pubsub.messageRetentionDuration```
+```pubsub.gcp.messageRetentionDuration```
 :   How long to retain unacknowledged messages in the subscription's backlog.
     If `retainAckedMessages` is `true`, then this also configures the retention
     of acknowledged messages. Defaults to 7 days.
 
-```pubsub.retainAckedMessages```
+```pubsub.gcp.retainAckedMessages```
 :   Indicates whether to retain acknowledged messages. Applies to subscriptions.
     Defaults to `false`.
 
-```pubsub.subscriptionTimeout```
+```pubsub.gcp.subscriptionTimeout```
 :   Timeout for establishing the subscription. Defaults to 10s.
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
 
-```pubsub.shutdownTimeout```
+```pubsub.gcp.shutdownTimeout```
 :   Timeout for waiting the publisher and subscriber to shut down. Defaults to 10s.
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
 
-```pubsub.publisherThreadPoolSize```
+```pubsub.gcp.publisherThreadPoolSize```
 :   Thread pool size for PubSub publisher. Defaults to 4.
 
-```pubsub.subscriberThreadPoolSize```
+```pubsub.gcp.subscriberThreadPoolSize```
 :   Thread pool size for PubSub subscriber. Defaults to 4.
 
-```pubsub.minimumBackoff```
+```pubsub.gcp.minimumBackoff```
 :   The minimum delay between consecutive deliveries of a given message.
     Defaults to 10 seconds.
 
-```pubsub.maximumBackoff```
+```pubsub.gcp.maximumBackoff```
 :   The maximum delay between consecutive deliveries of a given message.
     Defaults to 10 minutes.
 
-```pubsub.dlt.maxDeliveryAttempts```
+```pubsub.gcp.maxDeliveryAttempts```
 :   The maximum number of delivery attempts for any message. After this many
     failed delivery attempts the message is moved to the dead letter topic.
 

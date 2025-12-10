@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.PubSubForwarderModule.GCPModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp.GcpPubSubForwarderModule.GCPModule;
 import com.google.api.client.util.Strings;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.FixedCredentialsProvider;
@@ -143,7 +143,7 @@ public class RealPubSub extends PubSubTestSystem {
 
   private Publisher getPublisher(TopicName topicName) throws Exception {
     return new GCPPublisherFactory(
-            getCredentials(), PubSubForwarderModule.buildPublisherExecutorProvider(cfg))
+            getCredentials(), GcpPubSubForwarderModule.buildPublisherExecutorProvider(cfg))
         .create(topicName);
   }
 
@@ -155,7 +155,7 @@ public class RealPubSub extends PubSubTestSystem {
         new GCPSubscriberFactory(
                 getCredentials(),
                 new MessageReceiverProvider(cfg, processor, instanceId).get(),
-                PubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
+                GcpPubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
             .create(subscriptionName);
     return subscriber;
   }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.cloud.pubsub.v1.Publisher;
@@ -59,7 +59,7 @@ public class OnStartStop implements LifecycleListener {
       try {
         subscriber
             .startAsync()
-            .awaitRunning(config.pubSub().subscriptionTimeout().getSeconds(), TimeUnit.SECONDS);
+            .awaitRunning(config.pubSubGcp().subscriptionTimeout().getSeconds(), TimeUnit.SECONDS);
       } catch (TimeoutException e) {
         throw new IllegalStateException("Timeout while subscribing to PubSub topic", e);
       }
@@ -77,7 +77,7 @@ public class OnStartStop implements LifecycleListener {
       try {
         publisher.shutdown();
         publisher.awaitTermination(
-            config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
+            config.pubSubGcp().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
       } catch (InterruptedException e) {
         logger.atSevere().withCause(e).log("Could not close the MessageDispatcher");
       }
@@ -89,7 +89,7 @@ public class OnStartStop implements LifecycleListener {
       try {
         subscriber
             .stopAsync()
-            .awaitTerminated(config.pubSub().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
+            .awaitTerminated(config.pubSubGcp().shutdownTimeout().getSeconds(), TimeUnit.SECONDS);
       } catch (TimeoutException e) {
         logger.atSevere().withCause(e).log("Timeout during stopping of subscription.");
       }
