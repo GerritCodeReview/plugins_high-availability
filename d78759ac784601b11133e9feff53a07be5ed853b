@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c4eb3a5_7f0c8595",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwarderMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-12-10T10:31:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b4ff512_22db9a08",
+      "revId": "d78759ac784601b11133e9feff53a07be5ed853b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9a0ac99_edd756f0",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-11-18T09:08:14Z",
       "side": 1,
       "message": "I think a simple count doesn\u0027t need a unit",
+      "revId": "d78759ac784601b11133e9feff53a07be5ed853b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a564b97_505614b5",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwarderMetrics.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2025-12-10T10:31:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a0ac99_edd756f0",
       "revId": "d78759ac784601b11133e9feff53a07be5ed853b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
