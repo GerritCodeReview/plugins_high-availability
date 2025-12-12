@@ -16,6 +16,24 @@
       "message": "Is this name change intentional ?\n\nTook me a while to understand which of the enum entries are events related to indexing changes. \n\nHow about this ?\n\nINDEX_CHANGE\nINDEX_CHANGE_BATCH\nINDEX_CHANGE_DELETE\nINDEX_CHANGE_DELETE_ALL_FROM_PROJECT",
       "revId": "5df1b40e7968530df887f1152c62755d7181729f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70036047_0ce4e257",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/IndexChange.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2025-12-12T12:09:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f708f676_1da1e82f",
+      "revId": "5df1b40e7968530df887f1152c62755d7181729f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
