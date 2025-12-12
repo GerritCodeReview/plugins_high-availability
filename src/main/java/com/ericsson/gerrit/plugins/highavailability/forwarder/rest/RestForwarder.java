@@ -16,7 +16,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
@@ -33,6 +35,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import javax.net.ssl.SSLException;
@@ -54,7 +58,8 @@ public class RestForwarder implements Forwarder {
   private final Configuration cfg;
   private final Provider<Set<PeerInfo>> peerInfoProvider;
   private final Gson gson;
-  private FailsafeExecutor<Boolean> executor;
+  private FailsafeExecutor<Result> executor;
+  private final ForwarderMetricsRegistry metricsRegistry;
 
   @Inject
   RestForwarder(
@@ -63,51 +68,80 @@ public class RestForwarder implements Forwarder {
       Configuration cfg,
       Provider<Set<PeerInfo>> peerInfoProvider,
       @EventGson Gson gson,
-      @RestForwarderExecutor FailsafeExecutor<Boolean> executor) {
+      @RestForwarderExecutor FailsafeExecutor<Result> executor,
+      ForwarderMetricsRegistry metricsRegistry) {
     this.httpSession = httpClient;
     this.pluginRelativePath = Joiner.on("/").join("plugins", pluginName);
     this.cfg = cfg;
     this.peerInfoProvider = peerInfoProvider;
     this.gson = gson;
     this.executor = executor;
+    this.metricsRegistry = metricsRegistry;
+    this.executor.onComplete(
+        ev -> {
+          this.metricsRegistry.get(ev.getResult().type()).recordRetries(ev.getAttemptCount());
+        });
   }
 
   @Override
-  public CompletableFuture<Boolean> indexAccount(final int accountId, IndexEvent event) {
-    return execute(RequestMethod.POST, "index account", "index/account", accountId, event);
-  }
-
-  @Override
-  public CompletableFuture<Boolean> indexChange(
-      String projectName, int changeId, IndexEvent event) {
+  public CompletableFuture<Result> indexAccount(final int accountId, IndexEvent event) {
     return execute(
         RequestMethod.POST,
+        EventType.INDEX_ACCOUNT_UPDATE,
+        "index account",
+        "index/account",
+        accountId,
+        event,
+        event.eventCreatedOn);
+  }
+
+  @Override
+  public CompletableFuture<Result> indexChange(String projectName, int changeId, IndexEvent event) {
+    return execute(
+        RequestMethod.POST,
+        EventType.INDEX_CHANGE_UPDATE,
         "index change",
         "index/change",
         buildIndexEndpoint(projectName, changeId),
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
-  public CompletableFuture<Boolean> batchIndexChange(
+  public CompletableFuture<Result> batchIndexChange(
       String projectName, int changeId, IndexEvent event) {
     return execute(
         RequestMethod.POST,
+        EventType.INDEX_CHANGE_UPDATE_BATCH,
         "index change",
         "index/change/batch",
         buildIndexEndpoint(projectName, changeId),
-        event);
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
-  public CompletableFuture<Boolean> deleteChangeFromIndex(final int changeId, IndexEvent event) {
+  public CompletableFuture<Result> deleteChangeFromIndex(final int changeId, IndexEvent event) {
     return execute(
-        RequestMethod.DELETE, "delete change", "index/change", buildIndexEndpoint(changeId), event);
+        RequestMethod.DELETE,
+        EventType.INDEX_CHANGE_DELETION,
+        "delete change",
+        "index/change",
+        buildIndexEndpoint(changeId),
+        event,
+        event.eventCreatedOn);
   }
 
   @Override
-  public CompletableFuture<Boolean> indexGroup(final String uuid, IndexEvent event) {
-    return execute(RequestMethod.POST, "index group", "index/group", uuid, event);
+  public CompletableFuture<Result> indexGroup(final String uuid, IndexEvent event) {
+    return execute(
+        RequestMethod.POST,
+        EventType.INDEX_GROUP_UPDATE,
+        "index group",
+        "index/group",
+        uuid,
+        event,
+        event.eventCreatedOn);
   }
 
   private String buildIndexEndpoint(int changeId) {
@@ -126,99 +160,153 @@ public class RestForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Boolean> indexProject(String projectName, IndexEvent event) {
-    return execute(
-        RequestMethod.POST, "index project", "index/project", Url.encode(projectName), event);
-  }
-
-  @Override
-  public CompletableFuture<Boolean> send(final Event event) {
-    return execute(RequestMethod.POST, "send event", "event", event.type, event);
-  }
-
-  @Override
-  public CompletableFuture<Boolean> evict(final String cacheName, final Object key) {
-    String json = gson.toJson(key);
-    return execute(RequestMethod.POST, "invalidate cache " + cacheName, "cache", cacheName, json);
-  }
-
-  @Override
-  public CompletableFuture<Boolean> addToProjectList(String projectName) {
+  public CompletableFuture<Result> indexProject(String projectName, IndexEvent event) {
     return execute(
         RequestMethod.POST,
+        EventType.INDEX_PROJECT_UPDATE,
+        "index project",
+        "index/project",
+        Url.encode(projectName),
+        event,
+        event.eventCreatedOn);
+  }
+
+  @Override
+  public CompletableFuture<Result> send(final Event event) {
+    return execute(
+        RequestMethod.POST,
+        EventType.EVENT_SENT,
+        "send event",
+        "event",
+        event.type,
+        event,
+        Instant.ofEpochSecond(event.eventCreatedOn));
+  }
+
+  @Override
+  public CompletableFuture<Result> evict(final String cacheName, final Object key) {
+    String json = gson.toJson(key);
+    return execute(
+        RequestMethod.POST,
+        EventType.CACHE_EVICTION,
+        "invalidate cache " + cacheName,
+        "cache",
+        cacheName,
+        json,
+        Instant.now());
+  }
+
+  @Override
+  public CompletableFuture<Result> addToProjectList(String projectName) {
+    return execute(
+        RequestMethod.POST,
+        EventType.PROJECT_LIST_ADDITION,
         "Update project_list, add ",
         buildProjectListEndpoint(),
-        Url.encode(projectName));
+        Url.encode(projectName),
+        Instant.now());
   }
 
   @Override
-  public CompletableFuture<Boolean> removeFromProjectList(String projectName) {
+  public CompletableFuture<Result> removeFromProjectList(String projectName) {
     return execute(
         RequestMethod.DELETE,
+        EventType.PROJECT_LIST_DELETION,
         "Update project_list, remove ",
         buildProjectListEndpoint(),
-        Url.encode(projectName));
+        Url.encode(projectName),
+        Instant.now());
   }
 
   @Override
-  public CompletableFuture<Boolean> deleteAllChangesForProject(Project.NameKey projectName) {
+  public CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName) {
     return execute(
         RequestMethod.DELETE,
+        EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT,
         "Delete all project changes from index",
         "index/change",
-        buildAllChangesForProjectEndpoint(projectName.get()));
+        buildAllChangesForProjectEndpoint(projectName.get()),
+        Instant.now());
   }
 
   private static String buildProjectListEndpoint() {
     return Joiner.on("/").join("cache", Constants.PROJECT_LIST);
   }
 
-  private CompletableFuture<Boolean> execute(
-      RequestMethod method, String action, String endpoint, Object id) {
-    return execute(method, action, endpoint, id, null);
+  private CompletableFuture<Result> execute(
+      RequestMethod method,
+      EventType eventType,
+      String action,
+      String endpoint,
+      Object id,
+      Instant requestStart) {
+    return execute(method, eventType, action, endpoint, id, null, requestStart);
   }
 
-  private CompletableFuture<Boolean> execute(
-      RequestMethod method, String action, String endpoint, Object id, Object payload) {
+  private CompletableFuture<Result> execute(
+      RequestMethod method,
+      EventType eventType,
+      String action,
+      String endpoint,
+      Object id,
+      Object payload,
+      Instant requestStart) {
+    log.atFine().log("Scheduling forwarding of: %s %s %s", action, id, payload);
     return peerInfoProvider.get().stream()
-        .map(peer -> createRequest(method, peer, action, endpoint, id, payload))
+        .map(
+            peer ->
+                createRequest(method, eventType, peer, action, endpoint, id, payload, requestStart))
         .map(r -> executor.getAsync(() -> r.execute()))
         .reduce(
-            CompletableFuture.completedFuture(true),
-            (a, b) -> a.thenCombine(b, (left, right) -> left && right));
+            CompletableFuture.completedFuture(new Result(eventType, true)),
+            (a, b) ->
+                a.thenCombine(
+                    b, (left, right) -> new Result(eventType, left.result() && right.result())))
+        .thenApplyAsync(
+            result -> {
+              metricsRegistry.get(eventType).recordResult(result.result());
+              metricsRegistry
+                  .get(eventType)
+                  .recordLatency(Duration.between(requestStart, Instant.now()).toMillis());
+              return result;
+            });
   }
 
   private Request createRequest(
       RequestMethod method,
+      EventType eventType,
       PeerInfo peer,
       String action,
       String endpoint,
       Object id,
-      Object payload) {
+      Object payload,
+      Instant createdOn) {
     String destination = peer.getDirectUrl();
-    return new Request(action, id, destination) {
+    return new Request(eventType, action, id, destination) {
       @Override
       HttpResult send() throws IOException {
         String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, id);
         switch (method) {
           case POST:
-            return httpSession.post(request, payload);
+            return httpSession.post(request, payload, createdOn);
           case DELETE:
           default:
-            return httpSession.delete(request);
+            return httpSession.delete(request, createdOn);
         }
       }
     };
   }
 
   protected abstract class Request {
+    private final EventType eventType;
     private final String action;
     private final Object key;
     private final String destination;
 
     private int execCnt;
 
-    Request(String action, Object key, String destination) {
+    Request(EventType eventType, String action, Object key, String destination) {
+      this.eventType = eventType;
       this.action = action;
       this.key = key;
       this.destination = destination;
@@ -229,13 +317,13 @@ public class RestForwarder implements Forwarder {
       return String.format("%s:%s => %s (try #%d)", action, key, destination, execCnt);
     }
 
-    boolean execute() throws ForwardingException {
+    Result execute() {
       log.atFine().log("Executing %s %s towards %s", action, key, destination);
       try {
         execCnt++;
         tryOnce();
         log.atFine().log("%s %s towards %s OK", action, key, destination);
-        return true;
+        return new Result(eventType, true);
       } catch (ForwardingException e) {
         int maxTries = cfg.http().maxTries();
         log.atFine().withCause(e).log(
@@ -244,10 +332,10 @@ public class RestForwarder implements Forwarder {
           log.atSevere().withCause(e).log(
               "%s %s towards %s failed with unrecoverable error; giving up",
               action, key, destination);
-          throw e;
+          return new Result(eventType, false, false);
         }
       }
-      return false;
+      return new Result(eventType, false);
     }
 
     void tryOnce() throws ForwardingException {

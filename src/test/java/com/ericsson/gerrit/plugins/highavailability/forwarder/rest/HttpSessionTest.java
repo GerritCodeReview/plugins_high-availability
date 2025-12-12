@@ -31,6 +31,7 @@ import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.google.gson.Gson;
 import java.net.SocketTimeoutException;
 import java.time.Duration;
+import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -80,7 +81,7 @@ public class HttpSessionTest {
     wireMockRule.givenThat(
         post(urlEqualTo(ENDPOINT)).willReturn(aResponse().withStatus(NO_CONTENT)));
 
-    assertThat(httpSession.post(uri).isSuccessful()).isTrue();
+    assertThat(httpSession.post(uri, Instant.now()).isSuccessful()).isTrue();
   }
 
   @Test
@@ -89,7 +90,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .withRequestBody(equalTo(BODY))
             .willReturn(aResponse().withStatus(NO_CONTENT)));
-    assertThat(httpSession.post(uri, BODY).isSuccessful()).isTrue();
+    assertThat(httpSession.post(uri, BODY, Instant.now()).isSuccessful()).isTrue();
   }
 
   @Test
@@ -97,7 +98,7 @@ public class HttpSessionTest {
     wireMockRule.givenThat(
         delete(urlEqualTo(ENDPOINT)).willReturn(aResponse().withStatus(NO_CONTENT)));
 
-    assertThat(httpSession.delete(uri).isSuccessful()).isTrue();
+    assertThat(httpSession.delete(uri, Instant.now()).isSuccessful()).isTrue();
   }
 
   @Test
@@ -107,7 +108,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withStatus(UNAUTHORIZED).withBody(expected)));
 
-    HttpResult result = httpSession.post(uri);
+    HttpResult result = httpSession.post(uri, Instant.now());
     assertThat(result.isSuccessful()).isFalse();
     assertThat(result.getMessage()).isEqualTo(expected);
   }
@@ -119,7 +120,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withStatus(NOT_FOUND).withBody(expected)));
 
-    HttpResult result = httpSession.post(uri);
+    HttpResult result = httpSession.post(uri, Instant.now());
     assertThat(result.isSuccessful()).isFalse();
     assertThat(result.getMessage()).isEqualTo(expected);
   }
@@ -130,7 +131,7 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withStatus(ERROR).withBody(ERROR_MESSAGE)));
 
-    HttpResult result = httpSession.post(uri);
+    HttpResult result = httpSession.post(uri, Instant.now());
     assertThat(result.isSuccessful()).isFalse();
     assertThat(result.getMessage()).isEqualTo(ERROR_MESSAGE);
   }
@@ -161,7 +162,7 @@ public class HttpSessionTest {
             .whenScenarioStateIs(THIRD_TRY)
             .willReturn(aResponse().withFixedDelay((int) TIMEOUT.toMillis())));
 
-    httpSession.post(uri);
+    httpSession.post(uri, Instant.now());
   }
 
   @Test
@@ -170,6 +171,6 @@ public class HttpSessionTest {
         post(urlEqualTo(ENDPOINT))
             .willReturn(aResponse().withFault(Fault.MALFORMED_RESPONSE_CHUNK)));
 
-    assertThat(httpSession.post(uri).isSuccessful()).isFalse();
+    assertThat(httpSession.post(uri, Instant.now()).isSuccessful()).isFalse();
   }
 }

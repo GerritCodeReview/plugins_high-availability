@@ -17,7 +17,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -32,30 +34,34 @@ class ProjectListApiServlet extends AbstractRestApiServlet {
   private final ForwardedProjectListUpdateHandler forwardedProjectListUpdateHandler;
 
   @Inject
-  ProjectListApiServlet(ForwardedProjectListUpdateHandler forwardedProjectListUpdateHandler) {
+  ProjectListApiServlet(
+      ForwardedProjectListUpdateHandler forwardedProjectListUpdateHandler,
+      ProcessorMetricsRegistry metricRegistry) {
+    super(metricRegistry, EventType.PROJECT_LIST_ADDITION, EventType.PROJECT_LIST_DELETION);
     this.forwardedProjectListUpdateHandler = forwardedProjectListUpdateHandler;
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse rsp) {
-    process(req, rsp, false);
+  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
+    return process(req, rsp, false);
   }
 
   @Override
-  protected void doDelete(HttpServletRequest req, HttpServletResponse rsp) {
-    process(req, rsp, true);
+  protected boolean processDeleteRequest(HttpServletRequest req, HttpServletResponse rsp) {
+    return process(req, rsp, true);
   }
 
-  private void process(HttpServletRequest req, HttpServletResponse rsp, boolean delete) {
-    setHeaders(rsp);
+  private boolean process(HttpServletRequest req, HttpServletResponse rsp, boolean delete) {
     String requestURI = req.getRequestURI();
     String projectName = requestURI.substring(requestURI.lastIndexOf('/') + 1);
     try {
       forwardedProjectListUpdateHandler.update(Url.decode(projectName), delete);
       rsp.setStatus(SC_NO_CONTENT);
+      return true;
     } catch (IOException e) {
       log.atSevere().withCause(e).log("Unable to update project list");
       sendError(rsp, SC_BAD_REQUEST, e.getMessage());
+      return false;
     }
   }
 }

@@ -1,4 +1,4 @@
-// Copyright (C) 2023 The Android Open Source Project
+// Copyright (C) 2025 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import java.time.Instant;
-
-public class Command {
-  public final EventType type;
-  public final Instant eventCreatedOn;
-
-  protected Command(EventType type, Instant eventCreatedOn) {
-    this.type = type;
-    this.eventCreatedOn = eventCreatedOn;
-  }
+public enum EventType {
+  CACHE_EVICTION,
+  EVENT_SENT,
+  INDEX_ACCOUNT_UPDATE,
+  INDEX_CHANGE_DELETION,
+  INDEX_CHANGE_DELETION_ALL_OF_PROJECT,
+  INDEX_CHANGE_UPDATE,
+  INDEX_CHANGE_UPDATE_BATCH,
+  INDEX_GROUP_UPDATE,
+  INDEX_PROJECT_UPDATE,
+  PROJECT_LIST_ADDITION,
+  PROJECT_LIST_DELETION
 }

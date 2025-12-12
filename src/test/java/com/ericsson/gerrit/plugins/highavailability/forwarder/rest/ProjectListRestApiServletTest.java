@@ -15,11 +15,14 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.extensions.restapi.Url;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,12 +39,15 @@ public class ProjectListRestApiServletTest {
   @Mock private ForwardedProjectListUpdateHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private ProcessorMetricsRegistry metricsRegistryMock;
+  @Mock private ProcessorMetrics metrics;
 
   private ProjectListApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new ProjectListApiServlet(handlerMock);
+    when(metricsRegistryMock.get(any())).thenReturn(metrics);
+    servlet = new ProjectListApiServlet(handlerMock, metricsRegistryMock);
     when(requestMock.getRequestURI())
         .thenReturn(
             "http://hostname/plugins/high-availability/cache/project_list/"

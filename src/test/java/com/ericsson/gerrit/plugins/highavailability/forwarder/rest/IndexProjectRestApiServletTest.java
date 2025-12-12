@@ -26,8 +26,11 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.restapi.Url;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,13 +48,16 @@ public class IndexProjectRestApiServletTest {
   @Mock private ForwardedIndexProjectHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private ProcessorMetricsRegistry metricsRegistryMock;
+  @Mock private ProcessorMetrics metrics;
 
   private Project.NameKey nameKey;
   private IndexProjectRestApiServlet servlet;
 
   @Before
   public void setUpMocks() {
-    servlet = new IndexProjectRestApiServlet(handlerMock);
+    when(metricsRegistryMock.get(any())).thenReturn(metrics);
+    servlet = new IndexProjectRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
     nameKey = Project.nameKey(PROJECT_NAME);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/project/" + Url.encode(nameKey.get()));

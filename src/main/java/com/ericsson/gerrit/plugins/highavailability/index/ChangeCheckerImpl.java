@@ -26,6 +26,7 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
 import org.eclipse.jgit.lib.ObjectId;
@@ -38,7 +39,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   private final OneOffRequestContext oneOffReqCtx;
   private final String changeId;
   private final ChangeFinder changeFinder;
-  private Optional<Long> computedChangeTs = Optional.empty();
+  private Optional<Instant> computedChangeTs = Optional.empty();
   private Optional<ChangeNotes> changeNotes = Optional.empty();
 
   public interface Factory {
@@ -59,12 +60,12 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
   @Override
   public Optional<IndexEvent> newIndexEvent() throws IOException {
-    Optional<Long> changeTs = getComputedChangeTs();
+    Optional<Instant> changeTs = getComputedChangeTs();
     if (!changeTs.isPresent()) {
       return Optional.empty();
     }
 
-    long ts = changeTs.get();
+    Instant ts = changeTs.get();
 
     IndexEvent event = new IndexEvent();
     event.eventCreatedOn = ts;
@@ -99,12 +100,9 @@ public class ChangeCheckerImpl implements ChangeChecker {
       if (indexEventOption.isPresent()) {
         try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
           IndexEvent indexEvent = indexEventOption.get();
-          return (computedChangeTs.get() > indexEvent.eventCreatedOn)
-              || (computedChangeTs.get() == indexEvent.eventCreatedOn)
-                  && (Objects.isNull(indexEvent.targetSha)
-                      || repositoryHas(repo, indexEvent.targetSha))
-                  && (Objects.isNull(indexEvent.targetSha)
-                      || repositoryHas(repo, indexEvent.metaSha));
+          return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
+              && (Objects.isNull(indexEvent.targetSha) || repositoryHas(repo, indexEvent.targetSha))
+              && (Objects.isNull(indexEvent.targetSha) || repositoryHas(repo, indexEvent.metaSha));
         }
       }
       return true;
@@ -116,7 +114,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   @Override
-  public Optional<Long> getComputedChangeTs() {
+  public Optional<Instant> getComputedChangeTs() {
     if (!computedChangeTs.isPresent()) {
       computedChangeTs = computeLastChangeTs();
     }
@@ -166,7 +164,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
   }
 
-  private Optional<Long> computeLastChangeTs() {
+  private Optional<Instant> computeLastChangeTs() {
     return getChangeNotes().map(this::getTsFromChange);
   }
 
@@ -180,8 +178,8 @@ public class ChangeCheckerImpl implements ChangeChecker {
     return ref.getTarget().getObjectId().getName();
   }
 
-  private long getTsFromChange(ChangeNotes notes) {
+  private Instant getTsFromChange(ChangeNotes notes) {
     Change change = notes.getChange();
-    return change.getLastUpdatedOn().toEpochMilli() / 1000;
+    return change.getLastUpdatedOn();
   }
 }

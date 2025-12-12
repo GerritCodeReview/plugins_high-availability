@@ -14,13 +14,16 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
+
 public class IndexProject extends Command {
-  static final String TYPE = "index-project";
+  static final EventType TYPE = EventType.INDEX_PROJECT_UPDATE;
 
   private String projectName;
 
-  protected IndexProject(String projectName) {
-    super(TYPE);
+  protected IndexProject(String projectName, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.projectName = projectName;
   }
 

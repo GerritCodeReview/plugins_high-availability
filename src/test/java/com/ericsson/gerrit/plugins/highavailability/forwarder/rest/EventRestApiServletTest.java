@@ -24,6 +24,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.net.MediaType;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.EventDispatcher;
@@ -52,6 +54,8 @@ public class EventRestApiServletTest {
   @Mock private ForwardedEventHandler forwardedEventHandlerMock;
   @Mock private HttpServletRequest requestMock;
   @Mock private HttpServletResponse responseMock;
+  @Mock private ProcessorMetricsRegistry metricsRegistryMock;
+  @Mock private ProcessorMetrics metrics;
   private EventRestApiServlet eventRestApiServlet;
   private Gson gson = new EventGsonProvider().get();
 
@@ -62,7 +66,9 @@ public class EventRestApiServletTest {
 
   @Before
   public void createEventsRestApiServlet() throws Exception {
-    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandlerMock, gson);
+    when(metricsRegistryMock.get(any())).thenReturn(metrics);
+    eventRestApiServlet =
+        new EventRestApiServlet(forwardedEventHandlerMock, gson, metricsRegistryMock);
     when(requestMock.getContentType()).thenReturn(MediaType.JSON_UTF_8.toString());
   }
 
@@ -93,7 +99,7 @@ public class EventRestApiServletTest {
         .when(dispatcher)
         .postEvent(any(RefReplicationDoneEvent.class));
     ForwardedEventHandler forwardedEventHandler = new ForwardedEventHandler(dispatcher);
-    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandler, gson);
+    eventRestApiServlet = new EventRestApiServlet(forwardedEventHandler, gson, metricsRegistryMock);
     eventRestApiServlet.doPost(requestMock, responseMock);
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }

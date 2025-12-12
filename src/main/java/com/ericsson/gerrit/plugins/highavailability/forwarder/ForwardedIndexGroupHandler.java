@@ -39,8 +39,13 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   @Override
   protected CompletableFuture<Boolean> doIndex(
       AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
-    indexer.index(uuid);
-    log.atFine().log("Group %s successfully indexed", uuid);
+    try {
+      indexer.index(uuid);
+      log.atFine().log("Group %s successfully indexed", uuid);
+    } catch (RuntimeException e) {
+      log.atFine().log("Group %s could not be indexed", uuid);
+      throw e;
+    }
     return CompletableFuture.completedFuture(true);
   }
 

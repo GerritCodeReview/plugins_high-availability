@@ -14,14 +14,17 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
+
 public class EvictCache extends Command {
-  static final String TYPE = "evict-cache";
+  static final EventType TYPE = EventType.CACHE_EVICTION;
 
   private final String cacheName;
   private final String keyJson;
 
-  protected EvictCache(String cacheName, String keyJson) {
-    super(TYPE);
+  protected EvictCache(String cacheName, String keyJson, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.cacheName = cacheName;
     this.keyJson = keyJson;
   }

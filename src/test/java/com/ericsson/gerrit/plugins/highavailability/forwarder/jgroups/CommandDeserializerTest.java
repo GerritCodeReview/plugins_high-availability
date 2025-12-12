@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.CacheKeyJsonParser;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
@@ -40,7 +41,9 @@ public class CommandDeserializerTest {
 
   @Test
   public void indexAccount() {
-    Command cmd = gson.fromJson("{type: 'index-account', id: 100}", Command.class);
+    Command cmd =
+        gson.fromJson(
+            String.format("{type: '%s', id: 100}", EventType.INDEX_ACCOUNT_UPDATE), Command.class);
     assertThat(cmd).isInstanceOf(IndexAccount.class);
     IndexAccount index = (IndexAccount) cmd;
     assertThat(index.getId()).isEqualTo(100);
@@ -49,7 +52,10 @@ public class CommandDeserializerTest {
   @Test
   public void updateChangeCommand() {
     Command cmd =
-        gson.fromJson("{type: 'update-change', projectName: 'foo', id: 100}", Command.class);
+        gson.fromJson(
+            String.format(
+                "{type: '%s', projectName: 'foo', id: 100}", EventType.INDEX_CHANGE_UPDATE),
+            Command.class);
     assertThat(cmd).isInstanceOf(IndexChange.Update.class);
     IndexChange.Update update = (IndexChange.Update) cmd;
     assertThat(update.getId()).isEqualTo("foo~100");
@@ -60,22 +66,30 @@ public class CommandDeserializerTest {
   public void batchUpdateChangeCommand() {
     Command cmd =
         gson.fromJson(
-            "{type: 'update-change', projectName: 'foo', id: 100, batchMode: 'true'}",
+            String.format(
+                "{type: '%s', projectName: 'foo', id: 100, batchMode: 'true'}",
+                EventType.INDEX_CHANGE_UPDATE_BATCH),
             Command.class);
-    assertThat(cmd).isInstanceOf(IndexChange.Update.class);
-    IndexChange.Update update = (IndexChange.Update) cmd;
+    assertThat(cmd).isInstanceOf(IndexChange.BatchUpdate.class);
+    IndexChange.BatchUpdate update = (IndexChange.BatchUpdate) cmd;
     assertThat(update.getId()).isEqualTo("foo~100");
     assertThat(update.isBatch()).isTrue();
   }
 
   @Test
   public void deleteChangeCommand() {
-    Command cmd = gson.fromJson("{type: 'delete-change', id: 100}", Command.class);
+    Command cmd =
+        gson.fromJson(
+            String.format("{type: '%s', id: 100}", EventType.INDEX_CHANGE_DELETION), Command.class);
     assertThat(cmd).isInstanceOf(IndexChange.Delete.class);
     IndexChange.Delete delete = (IndexChange.Delete) cmd;
     assertThat(delete.getId()).isEqualTo("~100");
 
-    cmd = gson.fromJson("{type: 'delete-change', projectName: 'foo', id: 100}", Command.class);
+    cmd =
+        gson.fromJson(
+            String.format(
+                "{type: '%s', projectName: 'foo', id: 100}", EventType.INDEX_CHANGE_DELETION),
+            Command.class);
     assertThat(cmd).isInstanceOf(IndexChange.Delete.class);
     delete = (IndexChange.Delete) cmd;
     assertThat(delete.getId()).isEqualTo("foo~100");
@@ -83,7 +97,10 @@ public class CommandDeserializerTest {
 
   @Test
   public void indexGroup() {
-    Command cmd = gson.fromJson("{type: 'index-group', uuid: 'foo'}", Command.class);
+    Command cmd =
+        gson.fromJson(
+            String.format("{type: '%s', uuid: 'foo'}", EventType.INDEX_GROUP_UPDATE),
+            Command.class);
     assertThat(cmd).isInstanceOf(IndexGroup.class);
     IndexGroup index = (IndexGroup) cmd;
     assertThat(index.getUuid()).isEqualTo("foo");
@@ -91,7 +108,10 @@ public class CommandDeserializerTest {
 
   @Test
   public void indexProject() {
-    Command cmd = gson.fromJson("{type: 'index-project', projectName: 'foo'}", Command.class);
+    Command cmd =
+        gson.fromJson(
+            String.format("{type: '%s', projectName: 'foo'}", EventType.INDEX_PROJECT_UPDATE),
+            Command.class);
     assertThat(cmd).isInstanceOf(IndexProject.class);
     IndexProject index = (IndexProject) cmd;
     assertThat(index.getProjectName()).isEqualTo("foo");
@@ -101,8 +121,10 @@ public class CommandDeserializerTest {
   public void postEvent() {
     Command cmd =
         gson.fromJson(
-            "{event: {projectName : 'foo', headName : 'refs/heads/master', type :"
-                + " 'project-created', eventCreatedOn:1505898779}, type : 'post-event'}",
+            String.format(
+                "{event: {projectName : 'foo', headName : 'refs/heads/master', type :"
+                    + " 'project-created', eventCreatedOn:1505898779}, type : '%s'}",
+                EventType.EVENT_SENT),
             Command.class);
     assertThat(cmd).isInstanceOf(PostEvent.class);
     Event e = ((PostEvent) cmd).getEvent();
@@ -118,7 +140,7 @@ public class CommandDeserializerTest {
         gson.fromJson(
             String.format(
                 "{type: '%s', cacheName: '%s', keyJson: '%s'}",
-                EvictCache.TYPE, Constants.PROJECTS, keyJson),
+                EventType.CACHE_EVICTION, Constants.PROJECTS, keyJson),
             EvictCache.class);
     assertThat(cmd).isInstanceOf(EvictCache.class);
     EvictCache evict = (EvictCache) cmd;
@@ -130,7 +152,10 @@ public class CommandDeserializerTest {
 
   @Test
   public void addToProjectList() {
-    Command cmd = gson.fromJson("{type: 'add-to-project-list', projectName: 'foo'}", Command.class);
+    Command cmd =
+        gson.fromJson(
+            String.format("{type: '%s', projectName: 'foo'}", EventType.PROJECT_LIST_ADDITION),
+            Command.class);
     assertThat(cmd).isInstanceOf(AddToProjectList.class);
     AddToProjectList addToProjectList = (AddToProjectList) cmd;
     assertThat(addToProjectList.getProjectName()).isEqualTo("foo");
@@ -139,7 +164,9 @@ public class CommandDeserializerTest {
   @Test
   public void removeFromProjectList() {
     Command cmd =
-        gson.fromJson("{type: 'remove-from-project-list', projectName: 'foo'}", Command.class);
+        gson.fromJson(
+            String.format("{type: '%s', projectName: 'foo'}", EventType.PROJECT_LIST_DELETION),
+            Command.class);
     assertThat(cmd).isInstanceOf(RemoveFromProjectList.class);
     RemoveFromProjectList removeFromProjectList = (RemoveFromProjectList) cmd;
     assertThat(removeFromProjectList.getProjectName()).isEqualTo("foo");

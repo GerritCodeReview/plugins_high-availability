@@ -23,6 +23,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
@@ -30,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Optional;
 import org.jgroups.Message;
 import org.jgroups.blocks.RequestHandler;
@@ -45,6 +48,7 @@ public class MessageProcessor implements RequestHandler {
   private final ForwardedCacheEvictionHandler cacheEvictionHandler;
   private final ForwardedEventHandler eventHandler;
   private final ForwardedProjectListUpdateHandler projectListUpdateHandler;
+  private final ProcessorMetricsRegistry metricRegistry;
 
   @Inject
   MessageProcessor(
@@ -54,7 +58,8 @@ public class MessageProcessor implements RequestHandler {
       ForwardedIndexAccountHandler indexAccountHandler,
       ForwardedCacheEvictionHandler cacheEvictionHandler,
       ForwardedEventHandler eventHandler,
-      ForwardedProjectListUpdateHandler projectListUpdateHandler) {
+      ForwardedProjectListUpdateHandler projectListUpdateHandler,
+      ProcessorMetricsRegistry metricRegistry) {
     this.gson = gson;
     this.indexChangeHandler = indexChangeHandler;
     this.indexBatchChangeHandler = indexBatchChangeHandler;
@@ -62,11 +67,15 @@ public class MessageProcessor implements RequestHandler {
     this.cacheEvictionHandler = cacheEvictionHandler;
     this.eventHandler = eventHandler;
     this.projectListUpdateHandler = projectListUpdateHandler;
+    this.metricRegistry = metricRegistry;
   }
 
   @Override
   public Object handle(Message msg) {
     Command cmd = getCommand(msg);
+    ProcessorMetrics metrics = metricRegistry.get(cmd.type);
+    Instant startTime = Instant.now();
+    boolean success = false;
 
     Context.setForwardedEvent(true);
     try {
@@ -83,7 +92,7 @@ public class MessageProcessor implements RequestHandler {
         } catch (Exception e) {
           log.atSevere().withCause(e).log(
               "Change index %s on change %s failed", op.name().toLowerCase(), indexChange.getId());
-          return false;
+          throw e;
         }
 
       } else if (cmd instanceof IndexAccount) {
@@ -95,7 +104,7 @@ public class MessageProcessor implements RequestHandler {
         } catch (IOException e) {
           log.atSevere().withCause(e).log(
               "Account index update on account %s failed", indexAccount.getId());
-          return false;
+          throw e;
         }
 
       } else if (cmd instanceof EvictCache) {
@@ -117,17 +126,18 @@ public class MessageProcessor implements RequestHandler {
         String projectName = ((RemoveFromProjectList) cmd).getProjectName();
         projectListUpdateHandler.update(projectName, true);
       }
-
-      return true;
+      success = true;
     } catch (Exception e) {
-      return false;
+      success = false;
     } finally {
       Context.unsetForwardedEvent();
     }
+    metrics.record(cmd.eventCreatedOn, startTime, success);
+    return success;
   }
 
   private Operation getOperation(IndexChange cmd) {
-    if (cmd instanceof IndexChange.Update) {
+    if (cmd instanceof IndexChange.Update || cmd instanceof IndexChange.BatchUpdate) {
       return Operation.INDEX;
     } else if (cmd instanceof IndexChange.Delete) {
       return Operation.DELETE;

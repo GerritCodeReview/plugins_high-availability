@@ -14,13 +14,16 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
+
 public class AddToProjectList extends Command {
-  static final String TYPE = "add-to-project-list";
+  static final EventType TYPE = EventType.PROJECT_LIST_ADDITION;
 
   private final String projectName;
 
-  public AddToProjectList(String projectName) {
-    super(TYPE);
+  public AddToProjectList(String projectName, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
     this.projectName = projectName;
   }
 
