@@ -2,10 +2,10 @@
   "checks": {
     "gerritforge:plugins-high-availability-build-test": {
       "state": "FAILED",
-      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/77%252F526777%252F12/79/console",
-      "finished": "2025-12-18T05:17:01Z",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-high-availability-verifier/job/77%252F526777%252F12/80/console",
+      "finished": "2025-12-18T05:29:00Z",
       "created": "2025-12-17T13:40:43Z",
-      "updated": "2025-12-18T05:17:01Z"
+      "updated": "2025-12-18T05:29:00Z"
     }
   }
 }
