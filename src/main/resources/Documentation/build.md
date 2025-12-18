@@ -32,6 +32,19 @@ To execute the tests run either one of:
   bazel test plugins/@PLUGIN@:@PLUGIN@_tests
 ```
 
+By default, neither the GCP client nor AWS client libraries are included in the build result.
+To build the plugin with the GCP client libraries included issue this command:
+```
+  bazel build plugins/@PLUGIN@:@PLUGIN@-gcp
+```
+
+To build the plugin with the AWS client libraries included issue this command:
+```
+  bazel build plugins/@PLUGIN@:@PLUGIN@-aws
+```
+
+To build the plugin and include the GCP pubsub client librarires
+
 This project can be imported into the Eclipse IDE:
 Add the plugin name to the `CUSTOM_PLUGINS` and to the
 `CUSTOM_PLUGINS_TEST_DEPS` set in Gerrit core in
