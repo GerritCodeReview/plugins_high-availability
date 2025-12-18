@@ -19,7 +19,7 @@ public class PubSubForwarderModule extends AbstractModule {
     PubSubProvider provider = PubSubProvider.valueOf(config.pubSub().provider().toUpperCase());
     switch (provider) {
       case AWS -> install(AwsPubSubForwarderModule.create());
-      case GCP -> install(new GcpPubSubForwarderModule());
+      case GCP -> install(GcpPubSubForwarderModule.create());
     }
   }
 }

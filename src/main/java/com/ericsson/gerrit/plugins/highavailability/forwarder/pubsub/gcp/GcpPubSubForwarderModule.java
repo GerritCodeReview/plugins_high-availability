@@ -37,8 +37,10 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.AbstractModule;
+import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.inject.util.Modules;
 import com.google.pubsub.v1.TopicName;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -52,17 +54,30 @@ import java.util.Optional;
 public class GcpPubSubForwarderModule extends LifecycleModule {
   public static final String PUBSUB_EMULATOR_HOST = "PUBSUB_EMULATOR_HOST";
 
+  public static Module create() {
+    String hostPort = getEmulatorHost();
+    if (Strings.isNullOrEmpty(hostPort)) {
+      return createForRealPubSub();
+    }
+    return createForEmulator(hostPort);
+  }
+
+  public static Module createForEmulator(String hostPort) {
+    return Modules.override(new GcpPubSubForwarderModule()).with(new EmulatorModule(hostPort));
+  }
+
+  public static GcpPubSubForwarderModule createForRealPubSub() {
+    return new GcpPubSubForwarderModule();
+  }
+
+  private GcpPubSubForwarderModule() {}
+
   @Override
   protected void configure() {
     bind(PubSubInitializer.class);
     bind(MessageReceiver.class).toProvider(MessageReceiverProvider.class);
-
-    String hostPort = getEmulatorHost();
-    if (Strings.isNullOrEmpty(hostPort)) {
-      install(new GCPModule());
-    } else {
-      install(new EmulatorModule(hostPort));
-    }
+    bind(PublisherFactory.class).to(GCPPublisherFactory.class);
+    bind(SubscriberFactory.class).to(GCPSubscriberFactory.class);
     bind(ProjectSubscriptionNameFactory.class);
     bind(PubSubMessageProcessor.class);
     bind(Forwarder.class).to(PubSubForwarder.class);
@@ -138,37 +153,29 @@ public class GcpPubSubForwarderModule extends LifecycleModule {
         .orElse(System.getProperty(PUBSUB_EMULATOR_HOST));
   }
 
-  static class GCPModule extends AbstractModule {
-    @Override
-    protected void configure() {
-      bind(PublisherFactory.class).to(GCPPublisherFactory.class);
-      bind(SubscriberFactory.class).to(GCPSubscriberFactory.class);
-    }
+  @Provides
+  @Singleton
+  CredentialsProvider getCredentialsProvider(Configuration config)
+      throws FileNotFoundException, IOException {
+    return FixedCredentialsProvider.create(
+        ServiceAccountCredentials.fromStream(
+            new FileInputStream(config.pubSubGcp().privateKeyLocation())));
+  }
 
-    @Provides
-    @Singleton
-    CredentialsProvider getCredentialsProvider(Configuration config)
-        throws FileNotFoundException, IOException {
-      return FixedCredentialsProvider.create(
-          ServiceAccountCredentials.fromStream(
-              new FileInputStream(config.pubSubGcp().privateKeyLocation())));
-    }
+  @Provides
+  @Singleton
+  SubscriptionAdminClient createSubscriptionAdminClient(CredentialsProvider credentials)
+      throws IOException {
+    return SubscriptionAdminClient.create(
+        SubscriptionAdminSettings.newBuilder().setCredentialsProvider(credentials).build());
+  }
 
-    @Provides
-    @Singleton
-    SubscriptionAdminClient createSubscriptionAdminClient(CredentialsProvider credentials)
-        throws IOException {
-      return SubscriptionAdminClient.create(
-          SubscriptionAdminSettings.newBuilder().setCredentialsProvider(credentials).build());
-    }
-
-    @Provides
-    @Singleton
-    TopicAdminClient createTopicAdminClient(CredentialsProvider credentials) throws IOException {
-      TopicAdminSettings settings =
-          TopicAdminSettings.newBuilder().setCredentialsProvider(credentials).build();
-      return TopicAdminClient.create(settings);
-    }
+  @Provides
+  @Singleton
+  TopicAdminClient createTopicAdminClient(CredentialsProvider credentials) throws IOException {
+    TopicAdminSettings settings =
+        TopicAdminSettings.newBuilder().setCredentialsProvider(credentials).build();
+    return TopicAdminClient.create(settings);
   }
 
   static class EmulatorModule extends AbstractModule {
