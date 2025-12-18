@@ -15,7 +15,6 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp.GcpPubSubForwarderModule.GCPModule;
 import com.google.api.client.util.Strings;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.FixedCredentialsProvider;
@@ -127,7 +126,7 @@ public class RealPubSub extends PubSubTestSystem {
 
   @Override
   SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
-    GCPModule gcpModule = new GCPModule();
+    GcpPubSubForwarderModule gcpModule = GcpPubSubForwarderModule.createForRealPubSub();
     return gcpModule.createSubscriptionAdminClient(getCredentials());
   }
 
