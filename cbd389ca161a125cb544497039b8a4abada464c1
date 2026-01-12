@@ -16,6 +16,29 @@
       "message": "Would you mind using the generic events-broker for this purpose?\nIt would allow to use any PubSub subsystem rather than being linked to a specific implementation.",
       "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9397f1cf_0f26aa71",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-01-12T21:24:44Z",
+      "side": 1,
+      "message": "This isn\u0027t going to scale: what will happen when we will want to support other brokers? (e.g. AWS Kinesis, Kafka, ...)\n\nAdding all of them as dependencies would end up in a dependency hell and would force us to make unlikely compromises between releases.\n\nPlease see my comment in adding support to publish to the events-broker and have other plugins to provide the concrete implementations.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
