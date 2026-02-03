@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ce805b0_6a8069fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-03T17:59:17Z",
+      "side": 1,
+      "message": "\u003e I am aware of the generic events-broker but, after many discussions in my team, decided that it is not ideal solution for this case. Designing an abstraction of all pubsub systems and using the lowest-common denominator API has many risks:\n\u003e \n\u003e * it becomes impossible or hard to use specific features of specific pubsub technology\n\u003e * we spend significant time designing abstractions of all pubsub systems which is not really our goal\n\nThe `events-broker` was designed to be used for sending Gerrit events for the purpose of the multi-primary setups. It isn\u0027t a general-purpose PubSub wrapper.\n\nEventually, unless you fork the high-availability once per pub-sub broker, you\u0027ll have to do the same with the current approach: introduce an interface and have multiple pub-sub implementations.\n\n\u003e The way we see it, the high-availability plugin has own abstraction(s), mainly the Forwarder interface. We concentrate on implementing that abstraction instead of abstracting out pubsub systems.\n\nSure, then you have an \u0027events-forwarder\u0027 instead of an \u0027events-broker\u0027, which is fine. But still, there needs to be an interface with multiple implementations.\nWhy not use what\u0027s already out there and improve it, instead of restarting from scratch?\n\n\u003e So far we have REST based and JGroups based implementations. Now we are adding GCP pubsub based implementation and also AWS SNS+SQS (not Kinesis) based implementations. Those implementations implement the Forwarder interface and each implements its custom/optimized way of receiving and processing messages. We use their native API and developers can from the code directly refer to the documentation of those APIs (there is not translation layer).\n\nWell, the forwarder is your abstraction layer and your API.\n\n\u003e Further, while the current Forwarder interface might be possible to implement purely by listening on Gerrit (core) events this assumption may not hold in the future if we at some point need to add a new method (which is high-availability plugin specific) in the Forwarder that cannot be implemented based on event listeners (think of the \"apply-object\" case in the pull replication plugin as an analogy).\n\nWhat is this new method? Is it potentially something useful in general?\n\n\u003e \n\u003e \n\u003e Btw, a quick check of the events-gcloud-pubsub shows me that it unconditionally ACKs the received messages:\n\u003e https://gerrit.googlesource.com/plugins/events-gcloud-pubsub/+/refs/heads/master/src/main/java/com/googlesource/gerrit/plugins/pubsub/PubSubEventSubscriber.java#127\n\nFor now, yes, and we\u0027re working on making it controllable, because there are situations where you don\u0027t want to ACK until all the Gerrit processing is done and confirmed.\n\n\u003e This is not what we want.\n\nLikewise :-)\n\n\u003e In our GCP pubsub implementation, the messages which are not successfully processed are NACK-ed and, after a defined number of delivery attempts, moved to a DLT (dead letter topic) for further (human or automated) inspection.\n\nI believe we discussed the proposal years ago, and I agree that\u0027s the way to go.\nMy feedback is to join forces and make this improvement in a single place, rather than splitting efforts and duplicating in different parts.\n\n\u003e Our implementation also currently splits the stream-events messages from other messages (by using different topics) and the implementation is open for further refinements in that regard.\n\nThat\u0027s exactly what we do already. Why reimplement the wheel?",
+      "parentUuid": "099ab21a_592958e5",
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9397f1cf_0f26aa71",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 10
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "There will be different build targets like:\n* high-availability (which will not pack any of these libraries in the plugin jar)\n* high-availability-pubsub-gcp (which will include the GCP client libs)\n* high-availability-pubsub-aws (which will include the AWS SNS+SQS client libs)\n\nIn the end, if *really* needed, we may do a similar thing like you did with the events broker: we may move the core of the high-availability plugin into a module and provide concrete implementations in plugins.",
       "parentUuid": "9397f1cf_0f26aa71",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95fd56e1_587d3fbf",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-03T17:59:17Z",
+      "side": 1,
+      "message": "\u003e There will be different build targets like:\n\u003e * high-availability (which will not pack any of these libraries in the plugin jar)\n\u003e * high-availability-pubsub-gcp (which will include the GCP client libs)\n\u003e * high-availability-pubsub-aws (which will include the AWS SNS+SQS client libs)\n\nDifferent libraries may have different requirements that may have different API syntax. Having different build targets isn\u0027t enough; you would need to fork the code.\n\nOr, you create a generic API (e.g. events-forwarder) and create multiple modules that implement that API in different code with different builds.\n\n\u003e In the end, if *really* needed, we may do a similar thing like you did with the events broker: we may move the core of the high-availability plugin into a module and provide concrete implementations in plugins.\n\nExactly, this looks like a duplication effort to me.",
+      "parentUuid": "c1c25a4f_e6432e00",
       "range": {
         "startLine": 33,
         "startChar": 0,
