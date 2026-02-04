@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "56dc552a_0fd0ebbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-04T21:23:29Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9db419cb_431edae9",
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9397f1cf_0f26aa71",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 10
@@ -258,6 +276,30 @@
       "side": 1,
       "message": "Looks like that x-plugin feature is not officially documented, except what is written its commit message in I63c9b7f2a1aee9d50eb2b0eae64821271d583e61.\n\nAnyway, I will take a look at it. It may be a good idea to manage dependencies using this feature.\n\nBtw, when would you use x-plugin feature vs using a Gerrit module?",
       "parentUuid": "04ad8406_e3b7cedd",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7aea574_1832ed44",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-04T21:23:29Z",
+      "side": 1,
+      "message": "\u003e Looks like that x-plugin feature is not officially documented, except what is written its commit message in I63c9b7f2a1aee9d50eb2b0eae64821271d583e61.\n\nMy bad, let me add the proper documentation.\n\n\u003e Anyway, I will take a look at it. It may be a good idea to manage dependencies using this feature.\n\n+1\n\n\u003e Btw, when would you use x-plugin feature vs using a Gerrit module?\n\nI\u0027ve presented the differences between the two in the talk at the Gerrit User Summit 2023 (https://youtu.be/XPAA_06XVGc):\n\n1. Gerrit module, is when you want to *influence, change or replace* one part of Gerrit core (e.g. global-refdb, which replaces the repository manager)\n2. Plugin API, is when you want to expose *a new* interface for allowing two plugins to call each other without having to link each other at compile time.\n\nIn this scenario, a Plugin API (x-plugin) would be preferable, see for instance the replication-api at https://gerrit.googlesource.com/plugins/replication/+/refs/heads/master/BUILD#22.",
+      "parentUuid": "4a5187af_1ea51830",
       "range": {
         "startLine": 33,
         "startChar": 0,
