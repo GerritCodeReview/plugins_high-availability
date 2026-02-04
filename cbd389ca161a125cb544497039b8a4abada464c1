@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9db419cb_431edae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-04T15:40:11Z",
+      "side": 1,
+      "message": "Sure we can discuss it, however, let me first try to make some progress with the dependency management (based on your suggestion in the other comment thread).",
+      "parentUuid": "568f8ddf_1d207cfc",
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9397f1cf_0f26aa71",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 10
@@ -216,6 +234,30 @@
       "side": 1,
       "message": "\u003e \u003e \u003e There will be different build targets like:\n\u003e \u003e \u003e * high-availability (which will not pack any of these libraries in the plugin jar)\n\u003e \u003e \u003e * high-availability-pubsub-gcp (which will include the GCP client libs)\n\u003e \u003e \u003e * high-availability-pubsub-aws (which will include the AWS SNS+SQS client libs)\n\u003e \u003e \n\u003e \u003e Different libraries may have different requirements that may have different API syntax. Having different build targets isn\u0027t enough; you would need to fork the code.\n\u003e \n\u003e Different implementations of the message forwarder are all present in the plugin code: REST, jgroups, GCP pubsub, AWS SNS+SQS. Each in its own package.\n\u003e At the build time all libraries are present on the build path but, depending on the build target, we include only GCP specific or AWS specific client libraries (or none of them). Therefore, the high-availability-pubsub-aws will be useable for AWS based pubsub and not for GCP pubsub (although it contains java classes for all implementations).\n\nWe do have X-plugin dependency in Gerrit, I believe we should use it, unless you have good reasons not to :-)",
       "parentUuid": "8b40b863_70050db4",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a5187af_1ea51830",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-04T15:40:11Z",
+      "side": 1,
+      "message": "Looks like that x-plugin feature is not officially documented, except what is written its commit message in I63c9b7f2a1aee9d50eb2b0eae64821271d583e61.\n\nAnyway, I will take a look at it. It may be a good idea to manage dependencies using this feature.\n\nBtw, when would you use x-plugin feature vs using a Gerrit module?",
+      "parentUuid": "04ad8406_e3b7cedd",
       "range": {
         "startLine": 33,
         "startChar": 0,
