@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c537930d_b4990896",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2026-02-04T23:05:58Z",
+      "side": 1,
+      "message": "What is the rationale behind the choice of SNS + SQS? Have you considered using Kinesis instead? As you know, there is already an implementation for the Kinesis broker [1].\n\nSome of the reasons why Kinesis was chosen when implementing the broker:\n\n1. Kinesis is a durable event log, not just a delivery mechanism\n\n Kinesis provides a log-style durability with first-class replay semantics.\n This allows consumers to replay history. New consumers can join later and still  consume past events. This is not possible with SNS + SQS.\n\n2. Late-joining consumers are first-class in Kinesis\n\n Think about adding new Gerrit nodes to the pool. The new consumer can consume  historical data without changing the *producer*. With SQS + SNS you must provision  a new queue before publishing.\n\n3. Message ordering\n\n Kinesis ensures message ordering. That said, this might not be a problem in this  specific case.\n\n4. No message duplication\n\n In Kinesis, each consumer has its own cursor; in SNS+SQS, each consumer needs\n its own queue. This avoids duplication of stored data.\n\n\n[1]: https://gerrit.googlesource.com/plugins/events-aws-kinesis/",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "bad92a73d5585a028fdc8f2ec03e191c6070b380",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06065cbf_c0ddaac1",
