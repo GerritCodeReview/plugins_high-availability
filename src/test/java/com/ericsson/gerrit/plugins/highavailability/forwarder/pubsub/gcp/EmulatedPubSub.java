@@ -14,18 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp.GcpPubSubForwarderModule.EmulatorModule;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.NoCredentialsProvider;
 import com.google.api.gax.grpc.GrpcTransportChannel;
 import com.google.api.gax.rpc.FixedTransportChannelProvider;
-import com.google.cloud.pubsub.v1.Publisher;
-import com.google.cloud.pubsub.v1.Subscriber;
-import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
-import com.google.cloud.pubsub.v1.TopicAdminClient;
-import com.google.cloud.pubsub.v1.TopicAdminSettings;
-import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.TopicName;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -44,8 +36,7 @@ public class EmulatedPubSub extends PubSubTestSystem {
   private final FixedTransportChannelProvider channelProvider;
   private final String hostPort;
 
-  public EmulatedPubSub(Configuration cfg) throws Exception {
-    super(cfg);
+  public EmulatedPubSub() throws Exception {
     container =
         new PubSubEmulatorContainer(
             DockerImageName.parse("gcr.io/google.com/cloudsdktool/cloud-sdk:470.0.0-emulators"));
@@ -68,11 +59,8 @@ public class EmulatedPubSub extends PubSubTestSystem {
     container.close();
   }
 
-  private TopicAdminSettings topicAdminSettings() throws Exception {
-    return TopicAdminSettings.newBuilder()
-        .setTransportChannelProvider(channelProvider)
-        .setCredentialsProvider(getCredentials())
-        .build();
+  public String getHostPort() {
+    return hostPort;
   }
 
   @Override
@@ -91,54 +79,12 @@ public class EmulatedPubSub extends PubSubTestSystem {
   }
 
   @Override
+  String getPrivateKeyFilePath() {
+    return null;
+  }
+
+  @Override
   CredentialsProvider getCredentials() throws Exception {
     return NoCredentialsProvider.create();
-  }
-
-  @Override
-  TopicAdminClient getTopicAdminClient() throws Exception {
-    return TopicAdminClient.create(topicAdminSettings());
-  }
-
-  @Override
-  SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
-    EmulatorModule emulatorModule =
-        new GcpPubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    return emulatorModule.createSubscriptionAdminClient(
-        emulatorModule.createTransportChannelProvider());
-  }
-
-  @Override
-  Publisher getPublisher() throws Exception {
-    return getPublisher(TOPIC_NAME);
-  }
-
-  @Override
-  Publisher getStreamEventsPublisher() throws Exception {
-    return getPublisher(STREAM_EVENTS_TOPIC_NAME);
-  }
-
-  private Publisher getPublisher(TopicName topicName) throws Exception {
-    EmulatorModule emulatorModule =
-        new GcpPubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    return new LocalPublisherFactory(
-            getCredentials(),
-            emulatorModule.createTransportChannelProvider(),
-            GcpPubSubForwarderModule.buildPublisherExecutorProvider(cfg))
-        .create(topicName);
-  }
-
-  @Override
-  Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId) throws Exception {
-    EmulatorModule emulatorModule =
-        new GcpPubSubForwarderModule.EmulatorModule(container.getEmulatorEndpoint());
-    ProjectSubscriptionName subscriptionName =
-        new ProjectSubscriptionNameFactory(instanceId, cfg).create(TOPIC_NAME);
-    return new LocalSubscriberFactory(
-            getCredentials(),
-            emulatorModule.createTransportChannelProvider(),
-            new MessageReceiverProvider(cfg, processor, instanceId).get(),
-            GcpPubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
-        .create(subscriptionName);
   }
 }

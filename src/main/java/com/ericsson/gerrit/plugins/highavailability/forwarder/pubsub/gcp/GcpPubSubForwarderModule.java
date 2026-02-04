@@ -70,7 +70,8 @@ public class GcpPubSubForwarderModule extends LifecycleModule {
     return new GcpPubSubForwarderModule();
   }
 
-  private GcpPubSubForwarderModule() {}
+  @VisibleForTesting
+  GcpPubSubForwarderModule() {}
 
   @Override
   protected void configure() {

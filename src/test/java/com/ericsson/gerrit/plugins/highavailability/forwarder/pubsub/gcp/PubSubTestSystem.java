@@ -14,29 +14,19 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.api.gax.core.CredentialsProvider;
-import com.google.cloud.pubsub.v1.Publisher;
-import com.google.cloud.pubsub.v1.Subscriber;
-import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
-import com.google.cloud.pubsub.v1.TopicAdminClient;
 
 public abstract class PubSubTestSystem {
-  final Configuration cfg;
 
-  public static PubSubTestSystem create(Configuration cfg) throws Exception {
+  public static PubSubTestSystem create() throws Exception {
     PubSubTestSystem testSystem;
     if (System.getenv("TEST_REAL_PUBSUB") == null) {
-      testSystem = new EmulatedPubSub(cfg);
+      testSystem = new EmulatedPubSub();
     } else {
-      testSystem = RealPubSub.create(cfg);
+      testSystem = RealPubSub.create();
     }
     testSystem.reset();
     return testSystem;
-  }
-
-  protected PubSubTestSystem(Configuration cfg) {
-    this.cfg = cfg;
   }
 
   abstract String getProjectId();
@@ -45,18 +35,9 @@ public abstract class PubSubTestSystem {
 
   abstract String getStreamEventsTopicName();
 
+  abstract String getPrivateKeyFilePath();
+
   abstract CredentialsProvider getCredentials() throws Exception;
-
-  abstract TopicAdminClient getTopicAdminClient() throws Exception;
-
-  abstract SubscriptionAdminClient getSubscriptionAdminClient() throws Exception;
-
-  abstract Publisher getPublisher() throws Exception;
-
-  abstract Publisher getStreamEventsPublisher() throws Exception;
-
-  abstract Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId)
-      throws Exception;
 
   abstract void reset() throws Exception;
 

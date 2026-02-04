@@ -14,37 +14,26 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.pubsub.gcp;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.api.client.util.Strings;
 import com.google.api.gax.core.CredentialsProvider;
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.google.cloud.pubsub.v1.Publisher;
-import com.google.cloud.pubsub.v1.Subscriber;
-import com.google.cloud.pubsub.v1.SubscriptionAdminClient;
-import com.google.cloud.pubsub.v1.SubscriptionAdminSettings;
-import com.google.cloud.pubsub.v1.TopicAdminClient;
-import com.google.cloud.pubsub.v1.TopicAdminSettings;
-import com.google.common.flogger.FluentLogger;
-import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.TopicName;
 import java.io.FileInputStream;
 
 public class RealPubSub extends PubSubTestSystem {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
   private static RealPubSub INSTANCE;
 
-  public static RealPubSub create(Configuration cfg) {
+  public static RealPubSub create() {
     if (INSTANCE == null) {
       String keyPath = getEnv("GOOGLE_APPLICATION_CREDENTIALS");
       String project = getEnv("GCP_PROJECT");
       String topic = System.getenv("PUBSUB_TOPIC");
       String streamEventsTopic = System.getenv("PUBSUB_STREAM_EVENTS_TOPIC");
       if (Strings.isNullOrEmpty(topic)) {
-        INSTANCE = new RealPubSub(cfg, keyPath, project);
+        INSTANCE = new RealPubSub(keyPath, project);
       } else {
-        INSTANCE = new RealPubSub(cfg, keyPath, project, topic, streamEventsTopic);
+        INSTANCE = new RealPubSub(keyPath, project, topic, streamEventsTopic);
       }
     }
     return INSTANCE;
@@ -62,59 +51,25 @@ public class RealPubSub extends PubSubTestSystem {
   private final TopicName topicName;
   private final TopicName streamEventsTopicName;
 
-  private boolean topicCreatedByTest;
-  private boolean streamEventsTopicCreatedByTest;
-  private Subscriber subscriber;
-
-  private RealPubSub(Configuration cfg, String keyPath, String project) {
+  private RealPubSub(String keyPath, String project) {
     this(
-        cfg,
         keyPath,
         project,
         "gerrit-pubsub-" + System.currentTimeMillis(),
         "gerrit-stream-events-" + System.currentTimeMillis());
   }
 
-  private RealPubSub(
-      Configuration cfg, String keyPath, String project, String topic, String streamEventsTopic) {
-    super(cfg);
+  private RealPubSub(String keyPath, String project, String topic, String streamEventsTopic) {
     this.keyPath = keyPath;
     this.topicName = TopicName.of(project, topic);
     this.streamEventsTopicName = TopicName.of(project, streamEventsTopic);
-  }
-
-  private TopicAdminSettings topicAdminSettings() throws Exception {
-    return TopicAdminSettings.newBuilder().setCredentialsProvider(getCredentials()).build();
-  }
-
-  private SubscriptionAdminSettings subscriptionAdminSettings() throws Exception {
-    return SubscriptionAdminSettings.newBuilder().setCredentialsProvider(getCredentials()).build();
   }
 
   @Override
   public void reset() throws Exception {}
 
   @Override
-  void cleanup() throws Exception {
-    try (SubscriptionAdminClient subscriptionAdminClient =
-        SubscriptionAdminClient.create(subscriptionAdminSettings())) {
-      subscriptionAdminClient.deleteSubscription(subscriber.getSubscriptionNameString());
-    }
-    if (topicCreatedByTest) {
-      deleteTopic(topicName);
-    }
-    if (streamEventsTopicCreatedByTest) {
-      deleteTopic(streamEventsTopicName);
-    }
-  }
-
-  private void deleteTopic(TopicName topicName) {
-    try (TopicAdminClient topicAdminClient = TopicAdminClient.create(topicAdminSettings())) {
-      topicAdminClient.deleteTopic(topicName);
-    } catch (Exception e) {
-      logger.atSevere().withCause(e).log("Failed to delete topic %s", topicName);
-    }
-  }
+  void cleanup() throws Exception {}
 
   @Override
   String getProjectId() {
@@ -132,48 +87,13 @@ public class RealPubSub extends PubSubTestSystem {
   }
 
   @Override
+  String getPrivateKeyFilePath() {
+    return keyPath;
+  }
+
+  @Override
   CredentialsProvider getCredentials() throws Exception {
     return FixedCredentialsProvider.create(
         ServiceAccountCredentials.fromStream(new FileInputStream(keyPath)));
-  }
-
-  @Override
-  TopicAdminClient getTopicAdminClient() throws Exception {
-    return TopicAdminClient.create(topicAdminSettings());
-  }
-
-  @Override
-  SubscriptionAdminClient getSubscriptionAdminClient() throws Exception {
-    GcpPubSubForwarderModule gcpModule = GcpPubSubForwarderModule.createForRealPubSub();
-    return gcpModule.createSubscriptionAdminClient(getCredentials());
-  }
-
-  @Override
-  Publisher getPublisher() throws Exception {
-    return getPublisher(topicName);
-  }
-
-  @Override
-  Publisher getStreamEventsPublisher() throws Exception {
-    return getPublisher(streamEventsTopicName);
-  }
-
-  private Publisher getPublisher(TopicName topicName) throws Exception {
-    return new GCPPublisherFactory(
-            getCredentials(), GcpPubSubForwarderModule.buildPublisherExecutorProvider(cfg))
-        .create(topicName);
-  }
-
-  @Override
-  Subscriber getSubscriber(PubSubMessageProcessor processor, String instanceId) throws Exception {
-    ProjectSubscriptionName subscriptionName =
-        new ProjectSubscriptionNameFactory(instanceId, cfg).create(topicName);
-    subscriber =
-        new GCPSubscriberFactory(
-                getCredentials(),
-                new MessageReceiverProvider(cfg, processor, instanceId).get(),
-                GcpPubSubForwarderModule.buildSubscriberExecutorProvider(cfg))
-            .create(subscriptionName);
-    return subscriber;
   }
 }
