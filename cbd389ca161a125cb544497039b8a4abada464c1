@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd914d5a_1caf173f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-04T09:40:51Z",
+      "side": 1,
+      "message": "\u003e Sure, then you have an \u0027events-forwarder\u0027 instead of an \u0027events-broker\u0027, which is fine.\n\u003e But still, there needs to be an interface with multiple implementations.\n\n\nThe difference here is actually fundamental. We have message-forwarder which is an *application specific* abstraction where some implementations will be pubsub based. This is really different from trying to generalize pubsub systems.\n\nThe proposed GCP pubsub and AWS pubsub implementations are both going to implement the application specific message forwarder interface but the two implementations may not share anything between them because their APIs are so much different anyway.",
+      "parentUuid": "6ce805b0_6a8069fb",
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9397f1cf_0f26aa71",
         "filename": "external_plugin_deps.bzl",
         "patchSetId": 10
@@ -115,6 +133,30 @@
       "side": 1,
       "message": "\u003e There will be different build targets like:\n\u003e * high-availability (which will not pack any of these libraries in the plugin jar)\n\u003e * high-availability-pubsub-gcp (which will include the GCP client libs)\n\u003e * high-availability-pubsub-aws (which will include the AWS SNS+SQS client libs)\n\nDifferent libraries may have different requirements that may have different API syntax. Having different build targets isn\u0027t enough; you would need to fork the code.\n\nOr, you create a generic API (e.g. events-forwarder) and create multiple modules that implement that API in different code with different builds.\n\n\u003e In the end, if *really* needed, we may do a similar thing like you did with the events broker: we may move the core of the high-availability plugin into a module and provide concrete implementations in plugins.\n\nExactly, this looks like a duplication effort to me.",
       "parentUuid": "c1c25a4f_e6432e00",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b40b863_70050db4",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-04T09:40:51Z",
+      "side": 1,
+      "message": "\u003e \u003e There will be different build targets like:\n\u003e \u003e * high-availability (which will not pack any of these libraries in the plugin jar)\n\u003e \u003e * high-availability-pubsub-gcp (which will include the GCP client libs)\n\u003e \u003e * high-availability-pubsub-aws (which will include the AWS SNS+SQS client libs)\n\u003e \n\u003e Different libraries may have different requirements that may have different API syntax. Having different build targets isn\u0027t enough; you would need to fork the code.\n\nDifferent implementations of the message forwarder are all present in the plugin code: REST, jgroups, GCP pubsub, AWS SNS+SQS. Each in its own package.\nAt the build time all libraries are present on the build path but, depending on the build target, we include only GCP specific or AWS specific client libraries (or none of them). Therefore, the high-availability-pubsub-aws will be useable for AWS based pubsub and not for GCP pubsub (although it contains java classes for all implementations).",
+      "parentUuid": "95fd56e1_587d3fbf",
       "range": {
         "startLine": 33,
         "startChar": 0,
