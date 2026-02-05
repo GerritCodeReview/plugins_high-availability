@@ -308,6 +308,30 @@
       },
       "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a062361_766d1b22",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-05T20:21:42Z",
+      "side": 1,
+      "message": "I\u0027ve added more information about the x-plugin documentation in I46785029.\n\n\u003e Looks like that x-plugin feature is not officially documented\n\nThat was already addressed 3 years ago by @syntonyze@gmail.com, who wrote a complete set of documentation in Ibb761098.\n\nPlease do let me know if anything is missing or unclear.\n\nAs an example of how to make two plugins interact with each other, you can look at the `healthcheck` and `pull-replication` plugin; that was also the example mentioned in the talk https://youtu.be/XPAA_06XVGc?t\u003d1353 at the second 1353.\n\nIf you need any help in using it, I am also on Discord as usual 😊",
+      "parentUuid": "d7aea574_1832ed44",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 5
+      },
+      "revId": "cbd389ca161a125cb544497039b8a4abada464c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
