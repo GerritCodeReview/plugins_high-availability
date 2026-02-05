@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d16cfe0e_c8d1400f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-05T13:27:22Z",
+      "side": 1,
+      "message": "Forgot to mention that, in order to implement DLQ with Kinesis, one would have to use the SQS (or at least S3) to store such messages for (human) inspection.",
+      "parentUuid": "13d0e68b_b3ba2e86",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "bad92a73d5585a028fdc8f2ec03e191c6070b380",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06065cbf_c0ddaac1",
