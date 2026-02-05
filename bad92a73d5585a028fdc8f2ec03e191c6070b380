@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d0e68b_b3ba2e86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-05T13:17:08Z",
+      "side": 1,
+      "message": "While I am no expert in this area, here is a summary of my research and findings:\n\n* SNS+SQS is likely the simplest and cheapest AWS service offering that provides pubsub functionality\n* Kinesis is a data streaming platform, and with all of its features likely an overkill for this purpose. Potentially also more expensive (not sure about the cost)\n* in the high-availability scenario, we normally have a fixed set of Gerrit instances (normally two). Adding a new instance is anyway a non-trivial task and need planning. If necessary, one can \"manually\" create a new SQS queue for the new instance long before it will be created.\n* ordering is not important and even not desired in this case\n* yes, message duplication is there but for short time: normally only until delivered. Btw, we setup a filter on each subscription which excludes own messages: therefore the SQS queue of instance 1 will not get messages from instance 1. You can see that in the `SqsQueueCreator` class.\n* DLQ (dead letter queue) is a native feature of SQS and individual unprocessable messages automatically go to a DLQ. Note that we create one DLQ for each SQS queue, so we have independent DLQs per Gerrit instance. Kinesis doesn\u0027t have DLQ feature natively and, according to Gemini, you have to take care about \"poison pill\" (unprocessable) messages to avoid blockine entire shards.",
+      "parentUuid": "c537930d_b4990896",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "bad92a73d5585a028fdc8f2ec03e191c6070b380",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06065cbf_c0ddaac1",
