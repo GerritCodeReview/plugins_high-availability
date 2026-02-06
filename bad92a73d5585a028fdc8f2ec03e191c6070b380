@@ -120,6 +120,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3554d16a_81a27597",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-02-06T13:23:18Z",
+      "side": 1,
+      "message": "@Luca: I am already working on separating Forwarder implementations into different plugins.\n\n@Ponch: It doesn\u0027t need to be an either-or decision. Once we establish how plugins contribute Forwarder implementation you can also implement a Kinesis based forwarder.\n\nRegarding DLQ: when a message reaches DLQ it is out of scope of the application. The reason it reached DLQ is because the application failed to process it after the defined number of attempts. In general DLQ has to be inspected by someone.\n\nRegarding ordering: SQS does support ordering, I think it is queue property. So we do have an option here.",
+      "parentUuid": "547b5bcd_16af3084",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "bad92a73d5585a028fdc8f2ec03e191c6070b380",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06065cbf_c0ddaac1",
