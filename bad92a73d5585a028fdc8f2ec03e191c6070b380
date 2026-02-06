@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e50e93_72156be3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2026-02-06T12:19:26Z",
+      "side": 1,
+      "message": "\u003e SNS+SQS is likely the simplest and cheapest AWS service offering that provides pubsub functionality\n\nAgree, however, while SNS+SQS is cheaper in absolute terms, the messaging layer has a negligible impact on the overall cost of a Gerrit HA installation.\n\n\u003e in the high-availability scenario, we normally have a fixed set of Gerrit instances (normally two). Adding a new instance is anyway a non-trivial task and need planning. If necessary, one can \"manually\" create a new SQS queue for the new instance long before it will be created.\n\nAck\n\n\u003e ordering is not important and even not desired in this case\n\nI initially agreed with this, but I’ve been thinking more about it. While global ordering is not required, there may be localized ordering expectations for certain event classes. For example, processing an index event for a change creation followed by a deletion out of order could cause inconsistencies. 🤔 \n\n\u003e yes, message duplication is there but for short time: normally only until delivered. Btw, we setup a filter on each subscription which excludes own messages: therefore the SQS queue of instance 1 will not get messages from instance 1. You can see that in the SqsQueueCreator class.\n\nack\n\n\u003e DLQ (dead letter queue) is a native feature of SQS and individual unprocessable messages automatically go to a DLQ. Note that we create one DLQ for each SQS queue, so we have independent DLQs per Gerrit instance. Kinesis doesn\u0027t have DLQ feature natively and, according to Gemini, you have to take care about \"poison pill\" (unprocessable) messages to avoid blockine entire shards.\n\nGood point. With the current Kinesis consumer logic, we always advance the checkpoint and merely log failures (e.g. parsing errors), effectively choosing availability over strict correctness and avoiding shard blockage.\n\nThis raises an interesting design question independent of the broker choice: what is the correct behavior for a poison pill?\nA DLQ does not answer that by itself; it only provides a place to put the message once we decide it cannot be processed. Whether we block, retry, drop, or quarantine such messages is a policy decision we need to make explicitly.\n\nSQS makes this decision easier to operationalize via redrive policies, but the underlying question exists regardless of whether we use SNS+SQS or Kinesis.\n\nI am not against the SNS+SQS implementation. My goal was mainly to avoid introducing yet another broker flavor when we already have one in place. That said, if we decide to go with SNS+SQS, I believe it should live as a proper broker implementation alongside Kafka and Kinesis, rather than being embedded in the HA plugin.",
+      "parentUuid": "d16cfe0e_c8d1400f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "bad92a73d5585a028fdc8f2ec03e191c6070b380",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06065cbf_c0ddaac1",
