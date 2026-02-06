@@ -96,6 +96,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "547b5bcd_16af3084",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-02-06T12:43:38Z",
+      "side": 1,
+      "message": "My 2c is that if you are looking at a cheaper alternative to Kinesis, possibly SNS+SQS in a fixed HA deployment model would work.\n\nHowever, we have users with high availability and auto-scaling; therefore, SNS+SQS won\u0027t work for them.\n\nI agree that this implementation is a good alternative, but it should be done in a separate plugin, possibly using the `DynamicItem\u003cForwarder\u003e` declared by the `high-availability` plugin and implemented by others, including `KinesisForwarder` and `SNSSQSForwarder` as two alternatives.",
+      "parentUuid": "11e50e93_72156be3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "bad92a73d5585a028fdc8f2ec03e191c6070b380",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "06065cbf_c0ddaac1",
