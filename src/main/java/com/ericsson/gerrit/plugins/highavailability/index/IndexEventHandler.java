@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
+import com.ericsson.gerrit.plugins.highavailability.api.HAForwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
@@ -23,6 +24,7 @@ import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
 import com.google.gerrit.extensions.events.ProjectIndexedListener;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.inject.Inject;
 import java.util.Optional;
 
@@ -35,13 +37,18 @@ class IndexEventHandler
   private final Forwarder forwarder;
   private final ChangeCheckerImpl.Factory changeChecker;
   private final CurrentRequestContext currCtx;
+  private final DynamicItem<HAForwarder> haForwarder;
 
   @Inject
   IndexEventHandler(
-      Forwarder forwarder, ChangeCheckerImpl.Factory changeChecker, CurrentRequestContext currCtx) {
+      Forwarder forwarder,
+      ChangeCheckerImpl.Factory changeChecker,
+      CurrentRequestContext currCtx,
+      DynamicItem<HAForwarder> haForwarder) {
     this.forwarder = forwarder;
     this.changeChecker = changeChecker;
     this.currCtx = currCtx;
+    this.haForwarder = haForwarder;
   }
 
   @Override
@@ -99,6 +106,14 @@ class IndexEventHandler
 
   @Override
   public void onProjectIndexed(String projectName) {
+    if (haForwarder.get() == null) {
+      log.atInfo().log(
+          "HAForwarder not available, skipping forwarding of project indexed event for project: %s",
+          projectName);
+    } else {
+      haForwarder.get().forward(projectName);
+    }
+
     log.atInfo().log("Project indexed event received for project: %s", projectName);
     if (!Context.isForwardedEvent()) {
       forwarder.indexProject(projectName, new IndexEvent());

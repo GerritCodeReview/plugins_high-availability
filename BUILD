@@ -15,6 +15,7 @@ load(
         manifest_entries = [
             "Gerrit-PluginName: high-availability",
             "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
+            "Gerrit-ApiModule: com.ericsson.gerrit.plugins.highavailability.api.ApiModule",
             "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
             "Gerrit-InitStep: com.ericsson.gerrit.plugins.highavailability.Setup",
             "Gerrit-ReloadMode: restart",

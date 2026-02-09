@@ -38,6 +38,7 @@ public class PubSubMessageProcessor {
 
   public boolean handle(PubsubMessage msg) {
     log.atFine().log("Processing message: %s", msg);
+    log.atInfo().log(">>> commandProcessor: %s", processor);
     return processor.handle(getCommand(msg));
   }
 

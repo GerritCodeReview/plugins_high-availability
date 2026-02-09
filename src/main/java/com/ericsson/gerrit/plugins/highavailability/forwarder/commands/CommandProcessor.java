@@ -30,6 +30,7 @@ import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import java.time.Instant;
@@ -50,6 +51,7 @@ public class CommandProcessor {
   @Inject
   @VisibleForTesting
   public CommandProcessor(
+      Injector injector,
       ForwardedIndexChangeHandler indexChangeHandler,
       ForwardedIndexBatchChangeHandler indexBatchChangeHandler,
       ForwardedIndexAccountHandler indexAccountHandler,
@@ -57,6 +59,7 @@ public class CommandProcessor {
       ForwardedEventHandler eventHandler,
       ForwardedProjectListUpdateHandler projectListUpdateHandler,
       ProcessorMetricsRegistry metricRegistry) {
+    log.atInfo().log(">>> CommandProcessor created with injector %s", injector);
     this.indexChangeHandler = indexChangeHandler;
     this.indexBatchChangeHandler = indexBatchChangeHandler;
     this.indexAccountHandler = indexAccountHandler;
