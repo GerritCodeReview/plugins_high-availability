@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
@@ -27,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.time.Instant;
 
 @Singleton
 public class CacheKeyJsonParser {
@@ -34,7 +36,8 @@ public class CacheKeyJsonParser {
 
   @Inject
   public CacheKeyJsonParser(@EventGson Gson gson) {
-    this.gson = gson;
+    this.gson =
+        gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
   }
 
   public Object fromJson(String cacheName, String jsonString) {
