@@ -16,10 +16,16 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
+import com.google.gerrit.server.events.EventGson;
+import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import com.google.inject.Scopes;
+import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import dev.failsafe.FailsafeExecutor;
+import java.time.Instant;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 public class RestForwarderModule extends AbstractModule {
@@ -34,5 +40,15 @@ public class RestForwarderModule extends AbstractModule {
         .annotatedWith(RestForwarderExecutor.class)
         .toProvider(FailsafeExecutorProvider.class)
         .in(Scopes.SINGLETON);
+  }
+
+  @Provides
+  @Singleton
+  @RestGson
+  Gson buildRestGson(@EventGson Gson eventGson) {
+    return eventGson
+        .newBuilder()
+        .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+        .create();
   }
 }

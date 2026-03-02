@@ -19,7 +19,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProj
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.restapi.Url;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -31,7 +30,7 @@ class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet<Project.Nam
   @Inject
   IndexProjectRestApiServlet(
       ForwardedIndexProjectHandler handler,
-      @EventGson Gson gson,
+      @RestGson Gson gson,
       ProcessorMetricsRegistry metricRegistry) {
     super(handler, IndexName.PROJECT, gson, metricRegistry, EventType.INDEX_PROJECT_UPDATE, null);
   }

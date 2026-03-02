@@ -23,16 +23,13 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
 import com.google.common.base.Charsets;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.restapi.NotImplementedException;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.time.Instant;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,15 +59,14 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
   AbstractIndexRestApiServlet(
       ForwardedIndexingHandler<T> forwardedIndexingHandler,
       IndexName indexName,
-      @EventGson Gson gson,
+      Gson gson,
       ProcessorMetricsRegistry metricsRegistry,
       EventType postEventType,
       @Nullable EventType deleteEventType) {
     super(metricsRegistry, postEventType, deleteEventType);
     this.forwardedIndexingHandler = forwardedIndexingHandler;
     this.indexName = indexName;
-    this.gson =
-        gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
+    this.gson = gson;
     this.allowDelete = deleteEventType != null;
   }
 
