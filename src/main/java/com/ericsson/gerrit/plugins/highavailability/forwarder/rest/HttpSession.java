@@ -14,7 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.EventGson;
