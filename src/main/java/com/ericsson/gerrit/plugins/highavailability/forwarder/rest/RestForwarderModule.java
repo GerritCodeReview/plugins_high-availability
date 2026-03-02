@@ -16,7 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
