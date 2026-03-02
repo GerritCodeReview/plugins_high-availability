@@ -15,7 +15,6 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
@@ -23,21 +22,18 @@ import com.google.common.base.Suppliers;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.time.Instant;
 
 @Singleton
 public class CacheKeyJsonParser {
   private final Gson gson;
 
   @Inject
-  public CacheKeyJsonParser(@EventGson Gson gson) {
-    this.gson =
-        gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
+  public CacheKeyJsonParser(@RestGson Gson gson) {
+    this.gson = gson;
   }
 
   public Object fromJson(String cacheName, String jsonString) {
