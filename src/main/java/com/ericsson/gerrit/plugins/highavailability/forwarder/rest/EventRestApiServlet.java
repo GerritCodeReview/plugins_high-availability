@@ -22,16 +22,13 @@ import static javax.servlet.http.HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.InstantTypeAdapter;
 import com.google.common.io.CharStreams;
 import com.google.common.net.MediaType;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
-import java.time.Instant;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -45,12 +42,11 @@ class EventRestApiServlet extends AbstractRestApiServlet {
   @Inject
   EventRestApiServlet(
       ForwardedEventHandler forwardedEventHandler,
-      @EventGson Gson gson,
+      @RestGson Gson gson,
       ProcessorMetricsRegistry metricRegistry) {
     super(metricRegistry, EventType.EVENT_SENT, null);
     this.forwardedEventHandler = forwardedEventHandler;
-    this.gson =
-        gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
+    this.gson = gson;
   }
 
   @Override

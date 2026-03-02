@@ -18,7 +18,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.extensions.restapi.Url;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -30,7 +29,7 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet<String> {
   @Inject
   IndexChangeRestApiServlet(
       ForwardedIndexChangeHandler handler,
-      @EventGson Gson gson,
+      @RestGson Gson gson,
       ProcessorMetricsRegistry metricRegistry) {
     super(
         handler,
