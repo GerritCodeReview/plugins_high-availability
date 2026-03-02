@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b64756fa_c89919a0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/RestGson.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-03-02T14:52:26Z",
+      "side": 1,
+      "message": "2026",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "8410049ec37ed2f7ef81d4b7a012a0eb8714f41c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
