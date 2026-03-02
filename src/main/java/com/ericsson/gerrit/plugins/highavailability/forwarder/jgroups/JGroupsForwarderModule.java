@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProviderModule;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.gerrit.server.events.EventGson;
