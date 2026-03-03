@@ -1,5 +1,63 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c93da0f6_b573bf79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-03T00:14:47Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of having a milliseconds accuracy here?\nThe truncation was done on purpose to avoid flakiness due to fractions of seconds difference between hosts.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "de4c8a2178daa6bfb4f52eb30d84e3f0b4a4ba6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e3f28aa_bf3d5ae3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-03T00:14:47Z",
+      "side": 1,
+      "message": "Whilst I agree that a modern API is always good, in this very limited use-case does not really add much, and instead creates more complexity in serialisation/deserialisation, more CPU and heap utilisation.",
+      "revId": "de4c8a2178daa6bfb4f52eb30d84e3f0b4a4ba6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "098f6b05_d8d15d2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-03T00:14:47Z",
+      "side": 1,
+      "message": "Not sure if this was the right choice. It has also produced a functional regression and the benefits aren\u0027t clear to me and not explained in the commit message.",
+      "revId": "de4c8a2178daa6bfb4f52eb30d84e3f0b4a4ba6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
