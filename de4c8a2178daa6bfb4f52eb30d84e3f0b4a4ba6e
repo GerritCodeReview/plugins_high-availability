@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f05b28f2_557f7706",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-03T00:16:40Z",
+      "side": 1,
+      "message": "I see, the intention was to use this field for accurate metrics collection, as shown in the follow-up changes.",
+      "parentUuid": "c93da0f6_b573bf79",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "de4c8a2178daa6bfb4f52eb30d84e3f0b4a4ba6e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e3f28aa_bf3d5ae3",
