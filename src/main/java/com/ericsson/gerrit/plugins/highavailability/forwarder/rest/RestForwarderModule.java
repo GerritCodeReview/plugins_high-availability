@@ -45,7 +45,7 @@ public class RestForwarderModule extends AbstractModule {
   @Provides
   @Singleton
   @RestGson
-  Gson buildRestGson(@EventGson Gson eventGson) {
+  static Gson buildRestGson(@EventGson Gson eventGson) {
     return eventGson
         .newBuilder()
         .registerTypeAdapter(Instant.class, new InstantTypeAdapter())

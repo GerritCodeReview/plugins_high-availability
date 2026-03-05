@@ -14,10 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.google.common.net.MediaType;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import java.io.IOException;
@@ -37,11 +35,9 @@ class HttpSession {
   private final Gson gson;
 
   @Inject
-  HttpSession(CloseableHttpClient httpClient, @EventGson Gson gson) {
+  HttpSession(CloseableHttpClient httpClient, @RestGson Gson gson) {
     this.httpClient = httpClient;
-
-    this.gson =
-        gson.newBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
+    this.gson = gson;
   }
 
   HttpResult post(String uri, Instant createdOn) throws IOException {

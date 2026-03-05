@@ -57,7 +57,7 @@ public class EventRestApiServletTest {
   @Mock private ProcessorMetricsRegistry metricsRegistryMock;
   @Mock private ProcessorMetrics metrics;
   private EventRestApiServlet eventRestApiServlet;
-  private Gson gson = new EventGsonProvider().get();
+  private Gson gson = RestForwarderModule.buildRestGson(new EventGsonProvider().get());
 
   @BeforeClass
   public static void setup() {
