@@ -26,7 +26,7 @@ import org.junit.Test;
 
 public class CacheKeyJsonParserTest {
   private static final Object EMPTY_JSON = "{}";
-  private final Gson gson = new EventGsonProvider().get();
+  private final Gson gson = RestForwarderModule.buildRestGson(new EventGsonProvider().get());
   private final CacheKeyJsonParser objectUnderTest = new CacheKeyJsonParser(gson);
 
   @Test

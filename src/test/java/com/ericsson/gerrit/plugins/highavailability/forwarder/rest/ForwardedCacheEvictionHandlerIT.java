@@ -19,11 +19,12 @@ import static com.google.common.truth.Truth.assertThat;
 import com.google.common.cache.RemovalNotification;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.gerrit.acceptance.*;
+import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
+import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.registration.RegistrationHandle;
 import com.google.gerrit.server.cache.CacheRemovalListener;
-import com.google.gerrit.server.events.EventGson;
+import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.project.ProjectCacheImpl;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -48,7 +49,7 @@ public class ForwardedCacheEvictionHandlerIT extends LightweightPluginDaemonTest
   @Inject
   private DynamicSet<CacheRemovalListener> cacheRemovalListeners;
 
-  @Inject @EventGson private Gson gson;
+  private Gson gson = RestForwarderModule.buildRestGson(new EventGsonProvider().get());
 
   private CacheEvictionsTracker<?, ?> evictionsCacheTracker;
   private RegistrationHandle cacheEvictionRegistrationHandle;

@@ -29,7 +29,6 @@ import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -67,7 +66,7 @@ public class RestForwarder implements Forwarder {
       @PluginName String pluginName,
       Configuration cfg,
       Provider<Set<PeerInfo>> peerInfoProvider,
-      @EventGson Gson gson,
+      @RestGson Gson gson,
       @RestForwarderExecutor FailsafeExecutor<Result> executor,
       ForwarderMetricsRegistry metricsRegistry) {
     this.httpSession = httpClient;
