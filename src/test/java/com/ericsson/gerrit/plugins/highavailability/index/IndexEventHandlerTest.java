@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.DynamicItemUtil;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
@@ -31,9 +32,11 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Change;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
+import com.google.inject.Inject;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -52,6 +55,7 @@ public class IndexEventHandlerTest {
 
   private IndexEventHandler indexEventHandler;
   @Mock private Forwarder forwarder;
+  @Inject private DynamicItem<Forwarder> forwarderItem;
   @Mock private ChangeCheckerImpl.Factory changeCheckerFactoryMock;
   @Mock private ChangeChecker changeCheckerMock;
   private Change.Id changeId;
@@ -89,11 +93,12 @@ public class IndexEventHandlerTest {
         .thenReturn(
             CompletableFuture.completedFuture(new Result(EventType.INDEX_CHANGE_UPDATE, true)));
 
+    forwarderItem = DynamicItemUtil.asDynamicItem(forwarder);
     setUpIndexEventHandler(currCtx);
   }
 
   public void setUpIndexEventHandler(CurrentRequestContext currCtx) throws Exception {
-    indexEventHandler = new IndexEventHandler(forwarder, changeCheckerFactoryMock, currCtx);
+    indexEventHandler = new IndexEventHandler(forwarderItem, changeCheckerFactoryMock, currCtx);
   }
 
   @Test
