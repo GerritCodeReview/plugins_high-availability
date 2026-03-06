@@ -46,6 +46,7 @@ import org.junit.Test;
 @NoHttpd
 @TestPlugin(
     name = "high-availability",
+    apiModule = "com.ericsson.gerrit.plugins.highavailability.ApiModule",
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public abstract class AbstractIndexForwardingIT extends LightweightPluginDaemonTest {
