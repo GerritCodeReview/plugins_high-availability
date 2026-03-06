@@ -23,6 +23,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.gerrit.extensions.events.NewProjectCreatedListener;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
+import com.google.gerrit.extensions.registration.DynamicItem;
+import com.google.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,10 +36,12 @@ public class ProjectListUpdateHandlerTest {
   private ProjectListUpdateHandler handler;
 
   @Mock private Forwarder forwarder;
+  @Inject DynamicItem<Forwarder> forwarderItem;
 
   @Before
   public void setUp() {
-    handler = new ProjectListUpdateHandler(forwarder);
+    forwarderItem = DynamicItem.itemOf(Forwarder.class, forwarder);
+    handler = new ProjectListUpdateHandler(forwarderItem);
   }
 
   @Test

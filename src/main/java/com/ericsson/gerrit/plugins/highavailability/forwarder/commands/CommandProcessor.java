@@ -1,4 +1,4 @@
-// Copyright (C) 2023 The Android Open Source Project
+// Copyright (C) 2026 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,129 +14,14 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.entities.Account;
-import com.google.gerrit.server.events.Event;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import java.io.IOException;
-import java.time.Instant;
-import java.util.Optional;
+/** Processes commands received from other nodes */
+public interface CommandProcessor {
 
-@Singleton
-public class CommandProcessor {
-  private static final FluentLogger log = FluentLogger.forEnclosingClass();
-
-  private final ForwardedIndexChangeHandler indexChangeHandler;
-  private final ForwardedIndexBatchChangeHandler indexBatchChangeHandler;
-  private final ForwardedIndexAccountHandler indexAccountHandler;
-  private final ForwardedCacheEvictionHandler cacheEvictionHandler;
-  private final ForwardedEventHandler eventHandler;
-  private final ForwardedProjectListUpdateHandler projectListUpdateHandler;
-  private final ProcessorMetricsRegistry metricRegistry;
-
-  @Inject
-  @VisibleForTesting
-  public CommandProcessor(
-      ForwardedIndexChangeHandler indexChangeHandler,
-      ForwardedIndexBatchChangeHandler indexBatchChangeHandler,
-      ForwardedIndexAccountHandler indexAccountHandler,
-      ForwardedCacheEvictionHandler cacheEvictionHandler,
-      ForwardedEventHandler eventHandler,
-      ForwardedProjectListUpdateHandler projectListUpdateHandler,
-      ProcessorMetricsRegistry metricRegistry) {
-    this.indexChangeHandler = indexChangeHandler;
-    this.indexBatchChangeHandler = indexBatchChangeHandler;
-    this.indexAccountHandler = indexAccountHandler;
-    this.cacheEvictionHandler = cacheEvictionHandler;
-    this.eventHandler = eventHandler;
-    this.projectListUpdateHandler = projectListUpdateHandler;
-    this.metricRegistry = metricRegistry;
-  }
-
-  public boolean handle(Command cmd) {
-    ProcessorMetrics metrics = metricRegistry.get(cmd.type);
-    Instant startTime = Instant.now();
-    boolean success = false;
-
-    Context.setForwardedEvent(true);
-    try {
-
-      if (cmd instanceof IndexChange) {
-        IndexChange indexChange = (IndexChange) cmd;
-        Operation op = getOperation(indexChange);
-        try {
-          ForwardedIndexChangeHandler handler =
-              indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-          handler.index(indexChange.getId(), op, Optional.empty());
-          log.atFine().log(
-              "Change index %s on change %s done", op.name().toLowerCase(), indexChange.getId());
-        } catch (Exception e) {
-          log.atSevere().withCause(e).log(
-              "Change index %s on change %s failed", op.name().toLowerCase(), indexChange.getId());
-          throw e;
-        }
-
-      } else if (cmd instanceof IndexAccount) {
-        IndexAccount indexAccount = (IndexAccount) cmd;
-        try {
-          indexAccountHandler.index(
-              Account.id(indexAccount.getId()), Operation.INDEX, Optional.empty());
-          log.atFine().log("Account index update on account %s done", indexAccount.getId());
-        } catch (IOException e) {
-          log.atSevere().withCause(e).log(
-              "Account index update on account %s failed", indexAccount.getId());
-          throw e;
-        }
-
-      } else if (cmd instanceof EvictCache) {
-        EvictCache evictCommand = (EvictCache) cmd;
-        cacheEvictionHandler.evict(
-            CacheEntry.from(evictCommand.getCacheName(), evictCommand.getKeyJson()));
-        log.atFine().log(
-            "Cache eviction %s %s done", evictCommand.getCacheName(), evictCommand.getKeyJson());
-
-      } else if (cmd instanceof PostEvent) {
-        Event event = ((PostEvent) cmd).getEvent();
-        eventHandler.dispatch(event);
-        log.atFine().log("Dispatching event %s done", event);
-      } else if (cmd instanceof AddToProjectList) {
-        String projectName = ((AddToProjectList) cmd).getProjectName();
-        projectListUpdateHandler.update(projectName, false);
-
-      } else if (cmd instanceof RemoveFromProjectList) {
-        String projectName = ((RemoveFromProjectList) cmd).getProjectName();
-        projectListUpdateHandler.update(projectName, true);
-      }
-      success = true;
-    } catch (Exception e) {
-      success = false;
-    } finally {
-      Context.unsetForwardedEvent();
-    }
-    metrics.record(cmd.eventCreatedOn, startTime, success);
-    return success;
-  }
-
-  private Operation getOperation(IndexChange cmd) {
-    if (cmd instanceof IndexChange.Update || cmd instanceof IndexChange.BatchUpdate) {
-      return Operation.INDEX;
-    } else if (cmd instanceof IndexChange.Delete) {
-      return Operation.DELETE;
-    } else {
-      throw new IllegalArgumentException("Unknown type of IndexChange command " + cmd.getClass());
-    }
-  }
+  /**
+   * Processes the given command.
+   *
+   * @param cmd the command to process
+   * @return true if the command was successfully processed, false otherwise
+   */
+  boolean handle(Command cmd);
 }
