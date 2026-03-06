@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bfca2d4_3c98c5bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-03-06T07:29:11Z",
+      "side": 1,
+      "message": "Currently the build is broken in this plugin. This is expected after the\n`bzlmod` migration in Gerrit@HEAD.\n\nIt could be fixed by consuming `commons-net` from `rules_jvm_external`\ninstead, by replacing `@commons-net//jar` with `//lib/commons:net`.\nHowever, since the dependency is removed entirely in a follow-up change,\nI decided not to do that.\n\nAlternatively, I could rebase this change on top of the follow-up change\nto avoid CI breakage.",
+      "revId": "5b1093d7d5396c1ee56e9a0cfb8b6addac5e99e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
