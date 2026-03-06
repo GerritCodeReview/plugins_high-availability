@@ -13,6 +13,7 @@ gerrit_plugin(
     manifest_entries = [
         "Gerrit-PluginName: high-availability",
         "Gerrit-Module: com.ericsson.gerrit.plugins.highavailability.Module",
+        "Gerrit-ApiModule: com.ericsson.gerrit.plugins.highavailability.ApiModule",
         "Gerrit-HttpModule: com.ericsson.gerrit.plugins.highavailability.HttpModule",
         "Gerrit-InitStep: com.ericsson.gerrit.plugins.highavailability.Setup",
         "Gerrit-ReloadMode: restart",
@@ -34,9 +35,23 @@ java_library(
     exports = ["//plugins/global-refdb"],
 )
 
+TEST_SRCS = [
+    "src/test/java/**/*Test.java",
+    "src/test/java/**/*IT.java",
+]
+
+java_library(
+    name = "testutils",
+    testonly = 1,
+    srcs = glob(
+        ["src/test/java/**/*.java"],
+        exclude = TEST_SRCS,
+    ),
+)
+
 junit_tests(
     name = "high-availability_tests",
-    srcs = glob(["src/test/java/**/*.java"]),
+    srcs = glob(TEST_SRCS),
     javacopts = ["-Xep:DoNotMock:OFF"],
     resources = glob(["src/test/resources/**/*"]),
     tags = [
@@ -44,6 +59,7 @@ junit_tests(
         "local",
     ],
     deps = [
+        ":testutils",
         ":high-availability__plugin_test_deps",
     ],
 )
