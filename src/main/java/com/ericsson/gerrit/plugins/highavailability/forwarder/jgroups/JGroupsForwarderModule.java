@@ -16,8 +16,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.peers.jgroups.JChannelProviderModule;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
@@ -29,7 +29,7 @@ public class JGroupsForwarderModule extends LifecycleModule {
 
   @Override
   protected void configure() {
-    bind(Forwarder.class).to(JGroupsForwarder.class);
+    DynamicItem.bind(binder(), Forwarder.class).to(JGroupsForwarder.class);
     bind(MessageDispatcher.class).toProvider(MessageDispatcherProvider.class).in(Scopes.SINGLETON);
     bind(RequestHandler.class).to(JGroupsMessageProcessor.class);
     install(new JChannelProviderModule());
