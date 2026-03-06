@@ -19,16 +19,17 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.gerrit.extensions.events.NewProjectCreatedListener;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
 import com.google.gerrit.extensions.events.ProjectEvent;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
 public class ProjectListUpdateHandler implements NewProjectCreatedListener, ProjectDeletedListener {
 
-  private final Forwarder forwarder;
+  private final DynamicItem<Forwarder> forwarder;
 
   @Inject
-  public ProjectListUpdateHandler(Forwarder forwarder) {
+  public ProjectListUpdateHandler(DynamicItem<Forwarder> forwarder) {
     this.forwarder = forwarder;
   }
 
@@ -47,9 +48,9 @@ public class ProjectListUpdateHandler implements NewProjectCreatedListener, Proj
   private void process(ProjectEvent event, boolean delete) {
     if (!Context.isForwardedEvent()) {
       if (delete) {
-        forwarder.removeFromProjectList(event.getProjectName());
+        forwarder.get().removeFromProjectList(event.getProjectName());
       } else {
-        forwarder.addToProjectList(event.getProjectName());
+        forwarder.get().addToProjectList(event.getProjectName());
       }
     }
   }
