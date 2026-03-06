@@ -34,7 +34,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectLi
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessor;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessorImpl;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.EvictCache;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexAccount;
@@ -94,7 +94,7 @@ public class MessageProcessorTest {
     processor =
         new JGroupsMessageProcessor(
             gson,
-            new CommandProcessor(
+            new CommandProcessorImpl(
                 indexChangeHandler,
                 indexBatchChangeHandler,
                 indexAccountHandler,
