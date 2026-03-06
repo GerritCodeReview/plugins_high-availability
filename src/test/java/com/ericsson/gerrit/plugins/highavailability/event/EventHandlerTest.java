@@ -18,10 +18,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
+import com.ericsson.gerrit.plugins.highavailability.DynamicItemUtil;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.ProjectEvent;
+import com.google.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,10 +36,12 @@ public class EventHandlerTest {
   private EventHandler eventHandler;
 
   @Mock private Forwarder forwarder;
+  @Inject DynamicItem<Forwarder> forwarderItem;
 
   @Before
   public void setUp() {
-    eventHandler = new EventHandler(forwarder);
+    forwarderItem = DynamicItemUtil.asDynamicItem(forwarder);
+    eventHandler = new EventHandler(forwarderItem);
   }
 
   @Test
