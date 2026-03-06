@@ -55,7 +55,7 @@ java_library(
     exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
         ":high-availability__plugin",
         "@failsafe//jar",
-        "@global-refdb//jar",
+        "//plugins/global-refdb",
         "@jgroups//jar",
         "@wiremock//jar",
     ],
