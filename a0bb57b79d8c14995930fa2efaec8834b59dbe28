@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524f2e43_52ca5d35",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/ForwarderCommandsModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-03-09T12:54:04Z",
+      "side": 1,
+      "message": "This module unused i.e. it is only used from the test code. I think it must be \"installed\" from the main Module in the JGROUPS case.",
+      "revId": "a0bb57b79d8c14995930fa2efaec8834b59dbe28",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
