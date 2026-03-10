@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf73ca39_dded52d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4682046
+      },
+      "writtenOn": "2026-03-10T22:08:28Z",
+      "side": 1,
+      "message": "git clone https://gerrit.googlesource.com/gerrit-load-tests \u0026\u0026 (cd gerrit-load-tests \u0026\u0026 f\u003d`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)",
+      "revId": "79f0e33805d32d5b5cdb7c2799e5295bf21d79b0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
