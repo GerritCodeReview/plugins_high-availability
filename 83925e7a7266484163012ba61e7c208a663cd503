@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24cf291_bfc7f792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-03-12T10:08:26Z",
+      "side": 1,
+      "message": "NOTE: this change depends on this Gerrit core change for the build and verification:\nI131eba4f97a115a20c8cdbf103777ea6f3056858",
+      "revId": "83925e7a7266484163012ba61e7c208a663cd503",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
