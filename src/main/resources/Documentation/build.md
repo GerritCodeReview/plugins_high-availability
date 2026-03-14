@@ -3,14 +3,13 @@ Build
 
 This plugin can be built with Bazel in the Gerrit tree.
 
-Clone or link this plugin to the plugins directory of Gerrit's
-source tree. Put the external dependency Bazel build file into
-the Gerrit /plugins directory, replacing the existing empty one.
+Clone or link this plugin into the `plugins` directory of the Gerrit
+source tree. Then append the plugin's module fragment to Gerrit's
+top-level `MODULE.bazel`:
 
 ```
-  cd gerrit/plugins
-  rm external_plugin_deps.bzl
-  ln -s @PLUGIN@/external_plugin_deps.bzl .
+  cd gerrit
+  cat plugins/@PLUGIN@/external_plugin_deps.MODULE.bazel >> MODULE.bazel
 ```
 
 From Gerrit source tree issue the command:

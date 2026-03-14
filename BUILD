@@ -1,11 +1,21 @@
-load("@rules_java//java:defs.bzl", "java_library")
-load("//tools/bzl:junit.bzl", "junit_tests")
 load(
-    "//tools/bzl:plugin.bzl",
-    "PLUGIN_DEPS",
-    "PLUGIN_TEST_DEPS",
+    "@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl",
     "gerrit_plugin",
+    "gerrit_plugin_tests",
 )
+load(
+    "@com_googlesource_gerrit_bazlets//tools:in_gerrit_tree.bzl",
+    "in_gerrit_tree_enabled",
+)
+load(
+    "@com_googlesource_gerrit_bazlets//tools:runtime_jars_allowlist.bzl",
+    "runtime_jars_allowlist_test",
+)
+load(
+    "@com_googlesource_gerrit_bazlets//tools:runtime_jars_overlap.bzl",
+    "runtime_jars_overlap_test",
+)
+load("@rules_java//java:defs.bzl", "java_library")
 
 gerrit_plugin(
     name = "high-availability",
@@ -22,9 +32,9 @@ gerrit_plugin(
     resources = glob(["src/main/resources/**/*"]),
     deps = [
         ":global-refdb-neverlink",
-        "@failsafe//jar",
-        "@jgroups-kubernetes//jar",
-        "@jgroups//jar",
+        "@high-availability_plugin_deps//:dev_failsafe_failsafe",
+        "@high-availability_plugin_deps//:org_jgroups_jgroups",
+        "@high-availability_plugin_deps//:org_jgroups_kubernetes_jgroups_kubernetes",
     ],
 )
 
@@ -34,7 +44,7 @@ java_library(
     exports = ["//plugins/global-refdb"],
 )
 
-junit_tests(
+gerrit_plugin_tests(
     name = "high-availability_tests",
     srcs = glob(["src/test/java/**/*.java"]),
     javacopts = ["-Xep:DoNotMock:OFF"],
@@ -52,11 +62,26 @@ java_library(
     name = "high-availability__plugin_test_deps",
     testonly = 1,
     visibility = ["//visibility:public"],
-    exports = PLUGIN_DEPS + PLUGIN_TEST_DEPS + [
+    exports = [
         ":high-availability__plugin",
         "//plugins/global-refdb",
-        "@failsafe//jar",
-        "@jgroups//jar",
-        "@wiremock//jar",
+        "@high-availability_plugin_deps//:com_github_tomakehurst_wiremock_standalone",
+        "@high-availability_plugin_deps//:dev_failsafe_failsafe",
+        "@high-availability_plugin_deps//:org_jgroups_jgroups",
     ],
+)
+
+runtime_jars_allowlist_test(
+    name = "check_high-availability_third_party_runtime_jars",
+    allowlist = ":high-availability_third_party_runtime_jars.allowlist.txt",
+    hint = ":check_high-availability_third_party_runtime_jars_manifest",
+    target = ":high-availability__plugin",
+)
+
+runtime_jars_overlap_test(
+    name = "high-availability_no_overlap_with_gerrit",
+    against = "//:release.war.jars.txt",
+    hint = "Exclude overlaps via maven.install(excluded_artifacts=[...]) and re-run this test.",
+    target = ":high-availability__plugin",
+    target_compatible_with = in_gerrit_tree_enabled(),
 )
