@@ -1,0 +1,46 @@
+module(name = "high-availability")
+
+bazel_dep(name = "rules_jvm_external", version = "6.10")
+bazel_dep(name = "com_googlesource_gerrit_bazlets")
+git_override(
+    module_name = "com_googlesource_gerrit_bazlets",
+    commit = "01ec9c2481186396dde1bc6f5166f7d95bdae134",
+    remote = "https://gerrit.googlesource.com/bazlets",
+)
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    name = "high-availability_plugin_deps",
+    artifacts = [
+        "com.github.tomakehurst:wiremock-standalone:2.27.2",
+        "dev.failsafe:failsafe:3.3.2",
+        "org.jgroups:jgroups:5.2.16.Final",
+        "org.jgroups.kubernetes:jgroups-kubernetes:2.0.1.Final",
+    ],
+    duplicate_version_warning = "error",
+    excluded_artifacts = [
+        # JGroups declares Byteman/BMUnit as optional/test dependencies in its
+        # Maven POM. They are used only for instrumentation and fault-injection
+        # tests and are not required for the runtime of the high-availability
+        # plugin. rules_jvm_external resolves them transitively, so exclude
+        # them explicitly to avoid bundling unnecessary runtime jars.
+        "org.jboss.byteman:byteman",
+        "org.jboss.byteman:byteman-bmunit",
+        "org.jboss.byteman:byteman-install",
+        "org.jboss.byteman:byteman-submit",
+        # Note: mjson classes currently come bundled inside jgroups-kubernetes itself,
+        # so they appear in the final plugin jar even though there is no separate mjson
+        # dependency in the Bazel graph. This cannot be fixed via excluded_artifacts.
+        # Upstream is tracking removal/replacement of mjson in jgroups-kubernetes:
+        # jgroups-extras/jgroups-kubernetes#288.
+    ],
+    fail_if_repin_required = True,
+    fail_on_missing_checksum = True,
+    fetch_sources = True,
+    lock_file = "//:high-availability_plugin_deps.lock.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+    ],
+    version_conflict_policy = "pinned",
+)
+use_repo(maven, "high-availability_plugin_deps")

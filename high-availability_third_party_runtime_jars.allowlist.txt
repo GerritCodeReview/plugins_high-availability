@@ -1,0 +1,3 @@
+failsafe
+jgroups
+jgroups-kubernetes
