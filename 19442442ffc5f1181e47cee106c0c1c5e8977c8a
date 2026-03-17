@@ -16,6 +16,23 @@
       "message": "In change 561701 I updated the GerritForge CI toolchain to also detect and copy the Bazel module fragment `external_plugin_deps.MODULE.bazel` from the plugin directory into Gerrit\u0027s plugins directory, similar to how the legacy `external_plugin_deps.bzl` file is handled today.\n\nWith that change, the verification should now succeed.",
       "revId": "19442442ffc5f1181e47cee106c0c1c5e8977c8a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6add275b_cd41599f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-03-17T16:17:32Z",
+      "side": 1,
+      "message": "Could I run verification for this change using Jenkins-Job: `gerrit-ci-scripts-manual` against that script change 561701?",
+      "revId": "19442442ffc5f1181e47cee106c0c1c5e8977c8a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
