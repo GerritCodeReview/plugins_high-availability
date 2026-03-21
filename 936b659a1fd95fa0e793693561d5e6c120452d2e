@@ -16,6 +16,24 @@
       "message": "This was merged and should be removed.",
       "revId": "936b659a1fd95fa0e793693561d5e6c120452d2e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a1fb071_1e95182d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-03-21T12:08:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bab9deb2_15403a94",
+      "revId": "936b659a1fd95fa0e793693561d5e6c120452d2e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
