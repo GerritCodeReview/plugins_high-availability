@@ -16,6 +16,23 @@
       "message": "sawitrisaengchan0@gmail.com",
       "revId": "35623ff2e5296f282e73eccca65d343c118b0445",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f154a5_08184e8c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-23T15:31:16Z",
+      "side": 1,
+      "message": "The use of bzlmod involves a lot more machinery to maintain: where is it documented? How can a developer know how to maintained the `.bazel.lock`, `.lock.json` and `allowlist.txt` files?",
+      "revId": "35623ff2e5296f282e73eccca65d343c118b0445",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
