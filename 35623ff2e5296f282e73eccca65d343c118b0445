@@ -33,6 +33,24 @@
       "message": "The use of bzlmod involves a lot more machinery to maintain: where is it documented? How can a developer know how to maintained the `.bazel.lock`, `.lock.json` and `allowlist.txt` files?",
       "revId": "35623ff2e5296f282e73eccca65d343c118b0445",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc72b428_df54c37d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-03-23T16:59:31Z",
+      "side": 1,
+      "message": "Thanks for raising this.\n\nI’ve documented how to maintain these files in a couple of places:\n\nThe commit message explains how to update:\n* MODULE.bazel.lock\n* high-availability_plugin_deps.lock.json\n\nThe plugin documentation (`src/main/resources/Documentation/build.md`) describes:\n\n* how the allowlist works\n* how to refresh it when dependencies change\n\nIn addition, the allowlist and overlap checks are enforced via Bazel tests and run in CI, so any drift is detected automatically:\n\n```\n  $ bazel test plugins/high-availability/...\n  [...]\n  //plugins/high-availability:check_high-availability_third_party_runtime_jars (cached) PASSED in 0.1s\n  //plugins/high-availability:high-availability_no_overlap_with_gerrit (cached) PASSED in 1.0s\n```\n\nHappy to improve or centralize the documentation further if you think something is still unclear.",
+      "parentUuid": "02f154a5_08184e8c",
+      "revId": "35623ff2e5296f282e73eccca65d343c118b0445",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
