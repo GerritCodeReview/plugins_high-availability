@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce5eb16d_400aaa76",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-03-23T22:58:24Z",
+      "side": 1,
+      "message": "I would also document this either in the build.md which is easier to discover than this commit message. Or even better document this in a new section \"bazel mod build for plugins\" in the plugin developer guide (https://gerrit-review.googlesource.com/Documentation/dev-plugins.html) and reference it from the plugin\u0027s build.md. This would help to avoid duplicate documentation in all the plugins which will migrate to a bazel mod build.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a07f1ba0_a4db2ea7",
         "filename": "src/main/resources/Documentation/build.md",
         "patchSetId": 6
