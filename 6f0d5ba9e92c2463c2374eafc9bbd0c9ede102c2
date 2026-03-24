@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0352a719_5989947d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-03-24T10:03:25Z",
+      "side": 1,
+      "message": "great, this looks good to me",
+      "parentUuid": "3f8103e8_d1b732a6",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a07f1ba0_a4db2ea7",
