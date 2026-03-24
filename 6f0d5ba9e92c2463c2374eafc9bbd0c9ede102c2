@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc114a9e_680b29bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-24T08:32:00Z",
+      "side": 1,
+      "message": "\u003e I would also document this either in the build.md which is easier to discover than this commit message.\n\nThis has been done already.\n\n\u003e Or even better document this in a new section \"bazel mod build for plugins\" in the plugin developer guide (https://gerrit-review.googlesource.com/Documentation/dev-plugins.html) and reference it from the plugin\u0027s build.md. This would help to avoid duplicate documentation in all the plugins which will migrate to a bazel mod build.\n\nIt can be addressed in a follow-up change, together with a change in Gerrit\u0027s documentation.",
+      "parentUuid": "ce5eb16d_400aaa76",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a07f1ba0_a4db2ea7",
@@ -37,6 +61,24 @@
       "writtenOn": "2026-03-23T17:08:07Z",
       "side": 1,
       "message": "👍 we should have this executed on the CI validations as well, or executed as part of the `test` target.",
+      "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4963f74f_28ea8978",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-24T08:32:00Z",
+      "side": 1,
+      "message": "Do be addressed as a follow-up.",
+      "parentUuid": "a07f1ba0_a4db2ea7",
       "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
@@ -64,6 +106,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "484bb3e7_7a737b43",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-24T08:32:00Z",
+      "side": 1,
+      "message": "Do be addressed as a follow-up.",
+      "parentUuid": "8946e315_b0f949e0",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 75
+      },
+      "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0eeaf3e_650a56a8",
@@ -77,6 +143,24 @@
       "writtenOn": "2026-03-23T17:08:07Z",
       "side": 1,
       "message": "👍 we should have this executed on the CI validations as well, or executed as part of the `test` target.",
+      "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1183717_2786ee19",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-24T08:32:00Z",
+      "side": 1,
+      "message": "Do be addressed as a follow-up.",
+      "parentUuid": "a0eeaf3e_650a56a8",
       "revId": "6f0d5ba9e92c2463c2374eafc9bbd0c9ede102c2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
