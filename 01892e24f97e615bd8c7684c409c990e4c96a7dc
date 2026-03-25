@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "57d08fca_796eaff4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4464528
+      },
+      "writtenOn": "2026-03-25T17:08:58Z",
+      "side": 1,
+      "message": "ok",
+      "revId": "01892e24f97e615bd8c7684c409c990e4c96a7dc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a2499186_4b26c155",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/pubsub/PubSubProvider.java",
         "patchSetId": 1
