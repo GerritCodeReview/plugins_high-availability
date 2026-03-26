@@ -1,0 +1,244 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc8af985_93ffe39a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "Do you want to elaborate a bit more on the reason for using a `DynamicItem\u003cCommandProcessor\u003e` and not injecting it directly?\n\nYou and me know the context, as we discussed it extensively, however, other readers of this change and review may not have the full story and context.",
+      "range": {
+        "startLine": 14,
+        "startChar": 11,
+        "endLine": 14,
+        "endChar": 60
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90af13bc_ebf65539",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "Unrelated: we may want to also move JGroups to a separate forwarder and different plugin, so that `high-availability` won\u0027t depend on external libs anymore.",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1718f92a_86d3f4a2",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "We do we need to configure it? If you have another plugin that binds the forwarder, then it should automatically apply.\n\nAdding a `NoForwarder` seems an unnecessary step to me.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 74
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e59373_86252d95",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/NoForwarder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "Do we really need it? We can just skip the forwarding if there is no forwarder associated with the DynamicItem.\n\nIt is a configuration issue anyway, and I believe it should log the problem and fail gracefully.",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45bea6c9_b0c72723",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/CacheEvictionHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "What if the `DynamicItem\u003cForwarder\u003e` isn\u0027t assigned yet? Shall we give a more meaningful warning other than NPE?",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9942c86a_515444d4",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/cache/ProjectListUpdateHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "What if the `DynamicItem\u003cForwarder\u003e` isn\u0027t assigned yet? Shall we give a more meaningful warning other than NPE?",
+      "range": {
+        "startLine": 51,
+        "startChar": 18,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c28c6b8_dcceb572",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/event/EventHandler.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "What if the `DynamicItem\u003cForwarder\u003e` isn\u0027t assigned yet? Shall we give a more meaningful warning other than NPE?",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 36,
+        "endChar": 21
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a7ffbf_95b814cf",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessor.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "This is now a public interface; we should add JavaDoc.",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0e04645_f2f4bc57",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessor.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "This is now a public interface; we should add JavaDoc.",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd92445_4715a489",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/JGroupsForwarderModule.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "unrelated: as a separate change, we may want to split `JGroupForwarder` into a separate plugin.",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd2c2f52_46f44688",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 12
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "I don\u0027t believe this is necessary: we can just avoid adding the `transport` section and leave other plugins to re-bind the `DynamicItem\u003cForwarder\u003e`",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc01d50_a5ac8e3c",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/DynamicItemUtil.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-03-26T13:55:51Z",
+      "side": 1,
+      "message": "This is nice. Shall we make it generic and add this to Gerrit core?",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
