@@ -50,6 +50,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "425d3e48_c2944034",
+        "filename": "BUILD",
+        "patchSetId": 12
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-03-29T12:32:16Z",
+      "side": 1,
+      "message": "One thing to keep in mind is that Bazel doesn’t handle mixing test classes and helper classes (without `@Test` methods) very well. This has been a known limitation for quite some time (see [1]).\n\nUsing a separate testutils target works around that, but it also complicates the build setup a bit, since it requires pulling in plugin API and acceptance framework dependencies like:\n\n```\n\"//plugins:plugin-lib\",\n\"//java/com/google/gerrit/acceptance:lib\",\n```\n\nwhich are otherwise added automatically by the `gerrit_plugin_tests` macro.\n\nIn Gerrit core we usually handle this differently by keeping helper/base classes in the same test target and annotating them with `@Ignore` if they don’t contain tests (see `RawMailMessage`). This keeps Bazel happy without introducing additional build targets.\n\nIn this case, the split seems to have been introduced mainly for a single helper class: `DynamicItemUtil`. Since that utility is no longer needed (we can use `DynamicItem.itemOf(...)` from gerrit core instead), we could simplify things and revert back to the original structure.\n\n[1]: https://github.com/bazelbuild/rules_java/issues/330",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 1
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90af13bc_ebf65539",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
         "patchSetId": 12
@@ -453,6 +476,24 @@
       "writtenOn": "2026-03-26T13:55:51Z",
       "side": 1,
       "message": "This is nice. Shall we make it generic and add this to Gerrit core?",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab2f5751_cacf2d23",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/DynamicItemUtil.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2026-03-29T12:32:16Z",
+      "side": 1,
+      "message": "Good point 👍\n\nIt looks like Gerrit core already provides this in `DynamicItem` via:\n\n```java\npublic static \u003cT\u003e DynamicItem\u003cT\u003e itemOf(Class\u003cT\u003e member, T item)\n```\n\n(added by David Borowitz in change 76050).\n\nSo instead of introducing a plugin-specific helper, we could just reuse the existing generic API from core, e.g.:\n\n```java\nforwarderItem \u003d DynamicItem.itemOf(Forwarder.class, forwarder);\n```\n\nThat would keep things simpler and avoid duplicating similar logic here. It would also allow us to simplify the build setup, as noted in my comment in the `BUILD` file.",
+      "parentUuid": "ecc01d50_a5ac8e3c",
       "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
