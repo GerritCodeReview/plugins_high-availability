@@ -72,6 +72,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41582adb_feaa0c1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-04-08T20:11:03Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "9f082190_ad7bcc23",
+      "range": {
+        "startLine": 14,
+        "startChar": 11,
+        "endLine": 14,
+        "endChar": 60
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "425d3e48_c2944034",
@@ -190,6 +214,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcba2084_2617668f",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-04-08T20:11:03Z",
+      "side": 1,
+      "message": "Ack, that\u0027s a new interface to expose on the `ApiModule` then? But agreed that for a follow-up change indeed.",
+      "parentUuid": "7a06351c_ad2fcaa8",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1718f92a_86d3f4a2",
@@ -261,6 +309,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "370d73ad_34db63ea",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Module.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-04-08T20:11:03Z",
+      "side": 1,
+      "message": "Point taken. Maybe we should plan soon to have the REST-based implementation pluggable as well.",
+      "parentUuid": "e4144a77_fa8f05dd",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 74
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05e59373_86252d95",
@@ -292,6 +364,24 @@
       "side": 1,
       "message": "This is an elegant way to avoid NPE until another plugin provides real implementation",
       "parentUuid": "05e59373_86252d95",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b715769_d256d8c0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/NoForwarder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-04-08T20:11:03Z",
+      "side": 1,
+      "message": "Can you explain this rationale in the JavaDoc of the `NoForwarder` class? Basically, it is done only to avoid if/then/else all around the code, but the binding won\u0027t be used in any of the actual production code paths.",
+      "parentUuid": "1c58419d_075b9243",
       "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
