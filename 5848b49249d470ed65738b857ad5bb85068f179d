@@ -238,6 +238,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d71cfb2_f039a630",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/Configuration.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-04-09T08:18:36Z",
+      "side": 1,
+      "message": "Yes, it would be a new interface exposes via the ApiModule. I plan to work on that once we get this change in and the GCP/AWS forwarder implementations are finished.",
+      "parentUuid": "fcba2084_2617668f",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1718f92a_86d3f4a2",
@@ -382,6 +406,24 @@
       "side": 1,
       "message": "Can you explain this rationale in the JavaDoc of the `NoForwarder` class? Basically, it is done only to avoid if/then/else all around the code, but the binding won\u0027t be used in any of the actual production code paths.",
       "parentUuid": "1c58419d_075b9243",
+      "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d429e12_674838da",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/NoForwarder.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-04-09T08:18:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b715769_d256d8c0",
       "revId": "5848b49249d470ed65738b857ad5bb85068f179d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
