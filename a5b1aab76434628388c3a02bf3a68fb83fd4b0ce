@@ -16,6 +16,24 @@
       "message": "Is this still the correct packages? I see it\u0027s not specific to JGroups anymore.",
       "revId": "a5b1aab76434628388c3a02bf3a68fb83fd4b0ce",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ffd8247_5cba32ba",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/jgroups/CommandDeserializerTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-04-14T08:11:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9de044b_68ac644c",
+      "revId": "a5b1aab76434628388c3a02bf3a68fb83fd4b0ce",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
