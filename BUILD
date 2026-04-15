@@ -2,18 +2,7 @@ load(
     "@com_googlesource_gerrit_bazlets//:gerrit_plugin.bzl",
     "gerrit_plugin",
     "gerrit_plugin_tests",
-)
-load(
-    "@com_googlesource_gerrit_bazlets//tools:in_gerrit_tree.bzl",
-    "in_gerrit_tree_enabled",
-)
-load(
-    "@com_googlesource_gerrit_bazlets//tools:runtime_jars_allowlist.bzl",
-    "runtime_jars_allowlist_test",
-)
-load(
-    "@com_googlesource_gerrit_bazlets//tools:runtime_jars_overlap.bzl",
-    "runtime_jars_overlap_test",
+    "gerrit_plugin_dependency_tests",
 )
 load("@rules_java//java:defs.bzl", "java_library")
 
@@ -71,17 +60,4 @@ java_library(
     ],
 )
 
-runtime_jars_allowlist_test(
-    name = "check_high-availability_third_party_runtime_jars",
-    allowlist = ":high-availability_third_party_runtime_jars.allowlist.txt",
-    hint = "plugins/high-availability:check_high-availability_third_party_runtime_jars_manifest",
-    target = ":high-availability__plugin",
-)
-
-runtime_jars_overlap_test(
-    name = "high-availability_no_overlap_with_gerrit",
-    against = "//:headless.war.jars.txt",
-    hint = "Exclude overlaps via maven.install(excluded_artifacts=[...]) and re-run this test.",
-    target = ":high-availability__plugin",
-    target_compatible_with = in_gerrit_tree_enabled(),
-)
+gerrit_plugin_dependency_tests(plugin = "high-availability")
