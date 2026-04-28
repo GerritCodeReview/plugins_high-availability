@@ -12,28 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class EvictCache extends Command {
-  static final EventType TYPE = EventType.CACHE_EVICTION;
+public class IndexProject extends Command {
+  static final EventType TYPE = EventType.INDEX_PROJECT_UPDATE;
 
-  private final String cacheName;
-  private final String keyJson;
+  private String projectName;
 
-  protected EvictCache(String cacheName, String keyJson, Instant eventCreatedOn) {
+  public IndexProject(String projectName, Instant eventCreatedOn) {
     super(TYPE, eventCreatedOn);
-    this.cacheName = cacheName;
-    this.keyJson = keyJson;
+    this.projectName = projectName;
   }
 
-  public String getCacheName() {
-    return cacheName;
-  }
-
-  public String getKeyJson() {
-    return keyJson;
+  public String getProjectName() {
+    return projectName;
   }
 }

@@ -1,4 +1,4 @@
-// Copyright (C) 2023 The Android Open Source Project
+// Copyright (C) 2026 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import java.time.Instant;
+/** Processes commands received from other nodes */
+public interface CommandProcessor {
 
-public class IndexGroup extends Command {
-  static final EventType TYPE = EventType.INDEX_GROUP_UPDATE;
-
-  private final String uuid;
-
-  protected IndexGroup(String uuid, Instant eventCreatedOn) {
-    super(TYPE, eventCreatedOn);
-    this.uuid = uuid;
-  }
-
-  public String getUuid() {
-    return uuid;
-  }
+  /**
+   * Processes the given command.
+   *
+   * @param cmd the command to process
+   * @return true if the command was successfully processed, false otherwise
+   */
+  boolean handle(Command cmd);
 }

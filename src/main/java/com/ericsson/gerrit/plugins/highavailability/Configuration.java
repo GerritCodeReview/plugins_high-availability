@@ -88,7 +88,8 @@ public class Configuration {
 
   public enum Transport {
     HTTP,
-    JGROUPS
+    JGROUPS,
+    PROVIDED
   }
 
   @Inject

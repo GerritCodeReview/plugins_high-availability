@@ -40,6 +40,7 @@ import org.junit.Test;
 
 @TestPlugin(
     name = "high-availability",
+    apiModule = "com.ericsson.gerrit.plugins.highavailability.ApiModule",
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public class ForwardedCacheEvictionHandlerIT extends LightweightPluginDaemonTest {

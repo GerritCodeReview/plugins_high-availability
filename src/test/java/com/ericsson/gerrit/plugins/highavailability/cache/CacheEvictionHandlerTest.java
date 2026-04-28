@@ -20,6 +20,7 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.common.cache.RemovalCause;
 import com.google.common.cache.RemovalNotification;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.config.SitePaths;
 import java.io.IOException;
@@ -34,7 +35,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CacheEvictionHandlerTest {
-  @Mock private Forwarder forwarder;
+  @Mock private DynamicItem<Forwarder> forwarder;
   @Mock private PluginConfigFactory pluginConfigFactoryMock;
 
   private static final Path SITE_PATH = Paths.get("/site_path");

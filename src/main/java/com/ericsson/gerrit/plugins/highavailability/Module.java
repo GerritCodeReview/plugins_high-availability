@@ -17,7 +17,11 @@ package com.ericsson.gerrit.plugins.highavailability;
 import com.ericsson.gerrit.plugins.highavailability.autoreindex.AutoReindexModule;
 import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderModule;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessor;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessorImpl;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups.JGroupsForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarderModule;
 import com.ericsson.gerrit.plugins.highavailability.index.IndexModule;
@@ -26,6 +30,7 @@ import com.ericsson.gerrit.plugins.highavailability.lock.FileBasedLockManager;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfoModule;
 import com.gerritforge.gerrit.globalrefdb.validation.ProjectDeletedSharedDbCleanup;
 import com.google.gerrit.extensions.events.ProjectDeletedListener;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
 import com.google.inject.Inject;
@@ -49,16 +54,22 @@ class Module extends LifecycleModule {
     install(new ForwarderModule());
     install(new FileBasedLockManager.Module());
 
+    DynamicItem.bind(binder(), CommandProcessor.class).to(CommandProcessorImpl.class);
+
     switch (config.main().transport()) {
-      case HTTP:
+      case HTTP -> {
         install(new RestForwarderModule());
         install(new PeerInfoModule(config.peerInfo().strategy()));
-        break;
-      case JGROUPS:
+      }
+      case JGROUPS -> {
+        install(new ForwarderCommandsModule());
         install(new JGroupsForwarderModule());
-        break;
-      default:
-        throw new IllegalArgumentException("Unsupported transport: " + config.main().transport());
+      }
+      case PROVIDED -> {
+        // Bind default no-op implementation
+        // Transport will be provided by another plugin
+        DynamicItem.bind(binder(), Forwarder.class).to(NoForwarder.class);
+      }
     }
 
     if (config.cache().synchronize()) {

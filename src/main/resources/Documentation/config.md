@@ -73,6 +73,18 @@ defined by the `jgroups.clusterName`.
   maxTries = 100
 ```
 
+### Transport implementation provided by another plugin
+
+In this case another plugin extends the @PLUGIN@ plugin and provides messaging
+implementation.
+```
+[main]
+  transport = provided
+  sharedDirectory = /directory/accessible/from/both/instances
+[autoReindex]
+  enabled = false
+```
+
 ```main.sharedDirectory```
 :   Path to a directory accessible from both instances.
     When given as a relative path, then it is resolved against the $SITE_PATH
@@ -82,9 +94,10 @@ defined by the `jgroups.clusterName`.
     is "shared".
 
 ```main.transport```
-:   Message transport layer. Could be: `http` or `jgroups`.
+:   Message transport layer. Could be: `http`, `jgroups` or `provided`.
     When not specificed the default is `http`.
-    When set to `jgroups` then all `peerInfo.*` sections are unnecessary and ignored.
+    When set to `jgroups` or `provided` then all `peerInfo.*` sections are
+    unnecessary and ignored.
 
 ```autoReindex.enabled```
 :   Enable the tracking of the latest change indexed under data/high-availability

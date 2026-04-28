@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
@@ -34,7 +35,7 @@ public class RestForwarderModule extends AbstractModule {
   protected void configure() {
     bind(CloseableHttpClient.class).toProvider(HttpClientProvider.class).in(Scopes.SINGLETON);
     bind(HttpSession.class);
-    bind(Forwarder.class).to(RestForwarder.class);
+    DynamicItem.bind(binder(), Forwarder.class).to(RestForwarder.class);
 
     bind(new TypeLiteral<FailsafeExecutor<Result>>() {})
         .annotatedWith(RestForwarderExecutor.class)

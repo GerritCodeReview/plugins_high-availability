@@ -16,23 +16,24 @@ package com.ericsson.gerrit.plugins.highavailability.event;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.events.ProjectEvent;
 import com.google.inject.Inject;
 
 class EventHandler implements EventListener {
-  private final Forwarder forwarder;
+  private final DynamicItem<Forwarder> forwarder;
 
   @Inject
-  EventHandler(Forwarder forwarder) {
+  EventHandler(DynamicItem<Forwarder> forwarder) {
     this.forwarder = forwarder;
   }
 
   @Override
   public void onEvent(Event event) {
     if (!Context.isForwardedEvent() && event instanceof ProjectEvent) {
-      forwarder.send(event);
+      forwarder.get().send(event);
     }
   }
 }

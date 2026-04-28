@@ -48,6 +48,7 @@ import org.junit.Test;
 @UseSsh
 @TestPlugin(
     name = "high-availability",
+    apiModule = "com.ericsson.gerrit.plugins.highavailability.ApiModule",
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public class CacheEvictionIT extends LightweightPluginDaemonTest {

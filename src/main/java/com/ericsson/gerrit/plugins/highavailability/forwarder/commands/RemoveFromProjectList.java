@@ -12,13 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
+package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import java.time.Instant;
 
-import com.google.inject.BindingAnnotation;
-import java.lang.annotation.Retention;
+public class RemoveFromProjectList extends Command {
+  static final EventType TYPE = EventType.PROJECT_LIST_DELETION;
 
-@BindingAnnotation
-@Retention(RUNTIME)
-public @interface JGroupsGson {}
+  private final String projectName;
+
+  public RemoveFromProjectList(String projectName, Instant eventCreatedOn) {
+    super(TYPE, eventCreatedOn);
+    this.projectName = projectName;
+  }
+
+  public String getProjectName() {
+    return projectName;
+  }
+}

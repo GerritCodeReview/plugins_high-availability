@@ -19,6 +19,17 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.Command;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandsGson;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.DeleteAllProjectChangesFromIndex;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.EvictCache;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexAccount;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexChange;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexGroup;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexProject;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.PostEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.RemoveFromProjectList;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
@@ -53,7 +64,7 @@ public class JGroupsForwarder implements Forwarder {
   JGroupsForwarder(
       MessageDispatcher dispatcher,
       Configuration cfg,
-      @JGroupsGson Gson gson,
+      @CommandsGson Gson gson,
       @JGroupsForwarderExecutor FailsafeExecutor<Result> executor,
       ForwarderMetricsRegistry metricsRegistry) {
     this.dispatcher = dispatcher;

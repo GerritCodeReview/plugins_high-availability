@@ -20,6 +20,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.PushOneCommit.Result;
 import com.google.gerrit.acceptance.TestPlugin;
+import com.google.gerrit.acceptance.UseLocalDisk;
 import com.google.gerrit.entities.RefNames;
 import java.io.IOException;
 import java.util.Optional;
@@ -29,6 +30,7 @@ import org.junit.Test;
 
 @TestPlugin(
     name = "high-availability",
+    apiModule = "com.ericsson.gerrit.plugins.highavailability.ApiModule",
     sysModule = "com.ericsson.gerrit.plugins.highavailability.Module",
     httpModule = "com.ericsson.gerrit.plugins.highavailability.HttpModule")
 public class ChangeCheckerIT extends LightweightPluginDaemonTest {
@@ -42,6 +44,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   }
 
   @Test
+  @UseLocalDisk
   public void shouldPopulateMetaSha() throws Exception {
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
@@ -54,6 +57,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   }
 
   @Test
+  @UseLocalDisk
   public void shouldReturnIsUpToDateTrueWhenEventContainsCorrectMetaAndTargetSha()
       throws Exception {
     Result change = createChange();
@@ -64,6 +68,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   }
 
   @Test
+  @UseLocalDisk
   public void shouldReturnIsUpToDateTrueWhenTargetShaIsNull() throws Exception {
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
@@ -80,6 +85,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   }
 
   @Test
+  @UseLocalDisk
   public void shouldReturnFalseWhenMetaShaIsNotUpToDate() throws Exception {
     String testMetaRefSha = "6212efebe6e8b9f439a8ad013243e602afab7441";
     Result change = createChange();
@@ -97,6 +103,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   }
 
   @Test
+  @UseLocalDisk
   public void shouldReturnFalseWhenTargetShaIsNotUpToDate() throws Exception {
     String testTargetRefSha = "abed47baf2818a86b68cf712073a748a6b5b293e";
     Result change = createChange();

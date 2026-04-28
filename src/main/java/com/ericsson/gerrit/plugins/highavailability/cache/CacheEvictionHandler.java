@@ -17,15 +17,16 @@ package com.ericsson.gerrit.plugins.highavailability.cache;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.common.cache.RemovalNotification;
+import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.server.cache.CacheRemovalListener;
 import com.google.inject.Inject;
 
 class CacheEvictionHandler<K, V> implements CacheRemovalListener<K, V> {
-  private final Forwarder forwarder;
+  private final DynamicItem<Forwarder> forwarder;
   private final CachePatternMatcher matcher;
 
   @Inject
-  CacheEvictionHandler(Forwarder forwarder, CachePatternMatcher matcher) {
+  CacheEvictionHandler(DynamicItem<Forwarder> forwarder, CachePatternMatcher matcher) {
     this.forwarder = forwarder;
     this.matcher = matcher;
   }
@@ -33,7 +34,7 @@ class CacheEvictionHandler<K, V> implements CacheRemovalListener<K, V> {
   @Override
   public void onRemoval(String plugin, String cache, RemovalNotification<K, V> notification) {
     if (!Context.isForwardedEvent() && !notification.wasEvicted() && matcher.matches(cache)) {
-      forwarder.evict(cache, notification.getKey());
+      forwarder.get().evict(cache, notification.getKey());
     }
   }
 }
