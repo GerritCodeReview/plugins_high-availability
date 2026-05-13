@@ -56,6 +56,9 @@ gerrit_plugin_tests(
     deps = [
         ":high-availability__plugin_test_deps",
     ],
+    runtime_deps = [
+        "//lib/log:impl-log4j",
+    ],
 )
 
 java_library(
