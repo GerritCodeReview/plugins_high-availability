@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
+
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
@@ -24,6 +26,7 @@ import java.security.cert.X509Certificate;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import org.apache.http.ConnectionReuseStrategy;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.config.RequestConfig;
@@ -34,6 +37,7 @@ import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.DefaultConnectionReuseStrategy;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -64,6 +68,7 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
         .setConnectionManager(customConnectionManager())
         .setDefaultCredentialsProvider(buildCredentials())
         .setDefaultRequestConfig(customRequestConfig())
+        .setConnectionReuseStrategy(customConnectionReuseStrategy())
         .build();
   }
 
@@ -77,6 +82,10 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
   }
 
   private HttpClientConnectionManager customConnectionManager() {
+    return buildConnectionManager();
+  }
+
+  PoolingHttpClientConnectionManager buildConnectionManager() {
     Registry<ConnectionSocketFactory> socketFactoryRegistry =
         RegistryBuilder.<ConnectionSocketFactory>create()
             .register("https", sslSocketFactory)
@@ -88,6 +97,16 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
     connManager.setMaxTotal(MAX_CONNECTIONS);
     connManager.setValidateAfterInactivity(MAX_CONNECTION_INACTIVITY);
     return connManager;
+  }
+
+  private ConnectionReuseStrategy customConnectionReuseStrategy() {
+    return (response, context) -> {
+      if (response.getStatusLine().getStatusCode() == SC_SERVICE_UNAVAILABLE
+          && !cfg.http().reuseConnectionAfter503()) {
+        return false;
+      }
+      return DefaultConnectionReuseStrategy.INSTANCE.keepAlive(response, context);
+    };
   }
 
   private static SSLConnectionSocketFactory buildSslSocketFactory() {
