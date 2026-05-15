@@ -294,6 +294,14 @@ calls by specifying the following fields:
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, the default value is set to 10 seconds.
 
+```http.reuseConnectionAfter503```
+:   Whether to reuse the HTTP connection to the peer instance after receiving a
+    503 (Service Unavailable) response over it. When set to `false`, the plugin
+    will close the connection immediately on a 503 response and open a fresh one
+    for the next retry, which can help recover from situations where a peer has
+    transiently become unavailable without properly closing existing connections.
+    When not specified, the default value is `true`.
+
 ```http.threadPoolSize```
 :   Maximum number of threads used to execute REST calls towards target instances.
 
