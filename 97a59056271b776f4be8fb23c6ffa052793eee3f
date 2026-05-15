@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9f498a5_35894496",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-05-15T11:31:07Z",
+      "side": 1,
+      "message": "use the constant defined in HttpServletResponse:\n```suggestion\n      if (response.getStatusLine().getStatusCode() \u003d\u003d javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE\n```",
+      "range": {
+        "startLine": 98,
+        "startChar": 54,
+        "endLine": 98,
+        "endChar": 57
+      },
+      "revId": "97a59056271b776f4be8fb23c6ffa052793eee3f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
