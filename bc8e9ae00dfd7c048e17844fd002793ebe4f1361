@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad58cf4e_f56ade97",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProviderConnectionReuseTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-05-15T14:10:39Z",
+      "side": 1,
+      "message": "use the constant `SC_SERVICE_UNAVAILABLE` ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 83,
+        "endLine": 55,
+        "endChar": 86
+      },
+      "revId": "bc8e9ae00dfd7c048e17844fd002793ebe4f1361",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d73bd830_852c32fa",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProviderConnectionReuseTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-05-15T14:10:39Z",
+      "side": 1,
+      "message": "use the constant `SC_SERVICE_UNAVAILABLE` ?",
+      "range": {
+        "startLine": 67,
+        "startChar": 83,
+        "endLine": 67,
+        "endChar": 86
+      },
+      "revId": "bc8e9ae00dfd7c048e17844fd002793ebe4f1361",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "468a2267_af6f174a",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProviderConnectionReuseTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-05-15T14:10:39Z",
+      "side": 1,
+      "message": "use constant `SC_INTERNAL_SERVER_ERROR` defined in `HttpServletResponse` ?",
+      "range": {
+        "startLine": 79,
+        "startChar": 83,
+        "endLine": 79,
+        "endChar": 86
+      },
+      "revId": "bc8e9ae00dfd7c048e17844fd002793ebe4f1361",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
