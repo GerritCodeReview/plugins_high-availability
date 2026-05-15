@@ -516,6 +516,8 @@ public class Configuration {
     static final String MAX_TRIES_KEY = "maxTries";
     static final String RETRY_INTERVAL_KEY = "retryInterval";
     static final String THREAD_POOL_SIZE_KEY = "threadPoolSize";
+    static final String REUSE_CONNECTION_AFTER_503_KEY = "reuseConnectionAfter503";
+    static final boolean DEFAULT_REUSE_CONNECTION_AFTER_503 = true;
 
     private final String user;
     private final String password;
@@ -524,6 +526,7 @@ public class Configuration {
     private final int maxTries;
     private final Duration retryInterval;
     private final int threadPoolSize;
+    private final boolean reuseConnectionAfter503;
 
     private Http(Config cfg) {
       user = Strings.nullToEmpty(cfg.getString(HTTP_SECTION, null, USER_KEY));
@@ -533,6 +536,9 @@ public class Configuration {
       maxTries = getMaxTries(cfg, HTTP_SECTION, MAX_TRIES_KEY, DEFAULT_MAX_TRIES);
       retryInterval = getDuration(cfg, HTTP_SECTION, RETRY_INTERVAL_KEY, DEFAULT_RETRY_INTERVAL);
       threadPoolSize = getInt(cfg, HTTP_SECTION, THREAD_POOL_SIZE_KEY, DEFAULT_THREAD_POOL_SIZE);
+      reuseConnectionAfter503 =
+          cfg.getBoolean(
+              HTTP_SECTION, REUSE_CONNECTION_AFTER_503_KEY, DEFAULT_REUSE_CONNECTION_AFTER_503);
     }
 
     public String user() {
@@ -561,6 +567,10 @@ public class Configuration {
 
     public int threadPoolSize() {
       return threadPoolSize;
+    }
+
+    public boolean reuseConnectionAfter503() {
+      return reuseConnectionAfter503;
     }
   }
 
