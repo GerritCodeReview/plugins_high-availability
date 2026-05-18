@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6880d10d_646a0793",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProviderConnectionReuseTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-05-18T08:35:45Z",
+      "side": 1,
+      "message": "I would actually prefer to stick with the `503` here because:\n* the `503` is contained already in the \"language\" of the test code and in the new option name\n* code readability is better\n* http status codes are universally understood (not magic numbers)",
+      "parentUuid": "ad58cf4e_f56ade97",
+      "range": {
+        "startLine": 55,
+        "startChar": 83,
+        "endLine": 55,
+        "endChar": 86
+      },
+      "revId": "bc8e9ae00dfd7c048e17844fd002793ebe4f1361",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d73bd830_852c32fa",
@@ -47,6 +71,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9edef053_7d1e60f5",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProviderConnectionReuseTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-05-18T08:35:45Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "d73bd830_852c32fa",
+      "range": {
+        "startLine": 67,
+        "startChar": 83,
+        "endLine": 67,
+        "endChar": 86
+      },
+      "revId": "bc8e9ae00dfd7c048e17844fd002793ebe4f1361",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "468a2267_af6f174a",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-05-15T14:10:39Z",
       "side": 1,
       "message": "use constant `SC_INTERNAL_SERVER_ERROR` defined in `HttpServletResponse` ?",
+      "range": {
+        "startLine": 79,
+        "startChar": 83,
+        "endLine": 79,
+        "endChar": 86
+      },
+      "revId": "bc8e9ae00dfd7c048e17844fd002793ebe4f1361",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4965ead4_ab68ec19",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/HttpClientProviderConnectionReuseTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-05-18T08:35:45Z",
+      "side": 1,
+      "message": "same as above",
+      "parentUuid": "468a2267_af6f174a",
       "range": {
         "startLine": 79,
         "startChar": 83,
