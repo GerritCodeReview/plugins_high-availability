@@ -24,6 +24,7 @@ import com.google.inject.Injector;
 import com.google.inject.Scopes;
 import java.time.Duration;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class HttpClientProviderTest {
   private static final Duration TIME_INTERVAL = Duration.ofMillis(1000);
+  private static final int CONNECTIONS_PER_ROUTE = 10;
+  private static final int MAX_CONNECTIONS = 10;
   private static final String EMPTY = "";
 
   @Mock(answer = Answers.RETURNS_DEEP_STUBS)
@@ -45,6 +48,8 @@ public class HttpClientProviderTest {
     when(configMock.http().password()).thenReturn(EMPTY);
     when(configMock.http().connectionTimeout()).thenReturn(TIME_INTERVAL);
     when(configMock.http().socketTimeout()).thenReturn(TIME_INTERVAL);
+    when(configMock.http().connectionsPerRoute()).thenReturn(CONNECTIONS_PER_ROUTE);
+    when(configMock.http().maxConnections()).thenReturn(MAX_CONNECTIONS);
   }
 
   @Test
@@ -56,6 +61,18 @@ public class HttpClientProviderTest {
         assertThat(httpClient1).isEqualTo(httpClient2);
       }
     }
+  }
+
+  @Test
+  public void testConnectionPoolSize() {
+    int customConnectionsPerRoute = 42;
+    when(configMock.http().connectionsPerRoute()).thenReturn(customConnectionsPerRoute);
+    int customMaxConnections = 100;
+    when(configMock.http().maxConnections()).thenReturn(customMaxConnections);
+    HttpClientProvider provider = new HttpClientProvider(configMock);
+    PoolingHttpClientConnectionManager connManager = provider.buildConnectionManager();
+    assertThat(connManager.getDefaultMaxPerRoute()).isEqualTo(customConnectionsPerRoute);
+    assertThat(connManager.getMaxTotal()).isEqualTo(customMaxConnections);
   }
 
   class TestModule extends AbstractModule {
