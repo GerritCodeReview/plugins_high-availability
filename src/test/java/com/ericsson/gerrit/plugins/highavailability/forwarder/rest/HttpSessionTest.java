@@ -41,6 +41,7 @@ public class HttpSessionTest {
   private static final int MAX_TRIES = 3;
   private static final Duration RETRY_INTERVAL = Duration.ofMillis(250);
   private static final Duration TIMEOUT = Duration.ofMillis(500);
+  private static final int CONNECTION_POOL_SIZE = 10;
   private static final int ERROR = 500;
   private static final int NO_CONTENT = 204;
   private static final int NOT_FOUND = 404;
@@ -71,6 +72,7 @@ public class HttpSessionTest {
     when(configMock.http().connectionTimeout()).thenReturn(TIMEOUT);
     when(configMock.http().socketTimeout()).thenReturn(TIMEOUT);
     when(configMock.http().retryInterval()).thenReturn(RETRY_INTERVAL);
+    when(configMock.http().connectionPoolSize()).thenReturn(CONNECTION_POOL_SIZE);
 
     httpSession = new HttpSession(new HttpClientProvider(configMock).get());
   }

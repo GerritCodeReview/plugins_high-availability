@@ -37,6 +37,7 @@ public class HttpClientProviderConnectionReuseTest {
 
   private static final String ENDPOINT = "/test";
   private static final Duration TIMEOUT = Duration.ofMillis(1000);
+  private static final int CONNECTION_POOL_SIZE = 10;
 
   @Rule public WireMockRule wireMock = new WireMockRule(0);
   private Configuration cfg;
@@ -49,6 +50,7 @@ public class HttpClientProviderConnectionReuseTest {
     when(cfg.http().password()).thenReturn("");
     when(cfg.http().connectionTimeout()).thenReturn(TIMEOUT);
     when(cfg.http().socketTimeout()).thenReturn(TIMEOUT);
+    when(cfg.http().connectionPoolSize()).thenReturn(CONNECTION_POOL_SIZE);
 
     provider = new TestableHttpClientProvider(cfg);
   }
