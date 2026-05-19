@@ -268,6 +268,12 @@ calls by specifying the following fields:
     Value is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
     When not specified, the default value is set to 10 seconds.
 
+```http.connectionPoolSize```
+:   Maximum number of pooled HTTP connections to the peer instance. Since the
+    plugin connects to a single remote instance, this value applies both as the
+    per-route limit and the total pool maximum.
+    When not specified, the default value is 100.
+
 ```http.threadPoolSize```
 :   Maximum number of threads used to execute REST calls towards target instances.
 

@@ -51,9 +51,6 @@ import org.apache.http.protocol.HttpCoreContext;
 /** Provides an HTTP client with SSL capabilities. */
 class HttpClientProvider implements Provider<CloseableHttpClient> {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
-  private static final int CONNECTIONS_PER_ROUTE = 100;
-  // Up to 2 target instances with the max number of connections per host:
-  private static final int MAX_CONNECTIONS = 2 * CONNECTIONS_PER_ROUTE;
 
   private static final int MAX_CONNECTION_INACTIVITY = 10000;
 
@@ -98,8 +95,8 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
             .build();
     PoolingHttpClientConnectionManager connManager =
         new PoolingHttpClientConnectionManager(socketFactoryRegistry);
-    connManager.setDefaultMaxPerRoute(CONNECTIONS_PER_ROUTE);
-    connManager.setMaxTotal(MAX_CONNECTIONS);
+    connManager.setDefaultMaxPerRoute(cfg.http().connectionPoolSize());
+    connManager.setMaxTotal(cfg.http().connectionPoolSize());
     connManager.setValidateAfterInactivity(MAX_CONNECTION_INACTIVITY);
     return connManager;
   }

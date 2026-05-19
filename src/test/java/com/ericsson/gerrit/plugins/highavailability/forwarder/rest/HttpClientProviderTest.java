@@ -24,6 +24,7 @@ import com.google.inject.Injector;
 import com.google.inject.Scopes;
 import java.time.Duration;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +46,8 @@ public class HttpClientProviderTest {
     when(configMock.http().password()).thenReturn(EMPTY);
     when(configMock.http().connectionTimeout()).thenReturn(TIME_INTERVAL);
     when(configMock.http().socketTimeout()).thenReturn(TIME_INTERVAL);
+    when(configMock.http().connectionPoolSize())
+        .thenReturn(Configuration.Http.DEFAULT_CONNECTION_POOL_SIZE);
   }
 
   @Test
@@ -56,6 +59,16 @@ public class HttpClientProviderTest {
         assertThat(httpClient1).isEqualTo(httpClient2);
       }
     }
+  }
+
+  @Test
+  public void testConnectionPoolSize() {
+    int customPoolSize = 42;
+    when(configMock.http().connectionPoolSize()).thenReturn(customPoolSize);
+    HttpClientProvider provider = new HttpClientProvider(configMock);
+    PoolingHttpClientConnectionManager connManager = provider.buildConnectionManager();
+    assertThat(connManager.getDefaultMaxPerRoute()).isEqualTo(customPoolSize);
+    assertThat(connManager.getMaxTotal()).isEqualTo(customPoolSize);
   }
 
   class TestModule extends AbstractModule {
