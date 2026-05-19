@@ -302,6 +302,12 @@ calls by specifying the following fields:
     transiently become unavailable without properly closing existing connections.
     When not specified, the default value is `true`.
 
+```http.connectionPoolSize```
+:   Maximum number of pooled HTTP connections to the peer instance. Since the
+    plugin connects to a single remote instance, this value applies both as the
+    per-route limit and the total pool maximum.
+    When not specified, the default value is 100.
+
 ```http.threadPoolSize```
 :   Maximum number of threads used to execute REST calls towards target instances.
 
