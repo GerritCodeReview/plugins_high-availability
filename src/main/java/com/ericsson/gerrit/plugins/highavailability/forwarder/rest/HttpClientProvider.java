@@ -27,12 +27,15 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.apache.http.ConnectionReuseStrategy;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.conn.ManagedHttpClientConnection;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -42,6 +45,8 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.protocol.HttpCoreContext;
 
 /** Provides an HTTP client with SSL capabilities. */
 class HttpClientProvider implements Provider<CloseableHttpClient> {
@@ -103,10 +108,26 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
     return (response, context) -> {
       if (response.getStatusLine().getStatusCode() == SC_SERVICE_UNAVAILABLE
           && !cfg.http().reuseConnectionAfter503()) {
+        log.atFine().log("Dropping pooled connection %s after 503 response", connInfo(context));
         return false;
       }
+      log.atFine().log("Sent request using pooled connection %s", connInfo(context));
       return DefaultConnectionReuseStrategy.INSTANCE.keepAlive(response, context);
     };
+  }
+
+  private static String connInfo(HttpContext context) {
+    HttpCoreContext ctx = HttpCoreContext.adapt(context);
+    HttpHost target = ctx.getTargetHost();
+    ManagedHttpClientConnection conn =
+        (ManagedHttpClientConnection) context.getAttribute(HttpCoreContext.HTTP_CONNECTION);
+    String connId = conn != null ? conn.getId() : "unknown";
+    HttpRequest request = ctx.getRequest();
+    String requestLine =
+        request != null
+            ? request.getRequestLine().getMethod() + " " + request.getRequestLine().getUri()
+            : "unknown";
+    return connId + " to " + target + ": " + requestLine;
   }
 
   private static SSLConnectionSocketFactory buildSslSocketFactory() {
