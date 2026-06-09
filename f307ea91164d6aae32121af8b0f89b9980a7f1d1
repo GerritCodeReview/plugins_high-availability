@@ -16,6 +16,23 @@
       "message": "Is this adapting the HA plugin to the changes in https://gerrit-review.googlesource.com/c/gerrit/+/577286 ? If yes, then reference this change in the commit message",
       "revId": "f307ea91164d6aae32121af8b0f89b9980a7f1d1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa99d01_0c35eb27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2026-06-09T09:29:54Z",
+      "side": 1,
+      "message": "Works with additional fix to adapt to new bazel version",
+      "revId": "f307ea91164d6aae32121af8b0f89b9980a7f1d1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
