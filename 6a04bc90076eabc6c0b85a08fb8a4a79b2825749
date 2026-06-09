@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e01e4bc2_ee9541ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-06-09T12:14:20Z",
+      "side": 1,
+      "message": "As a good starting point for reviewers, please also describe the problem and the solution",
+      "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36a2f193_045f638d",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-06-09T12:14:20Z",
+      "side": 1,
+      "message": "Where is the first node start triggered from?",
+      "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc363dd_cb395730",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-06-09T12:14:20Z",
+      "side": 1,
+      "message": "This is unpredictable, under high-cpu usage this may not be enough time. Can we synchronize with the state of the first node?",
+      "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
