@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7150a5cb_00cf4b68",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2026-06-09T13:38:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e01e4bc2_ee9541ff",
+      "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36a2f193_045f638d",
@@ -35,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf197a7_1087ffdd",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2026-06-09T13:38:49Z",
+      "side": 1,
+      "message": "There is no \"real\" first node. This test is mocking everything by mocking the channels in a single process.",
+      "parentUuid": "36a2f193_045f638d",
+      "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc363dd_cb395730",
@@ -48,6 +84,24 @@
       "writtenOn": "2026-06-09T12:14:20Z",
       "side": 1,
       "message": "This is unpredictable, under high-cpu usage this may not be enough time. Can we synchronize with the state of the first node?",
+      "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3d3e9d8_eaac7397",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2026-06-09T13:38:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dc363dd_cb395730",
       "revId": "6a04bc90076eabc6c0b85a08fb8a4a79b2825749",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
