@@ -82,8 +82,6 @@ public class RestForwarderTest {
               PLUGIN_NAME,
               "index/change/batch",
               PROJECT_NAME_URL_END + "~" + CHANGE_NUMBER);
-  private static final String DELETE_CHANGE_ENDPOINT =
-      Joiner.on("/").join(URL, PLUGINS, PLUGIN_NAME, "index/change", "~" + CHANGE_NUMBER);
   private static final String DELETE_ALL_CHANGES_ENDPOINT =
       Joiner.on("/")
           .join(
@@ -283,11 +281,11 @@ public class RestForwarderTest {
 
   @Test
   public void testChangeDeletedFromIndexOK() throws Exception {
-    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT), any()))
+    when(httpSessionMock.delete(eq(INDEX_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
-                .deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())
+                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isTrue();
@@ -307,11 +305,11 @@ public class RestForwarderTest {
 
   @Test
   public void testChangeDeletedFromIndexFailed() throws Exception {
-    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT), any()))
+    when(httpSessionMock.delete(eq(INDEX_CHANGE_ENDPOINT), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
-                .deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())
+                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isFalse();
@@ -319,10 +317,10 @@ public class RestForwarderTest {
 
   @Test
   public void testChangeDeletedFromThrowsException() throws Exception {
-    when(httpSessionMock.delete(eq(DELETE_CHANGE_ENDPOINT), any())).thenThrow(IOException.class);
+    when(httpSessionMock.delete(eq(INDEX_CHANGE_ENDPOINT), any())).thenThrow(IOException.class);
     assertThat(
             forwarder
-                .deleteChangeFromIndex(CHANGE_NUMBER, new IndexEvent())
+                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isFalse();

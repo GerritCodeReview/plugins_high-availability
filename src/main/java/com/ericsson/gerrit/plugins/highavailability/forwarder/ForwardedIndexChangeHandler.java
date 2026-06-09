@@ -105,7 +105,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
 
     } catch (Exception e) {
       if (isCausedByNoSuchChangeException(e)) {
-        indexer.delete(parseChangeId(id));
+        indexer.delete(parseProject(id), parseChangeId(id));
         log.atWarning().withCause(e).log("Error trying to index Change %s. Deleted from index", id);
         return true;
       }
@@ -122,8 +122,8 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   @Override
   protected CompletableFuture<Boolean> doDelete(String id, Optional<IndexEvent> indexEvent)
       throws IOException {
+    Project.NameKey projectName = parseProject(id);
     if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
-      Project.NameKey projectName = parseProject(id);
       try {
         indexer.deleteAllForProject(projectName);
         log.atFine().log("All %s changes successfully deleted from index", projectName.get());
@@ -134,7 +134,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       }
     } else {
       try {
-        indexer.delete(parseChangeId(id));
+        indexer.delete(projectName, parseChangeId(id));
         log.atFine().log("Change %s successfully deleted from index", id);
       } catch (RuntimeException e) {
         log.atFine().log("Change %s could not be deleted from index", id);

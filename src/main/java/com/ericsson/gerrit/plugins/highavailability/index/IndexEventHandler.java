@@ -94,9 +94,9 @@ class IndexEventHandler
   }
 
   @Override
-  public void onChangeDeleted(int id) {
+  public void onChangeDeleted(String projectName, int id) {
     if (!Context.isForwardedEvent()) {
-      forwarder.get().deleteChangeFromIndex(id, new IndexEvent());
+      forwarder.get().deleteChangeFromIndex(projectName, id, new IndexEvent());
     }
   }
 

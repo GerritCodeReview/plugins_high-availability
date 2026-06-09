@@ -58,10 +58,6 @@ public abstract class IndexChange extends Command {
   public static class Delete extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_DELETION;
 
-    public Delete(int id, Instant eventCreatedOn) {
-      this("", id, eventCreatedOn);
-    }
-
     public Delete(String projectName, int id, Instant eventCreatedOn) {
       super(TYPE, projectName, id, false, eventCreatedOn);
     }

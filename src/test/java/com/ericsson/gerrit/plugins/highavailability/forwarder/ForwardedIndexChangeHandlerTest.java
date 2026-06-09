@@ -64,7 +64,6 @@ public class ForwardedIndexChangeHandlerTest {
 
   @Mock private ChangeIndexer indexerMock;
   @Mock private ChangeNotes changeNotes;
-  @Mock private Project.NameKey projectName;
 
   @Mock(answer = RETURNS_DEEP_STUBS)
   private Configuration configMock;
@@ -76,10 +75,12 @@ public class ForwardedIndexChangeHandlerTest {
   @Mock private ForwardedIndexExecutorProvider indexExecutorProviderMock;
   private ForwardedIndexChangeHandler handler;
   private Change.Id id;
+  private Project.NameKey projectName;
 
   @Before
   public void setUp() throws Exception {
     id = Change.id(TEST_CHANGE_NUMBER);
+    projectName = Project.nameKey(TEST_PROJECT);
     when(configMock.index().threadPoolSize()).thenReturn(4);
     when(configMock.index().maxTries()).thenReturn(3);
     when(configMock.index().retryInterval()).thenReturn(Duration.ofMillis(10));
@@ -110,7 +111,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
     handler.index(TEST_CHANGE_ID, Operation.DELETE, Optional.empty()).get(10, SECONDS);
-    verify(indexerMock, times(1)).delete(id);
+    verify(indexerMock, times(1)).delete(projectName, id);
   }
 
   @Test
@@ -125,7 +126,7 @@ public class ForwardedIndexChangeHandlerTest {
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
-    verify(indexerMock, times(0)).delete(id);
+    verify(indexerMock, times(0)).delete(projectName, id);
   }
 
   @Test

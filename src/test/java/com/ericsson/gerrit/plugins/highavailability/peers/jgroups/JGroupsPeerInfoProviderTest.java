@@ -169,7 +169,7 @@ public class JGroupsPeerInfoProviderTest {
   public void testStop() throws Exception {
     jGroupsPeerInfoProvider.addPeer(peerAddress, peerInfo);
     jGroupsPeerInfoProvider.stop();
-    assertThat(jGroupsPeerInfoProvider.getPeers().isEmpty());
+    assertThat(jGroupsPeerInfoProvider.getPeers()).isEmpty();
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     assertThat(testPeerInfoSet).isEmpty();
   }

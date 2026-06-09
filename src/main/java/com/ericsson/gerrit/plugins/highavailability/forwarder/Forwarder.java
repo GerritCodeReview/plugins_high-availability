@@ -68,7 +68,8 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> deleteChangeFromIndex(int changeId, IndexEvent indexEvent);
+  CompletableFuture<Result> deleteChangeFromIndex(
+      String projectName, int changeId, IndexEvent indexEvent);
 
   /**
    * Forward a group indexing event to the other primary.

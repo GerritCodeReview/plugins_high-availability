@@ -146,7 +146,7 @@ public class IndexTs implements ChangeIndexedListener, AccountIndexedListener {
   }
 
   @Override
-  public void onChangeDeleted(int id) {
+  public void onChangeDeleted(String projectName, int id) {
     currCtx.onlyWithContext((ctx) -> update(IndexName.CHANGE, LocalDateTime.now()));
   }
 

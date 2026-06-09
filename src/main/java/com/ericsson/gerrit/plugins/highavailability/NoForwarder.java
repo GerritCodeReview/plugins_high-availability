@@ -50,7 +50,8 @@ public class NoForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> deleteChangeFromIndex(int changeId, IndexEvent indexEvent) {
+  public CompletableFuture<Result> deleteChangeFromIndex(
+      String projectName, int changeId, IndexEvent indexEvent) {
     return recoverableFailure(EventType.INDEX_CHANGE_DELETION);
   }
 

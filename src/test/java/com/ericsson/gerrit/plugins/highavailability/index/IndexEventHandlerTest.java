@@ -82,7 +82,7 @@ public class IndexEventHandlerTest {
     when(forwarder.indexAccount(eq(ACCOUNT_ID), any()))
         .thenReturn(
             CompletableFuture.completedFuture(new Result(EventType.INDEX_ACCOUNT_UPDATE, true)));
-    when(forwarder.deleteChangeFromIndex(eq(CHANGE_ID), any()))
+    when(forwarder.deleteChangeFromIndex(eq(PROJECT_NAME), eq(CHANGE_ID), any()))
         .thenReturn(
             CompletableFuture.completedFuture(new Result(EventType.INDEX_CHANGE_DELETION, true)));
     when(forwarder.indexGroup(eq(UUID), any()))
@@ -141,8 +141,8 @@ public class IndexEventHandlerTest {
 
   @Test
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
-    indexEventHandler.onChangeDeleted(changeId.get());
-    verify(forwarder).deleteChangeFromIndex(eq(CHANGE_ID), any());
+    indexEventHandler.onChangeDeleted(PROJECT_NAME, changeId.get());
+    verify(forwarder).deleteChangeFromIndex(eq(PROJECT_NAME), eq(CHANGE_ID), any());
     verifyNoInteractions(changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
 
@@ -156,7 +156,7 @@ public class IndexEventHandlerTest {
   public void shouldNotCallRemoteWhenChangeEventIsForwarded() throws Exception {
     Context.setForwardedEvent(true);
     indexEventHandler.onChangeIndexed(PROJECT_NAME, changeId.get());
-    indexEventHandler.onChangeDeleted(changeId.get());
+    indexEventHandler.onChangeDeleted(PROJECT_NAME, changeId.get());
     Context.unsetForwardedEvent();
     verifyNoInteractions(forwarder);
   }

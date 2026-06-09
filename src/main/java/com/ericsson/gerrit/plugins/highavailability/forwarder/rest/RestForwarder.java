@@ -120,13 +120,14 @@ public class RestForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> deleteChangeFromIndex(final int changeId, IndexEvent event) {
+  public CompletableFuture<Result> deleteChangeFromIndex(
+      String projectName, final int changeId, IndexEvent event) {
     return execute(
         RequestMethod.DELETE,
         EventType.INDEX_CHANGE_DELETION,
         "delete change",
         "index/change",
-        buildIndexEndpoint(changeId),
+        buildIndexEndpoint(projectName, changeId),
         event,
         event.eventCreatedOn);
   }
@@ -141,10 +142,6 @@ public class RestForwarder implements Forwarder {
         uuid,
         event,
         event.eventCreatedOn);
-  }
-
-  private String buildIndexEndpoint(int changeId) {
-    return buildIndexEndpoint("", changeId);
   }
 
   private String buildIndexEndpoint(String projectName, int changeId) {
