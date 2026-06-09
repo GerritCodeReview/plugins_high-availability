@@ -115,8 +115,8 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   private void reindex(ChangeNotes notes) {
-    notes.reload();
-    indexer.reindexIfStale(notes.getProjectName(), notes.getChangeId());
+    var unused = notes.reload();
+    var unusedResult = indexer.reindexIfStale(notes.getProjectName(), notes.getChangeId());
   }
 
   @Override

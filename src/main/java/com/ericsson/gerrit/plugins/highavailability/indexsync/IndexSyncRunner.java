@@ -203,7 +203,7 @@ public class IndexSyncRunner implements CheckedSupplier<Boolean> {
       Project.NameKey project = Project.nameKey(parts.get(0));
       Change.Id changeId = Change.id(Integer.parseInt(parts.get(1)));
       log.atInfo().log("Change %s present in index but not in noteDb. Deleting from index", id);
-      indexer.deleteAsync(project, changeId);
+      var unused = indexer.deleteAsync(project, changeId);
     }
   }
 }
