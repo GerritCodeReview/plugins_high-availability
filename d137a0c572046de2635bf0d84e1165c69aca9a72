@@ -22,6 +22,30 @@
       },
       "revId": "d137a0c572046de2635bf0d84e1165c69aca9a72",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4faea57_dee476ce",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2026-06-10T07:16:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bc88515_6f3817e5",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 5
+      },
+      "revId": "d137a0c572046de2635bf0d84e1165c69aca9a72",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
