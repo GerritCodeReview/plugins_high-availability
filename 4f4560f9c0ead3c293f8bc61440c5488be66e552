@@ -86,6 +86,24 @@
       "message": "[optional] we can define this Retryer from the setup method and store it in a field named `waitFor`. Then replace this whole code snippet here with:\n```\n  waitFor.call(() -\u003e firstChannel.isConnected());\n```",
       "revId": "4f4560f9c0ead3c293f8bc61440c5488be66e552",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80f3b80_483a41b2",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/peers/jgroups/JGroupsKubernetesPeerInfoProviderTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2026-06-10T09:49:16Z",
+      "side": 1,
+      "message": "Thought about it, but since we just use it once for now I decided against it for now.",
+      "parentUuid": "a0026205_c298fd1f",
+      "revId": "4f4560f9c0ead3c293f8bc61440c5488be66e552",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
