@@ -34,6 +34,7 @@ public class CacheKeyJsonParserTest {
     Account.Id accountId = Account.id(1);
     String json = gson.toJson(accountId);
     assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.ACCOUNTS, json));
+    assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.GROUPS_BYMEMBER, json));
   }
 
   @Test
