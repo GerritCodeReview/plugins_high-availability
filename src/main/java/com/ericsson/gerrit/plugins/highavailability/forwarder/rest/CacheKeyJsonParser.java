@@ -45,6 +45,7 @@ public class CacheKeyJsonParser {
     switch (cacheName) {
       case Constants.ACCOUNTS:
       case Constants.TOKENS:
+      case Constants.GROUPS_BYMEMBER:
         return id.get() == null ? null : Account.id(id.get().getAsInt());
       case Constants.GROUPS:
         return id.get() == null ? null : AccountGroup.id(id.get().getAsInt());
