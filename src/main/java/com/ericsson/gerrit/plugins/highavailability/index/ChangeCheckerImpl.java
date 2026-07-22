@@ -101,8 +101,8 @@ public class ChangeCheckerImpl implements ChangeChecker {
         try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
           IndexEvent indexEvent = indexEventOption.get();
           return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
-              && (Objects.isNull(indexEvent.targetSha) || repositoryHas(repo, indexEvent.targetSha))
-              && (Objects.isNull(indexEvent.metaSha) || repositoryHas(repo, indexEvent.metaSha));
+              && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
+              && (indexEvent.metaSha == null || repositoryHas(repo, indexEvent.metaSha));
         }
       }
       return true;
