@@ -20,6 +20,7 @@ import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.CacheKeyJsonParser;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
@@ -36,7 +37,7 @@ public class CommandDeserializerTest {
   public void setUp() {
     Gson eventGson = new EventGsonProvider().get();
     this.gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
-    this.cacheKeyParser = new CacheKeyJsonParser(eventGson);
+    this.cacheKeyParser = new CacheKeyJsonParser(eventGson, DynamicMap.emptyMap());
   }
 
   @Test
