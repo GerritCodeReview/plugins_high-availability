@@ -26,6 +26,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundExcep
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
+import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,7 +53,9 @@ public class CacheRestApiServletTest {
     when(metricsRegistry.get(any())).thenReturn(metrics);
     servlet =
         new CacheRestApiServlet(
-            forwardedCacheEvictionHandlerMock, new CacheKeyJsonParser(new Gson()), metricsRegistry);
+            forwardedCacheEvictionHandlerMock,
+            new CacheKeyJsonParser(new Gson(), DynamicMap.emptyMap()),
+            metricsRegistry);
   }
 
   @Test
