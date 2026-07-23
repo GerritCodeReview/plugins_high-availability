@@ -19,8 +19,6 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
-import com.google.gerrit.entities.Account;
-import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.server.cache.CacheDef;
@@ -47,14 +45,6 @@ public class CacheKeyJsonParser {
 
     // Need to add a case for 'adv_bases'
     switch (cacheName) {
-      case Constants.ACCOUNTS:
-      case Constants.TOKENS:
-        return id.get() == null ? null : Account.id(id.get().getAsInt());
-      case Constants.GROUPS:
-        return id.get() == null ? null : AccountGroup.id(id.get().getAsInt());
-      case Constants.GROUPS_BYINCLUDE:
-      case Constants.GROUPS_MEMBERS:
-        return uuid.get() == null ? null : AccountGroup.uuid(uuid.get().getAsString());
       case Constants.PROJECT_LIST:
         return gson.fromJson(json, Object.class);
       case Constants.PROJECTS:
