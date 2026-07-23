@@ -87,19 +87,19 @@ public class JGroupsForwarder implements Forwarder {
   @Override
   public CompletableFuture<Result> indexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Update(projectName, changeId, indexEvent.eventCreatedOn));
+    return execute(new IndexChange.Update(projectName, changeId, indexEvent));
   }
 
   @Override
   public CompletableFuture<Result> batchIndexChange(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.BatchUpdate(projectName, changeId, indexEvent.eventCreatedOn));
+    return execute(new IndexChange.BatchUpdate(projectName, changeId, indexEvent));
   }
 
   @Override
   public CompletableFuture<Result> deleteChangeFromIndex(
       String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Delete(projectName, changeId, indexEvent.eventCreatedOn));
+    return execute(new IndexChange.Delete(projectName, changeId, indexEvent));
   }
 
   @Override

@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,6 +32,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
@@ -126,10 +128,10 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID, Instant.now());
+    IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID, new IndexEvent());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexChangeHandler, times(1))
-        .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.INDEX, Optional.empty());
+        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), eq(Operation.INDEX), any());
     verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 
@@ -138,10 +140,10 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID, Instant.now());
+    IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID, new IndexEvent());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexBatchChangeHandler, times(1))
-        .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.INDEX, Optional.empty());
+        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), eq(Operation.INDEX), any());
     verifyOtherHandlersNotUsed(indexBatchChangeHandler);
   }
 
@@ -150,10 +152,10 @@ public class MessageProcessorTest {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Delete cmd = new IndexChange.Delete(PROJECT, CHANGE_ID, Instant.now());
+    IndexChange.Delete cmd = new IndexChange.Delete(PROJECT, CHANGE_ID, new IndexEvent());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexChangeHandler, times(1))
-        .index(PROJECT + "~" + Change.id(CHANGE_ID), Operation.DELETE, Optional.empty());
+        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), eq(Operation.DELETE), any());
     verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 

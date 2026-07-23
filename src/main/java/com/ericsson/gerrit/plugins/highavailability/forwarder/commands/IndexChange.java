@@ -15,20 +15,24 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Strings;
-import java.time.Instant;
 
 public abstract class IndexChange extends Command {
   private final String projectName;
   private final int id;
   private final boolean batchMode;
+  public final String targetSha;
+  public final String metaSha;
 
   protected IndexChange(
-      EventType type, String projectName, int id, boolean batchMode, Instant eventCreatedOn) {
-    super(type, eventCreatedOn);
+      EventType type, String projectName, int id, boolean batchMode, IndexEvent indexEvent) {
+    super(type, indexEvent.eventCreatedOn);
     this.projectName = projectName;
     this.id = id;
     this.batchMode = batchMode;
+    this.targetSha = indexEvent.targetSha;
+    this.metaSha = indexEvent.metaSha;
   }
 
   public String getId() {
@@ -42,24 +46,24 @@ public abstract class IndexChange extends Command {
   public static class Update extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE;
 
-    public Update(String projectName, int id, Instant eventCreatedOn) {
-      super(TYPE, projectName, id, false, eventCreatedOn);
+    public Update(String projectName, int id, IndexEvent indexEvent) {
+      super(TYPE, projectName, id, false, indexEvent);
     }
   }
 
   public static class BatchUpdate extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE_BATCH;
 
-    public BatchUpdate(String projectName, int id, Instant eventCreatedOn) {
-      super(TYPE, projectName, id, true, eventCreatedOn);
+    public BatchUpdate(String projectName, int id, IndexEvent indexEvent) {
+      super(TYPE, projectName, id, true, indexEvent);
     }
   }
 
   public static class Delete extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_DELETION;
 
-    public Delete(String projectName, int id, Instant eventCreatedOn) {
-      super(TYPE, projectName, id, false, eventCreatedOn);
+    public Delete(String projectName, int id, IndexEvent indexEvent) {
+      super(TYPE, projectName, id, false, indexEvent);
     }
   }
 }

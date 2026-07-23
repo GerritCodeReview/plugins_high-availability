@@ -23,6 +23,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatc
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.annotations.VisibleForTesting;
@@ -81,7 +82,7 @@ public class CommandProcessorImpl implements CommandProcessor {
         try {
           ForwardedIndexChangeHandler handler =
               indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-          handler.index(indexChange.getId(), op, Optional.empty());
+          handler.index(indexChange.getId(), op, Optional.of(toIndexEvent(indexChange)));
           log.atFine().log(
               "Change index %s on change %s done", op.name().toLowerCase(), indexChange.getId());
         } catch (Exception e) {
@@ -139,5 +140,13 @@ public class CommandProcessorImpl implements CommandProcessor {
     } else {
       throw new IllegalArgumentException("Unknown type of IndexChange command " + cmd.getClass());
     }
+  }
+
+  private static IndexEvent toIndexEvent(IndexChange cmd) {
+    IndexEvent e = new IndexEvent();
+    e.eventCreatedOn = cmd.eventCreatedOn;
+    e.targetSha = cmd.targetSha;
+    e.metaSha = cmd.metaSha;
+    return e;
   }
 }
