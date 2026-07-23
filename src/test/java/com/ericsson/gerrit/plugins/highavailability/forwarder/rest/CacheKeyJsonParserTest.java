@@ -46,20 +46,34 @@ public class CacheKeyJsonParserTest {
     cacheDefMap =
         (PrivateInternals_DynamicMapImpl<CacheDef<?, ?>>) DynamicMap.<CacheDef<?, ?>>emptyMap();
 
-    RegistrationHandle unused =
-        cacheDefMap.put(
-            Constants.GERRIT,
-            Constants.GROUPS_BYMEMBER,
-            Providers.of(new GroupsByIncludeCacheDef()));
+    defineCache(Constants.GROUPS_BYMEMBER, Account.Id.class);
+    defineCache(Constants.ACCOUNTS, Account.Id.class);
+    defineCache(Constants.TOKENS, Account.Id.class);
+    defineCache(Constants.GROUPS, AccountGroup.Id.class);
+    defineCache(Constants.GROUPS_BYINCLUDE, AccountGroup.UUID.class);
+    defineCache(Constants.GROUPS_MEMBERS, AccountGroup.UUID.class);
 
     objectUnderTest = new CacheKeyJsonParser(gson, cacheDefMap);
   }
 
-  static class GroupsByIncludeCacheDef implements CacheDef<Account.Id, Object> {
+  private void defineCache(String cacheName, Class<?> keyClass) {
+    RegistrationHandle unused =
+        cacheDefMap.put(
+            Constants.GERRIT, cacheName, Providers.of(new TestCacheDef<>(cacheName, keyClass)));
+  }
+
+  static class TestCacheDef<K> implements CacheDef<K, Object> {
+    private final Class<K> keyClass;
+    private final String name;
+
+    TestCacheDef(String name, Class<K> keyClass) {
+      this.name = name;
+      this.keyClass = keyClass;
+    }
 
     @Override
     public String name() {
-      return Constants.GROUPS_BYMEMBER;
+      return name;
     }
 
     @Override
@@ -68,8 +82,8 @@ public class CacheKeyJsonParserTest {
     }
 
     @Override
-    public TypeLiteral<Account.Id> keyType() {
-      return TypeLiteral.get(Account.Id.class);
+    public TypeLiteral<K> keyType() {
+      return TypeLiteral.get(keyClass);
     }
 
     @Override
@@ -98,12 +112,12 @@ public class CacheKeyJsonParserTest {
     }
 
     @Override
-    public Weigher<Account.Id, Object> weigher() {
+    public Weigher<K, Object> weigher() {
       return null;
     }
 
     @Override
-    public CacheLoader<Account.Id, Object> loader() {
+    public CacheLoader<K, Object> loader() {
       return null;
     }
   }
