@@ -22,6 +22,8 @@ import com.google.common.base.Suppliers;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.server.cache.CacheDef;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.inject.Inject;
@@ -30,10 +32,12 @@ import com.google.inject.Singleton;
 @Singleton
 public class CacheKeyJsonParser {
   private final Gson gson;
+  private final DynamicMap<CacheDef<?, ?>> cachesMap;
 
   @Inject
-  public CacheKeyJsonParser(@RestGson Gson gson) {
+  public CacheKeyJsonParser(@RestGson Gson gson, DynamicMap<CacheDef<?, ?>> cachesMap) {
     this.gson = gson;
+    this.cachesMap = cachesMap;
   }
 
   public Object fromJson(String cacheName, String jsonString) {
@@ -57,10 +61,27 @@ public class CacheKeyJsonParser {
         return Project.nameKey(CharMatcher.is('\"').trimFrom(json.getAsString()));
       default:
         try {
-          return gson.fromJson(json, String.class);
+          return gson.fromJson(json, getCacheKeyType(cacheName));
         } catch (Exception e) {
           return gson.fromJson(json, Object.class);
         }
     }
+  }
+
+  private Class<?> getCacheKeyType(String cacheName) {
+    int dot = cacheName.indexOf('.');
+    String pluginName = Constants.GERRIT;
+    String pluginCacheName = cacheName;
+    if (dot > 0) {
+      pluginName = cacheName.substring(0, dot);
+      pluginCacheName = cacheName.substring(dot + 1);
+    }
+
+    CacheDef<?, ?> cacheDef = cachesMap.get(pluginName, pluginCacheName);
+    if (cacheDef == null) {
+      throw new IllegalStateException("Unable to find definition for cache '" + cacheName + "'");
+    }
+
+    return cacheDef.keyType().getRawType();
   }
 }

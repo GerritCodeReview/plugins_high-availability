@@ -17,23 +17,103 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.Weigher;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.extensions.registration.PrivateInternals_DynamicMapImpl;
+import com.google.gerrit.extensions.registration.RegistrationHandle;
+import com.google.gerrit.server.cache.CacheDef;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
+import com.google.inject.TypeLiteral;
+import com.google.inject.util.Providers;
+import java.time.Duration;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CacheKeyJsonParserTest {
   private static final Object EMPTY_JSON = "{}";
   private final Gson gson = RestForwarderModule.buildRestGson(new EventGsonProvider().get());
-  private final CacheKeyJsonParser objectUnderTest = new CacheKeyJsonParser(gson);
+  private CacheKeyJsonParser objectUnderTest;
+
+  private PrivateInternals_DynamicMapImpl<CacheDef<?, ?>> cacheDefMap;
+
+  @Before
+  public void setUp() throws Exception {
+    cacheDefMap =
+        (PrivateInternals_DynamicMapImpl<CacheDef<?, ?>>) DynamicMap.<CacheDef<?, ?>>emptyMap();
+
+    RegistrationHandle unused =
+        cacheDefMap.put(
+            Constants.GERRIT,
+            Constants.GROUPS_BYMEMBER,
+            Providers.of(new GroupsByIncludeCacheDef()));
+
+    objectUnderTest = new CacheKeyJsonParser(gson, cacheDefMap);
+  }
+
+  static class GroupsByIncludeCacheDef implements CacheDef<Account.Id, Object> {
+
+    @Override
+    public String name() {
+      return Constants.GROUPS_BYMEMBER;
+    }
+
+    @Override
+    public String configKey() {
+      return "";
+    }
+
+    @Override
+    public TypeLiteral<Account.Id> keyType() {
+      return TypeLiteral.get(Account.Id.class);
+    }
+
+    @Override
+    public TypeLiteral<Object> valueType() {
+      return null;
+    }
+
+    @Override
+    public long maximumWeight() {
+      return 0;
+    }
+
+    @Override
+    public Duration expireAfterWrite() {
+      return null;
+    }
+
+    @Override
+    public Duration expireFromMemoryAfterAccess() {
+      return null;
+    }
+
+    @Override
+    public Duration refreshAfterWrite() {
+      return null;
+    }
+
+    @Override
+    public Weigher<Account.Id, Object> weigher() {
+      return null;
+    }
+
+    @Override
+    public CacheLoader<Account.Id, Object> loader() {
+      return null;
+    }
+  }
 
   @Test
   public void accountIDParse() {
     Account.Id accountId = Account.id(1);
     String json = gson.toJson(accountId);
     assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.ACCOUNTS, json));
+    assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.GROUPS_BYMEMBER, json));
   }
 
   @Test
