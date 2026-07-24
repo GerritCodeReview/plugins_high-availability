@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "799f19eb_b5681532",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-07-24T08:43:05Z",
+      "side": 1,
+      "message": "```suggestion\nAccount.Id as a cache key and make it pass by considering the correct\n```",
+      "range": {
+        "startLine": 15,
+        "startChar": 43,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "f362c54cbbd74f76708bca64edee633ac8d44d80",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e524af09_05de746b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-07-24T08:43:05Z",
+      "side": 1,
+      "message": "nit: in multi-site we extract this part in its own record to aid readability.\nConsider doing the same here.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "f362c54cbbd74f76708bca64edee633ac8d44d80",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
