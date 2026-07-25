@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c179ba6c_248a262e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-25T22:19:37Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "799f19eb_b5681532",
+      "range": {
+        "startLine": 15,
+        "startChar": 43,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "f362c54cbbd74f76708bca64edee633ac8d44d80",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e524af09_05de746b",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-07-24T08:43:05Z",
       "side": 1,
       "message": "nit: in multi-site we extract this part in its own record to aid readability.\nConsider doing the same here.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "f362c54cbbd74f76708bca64edee633ac8d44d80",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "646161c7_83499dfc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-25T22:19:37Z",
+      "side": 1,
+      "message": "The multi-site change is BSL, so I have not used the same code or approach here.\nLooking at this code and the fact that is used only once here, I believe it is readable enough.",
+      "parentUuid": "e524af09_05de746b",
       "range": {
         "startLine": 72,
         "startChar": 0,
