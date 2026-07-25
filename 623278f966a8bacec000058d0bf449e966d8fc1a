@@ -87,6 +87,30 @@
       },
       "revId": "623278f966a8bacec000058d0bf449e966d8fc1a",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da298900_287466f1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/CacheKeyJsonParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-25T22:45:35Z",
+      "side": 1,
+      "message": "The change you\u0027re referring to is under BSL. I did not use its code or look at it when making this fix.\n\nWith regards to `PROJECT_LIST`, I don\u0027t believe it is working today, because it simply deserialises with a generic `Object.class`, which is exactly what it also does at L50 with the generic fallback.\n\nLastly, the `PROJECTS` case isn\u0027t a pure deserialization, because it also drops the quotes from the JSON value to obtain an unquoted project name.\nI tried to remove the special management of the `PROJECTS` cache and the `ForwardedCacheEvictionHandlerIT` failed, which means that the special case is still valid for now.",
+      "parentUuid": "efdb0e74_2c4be8ea",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 82
+      },
+      "revId": "623278f966a8bacec000058d0bf449e966d8fc1a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
