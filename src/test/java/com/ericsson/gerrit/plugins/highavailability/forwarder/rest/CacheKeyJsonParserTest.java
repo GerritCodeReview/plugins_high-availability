@@ -52,6 +52,7 @@ public class CacheKeyJsonParserTest {
     defineCache(Constants.GROUPS, AccountGroup.Id.class);
     defineCache(Constants.GROUPS_BYINCLUDE, AccountGroup.UUID.class);
     defineCache(Constants.GROUPS_MEMBERS, AccountGroup.UUID.class);
+    defineCache(Constants.PROJECTS, Project.NameKey.class);
 
     objectUnderTest = new CacheKeyJsonParser(gson, cacheDefMap);
   }
