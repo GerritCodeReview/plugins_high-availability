@@ -18,9 +18,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.CacheKeyJsonParser;
 import com.google.gerrit.entities.Project;
-import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
@@ -31,13 +29,11 @@ import org.junit.Test;
 public class CommandDeserializerTest {
 
   private Gson gson;
-  private CacheKeyJsonParser cacheKeyParser;
 
   @Before
   public void setUp() {
     Gson eventGson = new EventGsonProvider().get();
     this.gson = new JGroupsForwarderModule().buildJGroupsGson(eventGson);
-    this.cacheKeyParser = new CacheKeyJsonParser(eventGson, DynamicMap.emptyMap());
   }
 
   @Test
@@ -145,10 +141,8 @@ public class CommandDeserializerTest {
             EvictCache.class);
     assertThat(cmd).isInstanceOf(EvictCache.class);
     EvictCache evict = (EvictCache) cmd;
-
-    Object cacheKey = cacheKeyParser.fromJson(Constants.PROJECTS, evict.getKeyJson());
-    assertThat(cacheKey).isInstanceOf(Project.NameKey.class);
-    assertThat(cacheKey).isEqualTo(nameKey);
+    assertThat(evict.getCacheName()).isEqualTo(Constants.PROJECTS);
+    assertThat(evict.getKeyJson()).isEqualTo(keyJson);
   }
 
   @Test
