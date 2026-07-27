@@ -103,7 +103,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
               || (computedChangeTs.get() == indexEvent.eventCreatedOn)
                   && (Objects.isNull(indexEvent.targetSha)
                       || repositoryHas(repo, indexEvent.targetSha))
-                  && (Objects.isNull(indexEvent.targetSha)
+                  && (Objects.isNull(indexEvent.metaSha)
                       || repositoryHas(repo, indexEvent.metaSha));
         }
       }
