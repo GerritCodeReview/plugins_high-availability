@@ -15,9 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
-import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
-import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.server.cache.CacheDef;
 import com.google.gson.Gson;
@@ -38,17 +36,10 @@ public class CacheKeyJsonParser {
 
   public Object fromJson(String cacheName, String jsonString) {
     JsonElement json = gson.fromJson(Strings.nullToEmpty(jsonString), JsonElement.class);
-    switch (cacheName) {
-      case Constants.PROJECT_LIST:
-        return gson.fromJson(json, Object.class);
-      case Constants.PROJECTS:
-        return Project.nameKey(CharMatcher.is('\"').trimFrom(json.getAsString()));
-      default:
-        try {
-          return gson.fromJson(json, getCacheKeyType(cacheName));
-        } catch (Exception e) {
-          return gson.fromJson(json, Object.class);
-        }
+    try {
+      return gson.fromJson(json, getCacheKeyType(cacheName));
+    } catch (Exception e) {
+      return gson.fromJson(json, Object.class);
     }
   }
 
