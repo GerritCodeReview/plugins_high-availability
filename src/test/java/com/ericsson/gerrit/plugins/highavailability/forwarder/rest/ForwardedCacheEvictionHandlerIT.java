@@ -24,9 +24,7 @@ import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.extensions.registration.RegistrationHandle;
 import com.google.gerrit.server.cache.CacheRemovalListener;
-import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.project.ProjectCacheImpl;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import java.time.Duration;
 import java.util.Collections;
@@ -48,8 +46,6 @@ public class ForwardedCacheEvictionHandlerIT extends LightweightPluginDaemonTest
   @SuppressWarnings("rawtypes")
   @Inject
   private DynamicSet<CacheRemovalListener> cacheRemovalListeners;
-
-  private Gson gson = RestForwarderModule.buildRestGson(new EventGsonProvider().get());
 
   private CacheEvictionsTracker<?, ?> evictionsCacheTracker;
   private RegistrationHandle cacheEvictionRegistrationHandle;
@@ -102,8 +98,7 @@ public class ForwardedCacheEvictionHandlerIT extends LightweightPluginDaemonTest
   @Test
   public void shouldEvictProjectCache() throws Exception {
     adminRestSession
-        .post(
-            "/plugins/high-availability/cache/" + ProjectCacheImpl.CACHE_NAME, gson.toJson(project))
+        .post("/plugins/high-availability/cache/" + ProjectCacheImpl.CACHE_NAME, project.get())
         .assertNoContent();
     evictionsCacheTracker.waitForExpectedEvictions();
 
