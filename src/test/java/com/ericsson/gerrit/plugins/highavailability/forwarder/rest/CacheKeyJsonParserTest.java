@@ -27,6 +27,7 @@ import com.google.gerrit.extensions.registration.PrivateInternals_DynamicMapImpl
 import com.google.gerrit.extensions.registration.RegistrationHandle;
 import com.google.gerrit.server.cache.CacheDef;
 import com.google.gerrit.server.events.EventGsonProvider;
+import com.google.gerrit.server.project.ProjectCacheImpl;
 import com.google.gson.Gson;
 import com.google.inject.TypeLiteral;
 import com.google.inject.util.Providers;
@@ -52,6 +53,7 @@ public class CacheKeyJsonParserTest {
     defineCache(Constants.GROUPS, AccountGroup.Id.class);
     defineCache(Constants.GROUPS_BYINCLUDE, AccountGroup.UUID.class);
     defineCache(Constants.GROUPS_MEMBERS, AccountGroup.UUID.class);
+    defineCache(Constants.PROJECTS, Project.NameKey.class);
 
     objectUnderTest = new CacheKeyJsonParser(gson, cacheDefMap);
   }

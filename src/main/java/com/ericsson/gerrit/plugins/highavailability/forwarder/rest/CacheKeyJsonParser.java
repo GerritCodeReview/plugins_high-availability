@@ -38,17 +38,10 @@ public class CacheKeyJsonParser {
 
   public Object fromJson(String cacheName, String jsonString) {
     JsonElement json = gson.fromJson(Strings.nullToEmpty(jsonString), JsonElement.class);
-    switch (cacheName) {
-      case Constants.PROJECT_LIST:
-        return gson.fromJson(json, Object.class);
-      case Constants.PROJECTS:
-        return Project.nameKey(CharMatcher.is('\"').trimFrom(json.getAsString()));
-      default:
-        try {
-          return gson.fromJson(json, getCacheKeyType(cacheName));
-        } catch (Exception e) {
-          return gson.fromJson(json, Object.class);
-        }
+    try {
+      return gson.fromJson(json, getCacheKeyType(cacheName));
+    } catch (Exception e) {
+      return gson.fromJson(json, Object.class);
     }
   }
 
