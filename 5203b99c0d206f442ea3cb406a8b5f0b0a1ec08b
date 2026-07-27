@@ -16,6 +16,24 @@
       "message": "It would be best to split this change in two parts:\n\na) Fix of the tests: if the tests were inaccurate, we should fix them and they should still be green with the existing code\n\nb) Removal of the special management of the PROJECTS and PROJECT_LIST caches.",
       "revId": "5203b99c0d206f442ea3cb406a8b5f0b0a1ec08b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6043b1ce_e23d188e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1155599
+      },
+      "writtenOn": "2026-07-27T14:34:41Z",
+      "side": 1,
+      "message": "Good shout done.\n\nHOWEVER, I\u0027m not sure how we can test PROJECT_LIST without a small change in Gerrit core, as its key type is not public.\n\nWDYT?",
+      "parentUuid": "a2c060b5_f1a552cc",
+      "revId": "5203b99c0d206f442ea3cb406a8b5f0b0a1ec08b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
