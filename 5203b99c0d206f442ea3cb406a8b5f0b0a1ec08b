@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c060b5_f1a552cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-27T12:40:13Z",
+      "side": 1,
+      "message": "It would be best to split this change in two parts:\n\na) Fix of the tests: if the tests were inaccurate, we should fix them and they should still be green with the existing code\n\nb) Removal of the special management of the PROJECTS and PROJECT_LIST caches.",
+      "revId": "5203b99c0d206f442ea3cb406a8b5f0b0a1ec08b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
