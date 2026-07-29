@@ -86,8 +86,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
       if (changeNotes.isPresent()) {
         if (!checker.isChangeUpToDate(indexEvent)) {
           log.atFine().log(
-              "Change %s seems too old compared to the event timestamp (event-Ts=%s >>"
-                  + " change-Ts=%s)",
+              "Change %s is not yet up to date with the event (event=%s, change=%s)",
               id, indexEvent, checker);
           return false;
         }
