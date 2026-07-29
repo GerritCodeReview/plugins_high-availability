@@ -20,8 +20,8 @@ import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.Answers.RETURNS_DEEP_STUBS;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -100,11 +100,10 @@ public class ForwardedIndexChangeHandlerTest {
   }
 
   @Test
-  public void changeIsStillIndexedEvenWhenOutdated() throws Exception {
+  public void changeIsNotReindexedWhenShaIsNeverVisible() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent())).get(10, SECONDS);
-    verify(indexerMock, atLeast(1))
-        .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
+    verify(indexerMock, never()).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
