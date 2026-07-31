@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa8701c_b9c53505",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T20:18:01Z",
+      "side": 1,
+      "message": "Oh my! That tells me we really have to get rid of that `Optional` which would have sounded some alarm bell when implementing I57c8b27fa4.\n\nThe `IndexEvent` *is needed* and we should always pass it over.",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8094199_ef523175",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T20:18:01Z",
+      "side": 1,
+      "message": "We must put a precondition there and raise an exception if that happens.\nIt was initially an `Optional` because in the old times we were just sending the change number, that\u0027s it.\n\nHow do we pass the whole event: do we still have to maintain backward compatibility?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
