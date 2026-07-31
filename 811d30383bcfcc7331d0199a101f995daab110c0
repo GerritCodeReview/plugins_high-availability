@@ -83,6 +83,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8017526a_17c56e88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T23:03:22Z",
+      "side": 1,
+      "message": "We have the same bug in the multi-site plugin, fixed with Ida49fd04fd4.",
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bcda0c8_9e1e6878",
         "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
         "patchSetId": 1
