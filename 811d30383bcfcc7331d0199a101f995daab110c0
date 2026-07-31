@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da923daf_4f84a268",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T20:38:56Z",
+      "side": 1,
+      "message": "Good catch. I believe this is worth adding an issue on issues.gerritcodereview.com for the high-availability plugin component.",
+      "range": {
+        "startLine": 11,
+        "startChar": 67,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078d5ca3_5ee7fa93",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T20:38:56Z",
+      "side": 1,
+      "message": "That makes a lot of sense. My initial implementation of the change checker [1] back in 2019 was considering up-to-date if the target SHA1 was *exactly* the value of the NoteDb\u0027s `/meta` ref. That is the reason why the indexing was happening *unconditionally* even if the change wasn\u0027t up-to-date for managing the situation where the `/meta` was fast-moving and the target `/meta` was mostly more advanced.\n\nNow that we simply check for the `/meta` existence on the repository, it makes sense to remove the unconditional indexing.\n\n[1] https://gerrit-review.googlesource.com/c/plugins/high-availability/+/183251/40/src/main/java/com/ericsson/gerrit/plugins/highavailability/index/ChangeCheckerImpl.java",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 18,
+        "endChar": 66
+      },
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a698c67_657a751f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T20:38:56Z",
+      "side": 1,
+      "message": "This looks like a valid fix, which is independent of its predecessor change.",
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bcda0c8_9e1e6878",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-07-31T20:38:56Z",
+      "side": 1,
+      "message": "This isn\u0027t accurate: the check includes not only the timestamp but also the target SHA-1.\nI know you copied the existing message, which was inaccurate as well.",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 36
+      },
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
