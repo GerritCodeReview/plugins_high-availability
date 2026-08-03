@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6dd14902_02304ec6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-03T15:13:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdd5894c_53923824",
+      "range": {
+        "startLine": 11,
+        "startChar": 67,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "078d5ca3_5ee7fa93",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -172,6 +196,42 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "79d41d34_df9cc008",
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed96a3b7_007e1c53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-03T15:13:54Z",
+      "side": 1,
+      "message": "Done: https://gerrit-review.googlesource.com/c/plugins/high-availability/+/614181",
+      "parentUuid": "c7c9f500_2ce2e9b3",
+      "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c772d6a6_842f5803",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-03T15:13:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ab03a3d_41d15c24",
       "revId": "811d30383bcfcc7331d0199a101f995daab110c0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
