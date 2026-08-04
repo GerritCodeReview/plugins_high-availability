@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b477e045_1443ef94",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2026-08-04T09:41:15Z",
+      "side": 1,
+      "message": "This test is useful, but it does not fully cover the primary behaviour described by the commit: the initial visibility checks fail, a later retry succeeds, and `reindexIfStale()` is then invoked.\n\nAre we missing a test where `checker.isChangeUpToDate(indexEvent)` returns `false` for one or more attempts and then `true`?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 98
+      },
+      "revId": "ef13bea7192e1d3878e9901ce2f0113c3a98b9e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
