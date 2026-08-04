@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f02fa24_422034e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-04T09:12:51Z",
+      "side": 1,
+      "message": "OK, after looking through the code I found that there is also a dependency from the `AutoReindexScheduler` to `ChangeReindexRunnable` to `ForwardedIndexChangeHandler` where the `ChangeReindexRunnable` passes `Optional.empty()` when calling `ForwardedIndexChangeHandler.index(...)`. In that case we do not have an `IndexEvent` to pass. So we either have to build it at the calling place (by taking the current sha1\u0027s of the change metaref and target branch) or we have to continue supporting `Optional\u003cIndexEvent\u003e`. Note that whichever solution we decide to accept, we shall make both sha1\u0027s in the IndexEvent mandatory. There is no point in keeping both `Optional\u003cIndexEvent\u003e` as the parameter type and then also allowing some fields in the `IndexEvent` to be optional (null).",
+      "parentUuid": "a5a6aef2_e56991d7",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8094199_ef523175",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes, will add it there. I am actually fixing all this stuff because of the GCP/AWS based messaging which we have been running in staging for a few weeks now. We shall publish those plugins to gerritreview soon.",
       "parentUuid": "2399a602_52f7a700",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "914d0ff8_7bf67f33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-04T09:12:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54b2c9c8_aae01c8d",
       "range": {
         "startLine": 21,
         "startChar": 0,
