@@ -29,7 +29,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Account;
-import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,7 @@ public class IndexAccountRestApiServletTest {
   @Before
   public void setUpMocks() {
     when(metricsRegistryMock.get(any())).thenReturn(metrics);
-    servlet = new IndexAccountRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
+    servlet = new IndexAccountRestApiServlet(handlerMock, metricsRegistryMock);
     id = Account.id(ACCOUNT_NUMBER);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/account/" + ACCOUNT_NUMBER);

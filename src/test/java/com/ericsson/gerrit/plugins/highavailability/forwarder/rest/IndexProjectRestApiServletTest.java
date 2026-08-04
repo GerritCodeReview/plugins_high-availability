@@ -30,7 +30,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.restapi.Url;
-import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,7 +56,7 @@ public class IndexProjectRestApiServletTest {
   @Before
   public void setUpMocks() {
     when(metricsRegistryMock.get(any())).thenReturn(metrics);
-    servlet = new IndexProjectRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
+    servlet = new IndexProjectRestApiServlet(handlerMock, metricsRegistryMock);
     nameKey = Project.nameKey(PROJECT_NAME);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/project/" + Url.encode(nameKey.get()));

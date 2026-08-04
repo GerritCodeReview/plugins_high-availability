@@ -29,7 +29,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.AccountGroup;
-import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +55,7 @@ public class IndexGroupRestApiServletTest {
   @Before
   public void setUpMocks() {
     when(metricsRegistryMock.get(any())).thenReturn(metrics);
-    servlet = new IndexGroupRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
+    servlet = new IndexGroupRestApiServlet(handlerMock, metricsRegistryMock);
     uuid = AccountGroup.uuid(UUID);
     when(requestMock.getRequestURI()).thenReturn("http://gerrit.com/index/group/" + UUID);
   }

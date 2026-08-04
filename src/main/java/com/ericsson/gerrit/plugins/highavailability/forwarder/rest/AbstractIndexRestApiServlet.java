@@ -19,25 +19,20 @@ import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.restapi.NotImplementedException;
-import com.google.gson.Gson;
 import java.io.IOException;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServlet {
+public abstract class AbstractIndexRestApiServlet extends AbstractRestApiServlet {
   private static final long serialVersionUID = -1L;
 
-  private final ForwardedIndexingHandler<T> forwardedIndexingHandler;
-  private final IndexName indexName;
-  private final boolean allowDelete;
-  private final Gson gson;
+  @FunctionalInterface
+  interface IndexingOperation {
+    void execute(String body) throws IOException;
+  }
 
   public enum IndexName {
     CHANGE,
@@ -51,53 +46,23 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     }
   }
 
-  abstract T parse(String id);
+  private final IndexName indexName;
 
   AbstractIndexRestApiServlet(
-      ForwardedIndexingHandler<T> forwardedIndexingHandler,
       IndexName indexName,
-      Gson gson,
       ProcessorMetricsRegistry metricsRegistry,
       EventType postEventType,
       @Nullable EventType deleteEventType) {
     super(metricsRegistry, postEventType, deleteEventType);
-    this.forwardedIndexingHandler = forwardedIndexingHandler;
     this.indexName = indexName;
-    this.gson = gson;
-    this.allowDelete = deleteEventType != null;
   }
 
-  @Override
-  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
-    return process(req, rsp, Operation.INDEX);
-  }
-
-  @Override
-  protected boolean processDeleteRequest(HttpServletRequest req, HttpServletResponse rsp) {
-    if (!allowDelete) {
-      sendError(
-          rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", indexName));
-      throw new NotImplementedException("Deletions not allowed for " + indexName);
-    }
-    return process(req, rsp, Operation.DELETE);
-  }
-
-  /**
-   * Process the request by parsing the ID from the URL and invoking the indexing handler.
-   *
-   * @param req the HTTP request
-   * @param rsp the HTTP response
-   * @param operation the indexing operation to perform (INDEX or DELETE)
-   * @return true if the operation was successful, false otherwise
-   */
-  private boolean process(HttpServletRequest req, HttpServletResponse rsp, Operation operation) {
-    String path = req.getRequestURI();
-    T id = parse(path.substring(path.lastIndexOf('/') + 1));
-
+  protected boolean process(
+      HttpServletRequest req, HttpServletResponse rsp, IndexingOperation op) {
     try {
       String body = readRequestBody(req);
       ForwardedMessageLogger.log(req, body);
-      forwardedIndexingHandler.index(id, operation, parseBody(body));
+      op.execute(body);
       rsp.setStatus(SC_NO_CONTENT);
       return true;
     } catch (IOException e) {
@@ -107,7 +72,14 @@ public abstract class AbstractIndexRestApiServlet<T> extends AbstractRestApiServ
     }
   }
 
-  protected Optional<IndexEvent> parseBody(String body) {
-    return Optional.ofNullable(gson.fromJson(body, IndexEvent.class));
+  @Override
+  protected boolean processDeleteRequest(HttpServletRequest req, HttpServletResponse rsp) {
+    sendError(rsp, SC_METHOD_NOT_ALLOWED, String.format("cannot delete %s from index", indexName));
+    throw new NotImplementedException("Deletions not allowed for " + indexName);
+  }
+
+  protected static String extractRawId(HttpServletRequest req) {
+    String path = req.getRequestURI();
+    return path.substring(path.lastIndexOf('/') + 1);
   }
 }
