@@ -16,26 +16,31 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexGroupHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.AccountGroup;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Singleton
-class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet<AccountGroup.UUID> {
+class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet {
   private static final long serialVersionUID = -1L;
+
+  private final ForwardedIndexGroupHandler handler;
 
   @Inject
   IndexGroupRestApiServlet(
-      ForwardedIndexGroupHandler handler,
-      @RestGson Gson gson,
-      ProcessorMetricsRegistry metricRegistry) {
-    super(handler, IndexName.GROUP, gson, metricRegistry, EventType.INDEX_GROUP_UPDATE, null);
+      ForwardedIndexGroupHandler handler, ProcessorMetricsRegistry metricRegistry) {
+    super(IndexName.GROUP, metricRegistry, EventType.INDEX_GROUP_UPDATE, null);
+    this.handler = handler;
   }
 
   @Override
-  AccountGroup.UUID parse(String id) {
-    return AccountGroup.uuid(id);
+  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
+    AccountGroup.UUID uuid = AccountGroup.uuid(extractRawId(req));
+    return process(req, rsp, body -> handler.index(uuid, Operation.INDEX, Optional.empty()));
   }
 }

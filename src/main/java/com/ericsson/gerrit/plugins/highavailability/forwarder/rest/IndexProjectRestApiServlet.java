@@ -16,27 +16,32 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.restapi.Url;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Singleton
-class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet<Project.NameKey> {
+class IndexProjectRestApiServlet extends AbstractIndexRestApiServlet {
   private static final long serialVersionUID = -1L;
+
+  private final ForwardedIndexProjectHandler handler;
 
   @Inject
   IndexProjectRestApiServlet(
-      ForwardedIndexProjectHandler handler,
-      @RestGson Gson gson,
-      ProcessorMetricsRegistry metricRegistry) {
-    super(handler, IndexName.PROJECT, gson, metricRegistry, EventType.INDEX_PROJECT_UPDATE, null);
+      ForwardedIndexProjectHandler handler, ProcessorMetricsRegistry metricRegistry) {
+    super(IndexName.PROJECT, metricRegistry, EventType.INDEX_PROJECT_UPDATE, null);
+    this.handler = handler;
   }
 
   @Override
-  Project.NameKey parse(String projectName) {
-    return Project.nameKey(Url.decode(projectName));
+  protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
+    Project.NameKey projectName = Project.nameKey(Url.decode(extractRawId(req)));
+    return process(req, rsp, body -> handler.index(projectName, Operation.INDEX, Optional.empty()));
   }
 }
