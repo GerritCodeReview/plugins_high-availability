@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d7db7d5_19c0bdf1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-08-04T13:30:16Z",
+      "side": 1,
+      "message": "\u003e After giving it more thought I realized that we should get rid of this dependency: the AutoReindexScheduler should not depend on any ForwardedIndex*Handler classes. auto reindexing is a local functionality.\n\nI believe the AutoReindexScheduler should go, as it is obsolete by your newly designed mechanism to exchange that information between the nodes.\n\nShall we just remove it?",
+      "parentUuid": "a5ba7d45_6f4f5181",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8094199_ef523175",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "I would do all those improvements in master branch only.",
       "parentUuid": "b8094199_ef523175",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7e7f2b_5e77cecb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-08-04T13:30:16Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "81e8aa92_2e07de9e",
       "range": {
         "startLine": 12,
         "startChar": 0,
@@ -245,6 +293,24 @@
       "side": 1,
       "message": "Sure, I think we can do so. I can do that as a follow-up change",
       "parentUuid": "bccfbad9_8090d00c",
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2503e797_2e692d88",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessorImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2026-08-04T13:30:16Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "6fca136f_e410c332",
       "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
