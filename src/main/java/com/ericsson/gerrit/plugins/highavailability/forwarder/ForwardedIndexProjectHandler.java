@@ -18,7 +18,6 @@ import com.google.gerrit.entities.Project;
 import com.google.gerrit.index.project.ProjectIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -37,8 +36,7 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(
-      Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doIndex(Project.NameKey projectName, IndexEvent indexEvent) {
     indexer.index(projectName);
     log.atFine().log("Project %s successfully indexed", projectName);
     return CompletableFuture.completedFuture(true);
@@ -46,7 +44,7 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
 
   @Override
   protected CompletableFuture<Boolean> doDelete(
-      Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
+      Project.NameKey projectName, IndexEvent indexEvent) {
     throw new UnsupportedOperationException("Delete from project index not supported");
   }
 }

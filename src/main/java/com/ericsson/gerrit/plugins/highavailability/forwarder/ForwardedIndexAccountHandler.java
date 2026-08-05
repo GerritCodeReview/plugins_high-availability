@@ -18,7 +18,6 @@ import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -37,7 +36,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doIndex(Account.Id id, IndexEvent indexEvent) {
     try {
       indexer.index(id);
       log.atFine().log("Account %s successfully indexed", id);
@@ -49,7 +48,7 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doDelete(Account.Id id, IndexEvent indexEvent) {
     throw new UnsupportedOperationException("Delete from account index not supported");
   }
 }

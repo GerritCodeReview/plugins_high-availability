@@ -17,7 +17,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder;
 import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,10 +41,10 @@ public abstract class ForwardedIndexingHandler<T> {
     }
   }
 
-  protected abstract CompletableFuture<Boolean> doIndex(T id, Optional<IndexEvent> indexEvent)
+  protected abstract CompletableFuture<Boolean> doIndex(T id, IndexEvent indexEvent)
       throws IOException;
 
-  protected abstract CompletableFuture<Boolean> doDelete(T id, Optional<IndexEvent> indexEvent)
+  protected abstract CompletableFuture<Boolean> doDelete(T id, IndexEvent indexEvent)
       throws IOException;
 
   /**
@@ -56,8 +55,8 @@ public abstract class ForwardedIndexingHandler<T> {
    * @param indexEvent The index event details.
    * @throws IOException If an error occur while indexing.
    */
-  public CompletableFuture<Boolean> index(
-      T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
+  public CompletableFuture<Boolean> index(T id, Operation operation, IndexEvent indexEvent)
+      throws IOException {
     log.atFine().log("%s %s %s", operation, id, indexEvent);
     if (inFlightIndexing.add(id)) {
       try {

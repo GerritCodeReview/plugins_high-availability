@@ -23,7 +23,7 @@ import com.google.gerrit.extensions.restapi.Url;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,7 +60,7 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet {
     return process(req, rsp, body -> handler.index(id, Operation.DELETE, parseBody(body)));
   }
 
-  private Optional<IndexEvent> parseBody(String body) {
-    return Optional.ofNullable(gson.fromJson(body, IndexEvent.class));
+  private IndexEvent parseBody(String body) {
+    return Objects.requireNonNullElseGet(gson.fromJson(body, IndexEvent.class), IndexEvent::new);
   }
 }
