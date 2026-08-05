@@ -17,23 +17,117 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.Weigher;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.extensions.registration.PrivateInternals_DynamicMapImpl;
+import com.google.gerrit.extensions.registration.RegistrationHandle;
+import com.google.gerrit.server.cache.CacheDef;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gson.Gson;
+import com.google.inject.TypeLiteral;
+import com.google.inject.util.Providers;
+import java.time.Duration;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CacheKeyJsonParserTest {
   private static final Object EMPTY_JSON = "{}";
   private final Gson gson = RestForwarderModule.buildRestGson(new EventGsonProvider().get());
-  private final CacheKeyJsonParser objectUnderTest = new CacheKeyJsonParser(gson);
+  private CacheKeyJsonParser objectUnderTest;
+
+  private PrivateInternals_DynamicMapImpl<CacheDef<?, ?>> cacheDefMap;
+
+  @Before
+  public void setUp() throws Exception {
+    cacheDefMap =
+        (PrivateInternals_DynamicMapImpl<CacheDef<?, ?>>) DynamicMap.<CacheDef<?, ?>>emptyMap();
+
+    defineCache(Constants.GROUPS_BYMEMBER, Account.Id.class);
+    defineCache(Constants.ACCOUNTS, Account.Id.class);
+    defineCache(Constants.TOKENS, Account.Id.class);
+    defineCache(Constants.GROUPS, AccountGroup.Id.class);
+    defineCache(Constants.GROUPS_BYINCLUDE, AccountGroup.UUID.class);
+    defineCache(Constants.GROUPS_MEMBERS, AccountGroup.UUID.class);
+
+    objectUnderTest = new CacheKeyJsonParser(gson, cacheDefMap);
+  }
+
+  private void defineCache(String cacheName, Class<?> keyClass) {
+    RegistrationHandle unused =
+        cacheDefMap.put(
+            Constants.GERRIT, cacheName, Providers.of(new TestCacheDef<>(cacheName, keyClass)));
+  }
+
+  static class TestCacheDef<K> implements CacheDef<K, Object> {
+    private final Class<K> keyClass;
+    private final String name;
+
+    TestCacheDef(String name, Class<K> keyClass) {
+      this.name = name;
+      this.keyClass = keyClass;
+    }
+
+    @Override
+    public String name() {
+      return name;
+    }
+
+    @Override
+    public String configKey() {
+      return "";
+    }
+
+    @Override
+    public TypeLiteral<K> keyType() {
+      return TypeLiteral.get(keyClass);
+    }
+
+    @Override
+    public TypeLiteral<Object> valueType() {
+      return null;
+    }
+
+    @Override
+    public long maximumWeight() {
+      return 0;
+    }
+
+    @Override
+    public Duration expireAfterWrite() {
+      return null;
+    }
+
+    @Override
+    public Duration expireFromMemoryAfterAccess() {
+      return null;
+    }
+
+    @Override
+    public Duration refreshAfterWrite() {
+      return null;
+    }
+
+    @Override
+    public Weigher<K, Object> weigher() {
+      return null;
+    }
+
+    @Override
+    public CacheLoader<K, Object> loader() {
+      return null;
+    }
+  }
 
   @Test
   public void accountIDParse() {
     Account.Id accountId = Account.id(1);
     String json = gson.toJson(accountId);
     assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.ACCOUNTS, json));
+    assertThat(accountId).isEqualTo(objectUnderTest.fromJson(Constants.GROUPS_BYMEMBER, json));
   }
 
   @Test
