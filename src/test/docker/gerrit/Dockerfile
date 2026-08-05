@@ -11,7 +11,7 @@ RUN yum -y install \
     nfs-utils \
     && yum -y clean all
 
-ENV GERRIT_BRANCH stable-3.13
+ENV GERRIT_BRANCH stable-3.14
 
 # Add gerrit user
 RUN adduser -p -m --uid 1000 gerrit --home-dir /home/gerrit
@@ -27,7 +27,7 @@ ADD --chown=gerrit \
     /tmp/gerrit.war
 
 ADD --chown=gerrit \
-    "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-javamelody-bazel-master-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
+    "https://gerrit-ci.gerritforge.com/view/Plugins-master/job/plugin-javamelody-bazel-$GERRIT_BRANCH/lastSuccessfulBuild/artifact/bazel-bin/plugins/javamelody/javamelody.jar" \
     /var/gerrit/plugins/javamelody.jar
 
 ADD --chown=gerrit \

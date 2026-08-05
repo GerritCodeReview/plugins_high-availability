@@ -17,11 +17,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
-import com.google.common.base.Supplier;
-import com.google.common.base.Suppliers;
-import com.google.gerrit.entities.Account;
-import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Project;
+import com.google.gerrit.extensions.registration.DynamicMap;
+import com.google.gerrit.server.cache.CacheDef;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.inject.Inject;
@@ -30,37 +28,44 @@ import com.google.inject.Singleton;
 @Singleton
 public class CacheKeyJsonParser {
   private final Gson gson;
+  private final DynamicMap<CacheDef<?, ?>> cachesMap;
 
   @Inject
-  public CacheKeyJsonParser(@RestGson Gson gson) {
+  public CacheKeyJsonParser(@RestGson Gson gson, DynamicMap<CacheDef<?, ?>> cachesMap) {
     this.gson = gson;
+    this.cachesMap = cachesMap;
   }
 
   public Object fromJson(String cacheName, String jsonString) {
     JsonElement json = gson.fromJson(Strings.nullToEmpty(jsonString), JsonElement.class);
-    Supplier<JsonElement> id = Suppliers.memoize(() -> json.getAsJsonObject().get("id"));
-    Supplier<JsonElement> uuid = Suppliers.memoize(() -> json.getAsJsonObject().get("uuid"));
-
-    // Need to add a case for 'adv_bases'
     switch (cacheName) {
-      case Constants.ACCOUNTS:
-      case Constants.TOKENS:
-        return id.get() == null ? null : Account.id(id.get().getAsInt());
-      case Constants.GROUPS:
-        return id.get() == null ? null : AccountGroup.id(id.get().getAsInt());
-      case Constants.GROUPS_BYINCLUDE:
-      case Constants.GROUPS_MEMBERS:
-        return uuid.get() == null ? null : AccountGroup.uuid(uuid.get().getAsString());
       case Constants.PROJECT_LIST:
         return gson.fromJson(json, Object.class);
       case Constants.PROJECTS:
         return Project.nameKey(CharMatcher.is('\"').trimFrom(json.getAsString()));
       default:
         try {
-          return gson.fromJson(json, String.class);
+          return gson.fromJson(json, getCacheKeyType(cacheName));
         } catch (Exception e) {
           return gson.fromJson(json, Object.class);
         }
     }
+  }
+
+  private Class<?> getCacheKeyType(String cacheName) {
+    int dot = cacheName.indexOf('.');
+    String pluginName = Constants.GERRIT;
+    String pluginCacheName = cacheName;
+    if (dot > 0) {
+      pluginName = cacheName.substring(0, dot);
+      pluginCacheName = cacheName.substring(dot + 1);
+    }
+
+    CacheDef<?, ?> cacheDef = cachesMap.get(pluginName, pluginCacheName);
+    if (cacheDef == null) {
+      throw new IllegalStateException("Unable to find definition for cache '" + cacheName + "'");
+    }
+
+    return cacheDef.keyType().getRawType();
   }
 }
