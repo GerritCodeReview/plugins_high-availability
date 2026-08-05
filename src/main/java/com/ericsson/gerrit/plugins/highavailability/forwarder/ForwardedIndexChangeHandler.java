@@ -84,18 +84,17 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         changeNotes = Optional.empty();
       }
       if (changeNotes.isPresent()) {
-        ChangeNotes notes = changeNotes.get();
-        reindex(notes);
-
-        if (checker.isChangeUpToDate(indexEvent)) {
-          log.atFine().log("Change %s successfully indexed", id);
-          return true;
+        if (!checker.isChangeUpToDate(indexEvent)) {
+          log.atFine().log(
+              "Change %s is not yet up to date with the event (event=%s, change=%s)",
+              id, indexEvent, checker);
+          return false;
         }
 
-        log.atFine().log(
-            "Change %s seems too old compared to the event timestamp (event-Ts=%s >> change-Ts=%s)",
-            id, indexEvent, checker);
-        return false;
+        ChangeNotes notes = changeNotes.get();
+        reindex(notes);
+        log.atFine().log("Change %s successfully indexed", id);
+        return true;
       }
 
       log.atFine().log(
