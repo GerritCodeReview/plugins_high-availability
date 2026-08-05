@@ -18,7 +18,6 @@ import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -37,8 +36,7 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(
-      AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doIndex(AccountGroup.UUID uuid, IndexEvent indexEvent) {
     try {
       indexer.index(uuid);
       log.atFine().log("Group %s successfully indexed", uuid);
@@ -50,8 +48,7 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(
-      AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doDelete(AccountGroup.UUID uuid, IndexEvent indexEvent) {
     throw new UnsupportedOperationException("Delete from group index not supported");
   }
 }

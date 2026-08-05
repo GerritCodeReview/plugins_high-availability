@@ -54,7 +54,6 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.jgroups.ObjectMessage;
 import org.junit.Before;
 import org.junit.Test;
@@ -119,7 +118,7 @@ public class MessageProcessorTest {
     IndexAccount cmd = new IndexAccount(ACCOUNT_ID, Instant.now());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexAccountHandler, times(1))
-        .index(Account.id(ACCOUNT_ID), Operation.INDEX, Optional.empty());
+        .index(eq(Account.id(ACCOUNT_ID)), eq(Operation.INDEX), any());
     verifyOtherHandlersNotUsed(indexAccountHandler);
   }
 

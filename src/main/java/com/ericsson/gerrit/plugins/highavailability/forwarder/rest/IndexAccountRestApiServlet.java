@@ -17,11 +17,11 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.Account;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,6 +41,6 @@ class IndexAccountRestApiServlet extends AbstractIndexRestApiServlet {
   @Override
   protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
     Account.Id id = Account.id(Integer.parseInt(extractRawId(req)));
-    return process(req, rsp, body -> handler.index(id, Operation.INDEX, Optional.empty()));
+    return process(req, rsp, body -> handler.index(id, Operation.INDEX, new IndexEvent()));
   }
 }

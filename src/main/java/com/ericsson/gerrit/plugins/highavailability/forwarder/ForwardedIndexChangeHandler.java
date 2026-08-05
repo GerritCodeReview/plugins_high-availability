@@ -62,7 +62,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(String id, Optional<IndexEvent> indexEvent)
+  protected CompletableFuture<Boolean> doIndex(String id, IndexEvent indexEvent)
       throws IOException {
     return indexExecutor.getAsync(
         () -> {
@@ -74,7 +74,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         });
   }
 
-  private boolean indexOnce(String id, Optional<IndexEvent> indexEvent) throws Exception {
+  private boolean indexOnce(String id, IndexEvent indexEvent) throws Exception {
     try {
       ChangeChecker checker = changeCheckerFactory.create(id);
       Optional<ChangeNotes> changeNotes;
@@ -119,7 +119,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   }
 
   @Override
-  protected CompletableFuture<Boolean> doDelete(String id, Optional<IndexEvent> indexEvent)
+  protected CompletableFuture<Boolean> doDelete(String id, IndexEvent indexEvent)
       throws IOException {
     Project.NameKey projectName = parseProject(id);
     if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {

@@ -64,7 +64,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
     Optional<IndexEvent> event = changeChecker.newIndexEvent();
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isTrue();
+    assertThat(changeChecker.isChangeUpToDate(event.get())).isTrue();
   }
 
   @Test
@@ -81,7 +81,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
                   return e;
                 });
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isTrue();
+    assertThat(changeChecker.isChangeUpToDate(event.get())).isTrue();
   }
 
   @Test
@@ -99,7 +99,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
                   return e;
                 });
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isFalse();
+    assertThat(changeChecker.isChangeUpToDate(event.get())).isFalse();
   }
 
   @Test
@@ -117,7 +117,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
                   return e;
                 });
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isFalse();
+    assertThat(changeChecker.isChangeUpToDate(event.get())).isFalse();
   }
 
   private String readMetaSha(Result change) throws IOException {

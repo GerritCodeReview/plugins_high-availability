@@ -45,7 +45,7 @@ public interface ChangeChecker {
    * @return true if the local Change is up-to-date, false otherwise.
    * @throws IOException if an I/O error occurred while reading the local Change
    */
-  boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws IOException;
+  boolean isChangeUpToDate(IndexEvent indexEvent) throws IOException;
 
   /**
    * Return the last computed up-to-date Change time-stamp.
