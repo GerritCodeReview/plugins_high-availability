@@ -32,9 +32,7 @@ import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.time.Instant;
-import java.util.Optional;
 
 @Singleton
 public class CommandProcessorImpl implements CommandProcessor {
@@ -82,7 +80,7 @@ public class CommandProcessorImpl implements CommandProcessor {
         try {
           ForwardedIndexChangeHandler handler =
               indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-          handler.index(indexChange.getId(), op, Optional.of(toIndexEvent(indexChange)));
+          handler.index(indexChange.getId(), op, toIndexEvent(indexChange));
           log.atFine().log(
               "Change index %s on change %s done", op.name().toLowerCase(), indexChange.getId());
         } catch (Exception e) {
@@ -95,9 +93,9 @@ public class CommandProcessorImpl implements CommandProcessor {
         IndexAccount indexAccount = (IndexAccount) cmd;
         try {
           indexAccountHandler.index(
-              Account.id(indexAccount.getId()), Operation.INDEX, Optional.empty());
+              Account.id(indexAccount.getId()), Operation.INDEX, new IndexEvent());
           log.atFine().log("Account index update on account %s done", indexAccount.getId());
-        } catch (IOException e) {
+        } catch (Exception e) {
           log.atSevere().withCause(e).log(
               "Account index update on account %s failed", indexAccount.getId());
           throw e;

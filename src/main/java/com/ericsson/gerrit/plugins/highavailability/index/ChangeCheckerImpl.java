@@ -88,24 +88,19 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   @Override
-  public boolean isChangeUpToDate(Optional<IndexEvent> indexEventOption) throws IOException {
+  public boolean isChangeUpToDate(IndexEvent indexEvent) throws IOException {
     getComputedChangeTs();
-    log.atFine().log("Checking change %s against index event %s", this, indexEventOption);
+    log.atFine().log("Checking change %s against index event %s", this, indexEvent);
     if (!computedChangeTs.isPresent()) {
       log.atWarning().log("Unable to compute last updated ts for change %s", changeId);
       return false;
     }
     try {
-      if (indexEventOption.isPresent()) {
-        try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-          IndexEvent indexEvent = indexEventOption.get();
-          return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
-              && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
-              && (indexEvent.metaSha == null || repositoryHas(repo, indexEvent.metaSha));
-        }
+      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+        return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
+            && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
+            && (indexEvent.metaSha == null || repositoryHas(repo, indexEvent.metaSha));
       }
-      return true;
-
     } catch (IOException ex) {
       log.atWarning().log("Unable to read meta sha for change %s", changeId);
       return false;

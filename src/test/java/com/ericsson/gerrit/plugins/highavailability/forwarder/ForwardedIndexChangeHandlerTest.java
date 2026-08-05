@@ -96,14 +96,14 @@ public class ForwardedIndexChangeHandlerTest {
   @Test
   public void changeIsIndexedWhenUpToDate() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
   public void changeIsNotReindexedWhenShaIsNeverVisible() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent())).get(10, SECONDS);
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     verify(indexerMock, never()).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
@@ -123,20 +123,20 @@ public class ForwardedIndexChangeHandlerTest {
     when(changeNotes.getChangeId()).thenReturn(id);
     when(changeNotes.getProjectName()).thenReturn(projectName);
 
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.of(new IndexEvent())).get(10, SECONDS);
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
-    handler.index(TEST_CHANGE_ID, Operation.DELETE, Optional.empty()).get(10, SECONDS);
+    handler.index(TEST_CHANGE_ID, Operation.DELETE, new IndexEvent()).get(10, SECONDS);
     verify(indexerMock, times(1)).delete(projectName, id);
   }
 
   @Test
   public void AllChangesAreDeletedFromIndex() throws Exception {
     handler
-        .index(buildAllChangesForProjectEndpoint(TEST_PROJECT), Operation.DELETE, Optional.empty())
+        .index(buildAllChangesForProjectEndpoint(TEST_PROJECT), Operation.DELETE, new IndexEvent())
         .get(10, SECONDS);
     verify(indexerMock, times(1)).deleteAllForProject(Project.nameKey(TEST_PROJECT_ENCODED));
   }
@@ -144,7 +144,7 @@ public class ForwardedIndexChangeHandlerTest {
   @Test
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST, CHANGE_OUTDATED);
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     verify(indexerMock, times(0)).delete(projectName, id);
   }
 
@@ -163,7 +163,7 @@ public class ForwardedIndexChangeHandlerTest {
         .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
@@ -186,7 +186,7 @@ public class ForwardedIndexChangeHandlerTest {
         assertThrows(
             ExecutionException.class,
             () ->
-                handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS));
+                handler.index(TEST_CHANGE_ID, Operation.INDEX, new IndexEvent()).get(10, SECONDS));
     assertThat(thrown.getCause()).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 

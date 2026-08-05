@@ -24,7 +24,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingH
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.index.project.ProjectIndexer;
 import java.io.IOException;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +46,7 @@ public class ForwardedIndexProjectHandlerTest {
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(nameKey, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(nameKey, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     verify(indexerMock).index(nameKey);
   }
 
@@ -56,7 +55,7 @@ public class ForwardedIndexProjectHandlerTest {
     UnsupportedOperationException thrown =
         assertThrows(
             UnsupportedOperationException.class,
-            () -> handler.index(nameKey, Operation.DELETE, Optional.empty()).get(10, SECONDS));
+            () -> handler.index(nameKey, Operation.DELETE, new IndexEvent()).get(10, SECONDS));
     assertThat(thrown).hasMessageThat().contains("Delete from project index not supported");
   }
 
@@ -74,7 +73,7 @@ public class ForwardedIndexProjectHandlerTest {
         .index(nameKey);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(nameKey, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(nameKey, Operation.INDEX, new IndexEvent()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(nameKey);
@@ -95,7 +94,7 @@ public class ForwardedIndexProjectHandlerTest {
     IOException thrown =
         assertThrows(
             IOException.class,
-            () -> handler.index(nameKey, Operation.INDEX, Optional.empty()).get(10, SECONDS));
+            () -> handler.index(nameKey, Operation.INDEX, new IndexEvent()).get(10, SECONDS));
     assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 

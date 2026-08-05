@@ -43,7 +43,7 @@ public class ChangeCheckerImplTest {
 
   private final Instant testLastUpdatedOn = Instant.now();
   private final String changeId = "1";
-  Optional<IndexEvent> event = Optional.empty();
+  IndexEvent event = new IndexEvent();
   private Optional<Instant> computedChangeTs = Optional.empty();
   private ChangeCheckerImpl changeChecker;
 
