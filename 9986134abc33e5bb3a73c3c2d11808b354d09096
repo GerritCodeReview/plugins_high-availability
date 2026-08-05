@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ded7f5aa_57834070",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-05T13:05:45Z",
+      "side": 1,
+      "message": "Although I just today finished a change which removes all dependencies from the auto-reindex to the ForwardedIndex*Handler classes (didn\u0027t upload it yet), I would be in favour of removing the auto-reindex feature completely. Now, shall we ask on the mailing list if someone still uses it or we simply assume that it becomes obsolete after the indexSync feature was introduced as a faster and better alternative?",
+      "parentUuid": "2d7db7d5_19c0bdf1",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8094199_ef523175",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
