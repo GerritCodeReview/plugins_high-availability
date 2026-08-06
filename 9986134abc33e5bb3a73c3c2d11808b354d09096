@@ -192,6 +192,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c77b3f6_97b52225",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-06T14:53:15Z",
+      "side": 1,
+      "message": "Done in the follow-up change",
+      "parentUuid": "7c3bb1f0_2022982e",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8094199_ef523175",
