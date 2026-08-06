@@ -263,6 +263,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "858690de_35f17bcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-06T12:17:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d7e7f2b_5e77cecb",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 15
+      },
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2399a602_52f7a700",
@@ -383,6 +407,24 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "6fca136f_e410c332",
+      "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77fb4a2f_641fd9ed",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessorImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-06T12:17:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2503e797_2e692d88",
       "revId": "9986134abc33e5bb3a73c3c2d11808b354d09096",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }

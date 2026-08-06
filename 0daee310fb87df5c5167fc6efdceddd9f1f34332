@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c737911_a04a3370",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessorImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-06T12:17:04Z",
+      "side": 1,
+      "message": "I propose to migrate `IndexEvent` and `Command` to Java records in follow-up changes",
+      "revId": "0daee310fb87df5c5167fc6efdceddd9f1f34332",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
