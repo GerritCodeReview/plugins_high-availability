@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
-import com.ericsson.gerrit.plugins.highavailability.autoreindex.AutoReindexModule;
 import com.ericsson.gerrit.plugins.highavailability.cache.CacheModule;
 import com.ericsson.gerrit.plugins.highavailability.event.EventModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
@@ -83,9 +82,6 @@ class Module extends LifecycleModule {
       if (config.indexSync().enabled()) {
         install(new IndexSyncModule());
       }
-    }
-    if (config.autoReindex().enabled()) {
-      install(new AutoReindexModule());
     }
 
     if (config.sharedRefDb().getSharedRefDb().isEnabled()) {

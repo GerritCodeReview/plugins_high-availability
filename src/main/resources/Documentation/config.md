@@ -19,8 +19,6 @@ File '@PLUGIN@.config'
 ```
 [main]
   sharedDirectory = /directory/accessible/from/both/instances
-[autoReindex]
-  enabled = false
 [peerInfo]
   strategy = static
 [peerInfo "static"]
@@ -36,8 +34,6 @@ File '@PLUGIN@.config'
 ```
 [main]
   sharedDirectory = /directory/accessible/from/both/instances
-[autoReindex]
-  enabled = false
 [peerInfo]
   strategy = jgroups
 [peerInfo "jgroups"]
@@ -62,8 +58,6 @@ defined by the `jgroups.clusterName`.
 [main]
   transport = jgroups
   sharedDirectory = /directory/accessible/from/both/instances
-[autoReindex]
-  enabled = false
 [jgroups]
   clusterName = foo
   skipInterface = lo*
@@ -81,8 +75,6 @@ implementation.
 [main]
   transport = provided
   sharedDirectory = /directory/accessible/from/both/instances
-[autoReindex]
-  enabled = false
 ```
 
 ```main.sharedDirectory```
@@ -98,25 +90,6 @@ implementation.
     When not specificed the default is `http`.
     When set to `jgroups` or `provided` then all `peerInfo.*` sections are
     unnecessary and ignored.
-
-```autoReindex.enabled```
-:   Enable the tracking of the latest change indexed under data/high-availability
-    for each of the indexes. At startup scans all the changes and accounts and reindex
-    the ones that have been updated by other nodes while the server was down.
-    When not specified, the default is "false", that means no automatic tracking
-    and indexing at start.
-
-```autoReindex.delay```
-:   When autoReindex is enabled, indicates the delay aftere the plugin startup,
-    before triggering the conditional reindexing of all changes and accounts.
-    Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
-    When not specified, the default is "10 seconds".
-
-```autoReindex.pollInterval```
-:   When autoReindex is enabled, indicates the interval between the conditional
-    reindexing of all changes and accounts.
-    Delay is expressed in Gerrit time values as in [websession.cleanupInterval](#websessioncleanupInterval).
-    When not specified, polling of conditional reindexing is disabled.
 
 **NOTE:** The indexSync feature exposes a REST endpoint that can be used to discover project names.
 Admins are advised to restrict access to the REST endpoints exposed by this plugin.

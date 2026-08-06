@@ -14,13 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.AUTO_REINDEX_SECTION;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_AUTO_REINDEX;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_DELAY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DEFAULT_POLL_INTERVAL;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.DELAY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.ENABLED;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.AutoReindex.POLL_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.CACHE_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Cache.PATTERN_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.DEFAULT_THREAD_POOL_SIZE;
@@ -112,7 +105,6 @@ public class Setup implements InitStep {
       ui.header("Configuring %s", pluginName);
       config = new FileBasedConfig(pluginConfigFile.toFile(), FS.DETECTED);
       config.load();
-      configureAutoReindexSection();
       configureHttpSection();
       configureCacheSection();
       configureEventSection();
@@ -126,26 +118,6 @@ public class Setup implements InitStep {
       }
       flags.cfg.setBoolean("database", "h2", "autoServer", true);
     }
-  }
-
-  private void configureAutoReindexSection() {
-    ui.header("AutoReindex section");
-    Boolean autoReindex =
-        promptAndSetBoolean("Auto reindex", AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
-    config.setBoolean(AUTO_REINDEX_SECTION, null, ENABLED, autoReindex);
-
-    String delay =
-        promptAndSetString(
-            "Delay", AUTO_REINDEX_SECTION, DELAY, numberToString(DEFAULT_DELAY.toMillis()));
-    config.setLong(AUTO_REINDEX_SECTION, null, DELAY, Long.valueOf(delay));
-
-    String pollInterval =
-        promptAndSetString(
-            "Poll interval",
-            AUTO_REINDEX_SECTION,
-            POLL_INTERVAL,
-            numberToString(DEFAULT_POLL_INTERVAL.toMillis()));
-    config.setLong(AUTO_REINDEX_SECTION, null, POLL_INTERVAL, Long.valueOf(pollInterval));
   }
 
   private void configureMainSection() {

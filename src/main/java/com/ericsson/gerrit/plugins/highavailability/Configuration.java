@@ -66,7 +66,6 @@ public class Configuration {
   static final int DEFAULT_THREAD_POOL_SIZE = 4;
 
   private final Main main;
-  private final AutoReindex autoReindex;
   private final IndexSync indexSync;
   private final PeerInfo peerInfo;
   private final JGroups jgroups;
@@ -100,7 +99,6 @@ public class Configuration {
   @VisibleForTesting
   public Configuration(Config cfg, SitePaths site) {
     main = new Main(site, cfg);
-    autoReindex = new AutoReindex(cfg);
     indexSync = new IndexSync(cfg);
     peerInfo = new PeerInfo(cfg);
     switch (peerInfo.strategy()) {
@@ -139,10 +137,6 @@ public class Configuration {
 
   public Main main() {
     return main;
-  }
-
-  public AutoReindex autoReindex() {
-    return autoReindex;
   }
 
   public IndexSync indexSync() {
@@ -248,39 +242,6 @@ public class Configuration {
 
     public Path sharedDirectory() {
       return sharedDirectory;
-    }
-  }
-
-  public static class AutoReindex {
-
-    static final String AUTO_REINDEX_SECTION = "autoReindex";
-    static final String ENABLED = "enabled";
-    static final String DELAY = "delay";
-    static final String POLL_INTERVAL = "pollInterval";
-    static final boolean DEFAULT_AUTO_REINDEX = false;
-    static final Duration DEFAULT_DELAY = Duration.ofSeconds(10);
-    static final Duration DEFAULT_POLL_INTERVAL = Duration.ZERO;
-
-    private final boolean enabled;
-    private final Duration delay;
-    private final Duration pollInterval;
-
-    public AutoReindex(Config cfg) {
-      enabled = cfg.getBoolean(AUTO_REINDEX_SECTION, ENABLED, DEFAULT_AUTO_REINDEX);
-      delay = getDuration(cfg, AUTO_REINDEX_SECTION, DELAY, DEFAULT_DELAY);
-      pollInterval = getDuration(cfg, AUTO_REINDEX_SECTION, POLL_INTERVAL, DEFAULT_POLL_INTERVAL);
-    }
-
-    public boolean enabled() {
-      return enabled;
-    }
-
-    public Duration delay() {
-      return delay;
-    }
-
-    public Duration pollInterval() {
-      return pollInterval;
     }
   }
 
