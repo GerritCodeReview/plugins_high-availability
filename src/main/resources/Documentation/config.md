@@ -91,9 +91,6 @@ implementation.
     When set to `jgroups` or `provided` then all `peerInfo.*` sections are
     unnecessary and ignored.
 
-**NOTE:** The indexSync feature exposes a REST endpoint that can be used to discover project names.
-Admins are advised to restrict access to the REST endpoints exposed by this plugin.
-
 **Note:** For projects and groups reindexing, [scheduled indexer](https://gerrit-review.googlesource.com/Documentation/config-gerrit.html#scheduledIndexer) can be enabled with specific configurations.
 Example configurations:
 
@@ -112,9 +109,13 @@ Note: Ensure these settings are added to enable periodic reindexing of groups an
 Groups and projects may become outdated if indexing events are missed due to the node being down or
 some networking issues.
 
+**NOTE:** The indexSync feature exposes a REST endpoint that can be used to discover project names.
+Admins are advised to restrict access to the REST endpoints exposed by this plugin.
+
 ```indexSync.enabled```
 :   When indexSync is enabled, the primary servers will synchronize indexes with the intention to
     self-heal any missed reindexing event.
+    When not specified, the default is `false`.
 
 ```indexSync.delay```
 :   If enabled, index sync will start running after this initial delay.
