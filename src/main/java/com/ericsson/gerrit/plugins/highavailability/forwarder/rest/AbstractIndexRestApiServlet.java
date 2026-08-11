@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
@@ -31,7 +32,15 @@ public abstract class AbstractIndexRestApiServlet extends AbstractRestApiServlet
 
   @FunctionalInterface
   interface IndexingOperation {
-    void execute(String body) throws IOException;
+    void execute(String body) throws IOException, BadRequestException;
+  }
+
+  static class BadRequestException extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    BadRequestException(String message) {
+      super(message);
+    }
   }
 
   public enum IndexName {
@@ -57,14 +66,16 @@ public abstract class AbstractIndexRestApiServlet extends AbstractRestApiServlet
     this.indexName = indexName;
   }
 
-  protected boolean process(
-      HttpServletRequest req, HttpServletResponse rsp, IndexingOperation op) {
+  protected boolean process(HttpServletRequest req, HttpServletResponse rsp, IndexingOperation op) {
     try {
       String body = readRequestBody(req);
       ForwardedMessageLogger.log(req, body);
       op.execute(body);
       rsp.setStatus(SC_NO_CONTENT);
       return true;
+    } catch (BadRequestException | IllegalArgumentException e) {
+      sendError(rsp, SC_BAD_REQUEST, e.getMessage());
+      return false;
     } catch (IOException e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
       log.atSevere().withCause(e).log("Unable to update %s index", indexName);

@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.google.common.base.Preconditions;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.RefNames;
@@ -97,9 +98,11 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
     try {
       try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+        Preconditions.checkArgument(
+            indexEvent.metaSha != null, "metaSha is required for change index events");
         return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
             && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
-            && (indexEvent.metaSha == null || repositoryHas(repo, indexEvent.metaSha));
+            && repositoryHas(repo, indexEvent.metaSha);
       }
     } catch (IOException ex) {
       log.atWarning().log("Unable to read meta sha for change %s", changeId);
