@@ -17,13 +17,10 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.extensions.restapi.Url;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,25 +29,22 @@ class IndexBatchChangeRestApiServlet extends AbstractIndexRestApiServlet {
   private static final long serialVersionUID = -1L;
 
   private final ForwardedIndexBatchChangeHandler handler;
-  private final Gson gson;
+  private final IndexChangeEventParser parser;
 
   @Inject
   IndexBatchChangeRestApiServlet(
       ForwardedIndexBatchChangeHandler handler,
-      @RestGson Gson gson,
+      IndexChangeEventParser parser,
       ProcessorMetricsRegistry metricRegistry) {
     super(IndexName.CHANGE, metricRegistry, EventType.INDEX_CHANGE_UPDATE_BATCH, null);
     this.handler = handler;
-    this.gson = gson;
+    this.parser = parser;
   }
 
   @Override
   protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
     String id = Url.decode(extractRawId(req));
-    return process(req, rsp, body -> handler.index(id, Operation.INDEX, parseBody(body)));
-  }
-
-  private IndexEvent parseBody(String body) {
-    return Objects.requireNonNullElseGet(gson.fromJson(body, IndexEvent.class), IndexEvent::new);
+    return process(
+        req, rsp, body -> handler.index(id, Operation.INDEX, parser.parseAndValidate(body)));
   }
 }

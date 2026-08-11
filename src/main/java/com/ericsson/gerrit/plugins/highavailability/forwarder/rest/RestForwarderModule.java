@@ -35,6 +35,7 @@ public class RestForwarderModule extends AbstractModule {
   protected void configure() {
     bind(CloseableHttpClient.class).toProvider(HttpClientProvider.class).in(Scopes.SINGLETON);
     bind(HttpSession.class);
+    bind(IndexChangeEventParser.class);
     DynamicItem.bind(binder(), Forwarder.class).to(RestForwarder.class);
 
     bind(new TypeLiteral<FailsafeExecutor<Result>>() {})

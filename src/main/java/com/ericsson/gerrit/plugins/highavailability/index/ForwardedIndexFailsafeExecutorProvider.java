@@ -50,7 +50,7 @@ public class ForwardedIndexFailsafeExecutorProvider implements Provider<Failsafe
                     log.atWarning().log(
                         "%d index retries exceeded for event %s", cfg.index().maxTries(), e))
             .handleResult(false)
-            .abortOn(IOException.class)
+            .abortOn(IOException.class, IllegalArgumentException.class)
             .build();
     return Failsafe.with(retryPolicy).with(indexExecutorProvider.get());
   }
