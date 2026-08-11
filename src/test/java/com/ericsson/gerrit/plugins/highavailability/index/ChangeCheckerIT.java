@@ -15,6 +15,7 @@
 package com.ericsson.gerrit.plugins.highavailability.index;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
@@ -118,6 +119,25 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
                 });
 
     assertThat(changeChecker.isChangeUpToDate(event.get())).isFalse();
+  }
+
+  @Test
+  @UseLocalDisk
+  public void shouldReturnIsUpToDateFalseWhenMetaShaIsNull() throws Exception {
+    Result change = createChange();
+    ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
+    Optional<IndexEvent> event =
+        changeChecker
+            .newIndexEvent()
+            .map(
+                e -> {
+                  e.metaSha = null;
+                  return e;
+                });
+
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> changeChecker.isChangeUpToDate(event.get()));
   }
 
   private String readMetaSha(Result change) throws IOException {
