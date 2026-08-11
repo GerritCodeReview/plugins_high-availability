@@ -101,8 +101,7 @@ class HttpClientProvider implements Provider<CloseableHttpClient> {
 
   private ConnectionReuseStrategy customConnectionReuseStrategy() {
     return (response, context) -> {
-      if (response.getStatusLine().getStatusCode() == SC_SERVICE_UNAVAILABLE
-          && !cfg.http().reuseConnectionAfter503()) {
+      if (response.getStatusLine().getStatusCode() == SC_SERVICE_UNAVAILABLE) {
         return false;
       }
       return DefaultConnectionReuseStrategy.INSTANCE.keepAlive(response, context);
