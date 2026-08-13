@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c460ae96_a91593d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-13T11:51:15Z",
+      "side": 1,
+      "message": "```suggestion\nabout and resemble the hierarchy of the indexing handler classes.\n```",
+      "revId": "b77b98da627f2c29169236deff55fc158d9192c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bf6f558_0629cde0",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexAccountRestApiServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-13T11:51:15Z",
+      "side": 1,
+      "message": "use an unnamed variable instead of `body` to avoid warning about unused lambda parameter\n```suggestion\n    return process(req, rsp, _ -\u003e handler.index(id, Operation.INDEX, Optional.empty()));\n```",
+      "revId": "b77b98da627f2c29169236deff55fc158d9192c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fd4931_ad87e36b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexGroupRestApiServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-13T11:51:15Z",
+      "side": 1,
+      "message": "use an unnamed variable instead of `body` to avoid warning about unused lambda parameter\n\n```suggestion\n    return process(req, rsp, _ -\u003e handler.index(uuid, Operation.INDEX, Optional.empty()));\n```",
+      "revId": "b77b98da627f2c29169236deff55fc158d9192c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d2963d_63c442b1",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/rest/IndexProjectRestApiServlet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-13T11:51:15Z",
+      "side": 1,
+      "message": "use an unnamed variable instead of `body` to avoid warning about unused lambda parameter\n\n```suggestion\n    return process(req, rsp, _ -\u003e handler.index(projectName, Operation.INDEX, Optional.empty()));\n```",
+      "revId": "b77b98da627f2c29169236deff55fc158d9192c9",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
