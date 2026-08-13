@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e60eec7e_e90b9790",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexingHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-13T12:53:46Z",
+      "side": 1,
+      "message": "Only the change index needs `IndexEvent`, hence I think this abstract class is a bad abstraction.\n\nIf you want to make `IndexEvent` mandatory for changes, then this abstract class is in your way, because you can\u0027t express this can\u0027t be expressed in this class which is also used by the other indexes which never will pass an `IndexEvent` since they don\u0027t need it.\n\nHence I propose to remove this abstract base class and rename `IndexEvent` to `ChangeIndexEvent`",
+      "range": {
+        "startLine": 58,
+        "startChar": 80,
+        "endLine": 58,
+        "endChar": 90
+      },
+      "revId": "d0e17ad6ca1ceec5b68afe3ec7442946db97a1c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b88167_41103c17",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessorImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-08-13T12:53:46Z",
+      "side": 1,
+      "message": "I think `Optional.empty()` is more expressive than an uninitialised `IndexEvent` which has none of the fields set. If none of the fields of an `IndexEvent` is set we should rather not construct an event because it doesn\u0027t make sense to send a request with an empty `IndexEvent` payload.",
+      "revId": "d0e17ad6ca1ceec5b68afe3ec7442946db97a1c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
