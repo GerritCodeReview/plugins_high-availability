@@ -38,9 +38,13 @@ public class ForwardedIndexProjectHandler extends ForwardedIndexingHandler<Proje
 
   @Override
   protected CompletableFuture<Boolean> doIndex(
-      Project.NameKey projectName, Optional<IndexEvent> indexEvent) {
-    indexer.index(projectName);
-    log.atFine().log("Project %s successfully indexed", projectName);
+      Project.NameKey projectName, Optional<IndexEvent> indexEvent) throws Exception {
+    withForwardedEventFlag(
+        () -> {
+          indexer.index(projectName);
+          log.atFine().log("Project %s successfully indexed", projectName);
+          return null;
+        });
     return CompletableFuture.completedFuture(true);
   }
 

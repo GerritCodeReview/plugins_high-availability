@@ -37,11 +37,16 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
   }
 
   @Override
-  protected CompletableFuture<Boolean> doIndex(Account.Id id, Optional<IndexEvent> indexEvent) {
+  protected CompletableFuture<Boolean> doIndex(Account.Id id, Optional<IndexEvent> indexEvent)
+      throws Exception {
     try {
-      indexer.index(id);
-      log.atFine().log("Account %s successfully indexed", id);
-    } catch (RuntimeException e) {
+      withForwardedEventFlag(
+          () -> {
+            indexer.index(id);
+            log.atFine().log("Account %s successfully indexed", id);
+            return null;
+          });
+    } catch (Exception e) {
       log.atFine().log("Account %s failed to be indexed", id);
       throw e;
     }

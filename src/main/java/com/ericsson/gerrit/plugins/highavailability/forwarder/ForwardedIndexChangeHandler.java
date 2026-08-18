@@ -65,13 +65,13 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   protected CompletableFuture<Boolean> doIndex(String id, Optional<IndexEvent> indexEvent)
       throws IOException {
     return indexExecutor.getAsync(
-        () -> {
-          try (ManualRequestContext ctx = oneOffCtx.open()) {
-            Context.setForwardedEvent(true);
-            boolean result = indexOnce(id, indexEvent);
-            return result;
-          }
-        });
+        () ->
+            withForwardedEventFlag(
+                () -> {
+                  try (ManualRequestContext ctx = oneOffCtx.open()) {
+                    return indexOnce(id, indexEvent);
+                  }
+                }));
   }
 
   private boolean indexOnce(String id, Optional<IndexEvent> indexEvent) throws Exception {
