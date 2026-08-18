@@ -22,7 +22,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.common.Nullable;
 import com.google.gerrit.extensions.restapi.NotImplementedException;
-import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,7 +30,7 @@ public abstract class AbstractIndexRestApiServlet extends AbstractRestApiServlet
 
   @FunctionalInterface
   interface IndexingOperation {
-    void execute(String body) throws IOException;
+    void execute(String body) throws Exception;
   }
 
   public enum IndexName {
@@ -64,7 +63,7 @@ public abstract class AbstractIndexRestApiServlet extends AbstractRestApiServlet
       op.execute(body);
       rsp.setStatus(SC_NO_CONTENT);
       return true;
-    } catch (IOException e) {
+    } catch (Exception e) {
       sendError(rsp, SC_CONFLICT, e.getMessage());
       log.atSevere().withCause(e).log("Unable to update %s index", indexName);
       return false;

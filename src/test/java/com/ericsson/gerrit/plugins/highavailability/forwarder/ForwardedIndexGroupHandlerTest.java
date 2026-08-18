@@ -61,9 +61,7 @@ public class ForwardedIndexGroupHandlerTest {
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContext() throws Exception {
-    // this doAnswer is to allow to assert that context is set to forwarded
-    // while cache eviction is called.
+  public void forwardedEventFlagIsSetOnExecutorThreadDuringIndex() throws Exception {
     doAnswer(
             (Answer<Void>)
                 invocation -> {
@@ -81,7 +79,7 @@ public class ForwardedIndexGroupHandlerTest {
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContextEvenIfExceptionIsThrown() throws Exception {
+  public void forwardedEventFlagIsUnsetAfterIndexingException() throws Exception {
     doAnswer(
             (Answer<Void>)
                 invocation -> {

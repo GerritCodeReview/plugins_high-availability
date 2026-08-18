@@ -113,7 +113,7 @@ public class MessageProcessorTest {
   }
 
   @Test
-  public void indexAccount() throws IOException {
+  public void indexAccount() throws Exception {
     int ACCOUNT_ID = 100;
 
     IndexAccount cmd = new IndexAccount(ACCOUNT_ID, Instant.now());
@@ -124,7 +124,7 @@ public class MessageProcessorTest {
   }
 
   @Test
-  public void indexChange() throws IOException {
+  public void indexChange() throws Exception {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
@@ -136,7 +136,7 @@ public class MessageProcessorTest {
   }
 
   @Test
-  public void indexChangeBatchMode() throws IOException {
+  public void indexChangeBatchMode() throws Exception {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
@@ -148,7 +148,7 @@ public class MessageProcessorTest {
   }
 
   @Test
-  public void deleteChangeFromIndex() throws IOException {
+  public void deleteChangeFromIndex() throws Exception {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 

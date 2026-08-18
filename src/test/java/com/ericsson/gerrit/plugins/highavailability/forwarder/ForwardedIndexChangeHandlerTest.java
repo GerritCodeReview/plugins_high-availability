@@ -41,6 +41,8 @@ import dev.failsafe.FailsafeExecutor;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import org.junit.Before;
@@ -149,10 +151,8 @@ public class ForwardedIndexChangeHandlerTest {
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContext() throws Exception {
+  public void forwardedEventFlagIsSetOnExecutorThreadDuringIndex() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
-    // this doAnswer is to allow to assert that context is set to forwarded
-    // while cache eviction is called.
     doAnswer(
             (Answer<Void>)
                 invocation -> {
@@ -170,7 +170,7 @@ public class ForwardedIndexChangeHandlerTest {
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContextEvenIfExceptionIsThrown() throws Exception {
+  public void forwardedEventFlagIsUnsetAfterIndexingException() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
     doAnswer(
             (Answer<Void>)
@@ -191,6 +191,59 @@ public class ForwardedIndexChangeHandlerTest {
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
+  }
+
+  @Test
+  public void forwardedEventFlagIsNotSetOnCallingThreadDuringAsyncIndex() throws Exception {
+    setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
+    CountDownLatch taskRunning = new CountDownLatch(1);
+    CountDownLatch taskCanFinish = new CountDownLatch(1);
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  taskRunning.countDown();
+                  taskCanFinish.await();
+                  return null;
+                })
+        .when(indexerMock)
+        .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
+
+    CompletableFuture<Boolean> future =
+        handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    taskRunning.await(10, SECONDS);
+    assertThat(Context.isForwardedEvent()).isFalse();
+    taskCanFinish.countDown();
+    future.get(10, SECONDS);
+  }
+
+  @Test
+  public void inFlightGuardIsReleasedAfterAsyncIndexCompletes() throws Exception {
+    setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
+    CountDownLatch taskRunning = new CountDownLatch(1);
+    CountDownLatch taskCanFinish = new CountDownLatch(1);
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  taskRunning.countDown();
+                  taskCanFinish.await();
+                  return null;
+                })
+        .when(indexerMock)
+        .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
+
+    CompletableFuture<Boolean> firstFuture =
+        handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty());
+    taskRunning.await(10, SECONDS);
+
+    assertThrows(
+        InFlightIndexedException.class,
+        () -> handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()));
+
+    taskCanFinish.countDown();
+    firstFuture.get(10, SECONDS);
+
+    // Guard is released: a new request for the same id must now succeed
+    handler.index(TEST_CHANGE_ID, Operation.INDEX, Optional.empty()).get(10, SECONDS);
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExists, boolean changeIsUpToDate)

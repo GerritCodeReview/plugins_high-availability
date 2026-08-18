@@ -15,10 +15,10 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.common.flogger.FluentLogger;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -43,10 +43,10 @@ public abstract class ForwardedIndexingHandler<T> {
   }
 
   protected abstract CompletableFuture<Boolean> doIndex(T id, Optional<IndexEvent> indexEvent)
-      throws IOException;
+      throws Exception;
 
   protected abstract CompletableFuture<Boolean> doDelete(T id, Optional<IndexEvent> indexEvent)
-      throws IOException;
+      throws Exception;
 
   /**
    * Index an item in the local node, indexing will not be forwarded to the other node.
@@ -54,29 +54,41 @@ public abstract class ForwardedIndexingHandler<T> {
    * @param id The id to index.
    * @param operation The operation to do; index or delete
    * @param indexEvent The index event details.
-   * @throws IOException If an error occur while indexing.
+   * @throws Exception If an error occur while indexing.
    */
   public CompletableFuture<Boolean> index(
-      T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
+      T id, Operation operation, Optional<IndexEvent> indexEvent) throws Exception {
     log.atFine().log("%s %s %s", operation, id, indexEvent);
     if (inFlightIndexing.add(id)) {
       try {
-        Context.setForwardedEvent(true);
+        CompletableFuture<Boolean> future;
         switch (operation) {
           case INDEX:
-            return doIndex(id, indexEvent);
+            future = doIndex(id, indexEvent);
+            break;
           case DELETE:
-            return doDelete(id, indexEvent);
+            future = doDelete(id, indexEvent);
+            break;
           default:
             log.atSevere().log("unexpected operation: %s", operation);
-            return CompletableFuture.completedFuture(false);
+            future = CompletableFuture.completedFuture(false);
         }
-      } finally {
-        Context.unsetForwardedEvent();
+        return future.whenComplete((r, t) -> inFlightIndexing.remove(id));
+      } catch (Exception e) {
         inFlightIndexing.remove(id);
+        throw e;
       }
     }
     throw new InFlightIndexedException(
         String.format("Indexing for %s %s %s already in flight", operation, id, indexEvent));
+  }
+
+  protected static <V> V withForwardedEventFlag(Callable<V> action) throws Exception {
+    Context.setForwardedEvent(true);
+    try {
+      return action.call();
+    } finally {
+      Context.unsetForwardedEvent();
+    }
   }
 }

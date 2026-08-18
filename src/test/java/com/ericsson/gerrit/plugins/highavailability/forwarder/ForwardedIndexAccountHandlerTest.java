@@ -61,9 +61,7 @@ public class ForwardedIndexAccountHandlerTest {
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContext() throws Exception {
-    // this doAnswer is to allow to assert that context is set to forwarded
-    // while cache eviction is called.
+  public void forwardedEventFlagIsSetOnExecutorThreadDuringIndex() throws Exception {
     doAnswer(
             (Answer<Void>)
                 invocation -> {
@@ -81,7 +79,7 @@ public class ForwardedIndexAccountHandlerTest {
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContextEvenIfExceptionIsThrown() throws Exception {
+  public void forwardedEventFlagIsUnsetAfterIndexingException() throws Exception {
     doAnswer(
             (Answer<Void>)
                 invocation -> {
@@ -100,5 +98,27 @@ public class ForwardedIndexAccountHandlerTest {
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(id);
+  }
+
+  @Test
+  public void inFlightGuardPreventsAndThenAllowsReindex() throws Exception {
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  // While this first indexing is executing, a second request for the same id
+                  // must be rejected as in-flight.
+                  assertThrows(
+                      InFlightIndexedException.class,
+                      () -> handler.index(id, Operation.INDEX, Optional.empty()));
+                  return null;
+                })
+        .when(indexerMock)
+        .index(id);
+
+    handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+
+    // Guard is released after completion: a subsequent request must succeed.
+    handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    verify(indexerMock, org.mockito.Mockito.times(2)).index(id);
   }
 }
