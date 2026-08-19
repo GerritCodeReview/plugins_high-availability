@@ -14,7 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.RefNames;
@@ -58,7 +58,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   @Override
-  public Optional<IndexEvent> newIndexEvent() throws IOException {
+  public Optional<ChangeIndexEvent> newIndexEvent() throws IOException {
     Optional<Instant> changeTs = getComputedChangeTs();
     if (!changeTs.isPresent()) {
       return Optional.empty();
@@ -66,12 +66,9 @@ public class ChangeCheckerImpl implements ChangeChecker {
 
     Instant ts = changeTs.get();
 
-    IndexEvent event = new IndexEvent();
-    event.eventCreatedOn = ts;
     try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-      event.targetSha = getBranchTargetSha();
-      event.metaSha = getMetaSha(repo);
-      return Optional.of(event);
+      String metaSha = getMetaSha(repo);
+      return Optional.of(new ChangeIndexEvent(ts, getBranchTargetSha(), metaSha));
     } catch (IOException e) {
       log.atSevere().withCause(e).log(
           "Unable to create index event for project %s", changeNotes.get().getProjectName());
@@ -88,24 +85,19 @@ public class ChangeCheckerImpl implements ChangeChecker {
   }
 
   @Override
-  public boolean isChangeUpToDate(Optional<IndexEvent> indexEventOption) throws IOException {
+  public boolean isChangeUpToDate(ChangeIndexEvent indexEvent) throws IOException {
     getComputedChangeTs();
-    log.atFine().log("Checking change %s against index event %s", this, indexEventOption);
+    log.atFine().log("Checking change %s against index event %s", this, indexEvent);
     if (!computedChangeTs.isPresent()) {
       log.atWarning().log("Unable to compute last updated ts for change %s", changeId);
       return false;
     }
     try {
-      if (indexEventOption.isPresent()) {
-        try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-          IndexEvent indexEvent = indexEventOption.get();
-          return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
-              && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
-              && (indexEvent.metaSha == null || repositoryHas(repo, indexEvent.metaSha));
-        }
+      try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
+        return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
+            && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
+            && repositoryHas(repo, indexEvent.metaSha);
       }
-      return true;
-
     } catch (IOException ex) {
       log.atWarning().log("Unable to read meta sha for change %s", changeId);
       return false;
@@ -126,7 +118,7 @@ public class ChangeCheckerImpl implements ChangeChecker {
       return "change-id="
           + changeId
           + "@"
-          + getComputedChangeTs().map(IndexEvent::format)
+          + getComputedChangeTs().map(ChangeIndexEvent::format)
           + "/target:"
           + getBranchTargetSha()
           + "/meta:"

@@ -18,7 +18,6 @@ import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -36,25 +35,20 @@ public class ForwardedIndexAccountHandler extends ForwardedIndexingHandler<Accou
     this.indexer = indexer;
   }
 
-  @Override
-  protected CompletableFuture<Boolean> doIndex(Account.Id id, Optional<IndexEvent> indexEvent)
-      throws Exception {
-    try {
-      withForwardedEventFlag(
-          () -> {
-            indexer.index(id);
-            log.atFine().log("Account %s successfully indexed", id);
-            return null;
-          });
-    } catch (Exception e) {
-      log.atFine().log("Account %s failed to be indexed", id);
-      throw e;
-    }
-    return CompletableFuture.completedFuture(true);
-  }
-
-  @Override
-  protected CompletableFuture<Boolean> doDelete(Account.Id id, Optional<IndexEvent> indexEvent) {
-    throw new UnsupportedOperationException("Delete from account index not supported");
+  public CompletableFuture<Boolean> index(Account.Id id) throws Exception {
+    return withInFlightGuard(
+        id,
+        () ->
+            withForwardedEventFlag(
+                () -> {
+                  try {
+                    indexer.index(id);
+                    log.atFine().log("Account %s successfully indexed", id);
+                  } catch (RuntimeException e) {
+                    log.atFine().log("Account %s failed to be indexed", id);
+                    throw e;
+                  }
+                  return CompletableFuture.completedFuture(true);
+                }));
   }
 }

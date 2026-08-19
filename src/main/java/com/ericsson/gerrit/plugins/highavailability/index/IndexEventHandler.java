@@ -14,9 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
@@ -52,7 +52,7 @@ class IndexEventHandler
     currCtx.onlyWithContext(
         (ctx) -> {
           if (!Context.isForwardedEvent()) {
-            forwarder.get().indexAccount(id, new IndexEvent());
+            forwarder.get().indexAccount(id);
           }
         });
   }
@@ -77,7 +77,7 @@ class IndexEventHandler
     if (!Context.isForwardedEvent()) {
       String changeId = projectName + "~" + id;
       try {
-        Optional<IndexEvent> indexEvent = changeChecker.create(changeId).newIndexEvent();
+        Optional<ChangeIndexEvent> indexEvent = changeChecker.create(changeId).newIndexEvent();
         if (indexEvent.isEmpty()) {
           return;
         }
@@ -96,21 +96,21 @@ class IndexEventHandler
   @Override
   public void onChangeDeleted(String projectName, int id) {
     if (!Context.isForwardedEvent()) {
-      forwarder.get().deleteChangeFromIndex(projectName, id, new IndexEvent());
+      forwarder.get().deleteChangeFromIndex(projectName, id);
     }
   }
 
   @Override
   public void onProjectIndexed(String projectName) {
     if (!Context.isForwardedEvent()) {
-      forwarder.get().indexProject(projectName, new IndexEvent());
+      forwarder.get().indexProject(projectName);
     }
   }
 
   @Override
   public void onGroupIndexed(String groupUUID) {
     if (!Context.isForwardedEvent()) {
-      forwarder.get().indexGroup(groupUUID, new IndexEvent());
+      forwarder.get().indexGroup(groupUUID);
     }
   }
 }

@@ -14,6 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
+import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static javax.servlet.http.HttpServletResponse.SC_NO_CONTENT;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,12 +24,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.time.Instant;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Before;
@@ -44,6 +48,7 @@ public class IndexChangeRestApiServletTest {
   private static final String PROJECT_NAME_URL_ENC = "test%2Fproject";
   private static final String CHANGE_ID = PROJECT_NAME + "~" + CHANGE_NUMBER;
   private static final String IO_ERROR = "io-error";
+  private static final Gson GSON = new Gson();
 
   @Mock private ForwardedIndexChangeHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
@@ -54,43 +59,60 @@ public class IndexChangeRestApiServletTest {
   private IndexChangeRestApiServlet servlet;
 
   @Before
-  public void setUpMocks() {
+  public void setUpMocks() throws IOException {
     when(metricsRegistryMock.get(any())).thenReturn(metrics);
     servlet = new IndexChangeRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/change/" + PROJECT_NAME_URL_ENC + "~" + CHANGE_NUMBER);
+    when(requestMock.getContentType()).thenReturn("application/json");
+  }
+
+  private void setRequestBody(ChangeIndexEvent event) throws IOException {
+    String json = GSON.toJson(event);
+    when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader(json)));
   }
 
   @Test
   public void changeIsIndexed() throws Exception {
+    setRequestBody(new ChangeIndexEvent(Instant.now(), null, "deadbeef"));
     servlet.doPost(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(CHANGE_ID), eq(Operation.INDEX), any());
+    verify(handlerMock, times(1)).index(eq(CHANGE_ID), any(ChangeIndexEvent.class));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
+    when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader("")));
     servlet.doDelete(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(CHANGE_ID), eq(Operation.DELETE), any());
+    verify(handlerMock, times(1)).delete(eq(CHANGE_ID));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
   @Test
   public void indexerThrowsIOExceptionTryingToIndexChange() throws Exception {
+    setRequestBody(new ChangeIndexEvent(Instant.now(), null, "deadbeef"));
     doThrow(new IOException(IO_ERROR))
         .when(handlerMock)
-        .index(eq(CHANGE_ID), eq(Operation.INDEX), any());
+        .index(eq(CHANGE_ID), any(ChangeIndexEvent.class));
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);
   }
 
   @Test
   public void sendErrorThrowsIOException() throws Exception {
+    setRequestBody(new ChangeIndexEvent(Instant.now(), null, "deadbeef"));
     doThrow(new IOException(IO_ERROR))
         .when(handlerMock)
-        .index(eq(CHANGE_ID), eq(Operation.INDEX), any());
+        .index(eq(CHANGE_ID), any(ChangeIndexEvent.class));
     doThrow(new IOException("someError")).when(responseMock).sendError(SC_CONFLICT, IO_ERROR);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);
+  }
+
+  @Test
+  public void missingMetaShaReturnsBadRequest() throws Exception {
+    when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader("{}")));
+    servlet.doPost(requestMock, responseMock);
+    verify(responseMock).sendError(SC_BAD_REQUEST, "metaSha is required for change index events");
   }
 }
