@@ -14,7 +14,7 @@
 
 package com.ericsson.gerrit.plugins.highavailability.index;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.google.gerrit.server.notedb.ChangeNotes;
 import java.io.IOException;
 import java.time.Instant;
@@ -33,10 +33,10 @@ public interface ChangeChecker {
   /**
    * Create a new index event POJO associated with the current Change.
    *
-   * @return new IndexEvent
+   * @return new ChangeIndexEvent
    * @throws IOException if the current Change cannot read
    */
-  Optional<IndexEvent> newIndexEvent() throws IOException;
+  Optional<ChangeIndexEvent> newIndexEvent() throws IOException;
 
   /**
    * Check if the local Change is aligned with the indexEvent received.
@@ -45,7 +45,7 @@ public interface ChangeChecker {
    * @return true if the local Change is up-to-date, false otherwise.
    * @throws IOException if an I/O error occurred while reading the local Change
    */
-  boolean isChangeUpToDate(Optional<IndexEvent> indexEvent) throws IOException;
+  boolean isChangeUpToDate(ChangeIndexEvent indexEvent) throws IOException;
 
   /**
    * Return the last computed up-to-date Change time-stamp.

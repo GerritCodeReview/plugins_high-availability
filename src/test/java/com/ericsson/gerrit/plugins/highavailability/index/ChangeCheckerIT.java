@@ -16,7 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.PushOneCommit.Result;
 import com.google.gerrit.acceptance.TestPlugin;
@@ -48,10 +48,10 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   public void shouldPopulateMetaSha() throws Exception {
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
-    Optional<IndexEvent> eventOption = changeChecker.newIndexEvent();
+    Optional<ChangeIndexEvent> eventOption = changeChecker.newIndexEvent();
 
     assertThat(eventOption.isPresent()).isTrue();
-    IndexEvent event = eventOption.get();
+    ChangeIndexEvent event = eventOption.get();
     assertThat(event.metaSha).isNotNull();
     assertThat(event.metaSha).isEqualTo(readMetaSha(change));
   }
@@ -62,9 +62,9 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
       throws Exception {
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
-    Optional<IndexEvent> event = changeChecker.newIndexEvent();
+    Optional<ChangeIndexEvent> event = changeChecker.newIndexEvent();
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isTrue();
+    assertThat(changeChecker.isChangeUpToDate(event.get())).isTrue();
   }
 
   @Test
@@ -72,16 +72,11 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
   public void shouldReturnIsUpToDateTrueWhenTargetShaIsNull() throws Exception {
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
-    Optional<IndexEvent> event =
-        changeChecker
-            .newIndexEvent()
-            .map(
-                e -> {
-                  e.targetSha = null;
-                  return e;
-                });
+    ChangeIndexEvent original = changeChecker.newIndexEvent().get();
+    ChangeIndexEvent noTarget =
+        new ChangeIndexEvent(original.eventCreatedOn, null, original.metaSha);
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isTrue();
+    assertThat(changeChecker.isChangeUpToDate(noTarget)).isTrue();
   }
 
   @Test
@@ -90,16 +85,11 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     String testMetaRefSha = "6212efebe6e8b9f439a8ad013243e602afab7441";
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
-    Optional<IndexEvent> event =
-        changeChecker
-            .newIndexEvent()
-            .map(
-                e -> {
-                  e.metaSha = testMetaRefSha;
-                  return e;
-                });
+    ChangeIndexEvent original = changeChecker.newIndexEvent().get();
+    ChangeIndexEvent staleEvent =
+        new ChangeIndexEvent(original.eventCreatedOn, original.targetSha, testMetaRefSha);
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isFalse();
+    assertThat(changeChecker.isChangeUpToDate(staleEvent)).isFalse();
   }
 
   @Test
@@ -108,16 +98,11 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     String testTargetRefSha = "abed47baf2818a86b68cf712073a748a6b5b293e";
     Result change = createChange();
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
-    Optional<IndexEvent> event =
-        changeChecker
-            .newIndexEvent()
-            .map(
-                e -> {
-                  e.targetSha = testTargetRefSha;
-                  return e;
-                });
+    ChangeIndexEvent original = changeChecker.newIndexEvent().get();
+    ChangeIndexEvent staleEvent =
+        new ChangeIndexEvent(original.eventCreatedOn, testTargetRefSha, original.metaSha);
 
-    assertThat(changeChecker.isChangeUpToDate(event)).isFalse();
+    assertThat(changeChecker.isChangeUpToDate(staleEvent)).isFalse();
   }
 
   private String readMetaSha(Result change) throws IOException {

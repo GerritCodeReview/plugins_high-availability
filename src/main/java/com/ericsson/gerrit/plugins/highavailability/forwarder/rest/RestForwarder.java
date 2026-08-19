@@ -16,10 +16,10 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.annotations.VisibleForTesting;
@@ -83,19 +83,19 @@ public class RestForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> indexAccount(final int accountId, IndexEvent event) {
+  public CompletableFuture<Result> indexAccount(final int accountId) {
     return execute(
         RequestMethod.POST,
         EventType.INDEX_ACCOUNT_UPDATE,
         "index account",
         "index/account",
         accountId,
-        event,
-        event.eventCreatedOn);
+        Instant.now());
   }
 
   @Override
-  public CompletableFuture<Result> indexChange(String projectName, int changeId, IndexEvent event) {
+  public CompletableFuture<Result> indexChange(
+      String projectName, int changeId, ChangeIndexEvent event) {
     return execute(
         RequestMethod.POST,
         EventType.INDEX_CHANGE_UPDATE,
@@ -108,7 +108,7 @@ public class RestForwarder implements Forwarder {
 
   @Override
   public CompletableFuture<Result> batchIndexChange(
-      String projectName, int changeId, IndexEvent event) {
+      String projectName, int changeId, ChangeIndexEvent event) {
     return execute(
         RequestMethod.POST,
         EventType.INDEX_CHANGE_UPDATE_BATCH,
@@ -120,28 +120,25 @@ public class RestForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> deleteChangeFromIndex(
-      String projectName, final int changeId, IndexEvent event) {
+  public CompletableFuture<Result> deleteChangeFromIndex(String projectName, final int changeId) {
     return execute(
         RequestMethod.DELETE,
         EventType.INDEX_CHANGE_DELETION,
         "delete change",
         "index/change",
         buildIndexEndpoint(projectName, changeId),
-        event,
-        event.eventCreatedOn);
+        Instant.now());
   }
 
   @Override
-  public CompletableFuture<Result> indexGroup(final String uuid, IndexEvent event) {
+  public CompletableFuture<Result> indexGroup(final String uuid) {
     return execute(
         RequestMethod.POST,
         EventType.INDEX_GROUP_UPDATE,
         "index group",
         "index/group",
         uuid,
-        event,
-        event.eventCreatedOn);
+        Instant.now());
   }
 
   private String buildIndexEndpoint(String projectName, int changeId) {
@@ -156,15 +153,14 @@ public class RestForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> indexProject(String projectName, IndexEvent event) {
+  public CompletableFuture<Result> indexProject(String projectName) {
     return execute(
         RequestMethod.POST,
         EventType.INDEX_PROJECT_UPDATE,
         "index project",
         "index/project",
         Url.encode(projectName),
-        event,
-        event.eventCreatedOn);
+        Instant.now());
   }
 
   @Override

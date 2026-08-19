@@ -18,7 +18,6 @@ import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -36,26 +35,20 @@ public class ForwardedIndexGroupHandler extends ForwardedIndexingHandler<Account
     this.indexer = indexer;
   }
 
-  @Override
-  protected CompletableFuture<Boolean> doIndex(
-      AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) throws Exception {
-    try {
-      withForwardedEventFlag(
-          () -> {
-            indexer.index(uuid);
-            log.atFine().log("Group %s successfully indexed", uuid);
-            return null;
-          });
-    } catch (Exception e) {
-      log.atFine().log("Group %s could not be indexed", uuid);
-      throw e;
-    }
-    return CompletableFuture.completedFuture(true);
-  }
-
-  @Override
-  protected CompletableFuture<Boolean> doDelete(
-      AccountGroup.UUID uuid, Optional<IndexEvent> indexEvent) {
-    throw new UnsupportedOperationException("Delete from group index not supported");
+  public CompletableFuture<Boolean> index(AccountGroup.UUID uuid) throws Exception {
+    return withInFlightGuard(
+        uuid,
+        () ->
+            withForwardedEventFlag(
+                () -> {
+                  try {
+                    indexer.index(uuid);
+                    log.atFine().log("Group %s successfully indexed", uuid);
+                  } catch (RuntimeException e) {
+                    log.atFine().log("Group %s could not be indexed", uuid);
+                    throw e;
+                  }
+                  return CompletableFuture.completedFuture(true);
+                }));
   }
 }

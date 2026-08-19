@@ -16,9 +16,9 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.jgroups;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.Command;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandsGson;
@@ -80,36 +80,35 @@ public class JGroupsForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> indexAccount(int accountId, IndexEvent indexEvent) {
-    return execute(new IndexAccount(accountId, indexEvent.eventCreatedOn));
+  public CompletableFuture<Result> indexAccount(int accountId) {
+    return execute(new IndexAccount(accountId, Instant.now()));
   }
 
   @Override
   public CompletableFuture<Result> indexChange(
-      String projectName, int changeId, IndexEvent indexEvent) {
+      String projectName, int changeId, ChangeIndexEvent indexEvent) {
     return execute(new IndexChange.Update(projectName, changeId, indexEvent));
   }
 
   @Override
   public CompletableFuture<Result> batchIndexChange(
-      String projectName, int changeId, IndexEvent indexEvent) {
+      String projectName, int changeId, ChangeIndexEvent indexEvent) {
     return execute(new IndexChange.BatchUpdate(projectName, changeId, indexEvent));
   }
 
   @Override
-  public CompletableFuture<Result> deleteChangeFromIndex(
-      String projectName, int changeId, IndexEvent indexEvent) {
-    return execute(new IndexChange.Delete(projectName, changeId, indexEvent));
+  public CompletableFuture<Result> deleteChangeFromIndex(String projectName, int changeId) {
+    return execute(new IndexChange.Delete(projectName, changeId));
   }
 
   @Override
-  public CompletableFuture<Result> indexGroup(String uuid, IndexEvent indexEvent) {
-    return execute(new IndexGroup(uuid, indexEvent.eventCreatedOn));
+  public CompletableFuture<Result> indexGroup(String uuid) {
+    return execute(new IndexGroup(uuid, Instant.now()));
   }
 
   @Override
-  public CompletableFuture<Result> indexProject(String projectName, IndexEvent indexEvent) {
-    return execute(new IndexProject(projectName, indexEvent.eventCreatedOn));
+  public CompletableFuture<Result> indexProject(String projectName) {
+    return execute(new IndexProject(projectName, Instant.now()));
   }
 
   @Override
