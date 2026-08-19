@@ -14,9 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.base.Strings;
+import java.time.Instant;
 
 public abstract class IndexChange extends Command {
   private final String projectName;
@@ -26,13 +27,22 @@ public abstract class IndexChange extends Command {
   public final String metaSha;
 
   protected IndexChange(
-      EventType type, String projectName, int id, boolean batchMode, IndexEvent indexEvent) {
+      EventType type, String projectName, int id, boolean batchMode, ChangeIndexEvent indexEvent) {
     super(type, indexEvent.eventCreatedOn);
     this.projectName = projectName;
     this.id = id;
     this.batchMode = batchMode;
     this.targetSha = indexEvent.targetSha;
     this.metaSha = indexEvent.metaSha;
+  }
+
+  protected IndexChange(EventType type, String projectName, int id) {
+    super(type, Instant.now());
+    this.projectName = projectName;
+    this.id = id;
+    this.batchMode = false;
+    this.targetSha = null;
+    this.metaSha = null;
   }
 
   public String getId() {
@@ -46,7 +56,7 @@ public abstract class IndexChange extends Command {
   public static class Update extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE;
 
-    public Update(String projectName, int id, IndexEvent indexEvent) {
+    public Update(String projectName, int id, ChangeIndexEvent indexEvent) {
       super(TYPE, projectName, id, false, indexEvent);
     }
   }
@@ -54,7 +64,7 @@ public abstract class IndexChange extends Command {
   public static class BatchUpdate extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE_BATCH;
 
-    public BatchUpdate(String projectName, int id, IndexEvent indexEvent) {
+    public BatchUpdate(String projectName, int id, ChangeIndexEvent indexEvent) {
       super(TYPE, projectName, id, true, indexEvent);
     }
   }
@@ -62,8 +72,8 @@ public abstract class IndexChange extends Command {
   public static class Delete extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_DELETION;
 
-    public Delete(String projectName, int id, IndexEvent indexEvent) {
-      super(TYPE, projectName, id, false, indexEvent);
+    public Delete(String projectName, int id) {
+      super(TYPE, projectName, id);
     }
   }
 }

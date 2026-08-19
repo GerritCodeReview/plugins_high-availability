@@ -16,12 +16,10 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexGroupHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,6 +39,6 @@ class IndexGroupRestApiServlet extends AbstractIndexRestApiServlet {
   @Override
   protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
     AccountGroup.UUID uuid = AccountGroup.uuid(extractRawId(req));
-    return process(req, rsp, _ -> handler.index(uuid, Operation.INDEX, Optional.empty()));
+    return process(req, rsp, _ -> handler.index(uuid));
   }
 }

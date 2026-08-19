@@ -23,11 +23,11 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Change;
@@ -36,6 +36,7 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.inject.Inject;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -77,15 +78,16 @@ public class IndexEventHandlerTest {
     accountId = Account.id(ACCOUNT_ID);
     accountGroupUUID = AccountGroup.uuid(UUID);
     when(changeCheckerFactoryMock.create(any())).thenReturn(changeCheckerMock);
-    when(changeCheckerMock.newIndexEvent()).thenReturn(Optional.of(new IndexEvent()));
+    when(changeCheckerMock.newIndexEvent())
+        .thenReturn(Optional.of(new ChangeIndexEvent(Instant.now(), null, "deadbeef")));
 
-    when(forwarder.indexAccount(eq(ACCOUNT_ID), any()))
+    when(forwarder.indexAccount(eq(ACCOUNT_ID)))
         .thenReturn(
             CompletableFuture.completedFuture(new Result(EventType.INDEX_ACCOUNT_UPDATE, true)));
-    when(forwarder.deleteChangeFromIndex(eq(PROJECT_NAME), eq(CHANGE_ID), any()))
+    when(forwarder.deleteChangeFromIndex(eq(PROJECT_NAME), eq(CHANGE_ID)))
         .thenReturn(
             CompletableFuture.completedFuture(new Result(EventType.INDEX_CHANGE_DELETION, true)));
-    when(forwarder.indexGroup(eq(UUID), any()))
+    when(forwarder.indexGroup(eq(UUID)))
         .thenReturn(
             CompletableFuture.completedFuture(new Result(EventType.INDEX_GROUP_UPDATE, true)));
     when(forwarder.indexChange(eq(PROJECT_NAME), eq(CHANGE_ID), any()))
@@ -136,20 +138,20 @@ public class IndexEventHandlerTest {
   @Test
   public void shouldIndexInRemoteOnAccountIndexedEvent() throws Exception {
     indexEventHandler.onAccountIndexed(accountId.get());
-    verify(forwarder).indexAccount(eq(ACCOUNT_ID), any());
+    verify(forwarder).indexAccount(eq(ACCOUNT_ID));
   }
 
   @Test
   public void shouldDeleteFromIndexInRemoteOnChangeDeletedEvent() throws Exception {
     indexEventHandler.onChangeDeleted(PROJECT_NAME, changeId.get());
-    verify(forwarder).deleteChangeFromIndex(eq(PROJECT_NAME), eq(CHANGE_ID), any());
+    verify(forwarder).deleteChangeFromIndex(eq(PROJECT_NAME), eq(CHANGE_ID));
     verifyNoInteractions(changeCheckerMock); // Deleted changes should not be checked against NoteDb
   }
 
   @Test
   public void shouldIndexInRemoteOnGroupIndexedEvent() throws Exception {
     indexEventHandler.onGroupIndexed(accountGroupUUID.get());
-    verify(forwarder).indexGroup(eq(UUID), any());
+    verify(forwarder).indexGroup(eq(UUID));
   }
 
   @Test

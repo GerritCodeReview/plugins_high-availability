@@ -25,7 +25,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexGroupHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gerrit.entities.AccountGroup;
@@ -63,7 +62,7 @@ public class IndexGroupRestApiServletTest {
   @Test
   public void groupIsIndexed() throws Exception {
     servlet.doPost(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(uuid), eq(Operation.INDEX), any());
+    verify(handlerMock, times(1)).index(eq(uuid));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
@@ -75,18 +74,14 @@ public class IndexGroupRestApiServletTest {
 
   @Test
   public void indexerThrowsIOExceptionTryingToIndexGroup() throws Exception {
-    doThrow(new IOException(IO_ERROR))
-        .when(handlerMock)
-        .index(eq(uuid), eq(Operation.INDEX), any());
+    doThrow(new IOException(IO_ERROR)).when(handlerMock).index(eq(uuid));
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);
   }
 
   @Test
   public void sendErrorThrowsIOException() throws Exception {
-    doThrow(new IOException(IO_ERROR))
-        .when(handlerMock)
-        .index(eq(uuid), eq(Operation.INDEX), any());
+    doThrow(new IOException(IO_ERROR)).when(handlerMock).index(eq(uuid));
     doThrow(new IOException("someError")).when(responseMock).sendError(SC_CONFLICT, IO_ERROR);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);

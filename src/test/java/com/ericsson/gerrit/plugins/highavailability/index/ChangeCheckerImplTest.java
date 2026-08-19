@@ -17,7 +17,6 @@ package com.ericsson.gerrit.plugins.highavailability.index;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.server.change.ChangeFinder;
 import com.google.gerrit.server.git.GitRepositoryManager;
@@ -43,7 +42,6 @@ public class ChangeCheckerImplTest {
 
   private final Instant testLastUpdatedOn = Instant.now();
   private final String changeId = "1";
-  Optional<IndexEvent> event = Optional.empty();
   private Optional<Instant> computedChangeTs = Optional.empty();
   private ChangeCheckerImpl changeChecker;
 
@@ -70,10 +68,5 @@ public class ChangeCheckerImplTest {
   @Test
   public void testNewIndexEventWhenChangeTimeStampIsEmpty() throws IOException {
     assertThat(changeChecker.newIndexEvent().isPresent()).isFalse();
-  }
-
-  @Test
-  public void testIsChangeUpToDateWhenComputedChangeTsIsNotPresent() throws IOException {
-    assertThat(changeChecker.isChangeUpToDate(event)).isFalse();
   }
 }

@@ -26,7 +26,6 @@ import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder.Result;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.git.WorkQueue;
@@ -96,7 +95,7 @@ public class JGroupsForwarderTest {
     RspList<Object> OK = new RspList<>(Map.of(A1, RSP_OK, A2, RSP_OK));
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(OK);
 
-    CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
+    CompletableFuture<Result> result = forwarder.indexAccount(100);
     assertThat(result.get().result()).isTrue();
     verify(dispatcher, times(1)).castMessage(any(), any(), any());
   }
@@ -108,7 +107,7 @@ public class JGroupsForwarderTest {
     RspList<Object> FAIL = new RspList<>(Map.of(A1, RSP_OK, A2, RSP_FAIL));
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, OK);
 
-    CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
+    CompletableFuture<Result> result = forwarder.indexAccount(100);
     assertThat(result.get().result()).isTrue();
     verify(dispatcher, times(2)).castMessage(any(), any(), any());
   }
@@ -120,7 +119,7 @@ public class JGroupsForwarderTest {
     // return FAIL x MAX_TRIES
     when(dispatcher.castMessage(any(), any(), any())).thenReturn(FAIL, FAIL, FAIL);
 
-    CompletableFuture<Result> result = forwarder.indexAccount(100, new IndexEvent());
+    CompletableFuture<Result> result = forwarder.indexAccount(100);
     assertThat(result.get().result()).isFalse();
     verify(dispatcher, times(MAX_TRIES)).castMessage(any(), any(), any());
   }

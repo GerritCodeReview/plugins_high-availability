@@ -15,15 +15,14 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.annotations.VisibleForTesting;
@@ -34,7 +33,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.Optional;
 
 @Singleton
 public class CommandProcessorImpl implements CommandProcessor {
@@ -78,24 +76,27 @@ public class CommandProcessorImpl implements CommandProcessor {
 
       if (cmd instanceof IndexChange) {
         IndexChange indexChange = (IndexChange) cmd;
-        Operation op = getOperation(indexChange);
         try {
           ForwardedIndexChangeHandler handler =
               indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-          handler.index(indexChange.getId(), op, Optional.of(toIndexEvent(indexChange)));
-          log.atFine().log(
-              "Change index %s on change %s done", op.name().toLowerCase(), indexChange.getId());
+          if (indexChange instanceof IndexChange.Delete) {
+            handler.delete(indexChange.getId());
+            log.atFine().log("Change index delete on change %s done", indexChange.getId());
+          } else {
+            ChangeIndexEvent event = toChangeIndexEvent(indexChange);
+            handler.index(indexChange.getId(), event);
+            log.atFine().log("Change index update on change %s done", indexChange.getId());
+          }
         } catch (Exception e) {
           log.atSevere().withCause(e).log(
-              "Change index %s on change %s failed", op.name().toLowerCase(), indexChange.getId());
+              "Change index operation on change %s failed", indexChange.getId());
           throw e;
         }
 
       } else if (cmd instanceof IndexAccount) {
         IndexAccount indexAccount = (IndexAccount) cmd;
         try {
-          indexAccountHandler.index(
-              Account.id(indexAccount.getId()), Operation.INDEX, Optional.empty());
+          indexAccountHandler.index(Account.id(indexAccount.getId()));
           log.atFine().log("Account index update on account %s done", indexAccount.getId());
         } catch (IOException e) {
           log.atSevere().withCause(e).log(
@@ -132,21 +133,7 @@ public class CommandProcessorImpl implements CommandProcessor {
     return success;
   }
 
-  private Operation getOperation(IndexChange cmd) {
-    if (cmd instanceof IndexChange.Update || cmd instanceof IndexChange.BatchUpdate) {
-      return Operation.INDEX;
-    } else if (cmd instanceof IndexChange.Delete) {
-      return Operation.DELETE;
-    } else {
-      throw new IllegalArgumentException("Unknown type of IndexChange command " + cmd.getClass());
-    }
-  }
-
-  private static IndexEvent toIndexEvent(IndexChange cmd) {
-    IndexEvent e = new IndexEvent();
-    e.eventCreatedOn = cmd.eventCreatedOn;
-    e.targetSha = cmd.targetSha;
-    e.metaSha = cmd.metaSha;
-    return e;
+  private static ChangeIndexEvent toChangeIndexEvent(IndexChange cmd) {
+    return new ChangeIndexEvent(cmd.eventCreatedOn, cmd.targetSha, cmd.metaSha);
   }
 }
