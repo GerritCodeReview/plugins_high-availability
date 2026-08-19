@@ -1,4 +1,4 @@
-// Copyright (C) 2018 The Android Open Source Project
+// Copyright (C) 2026 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,22 +14,32 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
+import com.google.gerrit.common.Nullable;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-public class IndexEvent {
-  public Instant eventCreatedOn = Instant.now();
-  public String targetSha;
+/** Details of a change index event. {@code metaSha} is mandatory. */
+public class ChangeIndexEvent {
+  public Instant eventCreatedOn;
+  @Nullable public String targetSha;
   public String metaSha;
+
+  public ChangeIndexEvent(Instant eventCreatedOn, @Nullable String targetSha, String metaSha) {
+    this.eventCreatedOn = Objects.requireNonNull(eventCreatedOn, "eventCreatedOn");
+    this.targetSha = targetSha;
+    this.metaSha = Objects.requireNonNull(metaSha, "metaSha");
+  }
 
   @Override
   public String toString() {
-    return "IndexEvent@"
+    return "ChangeIndexEvent@"
         + format(eventCreatedOn)
         + ((targetSha != null) ? "/target:" + targetSha : "")
-        + ((metaSha != null) ? "/meta:" + metaSha : "");
+        + "/meta:"
+        + metaSha;
   }
 
   public static String format(Instant eventTs) {

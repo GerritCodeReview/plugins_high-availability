@@ -14,9 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability;
 
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Project.NameKey;
 import com.google.gerrit.server.events.Event;
@@ -32,36 +32,35 @@ public class NoForwarder implements Forwarder {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   @Override
-  public CompletableFuture<Result> indexAccount(int accountId, IndexEvent indexEvent) {
+  public CompletableFuture<Result> indexAccount(int accountId) {
     logger.atWarning().log("NoForwarder: indexAccount called with accountId=%d", accountId);
     return recoverableFailure(EventType.INDEX_ACCOUNT_UPDATE);
   }
 
   @Override
   public CompletableFuture<Result> indexChange(
-      String projectName, int changeId, IndexEvent indexEvent) {
+      String projectName, int changeId, ChangeIndexEvent indexEvent) {
     return recoverableFailure(EventType.INDEX_CHANGE_UPDATE);
   }
 
   @Override
   public CompletableFuture<Result> batchIndexChange(
-      String projectName, int changeId, IndexEvent indexEvent) {
+      String projectName, int changeId, ChangeIndexEvent indexEvent) {
     return recoverableFailure(EventType.INDEX_CHANGE_UPDATE_BATCH);
   }
 
   @Override
-  public CompletableFuture<Result> deleteChangeFromIndex(
-      String projectName, int changeId, IndexEvent indexEvent) {
+  public CompletableFuture<Result> deleteChangeFromIndex(String projectName, int changeId) {
     return recoverableFailure(EventType.INDEX_CHANGE_DELETION);
   }
 
   @Override
-  public CompletableFuture<Result> indexGroup(String uuid, IndexEvent indexEvent) {
+  public CompletableFuture<Result> indexGroup(String uuid) {
     return recoverableFailure(EventType.INDEX_GROUP_UPDATE);
   }
 
   @Override
-  public CompletableFuture<Result> indexProject(String projectName, IndexEvent indexEvent) {
+  public CompletableFuture<Result> indexProject(String projectName) {
     return recoverableFailure(EventType.INDEX_PROJECT_UPDATE);
   }
 

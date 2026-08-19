@@ -20,11 +20,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.server.index.group.GroupIndexer;
 import java.io.IOException;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,17 +45,8 @@ public class ForwardedIndexGroupHandlerTest {
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(uuid, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(uuid).get(10, SECONDS);
     verify(indexerMock).index(uuid);
-  }
-
-  @Test
-  public void deleteIsNotSupported() throws Exception {
-    UnsupportedOperationException thrown =
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> handler.index(uuid, Operation.DELETE, Optional.empty()).get(10, SECONDS));
-    assertThat(thrown).hasMessageThat().contains("Delete from group index not supported");
   }
 
   @Test
@@ -72,7 +61,7 @@ public class ForwardedIndexGroupHandlerTest {
         .index(uuid);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(uuid, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(uuid).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(uuid);
@@ -91,9 +80,7 @@ public class ForwardedIndexGroupHandlerTest {
 
     assertThat(Context.isForwardedEvent()).isFalse();
     IOException thrown =
-        assertThrows(
-            IOException.class,
-            () -> handler.index(uuid, Operation.INDEX, Optional.empty()).get(10, SECONDS));
+        assertThrows(IOException.class, () -> handler.index(uuid).get(10, SECONDS));
     assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 

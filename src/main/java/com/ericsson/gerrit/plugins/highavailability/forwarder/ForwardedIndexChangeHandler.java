@@ -31,7 +31,6 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.failsafe.FailsafeExecutor;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -61,20 +60,49 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     this.changeCheckerFactory = changeCheckerFactory;
   }
 
-  @Override
-  protected CompletableFuture<Boolean> doIndex(String id, Optional<IndexEvent> indexEvent)
-      throws IOException {
-    return indexExecutor.getAsync(
+  public CompletableFuture<Boolean> index(String id, ChangeIndexEvent event) throws Exception {
+    return withInFlightGuard(
+        id,
         () ->
-            withForwardedEventFlag(
-                () -> {
-                  try (ManualRequestContext ctx = oneOffCtx.open()) {
-                    return indexOnce(id, indexEvent);
-                  }
-                }));
+            indexExecutor.getAsync(
+                () ->
+                    withForwardedEventFlag(
+                        () -> {
+                          try (ManualRequestContext ctx = oneOffCtx.open()) {
+                            return indexOnce(id, event);
+                          }
+                        })));
   }
 
-  private boolean indexOnce(String id, Optional<IndexEvent> indexEvent) throws Exception {
+  public CompletableFuture<Boolean> delete(String id) throws Exception {
+    return withInFlightGuard(
+        id,
+        () -> {
+          Project.NameKey projectName = parseProject(id);
+          if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
+            try {
+              indexer.deleteAllForProject(projectName);
+              log.atFine().log("All %s changes successfully deleted from index", projectName.get());
+            } catch (RuntimeException e) {
+              log.atFine().log(
+                  "An error occured during deletion of all %s changes from index",
+                  projectName.get());
+              throw e;
+            }
+          } else {
+            try {
+              indexer.delete(projectName, parseChangeId(id));
+              log.atFine().log("Change %s successfully deleted from index", id);
+            } catch (RuntimeException e) {
+              log.atFine().log("Change %s could not be deleted from index", id);
+              throw e;
+            }
+          }
+          return CompletableFuture.completedFuture(true);
+        });
+  }
+
+  private boolean indexOnce(String id, ChangeIndexEvent event) throws Exception {
     try {
       ChangeChecker checker = changeCheckerFactory.create(id);
       Optional<ChangeNotes> changeNotes;
@@ -85,10 +113,10 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         changeNotes = Optional.empty();
       }
       if (changeNotes.isPresent()) {
-        if (!checker.isChangeUpToDate(indexEvent)) {
+        if (!checker.isChangeUpToDate(event)) {
           log.atFine().log(
               "Change %s is not yet up to date with the event (event=%s, change=%s)",
-              id, indexEvent, checker);
+              id, event, checker);
           return false;
         }
 
@@ -98,8 +126,7 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
         return true;
       }
 
-      log.atFine().log(
-          "Change %s not present yet in local Git repository (event=%s)", id, indexEvent);
+      log.atFine().log("Change %s not present yet in local Git repository (event=%s)", id, event);
       return false;
 
     } catch (Exception e) {
@@ -116,31 +143,6 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   private void reindex(ChangeNotes notes) {
     var unused = notes.reload();
     var unusedResult = indexer.reindexIfStale(notes.getProjectName(), notes.getChangeId());
-  }
-
-  @Override
-  protected CompletableFuture<Boolean> doDelete(String id, Optional<IndexEvent> indexEvent)
-      throws IOException {
-    Project.NameKey projectName = parseProject(id);
-    if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
-      try {
-        indexer.deleteAllForProject(projectName);
-        log.atFine().log("All %s changes successfully deleted from index", projectName.get());
-      } catch (RuntimeException e) {
-        log.atFine().log(
-            "An error occured during deletion of all %s changes from index", projectName.get());
-        throw e;
-      }
-    } else {
-      try {
-        indexer.delete(projectName, parseChangeId(id));
-        log.atFine().log("Change %s successfully deleted from index", id);
-      } catch (RuntimeException e) {
-        log.atFine().log("Change %s could not be deleted from index", id);
-        throw e;
-      }
-    }
-    return CompletableFuture.completedFuture(true);
   }
 
   private static Change.Id parseChangeId(String id) {
