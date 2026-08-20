@@ -50,6 +50,24 @@
       "message": "make this a Java record with targetSha annotated as @Nullable ?",
       "revId": "3a53201ef9611f4fa9642c4afade619bfe1275ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b79b878_c01d8489",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ChangeIndexEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-08-20T11:35:14Z",
+      "side": 1,
+      "message": "I agree, but let me do it in a follow-up change.",
+      "parentUuid": "4efcaf72_af155609",
+      "revId": "3a53201ef9611f4fa9642c4afade619bfe1275ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
