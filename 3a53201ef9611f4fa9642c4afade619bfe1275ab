@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "931f472a_6774e45d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-09-10T09:15:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87f2bffd_923d6758",
+      "revId": "3a53201ef9611f4fa9642c4afade619bfe1275ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ca680e6_53bd86c9",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-08-19T14:58:54Z",
       "side": 1,
       "message": "```suggestion\ndeduplication to the new method runWithInFlightGuard() in the base class.\n```",
+      "revId": "3a53201ef9611f4fa9642c4afade619bfe1275ab",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bae9cc5b_51d2b0c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2026-09-10T09:15:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ca680e6_53bd86c9",
       "revId": "3a53201ef9611f4fa9642c4afade619bfe1275ab",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
