@@ -27,10 +27,10 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRe
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
-import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.time.Instant;
+import java.util.concurrent.CompletableFuture;
 
 @Singleton
 public class CommandProcessorImpl implements CommandProcessor {
@@ -64,56 +64,57 @@ public class CommandProcessorImpl implements CommandProcessor {
   }
 
   @Override
-  public boolean handle(Command cmd) {
+  public CompletableFuture<Boolean> handle(Command cmd) {
     ProcessorMetrics metrics = metricRegistry.get(cmd.type);
     Instant startTime = Instant.now();
-    boolean success = false;
 
+    CompletableFuture<Boolean> result;
     try {
       if (cmd instanceof IndexChange) {
         IndexChange indexChange = (IndexChange) cmd;
         ForwardedIndexChangeHandler handler =
             indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-        if (indexChange instanceof IndexChange.Delete) {
-          handler.delete(indexChange.getId());
-          log.atFine().log("Change index delete on change %s done", indexChange.getId());
-        } else {
-          ChangeIndexEvent event = toChangeIndexEvent(indexChange);
-          handler.index(indexChange.getId(), event);
-          log.atFine().log("Change index update on change %s done", indexChange.getId());
-        }
+        result =
+            indexChange instanceof IndexChange.Delete
+                ? handler.delete(indexChange.getId())
+                : handler.index(indexChange.getId(), toChangeIndexEvent(indexChange));
 
       } else if (cmd instanceof IndexAccount) {
-        IndexAccount indexAccount = (IndexAccount) cmd;
-        indexAccountHandler.index(Account.id(indexAccount.getId()));
-        log.atFine().log("Account index update on account %s done", indexAccount.getId());
+        result = indexAccountHandler.index(Account.id(((IndexAccount) cmd).getId()));
 
       } else if (cmd instanceof EvictCache) {
         EvictCache evictCommand = (EvictCache) cmd;
         cacheEvictionHandler.evict(
             CacheEntry.from(evictCommand.getCacheName(), evictCommand.getKeyJson()));
-        log.atFine().log(
-            "Cache eviction %s %s done", evictCommand.getCacheName(), evictCommand.getKeyJson());
+        result = CompletableFuture.completedFuture(true);
 
       } else if (cmd instanceof PostEvent) {
-        Event event = ((PostEvent) cmd).getEvent();
-        eventHandler.dispatch(event);
-        log.atFine().log("Dispatching event %s done", event);
+        eventHandler.dispatch(((PostEvent) cmd).getEvent());
+        result = CompletableFuture.completedFuture(true);
+
       } else if (cmd instanceof AddToProjectList) {
-        String projectName = ((AddToProjectList) cmd).getProjectName();
-        projectListUpdateHandler.update(projectName, false);
+        projectListUpdateHandler.update(((AddToProjectList) cmd).getProjectName(), false);
+        result = CompletableFuture.completedFuture(true);
 
       } else if (cmd instanceof RemoveFromProjectList) {
-        String projectName = ((RemoveFromProjectList) cmd).getProjectName();
-        projectListUpdateHandler.update(projectName, true);
+        projectListUpdateHandler.update(((RemoveFromProjectList) cmd).getProjectName(), true);
+        result = CompletableFuture.completedFuture(true);
+
+      } else {
+        result = CompletableFuture.completedFuture(false);
       }
-      success = true;
     } catch (Exception e) {
       log.atSevere().withCause(e).log("Error processing command %s", cmd);
-      success = false;
+      result = CompletableFuture.completedFuture(false);
     }
-    metrics.record(cmd.eventCreatedOn, startTime, success);
-    return success;
+
+    return result.whenComplete(
+        (success, t) -> {
+          if (t != null) {
+            log.atSevere().withCause(t).log("Error processing command %s", cmd);
+          }
+          metrics.record(cmd.eventCreatedOn, startTime, t == null && Boolean.TRUE.equals(success));
+        });
   }
 
   private static ChangeIndexEvent toChangeIndexEvent(IndexChange cmd) {
