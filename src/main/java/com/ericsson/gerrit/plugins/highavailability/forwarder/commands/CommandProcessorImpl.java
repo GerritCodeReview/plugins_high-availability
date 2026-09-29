@@ -16,7 +16,6 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
@@ -71,7 +70,6 @@ public class CommandProcessorImpl implements CommandProcessor {
     Instant startTime = Instant.now();
     boolean success = false;
 
-    Context.setForwardedEvent(true);
     try {
 
       if (cmd instanceof IndexChange) {
@@ -126,8 +124,6 @@ public class CommandProcessorImpl implements CommandProcessor {
       success = true;
     } catch (Exception e) {
       success = false;
-    } finally {
-      Context.unsetForwardedEvent();
     }
     metrics.record(cmd.eventCreatedOn, startTime, success);
     return success;
