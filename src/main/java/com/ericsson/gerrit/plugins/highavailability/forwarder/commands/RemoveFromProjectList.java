@@ -30,4 +30,9 @@ public class RemoveFromProjectList extends Command {
   public String getProjectName() {
     return projectName;
   }
+
+  @Override
+  public String toString() {
+    return type + "[" + projectName + "]";
+  }
 }
