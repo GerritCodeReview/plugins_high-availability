@@ -30,4 +30,9 @@ public class IndexGroup extends Command {
   public String getUuid() {
     return uuid;
   }
+
+  @Override
+  public String toString() {
+    return type + "[" + uuid + "]";
+  }
 }

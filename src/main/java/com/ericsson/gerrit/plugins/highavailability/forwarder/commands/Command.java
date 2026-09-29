@@ -25,4 +25,9 @@ public class Command {
     this.type = type;
     this.eventCreatedOn = eventCreatedOn;
   }
+
+  @Override
+  public String toString() {
+    return type.toString();
+  }
 }

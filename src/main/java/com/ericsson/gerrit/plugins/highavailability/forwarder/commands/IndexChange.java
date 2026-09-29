@@ -53,6 +53,11 @@ public abstract class IndexChange extends Command {
     return batchMode;
   }
 
+  @Override
+  public String toString() {
+    return type + "[" + getId() + "]";
+  }
+
   public static class Update extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE;
 

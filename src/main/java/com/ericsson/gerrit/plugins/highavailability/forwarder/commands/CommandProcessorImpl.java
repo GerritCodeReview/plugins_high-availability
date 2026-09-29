@@ -30,7 +30,6 @@ import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.time.Instant;
 
 @Singleton
@@ -71,36 +70,23 @@ public class CommandProcessorImpl implements CommandProcessor {
     boolean success = false;
 
     try {
-
       if (cmd instanceof IndexChange) {
         IndexChange indexChange = (IndexChange) cmd;
-        try {
-          ForwardedIndexChangeHandler handler =
-              indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-          if (indexChange instanceof IndexChange.Delete) {
-            handler.delete(indexChange.getId());
-            log.atFine().log("Change index delete on change %s done", indexChange.getId());
-          } else {
-            ChangeIndexEvent event = toChangeIndexEvent(indexChange);
-            handler.index(indexChange.getId(), event);
-            log.atFine().log("Change index update on change %s done", indexChange.getId());
-          }
-        } catch (Exception e) {
-          log.atSevere().withCause(e).log(
-              "Change index operation on change %s failed", indexChange.getId());
-          throw e;
+        ForwardedIndexChangeHandler handler =
+            indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
+        if (indexChange instanceof IndexChange.Delete) {
+          handler.delete(indexChange.getId());
+          log.atFine().log("Change index delete on change %s done", indexChange.getId());
+        } else {
+          ChangeIndexEvent event = toChangeIndexEvent(indexChange);
+          handler.index(indexChange.getId(), event);
+          log.atFine().log("Change index update on change %s done", indexChange.getId());
         }
 
       } else if (cmd instanceof IndexAccount) {
         IndexAccount indexAccount = (IndexAccount) cmd;
-        try {
-          indexAccountHandler.index(Account.id(indexAccount.getId()));
-          log.atFine().log("Account index update on account %s done", indexAccount.getId());
-        } catch (IOException e) {
-          log.atSevere().withCause(e).log(
-              "Account index update on account %s failed", indexAccount.getId());
-          throw e;
-        }
+        indexAccountHandler.index(Account.id(indexAccount.getId()));
+        log.atFine().log("Account index update on account %s done", indexAccount.getId());
 
       } else if (cmd instanceof EvictCache) {
         EvictCache evictCommand = (EvictCache) cmd;
@@ -123,6 +109,7 @@ public class CommandProcessorImpl implements CommandProcessor {
       }
       success = true;
     } catch (Exception e) {
+      log.atSevere().withCause(e).log("Error processing command %s", cmd);
       success = false;
     }
     metrics.record(cmd.eventCreatedOn, startTime, success);
