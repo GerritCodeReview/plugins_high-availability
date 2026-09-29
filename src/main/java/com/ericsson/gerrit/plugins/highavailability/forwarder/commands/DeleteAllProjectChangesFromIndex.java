@@ -31,4 +31,9 @@ public class DeleteAllProjectChangesFromIndex extends Command {
   public String getProjectName() {
     return projectName.get();
   }
+
+  @Override
+  public String toString() {
+    return type + "[" + projectName + "]";
+  }
 }

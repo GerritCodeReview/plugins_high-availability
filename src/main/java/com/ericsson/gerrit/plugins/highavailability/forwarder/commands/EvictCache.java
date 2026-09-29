@@ -36,4 +36,9 @@ public class EvictCache extends Command {
   public String getKeyJson() {
     return keyJson;
   }
+
+  @Override
+  public String toString() {
+    return type + "[" + cacheName + ", " + keyJson + "]";
+  }
 }

@@ -31,4 +31,9 @@ public class PostEvent extends Command {
   public Event getEvent() {
     return event;
   }
+
+  @Override
+  public String toString() {
+    return type + "[" + event + "]";
+  }
 }
