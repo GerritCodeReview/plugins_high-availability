@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import org.jgroups.ObjectMessage;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +80,7 @@ public class MessageProcessorTest {
   private List<Object> allHandlers = new ArrayList<>();
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
     when(metricsRegistry.get(any())).thenReturn(processorMetrics);
     Gson eventGson = new EventGsonProvider().get();
     gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
@@ -90,6 +91,13 @@ public class MessageProcessorTest {
     cacheEvictionHandler = createHandlerMock(ForwardedCacheEvictionHandler.class);
     eventHandler = createHandlerMock(ForwardedEventHandler.class);
     projectListUpdateHandler = createHandlerMock(ForwardedProjectListUpdateHandler.class);
+
+    when(indexChangeHandler.index(any(), any()))
+        .thenReturn(CompletableFuture.completedFuture(true));
+    when(indexChangeHandler.delete(any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(indexBatchChangeHandler.index(any(), any()))
+        .thenReturn(CompletableFuture.completedFuture(true));
+    when(indexAccountHandler.index(any())).thenReturn(CompletableFuture.completedFuture(true));
 
     processor =
         new JGroupsMessageProcessor(

@@ -39,7 +39,12 @@ public class JGroupsMessageProcessor implements RequestHandler {
 
   @Override
   public Object handle(Message msg) {
-    return processor.handle(getCommand(msg));
+    try {
+      return processor.handle(getCommand(msg)).get();
+    } catch (Exception e) {
+      log.atSevere().withCause(e).log("Error handling JGroups message");
+      return false;
+    }
   }
 
   private Command getCommand(Message msg) {
