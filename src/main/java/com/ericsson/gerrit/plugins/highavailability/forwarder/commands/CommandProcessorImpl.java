@@ -70,39 +70,34 @@ public class CommandProcessorImpl implements CommandProcessor {
 
     CompletableFuture<Boolean> result;
     try {
-      if (cmd instanceof IndexChange) {
-        IndexChange indexChange = (IndexChange) cmd;
-        ForwardedIndexChangeHandler handler =
-            indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-        result =
-            indexChange instanceof IndexChange.Delete
-                ? handler.delete(indexChange.getId())
-                : handler.index(indexChange.getId(), toChangeIndexEvent(indexChange));
-
-      } else if (cmd instanceof IndexAccount) {
-        result = indexAccountHandler.index(Account.id(((IndexAccount) cmd).getId()));
-
-      } else if (cmd instanceof EvictCache) {
-        EvictCache evictCommand = (EvictCache) cmd;
-        cacheEvictionHandler.evict(
-            CacheEntry.from(evictCommand.getCacheName(), evictCommand.getKeyJson()));
-        result = CompletableFuture.completedFuture(true);
-
-      } else if (cmd instanceof PostEvent) {
-        eventHandler.dispatch(((PostEvent) cmd).getEvent());
-        result = CompletableFuture.completedFuture(true);
-
-      } else if (cmd instanceof AddToProjectList) {
-        projectListUpdateHandler.update(((AddToProjectList) cmd).getProjectName(), false);
-        result = CompletableFuture.completedFuture(true);
-
-      } else if (cmd instanceof RemoveFromProjectList) {
-        projectListUpdateHandler.update(((RemoveFromProjectList) cmd).getProjectName(), true);
-        result = CompletableFuture.completedFuture(true);
-
-      } else {
-        result = CompletableFuture.completedFuture(false);
-      }
+      result =
+          switch (cmd) {
+            case IndexChange.Delete delete -> indexChangeHandler.delete(delete.getId());
+            case IndexChange.BatchUpdate batchUpdate ->
+                indexBatchChangeHandler.index(batchUpdate.getId(), toChangeIndexEvent(batchUpdate));
+            case IndexChange.Update update ->
+                indexChangeHandler.index(update.getId(), toChangeIndexEvent(update));
+            case IndexAccount indexAccount ->
+                indexAccountHandler.index(Account.id(indexAccount.getId()));
+            case EvictCache evictCache -> {
+              cacheEvictionHandler.evict(
+                  CacheEntry.from(evictCache.getCacheName(), evictCache.getKeyJson()));
+              yield CompletableFuture.completedFuture(true);
+            }
+            case PostEvent postEvent -> {
+              eventHandler.dispatch(postEvent.getEvent());
+              yield CompletableFuture.completedFuture(true);
+            }
+            case AddToProjectList addToProjectList -> {
+              projectListUpdateHandler.update(addToProjectList.getProjectName(), false);
+              yield CompletableFuture.completedFuture(true);
+            }
+            case RemoveFromProjectList removeFromProjectList -> {
+              projectListUpdateHandler.update(removeFromProjectList.getProjectName(), true);
+              yield CompletableFuture.completedFuture(true);
+            }
+            default -> CompletableFuture.completedFuture(false);
+          };
     } catch (Exception e) {
       log.atSevere().withCause(e).log("Error processing command %s", cmd);
       result = CompletableFuture.completedFuture(false);
