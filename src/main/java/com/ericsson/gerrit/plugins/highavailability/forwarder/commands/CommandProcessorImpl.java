@@ -67,7 +67,7 @@ public class CommandProcessorImpl implements CommandProcessor {
   public boolean handle(Command cmd) {
     ProcessorMetrics metrics = metricRegistry.get(cmd.type);
     Instant startTime = Instant.now();
-    boolean success = false;
+    boolean success = true;
 
     try {
       if (cmd instanceof IndexChange) {
@@ -106,8 +106,11 @@ public class CommandProcessorImpl implements CommandProcessor {
       } else if (cmd instanceof RemoveFromProjectList) {
         String projectName = ((RemoveFromProjectList) cmd).getProjectName();
         projectListUpdateHandler.update(projectName, true);
+
+      } else {
+        log.atWarning().log("Unknown command type: %s", cmd);
+        success = false;
       }
-      success = true;
     } catch (Exception e) {
       log.atSevere().withCause(e).log("Error processing command %s", cmd);
       success = false;
