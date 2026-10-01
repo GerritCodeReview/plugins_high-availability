@@ -29,14 +29,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.github.rholder.retry.RetryerBuilder;
+import com.github.rholder.retry.StopStrategies;
+import com.github.rholder.retry.WaitStrategies;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.google.common.base.Predicates;
 import com.google.common.io.Resources;
 import com.google.gerrit.extensions.restapi.Url;
 import java.net.Inet4Address;
-import java.net.NetworkInterface;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
+import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.junit.After;
 import org.junit.Before;
@@ -57,24 +62,33 @@ public class JGroupsKubernetesPeerInfoProviderTest {
   @Mock private InetAddressFinder finder;
   private JGroupsPeerInfoProvider firstJGroupsPeerInfoProvider;
   private JGroupsPeerInfoProvider secondJGroupsPeerInfoProvider;
+  private JChannel firstChannel;
+  private JChannel secondChannel;
   @Mock private MyUrlProvider myUrlProvider;
 
   @Rule public WireMockRule kubeApiMock = new WireMockRule(options().port(48443));
 
   @Before
   public void setUp() throws Exception {
-    System.setProperty("KUBERNETES_MASTER_PROTOCOL", "http");
-    System.setProperty("KUBERNETES_SERVICE_HOST", "localhost");
-    System.setProperty("KUBERNETES_SERVICE_PORT", "48443");
     System.setProperty("java.net.preferIPv4Stack", "true");
   }
 
   @After
-  public void shutdown() {
-    System.clearProperty("KUBERNETES_MASTER_PROTOCOL");
-    System.clearProperty("KUBERNETES_SERVICE_HOST");
-    System.clearProperty("KUBERNETES_SERVICE_PORT");
+  public void shutdown() throws Exception {
     System.clearProperty("java.net.preferIPv4Stack");
+
+    if (firstJGroupsPeerInfoProvider != null) {
+      firstJGroupsPeerInfoProvider.stop();
+    }
+    if (secondJGroupsPeerInfoProvider != null) {
+      secondJGroupsPeerInfoProvider.stop();
+    }
+    if (firstChannel != null && firstChannel.isConnected()) {
+      firstChannel.close();
+    }
+    if (secondChannel != null && secondChannel.isConnected()) {
+      secondChannel.close();
+    }
   }
 
   @Test
@@ -89,21 +103,20 @@ public class JGroupsKubernetesPeerInfoProviderTest {
 
     when(myUrlProvider.get()).thenReturn("http://127.0.0.1:7800");
 
-    NetworkInterface eth0 = NetworkInterface.getByName("eth0");
-    if (eth0 != null) {
-      when(finder.findAddress()).thenReturn(eth0.inetAddresses().findFirst());
-    } else {
-      when(finder.findAddress()).thenReturn(Optional.of(Inet4Address.getByName("127.0.0.1")));
-    }
-    JChannelProvider channelProvider = new JChannelProvider(pluginConfigurationMock);
+    when(finder.findAddress()).thenReturn(Optional.of(Inet4Address.getByName("127.0.0.1")));
+
+    // Create two separate channels with different ports
+    firstChannel = new JChannel(getClass().getResource("test_kubernetes.xml").toString());
+    secondChannel = new JChannel(getClass().getResource("test_kubernetes.xml").toString());
+
     firstJGroupsPeerInfoProvider =
         Mockito.spy(
             new JGroupsPeerInfoProvider(
-                pluginConfigurationMock, finder, myUrlProvider, channelProvider.get()));
+                pluginConfigurationMock, finder, myUrlProvider, firstChannel));
     secondJGroupsPeerInfoProvider =
         Mockito.spy(
             new JGroupsPeerInfoProvider(
-                pluginConfigurationMock, finder, myUrlProvider, channelProvider.get()));
+                pluginConfigurationMock, finder, myUrlProvider, secondChannel));
 
     StringBuilder kubeApiUrlBuilder = new StringBuilder();
     kubeApiUrlBuilder.append("/api/v1/namespaces/");
@@ -121,11 +134,21 @@ public class JGroupsKubernetesPeerInfoProviderTest {
                 aResponse()
                     .withJsonBody(new ObjectMapper().readTree(respJson))
                     .withStatus(HttpStatus.SC_OK)));
+
     firstJGroupsPeerInfoProvider.connect();
     verify(getRequestedFor(urlEqualTo(kubeApiUrl)));
+
+    RetryerBuilder.<Boolean>newBuilder()
+        .retryIfResult(Predicates.equalTo(false))
+        .withStopStrategy(StopStrategies.stopAfterDelay(10, TimeUnit.SECONDS))
+        .withWaitStrategy(WaitStrategies.fixedWait(1, TimeUnit.SECONDS))
+        .build()
+        .call(() -> firstChannel.isConnected());
+
     secondJGroupsPeerInfoProvider.connect();
 
-    verify(firstJGroupsPeerInfoProvider, timeout(10000)).receive(any(Message.class));
+    verify(firstJGroupsPeerInfoProvider, timeout(10000).atLeastOnce()).receive(any(Message.class));
+    verify(secondJGroupsPeerInfoProvider, timeout(10000).atLeastOnce()).receive(any(Message.class));
 
     assertThat(firstJGroupsPeerInfoProvider.get()).isNotEmpty();
     assertThat(firstJGroupsPeerInfoProvider.get()).hasSize(1);

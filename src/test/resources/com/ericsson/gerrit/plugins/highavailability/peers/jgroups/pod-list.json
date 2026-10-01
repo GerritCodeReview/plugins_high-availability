@@ -17,7 +17,14 @@
         "containers": [
           {
             "image": "gerrit:test",
-            "name": "gerrit"
+            "name": "gerrit",
+            "ports": [
+              {
+                "containerPort": 7800,
+                "name": "jgroups",
+                "protocol": "TCP"
+              }
+            ]
           }
         ],
         "hostname": "gerrit-primary-0"
@@ -67,7 +74,14 @@
         "containers": [
           {
             "image": "gerrit:test",
-            "name": "gerrit"
+            "name": "gerrit",
+            "ports": [
+              {
+                "containerPort": 7801,
+                "name": "jgroups",
+                "protocol": "TCP"
+              }
+            ]
           }
         ],
         "hostname": "gerrit-primary-1"
