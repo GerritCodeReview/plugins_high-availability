@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47f3650c_5c6fbaf4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1147792
+      },
+      "writtenOn": "2026-10-01T09:50:55Z",
+      "side": 1,
+      "message": "Please review current change. It\u0027s a cherry-pick from master in order to fix JGroups tests in stable-3.12 branch, that is failing right now.\nThanks",
+      "revId": "71c447ad3b9085f01579c8a4d3bfb599729c76c6",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
