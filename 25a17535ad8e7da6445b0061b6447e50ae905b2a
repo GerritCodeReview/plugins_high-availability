@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa26e894_10258187",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-10-02T09:19:26Z",
+      "side": 1,
+      "message": "the handler API looks much cleaner this way :-)",
+      "revId": "25a17535ad8e7da6445b0061b6447e50ae905b2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "391a7fcb_cb6765fc",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ChangeIndexEvent.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-10-02T09:19:26Z",
+      "side": 1,
+      "message": "I think all these fields should be final",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 24
+      },
+      "revId": "25a17535ad8e7da6445b0061b6447e50ae905b2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c63cc2f_5a92b09b",
+        "filename": "src/main/java/com/ericsson/gerrit/plugins/highavailability/forwarder/commands/CommandProcessorImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-10-02T09:19:26Z",
+      "side": 1,
+      "message": "maybe add another constructor `ChangeIndexEvent(IndexChange)` instead of this static method ?",
+      "revId": "25a17535ad8e7da6445b0061b6447e50ae905b2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff077a2_fe910242",
+        "filename": "src/test/java/com/ericsson/gerrit/plugins/highavailability/forwarder/ForwardedIndexChangeHandlerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2026-10-02T09:19:26Z",
+      "side": 1,
+      "message": "why isn\u0027t this package imported anymore ?",
+      "range": {
+        "startLine": 122,
+        "startChar": 62,
+        "endLine": 122,
+        "endChar": 71
+      },
+      "revId": "25a17535ad8e7da6445b0061b6447e50ae905b2a",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
