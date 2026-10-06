@@ -1,13 +1,6 @@
 module(name = "high-availability")
 
 bazel_dep(name = "rules_jvm_external", version = "6.10")
-bazel_dep(name = "com_googlesource_gerrit_bazlets")
-git_override(
-    module_name = "com_googlesource_gerrit_bazlets",
-    commit = "01ec9c2481186396dde1bc6f5166f7d95bdae134",
-    remote = "https://gerrit.googlesource.com/bazlets",
-)
-
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "high-availability_plugin_deps",
