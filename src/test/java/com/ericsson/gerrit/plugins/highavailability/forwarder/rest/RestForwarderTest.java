@@ -24,9 +24,9 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwarderMetricsRegistry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.TestEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.HttpResponseHandler.HttpResult;
 import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
@@ -40,6 +40,7 @@ import com.google.gson.Gson;
 import com.google.inject.Provider;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLException;
@@ -141,10 +142,7 @@ public class RestForwarderTest {
     when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
-            forwarder
-                .indexAccount(ACCOUNT_NUMBER, new IndexEvent())
-                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
-                .result())
+            forwarder.indexAccount(ACCOUNT_NUMBER).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result())
         .isTrue();
   }
 
@@ -153,10 +151,7 @@ public class RestForwarderTest {
     when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
-            forwarder
-                .indexAccount(ACCOUNT_NUMBER, new IndexEvent())
-                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
-                .result())
+            forwarder.indexAccount(ACCOUNT_NUMBER).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result())
         .isFalse();
   }
 
@@ -165,10 +160,7 @@ public class RestForwarderTest {
     when(httpSessionMock.post(eq(INDEX_ACCOUNT_ENDPOINT), any(), any()))
         .thenThrow(IOException.class);
     assertThat(
-            forwarder
-                .indexAccount(ACCOUNT_NUMBER, new IndexEvent())
-                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
-                .result())
+            forwarder.indexAccount(ACCOUNT_NUMBER).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result())
         .isFalse();
   }
 
@@ -176,35 +168,20 @@ public class RestForwarderTest {
   public void testIndexGroupOK() throws Exception {
     when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
-    assertThat(
-            forwarder
-                .indexGroup(UUID, new IndexEvent())
-                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
-                .result())
-        .isTrue();
+    assertThat(forwarder.indexGroup(UUID).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result()).isTrue();
   }
 
   @Test
   public void testIndexGroupFailed() throws Exception {
     when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any(), any()))
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
-    assertThat(
-            forwarder
-                .indexGroup(UUID, new IndexEvent())
-                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
-                .result())
-        .isFalse();
+    assertThat(forwarder.indexGroup(UUID).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result()).isFalse();
   }
 
   @Test
   public void testIndexGroupThrowsException() throws Exception {
     when(httpSessionMock.post(eq(INDEX_GROUP_ENDPOINT), any(), any())).thenThrow(IOException.class);
-    assertThat(
-            forwarder
-                .indexGroup(UUID, new IndexEvent())
-                .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
-                .result())
-        .isFalse();
+    assertThat(forwarder.indexGroup(UUID).get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS).result()).isFalse();
   }
 
   @Test
@@ -213,7 +190,10 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
-                .indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .indexChange(
+                    PROJECT_NAME,
+                    CHANGE_NUMBER,
+                    new ChangeIndexEvent(Instant.now(), null, "deadbeef"))
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isTrue();
@@ -225,7 +205,10 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
-                .indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .indexChange(
+                    PROJECT_NAME,
+                    CHANGE_NUMBER,
+                    new ChangeIndexEvent(Instant.now(), null, "deadbeef"))
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isFalse();
@@ -237,7 +220,10 @@ public class RestForwarderTest {
         .thenThrow(IOException.class);
     assertThat(
             forwarder
-                .indexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .indexChange(
+                    PROJECT_NAME,
+                    CHANGE_NUMBER,
+                    new ChangeIndexEvent(Instant.now(), null, "deadbeef"))
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isFalse();
@@ -249,7 +235,10 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
-                .batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .batchIndexChange(
+                    PROJECT_NAME,
+                    CHANGE_NUMBER,
+                    new ChangeIndexEvent(Instant.now(), null, "deadbeef"))
                 .get()
                 .result())
         .isTrue();
@@ -261,7 +250,10 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
-                .batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .batchIndexChange(
+                    PROJECT_NAME,
+                    CHANGE_NUMBER,
+                    new ChangeIndexEvent(Instant.now(), null, "deadbeef"))
                 .get()
                 .result())
         .isFalse();
@@ -273,7 +265,10 @@ public class RestForwarderTest {
         .thenThrow(IOException.class);
     assertThat(
             forwarder
-                .batchIndexChange(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .batchIndexChange(
+                    PROJECT_NAME,
+                    CHANGE_NUMBER,
+                    new ChangeIndexEvent(Instant.now(), null, "deadbeef"))
                 .get()
                 .result())
         .isFalse();
@@ -285,7 +280,7 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
-                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER)
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isTrue();
@@ -309,7 +304,7 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(FAILED, EMPTY_MSG));
     assertThat(
             forwarder
-                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER)
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isFalse();
@@ -320,7 +315,7 @@ public class RestForwarderTest {
     when(httpSessionMock.delete(eq(INDEX_CHANGE_ENDPOINT), any())).thenThrow(IOException.class);
     assertThat(
             forwarder
-                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER, new IndexEvent())
+                .deleteChangeFromIndex(PROJECT_NAME, CHANGE_NUMBER)
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isFalse();

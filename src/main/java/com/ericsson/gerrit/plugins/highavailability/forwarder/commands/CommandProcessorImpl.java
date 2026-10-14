@@ -15,26 +15,22 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
-import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.io.IOException;
 import java.time.Instant;
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Singleton
 public class CommandProcessorImpl implements CommandProcessor {
@@ -68,85 +64,58 @@ public class CommandProcessorImpl implements CommandProcessor {
   }
 
   @Override
-  public boolean handle(Command cmd) {
+  public CompletableFuture<Boolean> handle(Command cmd) {
     ProcessorMetrics metrics = metricRegistry.get(cmd.type);
     Instant startTime = Instant.now();
-    boolean success = false;
 
-    Context.setForwardedEvent(true);
+    CompletableFuture<Boolean> result;
     try {
-
-      if (cmd instanceof IndexChange) {
-        IndexChange indexChange = (IndexChange) cmd;
-        Operation op = getOperation(indexChange);
-        try {
-          ForwardedIndexChangeHandler handler =
-              indexChange.isBatch() ? indexBatchChangeHandler : indexChangeHandler;
-          handler.index(indexChange.getId(), op, Optional.of(toIndexEvent(indexChange)));
-          log.atFine().log(
-              "Change index %s on change %s done", op.name().toLowerCase(), indexChange.getId());
-        } catch (Exception e) {
-          log.atSevere().withCause(e).log(
-              "Change index %s on change %s failed", op.name().toLowerCase(), indexChange.getId());
-          throw e;
-        }
-
-      } else if (cmd instanceof IndexAccount) {
-        IndexAccount indexAccount = (IndexAccount) cmd;
-        try {
-          indexAccountHandler.index(
-              Account.id(indexAccount.getId()), Operation.INDEX, Optional.empty());
-          log.atFine().log("Account index update on account %s done", indexAccount.getId());
-        } catch (IOException e) {
-          log.atSevere().withCause(e).log(
-              "Account index update on account %s failed", indexAccount.getId());
-          throw e;
-        }
-
-      } else if (cmd instanceof EvictCache) {
-        EvictCache evictCommand = (EvictCache) cmd;
-        cacheEvictionHandler.evict(
-            CacheEntry.from(evictCommand.getCacheName(), evictCommand.getKeyJson()));
-        log.atFine().log(
-            "Cache eviction %s %s done", evictCommand.getCacheName(), evictCommand.getKeyJson());
-
-      } else if (cmd instanceof PostEvent) {
-        Event event = ((PostEvent) cmd).getEvent();
-        eventHandler.dispatch(event);
-        log.atFine().log("Dispatching event %s done", event);
-      } else if (cmd instanceof AddToProjectList) {
-        String projectName = ((AddToProjectList) cmd).getProjectName();
-        projectListUpdateHandler.update(projectName, false);
-
-      } else if (cmd instanceof RemoveFromProjectList) {
-        String projectName = ((RemoveFromProjectList) cmd).getProjectName();
-        projectListUpdateHandler.update(projectName, true);
-      }
-      success = true;
+      result =
+          switch (cmd) {
+            case IndexChange.Delete delete -> indexChangeHandler.delete(delete.getId());
+            case IndexChange.BatchUpdate batchUpdate ->
+                indexBatchChangeHandler.index(batchUpdate.getId(), toChangeIndexEvent(batchUpdate));
+            case IndexChange.Update update ->
+                indexChangeHandler.index(update.getId(), toChangeIndexEvent(update));
+            case IndexAccount indexAccount ->
+                indexAccountHandler.index(Account.id(indexAccount.getId()));
+            case EvictCache evictCache -> {
+              cacheEvictionHandler.evict(
+                  CacheEntry.from(evictCache.getCacheName(), evictCache.getKeyJson()));
+              yield CompletableFuture.completedFuture(true);
+            }
+            case PostEvent postEvent -> {
+              eventHandler.dispatch(postEvent.getEvent());
+              yield CompletableFuture.completedFuture(true);
+            }
+            case AddToProjectList addToProjectList -> {
+              projectListUpdateHandler.update(addToProjectList.getProjectName(), false);
+              yield CompletableFuture.completedFuture(true);
+            }
+            case RemoveFromProjectList removeFromProjectList -> {
+              projectListUpdateHandler.update(removeFromProjectList.getProjectName(), true);
+              yield CompletableFuture.completedFuture(true);
+            }
+            default -> {
+              log.atWarning().log("Unknown command type: %s", cmd);
+              yield CompletableFuture.completedFuture(false);
+            }
+          };
     } catch (Exception e) {
-      success = false;
-    } finally {
-      Context.unsetForwardedEvent();
+      log.atSevere().withCause(e).log("Error processing command %s", cmd);
+      result = CompletableFuture.completedFuture(false);
     }
-    metrics.record(cmd.eventCreatedOn, startTime, success);
-    return success;
+
+    return result.whenComplete(
+        (success, ex) -> {
+          if (ex != null) {
+            log.atSevere().withCause(ex).log("Error processing command %s", cmd);
+          }
+          metrics.record(cmd.eventCreatedOn, startTime, ex == null && Boolean.TRUE.equals(success));
+        });
   }
 
-  private Operation getOperation(IndexChange cmd) {
-    if (cmd instanceof IndexChange.Update || cmd instanceof IndexChange.BatchUpdate) {
-      return Operation.INDEX;
-    } else if (cmd instanceof IndexChange.Delete) {
-      return Operation.DELETE;
-    } else {
-      throw new IllegalArgumentException("Unknown type of IndexChange command " + cmd.getClass());
-    }
-  }
-
-  private static IndexEvent toIndexEvent(IndexChange cmd) {
-    IndexEvent e = new IndexEvent();
-    e.eventCreatedOn = cmd.eventCreatedOn;
-    e.targetSha = cmd.targetSha;
-    e.metaSha = cmd.metaSha;
-    return e;
+  private static ChangeIndexEvent toChangeIndexEvent(IndexChange cmd) {
+    return new ChangeIndexEvent(cmd.eventCreatedOn, cmd.targetSha, cmd.metaSha);
   }
 }

@@ -14,6 +14,8 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
+import java.util.concurrent.CompletableFuture;
+
 /** Processes commands received from other nodes */
 public interface CommandProcessor {
 
@@ -21,7 +23,8 @@ public interface CommandProcessor {
    * Processes the given command.
    *
    * @param cmd the command to process
-   * @return true if the command was successfully processed, false otherwise
+   * @return a future that completes with true if the command was successfully processed, false
+   *     otherwise
    */
-  boolean handle(Command cmd);
+  CompletableFuture<Boolean> handle(Command cmd);
 }

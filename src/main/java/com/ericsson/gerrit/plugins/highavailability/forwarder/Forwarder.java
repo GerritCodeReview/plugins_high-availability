@@ -31,11 +31,10 @@ public interface Forwarder {
    * Forward an account indexing event to the other primary.
    *
    * @param accountId the account to index.
-   * @param indexEvent the details of the index event.
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> indexAccount(int accountId, IndexEvent indexEvent);
+  CompletableFuture<Result> indexAccount(int accountId);
 
   /**
    * Forward a change indexing event to the other primary.
@@ -46,7 +45,8 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> indexChange(String projectName, int changeId, IndexEvent indexEvent);
+  CompletableFuture<Result> indexChange(
+      String projectName, int changeId, ChangeIndexEvent indexEvent);
 
   /**
    * Forward a change indexing event to the other primary using batch index endpoint.
@@ -58,38 +58,35 @@ public interface Forwarder {
    *     false.
    */
   CompletableFuture<Result> batchIndexChange(
-      String projectName, int changeId, IndexEvent indexEvent);
+      String projectName, int changeId, ChangeIndexEvent indexEvent);
 
   /**
    * Forward a delete change from index event to the other primary.
    *
+   * @param projectName the project of the change to remove from the index.
    * @param changeId the change to remove from the index.
-   * @param indexEvent the details of the index event.
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> deleteChangeFromIndex(
-      String projectName, int changeId, IndexEvent indexEvent);
+  CompletableFuture<Result> deleteChangeFromIndex(String projectName, int changeId);
 
   /**
    * Forward a group indexing event to the other primary.
    *
    * @param uuid the group to index.
-   * @param indexEvent the details of the index event.
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> indexGroup(String uuid, IndexEvent indexEvent);
+  CompletableFuture<Result> indexGroup(String uuid);
 
   /**
    * Forward a project indexing event to the other primary.
    *
    * @param projectName the project to index.
-   * @param indexEvent the details of the index event.
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> indexProject(String projectName, IndexEvent indexEvent);
+  CompletableFuture<Result> indexProject(String projectName);
 
   /**
    * Forward a stream event to the other primary.

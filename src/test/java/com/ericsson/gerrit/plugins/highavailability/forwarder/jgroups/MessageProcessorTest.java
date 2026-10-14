@@ -25,14 +25,13 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheEntry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.CacheNotFoundException;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedCacheEvictionHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
-import com.ericsson.gerrit.plugins.highavailability.forwarder.IndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
@@ -54,7 +53,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import org.jgroups.ObjectMessage;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,7 +80,7 @@ public class MessageProcessorTest {
   private List<Object> allHandlers = new ArrayList<>();
 
   @Before
-  public void setUp() {
+  public void setUp() throws Exception {
     when(metricsRegistry.get(any())).thenReturn(processorMetrics);
     Gson eventGson = new EventGsonProvider().get();
     gson = new ForwarderCommandsModule().buildCommandsGson(eventGson);
@@ -92,6 +91,13 @@ public class MessageProcessorTest {
     cacheEvictionHandler = createHandlerMock(ForwardedCacheEvictionHandler.class);
     eventHandler = createHandlerMock(ForwardedEventHandler.class);
     projectListUpdateHandler = createHandlerMock(ForwardedProjectListUpdateHandler.class);
+
+    when(indexChangeHandler.index(any(), any()))
+        .thenReturn(CompletableFuture.completedFuture(true));
+    when(indexChangeHandler.delete(any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(indexBatchChangeHandler.index(any(), any()))
+        .thenReturn(CompletableFuture.completedFuture(true));
+    when(indexAccountHandler.index(any())).thenReturn(CompletableFuture.completedFuture(true));
 
     processor =
         new JGroupsMessageProcessor(
@@ -113,49 +119,49 @@ public class MessageProcessorTest {
   }
 
   @Test
-  public void indexAccount() throws IOException {
+  public void indexAccount() throws Exception {
     int ACCOUNT_ID = 100;
 
     IndexAccount cmd = new IndexAccount(ACCOUNT_ID, Instant.now());
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
-    verify(indexAccountHandler, times(1))
-        .index(Account.id(ACCOUNT_ID), Operation.INDEX, Optional.empty());
+    verify(indexAccountHandler, times(1)).index(Account.id(ACCOUNT_ID));
     verifyOtherHandlersNotUsed(indexAccountHandler);
   }
 
   @Test
-  public void indexChange() throws IOException {
+  public void indexChange() throws Exception {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID, new IndexEvent());
+    ChangeIndexEvent event = new ChangeIndexEvent(Instant.now(), null, "deadbeef");
+    IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID, event);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexChangeHandler, times(1))
-        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), eq(Operation.INDEX), any());
+        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), any(ChangeIndexEvent.class));
     verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 
   @Test
-  public void indexChangeBatchMode() throws IOException {
+  public void indexChangeBatchMode() throws Exception {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID, new IndexEvent());
+    ChangeIndexEvent event = new ChangeIndexEvent(Instant.now(), null, "deadbeef");
+    IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID, event);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexBatchChangeHandler, times(1))
-        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), eq(Operation.INDEX), any());
+        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), any(ChangeIndexEvent.class));
     verifyOtherHandlersNotUsed(indexBatchChangeHandler);
   }
 
   @Test
-  public void deleteChangeFromIndex() throws IOException {
+  public void deleteChangeFromIndex() throws Exception {
     String PROJECT = "foo";
     int CHANGE_ID = 100;
 
-    IndexChange.Delete cmd = new IndexChange.Delete(PROJECT, CHANGE_ID, new IndexEvent());
+    IndexChange.Delete cmd = new IndexChange.Delete(PROJECT, CHANGE_ID);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
-    verify(indexChangeHandler, times(1))
-        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), eq(Operation.DELETE), any());
+    verify(indexChangeHandler, times(1)).delete(eq(PROJECT + "~" + Change.id(CHANGE_ID)));
     verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 

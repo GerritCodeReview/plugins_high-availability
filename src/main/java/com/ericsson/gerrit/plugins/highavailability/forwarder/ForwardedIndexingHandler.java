@@ -15,68 +15,40 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
 import com.google.common.flogger.FluentLogger;
-import java.io.IOException;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Base class to handle forwarded indexing. This class is meant to be extended by classes used on
- * the receiving side of the {@link Forwarder} since it will prevent indexing to be forwarded again
- * causing an infinite forwarding loop between the 2 nodes. It will also make sure no concurrent
- * indexing is done for the same id.
+ * Base class to handle forwarded indexing. Prevents indexed entities from being forwarded again
+ * (infinite loop) and ensures no concurrent indexing is done for the same id.
  */
 public abstract class ForwardedIndexingHandler<T> {
   protected static final FluentLogger log = FluentLogger.forEnclosingClass();
   private final Set<T> inFlightIndexing = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
-  public enum Operation {
-    INDEX,
-    DELETE;
-
-    @Override
-    public String toString() {
-      return name().toLowerCase();
-    }
-  }
-
-  protected abstract CompletableFuture<Boolean> doIndex(T id, Optional<IndexEvent> indexEvent)
-      throws IOException;
-
-  protected abstract CompletableFuture<Boolean> doDelete(T id, Optional<IndexEvent> indexEvent)
-      throws IOException;
-
-  /**
-   * Index an item in the local node, indexing will not be forwarded to the other node.
-   *
-   * @param id The id to index.
-   * @param operation The operation to do; index or delete
-   * @param indexEvent The index event details.
-   * @throws IOException If an error occur while indexing.
-   */
-  public CompletableFuture<Boolean> index(
-      T id, Operation operation, Optional<IndexEvent> indexEvent) throws IOException {
-    log.atFine().log("%s %s %s", operation, id, indexEvent);
+  protected CompletableFuture<Boolean> withInFlightGuard(
+      T id, Callable<CompletableFuture<Boolean>> action) throws Exception {
     if (inFlightIndexing.add(id)) {
       try {
-        Context.setForwardedEvent(true);
-        switch (operation) {
-          case INDEX:
-            return doIndex(id, indexEvent);
-          case DELETE:
-            return doDelete(id, indexEvent);
-          default:
-            log.atSevere().log("unexpected operation: %s", operation);
-            return CompletableFuture.completedFuture(false);
-        }
-      } finally {
-        Context.unsetForwardedEvent();
+        CompletableFuture<Boolean> future = action.call();
+        return future.whenComplete((_, _) -> inFlightIndexing.remove(id));
+      } catch (Exception e) {
         inFlightIndexing.remove(id);
+        throw e;
       }
     }
-    throw new InFlightIndexedException(
-        String.format("Indexing for %s %s %s already in flight", operation, id, indexEvent));
+    throw new InFlightIndexedException(String.format("Indexing for %s already in flight", id));
+  }
+
+  protected static <V> V withForwardedEventFlag(Callable<V> action) throws Exception {
+    Context.setForwardedEvent(true);
+    try {
+      return action.call();
+    } finally {
+      Context.unsetForwardedEvent();
+    }
   }
 }

@@ -30,4 +30,9 @@ public class IndexAccount extends Command {
   public int getId() {
     return id;
   }
+
+  @Override
+  public String toString() {
+    return type + "[" + id + "]";
+  }
 }

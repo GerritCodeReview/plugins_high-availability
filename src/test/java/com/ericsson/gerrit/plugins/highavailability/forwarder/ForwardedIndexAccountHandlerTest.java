@@ -20,11 +20,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexingHandler.Operation;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.index.account.AccountIndexer;
 import java.io.IOException;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,23 +45,12 @@ public class ForwardedIndexAccountHandlerTest {
 
   @Test
   public void testSuccessfulIndexing() throws Exception {
-    handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(id).get(10, SECONDS);
     verify(indexerMock).index(id);
   }
 
   @Test
-  public void deleteIsNotSupported() throws Exception {
-    UnsupportedOperationException thrown =
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> handler.index(id, Operation.DELETE, Optional.empty()).get(10, SECONDS));
-    assertThat(thrown).hasMessageThat().contains("Delete from account index not supported");
-  }
-
-  @Test
-  public void shouldSetAndUnsetForwardedContext() throws Exception {
-    // this doAnswer is to allow to assert that context is set to forwarded
-    // while cache eviction is called.
+  public void forwardedEventFlagIsSetOnExecutorThreadDuringIndex() throws Exception {
     doAnswer(
             (Answer<Void>)
                 invocation -> {
@@ -74,14 +61,14 @@ public class ForwardedIndexAccountHandlerTest {
         .index(id);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS);
+    handler.index(id).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(id);
   }
 
   @Test
-  public void shouldSetAndUnsetForwardedContextEvenIfExceptionIsThrown() throws Exception {
+  public void forwardedEventFlagIsUnsetAfterIndexingException() throws Exception {
     doAnswer(
             (Answer<Void>)
                 invocation -> {
@@ -92,13 +79,27 @@ public class ForwardedIndexAccountHandlerTest {
         .index(id);
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    IOException thrown =
-        assertThrows(
-            IOException.class,
-            () -> handler.index(id, Operation.INDEX, Optional.empty()).get(10, SECONDS));
+    IOException thrown = assertThrows(IOException.class, () -> handler.index(id).get(10, SECONDS));
     assertThat(thrown).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock).index(id);
+  }
+
+  @Test
+  public void inFlightGuardPreventsAndThenAllowsReindex() throws Exception {
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  assertThrows(InFlightIndexedException.class, () -> handler.index(id));
+                  return null;
+                })
+        .when(indexerMock)
+        .index(id);
+
+    handler.index(id).get(10, SECONDS);
+
+    handler.index(id).get(10, SECONDS);
+    verify(indexerMock, org.mockito.Mockito.times(2)).index(id);
   }
 }
