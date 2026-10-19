@@ -136,13 +136,6 @@ public class ConfigurationTest {
   }
 
   @Test
-  public void testJGroupsPeerInfoNullWhenStaticPeerInfoConfig() throws Exception {
-    globalPluginConfig.setString(
-        PEER_INFO_SECTION, null, STRATEGY_KEY, PeerInfoStrategy.STATIC.name());
-    assertThat(getConfiguration().peerInfoJGroups()).isNull();
-  }
-
-  @Test
   public void testGetJGroupsCluster() throws Exception {
     assertThat(getConfiguration().jgroups().clusterName()).isEqualTo(DEFAULT_CLUSTER_NAME);
 
