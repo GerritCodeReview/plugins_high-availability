@@ -20,7 +20,6 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
 import com.google.common.collect.ImmutableList;
-import java.util.Collections;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -82,7 +81,7 @@ public class CachePatternMatcherTest {
   @Test
   public void testShouldNotMatchWebSessionsWhenNotSynchronized() {
     String cache = "web_sessions";
-    when(configurationMock.cache().patterns()).thenReturn(Collections.emptyList());
+    when(configurationMock.cache().patterns()).thenReturn(ImmutableList.of());
     when(configurationMock.websession().synchronize()).thenReturn(false);
     CachePatternMatcher matcher = new CachePatternMatcher(configurationMock);
 
@@ -94,7 +93,7 @@ public class CachePatternMatcherTest {
   @Test
   public void testShouldMatchWebSessionsWhenSynchronized() {
     String cache = "web_sessions";
-    when(configurationMock.cache().patterns()).thenReturn(Collections.emptyList());
+    when(configurationMock.cache().patterns()).thenReturn(ImmutableList.of());
     when(configurationMock.websession().synchronize()).thenReturn(true);
     CachePatternMatcher matcher = new CachePatternMatcher(configurationMock);
 

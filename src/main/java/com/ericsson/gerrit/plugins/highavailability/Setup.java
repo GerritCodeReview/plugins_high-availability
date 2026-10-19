@@ -28,9 +28,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CO
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_MAX_TRIES;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_RETRY_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.HTTP_SECTION;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.MAX_TRIES_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.PASSWORD_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.RETRY_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.SOCKET_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.USER_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.INDEX_SECTION;
@@ -38,6 +36,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.DEFAULT_CLUSTER_NAME;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.PROTOCOL_STACK_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.JGroups.SKIP_INTERFACE_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.MAX_TRIES_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.DEFAULT_SHARED_DIRECTORY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.MAIN_SECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Main.SHARED_DIRECTORY_KEY;
@@ -46,6 +45,7 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInf
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoJGroups.JGROUPS_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStatic.STATIC_SUBSECTION;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.PeerInfoStatic.URL_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.RETRY_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.THREAD_POOL_SIZE_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.CLEANUP_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Websession.DEFAULT_CLEANUP_INTERVAL_AS_STRING;
