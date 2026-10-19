@@ -34,10 +34,10 @@ import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
 import com.google.common.io.Resources;
 import com.google.gerrit.extensions.restapi.Url;
 import java.net.Inet4Address;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpStatus;
@@ -94,7 +94,7 @@ public class JGroupsKubernetesPeerInfoProviderTest {
   @Test
   public void testPeerDiscoveryInKubernetesSuccessful() throws Exception {
     String namespace = "gerrit";
-    List<String> labels = List.of("app=gerrit", "mode=primary");
+    ImmutableList<String> labels = ImmutableList.of("app=gerrit", "mode=primary");
 
     when(pluginConfigurationMock.jgroups().useKubernetes()).thenReturn(true);
     when(pluginConfigurationMock.jgroups().clusterName()).thenReturn("gerritCluster");

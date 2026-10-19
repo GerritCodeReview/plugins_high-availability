@@ -28,9 +28,9 @@ import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.CO
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_MAX_TRIES;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.DEFAULT_RETRY_INTERVAL;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.HTTP_SECTION;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.MAX_TRIES_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.MAX_TRIES_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.PASSWORD_KEY;
-import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.RETRY_INTERVAL_KEY;
+import static com.ericsson.gerrit.plugins.highavailability.Configuration.RETRY_INTERVAL_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.SOCKET_TIMEOUT_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Http.USER_KEY;
 import static com.ericsson.gerrit.plugins.highavailability.Configuration.Index.INDEX_SECTION;
