@@ -17,6 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.cache;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.ValidationModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.common.cache.RemovalCause;
 import com.google.common.cache.RemovalNotification;
@@ -44,7 +45,9 @@ public class CacheEvictionHandlerTest {
   @Before
   public void setUp() throws IOException {
     defaultCacheMatcher =
-        new CachePatternMatcher(new Configuration(new Config(), new SitePaths(SITE_PATH)));
+        new CachePatternMatcher(
+            new Configuration(
+                new Config(), new SitePaths(SITE_PATH), ValidationModule.PLUGIN_NAME));
   }
 
   @Test
