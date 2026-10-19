@@ -85,7 +85,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class ConfigurationTest {
   private static final String INVALID_BOOLEAN = "invalidBoolean";
   private static final String INVALID_INT = "invalidInt";
-  private static final String PLUGIN_NAME = "high-availability";
   private static final String PASS = "fakePass";
   private static final String USER = "fakeUser";
   private static final String URL = "http://fakeUrl";
@@ -110,7 +109,7 @@ public class ConfigurationTest {
   }
 
   private Configuration getConfiguration() {
-    return new Configuration(globalPluginConfig, sitePaths);
+    return new Configuration(globalPluginConfig, sitePaths, ValidationModule.PLUGIN_NAME);
   }
 
   @Test

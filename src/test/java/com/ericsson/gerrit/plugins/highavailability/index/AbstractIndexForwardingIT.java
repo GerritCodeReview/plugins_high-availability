@@ -25,7 +25,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static com.google.common.truth.Truth.assertThat;
 
-import com.ericsson.gerrit.plugins.highavailability.Configuration;
+import com.ericsson.gerrit.plugins.highavailability.ValidationModule;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.NoHttpd;
@@ -60,7 +60,8 @@ public abstract class AbstractIndexForwardingIT extends LightweightPluginDaemonT
     givenThat(any(anyUrl()).willReturn(aResponse().withStatus(HttpStatus.SC_NO_CONTENT)));
     FileBasedConfig fileBasedConfig =
         new FileBasedConfig(
-            sitePaths.etc_dir.resolve(Configuration.PLUGIN_CONFIG_FILE).toFile(), FS.DETECTED);
+            sitePaths.etc_dir.resolve(ValidationModule.PLUGIN_NAME + ".config").toFile(),
+            FS.DETECTED);
     fileBasedConfig.setString("peerInfo", "static", "url", url());
     fileBasedConfig.setInt("http", null, "retryInterval", 100);
     fileBasedConfig.save();

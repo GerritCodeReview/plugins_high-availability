@@ -29,16 +29,21 @@ import com.gerritforge.gerrit.globalrefdb.validation.SharedRefLogger;
 import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.ExceptionHook;
+import com.google.gerrit.server.config.SitePaths;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.inject.Inject;
 import com.google.inject.Scopes;
 
 public class ValidationModule extends FactoryModule {
-  final Configuration configuration;
+  // Hardcoded here because this module is loaded via gerrit.config installDbModule, before
+  // the plugin lifecycle begins and @PluginName is unavailable.
+  public static final String PLUGIN_NAME = "high-availability";
+
+  private final Configuration configuration;
 
   @Inject
-  public ValidationModule(Configuration configuration) {
-    this.configuration = configuration;
+  public ValidationModule(SitePaths sitePaths) {
+    this.configuration = new Configuration(sitePaths, PLUGIN_NAME);
   }
 
   @Override

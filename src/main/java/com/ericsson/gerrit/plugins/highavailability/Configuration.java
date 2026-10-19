@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.common.Nullable;
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.server.config.ConfigUtil;
 import com.google.gerrit.server.config.SitePaths;
 import com.google.inject.Inject;
@@ -50,8 +51,6 @@ public class Configuration {
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
   public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(5);
-  public static final String PLUGIN_NAME = "high-availability";
-  public static final String PLUGIN_CONFIG_FILE = PLUGIN_NAME + ".config";
 
   // common parameter to peerInfo section
   static final String PEER_INFO_SECTION = "peerInfo";
@@ -92,12 +91,12 @@ public class Configuration {
   }
 
   @Inject
-  Configuration(SitePaths sitePaths) {
-    this(getConfigFile(sitePaths, PLUGIN_CONFIG_FILE), sitePaths);
+  Configuration(SitePaths sitePaths, @PluginName String pluginName) {
+    this(getConfigFile(sitePaths, pluginName + ".config"), sitePaths, pluginName);
   }
 
   @VisibleForTesting
-  public Configuration(Config cfg, SitePaths site) {
+  public Configuration(Config cfg, SitePaths site, String pluginName) {
     main = new Main(site, cfg);
     indexSync = new IndexSync(cfg);
     peerInfo = new PeerInfo(cfg);
@@ -119,7 +118,7 @@ public class Configuration {
     index = new Index(cfg);
     websession = new Websession(cfg);
     healthCheck = new HealthCheck(cfg);
-    sharedRefDb = new SharedRefDbConfiguration(cfg, PLUGIN_NAME);
+    sharedRefDb = new SharedRefDbConfiguration(cfg, pluginName);
   }
 
   private static FileBasedConfig getConfigFile(SitePaths sitePaths, String configFileName) {
