@@ -46,8 +46,8 @@ public record Configuration(
     Main main,
     IndexSync indexSync,
     PeerInfo peerInfo,
-    @Nullable PeerInfoStatic peerInfoStatic,
-    @Nullable PeerInfoJGroups peerInfoJGroups,
+    PeerInfoStatic peerInfoStatic,
+    PeerInfoJGroups peerInfoJGroups,
     JGroups jgroups,
     JGroupsKubernetes jgroupsKubernetes,
     Http http,
@@ -94,22 +94,8 @@ public record Configuration(
         new Main(site, cfg),
         new IndexSync(cfg),
         new PeerInfo(cfg),
-        cfg.getEnum(
-                    PEER_INFO_SECTION,
-                    null,
-                    PeerInfo.STRATEGY_KEY,
-                    PeerInfo.DEFAULT_PEER_INFO_STRATEGY)
-                == PeerInfoStrategy.STATIC
-            ? new PeerInfoStatic(cfg)
-            : null,
-        cfg.getEnum(
-                    PEER_INFO_SECTION,
-                    null,
-                    PeerInfo.STRATEGY_KEY,
-                    PeerInfo.DEFAULT_PEER_INFO_STRATEGY)
-                == PeerInfoStrategy.JGROUPS
-            ? new PeerInfoJGroups(cfg)
-            : null,
+        new PeerInfoStatic(cfg),
+        new PeerInfoJGroups(cfg),
         new JGroups(site, cfg),
         new JGroupsKubernetes(cfg),
         new Http(cfg),
