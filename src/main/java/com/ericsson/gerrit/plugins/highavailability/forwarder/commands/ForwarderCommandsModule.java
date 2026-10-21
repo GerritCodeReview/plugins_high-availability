@@ -16,6 +16,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
@@ -33,6 +34,7 @@ public class ForwarderCommandsModule extends AbstractModule {
         .newBuilder()
         .registerTypeAdapter(Command.class, new CommandDeserializer())
         .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+        .registerTypeAdapter(Account.Id.class, new AccountIdTypeAdapter())
         .create();
   }
 }

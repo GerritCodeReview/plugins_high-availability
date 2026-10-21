@@ -19,6 +19,7 @@ import static com.google.common.truth.Truth.assertThat;
 import com.ericsson.gerrit.plugins.highavailability.cache.Constants;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.rest.CacheKeyJsonParser;
+import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.registration.DynamicMap;
 import com.google.gerrit.server.events.Event;
@@ -149,6 +150,26 @@ public class CommandDeserializerTest {
     Object cacheKey = cacheKeyParser.fromJson(Constants.PROJECTS, evict.getKeyJson());
     assertThat(cacheKey).isInstanceOf(Project.NameKey.class);
     assertThat(cacheKey).isEqualTo(nameKey);
+  }
+
+  @Test
+  public void evictCacheAuthTokenAccountId() {
+    Account.Id accountId = Account.id(1001);
+    String keyJson = gson.toJson(accountId);
+    assertThat(keyJson).isEqualTo("1001");
+
+    Command cmd =
+        gson.fromJson(
+            String.format(
+                "{type: '%s', cacheName: '%s', keyJson: '%s'}",
+                EventType.CACHE_EVICTION, Constants.TOKENS, keyJson),
+            Command.class);
+    assertThat(cmd).isInstanceOf(EvictCache.class);
+    EvictCache evict = (EvictCache) cmd;
+    assertThat(evict.getCacheName()).isEqualTo(Constants.TOKENS);
+
+    Account.Id deserializedId = gson.fromJson(evict.getKeyJson(), Account.Id.class);
+    assertThat(deserializedId).isEqualTo(accountId);
   }
 
   @Test
