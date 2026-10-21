@@ -14,13 +14,10 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
-import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.google.gerrit.extensions.restapi.BadRequestException;
 import com.google.gerrit.extensions.restapi.Url;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +28,12 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet {
   private static final long serialVersionUID = -1L;
 
   private final ForwardedIndexChangeHandler handler;
-  private final Gson gson;
+  private final ChangeIndexEventParser parser;
 
   @Inject
   IndexChangeRestApiServlet(
       ForwardedIndexChangeHandler handler,
-      @RestGson Gson gson,
+      ChangeIndexEventParser parser,
       ProcessorMetricsRegistry metricRegistry) {
     super(
         IndexName.CHANGE,
@@ -44,26 +41,18 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet {
         EventType.INDEX_CHANGE_UPDATE,
         EventType.INDEX_CHANGE_DELETION);
     this.handler = handler;
-    this.gson = gson;
+    this.parser = parser;
   }
 
   @Override
   protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
     String id = Url.decode(extractRawId(req));
-    return process(req, rsp, body -> handler.index(id, parseBody(body)));
+    return process(req, rsp, body -> handler.index(id, parser.parse(body)));
   }
 
   @Override
   protected boolean processDeleteRequest(HttpServletRequest req, HttpServletResponse rsp) {
     String id = Url.decode(extractRawId(req));
     return process(req, rsp, body -> handler.delete(id));
-  }
-
-  private ChangeIndexEvent parseBody(String body) throws BadRequestException {
-    ChangeIndexEvent event = gson.fromJson(body, ChangeIndexEvent.class);
-    if (event == null || event.metaSha == null) {
-      throw new BadRequestException("metaSha is required for change index events");
-    }
-    return event;
   }
 }

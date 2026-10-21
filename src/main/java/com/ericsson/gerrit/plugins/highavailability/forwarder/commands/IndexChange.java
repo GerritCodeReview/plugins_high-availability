@@ -28,12 +28,12 @@ public abstract class IndexChange extends Command {
 
   protected IndexChange(
       EventType type, String projectName, int id, boolean batchMode, ChangeIndexEvent indexEvent) {
-    super(type, indexEvent.eventCreatedOn);
+    super(type, indexEvent.eventCreatedOn());
     this.projectName = projectName;
     this.id = id;
     this.batchMode = batchMode;
-    this.targetSha = indexEvent.targetSha;
-    this.metaSha = indexEvent.metaSha;
+    this.targetSha = indexEvent.targetSha();
+    this.metaSha = indexEvent.metaSha();
   }
 
   protected IndexChange(EventType type, String projectName, int id) {

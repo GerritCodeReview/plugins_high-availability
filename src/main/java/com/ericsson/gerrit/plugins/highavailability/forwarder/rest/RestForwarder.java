@@ -103,7 +103,7 @@ public class RestForwarder implements Forwarder {
         "index/change",
         buildIndexEndpoint(projectName, changeId),
         event,
-        event.eventCreatedOn);
+        event.eventCreatedOn());
   }
 
   @Override
@@ -116,7 +116,7 @@ public class RestForwarder implements Forwarder {
         "index/change/batch",
         buildIndexEndpoint(projectName, changeId),
         event,
-        event.eventCreatedOn);
+        event.eventCreatedOn());
   }
 
   @Override

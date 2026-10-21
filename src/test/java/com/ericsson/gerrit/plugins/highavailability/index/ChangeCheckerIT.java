@@ -52,8 +52,8 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
 
     assertThat(eventOption.isPresent()).isTrue();
     ChangeIndexEvent event = eventOption.get();
-    assertThat(event.metaSha).isNotNull();
-    assertThat(event.metaSha).isEqualTo(readMetaSha(change));
+    assertThat(event.metaSha()).isNotNull();
+    assertThat(event.metaSha()).isEqualTo(readMetaSha(change));
   }
 
   @Test
@@ -74,7 +74,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
     ChangeIndexEvent original = changeChecker.newIndexEvent().get();
     ChangeIndexEvent noTarget =
-        new ChangeIndexEvent(original.eventCreatedOn, null, original.metaSha);
+        new ChangeIndexEvent(original.eventCreatedOn(), null, original.metaSha());
 
     assertThat(changeChecker.isChangeUpToDate(noTarget)).isTrue();
   }
@@ -87,7 +87,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
     ChangeIndexEvent original = changeChecker.newIndexEvent().get();
     ChangeIndexEvent staleEvent =
-        new ChangeIndexEvent(original.eventCreatedOn, original.targetSha, testMetaRefSha);
+        new ChangeIndexEvent(original.eventCreatedOn(), original.targetSha(), testMetaRefSha);
 
     assertThat(changeChecker.isChangeUpToDate(staleEvent)).isFalse();
   }
@@ -100,7 +100,7 @@ public class ChangeCheckerIT extends LightweightPluginDaemonTest {
     ChangeChecker changeChecker = changeCheckerFactory.create(change.getChangeId());
     ChangeIndexEvent original = changeChecker.newIndexEvent().get();
     ChangeIndexEvent staleEvent =
-        new ChangeIndexEvent(original.eventCreatedOn, testTargetRefSha, original.metaSha);
+        new ChangeIndexEvent(original.eventCreatedOn(), testTargetRefSha, original.metaSha());
 
     assertThat(changeChecker.isChangeUpToDate(staleEvent)).isFalse();
   }

@@ -26,9 +26,11 @@ import static org.mockito.Mockito.when;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -48,7 +50,8 @@ public class IndexChangeRestApiServletTest {
   private static final String PROJECT_NAME_URL_ENC = "test%2Fproject";
   private static final String CHANGE_ID = PROJECT_NAME + "~" + CHANGE_NUMBER;
   private static final String IO_ERROR = "io-error";
-  private static final Gson GSON = new Gson();
+  private static final Gson GSON =
+      new GsonBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
 
   @Mock private ForwardedIndexChangeHandler handlerMock;
   @Mock private HttpServletRequest requestMock;
@@ -61,7 +64,9 @@ public class IndexChangeRestApiServletTest {
   @Before
   public void setUpMocks() throws IOException {
     when(metricsRegistryMock.get(any())).thenReturn(metrics);
-    servlet = new IndexChangeRestApiServlet(handlerMock, new Gson(), metricsRegistryMock);
+    servlet =
+        new IndexChangeRestApiServlet(
+            handlerMock, new ChangeIndexEventParser(GSON), metricsRegistryMock);
     when(requestMock.getRequestURI())
         .thenReturn("http://gerrit.com/index/change/" + PROJECT_NAME_URL_ENC + "~" + CHANGE_NUMBER);
     when(requestMock.getContentType()).thenReturn("application/json");
@@ -111,8 +116,10 @@ public class IndexChangeRestApiServletTest {
 
   @Test
   public void missingMetaShaReturnsBadRequest() throws Exception {
-    when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader("{}")));
+    long epochMillis = Instant.now().toEpochMilli();
+    String body = "{\"eventCreatedOn\":" + epochMillis + "}";
+    when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader(body)));
     servlet.doPost(requestMock, responseMock);
-    verify(responseMock).sendError(SC_BAD_REQUEST, "metaSha is required for change index events");
+    verify(responseMock).sendError(SC_BAD_REQUEST, "metaSha");
   }
 }

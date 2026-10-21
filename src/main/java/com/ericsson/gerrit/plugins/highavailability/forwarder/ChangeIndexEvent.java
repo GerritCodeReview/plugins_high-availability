@@ -22,15 +22,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /** Details of a change index event. {@code metaSha} is mandatory. */
-public class ChangeIndexEvent {
-  public Instant eventCreatedOn;
-  @Nullable public String targetSha;
-  public String metaSha;
+public record ChangeIndexEvent(Instant eventCreatedOn, @Nullable String targetSha, String metaSha) {
 
-  public ChangeIndexEvent(Instant eventCreatedOn, @Nullable String targetSha, String metaSha) {
-    this.eventCreatedOn = Objects.requireNonNull(eventCreatedOn, "eventCreatedOn");
-    this.targetSha = targetSha;
-    this.metaSha = Objects.requireNonNull(metaSha, "metaSha");
+  public ChangeIndexEvent {
+    Objects.requireNonNull(eventCreatedOn, "eventCreatedOn");
+    Objects.requireNonNull(metaSha, "metaSha");
   }
 
   @Override

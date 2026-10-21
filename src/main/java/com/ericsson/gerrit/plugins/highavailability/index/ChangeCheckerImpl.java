@@ -94,9 +94,9 @@ public class ChangeCheckerImpl implements ChangeChecker {
     }
     try {
       try (Repository repo = gitRepoMgr.openRepository(changeNotes.get().getProjectName())) {
-        return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn) >= 0
-            && (indexEvent.targetSha == null || repositoryHas(repo, indexEvent.targetSha))
-            && repositoryHas(repo, indexEvent.metaSha);
+        return computedChangeTs.get().compareTo(indexEvent.eventCreatedOn()) >= 0
+            && (indexEvent.targetSha() == null || repositoryHas(repo, indexEvent.targetSha()))
+            && repositoryHas(repo, indexEvent.metaSha());
       }
     } catch (IOException ex) {
       log.atWarning().log("Unable to read meta sha for change %s", changeId);

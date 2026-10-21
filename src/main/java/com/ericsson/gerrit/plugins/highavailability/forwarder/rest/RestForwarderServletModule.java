@@ -26,6 +26,7 @@ public class RestForwarderServletModule extends ServletModule {
 
   @Override
   protected void configureServlets() {
+    bind(ChangeIndexEventParser.class);
     if (config.index().synchronize()) {
       serveRegex("/index/account/\\d+$").with(IndexAccountRestApiServlet.class);
       serveRegex("/index/change/batch/.*$").with(IndexBatchChangeRestApiServlet.class);
