@@ -357,13 +357,10 @@ public class RestForwarder implements Forwarder {
 
     HttpResult send() throws IOException {
       String request = Joiner.on("/").join(destination, pluginRelativePath, endpoint, key);
-      switch (method) {
-        case POST:
-          return httpSession.post(request, payloadJson, createdOn);
-        case DELETE:
-        default:
-          return httpSession.delete(request, createdOn);
-      }
+      return switch (method) {
+        case POST -> httpSession.post(request, payloadJson, createdOn);
+        case DELETE -> httpSession.delete(request, createdOn);
+      };
     }
 
     boolean isRecoverable(IOException e) {
