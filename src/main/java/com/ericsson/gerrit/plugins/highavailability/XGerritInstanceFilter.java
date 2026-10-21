@@ -44,9 +44,8 @@ public class XGerritInstanceFilter extends AllRequestFilter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    if (response instanceof HttpServletResponse) {
-      ((HttpServletResponse) response)
-          .addHeader(X_GERRIT_INSTANCE, firstNonNull(instanceId, instanceName));
+    if (response instanceof HttpServletResponse httpResponse) {
+      httpResponse.addHeader(X_GERRIT_INSTANCE, firstNonNull(instanceId, instanceName));
     }
     chain.doFilter(request, response);
   }

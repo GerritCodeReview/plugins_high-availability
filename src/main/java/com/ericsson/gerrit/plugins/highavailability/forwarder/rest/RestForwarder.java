@@ -277,8 +277,8 @@ public class RestForwarder implements Forwarder {
     String payloadJson;
     if (payload == null) {
       payloadJson = null;
-    } else if (payload instanceof String) {
-      payloadJson = (String) payload;
+    } else if (payload instanceof String s) {
+      payloadJson = s;
     } else {
       payloadJson = gson.toJson(payload);
     }

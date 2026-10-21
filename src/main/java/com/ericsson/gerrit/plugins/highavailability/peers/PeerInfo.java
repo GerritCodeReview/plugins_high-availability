@@ -35,6 +35,6 @@ public class PeerInfo {
 
   @Override
   public boolean equals(Object o) {
-    return (o instanceof PeerInfo) && Objects.equals(directUrl, ((PeerInfo) o).directUrl);
+    return (o instanceof PeerInfo p) && Objects.equals(directUrl, p.directUrl);
   }
 }

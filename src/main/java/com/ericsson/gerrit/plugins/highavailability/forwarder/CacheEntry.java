@@ -51,8 +51,7 @@ public class CacheEntry {
 
   @Override
   public boolean equals(Object o) {
-    if (o instanceof CacheEntry) {
-      CacheEntry e = (CacheEntry) o;
+    if (o instanceof CacheEntry e) {
       return Objects.equals(pluginName, e.pluginName)
           && Objects.equals(cacheName, e.cacheName)
           && Objects.equals(key, e.key);
