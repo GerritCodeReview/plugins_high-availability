@@ -273,7 +273,7 @@ public class RestForwarder implements Forwarder {
       Object id,
       Object payload,
       Instant createdOn) {
-    String destination = peer.getDirectUrl();
+    String destination = peer.directUrl();
     String payloadJson;
     if (payload == null) {
       payloadJson = null;

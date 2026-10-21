@@ -81,7 +81,7 @@ public class JGroupsPeerInfoProvider
     if (old == null) {
       log.atInfo().log("receive(): Add new peerInfo: %s", url);
     } else {
-      log.atInfo().log("receive(): Update peerInfo: from %s to %s", old.getDirectUrl(), url);
+      log.atInfo().log("receive(): Update peerInfo: from %s to %s", old.directUrl(), url);
     }
   }
 
@@ -92,7 +92,7 @@ public class JGroupsPeerInfoProvider
     while (it.hasNext()) {
       Map.Entry<Address, PeerInfo> e = it.next();
       if (!view.getMembers().contains(e.getKey())) {
-        log.atInfo().log("viewAccepted(): removed peerInfo %s", e.getValue().getDirectUrl());
+        log.atInfo().log("viewAccepted(): removed peerInfo %s", e.getValue().directUrl());
         it.remove();
       }
     }

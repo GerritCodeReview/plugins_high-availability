@@ -71,7 +71,7 @@ public class JGroupsPeerInfoProviderTest {
     assertThat(jGroupsPeerInfoProvider.getPeers()).containsKey(peerAddress);
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     for (PeerInfo testPeerInfo : testPeerInfoSet) {
-      assertThat(testPeerInfo.getDirectUrl()).contains("test message");
+      assertThat(testPeerInfo.directUrl()).contains("test message");
     }
     assertThat(testPeerInfoSet.size()).isEqualTo(1);
   }
@@ -117,7 +117,7 @@ public class JGroupsPeerInfoProviderTest {
 
   public void receive(final IpAddress addr, final PeerInfo peer) {
     when(message.getSrc()).thenReturn(addr);
-    when(message.getObject()).thenReturn(peer.getDirectUrl());
+    when(message.getObject()).thenReturn(peer.directUrl());
     jGroupsPeerInfoProvider.receive(message);
   }
 
@@ -160,7 +160,7 @@ public class JGroupsPeerInfoProviderTest {
     jGroupsPeerInfoProvider.addPeer(peerAddress, peerInfo);
     Set<PeerInfo> testPeerInfoSet = jGroupsPeerInfoProvider.get();
     for (PeerInfo testPeerInfo : testPeerInfoSet) {
-      assertThat(testPeerInfo.getDirectUrl()).contains("test message");
+      assertThat(testPeerInfo.directUrl()).contains("test message");
     }
     assertThat(testPeerInfoSet.size()).isEqualTo(1);
   }

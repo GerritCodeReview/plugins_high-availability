@@ -129,8 +129,8 @@ public class IndexSyncRunner implements CheckedSupplier<Boolean> {
   }
 
   private List<String> collectUpdatedChanges(PeerInfo peer) throws IOException {
-    log.atFine().log("Collecting out of sync changes from %s", peer.getDirectUrl());
-    String peerUrl = peer.getDirectUrl();
+    log.atFine().log("Collecting out of sync changes from %s", peer.directUrl());
+    String peerUrl = peer.directUrl();
     String uri =
         Joiner.on("/").join(peerUrl, pluginRelativePath, "query/changes.updated.since", age);
     HttpGet queryRequest = new HttpGet(uri);
