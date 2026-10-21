@@ -45,19 +45,19 @@ public class ForwardedCacheEvictionHandler {
    * @throws CacheNotFoundException if cache does not exist
    */
   public void evict(CacheEntry entry) throws CacheNotFoundException {
-    Cache<?, ?> cache = cacheMap.get(entry.getPluginName(), entry.getCacheName());
+    Cache<?, ?> cache = cacheMap.get(entry.pluginName(), entry.cacheName());
     if (cache == null) {
-      throw new CacheNotFoundException(entry.getPluginName(), entry.getCacheName());
+      throw new CacheNotFoundException(entry.pluginName(), entry.cacheName());
     }
     try {
       Context.setForwardedEvent(true);
-      if (Constants.PROJECT_LIST.equals(entry.getCacheName())) {
+      if (Constants.PROJECT_LIST.equals(entry.cacheName())) {
         // One key is holding the list of projects
         cache.invalidateAll();
-        log.atFine().log("Invalidated cache %s", entry.getCacheName());
+        log.atFine().log("Invalidated cache %s", entry.cacheName());
       } else {
-        cache.invalidate(entry.getKey());
-        log.atFine().log("Invalidated cache %s[%s]", entry.getCacheName(), entry.getKey());
+        cache.invalidate(entry.key());
+        log.atFine().log("Invalidated cache %s[%s]", entry.cacheName(), entry.key());
       }
     } finally {
       Context.unsetForwardedEvent();

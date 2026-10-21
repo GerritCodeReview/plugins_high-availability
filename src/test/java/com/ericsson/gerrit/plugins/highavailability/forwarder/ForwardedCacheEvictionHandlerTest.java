@@ -47,7 +47,7 @@ public class ForwardedCacheEvictionHandlerTest {
   public void shouldThrowAnExceptionWhenCacheNotFound() throws Exception {
     CacheEntry entry = new CacheEntry("somePlugin", "unexistingCache", null);
     String expectedMessage =
-        String.format("cache %s.%s not found", entry.getPluginName(), entry.getCacheName());
+        String.format("cache %s.%s not found", entry.pluginName(), entry.cacheName());
     CacheNotFoundException thrown =
         assertThrows(CacheNotFoundException.class, () -> handler.evict(entry));
     assertThat(thrown).hasMessageThat().contains(expectedMessage);
@@ -56,16 +56,16 @@ public class ForwardedCacheEvictionHandlerTest {
   @Test
   public void testSuccessfulCacheEviction() throws Exception {
     CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.ACCOUNTS, Account.id(123));
-    doReturn(cacheMock).when(cacheMapMock).get(entry.getPluginName(), entry.getCacheName());
+    doReturn(cacheMock).when(cacheMapMock).get(entry.pluginName(), entry.cacheName());
 
     handler.evict(entry);
-    verify(cacheMock).invalidate(entry.getKey());
+    verify(cacheMock).invalidate(entry.key());
   }
 
   @Test
   public void testSuccessfulProjectListCacheEviction() throws Exception {
     CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.PROJECT_LIST, null);
-    doReturn(cacheMock).when(cacheMapMock).get(entry.getPluginName(), entry.getCacheName());
+    doReturn(cacheMock).when(cacheMapMock).get(entry.pluginName(), entry.cacheName());
 
     handler.evict(entry);
     verify(cacheMock).invalidateAll();
@@ -74,7 +74,7 @@ public class ForwardedCacheEvictionHandlerTest {
   @Test
   public void shouldSetAndUnsetForwardedContext() throws Exception {
     CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.ACCOUNTS, Account.id(456));
-    doReturn(cacheMock).when(cacheMapMock).get(entry.getPluginName(), entry.getCacheName());
+    doReturn(cacheMock).when(cacheMapMock).get(entry.pluginName(), entry.cacheName());
 
     // this doAnswer is to allow to assert that context is set to forwarded
     // while cache eviction is called.
@@ -85,19 +85,19 @@ public class ForwardedCacheEvictionHandlerTest {
                   return null;
                 })
         .when(cacheMock)
-        .invalidate(entry.getKey());
+        .invalidate(entry.key());
 
     assertThat(Context.isForwardedEvent()).isFalse();
     handler.evict(entry);
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(cacheMock).invalidate(entry.getKey());
+    verify(cacheMock).invalidate(entry.key());
   }
 
   @Test
   public void shouldSetAndUnsetForwardedContextEvenIfExceptionIsThrown() throws Exception {
     CacheEntry entry = new CacheEntry(Constants.GERRIT, Constants.ACCOUNTS, Account.id(789));
-    doReturn(cacheMock).when(cacheMapMock).get(entry.getPluginName(), entry.getCacheName());
+    doReturn(cacheMock).when(cacheMapMock).get(entry.pluginName(), entry.cacheName());
 
     doAnswer(
             (Answer<Void>)
@@ -106,7 +106,7 @@ public class ForwardedCacheEvictionHandlerTest {
                   throw new RuntimeException();
                 })
         .when(cacheMock)
-        .invalidate(entry.getKey());
+        .invalidate(entry.key());
 
     assertThat(Context.isForwardedEvent()).isFalse();
     try {
@@ -115,6 +115,6 @@ public class ForwardedCacheEvictionHandlerTest {
     }
     assertThat(Context.isForwardedEvent()).isFalse();
 
-    verify(cacheMock).invalidate(entry.getKey());
+    verify(cacheMock).invalidate(entry.key());
   }
 }
