@@ -25,7 +25,6 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,9 +66,7 @@ public class InetAddressFinder {
       if (shouldSkip(ni.getName())) {
         continue;
       }
-      Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
-      while (inetAddresses.hasMoreElements()) {
-        InetAddress a = inetAddresses.nextElement();
+      for (InetAddress a : Collections.list(ni.getInetAddresses())) {
         if (preferIPv4 && a instanceof Inet4Address) {
           log.atFine().log(
               "using IPv4 network interface %s [hostAddress = %s, hostName: %s]",
