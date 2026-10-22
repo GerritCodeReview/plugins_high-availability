@@ -29,7 +29,6 @@ final class ChangeKeyExtractor {
   static ChangeKey extract(HttpServletRequest req) {
     List<String> parts =
         Splitter.on('~').splitToList(Url.decode(AbstractIndexRestApiServlet.extractRawId(req)));
-    return new ChangeKey(
-        Project.nameKey(parts.get(0)), Change.id(Integer.parseInt(parts.get(1))));
+    return new ChangeKey(Project.nameKey(parts.get(0)), Change.id(Integer.parseInt(parts.get(1))));
   }
 }

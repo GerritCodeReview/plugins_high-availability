@@ -18,7 +18,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Context;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.events.AccountIndexedListener;
 import com.google.gerrit.extensions.events.ChangeIndexedListener;
 import com.google.gerrit.extensions.events.GroupIndexedListener;
@@ -69,7 +68,7 @@ class IndexEventHandler
 
   private void executeAllChangesDeletedForProject(String projectName) {
     if (!Context.isForwardedEvent()) {
-      forwarder.get().deleteAllChangesForProject(Project.nameKey(projectName));
+      forwarder.get().deleteAllChangesForProject(projectName);
     }
   }
 
