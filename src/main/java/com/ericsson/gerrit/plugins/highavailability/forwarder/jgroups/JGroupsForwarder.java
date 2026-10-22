@@ -132,8 +132,8 @@ public class JGroupsForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName) {
-    return execute(new DeleteAllProjectChangesFromIndex(projectName, Instant.now()));
+  public CompletableFuture<Result> deleteAllChangesForProject(String projectName) {
+    return execute(new DeleteAllProjectChangesFromIndex(Project.nameKey(projectName), Instant.now()));
   }
 
   private CompletableFuture<Result> execute(Command cmd) {

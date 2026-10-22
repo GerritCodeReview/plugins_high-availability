@@ -25,7 +25,6 @@ import com.ericsson.gerrit.plugins.highavailability.peers.PeerInfo;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.entities.Project;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.server.events.Event;
@@ -211,13 +210,13 @@ public class RestForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName) {
+  public CompletableFuture<Result> deleteAllChangesForProject(String projectName) {
     return execute(
         RequestMethod.DELETE,
         EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT,
         "Delete all project changes from index",
         "index/change",
-        buildAllChangesForProjectEndpoint(projectName.get()),
+        buildAllChangesForProjectEndpoint(projectName),
         Instant.now());
   }
 

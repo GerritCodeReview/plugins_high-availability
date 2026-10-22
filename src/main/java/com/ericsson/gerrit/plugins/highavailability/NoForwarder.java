@@ -18,7 +18,6 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ChangeIndexEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.Forwarder;
 import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.entities.Project.NameKey;
 import com.google.gerrit.server.events.Event;
 import java.util.concurrent.CompletableFuture;
 
@@ -85,7 +84,7 @@ public class NoForwarder implements Forwarder {
   }
 
   @Override
-  public CompletableFuture<Result> deleteAllChangesForProject(NameKey projectName) {
+  public CompletableFuture<Result> deleteAllChangesForProject(String projectName) {
     return recoverableFailure(EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT);
   }
 

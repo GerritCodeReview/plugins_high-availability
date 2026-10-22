@@ -34,7 +34,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.AccountGroup;
-import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import com.google.gson.Gson;
 import com.google.inject.Provider;
@@ -292,7 +291,7 @@ public class RestForwarderTest {
         .thenReturn(new HttpResult(SUCCESSFUL, EMPTY_MSG));
     assertThat(
             forwarder
-                .deleteAllChangesForProject(Project.nameKey(PROJECT_NAME))
+                .deleteAllChangesForProject(PROJECT_NAME)
                 .get(TEST_TIMEOUT, TEST_TIMEOUT_UNITS)
                 .result())
         .isTrue();

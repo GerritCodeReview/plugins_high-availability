@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import java.util.concurrent.CompletableFuture;
 
@@ -132,5 +131,5 @@ public interface Forwarder {
    * @return {@link CompletableFuture} of true if successful, otherwise {@link CompletableFuture} of
    *     false.
    */
-  CompletableFuture<Result> deleteAllChangesForProject(Project.NameKey projectName);
+  CompletableFuture<Result> deleteAllChangesForProject(String projectName);
 }
