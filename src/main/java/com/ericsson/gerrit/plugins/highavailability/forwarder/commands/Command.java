@@ -17,7 +17,16 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class Command {
+public abstract sealed class Command
+    permits IndexChange,
+        IndexAccount,
+        IndexGroup,
+        IndexProject,
+        EvictCache,
+        PostEvent,
+        AddToProjectList,
+        RemoveFromProjectList,
+        DeleteAllProjectChangesFromIndex {
   public final EventType type;
   public final Instant eventCreatedOn;
 

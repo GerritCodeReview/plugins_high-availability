@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class RemoveFromProjectList extends Command {
+public final class RemoveFromProjectList extends Command {
   static final EventType TYPE = EventType.PROJECT_LIST_DELETION;
 
   private final String projectName;

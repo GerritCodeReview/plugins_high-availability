@@ -18,7 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.gerrit.entities.Project;
 import java.time.Instant;
 
-public class DeleteAllProjectChangesFromIndex extends Command {
+public final class DeleteAllProjectChangesFromIndex extends Command {
   static final EventType TYPE = EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT;
 
   private final Project.NameKey projectName;

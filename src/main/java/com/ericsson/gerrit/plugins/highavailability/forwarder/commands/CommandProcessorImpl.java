@@ -96,8 +96,17 @@ public class CommandProcessorImpl implements CommandProcessor {
               projectListUpdateHandler.update(removeFromProjectList.getProjectName(), true);
               yield CompletableFuture.completedFuture(true);
             }
-            default -> {
-              log.atWarning().log("Unknown command type: %s", cmd);
+            case IndexProject indexProject -> {
+              log.atWarning().log("IndexProject command not handled: %s", indexProject);
+              yield CompletableFuture.completedFuture(false);
+            }
+            case IndexGroup indexGroup -> {
+              log.atWarning().log("IndexGroup command not handled: %s", indexGroup);
+              yield CompletableFuture.completedFuture(false);
+            }
+            case DeleteAllProjectChangesFromIndex deleteAll -> {
+              log.atWarning().log(
+                  "DeleteAllProjectChangesFromIndex command not handled: %s", deleteAll);
               yield CompletableFuture.completedFuture(false);
             }
           };

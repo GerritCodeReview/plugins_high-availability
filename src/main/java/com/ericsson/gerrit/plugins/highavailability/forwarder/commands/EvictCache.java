@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class EvictCache extends Command {
+public final class EvictCache extends Command {
   public static final EventType TYPE = EventType.CACHE_EVICTION;
 
   private final String cacheName;

@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class IndexProject extends Command {
+public final class IndexProject extends Command {
   static final EventType TYPE = EventType.INDEX_PROJECT_UPDATE;
 
   private String projectName;

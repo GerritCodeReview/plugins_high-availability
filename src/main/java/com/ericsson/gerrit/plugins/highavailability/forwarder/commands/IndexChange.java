@@ -19,7 +19,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.common.base.Strings;
 import java.time.Instant;
 
-public abstract class IndexChange extends Command {
+public abstract sealed class IndexChange extends Command
+    permits IndexChange.Update, IndexChange.BatchUpdate, IndexChange.Delete {
   private final String projectName;
   private final int id;
   private final boolean batchMode;
@@ -58,7 +59,7 @@ public abstract class IndexChange extends Command {
     return type + "[" + getId() + "]";
   }
 
-  public static class Update extends IndexChange {
+  public static final class Update extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE;
 
     public Update(String projectName, int id, ChangeIndexEvent indexEvent) {
@@ -66,7 +67,7 @@ public abstract class IndexChange extends Command {
     }
   }
 
-  public static class BatchUpdate extends IndexChange {
+  public static final class BatchUpdate extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_UPDATE_BATCH;
 
     public BatchUpdate(String projectName, int id, ChangeIndexEvent indexEvent) {
@@ -74,7 +75,7 @@ public abstract class IndexChange extends Command {
     }
   }
 
-  public static class Delete extends IndexChange {
+  public static final class Delete extends IndexChange {
     static final EventType TYPE = EventType.INDEX_CHANGE_DELETION;
 
     public Delete(String projectName, int id) {

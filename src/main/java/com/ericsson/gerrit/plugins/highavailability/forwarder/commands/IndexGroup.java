@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class IndexGroup extends Command {
+public final class IndexGroup extends Command {
   static final EventType TYPE = EventType.INDEX_GROUP_UPDATE;
 
   private final String uuid;

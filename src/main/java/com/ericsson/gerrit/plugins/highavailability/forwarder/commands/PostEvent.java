@@ -18,7 +18,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.google.gerrit.server.events.Event;
 import java.time.Instant;
 
-public class PostEvent extends Command {
+public final class PostEvent extends Command {
   static final EventType TYPE = EventType.EVENT_SENT;
 
   private final Event event;

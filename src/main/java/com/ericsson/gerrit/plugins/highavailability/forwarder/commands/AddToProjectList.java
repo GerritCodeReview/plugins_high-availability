@@ -17,7 +17,7 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import java.time.Instant;
 
-public class AddToProjectList extends Command {
+public final class AddToProjectList extends Command {
   static final EventType TYPE = EventType.PROJECT_LIST_ADDITION;
 
   private final String projectName;
