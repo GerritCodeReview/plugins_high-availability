@@ -50,6 +50,14 @@ public abstract sealed class IndexChange extends Command
     return Strings.nullToEmpty(projectName) + "~" + id;
   }
 
+  public String getProjectName() {
+    return projectName;
+  }
+
+  public int getChangeId() {
+    return id;
+  }
+
   public boolean isBatch() {
     return batchMode;
   }

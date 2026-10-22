@@ -27,6 +27,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRe
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.Change;
+import com.google.gerrit.entities.Project;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.time.Instant;
@@ -72,11 +74,19 @@ public class CommandProcessorImpl implements CommandProcessor {
     try {
       result =
           switch (cmd) {
-            case IndexChange.Delete delete -> indexChangeHandler.delete(delete.getId());
+            case IndexChange.Delete delete ->
+                indexChangeHandler.delete(
+                    Project.nameKey(delete.getProjectName()), Change.id(delete.getChangeId()));
             case IndexChange.BatchUpdate batchUpdate ->
-                indexBatchChangeHandler.index(batchUpdate.getId(), toChangeIndexEvent(batchUpdate));
+                indexBatchChangeHandler.index(
+                    Project.nameKey(batchUpdate.getProjectName()),
+                    Change.id(batchUpdate.getChangeId()),
+                    toChangeIndexEvent(batchUpdate));
             case IndexChange.Update update ->
-                indexChangeHandler.index(update.getId(), toChangeIndexEvent(update));
+                indexChangeHandler.index(
+                    Project.nameKey(update.getProjectName()),
+                    Change.id(update.getChangeId()),
+                    toChangeIndexEvent(update));
             case IndexAccount indexAccount ->
                 indexAccountHandler.index(Account.id(indexAccount.getId()));
             case EvictCache evictCache -> {

@@ -14,7 +14,6 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import static com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarder.buildAllChangesForProjectEndpoint;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.testing.GerritJUnit.assertThrows;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -57,8 +56,6 @@ public class ForwardedIndexChangeHandlerTest {
 
   private static final int TEST_CHANGE_NUMBER = 123;
   private static String TEST_PROJECT = "test/project";
-  private static final String TEST_PROJECT_ENCODED = "test%2Fproject";
-  private static String TEST_CHANGE_ID = TEST_PROJECT + "~" + TEST_CHANGE_NUMBER;
   private static final boolean CHANGE_EXISTS = true;
   private static final boolean CHANGE_DOES_NOT_EXIST = false;
   private static final boolean CHANGE_UP_TO_DATE = true;
@@ -102,21 +99,22 @@ public class ForwardedIndexChangeHandlerTest {
   @Test
   public void changeIsIndexedWhenUpToDate() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_UP_TO_DATE);
-    handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
+    handler.index(projectName, id, newEvent()).get(10, SECONDS);
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
   public void changeIsNotReindexedWhenShaIsNeverVisible() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_EXISTS, CHANGE_OUTDATED);
-    handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
+    handler.index(projectName, id, newEvent()).get(10, SECONDS);
     verify(indexerMock, never()).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
   public void changeIsEventuallyIndexedWhenShaBecomesVisible() throws Exception {
+    String compositeId = TEST_PROJECT + "~" + TEST_CHANGE_NUMBER;
     // First attempt: sha not visible yet (outdated); second attempt: sha visible (up-to-date).
-    when(changeCheckerFactoryMock.create(TEST_CHANGE_ID))
+    when(changeCheckerFactoryMock.create(compositeId))
         .thenReturn(changeCheckerAbsentMock)
         .thenReturn(changeCheckerPresentMock);
 
@@ -129,26 +127,26 @@ public class ForwardedIndexChangeHandlerTest {
     when(changeNotes.getChangeId()).thenReturn(id);
     when(changeNotes.getProjectName()).thenReturn(projectName);
 
-    handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
+    handler.index(projectName, id, newEvent()).get(10, SECONDS);
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
   }
 
   @Test
   public void changeIsDeletedFromIndex() throws Exception {
-    handler.delete(TEST_CHANGE_ID).get(10, SECONDS);
+    handler.delete(projectName, id).get(10, SECONDS);
     verify(indexerMock, times(1)).delete(projectName, id);
   }
 
   @Test
-  public void AllChangesAreDeletedFromIndex() throws Exception {
-    handler.delete(buildAllChangesForProjectEndpoint(TEST_PROJECT)).get(10, SECONDS);
-    verify(indexerMock, times(1)).deleteAllForProject(Project.nameKey(TEST_PROJECT_ENCODED));
+  public void allChangesAreDeletedFromIndex() throws Exception {
+    handler.deleteAllForProject(projectName).get(10, SECONDS);
+    verify(indexerMock, times(1)).deleteAllForProject(projectName);
   }
 
   @Test
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST, CHANGE_OUTDATED);
-    handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
+    handler.index(projectName, id, newEvent()).get(10, SECONDS);
     verify(indexerMock, times(0)).delete(projectName, id);
   }
 
@@ -165,7 +163,7 @@ public class ForwardedIndexChangeHandlerTest {
         .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
 
     assertThat(Context.isForwardedEvent()).isFalse();
-    handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
+    handler.index(projectName, id, newEvent()).get(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
 
     verify(indexerMock, times(1)).reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
@@ -187,7 +185,7 @@ public class ForwardedIndexChangeHandlerTest {
     ExecutionException thrown =
         assertThrows(
             ExecutionException.class,
-            () -> handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS));
+            () -> handler.index(projectName, id, newEvent()).get(10, SECONDS));
     assertThat(thrown.getCause()).hasMessageThat().isEqualTo("someMessage");
     assertThat(Context.isForwardedEvent()).isFalse();
 
@@ -209,7 +207,7 @@ public class ForwardedIndexChangeHandlerTest {
         .when(indexerMock)
         .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
 
-    CompletableFuture<Boolean> future = handler.index(TEST_CHANGE_ID, newEvent());
+    CompletableFuture<Boolean> future = handler.index(projectName, id, newEvent());
     taskRunning.await(10, SECONDS);
     assertThat(Context.isForwardedEvent()).isFalse();
     taskCanFinish.countDown();
@@ -231,22 +229,23 @@ public class ForwardedIndexChangeHandlerTest {
         .when(indexerMock)
         .reindexIfStale(any(Project.NameKey.class), any(Change.Id.class));
 
-    CompletableFuture<Boolean> firstFuture = handler.index(TEST_CHANGE_ID, newEvent());
+    CompletableFuture<Boolean> firstFuture = handler.index(projectName, id, newEvent());
     taskRunning.await(10, SECONDS);
 
-    assertThrows(InFlightIndexedException.class, () -> handler.index(TEST_CHANGE_ID, newEvent()));
+    assertThrows(InFlightIndexedException.class, () -> handler.index(projectName, id, newEvent()));
 
     taskCanFinish.countDown();
     firstFuture.get(10, SECONDS);
 
     // Guard is released: a new request for the same id must now succeed
-    handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
+    handler.index(projectName, id, newEvent()).get(10, SECONDS);
   }
 
   private void setupChangeAccessRelatedMocks(boolean changeExists, boolean changeIsUpToDate)
       throws IOException {
+    String compositeId = TEST_PROJECT + "~" + TEST_CHANGE_NUMBER;
     if (changeExists) {
-      when(changeCheckerFactoryMock.create(TEST_CHANGE_ID)).thenReturn(changeCheckerPresentMock);
+      when(changeCheckerFactoryMock.create(compositeId)).thenReturn(changeCheckerPresentMock);
       when(changeCheckerPresentMock.getChangeNotes())
           .thenReturn(java.util.Optional.of(changeNotes));
     }

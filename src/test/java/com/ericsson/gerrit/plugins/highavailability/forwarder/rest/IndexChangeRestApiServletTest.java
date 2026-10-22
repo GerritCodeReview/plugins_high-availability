@@ -29,6 +29,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChan
 import com.ericsson.gerrit.plugins.highavailability.forwarder.InstantTypeAdapter;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
+import com.google.gerrit.entities.Change;
+import com.google.gerrit.entities.Project;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
@@ -48,7 +50,6 @@ public class IndexChangeRestApiServletTest {
   private static final int CHANGE_NUMBER = 1;
   private static final String PROJECT_NAME = "test/project";
   private static final String PROJECT_NAME_URL_ENC = "test%2Fproject";
-  private static final String CHANGE_ID = PROJECT_NAME + "~" + CHANGE_NUMBER;
   private static final String IO_ERROR = "io-error";
   private static final Gson GSON =
       new GsonBuilder().registerTypeAdapter(Instant.class, new InstantTypeAdapter()).create();
@@ -81,7 +82,11 @@ public class IndexChangeRestApiServletTest {
   public void changeIsIndexed() throws Exception {
     setRequestBody(new ChangeIndexEvent(Instant.now(), null, "deadbeef"));
     servlet.doPost(requestMock, responseMock);
-    verify(handlerMock, times(1)).index(eq(CHANGE_ID), any(ChangeIndexEvent.class));
+    verify(handlerMock, times(1))
+        .index(
+            eq(Project.nameKey(PROJECT_NAME)),
+            eq(Change.id(CHANGE_NUMBER)),
+            any(ChangeIndexEvent.class));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
@@ -89,7 +94,22 @@ public class IndexChangeRestApiServletTest {
   public void changeIsDeletedFromIndex() throws Exception {
     when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader("")));
     servlet.doDelete(requestMock, responseMock);
-    verify(handlerMock, times(1)).delete(eq(CHANGE_ID));
+    verify(handlerMock, times(1))
+        .delete(eq(Project.nameKey(PROJECT_NAME)), eq(Change.id(CHANGE_NUMBER)));
+    verify(responseMock).setStatus(SC_NO_CONTENT);
+  }
+
+  @Test
+  public void allChangesAreDeletedFromIndex() throws Exception {
+    when(requestMock.getRequestURI())
+        .thenReturn(
+            "http://gerrit.com/index/change/"
+                + PROJECT_NAME_URL_ENC
+                + "~"
+                + RestForwarder.ALL_CHANGES_FOR_PROJECT);
+    when(requestMock.getReader()).thenReturn(new BufferedReader(new StringReader("")));
+    servlet.doDelete(requestMock, responseMock);
+    verify(handlerMock, times(1)).deleteAllForProject(eq(Project.nameKey(PROJECT_NAME)));
     verify(responseMock).setStatus(SC_NO_CONTENT);
   }
 
@@ -98,7 +118,10 @@ public class IndexChangeRestApiServletTest {
     setRequestBody(new ChangeIndexEvent(Instant.now(), null, "deadbeef"));
     doThrow(new IOException(IO_ERROR))
         .when(handlerMock)
-        .index(eq(CHANGE_ID), any(ChangeIndexEvent.class));
+        .index(
+            eq(Project.nameKey(PROJECT_NAME)),
+            eq(Change.id(CHANGE_NUMBER)),
+            any(ChangeIndexEvent.class));
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);
   }
@@ -108,7 +131,10 @@ public class IndexChangeRestApiServletTest {
     setRequestBody(new ChangeIndexEvent(Instant.now(), null, "deadbeef"));
     doThrow(new IOException(IO_ERROR))
         .when(handlerMock)
-        .index(eq(CHANGE_ID), any(ChangeIndexEvent.class));
+        .index(
+            eq(Project.nameKey(PROJECT_NAME)),
+            eq(Change.id(CHANGE_NUMBER)),
+            any(ChangeIndexEvent.class));
     doThrow(new IOException("someError")).when(responseMock).sendError(SC_CONFLICT, IO_ERROR);
     servlet.doPost(requestMock, responseMock);
     verify(responseMock).sendError(SC_CONFLICT, IO_ERROR);

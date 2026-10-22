@@ -14,12 +14,9 @@
 
 package com.ericsson.gerrit.plugins.highavailability.forwarder;
 
-import static com.ericsson.gerrit.plugins.highavailability.forwarder.rest.RestForwarder.ALL_CHANGES_FOR_PROJECT;
-
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeChecker;
 import com.ericsson.gerrit.plugins.highavailability.index.ChangeCheckerImpl;
 import com.ericsson.gerrit.plugins.highavailability.index.ForwardedIndexExecutor;
-import com.google.common.base.Splitter;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.exceptions.StorageException;
@@ -31,7 +28,6 @@ import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.failsafe.FailsafeExecutor;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -42,7 +38,11 @@ import java.util.concurrent.CompletableFuture;
  * done for the same change id
  */
 @Singleton
-public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String> {
+public class ForwardedIndexChangeHandler
+    extends ForwardedIndexingHandler<ForwardedIndexChangeHandler.ChangeKey> {
+
+  public record ChangeKey(Project.NameKey project, Change.Id id) {}
+
   private final ChangeIndexer indexer;
   private final FailsafeExecutor<Boolean> indexExecutor;
   private final OneOffRequestContext oneOffCtx;
@@ -60,79 +60,86 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
     this.changeCheckerFactory = changeCheckerFactory;
   }
 
-  public CompletableFuture<Boolean> index(String id, ChangeIndexEvent event) throws Exception {
+  public CompletableFuture<Boolean> index(
+      Project.NameKey project, Change.Id changeId, ChangeIndexEvent event) throws Exception {
     return withInFlightGuard(
-        id,
+        new ChangeKey(project, changeId),
         () ->
             indexExecutor.getAsync(
                 () ->
                     withForwardedEventFlag(
                         () -> {
                           try (ManualRequestContext ctx = oneOffCtx.open()) {
-                            return indexOnce(id, event);
+                            return indexOnce(project, changeId, event);
                           }
                         })));
   }
 
-  public CompletableFuture<Boolean> delete(String id) throws Exception {
+  public CompletableFuture<Boolean> delete(Project.NameKey project, Change.Id changeId)
+      throws Exception {
     return withInFlightGuard(
-        id,
+        new ChangeKey(project, changeId),
         () -> {
-          Project.NameKey projectName = parseProject(id);
-          if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
-            try {
-              indexer.deleteAllForProject(projectName);
-              log.atFine().log("All %s changes successfully deleted from index", projectName.get());
-            } catch (RuntimeException e) {
-              log.atFine().log(
-                  "An error occured during deletion of all %s changes from index",
-                  projectName.get());
-              throw e;
-            }
-          } else {
-            try {
-              indexer.delete(projectName, parseChangeId(id));
-              log.atFine().log("Change %s successfully deleted from index", id);
-            } catch (RuntimeException e) {
-              log.atFine().log("Change %s could not be deleted from index", id);
-              throw e;
-            }
+          try {
+            indexer.delete(project, changeId);
+            log.atFine().log("Change %s~%s successfully deleted from index", project, changeId);
+          } catch (RuntimeException e) {
+            log.atFine().log("Change %s~%s could not be deleted from index", project, changeId);
+            throw e;
           }
           return CompletableFuture.completedFuture(true);
         });
   }
 
-  private boolean indexOnce(String id, ChangeIndexEvent event) throws Exception {
+  public CompletableFuture<Boolean> deleteAllForProject(Project.NameKey project) {
     try {
-      ChangeChecker checker = changeCheckerFactory.create(id);
+      indexer.deleteAllForProject(project);
+      log.atFine().log("All %s changes successfully deleted from index", project.get());
+    } catch (RuntimeException e) {
+      log.atFine().log(
+          "An error occured during deletion of all %s changes from index", project.get());
+      throw e;
+    }
+    return CompletableFuture.completedFuture(true);
+  }
+
+  private boolean indexOnce(Project.NameKey project, Change.Id changeId, ChangeIndexEvent event)
+      throws Exception {
+    String compositeId = project.get() + "~" + changeId.get();
+    try {
+      ChangeChecker checker = changeCheckerFactory.create(compositeId);
       Optional<ChangeNotes> changeNotes;
       try {
         changeNotes = checker.getChangeNotes();
       } catch (StorageException e) {
-        log.atWarning().withCause(e).log("Change %s: cannot load change notes", id);
+        log.atWarning().withCause(e).log(
+            "Change %s~%s: cannot load change notes", project, changeId);
         changeNotes = Optional.empty();
       }
       if (changeNotes.isPresent()) {
         if (!checker.isChangeUpToDate(event)) {
           log.atFine().log(
-              "Change %s is not yet up to date with the event (event=%s, change=%s)",
-              id, event, checker);
+              "Change %s~%s is not yet up to date with the event (event=%s, change=%s)",
+              project, changeId, event, checker);
           return false;
         }
 
         ChangeNotes notes = changeNotes.get();
         reindex(notes);
-        log.atFine().log("Change %s successfully indexed", id);
+        log.atFine().log("Change %s~%s successfully indexed", project, changeId);
         return true;
       }
 
-      log.atFine().log("Change %s not present yet in local Git repository (event=%s)", id, event);
+      log.atFine().log(
+          "Change %s~%s not present yet in local Git repository (event=%s)",
+          project, changeId, event);
       return false;
 
     } catch (Exception e) {
       if (isCausedByNoSuchChangeException(e)) {
-        indexer.delete(parseProject(id), parseChangeId(id));
-        log.atWarning().withCause(e).log("Error trying to index Change %s. Deleted from index", id);
+        indexer.delete(project, changeId);
+        log.atWarning().withCause(e).log(
+            "Error trying to index Change %s~%s. Deleted from index", project, changeId);
         return true;
       }
 
@@ -143,22 +150,6 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   private void reindex(ChangeNotes notes) {
     var unused = notes.reload();
     var unusedResult = indexer.reindexIfStale(notes.getProjectName(), notes.getChangeId());
-  }
-
-  private static Change.Id parseChangeId(String id) {
-    return Change.id(Integer.parseInt(extractChangeId(id)));
-  }
-
-  private static Project.NameKey parseProject(String id) {
-    return Project.nameKey(getChangeIdParts(id).get(0));
-  }
-
-  private static String extractChangeId(String id) {
-    return getChangeIdParts(id).get(1);
-  }
-
-  private static List<String> getChangeIdParts(String id) {
-    return Splitter.on("~").splitToList(id);
   }
 
   private static boolean isCausedByNoSuchChangeException(Throwable throwable) {

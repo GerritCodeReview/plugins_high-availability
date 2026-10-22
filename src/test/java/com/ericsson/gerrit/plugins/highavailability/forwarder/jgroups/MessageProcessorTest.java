@@ -44,6 +44,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.PostEvent
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.RemoveFromProjectList;
 import com.google.gerrit.entities.Account;
 import com.google.gerrit.entities.Change;
+import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGsonProvider;
 import com.google.gerrit.server.events.EventTypes;
@@ -92,10 +93,11 @@ public class MessageProcessorTest {
     eventHandler = createHandlerMock(ForwardedEventHandler.class);
     projectListUpdateHandler = createHandlerMock(ForwardedProjectListUpdateHandler.class);
 
-    when(indexChangeHandler.index(any(), any()))
+    when(indexChangeHandler.index(any(), any(), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
-    when(indexChangeHandler.delete(any())).thenReturn(CompletableFuture.completedFuture(true));
-    when(indexBatchChangeHandler.index(any(), any()))
+    when(indexChangeHandler.delete(any(), any()))
+        .thenReturn(CompletableFuture.completedFuture(true));
+    when(indexBatchChangeHandler.index(any(), any(), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
     when(indexAccountHandler.index(any())).thenReturn(CompletableFuture.completedFuture(true));
 
@@ -137,7 +139,7 @@ public class MessageProcessorTest {
     IndexChange.Update cmd = new IndexChange.Update(PROJECT, CHANGE_ID, event);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexChangeHandler, times(1))
-        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), any(ChangeIndexEvent.class));
+        .index(eq(Project.nameKey(PROJECT)), eq(Change.id(CHANGE_ID)), any(ChangeIndexEvent.class));
     verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 
@@ -150,7 +152,7 @@ public class MessageProcessorTest {
     IndexChange.BatchUpdate cmd = new IndexChange.BatchUpdate(PROJECT, CHANGE_ID, event);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(indexBatchChangeHandler, times(1))
-        .index(eq(PROJECT + "~" + Change.id(CHANGE_ID)), any(ChangeIndexEvent.class));
+        .index(eq(Project.nameKey(PROJECT)), eq(Change.id(CHANGE_ID)), any(ChangeIndexEvent.class));
     verifyOtherHandlersNotUsed(indexBatchChangeHandler);
   }
 
@@ -161,7 +163,8 @@ public class MessageProcessorTest {
 
     IndexChange.Delete cmd = new IndexChange.Delete(PROJECT, CHANGE_ID);
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
-    verify(indexChangeHandler, times(1)).delete(eq(PROJECT + "~" + Change.id(CHANGE_ID)));
+    verify(indexChangeHandler, times(1))
+        .delete(eq(Project.nameKey(PROJECT)), eq(Change.id(CHANGE_ID)));
     verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 

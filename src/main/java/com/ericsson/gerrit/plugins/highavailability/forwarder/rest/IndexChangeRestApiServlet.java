@@ -16,8 +16,8 @@ package com.ericsson.gerrit.plugins.highavailability.forwarder.rest;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler.ChangeKey;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
-import com.google.gerrit.extensions.restapi.Url;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
@@ -46,13 +46,16 @@ class IndexChangeRestApiServlet extends AbstractIndexRestApiServlet {
 
   @Override
   protected boolean processPostRequest(HttpServletRequest req, HttpServletResponse rsp) {
-    String id = Url.decode(extractRawId(req));
-    return process(req, rsp, body -> handler.index(id, parser.parse(body)));
+    ChangeKey key = ChangeKeyExtractor.extract(req);
+    return process(req, rsp, body -> handler.index(key.project(), key.id(), parser.parse(body)));
   }
 
   @Override
   protected boolean processDeleteRequest(HttpServletRequest req, HttpServletResponse rsp) {
-    String id = Url.decode(extractRawId(req));
-    return process(req, rsp, body -> handler.delete(id));
+    ChangeKey key = ChangeKeyExtractor.extract(req);
+    if (key.id().get() == RestForwarder.ALL_CHANGES_FOR_PROJECT) {
+      return process(req, rsp, _ -> handler.deleteAllForProject(key.project()));
+    }
+    return process(req, rsp, _ -> handler.delete(key.project(), key.id()));
   }
 }

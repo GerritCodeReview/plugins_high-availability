@@ -48,7 +48,7 @@ public class RestForwarder implements Forwarder {
     DELETE
   }
 
-  public static final String ALL_CHANGES_FOR_PROJECT = "0";
+  public static final int ALL_CHANGES_FOR_PROJECT = 0;
 
   private static final FluentLogger log = FluentLogger.forEnclosingClass();
 
