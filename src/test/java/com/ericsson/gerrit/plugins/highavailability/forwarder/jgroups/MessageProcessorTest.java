@@ -31,6 +31,8 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHand
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexGroupHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
@@ -41,9 +43,12 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.EvictCach
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexAccount;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexChange;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexGroup;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexProject;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.PostEvent;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.RemoveFromProjectList;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
 import com.google.gerrit.server.events.Event;
@@ -72,6 +77,8 @@ public class MessageProcessorTest {
   private ForwardedIndexChangeHandler indexChangeHandler;
   private ForwardedIndexBatchChangeHandler indexBatchChangeHandler;
   private ForwardedIndexAccountHandler indexAccountHandler;
+  private ForwardedIndexGroupHandler indexGroupHandler;
+  private ForwardedIndexProjectHandler indexProjectHandler;
   private ForwardedCacheEvictionHandler cacheEvictionHandler;
   private ForwardedEventHandler eventHandler;
   private ForwardedProjectListUpdateHandler projectListUpdateHandler;
@@ -90,6 +97,8 @@ public class MessageProcessorTest {
     indexChangeHandler = createHandlerMock(ForwardedIndexChangeHandler.class);
     indexBatchChangeHandler = createHandlerMock(ForwardedIndexBatchChangeHandler.class);
     indexAccountHandler = createHandlerMock(ForwardedIndexAccountHandler.class);
+    indexGroupHandler = createHandlerMock(ForwardedIndexGroupHandler.class);
+    indexProjectHandler = createHandlerMock(ForwardedIndexProjectHandler.class);
     cacheEvictionHandler = createHandlerMock(ForwardedCacheEvictionHandler.class);
     eventHandler = createHandlerMock(ForwardedEventHandler.class);
     projectListUpdateHandler = createHandlerMock(ForwardedProjectListUpdateHandler.class);
@@ -103,6 +112,8 @@ public class MessageProcessorTest {
     when(indexBatchChangeHandler.index(any(), any(), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
     when(indexAccountHandler.index(any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(indexGroupHandler.index(any())).thenReturn(CompletableFuture.completedFuture(true));
+    when(indexProjectHandler.index(any())).thenReturn(CompletableFuture.completedFuture(true));
 
     processor =
         new JGroupsMessageProcessor(
@@ -111,6 +122,8 @@ public class MessageProcessorTest {
                 indexChangeHandler,
                 indexBatchChangeHandler,
                 indexAccountHandler,
+                indexGroupHandler,
+                indexProjectHandler,
                 cacheEvictionHandler,
                 eventHandler,
                 projectListUpdateHandler,
@@ -219,6 +232,26 @@ public class MessageProcessorTest {
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(projectListUpdateHandler, times(1)).update(PROJECT, true);
     verifyOtherHandlersNotUsed(projectListUpdateHandler);
+  }
+
+  @Test
+  public void indexProject() throws Exception {
+    String PROJECT = "foo";
+
+    IndexProject cmd = new IndexProject(PROJECT, Instant.now());
+    assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
+    verify(indexProjectHandler, times(1)).index(Project.nameKey(PROJECT));
+    verifyOtherHandlersNotUsed(indexProjectHandler);
+  }
+
+  @Test
+  public void indexGroup() throws Exception {
+    String UUID = "deadbeef-1234-5678-abcd-000000000000";
+
+    IndexGroup cmd = new IndexGroup(UUID, Instant.now());
+    assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
+    verify(indexGroupHandler, times(1)).index(AccountGroup.uuid(UUID));
+    verifyOtherHandlersNotUsed(indexGroupHandler);
   }
 
   @Test
