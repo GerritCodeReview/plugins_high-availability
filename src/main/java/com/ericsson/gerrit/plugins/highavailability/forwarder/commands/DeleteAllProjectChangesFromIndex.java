@@ -15,21 +15,20 @@
 package com.ericsson.gerrit.plugins.highavailability.forwarder.commands;
 
 import com.ericsson.gerrit.plugins.highavailability.forwarder.EventType;
-import com.google.gerrit.entities.Project;
 import java.time.Instant;
 
 public final class DeleteAllProjectChangesFromIndex extends Command {
   static final EventType TYPE = EventType.INDEX_CHANGE_DELETION_ALL_OF_PROJECT;
 
-  private final Project.NameKey projectName;
+  private final String projectName;
 
-  public DeleteAllProjectChangesFromIndex(Project.NameKey projectName, Instant createdOn) {
+  public DeleteAllProjectChangesFromIndex(String projectName, Instant createdOn) {
     super(TYPE, createdOn);
     this.projectName = projectName;
   }
 
   public String getProjectName() {
-    return projectName.get();
+    return projectName;
   }
 
   @Override

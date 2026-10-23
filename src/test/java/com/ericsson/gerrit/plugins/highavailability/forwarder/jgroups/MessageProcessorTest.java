@@ -36,6 +36,7 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.AddToProjectList;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.CommandProcessorImpl;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.DeleteAllProjectChangesFromIndex;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.EvictCache;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.ForwarderCommandsModule;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.commands.IndexAccount;
@@ -96,6 +97,8 @@ public class MessageProcessorTest {
     when(indexChangeHandler.index(any(), any(), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
     when(indexChangeHandler.delete(any(), any()))
+        .thenReturn(CompletableFuture.completedFuture(true));
+    when(indexChangeHandler.deleteAllForProject(any()))
         .thenReturn(CompletableFuture.completedFuture(true));
     when(indexBatchChangeHandler.index(any(), any(), any()))
         .thenReturn(CompletableFuture.completedFuture(true));
@@ -216,6 +219,17 @@ public class MessageProcessorTest {
     assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
     verify(projectListUpdateHandler, times(1)).update(PROJECT, true);
     verifyOtherHandlersNotUsed(projectListUpdateHandler);
+  }
+
+  @Test
+  public void deleteAllProjectChangesFromIndex() throws Exception {
+    String PROJECT = "foo";
+
+    DeleteAllProjectChangesFromIndex cmd =
+        new DeleteAllProjectChangesFromIndex(PROJECT, Instant.now());
+    assertThat(processor.handle(new ObjectMessage(null, gson.toJson(cmd)))).isEqualTo(true);
+    verify(indexChangeHandler, times(1)).deleteAllForProject(Project.nameKey(PROJECT));
+    verifyOtherHandlersNotUsed(indexChangeHandler);
   }
 
   private void verifyOtherHandlersNotUsed(Object onlyUsedHandler) {
