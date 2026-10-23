@@ -21,12 +21,15 @@ import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedEventHand
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexAccountHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexBatchChangeHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexChangeHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexGroupHandler;
+import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedIndexProjectHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ForwardedProjectListUpdateHandler;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetrics;
 import com.ericsson.gerrit.plugins.highavailability.forwarder.ProcessorMetricsRegistry;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.AccountGroup;
 import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Project;
 import com.google.inject.Inject;
@@ -41,6 +44,8 @@ public class CommandProcessorImpl implements CommandProcessor {
   private final ForwardedIndexChangeHandler indexChangeHandler;
   private final ForwardedIndexBatchChangeHandler indexBatchChangeHandler;
   private final ForwardedIndexAccountHandler indexAccountHandler;
+  private final ForwardedIndexGroupHandler indexGroupHandler;
+  private final ForwardedIndexProjectHandler indexProjectHandler;
   private final ForwardedCacheEvictionHandler cacheEvictionHandler;
   private final ForwardedEventHandler eventHandler;
   private final ForwardedProjectListUpdateHandler projectListUpdateHandler;
@@ -52,6 +57,8 @@ public class CommandProcessorImpl implements CommandProcessor {
       ForwardedIndexChangeHandler indexChangeHandler,
       ForwardedIndexBatchChangeHandler indexBatchChangeHandler,
       ForwardedIndexAccountHandler indexAccountHandler,
+      ForwardedIndexGroupHandler indexGroupHandler,
+      ForwardedIndexProjectHandler indexProjectHandler,
       ForwardedCacheEvictionHandler cacheEvictionHandler,
       ForwardedEventHandler eventHandler,
       ForwardedProjectListUpdateHandler projectListUpdateHandler,
@@ -59,6 +66,8 @@ public class CommandProcessorImpl implements CommandProcessor {
     this.indexChangeHandler = indexChangeHandler;
     this.indexBatchChangeHandler = indexBatchChangeHandler;
     this.indexAccountHandler = indexAccountHandler;
+    this.indexGroupHandler = indexGroupHandler;
+    this.indexProjectHandler = indexProjectHandler;
     this.cacheEvictionHandler = cacheEvictionHandler;
     this.eventHandler = eventHandler;
     this.projectListUpdateHandler = projectListUpdateHandler;
@@ -106,14 +115,10 @@ public class CommandProcessorImpl implements CommandProcessor {
               projectListUpdateHandler.update(removeFromProjectList.getProjectName(), true);
               yield CompletableFuture.completedFuture(true);
             }
-            case IndexProject indexProject -> {
-              log.atWarning().log("IndexProject command not handled: %s", indexProject);
-              yield CompletableFuture.completedFuture(false);
-            }
-            case IndexGroup indexGroup -> {
-              log.atWarning().log("IndexGroup command not handled: %s", indexGroup);
-              yield CompletableFuture.completedFuture(false);
-            }
+            case IndexProject indexProject ->
+                indexProjectHandler.index(Project.nameKey(indexProject.getProjectName()));
+            case IndexGroup indexGroup ->
+                indexGroupHandler.index(AccountGroup.uuid(indexGroup.getUuid()));
             case DeleteAllProjectChangesFromIndex deleteAll ->
                 indexChangeHandler.deleteAllForProject(Project.nameKey(deleteAll.getProjectName()));
           };
