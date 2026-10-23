@@ -35,6 +35,7 @@ public class CommandDeserializer implements JsonDeserializer<Command> {
           IndexAccount.class,
           IndexGroup.class,
           IndexProject.class,
+          DeleteAllProjectChangesFromIndex.class,
           EvictCache.class,
           PostEvent.class,
           AddToProjectList.class,

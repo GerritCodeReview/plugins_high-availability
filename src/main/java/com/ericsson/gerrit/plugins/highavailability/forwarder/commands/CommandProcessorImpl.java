@@ -114,11 +114,8 @@ public class CommandProcessorImpl implements CommandProcessor {
               log.atWarning().log("IndexGroup command not handled: %s", indexGroup);
               yield CompletableFuture.completedFuture(false);
             }
-            case DeleteAllProjectChangesFromIndex deleteAll -> {
-              log.atWarning().log(
-                  "DeleteAllProjectChangesFromIndex command not handled: %s", deleteAll);
-              yield CompletableFuture.completedFuture(false);
-            }
+            case DeleteAllProjectChangesFromIndex deleteAll ->
+                indexChangeHandler.deleteAllForProject(Project.nameKey(deleteAll.getProjectName()));
           };
     } catch (Exception e) {
       log.atSevere().withCause(e).log("Error processing command %s", cmd);
