@@ -23,7 +23,7 @@ RUN echo "gerrit ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/gerrit && \
 RUN mkdir -p /var/gerrit && chown -R gerrit /var/gerrit
 
 ADD --chown=gerrit \
-    "https://archive-ci.gerritforge.com/job/Gerrit-bazel-stable-$GERRIT_VERSION/lastSuccessfulBuild/artifact/gerrit/bazel-bin/release.war" \
+    https://gerrit-releases.storage.googleapis.com/gerrit-3.10.9.war \
     /tmp/gerrit.war
 
 ADD --chown=gerrit \
