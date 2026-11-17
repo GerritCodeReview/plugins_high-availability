@@ -77,29 +77,32 @@ public class ForwardedIndexChangeHandler extends ForwardedIndexingHandler<String
   public CompletableFuture<Boolean> delete(String id) throws Exception {
     return withInFlightGuard(
         id,
-        () -> {
-          Project.NameKey projectName = parseProject(id);
-          if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
-            try {
-              indexer.deleteAllForProject(projectName);
-              log.atFine().log("All %s changes successfully deleted from index", projectName.get());
-            } catch (RuntimeException e) {
-              log.atFine().log(
-                  "An error occured during deletion of all %s changes from index",
-                  projectName.get());
-              throw e;
-            }
-          } else {
-            try {
-              indexer.delete(projectName, parseChangeId(id));
-              log.atFine().log("Change %s successfully deleted from index", id);
-            } catch (RuntimeException e) {
-              log.atFine().log("Change %s could not be deleted from index", id);
-              throw e;
-            }
-          }
-          return CompletableFuture.completedFuture(true);
-        });
+        () ->
+            withForwardedEventFlag(
+                () -> {
+                  Project.NameKey projectName = parseProject(id);
+                  if (ALL_CHANGES_FOR_PROJECT.equals(extractChangeId(id))) {
+                    try {
+                      indexer.deleteAllForProject(projectName);
+                      log.atFine().log(
+                          "All %s changes successfully deleted from index", projectName.get());
+                    } catch (RuntimeException e) {
+                      log.atFine().log(
+                          "An error occured during deletion of all %s changes from index",
+                          projectName.get());
+                      throw e;
+                    }
+                  } else {
+                    try {
+                      indexer.delete(projectName, parseChangeId(id));
+                      log.atFine().log("Change %s successfully deleted from index", id);
+                    } catch (RuntimeException e) {
+                      log.atFine().log("Change %s could not be deleted from index", id);
+                      throw e;
+                    }
+                  }
+                  return CompletableFuture.completedFuture(true);
+                }));
   }
 
   private boolean indexOnce(String id, ChangeIndexEvent event) throws Exception {

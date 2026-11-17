@@ -146,6 +146,80 @@ public class ForwardedIndexChangeHandlerTest {
   }
 
   @Test
+  public void forwardedEventFlagIsSetDuringDelete() throws Exception {
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  assertThat(Context.isForwardedEvent()).isTrue();
+                  return null;
+                })
+        .when(indexerMock)
+        .delete(any(Project.NameKey.class), any(Change.Id.class));
+
+    assertThat(Context.isForwardedEvent()).isFalse();
+    handler.delete(TEST_CHANGE_ID).get(10, SECONDS);
+    assertThat(Context.isForwardedEvent()).isFalse();
+
+    verify(indexerMock, times(1)).delete(projectName, id);
+  }
+
+  @Test
+  public void forwardedEventFlagIsUnsetAfterDeletionException() throws Exception {
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  assertThat(Context.isForwardedEvent()).isTrue();
+                  throw new RuntimeException("delete failed");
+                })
+        .when(indexerMock)
+        .delete(any(Project.NameKey.class), any(Change.Id.class));
+
+    assertThat(Context.isForwardedEvent()).isFalse();
+    RuntimeException thrown =
+        assertThrows(RuntimeException.class, () -> handler.delete(TEST_CHANGE_ID));
+    assertThat(thrown).hasMessageThat().isEqualTo("delete failed");
+    assertThat(Context.isForwardedEvent()).isFalse();
+  }
+
+  @Test
+  public void forwardedEventFlagIsSetDuringDeleteAllForProject() throws Exception {
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  assertThat(Context.isForwardedEvent()).isTrue();
+                  return null;
+                })
+        .when(indexerMock)
+        .deleteAllForProject(any(Project.NameKey.class));
+
+    assertThat(Context.isForwardedEvent()).isFalse();
+    handler.delete(buildAllChangesForProjectEndpoint(TEST_PROJECT)).get(10, SECONDS);
+    assertThat(Context.isForwardedEvent()).isFalse();
+
+    verify(indexerMock, times(1)).deleteAllForProject(any(Project.NameKey.class));
+  }
+
+  @Test
+  public void forwardedEventFlagIsUnsetAfterDeleteAllForProjectException() throws Exception {
+    doAnswer(
+            (Answer<Void>)
+                invocation -> {
+                  assertThat(Context.isForwardedEvent()).isTrue();
+                  throw new RuntimeException("deleteAll failed");
+                })
+        .when(indexerMock)
+        .deleteAllForProject(any(Project.NameKey.class));
+
+    assertThat(Context.isForwardedEvent()).isFalse();
+    RuntimeException thrown =
+        assertThrows(
+            RuntimeException.class,
+            () -> handler.delete(buildAllChangesForProjectEndpoint(TEST_PROJECT)));
+    assertThat(thrown).hasMessageThat().isEqualTo("deleteAll failed");
+    assertThat(Context.isForwardedEvent()).isFalse();
+  }
+
+  @Test
   public void changeToIndexDoesNotExist() throws Exception {
     setupChangeAccessRelatedMocks(CHANGE_DOES_NOT_EXIST, CHANGE_OUTDATED);
     handler.index(TEST_CHANGE_ID, newEvent()).get(10, SECONDS);
