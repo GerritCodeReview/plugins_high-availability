@@ -281,6 +281,9 @@ calls by specifying the following fields:
 
 ```cache.synchronize```
 :   Whether to synchronize cache evictions.
+    Requires `cache.threads = 0` in `gerrit.config` on each instance so that
+    cache removal listeners run on the invalidating thread and can identify
+    forwarded evictions. Otherwise, received evictions may be forwarded again.
     Defaults to true.
 
 ```cache.pattern```
